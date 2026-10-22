@@ -1,0 +1,265 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "Build .next-qa local; dados sintéticos; nenhum envio ou API externa",
+  "checks": [
+    "GET sem consulta privada/mutação",
+    "consulta explícita por teclado",
+    "cancelamento temático com estado persistido",
+    "cancelamento global oculta escolhas antigas"
+  ],
+  "screenshots": 36,
+  "results": [
+    {
+      "name": "subscribed",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "subscribed",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme-canceled",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "global-canceled",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    }
+  ]
+}

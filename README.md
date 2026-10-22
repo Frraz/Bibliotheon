@@ -2,9 +2,11 @@
 
 Site de divulgação de e-books com catálogo, páginas de venda e painel manual, conectado a Hotmart, Kiwify e Cakto. Objetivo: cadastrar uma oferta, alcançar seu público e acompanhar compras confirmadas.
 
-**Estado em 21/10/2026:** vitrine e painel editorial implementados/testados localmente. Relacionamento possui amostras, consentimento, supressão, recuperação por operador, calendário e quota; agrupamento/envio promocional e sincronização Brevo ainda pendentes. Eventos comerciais, três conectores, conciliação/financeiro e retenção ainda não implementados. **Projeto completo ainda não pronto para produção.** Imagem e recuperação exigem revalidação do código atual; GitHub e deploy ficam com o proprietário. Comece pelo [estado atual com requisitos/evidências/lacunas](docs/23-estado-atual.md) e pela [próxima ação](docs/14-progresso.md).
+**Estado em 22/10/2026:** vitrine e painel editorial implementados/testados localmente. Relacionamento possui amostras, consentimento, supressão, recuperação por operador, calendário, quota e lotes promocionais locais; bloqueios, conferência de destinatários, cadastro consentido, listas exclusivas Brevo, cancelamento por assunto, links individuais e rascunhos de campanhas testados localmente; envio promocional ainda pendente. Eventos comerciais, três conectores, conciliação/financeiro e retenção ainda não implementados. **Projeto completo ainda não pronto para produção.** Imagem e recuperação exigem revalidação do código atual; GitHub e deploy ficam com o proprietário. Comece pelo [estado atual com requisitos/evidências/lacunas](docs/23-estado-atual.md) e pela [próxima ação](docs/14-progresso.md).
 
 Primeiro título: “Crie Sistemas com IA e Ganhe Dinheiro”; domínio informado: bibliotheon.com.br; responsável: Warley Ferraz Almeida. E-mail público ficará vazio até o proprietário adicioná-lo antes da produção. Nenhuma oferta real ou venda comprovada. Veja [lançamento](docs/22-lancamento.md).
+
+**Deploy e atualizações:** siga [deploy.md](deploy.md) após o clone na VPS. Preparação inicial com ./atualizar.sh --inicial; depois, ./atualizar.sh faz pull/build/backup/migrations/saúde. Ferramenta testada por simulação e configuração Compose local; implantação real ainda com o proprietário. Projeto completo continua sujeito às pendências de release.
 
 ## Design especificado
 

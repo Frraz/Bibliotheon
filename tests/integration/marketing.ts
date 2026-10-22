@@ -20,7 +20,7 @@ let isolated = false
 let mediaId: string | undefined, magnetId: string | undefined
 const checks: string[] = []
 try {
-  for (const collection of ['contacts', 'email-deliveries', 'mail-quota', 'request-limits', 'payload-jobs', 'email-sequences', 'sequence-enrollments', 'promotion-deliveries'] as const) assert.equal((await payload.count({ collection, overrideAccess: true })).totalDocs, 0, `Use banco operacional vazio: ${collection}.`)
+  for (const collection of ['brevo-registrations', 'brevo-suppressions', 'contacts', 'email-deliveries', 'mail-quota', 'request-limits', 'payload-jobs', 'email-sequences', 'sequence-enrollments', 'promotion-deliveries'] as const) assert.equal((await payload.count({ collection, overrideAccess: true })).totalDocs, 0, `Use banco operacional vazio: ${collection}.`)
   isolated = true
   const bytes = samplePDF()
   const media = await payload.create({ collection: 'media', ...seed.auth, data: { alt: 'PDF sintético de teste', presentationRole: 'sample', visibility: 'private' }, file: { data: bytes, size: bytes.length, name: 'sample.pdf', mimetype: 'application/pdf' } })
@@ -233,7 +233,7 @@ try {
 } finally {
   // All operational tables were required empty before this isolated fixture was created.
   if (isolated) {
-  for (const collection of ['payload-jobs', 'preference-tokens', 'consent-events', 'email-deliveries', 'subscriptions', 'magnet-requests'] as CollectionSlug[]) {
+  for (const collection of ['brevo-registrations', 'brevo-suppressions', 'payload-jobs', 'preference-tokens', 'consent-events', 'email-deliveries', 'subscriptions', 'magnet-requests'] as CollectionSlug[]) {
     await payload.delete({ collection, where: { id: { exists: true } }, overrideAccess: true })
   }
   for (const id of contacts) await payload.delete({ collection: 'contacts', id, overrideAccess: true })

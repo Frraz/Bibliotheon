@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback, fixtures de 200 destinatários e HTTP inteiramente sintético; CLI empacotado interceptado",
+  "checks": [
+    "Migração up/down revertida; flag desligada não cria intenção. Concorrência cria uma lista e uma inclusão, persiste ID antes dos membros e reconcilia sem repetir; manifesto não contém endereço/token.",
+    "Timeout de criação reconcilia nome exclusivo sem outro POST; ausência não autoriza recriar. Reconciliação explícita por ID confere nome/pasta e não altera lista estrangeira.",
+    "201 parcial não prova composição: inclusões já tentadas não são repetidas. Reparação observada permite concluir; destinatário extra bloqueia sem remoção arbitrária.",
+    "Preferências de lista ausentes não são presumidas livres; criação explicitamente recusada admite retry privado após correção, preservando intenção.",
+    "Descadastro em inclusão externa vence a conferência final; lote/lista ficam cancelados com ID e intenção preservados, sem quota ou envio.",
+    "Lease expirado recupera ID pelo nome, compõe e confirma; resposta antiga não sobrescreve tentativa mais recente nem repete criação.",
+    "ID retornado é persistido imediatamente, inclusive após falha de metadados ou descadastro em criação; nenhuma composição é autorizada por essa retenção.",
+    "Composição expirada não ganha validade nova só por outro preflight de contatos; relógio da conferência de membros também é verificado antes de ready.",
+    "Dataset de 200 destinatários sintéticos no PostgreSQL: conjunto completo validado com paginação e duas inclusões de 150/50, sem quota promocional.",
+    "CLI empacotado habilitado com HTTP totalmente interceptado persiste lista conferida; coleção privada e guard de downgrade preservam intenção/IDs; nenhum envio ou quota promocional."
+  ],
+  "externalCalls": false,
+  "messagesSent": 0,
+  "limits": "Lista preparada não é campanha/aceitação/entrega. Conta/pasta/automações e campos opcionais do provedor precisam de homologação; sem remoção automática de listas ou resolução arbitrária de destinatários extras."
+}

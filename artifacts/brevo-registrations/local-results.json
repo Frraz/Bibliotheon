@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback, relógio controlado e HTTP de contatos inteiramente sintético",
+  "checks": [
+    "Up/down e preenchimento histórico testados em transação revertida: somente confirmado com assinatura ativa, sem bloqueio, entra na fila.",
+    "Amostra sem marketing e pedido não confirmado não cadastram; confirmação/outbox são atômicas, replay não duplica e claim concorrente cria uma vez, sem endereço na fila.",
+    "Contato já bloqueado não recebe POST/reativação; observação importa bloqueio local com action própria e preserva independência da amostra.",
+    "Timeout após criação e GET indisponível deixam pendência; retomada reconcilia por GET antes de qualquer POST e não duplica o contato criado.",
+    "Descadastro em voo reabre bloqueio antes observado ausente; 404 não esquece criação incerta. Compensação continua com cadastro desabilitado, só GET/PUT, e confirma bloqueio tardio.",
+    "Lease de 30 minutos retoma processo perdido por consulta, mesmo sem criar novos contatos; resposta antiga não sobrescreve resultado novo.",
+    "Nova confirmação em voo aumenta revisão sem perder lease/histórico; conclusão anterior não confirma geração nova e retomada consulta sem outro POST.",
+    "Recusa definitiva requer retry explícito; coleção privada é somente leitura para owner; downgrade recusa perder tentativas/compensações.",
+    "Auditoria usa o instante após a resposta externa, sem retroagir o bloqueio ao início da consulta e enfraquecer a ordem de novas confirmações.",
+    "CLI empacotado executado com cadastro habilitado, HTTP integralmente interceptado e banco sintético: GET/POST/GET persistem ID observado sem rede externa."
+  ],
+  "externalCalls": false,
+  "messagesSent": 0,
+  "limits": "Cadastro de contatos sem listas/campanhas, preferências promocionais, webhook ou envio. Homologação da conta/automatismos externos pendente; identidade de contato não é editável por API."
+}

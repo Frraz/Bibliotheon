@@ -1,5 +1,8 @@
+import { cancelBrevoRegistration } from './brevo-registration-queue'
+import { enqueueBrevoSuppression } from './brevo-suppression-queue'
 import { createHmac } from 'node:crypto'
-import type { Payload } from 'payload'
+import type { Payload, PayloadRequest } from 'payload'
+import type { Contact } from '../../payload-types'
 import { contactFingerprint } from './contact'
 import { LeadFlowError } from './service'
 import { validLinkSecret } from './tokens'
@@ -41,21 +44,42 @@ export async function applySuppression(payload: Payload, input: SuppressionInput
     if (!contact) contact = await payload.create({ collection: 'contacts', data: { email, deliveryState: 'ok' }, overrideAccess: true, req })
     await serial(req, `contact:${contact.id}`)
     contact = await payload.findByID({ collection: 'contacts', id: contact.id, depth: 0, overrideAccess: true, req })
-    const at = new Date(now).toISOString()
-    // Suppression can only become stricter here; it never clears bounce, complaint or consent.
-    const deliveryState = contact.deliveryState === 'complaint' || reason === 'complaint' ? 'complaint' : contact.deliveryState === 'bounced' || reason === 'bounced' ? 'bounced' : 'ok'
-    await payload.update({ collection: 'contacts', id: contact.id, data: { globalSuppressedAt: contact.globalSuppressedAt || at, deliveryState }, overrideAccess: true, req })
-    const subscriptions = await payload.update({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { state: { not_equals: 'unsubscribed' } }] }, data: { state: 'unsubscribed', unsubscribedAt: at }, overrideAccess: true, req })
-    if (subscriptions.errors.length) throw new LeadFlowError('unavailable', 503)
-    await cancelPromotions(req, { contact: { equals: contact.id } }, now)
-    let canceledPending = 0, inFlight = 0
-    if (deliveryState !== 'ok') {
-      const canceled = await payload.update({ collection: 'email-deliveries', where: { and: [{ contact: { equals: contact.id } }, { state: { equals: 'pending' } }] }, data: { state: 'canceled', errorCode: 'recipient_suppressed' }, overrideAccess: true, req })
-      canceledPending = canceled.docs.length
-      if (canceled.errors.length) throw new LeadFlowError('unavailable', 503)
-      inFlight = (await payload.count({ collection: 'email-deliveries', where: { and: [{ contact: { equals: contact.id } }, { state: { equals: 'sending' } }] }, overrideAccess: true, req })).totalDocs
-    }
-    await payload.create({ collection: 'consent-events', data: { contact: contact.id, purpose: 'marketing', action: reason, occurredAt: at, key }, overrideAccess: true, req })
-    return { applied: true, canceledPending, inFlight }
+    return suppressLockedContact(req, contact, reason, key, now)
+  })
+}
+
+/** Caller holds the contact lock; identity and audit key were already checked. */
+async function suppressLockedContact(req: PayloadRequest, contact: Contact, reason: Reason | 'provider_blocked', key: string, now: number) {
+  const { payload } = req
+  const at = new Date(now).toISOString()
+  // Suppression can only become stricter here; it never clears bounce, complaint or consent.
+  const deliveryState = contact.deliveryState === 'complaint' || reason === 'complaint' ? 'complaint' : contact.deliveryState === 'bounced' || reason === 'bounced' ? 'bounced' : 'ok'
+  await payload.update({ collection: 'contacts', id: contact.id, data: { globalSuppressedAt: contact.globalSuppressedAt || at, deliveryState }, overrideAccess: true, req })
+  const subscriptions = await payload.update({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { state: { not_equals: 'unsubscribed' } }] }, data: { state: 'unsubscribed', unsubscribedAt: at }, overrideAccess: true, req })
+  if (subscriptions.errors.length) throw new LeadFlowError('unavailable', 503)
+  await cancelPromotions(req, { contact: { equals: contact.id } }, now)
+  await enqueueBrevoSuppression(req, contact.id, now)
+  await cancelBrevoRegistration(req, contact.id, now)
+  let canceledPending = 0, inFlight = 0
+  if (deliveryState !== 'ok') {
+    const canceled = await payload.update({ collection: 'email-deliveries', where: { and: [{ contact: { equals: contact.id } }, { state: { equals: 'pending' } }] }, data: { state: 'canceled', errorCode: 'recipient_suppressed' }, overrideAccess: true, req })
+    canceledPending = canceled.docs.length
+    if (canceled.errors.length) throw new LeadFlowError('unavailable', 503)
+    inFlight = (await payload.count({ collection: 'email-deliveries', where: { and: [{ contact: { equals: contact.id } }, { state: { equals: 'sending' } }] }, overrideAccess: true, req })).totalDocs
+  }
+  await payload.create({ collection: 'consent-events', data: { contact: contact.id, purpose: 'marketing', action: reason, occurredAt: at, key }, overrideAccess: true, req })
+  return { applied: true, canceledPending, inFlight }
+}
+
+/** Authenticated lookup observation, never a public webhook or an inferred bounce/complaint. */
+export async function applyObservedProviderBlock(payload: Payload, input: { contactId: string; email: string; providerId: number; observedAt: number }, secret: string) {
+  if (!validLinkSecret(secret) || normalizeEmail(input.email) !== input.email || !Number.isSafeInteger(input.providerId) || input.providerId < 1 || !Number.isSafeInteger(input.observedAt) || input.observedAt < 0) throw new LeadFlowError('invalid_input', 422)
+  const key = `brevo-contact-check:${createHmac('sha256', secret).update(JSON.stringify([input.contactId, input.providerId, input.observedAt])).digest('hex')}`
+  return atomic(payload, async req => {
+    await serial(req, `contact:${input.contactId}`)
+    const contact = (await payload.find({ collection: 'contacts', where: { id: { equals: input.contactId } }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
+    if (!contact || contact.email !== input.email) return { applied: false }
+    if ((await payload.count({ collection: 'consent-events', where: { key: { equals: key } }, overrideAccess: true, req })).totalDocs) return { applied: false }
+    return suppressLockedContact(req, contact, 'provider_blocked', key, input.observedAt)
   })
 }

@@ -28,7 +28,24 @@
     "admin:recover": "node --env-file-if-exists=.env.local --import tsx scripts/recover-admin.ts",
     "test:admin-recovery": "node --env-file-if-exists=.env.local --import tsx tests/integration/admin-recovery.ts",
     "promotions:prepare": "node --env-file-if-exists=.env.local --import tsx scripts/prepare-promotions.ts",
-    "test:sequences": "node --env-file-if-exists=.env.local --import tsx tests/integration/sequences.ts"
+    "test:sequences": "node --env-file-if-exists=.env.local --import tsx tests/integration/sequences.ts",
+    "test:media": "node --env-file-if-exists=.env.local --import tsx tests/integration/media-integrity.ts",
+    "media:gc": "node --env-file-if-exists=.env.local --import tsx scripts/media-gc.ts",
+    "test:batches": "node --env-file-if-exists=.env.local --import tsx tests/integration/promotion-batches.ts",
+    "brevo:suppressions": "node --env-file-if-exists=.env.local --import tsx scripts/sync-brevo-suppressions.ts",
+    "test:brevo-sync": "node --env-file-if-exists=.env.local --import tsx tests/integration/brevo-suppressions.ts",
+    "test:preflight": "node --env-file-if-exists=.env.local --import tsx tests/integration/provider-preflight.ts",
+    "brevo:contacts": "node --env-file-if-exists=.env.local --import tsx scripts/sync-brevo-registrations.ts",
+    "test:brevo-contacts": "node scripts/build-runtime.mjs && node --env-file-if-exists=.env.local --import tsx tests/integration/brevo-registrations.ts",
+    "brevo:lists": "node --env-file-if-exists=.env.local --import tsx scripts/prepare-brevo-list.ts",
+    "test:brevo-lists": "node scripts/build-runtime.mjs && node --env-file-if-exists=.env.local --import tsx tests/integration/brevo-lists.ts",
+    "test:preferences": "node --env-file-if-exists=.env.local --import tsx tests/integration/preferences.ts",
+    "brevo:preferences": "node --env-file-if-exists=.env.local --import tsx scripts/prepare-brevo-preferences.ts",
+    "test:brevo-preferences": "node scripts/build-runtime.mjs && node --env-file-if-exists=.env.local --import tsx tests/integration/brevo-preferences.ts",
+    "brevo:campaigns": "node --env-file-if-exists=.env.local --import tsx scripts/prepare-brevo-campaign.ts",
+    "test:brevo-campaigns": "node scripts/build-runtime.mjs && node --env-file-if-exists=.env.local --import tsx tests/integration/brevo-campaigns.ts",
+    "brevo:send": "node --env-file-if-exists=.env.local --import tsx scripts/send-brevo-campaign.ts",
+    "test:brevo-send": "node scripts/build-runtime.mjs && node --env-file-if-exists=.env.local --import tsx tests/integration/brevo-send.ts"
   },
   "dependencies": {
     "@fontsource/public-sans": "5.3.0",
@@ -74,7 +91,8 @@
     "patchedDependencies": {
       "@payloadcms/ui@3.91.0": "patches/@payloadcms__ui@3.91.0.patch",
       "@payloadcms/next@3.91.0": "patches/@payloadcms__next@3.91.0.patch",
-      "@payloadcms/richtext-lexical@3.91.0": "patches/@payloadcms__richtext-lexical@3.91.0.patch"
+      "@payloadcms/richtext-lexical@3.91.0": "patches/@payloadcms__richtext-lexical@3.91.0.patch",
+      "payload@3.91.0": "patches/payload@3.91.0.patch"
     }
   }
 }

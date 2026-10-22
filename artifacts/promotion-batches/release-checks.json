@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "D48 lotes promocionais duráveis e claim interno",
+  "runtime": {
+    "node": "v22.23.4",
+    "pnpm": "10.34.7"
+  },
+  "results": {
+    "migration": "20261022_051922_promotion_batches aplicada no PostgreSQL local como oitava migração",
+    "batchIntegrationGroups": 6,
+    "sameContactTwoMaterialsSingleRecipient": true,
+    "sequenceGroups": 7,
+    "marketingGroups": 11,
+    "unitTests": 31,
+    "typecheck": "passed",
+    "lint": "passed with two existing warnings in sequence migration",
+    "deploySimulatedTests": 24,
+    "frozenLockfileInstall": "passed",
+    "importMap": "no new imports; unchanged",
+    "isolatedProductionBuild": "passed (.next-qa)",
+    "runtimePrepareCli": "passed; examined=0,batches=0,recipients=0 after fixture cleanup",
+    "httpAccess": "passed on 127.0.0.1:3001; anonymous read/create denied for batches and stages; owner reads batches",
+    "publicSiteHttp": "passed on 127.0.0.1:3001",
+    "qaServer": "stopped after tests"
+  },
+  "limits": [
+    "Nenhuma chamada externa, mensagem promocional, venda, push, CI GitHub ou deploy.",
+    "Claim interno fora do worker; sincronização de listas/campanhas/supressão, links individuais e conciliação de resultado incerto ainda pendentes.",
+    "Estado claimed reserva quota/intenção e não comprova envio, aceitação ou entrega.",
+    "Sem nova homologação visual ou imagem Docker; testar oito migrations em banco vazio/revisão anterior e restore antes de release.",
+    "Aviso de concorrência pg/Drizzle permanece sem causa resolvida."
+  ],
+  "sha256": {
+    "src/modules/marketing/batch-copy.ts": "2e3bd3e5f6bb228c9f1864445daef5e16bd7a4bd8f688d3d1830a1f27f793534",
+    "src/modules/marketing/batches.ts": "52672e0c32dd37842f992a7ed898cafc2e0853086c0158277a521b1d81ce9ec4",
+    "src/modules/marketing/sequence.ts": "e1448ac4bb7f5e504254744611370e763ecf6d0e94af6ada0fc60838114bc058",
+    "src/collections/Relationship.ts": "3b2f80adc91e42c8749196a5b72dac5e3741753de4d5fa0d3fcd76d357dd0c06",
+    "src/collections/presentation.ts": "d618207b920c6991df706ff4c9a0e4d20af44852cddcad3b0451ef16b958716e",
+    "src/payload-types.ts": "19b08e70427383fc4a987c2baf0047889c7f046dcdc2e31e5d18d219747ab354",
+    "migrations/20261022_051922_promotion_batches.ts": "eac005d479c470012dc08b7989d912fcc83a27da50dbf5f3a56de8805e7b8765",
+    "migrations/20261022_051922_promotion_batches.json": "521c7f7807e8266226625e0420a9944bf6afc03524a7fcfa9f658de07f62039f",
+    "migrations/index.ts": "68ce77b366bf85e92913c328ef3aec750cf78d42287b2a14696fb103984bde32",
+    "scripts/prepare-promotions.ts": "f7f253d4b70bf3b266b369792b8c367d84548ca726b5d81d6911c542d1f0c3d8",
+    "scripts/worker.ts": "1e627090aa919ff6913ccaad942a0f7ef0a96ea86f042af653430f8e354ac2b0",
+    "tests/unit/batch-copy.test.ts": "afc18be192c5fb2c92d8dd80077ab578592462ddb2a4619adb11991689e76329",
+    "tests/integration/promotion-batches.ts": "d9ac3a691adf444acc3906f6212c3cf713809f1541148633e75398315cb8d945",
+    "tests/integration/access.ts": "bb85b893f7944c1957a9837591930632ff23a9bf2a263b15c8380ff9e68a1096",
+    "tests/fixtures/relationship.ts": "ced1022eae08f6916376e0204363a257ff5f125b497be896530f0cbb891b9b9f",
+    "package.json": "bc14b46b9fea36a00d18fadeeea5b73e1fcc23383e6a118f4500cf2cfe98e2c0",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    ".github/workflows/quality.yml": "ec84b458a56537464958c46034d25aff944b3a7e5b48abc98958ce3b841a5719"
+  }
+}

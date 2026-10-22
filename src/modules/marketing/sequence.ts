@@ -31,36 +31,45 @@ export async function preparePromotions(payload: Payload, now = Date.now()) {
     await serial(req, `contact:${idOf(candidate.contact)}`)
     const delivery = await payload.findByID({ collection: 'promotion-deliveries', id: candidate.id, depth: 0, overrideAccess: true, req })
     if (!['scheduled', 'ready'].includes(delivery.state) || Date.parse(delivery.nextCheckAt) > now) return
-    const enrollment = await payload.findByID({ collection: 'sequence-enrollments', id: idOf(delivery.enrollment), depth: 0, overrideAccess: true, req })
-    const fail = async (errorCode: 'recipient_suppressed' | 'material_unavailable' | 'sequence_paused') => {
-      await cancelPromotions(req, { id: { equals: enrollment.id } }, now, errorCode)
-      // A previously canceled enrollment might have an inconsistent pending stage; fail closed.
-      await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'canceled', errorCode }, overrideAccess: true, req })
-      canceled++
-    }
-    const contact = await payload.findByID({ collection: 'contacts', id: idOf(enrollment.contact), depth: 0, overrideAccess: true, req })
-    const subscription = (await payload.find({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { theme: { equals: idOf(enrollment.theme) } }, { state: { equals: 'subscribed' } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
-    if (enrollment.state !== 'active' || !contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok' || !subscription) return fail('recipient_suppressed')
-    const templateKey = enrollmentKey('sequence', idOf(enrollment.magnet), enrollment.magnetVersion)
-    await serial(req, `sequence:${templateKey}`)
-    const template = (await payload.find({ collection: 'email-sequences', where: { and: [{ id: { equals: idOf(enrollment.sequence) } }, { active: { equals: true } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
-    if (!template) return fail('sequence_paused')
-    const request = await payload.findByID({ collection: 'magnet-requests', id: idOf(enrollment.request), depth: 0, overrideAccess: true, req })
-    const material = await availableMagnet(payload, idOf(enrollment.magnet), req), snapshot = readSequenceSnapshot(enrollment.snapshot)
-    if (!snapshot || !request.confirmedAt || !request.marketingOptIn || request.revokedAt || !material || material.magnet.version !== enrollment.magnetVersion || material.theme.id !== idOf(enrollment.theme) || material.book.id !== snapshot.ebookId) return fail('material_unavailable')
-    if (delivery.stage === '7' || delivery.stage === '10') {
-      try {
-        const offer = await resolveCheckout(snapshot.offerId, snapshot.campaignCode, { payload, req, now })
-        if (offer.ebookID !== snapshot.ebookId) throw new CheckoutError(410, 'Oferta não corresponde ao material.')
-      }
-      catch (error) {
-        if (!(error instanceof CheckoutError)) throw error
-        await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'scheduled', errorCode: 'offer_unavailable', nextCheckAt: new Date(now + 900_000).toISOString() }, overrideAccess: true, req })
-        held++; return
-      }
-    }
-    await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'ready', errorCode: null, nextCheckAt: new Date(now + 900_000).toISOString() }, overrideAccess: true, req })
-    ready++
+    const result = await reviewPromotion(req, delivery, now)
+    if (result.state === 'ready') ready++
+    else if (result.state === 'canceled') canceled++
+    else held++
   })
   return { examined: due.docs.length, ready, canceled, held }
+}
+
+/** Caller holds the contact lock; rechecks immediately before batching/claiming. */
+export async function reviewPromotion(req: PayloadRequest, delivery: import('../../payload-types').PromotionDelivery, now: number) {
+  const { payload } = req
+  const enrollment = await payload.findByID({ collection: 'sequence-enrollments', id: idOf(delivery.enrollment), depth: 0, overrideAccess: true, req })
+  const fail = async (errorCode: 'recipient_suppressed' | 'material_unavailable' | 'sequence_paused') => {
+    await cancelPromotions(req, { id: { equals: enrollment.id } }, now, errorCode)
+    // A previously canceled enrollment might have an inconsistent pending stage; fail closed.
+    await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'canceled', errorCode }, overrideAccess: true, req })
+    return { state: 'canceled' as const }
+  }
+  const contact = await payload.findByID({ collection: 'contacts', id: idOf(enrollment.contact), depth: 0, overrideAccess: true, req })
+  const subscription = (await payload.find({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { theme: { equals: idOf(enrollment.theme) } }, { state: { equals: 'subscribed' } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
+  if (enrollment.state !== 'active' || !contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok' || !subscription) return fail('recipient_suppressed')
+  const templateKey = enrollmentKey('sequence', idOf(enrollment.magnet), enrollment.magnetVersion)
+  await serial(req, `sequence:${templateKey}`)
+  const template = (await payload.find({ collection: 'email-sequences', where: { and: [{ id: { equals: idOf(enrollment.sequence) } }, { active: { equals: true } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
+  if (!template) return fail('sequence_paused')
+  const request = await payload.findByID({ collection: 'magnet-requests', id: idOf(enrollment.request), depth: 0, overrideAccess: true, req })
+  const material = await availableMagnet(payload, idOf(enrollment.magnet), req), snapshot = readSequenceSnapshot(enrollment.snapshot)
+  if (!snapshot || !request.confirmedAt || !request.marketingOptIn || request.revokedAt || !material || material.magnet.version !== enrollment.magnetVersion || material.theme.id !== idOf(enrollment.theme) || material.book.id !== snapshot.ebookId) return fail('material_unavailable')
+  if (delivery.stage === '7' || delivery.stage === '10') {
+    try {
+      const offer = await resolveCheckout(snapshot.offerId, snapshot.campaignCode, { payload, req, now })
+      if (offer.ebookID !== snapshot.ebookId) throw new CheckoutError(410, 'Oferta não corresponde ao material.')
+    }
+    catch (error) {
+      if (!(error instanceof CheckoutError)) throw error
+      await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'scheduled', errorCode: 'offer_unavailable', nextCheckAt: new Date(now + 900_000).toISOString() }, overrideAccess: true, req })
+      return { state: 'held' as const }
+    }
+  }
+  await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'ready', errorCode: null, nextCheckAt: new Date(now + 900_000).toISOString() }, overrideAccess: true, req })
+  return { state: 'ready' as const, enrollment, snapshot: snapshot! }
 }

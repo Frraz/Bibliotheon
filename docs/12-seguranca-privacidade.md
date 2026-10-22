@@ -4,7 +4,7 @@
 
 Este documento define controles de engenharia e escolhas conservadoras do produto. Não substitui a definição das obrigações concretas do responsável pelo negócio. Políticas públicas precisam de nome do responsável, contato e fornecedores reais antes de publicação.
 
-Estado técnico em 21/10/2026: acesso privado, validação de uploads, tokens, consentimento e supressão possuem testes locais; não é aceite integral de segurança. Retenção, exportação/exclusão, reaplicação pós-restore, proteção administrativa do host e integrações reais ainda pendentes. O e-mail público continuará vazio até produção, por decisão do proprietário. Há risco conhecido de integridade na troca recusada/rollback de mídia não vinculada a amostra; proteger PDF vinculado não cobre esse caso. Ver [estado atual](23-estado-atual.md).
+Estado técnico em 22/10/2026: acesso privado, validação de uploads, tokens, consentimento e supressão possuem testes locais; não é aceite integral de segurança. Retenção, exportação/exclusão, reaplicação pós-restore, proteção administrativa do host e integrações reais ainda pendentes. O e-mail público continuará vazio até produção, por decisão do proprietário. A preservação de mídia em troca recusada/rollback foi corrigida e testada localmente, com exclusão física diferida; homologação da imagem e do ambiente real permanece pendente. Ver [estado atual](23-estado-atual.md).
 
 ## Acesso e superfície
 
@@ -20,11 +20,25 @@ Uploads: imagens JPEG/PNG/WebP até 5 MiB; PDF gratuito até 20 MiB, magic bytes
 
 CSP e headers ajustados/testados ao Next/Payload, não copiados cegamente; nunca enfraquecer globalmente CSP só para preview. Segredos segregados por ambiente e fornecedor, rotação registrada. HMAC/token verifica autenticidade conforme contrato real; IP allowlist isolada não prova origem.
 
+## Preservação e limpeza de mídia
+
+D47: o patch opt-in de Payload 3.91.0 impede a exclusão física antecipada na coleção Media. Substituições usam UUID novo; falha na validação, em hooks ou rollback conserva o arquivo anterior. Mídia vinculada a amostra continua exigindo novo cadastro/versão. Campos técnicos não podem ser alterados sem upload validado.
+
+A coleta de órfãos consulta referências atuais sob o mesmo advisory lock das mutações. Só remove arquivos regulares com nome UUID gerenciado, sem referência, após 24 horas da primeira observação persistida no índice privado do volume. Simulação não grava o índice nem inicia carência; arquivos desconhecidos e links simbólicos são ignorados. Índice inválido interrompe a coleta. Não é a rotina de retenção de dados pessoais de B12.
+
+O backup diário do atualizador confirma o snapshot externo antes de executar a coleta, com app/worker parados; falha retorna erro e tenta retomar a aplicação. Monitorar contagens, falhas e espaço do volume. Procedimento no [guia](../deploy.md). Prova local: [seis grupos de integridade](../artifacts/media-integrity/local-results.json); sem backup externo realizado nesta rodada.
+
 ## Consentimento e minimização
 
 Captura pede só e-mail e material; marketing com checkbox separado desmarcado, finalidade e link de privacidade. Guardar versão do texto e ação. Analytics opcional com aceitar/rejeitar equivalentes e revogação acessível. Sem consentimento analítico, não criar ID persistente nem cookie de atribuição; compra permanece funcional.
 
 Compra externa não autoriza newsletter. Não armazenar CPF, telefone, endereço ou e-mail de comprador vindo do webhook quando não necessários. Informar plataformas de checkout e provedor de e-mail no aviso. Decisão sobre base legal e transparência deve considerar operação concreta, tomando como referência [orientação da ANPD sobre cookies](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia_orientativo_cookies_e_protecao_de_dados_pessoais).
+
+## Bloqueios do provedor e quota promocional
+
+D50: claim interno exige preflight autenticado recente de todos os destinatários elegíveis, sem HTTP durante locks de banco. Conferência privada de até cinco minutos vincula lote e versões locais; alteração/expiração/ausência/falha impedem reserva de quota. Observação de blacklist gera action própria, sem atribuir causa não documentada, e cancela marketing atomicamente. Não reativa contatos, não cria endereço a partir de payload e mantém amostra solicitada independente quando não há bounce/complaint conhecidos. Entrada pública/manual não pode fabricar observação autenticada.
+
+A conferência é pontual; webhook e revalidação no envio ainda pendentes. Nenhum envio promocional real autorizado por teste sintético. Ver [Brevo](integracoes/brevo.md) e [evidência](../artifacts/provider-preflight/local-results.json).
 
 ## Retenção inicial de produto
 

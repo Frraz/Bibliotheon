@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL local; fixtures sintéticas; sem API real",
+  "checks": [
+    "Consulta autorizada lista somente temas do contato, sem endereço e sem alterar consentimento.",
+    "Tokens inválidos/expirados e tema não pertencente ao contato são recusados sem mutação.",
+    "POST privado e estrito: isolamento entre contatos, no-store/no-referrer, origem externa, excesso de corpo e tentativa de inscrição recusados.",
+    "Falha de auditoria reverte assinatura e cancelamento do calendário atomicamente.",
+    "Cancelamento concorrente é idempotente, preserva outro tema e impede claim de lote já preparado antes da quota/HTTP.",
+    "Repetição de confirmação antiga não reativa assinatura; entrega de amostra continua independente.",
+    "Último tema cancela cadastro e enfileira bloqueio externo; cancelamento global concorrente continua válido, sem reativação."
+  ],
+  "externalCalls": false,
+  "messagesSent": 0,
+  "limits": "Segundo tema semeado sinteticamente; apenas primeiro tema usa fluxo completo de confirmação e calendário. Não comprova personalização Brevo ou UI renderizada."
+}

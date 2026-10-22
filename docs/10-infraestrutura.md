@@ -44,7 +44,7 @@ Arquivo real de ambiente fora do Git, permissão restrita. Futuro `.env.example`
 
 ## Deploy e migrações
 
-CI ou máquina de desenvolvimento gera imagem compatível com arquitetura da VPS; não compilar Next no servidor compartilhado. Artefato inclui código e dependências fixadas, sem dados/credenciais. Testes e migrations verificadas em banco descartável antes da release. Tag imutável e digest registrados.
+Fluxo original: CI ou máquina de desenvolvimento gera imagem compatível com arquitetura da VPS. Em 22/10/2026 o proprietário solicitou também clone/pull/build na própria VPS, documentado em [deploy](../deploy.md) e D46. Esse fluxo exige inventário, margem de recursos e janela monitorada; usa tag local exclusiva e verifica ID da imagem, sem registry obrigatório. O fluxo por registry/digest continua disponível para host sem margem. Artefato inclui código e dependências fixadas, sem dados/credenciais. Testes e migrations devem ser verificados em banco descartável antes da release.
 
 Produção usa alterações aditivas e sequência expandir → migrar dados → mudar código → remover em release posterior. Não executar alteração destrutiva automática. Backup antes de migrar; rollback de código não reverte schema. Deploy completo e critérios de interrupção em [operação](11-operacao.md).
 

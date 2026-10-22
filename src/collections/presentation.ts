@@ -28,6 +28,11 @@ const choiceLabels: Record<string, string> = {
   uncertain_delivery: 'Verificar aceitação no provedor', attempts_exhausted: 'Tentativas esgotadas', recipient_suppressed: 'Contato com entrega suspensa', material_unavailable: 'Amostra indisponível',
   owner: 'Proprietário',
   scheduled: 'Programada', ready: 'Pronta para agrupamento', accepted: 'Campanha aceita pelo provedor', completed: 'Concluída',
+  creating: 'Criação em conferência', filling: 'Composição em conferência', creation_rejected: 'Criação recusada', creation_uncertain: 'Criação incerta', membership_uncertain: 'Inclusão incerta', membership_unverified: 'Preferências da lista não conferidas', list_conflict: 'Lista ou destinatários divergentes', campaign_conflict: 'Campanha divergente', preparing: 'Preparando nova tentativa autorizada', issuing: 'Intenção de disparo registrada', submitted: 'Solicitação aceita, entrega não comprovada', rejected: 'Recusada pelo provedor',
+  canceling: 'Bloqueio de cadastro em conferência', local_ineligible: 'Consentimento local indisponível', identity_changed: 'Identidade alterada: revisão necessária',
+  provider_blocked: 'Bloqueio observado no provedor', provider_absent: 'Contato ausente no provedor',
+  processing: 'Em processamento', synced: 'Conferido no provedor', blocked: 'Bloqueado', absent: 'Ausente no provedor', provider_unavailable: 'Provedor indisponível',
+  prepared: 'Preparado', claimed: 'Reservado para processamento', eligibility_changed: 'Elegibilidade alterada',
   sequence_paused: 'Sequência desativada', offer_unavailable: 'Oferta ou campanha indisponível',
 }
 const arrayLabels: Record<string, { singular: string; plural: string }> = {

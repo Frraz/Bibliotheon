@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback, HTTP sintético e CLI interceptado",
+  "checks": [
+    "Migração vazia down/up revertida; flag desligada não emite tokens. Dois destinatários recebem links distintos válidos; banco/prova sem token bruto ou endereço.",
+    "Preparação concorrente reutiliza intenção/token por contato; GET de valor já correto evita PUT redundante.",
+    "Timeout aplicado é conciliado por GET; 204 sem valor observado não autoriza prova; retentativa reutiliza token sem estender validade.",
+    "Descadastro durante PUT vence conferência final e preserva token para retirada; não há quota/campanha/envio.",
+    "Bloqueio observado no atributo cancela marketing sem inferir bounce; mudança concorrente de ID no preflight invalida prova de links anterior.",
+    "Renovação antes do vencimento e troca de chave geram novo link; hash antigo preserva somente validade original, sem extensão silenciosa.",
+    "Falha de emissão reverte intenção antes de PUT; prova expirada é recusada; downgrade não apaga nonces/intenção ou conferências.",
+    "CLI empacotado habilitado com HTTP totalmente interceptado persiste prova mínima; nenhum claim ou transporte promocional."
+  ],
+  "externalCalls": false,
+  "realMessagesSent": 0,
+  "limits": "Prova pontual não autoriza envio. Atributo e renderização do placeholder requerem homologação na conta; sem campanha criada ou enviada."
+}

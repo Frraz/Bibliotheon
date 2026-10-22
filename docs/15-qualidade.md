@@ -6,7 +6,7 @@
 
 Documentação: verificador Python sem dependências. Código existente: TypeScript strict, lint sem autofix, Vitest para regras, PostgreSQL de teste para constraints/transações e Playwright para jornadas. axe como apoio à acessibilidade, complementado por teclado e leitura visual. Fixtures sintéticas e relógio controlado para cronologia, expiração e coortes. Estado/evidência de cada requisito no [mapa atual](23-estado-atual.md); a matriz abaixo continua sendo o aceite do produto completo, não uma lista de testes todos aprovados.
 
-CI alvo: instalar com lockfile → lint/typecheck → testes unitários/integração → build → testes de navegador → imagem. O workflow existente prepara geração/diff de tipos/import map, documentação, estáticos/unitários, migrations, catálogo/marketing/sequências, build e testes HTTP de acesso/site/recuperação. Ainda não executa QA browser nem build/homologação de imagem; nenhuma execução no GitHub comprovada. Nenhuma credencial de produção em PR. Antes do release, testar migrations atuais de banco vazio e versão anterior. Revisão só documental roda o verificador, sem exigir subir aplicação ou Docker para isso.
+CI alvo: instalar com lockfile → lint/typecheck → testes unitários/integração → build → testes de navegador → imagem. O workflow existente prepara geração/diff de tipos/import map, documentação, estáticos/unitários, migrations, catálogo/mídia/marketing/sequências/lotes/bloqueios outbound/preflight/cadastros/listas, build e testes HTTP de acesso/site/recuperação. Ainda não executa QA browser nem build/homologação de imagem; nenhuma execução no GitHub comprovada. Nenhuma credencial de produção em PR. Antes do release, testar migrations atuais de banco vazio e versão anterior. Revisão só documental roda o verificador, sem exigir subir aplicação ou Docker para isso.
 
 ## Matriz de cenários
 
@@ -18,7 +18,7 @@ CI alvo: instalar com lockfile → lint/typecheck → testes unitários/integra�
 | T04 | R04, R20 | LP 360/768/1280/1920px, teclado, foco, contraste e FAQ; preço legível e amostra real |
 | T05 | R06 | Oferta inativa retorna indisponível; URL arbitrária rejeitada; afiliado mantém destino/parâmetros |
 | T06 | R08, R09 | Pedido sem marketing entrega amostra após confirmação; duplicata não revela contato; token expirado falha |
-| T07 | R09, R10 | Descadastro com envio na fila bloqueia marketing; amostra solicitada permanece independente; bounce/complaint cancelam pendentes; referência de supressão idempotente/conflitante, quota, timeout e retentativa tratados |
+| T07 | R09, R10 | Descadastro com envio na fila bloqueia marketing; amostra solicitada permanece independente; bounce/complaint cancelam pendentes; referência de supressão idempotente/conflitante, quota, timeout e retentativa tratados; lotes separam revisão/contexto, deduplicam destinatários e revertem vínculos/quota em falha; fila de bloqueios preserva intenção em rollback/queda/revisão concorrente e não reativa contatos; preflight importa bloqueio sem inferir motivo e exige prova fresca/versionada antes da quota; cadastro requer opt-in confirmado, reconcilia conflito/timeout e mantém compensação após descadastro em voo; listas retêm ID/intenção, conferem conjunto e limite 150, sem reincluir tentativa incerta ou presumir preferências ausentes; preferências temáticas isolam titular, cancelam somente o tema e revertem auditoria/calendário juntos; links individuais preservam expiração, são confirmados por GET e recusam divergência de titular/ID; rascunho retém intenção/IDs, reconcilia sem recriação incerta, recusa cópia/lista/estado divergentes e não agenda/envia |
 | T08 | R11, R26 | Recusa de analytics impede ID/cookie; compra funciona; revogação interrompe coleta |
 | T09 | R12 | Hotmart válido/inválido, replay, reembolso antecipado e produto desconhecido |
 | T10 | R13 | Kiwify válido/adulterado, dinheiro/unidade, replay e ordem invertida |
@@ -28,7 +28,7 @@ CI alvo: instalar com lockfile → lint/typecheck → testes unitários/integra�
 | T14 | R17, R18 | Campanha com kit e conteúdo público autorizado; sem conteúdo pago exposto |
 | T15 | R19 | Revisão contém decisão baseada em evidência e próxima ação, mesmo com zero vendas |
 | T16 | R21 | Build de produção medido em ambiente identificado; laboratório não é resultado de campo |
-| T17 | R22 | Upload inválido/oversized/path traversal rejeitado; substituição recusada preserva arquivo anterior, incluindo mídia não vinculada a amostra; logs sem email/token/corpo |
+| T17 | R22 | Upload inválido/oversized/path traversal rejeitado; substituição recusada preserva arquivo anterior, incluindo mídia não vinculada a amostra, hooks tardios e rollback; coleta espera lock, respeita referências/carência e ignora symlinks; logs sem email/token/corpo |
 | T18 | R23 | Apenas proxy acessível publicamente; DB privado; baseline de sistemas existentes preservado |
 | T19 | R24 | Restaurar banco/mídia fora da produção; medir RPO/RTO; impedir envio de e-mails no restore |
 | T20 | R25 | Queda após persistir inbox e antes de job recupera pendência; ACK sem commit impossível |

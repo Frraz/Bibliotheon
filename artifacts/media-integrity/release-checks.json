@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "D47 preservação/coleta de mídia e integração com backup do atualizador",
+  "runtime": {
+    "node": "v22.23.4",
+    "python": "3.14.4",
+    "pnpm": "10.34.7"
+  },
+  "results": {
+    "mediaIntegrityGroups": 6,
+    "sequenceGroups": 7,
+    "catalog": "passed",
+    "unitTests": 29,
+    "deploySimulatedTests": 24,
+    "typecheck": "passed",
+    "lint": "passed with two existing migration warnings",
+    "frozenInstall": "passed",
+    "isolatedProductionBuild": "passed (.next-qa)",
+    "runtimeMediaCliHelp": "passed",
+    "runtimeMediaCliDryRun": "passed; no file mutation",
+    "httpAccess": "passed on 127.0.0.1:3001",
+    "publicSite": "passed on 127.0.0.1:3001",
+    "realComposeConfig": "passed; no containers started",
+    "guideBashSyntaxBlocks": 27
+  },
+  "limits": [
+    "Sem VPS, push, CI GitHub, backup externo ou chamada a provedor.",
+    "Imagem Docker atual e permissões do runtime em container ainda precisam de homologação.",
+    "Sem nova rodada visual; HTTP e domínio não substituem screenshots.",
+    "Aviso de queries concorrentes pg/Drizzle persiste.",
+    "Relatório anterior artifacts/deploy/local-results.json permanece histórico, anterior à D47."
+  ],
+  "sha256": {
+    "src/collections/Media.ts": "9d133740fcd5cbc6afa76f3c8ea6cee54234aed507c36b03062763874b0f240a",
+    "src/modules/catalog/media-gc.ts": "fdb8fbefaa02e61dcd04271ac26049d77f1ab464d6abb62b31162afdf0bf44cb",
+    "src/modules/catalog/media-files.ts": "6b2ef1ac93fd0dd24b361db12b1a9d199c0e1a0a7f8bcb60f275aeaeeeb5ed7c",
+    "scripts/media-gc.ts": "34946e3c9c3f6db0f11c452c907ab94fa3889332a3006e63253b31a358e8d5c3",
+    "scripts/build-runtime.mjs": "768517033a544a5644427fd218db6cce421f859283a4e4aaae44dd5ec0aedc2f",
+    "patches/payload@3.91.0.patch": "29d1cd0318dbeba1a9ef4a01759088f9700b931fef147c7bafb16688af7553a9",
+    "package.json": "a4392c11f9629e60ac0fbe4cc34a118e0e837d8c05e72d0eec21d4b3993dc196",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    "ops/deploy.py": "a55ed661ca2902b4c154fb00cd5754654d8b8979ea69ab54b3f9435c1d3d4ba1",
+    "tests/ops/test_deploy.py": "67e7a3b3bff2ccec83a5d6495bdb850cb3a68c01a7a173815e8c2bc57f265c06",
+    "tests/integration/media-integrity.ts": "f99cb8c1c775e76936b7a299d7bd0379d7b39bd55a480c993073b6e1e63befdf",
+    "deploy.md": "80f822e28766800d44dc06440fb5222eece7c7f37cb605d8a183edbf6f672ed5",
+    "atualizar.sh": "62714fbb3e13aa3643ba95534416484ecf07484bf960c791e64508dc0f4a9d31",
+    "altualizar.sh": "dab03cc9f45b12acd6e598f6d015bd681dc758d353aadfd20ac32fafaaa14737"
+  }
+}

@@ -1,0 +1,16 @@
+diff --git a/dist/uploads/deleteAssociatedFiles.js b/dist/uploads/deleteAssociatedFiles.js
+index d6275954a1afdc855f404fcef2879ddd2952150c..676f2097954e84c63b6e532206044e26dd8afc65 100644
+--- a/dist/uploads/deleteAssociatedFiles.js
++++ b/dist/uploads/deleteAssociatedFiles.js
+@@ -27,6 +27,11 @@ const deleteFile = async ({ filename, staticPath })=>{
+     }
+ };
+ export const deleteAssociatedFiles = async ({ collectionConfig, doc, files = [], overrideDelete, req })=>{
++    // Opt-in: filesystem changes cannot roll back with the database transaction.
++    // The application collects unreferenced files after commit, under its shared lock.
++    if (collectionConfig.custom?.bibliotheonDeferredFileDeletion === true) {
++        return;
++    }
+     if (!collectionConfig.upload) {
+         return;
+     }

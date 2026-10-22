@@ -1,3 +1,5 @@
+import { enqueueBrevoRegistration, cancelBrevoRegistration } from './brevo-registration-queue'
+import { enqueueBrevoSuppression } from './brevo-suppression-queue'
 import type { Payload, PayloadRequest } from 'payload'
 import type { LeadInput } from './validation'
 import { atomic, serial } from './transaction'
@@ -107,6 +109,7 @@ export async function confirmMagnet(payload: Payload, token: unknown, secret: st
           else await payload.create({ collection: 'subscriptions', data: { ...data, contact: contactId, theme: material.theme.id, key: subKey }, overrideAccess: true, req })
           if (contact.globalSuppressedAt) await payload.update({ collection: 'contacts', id: contactId, data: { globalSuppressedAt: null }, overrideAccess: true, req })
           await payload.create({ collection: 'consent-events', data: { contact: contactId, theme: material.theme.id, purpose: 'marketing', action: 'subscribed', version: request.consentVersion, occurredAt: at, key: `subscribed:${request.id}` }, overrideAccess: true, req })
+          await enqueueBrevoRegistration(req, contactId, now)
           await enrollSequence(req, request, material.book.id, at)
         }
       }
@@ -131,6 +134,8 @@ export async function unsubscribe(payload: Payload, token: unknown, now = Date.n
     await payload.update({ collection: 'contacts', id: contactId, data: { globalSuppressedAt: at }, overrideAccess: true, req })
     await payload.update({ collection: 'subscriptions', where: { and: [{ contact: { equals: contactId } }, { state: { not_equals: 'unsubscribed' } }] }, data: { state: 'unsubscribed', unsubscribedAt: at }, overrideAccess: true, req })
     await cancelPromotions(req, { contact: { equals: contactId } }, now)
+    await enqueueBrevoSuppression(req, contactId, now)
+    await cancelBrevoRegistration(req, contactId, now)
     await payload.create({ collection: 'consent-events', data: { contact: contactId, purpose: 'marketing', action: 'unsubscribed', occurredAt: at, key: `unsubscribe:${preference.id}:${at}` }, overrideAccess: true, req })
     // Transactional confirmations and the explicitly requested sample remain independent.
   })

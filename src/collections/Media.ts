@@ -5,9 +5,11 @@ import sharp from 'sharp'
 import { ownerAccess } from '../access/owner'
 import { mediaDirectory } from '../modules/catalog/storage'
 import { serial } from '../modules/marketing/transaction'
+import { MEDIA_FILES_LOCK } from '../modules/catalog/media-files'
 
 export const Media: CollectionConfig = {
   slug: 'media', labels: { singular: 'Mídia', plural: 'Mídias' }, access: ownerAccess,
+  custom: { bibliotheonDeferredFileDeletion: true },
   admin: { useAsTitle: 'alt', group: 'Conteúdo', description: 'Para substituir o arquivo de uma amostra vinculada, cadastre outra mídia e uma nova versão da amostra. Descrição e legenda continuam editáveis.' },
   upload: { staticDir: mediaDirectory(), mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'], focalPoint: false, crop: false },
   fields: [
@@ -19,16 +21,21 @@ export const Media: CollectionConfig = {
   ],
   hooks: {
     beforeOperation: [async ({ args, operation }) => {
-      if (operation !== 'create' && operation !== 'update') return args
-      if (args.req.user?.collection !== 'admin-users' || args.req.user.role !== 'owner') throw new Forbidden()
-      const file = args.req.file
+      if (!['create', 'update', 'delete'].includes(operation)) return args
+      const req = args.req
+      if (!req) throw new Forbidden()
+      const isOwner = req.user?.collection === 'admin-users' && req.user.role === 'owner'
+      if (!isOwner && (operation !== 'delete' || !args.overrideAccess)) throw new Forbidden()
+      await serial(req, MEDIA_FILES_LOCK)
+      if (operation === 'delete') return args
+      const file = req.file
       if (!file) return args
       if (operation === 'update') {
         // Native upload processing can remove the previous file before beforeChange.
         // Reject here, while both its bytes and database record are still intact.
         if (!('id' in args) || typeof args.id !== 'string') throw new APIError('Substitua arquivos individualmente ou cadastre outra mídia.', 422)
-        await serial(args.req, `sample-media:${args.id}`)
-        const linked = await args.req.payload.count({ collection: 'lead-magnets', where: { media: { equals: args.id } }, overrideAccess: true, req: args.req })
+        await serial(req, `sample-media:${args.id}`)
+        const linked = await req.payload.count({ collection: 'lead-magnets', where: { media: { equals: args.id } }, overrideAccess: true, req })
         if (linked.totalDocs) throw new APIError('Arquivo vinculado a uma amostra: envie outra mídia e use uma versão nova.', 422)
       }
       if (file.name !== path.basename(file.name) || file.name.includes('\\') || file.name.includes('..')) throw new APIError('Nome de arquivo inválido.', 422)
@@ -57,6 +64,9 @@ export const Media: CollectionConfig = {
       return args
     }],
     beforeChange: [({ data, req, originalDoc }) => {
+      if (!req.file && originalDoc?.id) for (const field of ['filename', 'mimeType', 'filesize', 'width', 'height', 'sizes', 'hash']) {
+        if (field in data && JSON.stringify(data[field] ?? null) !== JSON.stringify(originalDoc[field] ?? null)) throw new APIError('Metadados do arquivo só podem mudar com um novo upload validado.', 422)
+      }
       const merged = { ...originalDoc, ...data }
       if (merged.mimeType === 'application/pdf' && merged.visibility !== 'private') throw new APIError('PDF de amostra deve permanecer privado.', 422)
       if (merged.presentationRole === 'cover' && !merged.mimeType?.startsWith('image/')) throw new APIError('A capa deve ser imagem.', 422)

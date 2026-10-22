@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "D53 consulta explícita e cancelamento por assunto",
+  "results": {
+    "integrationGroups": 7,
+    "unitTests": 51,
+    "deploySimulatedTests": 27,
+    "marketingRegressionGroups": 11,
+    "sequenceRegressionGroups": 7,
+    "batchRegressionGroups": 6,
+    "typecheck": "passed",
+    "lint": "passed; two existing sequence migration warnings",
+    "isolatedProductionBuild": "passed .next-qa; dynamic POST route present",
+    "httpAccess": "passed on 127.0.0.1:3001",
+    "publicSiteHttp": "passed on 127.0.0.1:3001",
+    "preferencesHttp": "GET 405 confirmed against isolated server; strict POST contract exercised against route handler",
+    "browserQA": "36 screenshots; light/dark; 360/390/768/1024/1440/1920; axe/overflow zero; keyboard consult; theme/global withdrawal persisted",
+    "qaServer": "stopped; port 3000 untouched",
+    "schema": "no new migration; twelve declared migrations remain"
+  },
+  "limits": [
+    "Nenhuma API/conta real, campanha externa, mensagem real, GitHub ou VPS.",
+    "Segundo tema da integração semeado sinteticamente; primeiro usa confirmação/calendário reais da aplicação com transporte em memória. QA visual usa assinaturas sintéticas.",
+    "Sem inclusão/reativação por token; último assunto enfileira bloqueio externo e não desbloqueia provedor posteriormente.",
+    "Personalização de links em campanha, transporte promocional, webhook e conciliação permanecem pendentes.",
+    "Sem nova imagem Docker, restore, instalação congelada ou homologação externa nesta etapa; versões/lockfile de dependências não alterados.",
+    "Aviso pg/Drizzle de queries concorrentes e dois avisos de lint na migração de sequências persistem."
+  ],
+  "sha256": {
+    "src/modules/marketing/preferences.ts": "1291bef6a371788b93c9693b5b92ff0c5453fa2734f846834e0a320fe3ccbaa2",
+    "src/app/(site)/api/v1/preferences/route.ts": "905382051d999941bbe2314bcfb8460b697b7a7cf18d322edf9fd261e98b835d",
+    "src/app/(site)/preferencias/page.tsx": "23b16d32b494f59e10211bf6f5bd78870f084b661adc76c12dbe6f5aed6897e1",
+    "src/components/SampleForms.tsx": "27e19b907495ffdb408004b5d23d845bf8874d196c682e723c14c3ae9b2d82dc",
+    "tests/integration/preferences.ts": "58879951c49d5b8660bb2e1e8ac93ab2cbd18a475a6c8156dc5aa3b1725bb564",
+    "tests/fixtures/relationship.ts": "a8f6ee47c5d5544a8f50a1dfbd3db26ba0134d3580b597f2c86d2556c9929215",
+    "scripts/qa-preferences.ts": "5b848e26c337dbc3cd59eaaec36b93bad1e3d50b9155fc9bbeafc7e504412a3a",
+    "package.json": "6743cfdc4c286145a3eba551e3d80f67f89ede9ba8c49b4a9ebbc5407caa2b84",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    ".github/workflows/quality.yml": "972598d066936b61b6b4b9c1ea4c8b64f416389627c00e6130d3221e7d173d81"
+  },
+  "evidence": {
+    "integration": "artifacts/preferences/local-results.json",
+    "browser": "artifacts/qa-preferences/results.json"
+  }
+}

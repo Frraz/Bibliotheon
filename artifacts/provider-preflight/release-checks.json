@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "D50 conferência obrigatória dos destinatários e importação pontual de bloqueio antes de quota",
+  "runtime": {
+    "node": "v22.23.4",
+    "pnpm": "10.34.7"
+  },
+  "results": {
+    "migration": "décima migração 20261022_054929_provider_preflight aplicada apenas no PostgreSQL local",
+    "downgradeGuard": "recusa de perda/reclassificação de observações exercitada em transação revertida",
+    "preflightGroups": 7,
+    "batchRegressionGroups": 6,
+    "suppressionQueueRegressionGroups": 8,
+    "marketingRegressionGroups": 11,
+    "sequenceRegressionGroups": 7,
+    "unitTests": 40,
+    "deploySimulatedTests": 25,
+    "frozenInstall": "passed",
+    "typecheck": "passed",
+    "lint": "passed with two existing sequence migration warnings",
+    "importMap": "unchanged; no new imports",
+    "isolatedProductionBuild": "passed (.next-qa)",
+    "runtimeCliPackaging": "passed",
+    "httpAccess": "passed on 127.0.0.1:3001; owner suppression/outbox and forged provider action rejected with 422",
+    "publicSiteHttp": "passed on 127.0.0.1:3001",
+    "qaServer": "stopped after tests"
+  },
+  "officialSourceRevalidated": "https://developers.brevo.com/reference/get-contact-info",
+  "limits": [
+    "Nenhum endpoint real do Brevo foi chamado; consulta pública da documentação não é homologação da conta.",
+    "Nenhuma mensagem promocional, venda, GitHub ou VPS nesta rodada.",
+    "Sem criação de contato, listas/campanhas, preferências promocionais, webhook ou conciliação de envio.",
+    "Claim interno continua fora do worker e não comprova aceitação ou entrega.",
+    "Conferência pontual expira em cinco minutos e não substitui revalidação imediatamente antes do transporte futuro.",
+    "Sem nova homologação visual ou imagem Docker; dez migrations/restore ainda exigem rodada de release.",
+    "Aviso pg/Drizzle de queries concorrentes persiste."
+  ],
+  "sha256": {
+    "src/modules/marketing/batch-check-copy.ts": "b17dce6ea19fababe032f2455f52fc69bc385b8411787b4f144f677716c7f2e9",
+    "src/modules/marketing/batch-preflight.ts": "e54b59afdd2b256be46e9729edfebd50ef27d10fef8b67ab7e0c87b9d824411d",
+    "src/modules/marketing/batch-review.ts": "92f0d7bcc8161c0acbca05b03ddd5a7caff29549dce6016d9076039440b2fd1e",
+    "src/modules/marketing/batches.ts": "bd9f82032ac0392607f62e87e500a096e6bf7c2823ee66930259c7ace14e4ef8",
+    "src/modules/marketing/suppression.ts": "3432b1ac67b663c3a3bf399bf977a06b23029034bb0fe2af2d6102ae02b41bde",
+    "src/collections/Relationship.ts": "e0fea34515df7b7b5c4b4609e84a134571c6fa73a46da4c19ba133704d3b972d",
+    "src/collections/presentation.ts": "9d597b0833bc597af2f5bb59c54a8d115ad29a74658b4208cf3c19c459e49631",
+    "src/payload-types.ts": "6bda484491f6e1677e79b88d349dc32ef86e170058aa8197912490251a0fc57d",
+    "migrations/20261022_054929_provider_preflight.ts": "ea26de62582376ee385adaa67630967916331bace01000a6e85920646be6b776",
+    "migrations/20261022_054929_provider_preflight.json": "429e75ee44a4f3293e23fafbf940ae0505acedc52d4bea6d4ccb4ba5778af85f",
+    "migrations/index.ts": "192c6c3a21bad55cafee835979b120ea8cf3b833f4875fd9628b5dae12b9c623",
+    "tests/unit/batch-check.test.ts": "bd0629bfa00c6d52c1a2495a7e9c97ecf4149008f909ff246818d20a250bc2b6",
+    "tests/integration/provider-preflight.ts": "08e2d10f6f33adb3d5943b91e30c16fe76bf165cf4f5cb041fdb0730c4413392",
+    "tests/integration/promotion-batches.ts": "365760d4a91a5692c56867c028313a917f599019e1f1c3624300030e7d107dcd",
+    "tests/integration/access.ts": "1c7578a8bd859bd37820ddcf676ba0d633333c7a27ced4d9cb6e99c84565a8cd",
+    "package.json": "5f3980ee43fee805efb4de3859b9f14af4fc51722e70b28c844c80c1ccbbd7de",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    ".github/workflows/quality.yml": "e92e9d04cd5e4ccd38856a96dc1506912c6e36c028ee9723ed28ff22ca4bca4d",
+    "deploy.md": "7199cc955b660aaf83e4199479a6ffb7d953547a6eb569bf3a1f4a21078b086b"
+  }
+}

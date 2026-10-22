@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback, relógio controlado e consultas de contato inteiramente sintéticas",
+  "checks": [
+    "Claim exige preflight habilitado; somente contato encontrado/desbloqueado produz conferência vinculada ao lote e versão local; receipt privado não guarda endereço/token/corpo.",
+    "Contato ausente, falha transitória e recusa definitiva seguram lote sem quota, criação de contato ou alteração de consentimento.",
+    "Bloqueio observado gera action própria, cancela marketing e lote sem inventar bounce/complaint; amostra solicitada permanece. Falha na auditoria reverte importação/outbox juntos.",
+    "Observação repetida não duplica auditoria; identidade local divergente não é suprimida nem criada; entrada manual não pode inventar action autenticada do provedor.",
+    "Descadastro durante GET não espera lock mantido em HTTP e vence o claim; lote cancelado não consulta contato nem usa quota.",
+    "Consulta lenta expira a conferência após cinco minutos antes da reserva; ausência de prova fresca não autoriza claim.",
+    "Mudança local após gravar conferência invalida o claim e preserva quota; downgrade recusa apagar/reclassificar observações do provedor."
+  ],
+  "externalCalls": false,
+  "messagesSent": 0,
+  "limits": "Preflight pontual obrigatório no claim interno; sem listas/campanhas, criação de contato, webhook, envio ou homologação de conta. Claim continua fora do worker."
+}

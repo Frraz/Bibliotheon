@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback, relógio controlado, fixtures sintéticas e confirmação em memória",
+  "checks": [
+    "Falha após criação do lote reverte lote e vínculos; etapas permanecem recuperáveis e não há antecipação.",
+    "Preparação concorrente cria três lotes distintos para revisão/contexto afiliado; dois destinatários da mesma cópia agrupados, sem endereços/tokens ou quota.",
+    "Coleção privada por Local API: anônimo não lê, owner lê mas não cria/altera estados operacionais.",
+    "Lote indivisível respeita reserva transacional, adia para próximo dia UTC e claim concorrente reserva uma única vez.",
+    "Falha no claim reverte quota/estado; supressão após preparação cancela antes de reservar; lote adiado é retomado sem dividir destinatários.",
+    "Oferta/campanha revalidada no claim; indisponibilidade cancela lote sem quota e permite novo agrupamento quando recuperada, preservando histórico."
+  ],
+  "promotionalSends": 0,
+  "externalCalls": false,
+  "limits": "Agrupamento/claim locais. Sem sincronização/lista/campanha Brevo, envio, aceitação, entrega ou conciliação de resultado incerto. Claim não conectado ao worker."
+}

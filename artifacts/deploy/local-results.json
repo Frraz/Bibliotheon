@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "Ferramentas de deploy, comandos e configuração locais; Git/Docker/HTTP de orquestração simulados",
+  "checks": {
+    "bashSyntax": true,
+    "pythonSyntax": true,
+    "cliMainAndAlias": true,
+    "realComposeNormalizedConfig": true,
+    "literalDollarPreserved": true,
+    "resticBinaryPathAndVersion": true,
+    "guideBashBlocks": 26,
+    "guidePythonBlocks": 4,
+    "guideJSONBlocks": 2,
+    "orchestrationTests": 23,
+    "applicationUnitTests": 29,
+    "typecheck": true,
+    "lintErrors": 0,
+    "lintWarnings": 2,
+    "documentationValidation": {
+      "documents": 47,
+      "localLinks": 302,
+      "externalURLsListed": 66,
+      "contrastPairs": 76
+    }
+  },
+  "remoteDeploy": false,
+  "realGitPull": false,
+  "realProductionBackup": false,
+  "containersStarted": false,
+  "limits": [
+    "Não homologa VPS/proxy/DNS/conta de backup reais.",
+    "Não revalida imagem/migrations/restore integrais do código atual.",
+    "Container temporário restic criado sem iniciar e removido; somente conferência de caminho/versão.",
+    "Produto completo continua com pendências em docs/23-estado-atual.md."
+  ],
+  "sha256": {
+    "deploy.md": "557f35bc97c724ee8108f304141edcb82e7612eba50c54f270ec8828884b74d9",
+    "atualizar.sh": "62714fbb3e13aa3643ba95534416484ecf07484bf960c791e64508dc0f4a9d31",
+    "altualizar.sh": "dab03cc9f45b12acd6e598f6d015bd681dc758d353aadfd20ac32fafaaa14737",
+    "ops/deploy.py": "aa0b0f4698f5fcbf1211e921420c62fead1095fea800ef50d11496510c574f15",
+    "tests/ops/test_deploy.py": "32c64051fc68145cf02064dc4ede57457f2cabaa7a77c64c53cfdd77d87b974a",
+    "scripts/qa-deploy-config.py": "39dec26f6251f30149fc19e99fbfe8172bbca213d19c77f8db6b3e91ddd8ea3c",
+    "scripts/validar_documentacao.py": "aeead40bc8072670c00e74936bdf2358560bedd0bafd6b15168b4bc3dd61cb87",
+    "scripts/check-local.sh": "53e3fd006169b87c85a49f81f7361a7216976cdf4c5dfdb7ddd421aa38499c98",
+    ".github/workflows/quality.yml": "f2b6ae8e10e406298e1c3159f694eb576dd988452e082f66fbdce8e4069820dc"
+  }
+}

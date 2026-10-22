@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "D49 fila de supressões outbound e cliente Brevo de consulta/bloqueio",
+  "runtime": {
+    "node": "v22.23.4",
+    "pnpm": "10.34.7"
+  },
+  "results": {
+    "migration": "nona migração aplicada apenas no PostgreSQL local",
+    "migrationReversalBackfill": "up/down/backfill com supressão anterior e bounce em transação explicitamente revertida; contato ativo não enfileirado",
+    "integrationGroups": 8,
+    "unitTests": 38,
+    "deploySimulatedTests": 25,
+    "marketingRegressionGroups": 11,
+    "sequenceRegressionGroups": 7,
+    "batchRegressionGroups": 6,
+    "typecheck": "passed",
+    "lint": "passed with two existing sequence migration warnings",
+    "frozenInstall": "passed",
+    "realComposeConfig": "passed; app/worker default flag false; no containers started",
+    "isolatedProductionBuild": "passed (.next-qa)",
+    "runtimeCli": "help/disabled passed; invalid enabled configuration and unknown argument exit=1; no provider calls",
+    "disabledWorker": "exits before getPayload/processing when both functions disabled",
+    "httpAccess": "passed on 127.0.0.1:3001; private collection access; owner suppression creates pending outbox with external sync disabled",
+    "publicSiteHttp": "passed on 127.0.0.1:3001",
+    "qaServer": "stopped after tests"
+  },
+  "officialSourcesRevalidated": [
+    "https://developers.brevo.com/reference/get-contact-info",
+    "https://developers.brevo.com/reference/update-contact"
+  ],
+  "limits": [
+    "Nenhum endpoint real de Brevo acessado; consultas públicas de documentação não são homologação da conta.",
+    "Nenhuma mensagem, oferta, venda, push, CI GitHub, VPS ou deploy nesta rodada.",
+    "Bloqueios outbound somente; inbound, listas/campanhas, preferências promocionais e conciliação de envio ainda pendentes.",
+    "Nova inscrição local não desbloqueia contato automaticamente; synced é observação pontual de marketing, não bloqueio transacional ou entrega.",
+    "Sem nova homologação visual ou imagem Docker; nove migrations e restore precisam de rodada de release.",
+    "Aviso pg/Drizzle de queries concorrentes persiste."
+  ],
+  "sha256": {
+    "src/integrations/brevo/contacts.ts": "4f1c8f4b9dd730327e5d54b8433e7c0ad574b5edabbfe44c9596d0f642df7d2e",
+    "src/modules/marketing/brevo-suppression.ts": "7dd3db4126250ef64e5240dbf9cc30d7a3800f5a311503bc8499511c83b3708b",
+    "src/modules/marketing/brevo-suppression-queue.ts": "6a2e033c46356bb433b1db76bbd648f83f0356c5abfe27af619ed983aad5df33",
+    "src/modules/marketing/service.ts": "9980222d907227b4107570476ebad5d720897e7b8608f88be4ecbc48ddf7566f",
+    "src/modules/marketing/suppression.ts": "ffb2d4ce8e18696e4fbd843aec9e7d6845dcc2ae40c2d2529f19d3d13034c891",
+    "src/collections/Relationship.ts": "72338c30ed03aed76ab18327d508b2c3763ea4cf5a6a395517ae05f2379ba7c8",
+    "src/collections/presentation.ts": "c6a1beeaac8ccf6e63f6aab6d06a107525a660aedda76b4c05c9f2e8826cdf3d",
+    "src/payload-types.ts": "429cbe8d6d682200a30367b5c3b6c3cdadf59238c5e44083ac750256e43901c4",
+    "migrations/20261022_053258_brevo_suppressions.ts": "5daaa090e23cd8958bad320b261e3e520f619e784b75fbc7f3b29197852b343c",
+    "migrations/20261022_053258_brevo_suppressions.json": "e2d4a011afc773cc3ad8217719cf0beea4e58fe218c23d8ff68a1fb1e3e90738",
+    "migrations/index.ts": "45fb0149caedc022302601f234be94ee31c631ccd8be3f0c17c7de5f555616d2",
+    "scripts/sync-brevo-suppressions.ts": "d69df0676c431e18fd9b365a4a248e794614ecb31d99d2c4acfe524e9021799b",
+    "scripts/worker.ts": "69438cd63c8e04d6487517f72c2d26ee48941e157b26f3938da72082a2211725",
+    "scripts/build-runtime.mjs": "793bee66d8f7f6336bcc8a557c7e9cb80d1eaf99b905c85fab376ecedec7ab20",
+    "scripts/qa-suppressions.ts": "b4e3711015d73b42729b94e163a165e64d35034364541dda3b87c28e2f1f17b0",
+    "scripts/qa-deploy-config.py": "9c98c6257f2f26b7cced470ccc865185588db43ea37c3cb6bcc11a9a9f015a7e",
+    "tests/unit/brevo-contacts.test.ts": "559da18d680c2a4ea91005faea5acad24fb1c0364fb314921ce11bef756eeeaa",
+    "tests/integration/brevo-suppressions.ts": "7464fb658b095073bdebd15d805fc9bbf2cb935707c2014f10dcea0773f97259",
+    "tests/integration/access.ts": "09b5b625eff85c456fcb9b0c60d238b5cfc9f721b2494ff533f67a59d5f1343b",
+    "tests/integration/marketing.ts": "a29315d621e8e5d3d2cfb3476b3397fbb4b174bf0251afae559c00bb03f4c034",
+    "tests/fixtures/relationship.ts": "6b9e3a0c44c3b88c1cb2ecbe29c71a6ec47be84abc3632ccc8136d47d0412bec",
+    "ops/deploy.py": "dcf17813e80315b617f69438ab597c6bc3a6338f3e2128428bb708ac280d4b36",
+    "tests/ops/test_deploy.py": "4bb49bf3815bc59804730cd5fabe2ebc20dd386577b18b76c82049c53558510b",
+    "compose.production.yaml": "2c9f5ef546ae72b9761d11ec8c55fb1e6c7d56c3a66837d77f5184581ae5f5f0",
+    ".env.example": "143c8c9ce4b51fcc5723a462df9d4ce86a0e8667a5b423a83605952b97741e91",
+    ".env.production.example": "04569dbdc6f32712107dfa17cdda450d4b2452d0982fa7976718c18483222d0f",
+    "package.json": "94a707d677e318d908b629a45fa41e8c0408a5fd13a1b2b55c417138203eb2b9",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    ".github/workflows/quality.yml": "79db7de802c1d0a5cff574bc09e595e63303faeedbe1240f007e91b4dbfff11c",
+    "deploy.md": "3b2b0884d773dd489a84c480515279991cb586cf25edc2f20b709378958e1a1d"
+  }
+}

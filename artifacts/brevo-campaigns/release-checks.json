@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "scope": "D55 criação/conciliação de rascunhos de campanhas, sem disparo",
+  "runtime": {
+    "node": "v22.23.4",
+    "pnpm": "10.34.7"
+  },
+  "results": {
+    "migration": "14a migração aplicada somente no PostgreSQL local; down/up vazio e guard contra perda de intenção/IDs em transações revertidas",
+    "integrationGroups": 8,
+    "unitTests": 64,
+    "deploySimulatedTests": 29,
+    "preferenceLinksRegressionGroups": 8,
+    "listRegressionGroups": 10,
+    "batchRegressionGroups": 6,
+    "typecheck": "passed after final guards",
+    "lint": "passed with two existing sequence migration warnings",
+    "isolatedProductionBuild": "passed .next-qa; final private CLI repacked after retry guard",
+    "realComposeConfig": "passed; campaign sync false on app/worker; no application containers started",
+    "runtimeCli": "help/disabled/invalid config and args checked before database/network; enabled packed CLI reconciled existing draft with all HTTP intercepted",
+    "httpAccess": "passed on 127.0.0.1:3001; anonymous reads/create denied and owner reads allowed for campaign drafts; owner Local API update denied in fixture",
+    "publicSiteHttp": "passed on 127.0.0.1:3001",
+    "qaServer": "stopped; port 3000 preview untouched"
+  },
+  "officialSourcesRevalidated": [
+    "https://developers.brevo.com/reference/create-email-campaign",
+    "https://developers.brevo.com/reference/get-email-campaign",
+    "https://developers.brevo.com/reference/get-email-campaigns",
+    "https://github.com/getbrevo/brevo-go/blob/main/docs/CreateEmailCampaignRecipients.md",
+    "https://github.com/getbrevo/brevo-go/blob/main/docs/GetCampaignRecipients.md",
+    "https://help.brevo.com/hc/en-us/articles/209553645-Insert-a-custom-unsubscribe-link-in-your-emails"
+  ],
+  "limits": [
+    "Nenhum endpoint/conta real Brevo, campanha externa, mensagem real, push/CI GitHub ou VPS.",
+    "Rascunho ready é observação pontual: nenhum sendNow, agendamento, teste de envio, PUT ou DELETE no adaptador; nenhum claim/quota promocional.",
+    "Remetente, HTML/placeholder e representação do GET exigem homologação na conta; divergências impedem ready.",
+    "Criação incerta não é repetida por ausência; órfãos/IDs conflitantes ficam sujeitos a inventário/retenção B12. Consulta paginada limitada localmente a mil campanhas de toda a conta.",
+    "Transporte, webhook/observação contínua e conciliação de envio permanecem pendentes.",
+    "Sem nova homologação visual/painel ou imagem/restore de quatorze migrações.",
+    "Sem nova instalação congelada; dependências/lockfile não alterados.",
+    "Aviso pg/Drizzle de queries concorrentes e dois avisos de lint anteriores persistem."
+  ],
+  "sha256": {
+    "src/integrations/brevo/campaigns.ts": "37aac7026dafdc8526e9fb8f0986818f2f2416cb6534e1aa6c35ff9897880c12",
+    "src/modules/marketing/campaign-copy.ts": "34181946f49af6c6a49c0ceed4c3d0e046d6b1e8a63b6e1ef5d1691c303312cf",
+    "src/modules/marketing/campaign-prerequisites.ts": "87dc30ba523116cafcc02785182f9c2671a2c0b04eedda640d2bdd6e27f23bf1",
+    "src/modules/marketing/batch-campaigns.ts": "9fc2b616e26fd54732ad7d9b07e16be0b5f88635f7817e6ae3d85856c9d53b29",
+    "src/collections/Relationship.ts": "4ccfa38bd928ef980292a21c4e7f889e3b852afcbbd6f9876fd08408597264c4",
+    "src/collections/presentation.ts": "cea71ea7a5f6e77fe692cf5f5ac8e7781db3e5f04e2b2b675dd3728b1c0aa4d6",
+    "src/payload-types.ts": "24d607269298fa56fbcac844659d3844f88ea25ae32bed0ea85a158ac50fed33",
+    "migrations/20261022_120651_brevo_campaign_drafts.ts": "577cc64c12e5197323487310a0f0a5707f68ea84c0324eef5df8bb401386b23f",
+    "migrations/20261022_120651_brevo_campaign_drafts.json": "a88a9d98a5f536eb01d5145b4e69dce3036539a31a85afa1c877ba2666edf5f3",
+    "migrations/index.ts": "f6ba57040b24c88c1b064e1ae5b15188ad287d37c63069e33bda6bab5711b451",
+    "scripts/prepare-brevo-campaign.ts": "4e1993f60e86f4e01480b35e8d94a3d2bb6e365905dd38fd73f00305db785303",
+    "scripts/build-runtime.mjs": "d81cd9cacc3298dbcc15bca3de06888bdd1aaa406c5c21ded2f203440d976a75",
+    "scripts/qa-deploy-config.py": "51e19c7f1efec1b685fc1b43e9011581524417d8a0ecea8190c9bb9a009d0028",
+    "tests/unit/brevo-campaigns.test.ts": "a12db209bae6e5b8ad34eb7536b8b3a831cfab2164cf5060ea1a8cd67c3f27a2",
+    "tests/integration/brevo-campaigns.ts": "ab83cd458614dbcb50a5ec1477ec820a3032aa232849354bcb4b548b0f7495df",
+    "tests/integration/access.ts": "af443511e6f7370b6945cea2a0220c67817de15248f9ecbfb4b4fb767ce991cd",
+    "tests/fixtures/relationship.ts": "c5016ae0e55a512afc37369bd307dfa1591c44a84787178f12da9f90c17fce86",
+    "tests/ops/test_deploy.py": "b8ebed3db03e3799ae226cd98b2a7e310057d3701f060a925c13ba253f6a883e",
+    "ops/deploy.py": "067e26ace59e9bafcff70d3e3942050bd89ce5475aef793a66b5528437112c7d",
+    ".env.example": "07ede914c06d45edea28d28dcda7936e2020cb4543ad4294648befb5e8573ed8",
+    ".env.production.example": "aae916b5f225ee19625c46ad76893dbdad96f7e0db8d4e2cb879767a28032da9",
+    "compose.production.yaml": "daec4e86e25ff19da52df97e02bf57c646822f1cb61cc6676a74716a809e2e3c",
+    "package.json": "2893a8670e28267e19831fd1d6dce0af8b1407dd3e921d5615243360a0fb0ede",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    ".github/workflows/quality.yml": "58ed0824b6450351c0c6adce909cee81bfca96b17ab4050c6445c132b445d5e2",
+    "deploy.md": "6ad0cbd31f46b6780645fcb238c3c758458bebf6eeae9e9187225efc362dd2a0"
+  }
+}

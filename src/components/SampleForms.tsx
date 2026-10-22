@@ -34,12 +34,12 @@ export function SampleForm({ magnetId, campaignCode }: { magnetId: string; campa
     <noscript><p>Ative o JavaScript para enviar este formulário. O catálogo e os links de compra continuam disponíveis.</p></noscript>
   </form>
 }
-export function TokenAction({ token, kind }: { token: string; kind: 'confirmation' | 'unsubscribe' }) {
+export function TokenAction({ token, kind, onSuccess }: { token: string; kind: 'confirmation' | 'unsubscribe'; onSuccess?: () => void }) {
   const [pending, setPending] = useState(false), [result, setResult] = useState<{ message?: string; downloadUrl?: string; title?: string } | null>(null), [error, setError] = useState('')
   async function act() {
     if (pending) return
     setPending(true); setError('')
-    try { setResult(await submit(kind === 'confirmation' ? '/api/v1/lead-confirmations' : '/api/v1/unsubscribe', { token })) }
+    try { setResult(await submit(kind === 'confirmation' ? '/api/v1/lead-confirmations' : '/api/v1/unsubscribe', { token })); onSuccess?.() }
     catch (error) { setError(error instanceof Error ? error.message : 'Não foi possível concluir. Tente novamente.') }
     finally { setPending(false) }
   }
@@ -51,4 +51,46 @@ export function TokenAction({ token, kind }: { token: string; kind: 'confirmatio
     {!token && <p role="alert">O link está incompleto. Abra o endereço completo recebido por e-mail.</p>}
     <noscript><p>Ative o JavaScript para confirmar esta ação. Abrir esta página não confirma o pedido nem altera suas preferências.</p></noscript>
   </div>
+}
+
+
+export function ThemePreferences({ token }: { token: string }) {
+  const [pending, setPending] = useState(false)
+  const [themes, setThemes] = useState<{ id: string; title: string }[] | null>(null)
+  const [message, setMessage] = useState(''), [error, setError] = useState('')
+  async function act(theme?: string) {
+    if (pending) return
+    setPending(true); setError(''); setMessage('')
+    try {
+      if (theme) {
+        const result = await submit('/api/v1/preferences', { token, action: 'unsubscribe-theme', theme })
+        setThemes(current => current?.filter(item => item.id !== theme) ?? null)
+        setMessage(result.message)
+      } else {
+        const result = await submit('/api/v1/preferences', { token, action: 'read' })
+        setThemes(result.themes)
+        if (result.suppressed) setMessage('O marketing por e-mail está bloqueado para este contato.')
+      }
+    } catch (error) { setError(error instanceof Error ? error.message : 'Não foi possível concluir. Tente novamente.') }
+    finally { setPending(false) }
+  }
+  return <div className="sample-form" aria-busy={pending}>
+    <h2>Escolher por assunto</h2>
+    <p>Consulte suas assinaturas e cancele apenas os assuntos que quiser. Para assinar novamente, solicite uma amostra com a opção de marketing e confirme o novo pedido.</p>
+    {themes === null && <button type="button" className="button" disabled={pending || !token} onClick={() => act()}>{pending ? 'Consultando…' : 'Consultar minhas assinaturas'}</button>}
+    {themes?.map(theme => <div key={theme.id}><p>{theme.title}</p><button type="button" className="button" disabled={pending} onClick={() => act(theme.id)} aria-label={`Cancelar e-mails sobre ${theme.title}`}>Cancelar este assunto</button></div>)}
+    {themes?.length === 0 && <p>Não há assinaturas de assuntos ativas.</p>}
+    <p role="status" aria-live="polite">{message}</p>
+    {error && <p role="alert">{error}</p>}
+  </div>
+}
+
+
+export function PreferencesActions({ token }: { token: string }) {
+  const [canceled, setCanceled] = useState(false)
+  return <>
+    {!canceled && <ThemePreferences token={token} />}
+    <h2>Cancelar todo o marketing</h2>
+    <TokenAction token={token} kind="unsubscribe" onSuccess={() => setCanceled(true)} />
+  </>
 }

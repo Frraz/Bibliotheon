@@ -33,9 +33,9 @@ class DeploymentTests(unittest.TestCase):
         backup.chmod(0o600)
         self.config = {'env_file': str(self.env_file), 'branch': 'main', 'worker': False, 'backup_env': str(backup), 'health_timeout': 1, 'min_memory_mb': 1, 'min_disk_mb': 1, 'public_health': True}
         self.candidate = {'name': 'bibliotheon', 'services': {
-            'app': {'read_only': True, 'ports': [{'host_ip': '127.0.0.1', 'published': '33001'}], 'environment': {'PAYLOAD_SECRET': 'a'*64, 'LEAD_TOKEN_SECRET': 'b'*64, 'PUBLIC_SITE_URL': 'https://example.invalid', 'DATABASE_URL': 'runtime-private', 'EMAIL_TRANSPORT_ENABLED': 'false'}},
-            'db': {'image': 'postgres@sha256:'+'d'*64, 'environment': {'POSTGRES_PASSWORD': 'synthetic-only'}, 'volumes': [{'source': 'database'}]},
-            'migrate': {'environment': {'DATABASE_URL': 'owner-private'}}, 'worker': {'read_only': True}}, 'volumes': {'database': {'name': 'bibliotheon_database'}, 'media': {'name': 'bibliotheon_media'}}}
+            'app': {'read_only': True, 'volumes': [{'type': 'volume', 'source': 'media', 'target': '/app/uploads'}], 'ports': [{'host_ip': '127.0.0.1', 'published': '33001'}], 'environment': {'PAYLOAD_SECRET': 'a'*64, 'LEAD_TOKEN_SECRET': 'b'*64, 'PUBLIC_SITE_URL': 'https://example.invalid', 'DATABASE_URL': 'postgresql://bibliotheon_runtime:synthetic-runtime@db:5432/bibliotheon', 'EMAIL_TRANSPORT_ENABLED': 'false'}},
+            'db': {'image': 'postgres@sha256:'+'d'*64, 'environment': {'POSTGRES_PASSWORD': 'synthetic-only', 'DB_RUNTIME_PASSWORD': 'synthetic-runtime'}, 'volumes': [{'source': 'database'}]},
+            'migrate': {'environment': {'DATABASE_URL': 'postgresql://bibliotheon_owner:synthetic-only@db:5432/bibliotheon'}}, 'worker': {'read_only': True}}, 'volumes': {'database': {'name': 'bibliotheon_database'}, 'media': {'name': 'bibliotheon_media'}}}
         self.commit = 'a'*40
         self.calls = []
         self.fail = lambda argv: False
@@ -46,6 +46,7 @@ class DeploymentTests(unittest.TestCase):
         self.root_patch = patch.object(deploy, 'ROOT', self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)
+        self.real_command = deploy.command
         self.cmd_patch = patch.object(deploy, 'command', self.command)
         self.cmd_patch.start()
         self.addCleanup(self.cmd_patch.stop)
@@ -57,8 +58,21 @@ class DeploymentTests(unittest.TestCase):
         self.calls.append(list(argv))
         if self.fail(argv):
             raise deploy.DeployError('synthetic failure')
+        if 'backup' in argv:
+            return json.dumps({'status': 'backup_encrypted', 'external': True, 'snapshot': 'f'*64, 'capturedAt': '2026-10-22T01:00:00Z', 'durationSeconds': 1})
+        if 'cli/media-gc.js' in argv:
+            return json.dumps({'mode': 'apply', 'scanned': 0, 'referenced': 0, 'candidates': 0, 'eligible': 0, 'removed': 0, 'skipped': 0})
         if argv[:3] == ['git', 'rev-parse', 'HEAD']:
             return self.commit
+        if argv == ['git', 'rev-parse', 'FETCH_HEAD']:
+            return self.commit
+        if argv == ['git', 'rev-parse', '--show-toplevel']:
+            return str(self.root)
+        if argv == ['git', 'branch', '--show-current']:
+            return 'main'
+        if argv[:2] == ['git', 'pull']:
+            self.assertEqual(kwargs['env']['GIT_TERMINAL_PROMPT'], '0')
+            self.assertIn('BatchMode=yes', kwargs['env']['GIT_SSH_COMMAND'])
         if argv[:3] == ['docker', 'ps', '-aq'] or argv[:3] == ['docker', 'volume', 'ls']:
             return 'existing-resource' if self.existing else ''
         if argv[:3] == ['docker', 'image', 'inspect']:
@@ -72,7 +86,8 @@ class DeploymentTests(unittest.TestCase):
                 return 'e'*64
         return ''
 
-    def ready(self, *_):
+    def ready(self, url, *_):
+        self.calls.append(['http-ready', url])
         if self.fail_health:
             raise deploy.DeployError('synthetic readiness failure')
 
@@ -99,6 +114,7 @@ class DeploymentTests(unittest.TestCase):
         current = json.loads((self.state / 'current.json').read_text())
         self.assertEqual(current['commit'], self.commit)
         self.assertTrue(Path(current['previous']).is_file())
+        self.assertEqual(current['backup_snapshot'], 'f'*64)
         self.assertEqual(Path(current['compose_file']).stat().st_mode & 0o077, 0)
         self.assertFalse(self.contains('up', 'worker'))
 
@@ -172,13 +188,216 @@ class DeploymentTests(unittest.TestCase):
         self.assertTrue((self.state / 'current.json').exists())
 
     def test_raw_output_is_not_persisted_in_log(self):
-        with patch.object(deploy, 'command', spec.loader.load_module if False else self.cmd_patch.temp_original):
+        with patch.object(deploy, 'command', self.real_command):
             log = self.base / 'log'
             with patch.object(deploy.subprocess, 'run', return_value=subprocess.CompletedProcess(['tool'], 1, b'private-token', b'private-address')):
                 with self.assertRaises(deploy.DeployError):
                     deploy.command(['tool'], log=log)
             self.assertNotIn('private-token', log.read_text())
             self.assertNotIn('private-address', log.read_text())
+
+    def test_daily_backup_does_not_pull_build_or_migrate(self):
+        self.initial()
+        self.calls.clear()
+        deploy.backup_current(self.config, self.state)
+        self.assertTrue((self.state / 'last-backup.json').is_file())
+        self.assertTrue((self.state / 'last-media-gc.json').is_file())
+        backup = next(i for i, argv in enumerate(self.calls) if 'backup' in argv)
+        gc = next(i for i, argv in enumerate(self.calls) if 'cli/media-gc.js' in argv)
+        self.assertLess(backup, gc)
+        self.assertFalse(self.contains('build'))
+        self.assertFalse(self.contains('git'))
+        self.assertFalse(self.contains('migrate'))
+        self.assertTrue(self.contains('up', 'app'))
+
+    def test_daily_backup_failure_resumes_existing_app(self):
+        self.initial()
+        self.calls.clear()
+        self.fail = lambda argv: 'backup' in argv
+        with self.assertRaises(deploy.DeployError):
+            deploy.backup_current(self.config, self.state)
+        self.assertTrue(self.contains('up', 'app'))
+        self.assertFalse((self.state / 'last-backup.json').exists())
+
+    def test_dirty_checkout_blocks_before_pull(self):
+        def fake(argv, **kwargs):
+            if argv == ['git', 'status', '--porcelain']:
+                return ' M file'
+            return self.command(argv, **kwargs)
+        with patch.object(deploy, 'read_config', return_value=(self.config, self.state)), patch.object(deploy, 'command', side_effect=fake), patch.object(deploy.sys, 'argv', ['deploy.py']), patch.object(deploy, 'apply') as apply:
+            with self.assertRaisesRegex(deploy.DeployError, 'alterações locais'):
+                deploy.main()
+            apply.assert_not_called()
+        self.assertFalse(self.contains('pull'))
+
+    def test_git_pull_is_fast_forward_and_noninteractive(self):
+        with patch.object(deploy, 'read_config', return_value=(self.config, self.state)), patch.object(deploy.sys, 'argv', ['deploy.py']), patch.object(deploy, 'apply') as apply, patch.dict(os.environ, {}, clear=True):
+            deploy.main()
+            apply.assert_called_once()
+        self.assertTrue(self.contains('git', 'pull', '--ff-only', 'origin', 'main'))
+
+    def test_parallel_update_refused_by_real_file_lock(self):
+        import fcntl
+        with (self.state / 'deploy.lock').open('a') as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            with patch.object(deploy, 'read_config', return_value=(self.config, self.state)), patch.object(deploy.sys, 'argv', ['deploy.py']):
+                with self.assertRaisesRegex(deploy.DeployError, 'Outra atualização'):
+                    deploy.main()
+
+    def test_daily_backup_failed_resume_preserves_checkpoint(self):
+        self.initial()
+        self.fail = lambda argv: 'up' in argv and 'app' in argv
+        with self.assertRaises(deploy.DeployError):
+            deploy.backup_current(self.config, self.state)
+        self.assertEqual(json.loads((self.state / 'in-progress.json').read_text())['phase'], 'backup-only')
+
+    def test_wrong_database_and_media_rejected(self):
+        self.candidate['services']['migrate']['environment']['DATABASE_URL'] = 'postgresql://bibliotheon_owner:synthetic-only@other-host:5432/bibliotheon'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        self.candidate['services']['migrate']['environment']['DATABASE_URL'] = 'postgresql://bibliotheon_owner:synthetic-only@db:5432/bibliotheon'
+        self.candidate['services']['app']['volumes'][0]['source'] = 'other-volume'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_worker_only_starts_after_app_health(self):
+        self.config['worker'] = True
+        self.candidate['services']['app']['environment']['EMAIL_TRANSPORT_ENABLED'] = 'true'
+        self.initial()
+        app = next(i for i,c in enumerate(self.calls) if 'up' in c and 'app' in c)
+        worker = next(i for i,c in enumerate(self.calls) if 'up' in c and 'worker' in c)
+        self.assertLess(app, worker)
+        health = next(i for i,c in enumerate(self.calls) if 'http-ready' in c)
+        self.assertLess(health, worker)
+        self.assertEqual(json.loads((self.state / 'current.json').read_text())['worker'], True)
+
+    def test_worker_failure_preserves_pending_and_stops_application(self):
+        self.config['worker'] = True
+        self.candidate['services']['app']['environment']['EMAIL_TRANSPORT_ENABLED'] = 'true'
+        self.fail = lambda argv: 'up' in argv and 'worker' in argv
+        with self.assertRaises(deploy.DeployError):
+            self.initial()
+        self.assertTrue(self.contains('stop', 'app', 'worker'))
+        self.assertTrue((self.state / 'in-progress.json').exists())
+
+    def test_resources_below_threshold_do_not_stop_old_app(self):
+        self.update()
+        self.config['min_memory_mb'] = 2**63
+        with self.assertRaisesRegex(deploy.DeployError, 'RAM/disco'):
+            deploy.apply(self.config, self.state)
+        self.assertFalse(self.contains('stop'))
+        self.assertFalse(self.contains('build'))
+
+    def test_private_configuration_permissions_and_paths(self):
+        values = {**self.config, 'state_dir': str(self.state)}
+        file = self.base / 'deploy.json'
+        file.write_text(json.dumps(values))
+        file.chmod(0o600)
+        config, state = deploy.read_config(file)
+        self.assertEqual(state, self.state)
+        self.assertFalse(config['worker'])
+        file.chmod(0o644)
+        with self.assertRaises(deploy.DeployError):
+            deploy.read_config(file)
+        file.chmod(0o600)
+        values['state_dir'] = 'relative-path'
+        file.write_text(json.dumps(values))
+        with self.assertRaisesRegex(deploy.DeployError, 'absolutos'):
+            deploy.read_config(file)
+
+    def test_resolved_compose_preserves_literal_dollars(self):
+        value = {'environment': {'TOKEN': 'synthetic$TOKEN$$literal'}, 'command': ['echo', '$VALUE']}
+        encoded = deploy.compose_literals(value)
+        self.assertEqual(encoded['environment']['TOKEN'], 'synthetic$$TOKEN$$$$literal')
+        self.assertEqual(deploy.compose_literals(encoded, escape=False), value)
+
+    def test_local_commit_ahead_of_remote_does_not_deploy(self):
+        def fake(argv, **kwargs):
+            if argv == ['git', 'rev-parse', 'FETCH_HEAD']:
+                return 'b'*40
+            return self.command(argv, **kwargs)
+        with patch.object(deploy, 'read_config', return_value=(self.config, self.state)), patch.object(deploy, 'command', side_effect=fake), patch.object(deploy.sys, 'argv', ['deploy.py']), patch.object(deploy, 'apply') as apply:
+            with self.assertRaisesRegex(deploy.DeployError, 'commits locais'):
+                deploy.main()
+            apply.assert_not_called()
+
+    def test_media_gc_failure_resumes_app_and_preserves_confirmed_backup(self):
+        self.initial()
+        self.calls.clear()
+        self.fail = lambda argv: 'cli/media-gc.js' in argv
+        with self.assertRaises(deploy.DeployError):
+            deploy.backup_current(self.config, self.state)
+        self.assertTrue((self.state / 'last-backup.json').is_file())
+        self.assertFalse((self.state / 'last-media-gc.json').exists())
+        self.assertTrue(self.contains('up', 'app'))
+        self.assertFalse((self.state / 'in-progress.json').exists())
+
+
+    def test_contact_sync_worker_can_run_without_email_transport(self):
+        self.config['worker'] = True
+        self.candidate['services']['app']['environment']['BREVO_CONTACT_SYNC_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        self.candidate['services']['app']['environment']['BREVO_API_KEY'] = 'synthetic-only-key'
+        deploy.validate_compose(self.candidate, self.config)
+        self.candidate['services']['app']['environment']['BREVO_CONTACT_SYNC_ENABLED'] = 'false'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+
+    def test_registration_worker_requires_suppression_channel_and_link_secret(self):
+        self.config['worker'] = True
+        values = self.candidate['services']['app']['environment']
+        values.update({'EMAIL_TRANSPORT_ENABLED': 'true', 'BREVO_CONTACT_REGISTRATION_ENABLED': 'true'})
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'BREVO_CONTACT_SYNC_ENABLED': 'true', 'BREVO_API_KEY': 'synthetic-only-key'})
+        deploy.validate_compose(self.candidate, self.config)
+        values['LEAD_TOKEN_SECRET'] = ''
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+
+    def test_campaign_send_requires_draft_pipeline(self):
+        values = self.candidate['services']['app']['environment']
+        values['BREVO_CAMPAIGN_SEND_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'BREVO_CONTACT_SYNC_ENABLED': 'true', 'BREVO_LIST_SYNC_ENABLED': 'true', 'BREVO_PREFERENCE_SYNC_ENABLED': 'true', 'BREVO_CAMPAIGN_SYNC_ENABLED': 'true', 'BREVO_API_KEY': 'synthetic', 'BREVO_LIST_FOLDER_ID': '10', 'BREVO_CAMPAIGN_SENDER_ID': '20', 'LEAD_TOKEN_SECRET': 'synthetic-links-key-private-at-least-32-bytes'})
+        deploy.validate_compose(self.candidate, self.config)
+
+    def test_campaign_drafts_require_dependencies_and_sender_id(self):
+        values = self.candidate['services']['app']['environment']
+        values['BREVO_CAMPAIGN_SYNC_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'BREVO_CONTACT_SYNC_ENABLED': 'true', 'BREVO_LIST_SYNC_ENABLED': 'true', 'BREVO_PREFERENCE_SYNC_ENABLED': 'true', 'BREVO_API_KEY': 'synthetic', 'BREVO_LIST_FOLDER_ID': '10', 'BREVO_CAMPAIGN_SENDER_ID': '20', 'LEAD_TOKEN_SECRET': 'synthetic-links-key-private-at-least-32-bytes'})
+        deploy.validate_compose(self.candidate, self.config)
+        values['BREVO_CAMPAIGN_SENDER_ID'] = '1e2'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_preference_sync_requires_suppression_and_private_keys(self):
+        values = self.candidate['services']['app']['environment']
+        values['BREVO_PREFERENCE_SYNC_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'BREVO_CONTACT_SYNC_ENABLED': 'true', 'BREVO_API_KEY': 'synthetic-only-key', 'LEAD_TOKEN_SECRET': 'synthetic-only-links-key-at-least-32-bytes'})
+        deploy.validate_compose(self.candidate, self.config)
+        values['LEAD_TOKEN_SECRET'] = ''
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_list_sync_requires_explicit_folder_and_suppression_channel(self):
+        values = self.candidate['services']['app']['environment']
+        values['BREVO_LIST_SYNC_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'BREVO_CONTACT_SYNC_ENABLED': 'true', 'BREVO_LIST_FOLDER_ID': '100', 'BREVO_API_KEY': 'synthetic-only-key'})
+        deploy.validate_compose(self.candidate, self.config)
+        values['BREVO_LIST_FOLDER_ID'] = '1e2'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
 
 
 if __name__ == '__main__':

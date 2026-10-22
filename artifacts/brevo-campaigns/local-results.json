@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback; contratos HTTP sintéticos; CLI empacotado interceptado",
+  "checks": [
+    "Migração vazia down/up revertida; desativação sem banco; concorrência cria um rascunho e retenção de ID/cópia sem tokens ou destinatários no manifesto.",
+    "Criação com resposta perdida reconcilia nome/ID sem outro POST; ausência posterior não autoriza recriar e ID estrangeiro não é adotado.",
+    "ID retornado é persistido antes de GET falhar; cópia alterada no provedor bloqueia sem PUT ou nova criação.",
+    "ID retornado já vinculado a outro lote é retido no inventário sem quebrar unicidade nem apropriar campanha alheia.",
+    "Recusa explícita permanece até retry privado; somente criação recusada sem ID pode renovar a intenção de POST.",
+    "Descadastro durante POST impede ready e conserva ID do rascunho órfão; nenhuma promoção é reservada/agendada/enviada.",
+    "Lease expirado recupera rascunho pelo nome e resposta antiga não sobrescreve conclusão; GET/provas expirados não renovam validade.",
+    "Guard de downgrade e API owner protegem manifesto; CLI empacotado habilitado usa apenas HTTP sintético interceptado e não faz claim."
+  ],
+  "externalCalls": false,
+  "realMessagesSent": 0,
+  "limits": "Rascunho ready não autoriza sendNow. Conta/remetente/HTML/placeholder e controles da campanha exigem homologação; sem teste de disparo, webhook ou resultados reais."
+}

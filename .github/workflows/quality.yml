@@ -22,6 +22,7 @@ jobs:
       TZ: America/Belem
       DATABASE_URL: postgresql://bibliotheon:synthetic-ci-only@127.0.0.1:55432/bibliotheon
       PAYLOAD_SECRET: synthetic-ci-only-not-used-outside-disposable-ci
+      LEAD_TOKEN_SECRET: synthetic-ci-links-only-not-used-outside-disposable-ci
       PUBLIC_SITE_URL: http://127.0.0.1:3000
       CHECKOUT_ALLOWED_HOSTS_HOTMART: pay.example.invalid
       CHECKOUT_ALLOWED_HOSTS_KIWIFY: pay.example.invalid
@@ -38,11 +39,22 @@ jobs:
           npm run generate:importmap
           git diff --exit-code -- src/payload-types.ts 'src/app/(payload)/admin/importMap.js'
       - run: python3 scripts/validar_documentacao.py
+      - name: Testar orquestração de deploy sem serviços reais
+        run: python3 -m unittest discover -s tests/ops -p 'test_*.py'
       - run: npm run lint && npm run typecheck && npm test
       - run: node node_modules/payload/bin.js migrate
       - run: npm run test:catalog
+      - run: npm run test:media
       - run: npm run test:marketing
       - run: npm run test:sequences
+      - run: npm run test:batches
+      - run: npm run test:brevo-sync
+      - run: npm run test:preflight
+      - run: npm run test:brevo-contacts
+      - run: npm run test:brevo-lists
+      - run: npm run test:preferences
+      - run: npm run test:brevo-preferences
+      - run: npm run test:brevo-campaigns
       - run: npm run build
       - name: Integração REST e Local API
         run: |

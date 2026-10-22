@@ -39,6 +39,26 @@ Se evento antigo reaparece, preservar histórico e impedir regressão. Conflito 
 
 Fila parada: verificar quota, autenticação, DNS e status do fornecedor. Suspender marketing se houver reclamações ou bounce alto, mantendo tratamento do problema. Priorizar confirmações. Em timeout após possível aceitação, consultar provedor antes de reenviar. Descadastro local vale mesmo com falha da API externa; worker checa supressão antes de cada envio.
 
+## Pendências de bloqueio Brevo
+
+A fila privada brevo-suppressions é gravada no mesmo commit do descadastro/supressão local. Conferir estado, próxima tentativa e último resultado pelo painel: pending aguarda/reconcilia; processing tem lease de 30 minutos; synced confirma bloqueio/ausência naquela consulta; failed exige intervenção. Corrigir chave/permissão/configuração sem expor valores; só então executar brevo:suppressions --retry-failed pelo CLI privado conforme [execução](20-execucao-local.md). Não editar estados nem desbloquear contatos no provedor para eliminar pendência.
+
+Timeout/429/5xx têm backoff limitado a 6 horas, sem devolução/consumo de quota de mensagens. Alterações externas posteriores não são cobertas pela observação synced: futuras campanhas exigem preflight e sincronização inbound. Nova inscrição local não reativa automaticamente uma blacklist do Brevo. Bloqueio externo de marketing não equivale a bloqueio transacional. Nenhum envio promocional implementado nesta rotina.
+
+## Cadastro externo e compensações
+
+A fila brevo-registrations nasce no commit do consentimento confirmado; só o owner lê e o processamento altera. pending aguarda; processing usa lease de 30 minutos; synced é conferência de contato, não envio; failed exige correção/retry; canceled encerra criação; canceling mantém proteção contra POST tardio após descadastro. Um 404 não prova que cadastro incerto nunca será aplicado. Manter canal de bloqueios/chave privada de links ativos para drenar compensações, mesmo se desativar novos cadastros.
+
+Revisar recusas definitivas no provedor antes de brevo:contacts --retry-failed pelo CLI privado. Não editar estado para synced ou desbloquear contato para eliminar erro. identity_changed não tem retry automático: troca de endereço não é operação disponível na API do produto; investigar e corrigir identidade/objeto externo sem presumir destinatário. Canceling usa backoff até seis horas e só GET/PUT; registros persistentes exigem revisão da conta, sem apagar tentativas. Homologar automações externas antes de ativar cadastro. Ver [execução](20-execucao-local.md).
+
+## Listas por lote no Brevo
+
+Fila privada brevo-batch-lists: creating/filling são intenções com lease de 30 minutos; uncertain exige reconferência; failed indica conflito/recusa/preferência não resolvida; ready é composição pontual e canceled mantém evidência/ID. Cli opera um lote com configuração privada conforme [execução](20-execucao-local.md). Não incluir campanhas automáticas na pasta dedicada. O worker ainda não prepara listas nem dispara campanhas.
+
+Criação sem resposta/ID: conferir nome exclusivo e pasta na conta; repetir depois da próxima conferência busca o objeto sem outro POST. Se necessário, --list-id com ID revisado confere metadados antes de usar. Somente recusa explícita de criação admite --retry-rejected após corrigir configuração. Inclusões incertas não são repetidas: revisar membros/preferências no provedor; depois de composição reparada pelo operador, o CLI observa e confirma. Campos opcionais de preferência ausentes bloqueiam ready até homologação, sem adivinhar consentimento.
+
+Destinatário extra ou nome/pasta divergente interrompe; não apagar terceiros para fazer o teste passar. Preservar IDs de listas canceladas/órfãs e inventariar para futura retenção B12. Consulta de pasta acima do limite local de 1000 exige revisão/rotação/retenção, sem concluir ausência. Ao trocar pasta, respeitar a pasta original dos manifestos existentes. Nenhum envio é autorizado apenas por ready.
+
 ## Restauração
 
 1. Selecionar snapshot/dump e manifesto compatíveis, obter chave fora do servidor.
@@ -54,3 +74,17 @@ Após restaurar backup antigo, reaplicar exclusões e supressões ocorridas depo
 Diária: saúde, fila, falhas de envio, backup e espaço. Semanal: conciliação, revisão comercial, pendências e atualizações de segurança. Mensal: restauração, revisão de retenção, custos e capacidade. Não instalar uma pilha pesada de observabilidade no início; usar healthchecks, métricas do host e alerta externo por canal do proprietário.
 
 Logs estruturados: requestId, tipo, resultado, duração, código de erro e ID interno não pessoal. Sem corpo completo, e-mail, tokens, URLs de preferência ou headers sensíveis. Alertas identificam problema e ação, não compradores.
+
+
+### Preparação dos links de preferências Brevo (D54)
+
+Criar/homologar na conta o atributo BIBLIOTHEON_PREFERENCES normal/text antes de habilitar BREVO_PREFERENCE_SYNC_ENABLED, com bloqueios e chave de links válidos. CLI privado prepara um lote já elegível, consulta antes de atualizar e reconfirma por GET. Falha de schema/identidade/valor não autoriza campanha; corrigir origem, atributo, permissões ou bloqueios sem imprimir contatos/links/chaves. Campo não é reativação. O worker não executa esta operação.
+
+Chave alterada ou expiração próxima cria nova intenção; hashes antigos permanecem até a validade original. Backups/retomada devem preservar registros de tokens junto das demais intenções. preferenceCheck é pontual: futuro envio exige revisão fresca e homologação do placeholder no template. Sem disparar teste com destinatário real por meio desta CLI.
+
+
+### Rascunhos Brevo e resposta de criação incerta (D55)
+
+Habilitar BREVO_CAMPAIGN_SYNC_ENABLED apenas após homologar listas/preferências/bloqueios e BREVO_CAMPAIGN_SENDER_ID. CLI privada prepara rascunho sem disparar. Inspecionar manifesto/estado: resultado incerto reconcilia nome ou --campaign-id revisado e confere cópia/remetente/lista/status, sem recriar por simples ausência. Criação explicitamente recusada sem ID permite --retry-rejected após corrigir configuração; opção não vale para timeout.
+
+ID retido e observedIds preservam referência após descadastro, falha de GET ou colisão entre lotes. Não apagar/editá-los para forçar sucesso. Campanha com cópia/lista/status alterados não é sobrescrita automaticamente. Inventariar órfãos e revisar a consulta ao aproximar o limite local de mil campanhas (B12), que inclui toda a conta; consultas incompletas não provam ausência. Futuro transporte exigirá nova conferência e gate próprio, inclusive bloqueios observados fora da aplicação.

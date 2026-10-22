@@ -13,7 +13,7 @@ const browser = await chromium.launch()
 let isolated = false
 await mkdir(output, { recursive: true })
 try {
-  for (const collection of ['contacts', 'consent-events'] as const) assert.equal((await payload.count({ collection, overrideAccess: true })).totalDocs, 0, 'Use banco operacional vazio.')
+  for (const collection of ['contacts', 'consent-events', 'brevo-suppressions', 'brevo-registrations'] as const) assert.equal((await payload.count({ collection, overrideAccess: true })).totalDocs, 0, 'Use banco operacional vazio.')
   isolated = true
   const anonymous = await fetch(endpoint, { method: 'POST', headers: { Origin: testOrigin, 'Content-Type': 'application/json' }, body: '{}' })
   assert.equal(anonymous.status, 403)
@@ -103,6 +103,8 @@ try {
   if (isolated) {
     const created = await payload.find({ collection: 'contacts', where: { email: { contains: `-${suffix}@example.invalid` } }, limit: 100, overrideAccess: true })
     for (const contact of created.docs) {
+      await payload.delete({ collection: 'brevo-registrations', where: { contact: { equals: contact.id } }, overrideAccess: true })
+      await payload.delete({ collection: 'brevo-suppressions', where: { contact: { equals: contact.id } }, overrideAccess: true })
       await payload.delete({ collection: 'consent-events', where: { contact: { equals: contact.id } }, overrideAccess: true })
       await payload.delete({ collection: 'contacts', id: contact.id, overrideAccess: true })
     }

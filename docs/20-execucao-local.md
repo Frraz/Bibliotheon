@@ -2,6 +2,8 @@
 
 [Índice](../README.md) · [Evidências](19-desenvolvimento.md)
 
+Este documento atende ao desenvolvimento/QA local. Para clone na VPS, configuração privada e atualização automática, seguir [deploy.md](../deploy.md); não usar compose.local.yaml em produção. Atualizar.sh/altualizar.sh e seus testes não dependem de Node instalado no host da VPS, mas exigem Python/Docker/Git e configuração inicial conforme o guia.
+
 ## Pré-requisitos
 
 Node 22.23.3, pnpm 10.34.7 e Docker com Compose. Nenhuma conta externa é necessária para os testes sintéticos. O banco local possui nome/volume exclusivos e escuta apenas em loopback na porta 55432. Não use esse Compose na VPS.
@@ -121,3 +123,50 @@ Executar contra banco sintético vazio e um único ensaio de fixtures por vez. O
 Supressão e recuperação administrativa têm comandos nas seções próprias. Para empacotar CLIs, executar `node scripts/build-runtime.mjs`; saídas em .release, usadas pela imagem. `npm run build` gera Next standalone; sozinho não homologa o pacote Docker. Nenhuma dessas instruções exige credenciais reais para ensaios sintéticos.
 
 Os patches pnpm de @payloadcms/ui, @payloadcms/next e @payloadcms/richtext-lexical 3.91.0 ficam em patches, referenciados por package.json/lockfile. Preservam controles nativos e corrigem problemas de acessibilidade/teclado identificados no QA. Não copiar uma pasta de patch antiga por cima da revisão atual. Após atualização de dependência/patch, instalar com lockfile, reconstruir saída isolada e repetir os fluxos afetados; remover patch só após evidência de correção upstream. Um 500 anterior de contexto da listagem não se repetiu no build limpo, mas sua causa específica não foi confirmada.
+
+## Integridade de mídia
+
+npm run test:media usa somente PostgreSQL loopback sem owner, arquivos sintéticos e diretório temporário exclusivo; executar sequencialmente com as outras fixtures. npm run media:gc apenas inspeciona; npm run media:gc -- --apply registra candidatos e só apaga órfãos após 24h desde primeira observação. O CLI empacotado é .release/media-gc.js após node scripts/build-runtime.mjs. Em produção, seguir o backup/lock do [guia](../deploy.md), evitando coleta manual concorrente com a cópia. Não usar essa rotina como substituta da retenção B12.
+
+## Lotes promocionais locais
+
+npm run test:batches usa fixtures sintéticas e banco loopback sem owner/dados operacionais; executar sequencialmente com marketing/sequências. npm run promotions:prepare agora prepara etapas e persiste lotes, retornando contagens examined/batches/recipients. A preparação não envia nem consome quota. Claim é função interna de domínio, sem endpoint/CLI público e fora do worker enquanto transporte/sincronização/conciliação não existirem. Testes não homologam conta ou remetente Brevo.
+
+## Bloqueios outbound Brevo
+
+npm run test:brevo-sync usa banco loopback vazio e HTTP/cliente sintéticos, sem acesso ao provedor. Executar sequencialmente com as demais fixtures. npm run brevo:suppressions (runtime: node cli/sync-brevo-suppressions.js) consulta no máximo 25 pendências; desligado por padrão, retorna enabled=false sem acessar banco ou rede. Com BREVO_CONTACT_SYNC_ENABLED=true e BREVO_API_KEY privada, fará consultas/bloqueios reais; somente após homologação/autorização operacional. Configuração ativada inválida retorna erro genérico.
+
+-- --retry-failed reabre até 100 recusas definitivas após correção e executa o mesmo lote limitado; não limpa consentimento nem bloqueios. Fila e estados aparecem no painel do owner somente para leitura. Sem e-mail habilitado, o worker pode operar apenas essa sincronização; nenhum sender é usado em GET/PUT de contatos. Não usar a flag para habilitar envio promocional: este continua sem transporte.
+
+## Conferência de destinatários
+
+npm run test:preflight usa PostgreSQL loopback e consultas sintéticas; executar sequencialmente com as demais fixtures. claimPromotionBatch agora exige preflight: cliente desativado/chave privada de links ausente não reserva; um cliente sintético é injetado somente nos testes. A função não está ligada ao worker e não possui endpoint público de execução. Com integração configurada, consultas usarão a API real de contatos; manter flag desligada até homologação. Receipt da conferência é privado, não contém endereço/token e expira em cinco minutos.
+
+Décima migração adiciona providerCheck/action/códigos de pendência. Seu down recusa remover/reclassificar observações novas ou códigos em uso: não apagar auditoria para forçar rollback; seguir correção progressiva e procedimento de recuperação.
+
+## Cadastro consentido Brevo
+
+npm run test:brevo-contacts primeiro empacota CLIs, usa PostgreSQL loopback e HTTP totalmente sintético e exercita também o CLI habilitado com fetch interceptado; executar sequencialmente com as demais fixtures. npm run brevo:contacts (runtime node cli/sync-brevo-registrations.js) fica desativado por padrão e retorna contagens sem banco/rede. -- --retry-failed reabre até 100 falhas após corrigir configuração, preservando tentativas; identity_changed exige revisão separada e não é reaberto automaticamente. Cada execução processa até 25 pendências.
+
+Ativação exige BREVO_CONTACT_REGISTRATION_ENABLED=true, BREVO_CONTACT_SYNC_ENABLED=true, BREVO_API_KEY e LEAD_TOKEN_SECRET privados e homologados. Worker processa no máximo um cadastro por ciclo; compensações são drenadas pelo canal de bloqueios mesmo sem novos cadastros habilitados. Nenhuma lista/campanha/mensagem é criada por essa rotina. Não retirar chave/canal de bloqueios enquanto houver canceling/processing pendentes.
+
+## Listas exclusivas de lote
+
+npm run test:brevo-lists empacota CLIs e usa PostgreSQL loopback/HTTP inteiramente sintéticos, incluindo dataset de 200 e CLI habilitado interceptado. Executar sequencialmente com as demais fixtures. npm run brevo:lists -- UUID_DO_LOTE (runtime node cli/prepare-brevo-list.js UUID_DO_LOTE) prepara/reconcilia uma lista; flag padrão false, sem banco/rede nesse modo. Ativação exige BREVO_LIST_SYNC_ENABLED=true, BREVO_CONTACT_SYNC_ENABLED=true, BREVO_LIST_FOLDER_ID dedicado e chaves privadas válidas/homologadas. O worker ainda não executa listas automaticamente.
+
+--list-id ID é confirmação privada de objeto revisado após criação incerta: nome/pasta/conjunto continuam conferidos, sem confiar cegamente no ID. --retry-rejected permite nova criação apenas quando a anterior foi explicitamente recusada e não há ID conhecido. Não usar para resultado incerto. Inclusão incerta deve ser conferida na conta, inclusive preferências, antes de reparação manual; repetir o CLI apenas reconcilia IDs já tentados. Não editar estados/manifestos no painel nem remover listas/contatos arbitrários.
+
+
+### Preferências por assunto (D53)
+
+npm run test:preferences exercita o serviço e contrato POST com banco loopback e fixtures sintéticas: token/escopo/validação, retirada concorrente, rollback, preservação de outro tema, recusa de lote preparado e cancelamento do último assunto. Executar sequencialmente às demais fixtures. QA renderizado: TEST_BASE_URL na porta isolada, node --env-file-if-exists=.env.local --import tsx scripts/qa-preferences.ts; requer build atual/servidor QA e banco operacional vazio. Relatório/screenshot sem tokens ou endereços. Nenhuma migração adicional ou flag de transporte.
+
+
+### Links Brevo por destinatário (D54)
+
+npm run test:brevo-preferences empacota CLI e valida emissão/reutilização/rotação, HTTP limitado, reconciliação, concorrência, descadastro, validade e guard de migração usando fixtures sintéticas; executar sequencialmente às demais suites. npm run brevo:preferences -- <UUID-do-lote> prepara/concilia o atributo individual, sem campanha ou envio. Sem flag configurada retorna disabled antes de banco/rede. Nunca copiar o resultado bruto do provedor ou os links para logs.
+
+
+### Rascunhos de campanhas (D55)
+
+npm run test:brevo-campaigns empacota CLI e exercita criação/conciliação/concorrência/IDs/lease/descadastro com banco loopback e HTTP sintético. Executar sequencialmente às demais fixtures. npm run brevo:campaigns -- UUID_DO_LOTE prepara listas/preferências e cria/confere um rascunho; --campaign-id ID admite reconciliação revisada, --retry-rejected somente criação explicitamente recusada sem ID. Flag falsa retorna disabled antes de banco/rede. Não compartilhe saída bruta de APIs, links privados ou secrets. Não existe envio de campanha nessa CLI.

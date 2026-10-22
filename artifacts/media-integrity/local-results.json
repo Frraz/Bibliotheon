@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-22 America/Belem",
+  "environment": "PostgreSQL loopback e diretório temporário exclusivo; arquivos sintéticos",
+  "checks": [
+    "Substituição recusada na validação preserva registro e bytes anteriores; reprodução anterior falhou por ENOENT.",
+    "Falhas após escrita no banco e no último hook revertem dados sem apagar arquivo anterior.",
+    "Upload válido substitui conteúdo/hash; metadados técnicos protegidos; dry-run não escreve; órfãos removidos somente após primeira observação +24h, sem tocar arquivo ativo.",
+    "Limpeza concorrente observada esperando advisory lock no PostgreSQL; rollback externo preserva arquivo/registro ativos.",
+    "Delete revertido mantém bytes/registro; delete confirmado retira registro e só remove arquivo após carência.",
+    "Symlink/arquivo desconhecido não removidos; índice corrompido interrompe sem seguir caminho externo."
+  ],
+  "outboundCalls": false,
+  "limits": "Domínio local e filesystem; servidor standalone, imagem e permissões do runtime precisam de rodada própria."
+}

@@ -10,6 +10,7 @@ const payload = await getPayload({ config })
 const email = `owner-${randomBytes(8).toString('hex')}@example.invalid`
 const password = randomBytes(32).toString('hex')
 let id: string | undefined
+const suppressionEmail = `access-suppression-${randomBytes(8).toString('hex')}@example.invalid`
 const post = (path: string, body: unknown) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
 try {
   assert.equal((await payload.count({ collection: 'admin-users', overrideAccess: true })).totalDocs, 0, 'Use banco de teste sem owner.')
@@ -22,6 +23,10 @@ try {
   id = created.id
   const anonymous = await fetch(base + '/api/admin-users')
   assert.equal(anonymous.status, 403)
+  for (const collection of ['email-campaign-batches', 'promotion-deliveries', 'sequence-enrollments', 'brevo-suppressions', 'brevo-registrations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) {
+    assert.equal((await fetch(base + `/api/${collection}`)).status, 403)
+    assert.equal((await post(`/api/${collection}`, {})).status, 403)
+  }
   assert.equal((await post('/api/admin-users/first-register', { email, password })).status, 403)
   const login = await post('/api/admin-users/login', { email, password })
   assert.equal(login.status, 200)
@@ -31,8 +36,17 @@ try {
   assert.equal(/;\s*secure/i.test(sessionCookie), true, 'Execute integração HTTP no build de produção com cookie Secure.')
   const { token } = await login.json() as { token: string }
   assert.ok(token)
+  const suppression = await fetch(base + '/api/v1/admin/suppressions', { method: 'POST', headers: { Authorization: `JWT ${token}`, Origin: base, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: suppressionEmail, reason: 'unsubscribed', source: 'manual', reference: 'synthetic-http-suppression' }) })
+  assert.equal(suppression.status, 200)
+  const forgedObservation = await fetch(base + '/api/v1/admin/suppressions', { method: 'POST', headers: { Authorization: `JWT ${token}`, Origin: base, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: suppressionEmail, reason: 'provider_blocked', source: 'brevo-review', reference: 'synthetic-forged-provider-observation' }) })
+  assert.equal(forgedObservation.status, 422, 'Action observada pelo provedor não pode ser fabricada por entrada manual.')
+  const suppressed = (await payload.find({ collection: 'contacts', where: { email: { equals: suppressionEmail } }, depth: 0, overrideAccess: true })).docs[0]
+  assert.ok(suppressed.globalSuppressedAt)
+  const queued = (await payload.find({ collection: 'brevo-suppressions', where: { contact: { equals: suppressed.id } }, depth: 0, overrideAccess: true })).docs[0]
+  assert.equal(queued.state, 'pending')
   const ownerRead = await fetch(base + '/api/admin-users', { headers: { Authorization: `JWT ${token}` } })
   assert.equal(ownerRead.status, 200)
+  for (const collection of ['email-campaign-batches', 'brevo-suppressions', 'brevo-registrations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) assert.equal((await fetch(base + `/api/${collection}`, { headers: { Authorization: `JWT ${token}` } })).status, 200)
   const body = await ownerRead.json() as { docs: { email: string }[] }
   assert.equal(body.docs.length, 1)
   assert.equal(body.docs[0].email, email)
@@ -45,6 +59,11 @@ try {
   assert.equal((await fetch(base + '/health/ready')).status, 200)
   console.log('T01 aprovado: first-register bloqueado antes/depois, criação pública e Local API negadas, owner autorizado, GraphQL ausente, saúde OK.')
 } finally {
+  const synthetic = await payload.find({ collection: 'contacts', where: { email: { equals: suppressionEmail } }, depth: 0, overrideAccess: true })
+  for (const contact of synthetic.docs) {
+    for (const collection of ['brevo-suppressions', 'consent-events'] as const) await payload.delete({ collection, where: { contact: { equals: contact.id } }, overrideAccess: true })
+    await payload.delete({ collection: 'contacts', id: contact.id, overrideAccess: true })
+  }
   if (id) await payload.delete({ collection: 'admin-users', id, overrideAccess: true })
   await payload.destroy()
 }

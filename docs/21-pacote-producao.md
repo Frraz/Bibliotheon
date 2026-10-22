@@ -8,11 +8,11 @@ Em desenvolvimento e validação local. A imagem com dependências de segurança
 
 ## Artefato
 
-Node 22.23.3 Alpine e PostgreSQL 17.9 Alpine fixados por digest. Dockerfile constrói Next fora da VPS, empacota standalone e dependências de runtime/CLI, não copia ambientes, uploads ou dados de teste. App usa usuário node, sem privilégios Linux adicionais. CLI de migração incorpora as migrations versionadas e só aplica as pendentes; não faz rollback destrutivo automático.
+Node 22.23.3 Alpine e PostgreSQL 17.9 Alpine fixados por digest. Dockerfile constrói Next e empacota standalone/dependências de runtime/CLI, sem copiar ambientes, uploads ou dados de teste. A construção externa é o fluxo original; o [guia de deploy](../deploy.md) acrescenta o fluxo clone/build na VPS solicitado em 22/10, condicionado à capacidade. App usa usuário node, sem privilégios Linux adicionais. CLI de migração incorpora as migrations versionadas e só aplica as pendentes; não faz rollback destrutivo automático.
 
-Empacotador atual inclui migrate, create-admin, recover-admin, apply-suppression, prepare-promotions, worker e worker-health. A geração local dessas entradas passou; a imagem do relatório atual precede recuperação/supressão, migração de sequências e quota compartilhada atuais. Reconstruir/testar as sete migrations de banco vazio e revisão anterior, entradas operacionais, privacidade, worker desativado por padrão e restauração antes do release. Procedimento privado em [operação](11-operacao.md); fotografia em [estado atual](23-estado-atual.md).
+Empacotador atual inclui migrate, create-admin, recover-admin, apply-suppression, prepare-promotions, media-gc, sync-brevo-suppressions, sync-brevo-registrations, prepare-brevo-list, prepare-brevo-preferences, prepare-brevo-campaign, worker e worker-health. A geração local dessas entradas passou; a imagem do relatório atual precede recuperação/supressão, migração de sequências e quota compartilhada atuais. Reconstruir/testar as quatorze migrations de banco vazio e revisão anterior, entradas operacionais, privacidade, worker desativado por padrão e restauração antes do release. Procedimento privado em [operação](11-operacao.md); fotografia em [estado atual](23-estado-atual.md).
 
-Build local: `docker build -t bibliotheon:local-b05 .`. A tag local é de teste; em produção use imagem publicada com digest real. O build não equivale a um teste de deploy.
+Build local: `docker build -t bibliotheon:local-b05 .`. Essa tag é de teste. No fluxo registry, produção usa imagem publicada com digest real; na alternativa atualizar.sh, a ferramenta cria tag exclusiva por release e verifica o ID, conforme D46. O build não equivale a um teste de deploy.
 
 ## Configuração privada
 
@@ -21,6 +21,8 @@ Use [.env.production.example](../.env.production.example) como lista de campos, 
 O Compose recebe o arquivo por `--env-file /caminho/privado`; não injeta o arquivo inteiro na aplicação. App recebe só DATABASE_URL limitada e segredos necessários, sem senha de owner ou URL de migração. A manutenção usa DATABASE_MIGRATION_URL. Banco sem portas publicadas; app publica apenas em loopback para o proxy já existente.
 
 `python3 scripts/check-compose.py --env-file /caminho/privado` verifica a estrutura sem imprimir valores. Não comprova domínio, capacidade livre, proteção administrativa ou recuperação.
+
+O comando acima atende ao fluxo por registry/digest. No fluxo atualizar.sh, a imagem da aplicação recebe tag local exclusiva e seu ID SHA-256 é registrado/verificado pela ferramenta; o validador interno confere isolamento, URLs/papéis do banco e mídia persistente. O check-compose.py continua exigindo @sha256 e não é o validador das tags locais. Configurações/releases desse fluxo ficam fora do Git, em /etc/bibliotheon e /var/lib/bibliotheon, com permissões restritas. Há lock, checkpoint de interrupção, backup externo antes de migrations e retomada explícita; procedimento completo no guia raiz.
 
 ## Ordem para o operador após inventário e homologação
 

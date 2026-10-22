@@ -87,6 +87,12 @@ export interface Config {
     'request-limits': RequestLimit;
     'sequence-enrollments': SequenceEnrollment;
     'promotion-deliveries': PromotionDelivery;
+    'email-campaign-batches': EmailCampaignBatch;
+    'brevo-suppressions': BrevoSuppression;
+    'brevo-registrations': BrevoRegistration;
+    'brevo-batch-lists': BrevoBatchList;
+    'brevo-campaign-drafts': BrevoCampaignDraft;
+    'brevo-campaign-sends': BrevoCampaignSend;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -115,6 +121,12 @@ export interface Config {
     'request-limits': RequestLimitsSelect<false> | RequestLimitsSelect<true>;
     'sequence-enrollments': SequenceEnrollmentsSelect<false> | SequenceEnrollmentsSelect<true>;
     'promotion-deliveries': PromotionDeliveriesSelect<false> | PromotionDeliveriesSelect<true>;
+    'email-campaign-batches': EmailCampaignBatchesSelect<false> | EmailCampaignBatchesSelect<true>;
+    'brevo-suppressions': BrevoSuppressionsSelect<false> | BrevoSuppressionsSelect<true>;
+    'brevo-registrations': BrevoRegistrationsSelect<false> | BrevoRegistrationsSelect<true>;
+    'brevo-batch-lists': BrevoBatchListsSelect<false> | BrevoBatchListsSelect<true>;
+    'brevo-campaign-drafts': BrevoCampaignDraftsSelect<false> | BrevoCampaignDraftsSelect<true>;
+    'brevo-campaign-sends': BrevoCampaignSendsSelect<false> | BrevoCampaignSendsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -501,7 +513,7 @@ export interface ConsentEvent {
   contact: string | Contact;
   theme?: (string | null) | Theme;
   purpose: 'sample' | 'marketing';
-  action: 'requested' | 'confirmed' | 'subscribed' | 'unsubscribed' | 'bounced' | 'complaint';
+  action: 'requested' | 'confirmed' | 'subscribed' | 'unsubscribed' | 'bounced' | 'complaint' | 'provider_blocked';
   version?: string | null;
   occurredAt: string;
   key: string;
@@ -574,6 +586,8 @@ export interface PreferenceToken {
   contact: string | Contact;
   tokenHash: string;
   expiresAt: string;
+  sourceKey?: string | null;
+  nonce?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -648,8 +662,274 @@ export interface PromotionDelivery {
   stage: '2' | '4' | '7' | '10';
   dueAt: string;
   nextCheckAt: string;
-  state: 'scheduled' | 'ready' | 'sending' | 'accepted' | 'uncertain' | 'canceled';
-  errorCode?: ('recipient_suppressed' | 'material_unavailable' | 'sequence_paused' | 'offer_unavailable') | null;
+  batch?: (string | null) | EmailCampaignBatch;
+  state: 'scheduled' | 'ready' | 'sending' | 'accepted' | 'uncertain' | 'rejected' | 'canceled';
+  errorCode?:
+    | (
+        | 'recipient_suppressed'
+        | 'material_unavailable'
+        | 'sequence_paused'
+        | 'offer_unavailable'
+        | 'provider_rejected'
+        | 'uncertain_delivery'
+      )
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Lote privado. Preparado ou reservado não significa enviado, aceito ou recebido. Transporte promocional ainda desativado.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-campaign-batches".
+ */
+export interface EmailCampaignBatch {
+  id: string;
+  key: string;
+  groupKey: string;
+  theme: string | Theme;
+  stage: '2' | '4' | '7' | '10';
+  day: string;
+  copy:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  members:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  recipientCount: number;
+  state: 'prepared' | 'claimed' | 'canceled' | 'uncertain' | 'rejected';
+  nextAttemptAt: string;
+  claimedAt?: string | null;
+  canceledAt?: string | null;
+  providerCheck?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  preferenceCheck?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  errorCode?:
+    | (
+        | 'quota'
+        | 'eligibility_changed'
+        | 'uncertain_delivery'
+        | 'provider_absent'
+        | 'provider_unavailable'
+        | 'provider_rejected'
+      )
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Fila privada para reforçar bloqueios de marketing no Brevo. Não reativa contatos nem envia mensagens. Sincronização externa desligada por padrão.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-suppressions".
+ */
+export interface BrevoSuppression {
+  id: string;
+  contact: string | Contact;
+  revision: number;
+  state: 'pending' | 'processing' | 'synced' | 'failed';
+  attempts: number;
+  nextAttemptAt: string;
+  startedAt?: string | null;
+  syncedAt?: string | null;
+  outcome?: ('blocked' | 'absent') | null;
+  errorCode?: ('provider_unavailable' | 'provider_rejected') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Fila privada. Somente consentimento confirmado autoriza cadastro; contatos existentes não são reativados. Cadastro não significa campanha ou mensagem.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-registrations".
+ */
+export interface BrevoRegistration {
+  id: string;
+  contact: string | Contact;
+  revision: number;
+  state: 'pending' | 'processing' | 'synced' | 'failed' | 'canceled' | 'canceling';
+  attempts: number;
+  nextAttemptAt: string;
+  startedAt?: string | null;
+  syncedAt?: string | null;
+  contactVersion?: string | null;
+  providerId?: number | null;
+  errorCode?: ('provider_unavailable' | 'provider_rejected' | 'local_ineligible' | 'identity_changed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Lista privada de um lote. Composição conferida não significa campanha ou envio. Inclusão incerta não é repetida automaticamente.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-batch-lists".
+ */
+export interface BrevoBatchList {
+  id: string;
+  batch: string | EmailCampaignBatch;
+  name: string;
+  folderId: number;
+  providerListId?: number | null;
+  audienceKey: string;
+  snapshot:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  attemptedIds:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  verification?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  state: 'creating' | 'filling' | 'ready' | 'uncertain' | 'failed' | 'canceled';
+  leaseToken?: string | null;
+  startedAt?: string | null;
+  creationIssuedAt?: string | null;
+  nextAttemptAt: string;
+  verifiedAt?: string | null;
+  errorCode?:
+    | (
+        | 'provider_unavailable'
+        | 'provider_rejected'
+        | 'creation_rejected'
+        | 'creation_uncertain'
+        | 'membership_uncertain'
+        | 'membership_unverified'
+        | 'list_conflict'
+        | 'recipient_suppressed'
+        | 'local_ineligible'
+      )
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Rascunho privado. Ready não significa disparado ou aceito. Sem envio automático.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-campaign-drafts".
+ */
+export interface BrevoCampaignDraft {
+  id: string;
+  batch: string | EmailCampaignBatch;
+  observedIds:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  name: string;
+  contentHash: string;
+  content:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  providerCampaignId?: number | null;
+  state: 'creating' | 'ready' | 'uncertain' | 'failed' | 'canceled';
+  leaseToken?: string | null;
+  startedAt?: string | null;
+  creationIssuedAt?: string | null;
+  nextAttemptAt: string;
+  verifiedAt?: string | null;
+  errorCode?:
+    | (
+        | 'provider_unavailable'
+        | 'provider_rejected'
+        | 'creation_rejected'
+        | 'creation_uncertain'
+        | 'campaign_conflict'
+        | 'local_ineligible'
+      )
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Solicitação aceita pelo provedor não comprova entrega. Resultado incerto não é reenviado automaticamente. Cada tentativa preserva sua reserva diária.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-campaign-sends".
+ */
+export interface BrevoCampaignSend {
+  id: string;
+  batch: string | EmailCampaignBatch;
+  draft?: (string | null) | BrevoCampaignDraft;
+  batchKey: string;
+  contentHash?: string | null;
+  providerCampaignId?: number | null;
+  recipientCount: number;
+  attempts: number;
+  attemptToken?: string | null;
+  history:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  state: 'preparing' | 'issuing' | 'submitted' | 'rejected' | 'uncertain' | 'canceled';
+  leaseToken?: string | null;
+  prepareStartedAt?: string | null;
+  nextAttemptAt: string;
+  errorCode?: ('prerequisites' | 'quota' | 'provider_rejected' | 'uncertain_delivery' | 'local_ineligible') | null;
+  issuedAt?: string | null;
+  settledAt?: string | null;
+  retryRequestedAt?: string | null;
+  responseCode?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -848,6 +1128,30 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'promotion-deliveries';
         value: string | PromotionDelivery;
+      } | null)
+    | ({
+        relationTo: 'email-campaign-batches';
+        value: string | EmailCampaignBatch;
+      } | null)
+    | ({
+        relationTo: 'brevo-suppressions';
+        value: string | BrevoSuppression;
+      } | null)
+    | ({
+        relationTo: 'brevo-registrations';
+        value: string | BrevoRegistration;
+      } | null)
+    | ({
+        relationTo: 'brevo-batch-lists';
+        value: string | BrevoBatchList;
+      } | null)
+    | ({
+        relationTo: 'brevo-campaign-drafts';
+        value: string | BrevoCampaignDraft;
+      } | null)
+    | ({
+        relationTo: 'brevo-campaign-sends';
+        value: string | BrevoCampaignSend;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1219,6 +1523,8 @@ export interface PreferenceTokensSelect<T extends boolean = true> {
   contact?: T;
   tokenHash?: T;
   expiresAt?: T;
+  sourceKey?: T;
+  nonce?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1273,8 +1579,137 @@ export interface PromotionDeliveriesSelect<T extends boolean = true> {
   stage?: T;
   dueAt?: T;
   nextCheckAt?: T;
+  batch?: T;
   state?: T;
   errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-campaign-batches_select".
+ */
+export interface EmailCampaignBatchesSelect<T extends boolean = true> {
+  key?: T;
+  groupKey?: T;
+  theme?: T;
+  stage?: T;
+  day?: T;
+  copy?: T;
+  members?: T;
+  recipientCount?: T;
+  state?: T;
+  nextAttemptAt?: T;
+  claimedAt?: T;
+  canceledAt?: T;
+  providerCheck?: T;
+  preferenceCheck?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-suppressions_select".
+ */
+export interface BrevoSuppressionsSelect<T extends boolean = true> {
+  contact?: T;
+  revision?: T;
+  state?: T;
+  attempts?: T;
+  nextAttemptAt?: T;
+  startedAt?: T;
+  syncedAt?: T;
+  outcome?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-registrations_select".
+ */
+export interface BrevoRegistrationsSelect<T extends boolean = true> {
+  contact?: T;
+  revision?: T;
+  state?: T;
+  attempts?: T;
+  nextAttemptAt?: T;
+  startedAt?: T;
+  syncedAt?: T;
+  contactVersion?: T;
+  providerId?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-batch-lists_select".
+ */
+export interface BrevoBatchListsSelect<T extends boolean = true> {
+  batch?: T;
+  name?: T;
+  folderId?: T;
+  providerListId?: T;
+  audienceKey?: T;
+  snapshot?: T;
+  attemptedIds?: T;
+  verification?: T;
+  state?: T;
+  leaseToken?: T;
+  startedAt?: T;
+  creationIssuedAt?: T;
+  nextAttemptAt?: T;
+  verifiedAt?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-campaign-drafts_select".
+ */
+export interface BrevoCampaignDraftsSelect<T extends boolean = true> {
+  batch?: T;
+  observedIds?: T;
+  name?: T;
+  contentHash?: T;
+  content?: T;
+  providerCampaignId?: T;
+  state?: T;
+  leaseToken?: T;
+  startedAt?: T;
+  creationIssuedAt?: T;
+  nextAttemptAt?: T;
+  verifiedAt?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-campaign-sends_select".
+ */
+export interface BrevoCampaignSendsSelect<T extends boolean = true> {
+  batch?: T;
+  draft?: T;
+  batchKey?: T;
+  contentHash?: T;
+  providerCampaignId?: T;
+  recipientCount?: T;
+  attempts?: T;
+  attemptToken?: T;
+  history?: T;
+  state?: T;
+  leaseToken?: T;
+  prepareStartedAt?: T;
+  nextAttemptAt?: T;
+  errorCode?: T;
+  issuedAt?: T;
+  settledAt?: T;
+  retryRequestedAt?: T;
+  responseCode?: T;
   updatedAt?: T;
   createdAt?: T;
 }
