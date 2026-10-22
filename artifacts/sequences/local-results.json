@@ -1,0 +1,15 @@
+{
+  "environment": "PostgreSQL local, relógio controlado e transporte de confirmação em memória",
+  "checks": [
+    "conteúdo incompleto/versão incompatível recusados; amostra sem marketing não matricula; confirmação concorrente cria uma inscrição e quatro datas exatas",
+    "D+2 não é antecipado; preparação repetida respeita próxima conferência; calendário não reserva quota nem envia e-mail",
+    "edição exige revisão maior; snapshot antigo preservado; novos contatos recebem revisão nova; nova solicitação não repete sequência da mesma versão",
+    "descadastro e complaint cancelam imediatamente etapas prontas e futuras, preservando histórico",
+    "oferta indisponível/realocada retém promoção, permite conteúdo educativo e retoma após correção; contexto afiliado incompatível não recebe fallback",
+    "desativação concorrente cancela todos os calendários; reativar não reinicia inscrições anteriores",
+    "material mudou de versão: cancela; coleções privadas; owner não fabrica aceite nem reativa inscrição por CRUD"
+  ],
+  "promotionalSends": 0,
+  "externalCalls": false,
+  "limits": "Calendário e elegibilidade locais; não homologa campanhas Brevo, batching, compra vinculada ou quota promocional."
+}

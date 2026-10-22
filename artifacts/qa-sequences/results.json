@@ -1,0 +1,394 @@
+{
+  "origin": "http://127.0.0.1:3001",
+  "environment": "Standalone e PostgreSQL locais; dados sintéticos",
+  "nativeCreated": true,
+  "results": [
+    {
+      "name": "dashboard",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "sequence",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "enrollment",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    }
+  ],
+  "failures": [],
+  "externalCalls": false,
+  "limits": "Valida calendário local; não homologa transporte de campanhas ou bloqueio no Brevo."
+}

@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.env*
+!.env.example
+!.env.production.example
+.release/
+coverage/
+test-results/
+playwright-report/
+uploads/
+*.tsbuildinfo
+.pnpm-store/
+.local/
+__pycache__/
+*.pyc
+
+.next-qa/

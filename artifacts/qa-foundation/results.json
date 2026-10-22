@@ -1,0 +1,120 @@
+{
+  "environment": "local Chromium, standalone; catálogo vazio",
+  "date": "2026-10-21 America/Belem",
+  "results": [
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0,
+      "jsErrors": 0
+    }
+  ],
+  "appearance": "persistência, system, storage negado, sem JS, skip link aprovados",
+  "limits": "Não é B20 completo. Painel e demais estados possuem rodadas separadas."
+}

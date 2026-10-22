@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "imageID": "sha256:2e81d37c10daba092a32c6fcea1cf161bfb8ee566e13e92bee01566e2a1911ef",
+  "migrationsFromEmpty": true,
+  "health": 200,
+  "nonRoot": true,
+  "readOnly": true,
+  "runtimeSuperuser": false,
+  "runtimeDDLRejected": true,
+  "ownerCLIAndLogin": true,
+  "noEmbeddedRuntimeSecrets": true,
+  "relationshipPrivate": true,
+  "publicJobExecutionDenied": true,
+  "captureDisabledByDefault": true,
+  "workerCLIIncluded": true,
+  "workerEmptyQueueHealthy": true,
+  "runtimeTimezone": "America/Belem",
+  "durationSeconds": 37.89,
+  "environment": "Docker local descart\u00e1vel, sem VPS"
+}

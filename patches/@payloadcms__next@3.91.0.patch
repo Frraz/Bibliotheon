@@ -1,0 +1,14 @@
+diff --git a/dist/elements/DocumentHeader/Tabs/index.js b/dist/elements/DocumentHeader/Tabs/index.js
+index 4eb368d327db038d8a35addc4b9c917b15be06d0..2508726bf7911a9e743b14ba8160c17850365121 100644
+--- a/dist/elements/DocumentHeader/Tabs/index.js
++++ b/dist/elements/DocumentHeader/Tabs/index.js
+@@ -24,7 +24,8 @@ export const DocumentTabs = ({
+       className: baseClass,
+       children: /*#__PURE__*/_jsx("div", {
+         className: `${baseClass}__tabs-container`,
+-        children: /*#__PURE__*/_jsx("ul", {
++        children: /*#__PURE__*/_jsx("nav", {
++          "aria-label": "Seções do documento",
+           className: `${baseClass}__tabs`,
+           children: tabs?.map(({
+             tab: tabConfig,

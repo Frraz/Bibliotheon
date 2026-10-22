@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "themes": {
+    "claro": {
+      "canvas": "#F6F5F1",
+      "surface": "#FFFFFF",
+      "raised": "#EBEFF2",
+      "text": "#162D40",
+      "muted": "#4E6170",
+      "border": "#6F7D87",
+      "divider": "#D5DCE1",
+      "action": "#163C56",
+      "actionHover": "#0E2B40",
+      "onAction": "#FFFFFF",
+      "focus": "#005FCC",
+      "mineral": "#245F66",
+      "slate": "#40556F",
+      "plum": "#654E6C",
+      "success": "#246147",
+      "warning": "#78530E",
+      "danger": "#A12B39"
+    },
+    "escuro": {
+      "canvas": "#101C26",
+      "surface": "#172936",
+      "raised": "#213746",
+      "text": "#F1F3F2",
+      "muted": "#B4C1C9",
+      "border": "#8395A2",
+      "divider": "#3A5060",
+      "action": "#B9D9F2",
+      "actionHover": "#D4E9F8",
+      "onAction": "#102436",
+      "focus": "#A5D8FF",
+      "mineral": "#9CCFD0",
+      "slate": "#B6C8E1",
+      "plum": "#D3BDDA",
+      "success": "#A9D7B8",
+      "warning": "#E8C67C",
+      "danger": "#FFADB4"
+    }
+  }
+}

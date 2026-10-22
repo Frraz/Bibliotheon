@@ -1,0 +1,1367 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "environment": "Chromium, standalone local, dados sintéticos",
+  "results": [
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "light",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "light",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "light",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "light",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "dark",
+      "width": 360,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "dark",
+      "width": 768,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "dark",
+      "width": 1024,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "name": "home-3",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks",
+      "name": "catalog",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?tema=tema-8bfc2e6c17",
+      "name": "catalog-filter",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks?q=nenhumzzzz",
+      "name": "catalog-empty",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-guide",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/reading-8bfc2e6c17",
+      "name": "lp-reading",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/workbook-8bfc2e6c17",
+      "name": "lp-workbook",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/artigos/artigo-8bfc2e6c17",
+      "name": "article",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/temas/tema-8bfc2e6c17",
+      "name": "theme",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/sobre",
+      "name": "about",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/contato",
+      "name": "contact",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/privacidade",
+      "name": "privacy",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/termos",
+      "name": "terms",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17?c=parceria-8bfc2e6c17",
+      "name": "lp-affiliate",
+      "theme": "dark",
+      "width": 1920,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-long-title",
+      "theme": "dark",
+      "width": 320,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "route": "/ebooks/guide-8bfc2e6c17",
+      "name": "lp-missing-cover",
+      "theme": "dark",
+      "width": 320,
+      "violations": [],
+      "overflow": false
+    }
+  ],
+  "limits": "Não comprova conversão, desempenho de campo ou homologação externa. Painel e amostras possuem rodadas separadas."
+}

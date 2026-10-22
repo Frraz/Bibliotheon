@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "environment": "PostgreSQL local e transporte sintético em memória",
+  "checks": [
+    "pedido concorrente deduplicado; envio concorrente único; hash sem token; confirmação idempotente; amostra sem marketing; expiração",
+    "opt-in confirmado; descadastro idempotente; confirmação antiga não reinscreve; bounce bloqueia entrega",
+    "supressão concorrente idempotente; referência conflitante rejeitada sem mutação; auditoria sem referência bruta; complaint não rebaixado; contato desconhecido não reativado",
+    "descadastro revisado preserva amostra e cancela assinatura; confirmação antiga não reinscreve; envio já iniciado permanece em conciliação",
+    "confirmação ainda pendente após descadastro entrega somente amostra; captura e supressão concorrentes mantêm um contato e nenhuma entrega liberada",
+    "retirada do opt-in pendente respeitada; pedido repetido não eleva consentimento silenciosamente",
+    "timeout incerto não reenvia; quota adia sem tentativa; retentativas em 1/5/30/120 minutos e limite total de cinco",
+    "queda do job antes do claim permite recuperar a entrega pendente",
+    "limite global durável rejeita novos endereços e reverte alterações na mesma transação",
+    "outbox recuperável; dispatcher repetido; APIs operacionais negadas a anônimo; consentimento imutável via owner",
+    "quota compartilhada concorrente: reserva transacional preservada; limite não excedido; lote indivisível; rollback e virada UTC sem liberar tentativa incerta"
+  ],
+  "externalEmailSent": false,
+  "limits": "Não homologa Brevo, campanhas promocionais, quota da conta ou supressão externa."
+}

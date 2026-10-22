@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "scope": "pnpm audit --prod; registro npm",
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "updates": {
+    "sharp": "0.35.5",
+    "dompurify": "3.4.16",
+    "sass": "1.106.0",
+    "esbuild": "0.28.2"
+  },
+  "limits": "Verifica\u00e7\u00e3o de advisories conhecidos; n\u00e3o substitui testes, revis\u00e3o ou atualiza\u00e7\u00f5es futuras."
+}

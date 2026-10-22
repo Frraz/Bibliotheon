@@ -1,0 +1,104 @@
+name: bibliotheon
+x-environment: &environment
+  PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:?Configure domínio público}
+  PAYLOAD_SECRET: ${PAYLOAD_SECRET:?Configure segredo do Payload}
+  DATABASE_URL: ${DATABASE_URL:?Configure credencial limitada de runtime}
+  MEDIA_DIR: /app/uploads
+  TZ: America/Belem
+  CHECKOUT_ALLOWED_HOSTS_HOTMART: ${CHECKOUT_ALLOWED_HOSTS_HOTMART:-}
+  CHECKOUT_ALLOWED_HOSTS_KIWIFY: ${CHECKOUT_ALLOWED_HOSTS_KIWIFY:-}
+  CHECKOUT_ALLOWED_HOSTS_CAKTO: ${CHECKOUT_ALLOWED_HOSTS_CAKTO:-}
+x-mail-environment: &mail-environment
+  LEAD_TOKEN_SECRET: ${LEAD_TOKEN_SECRET:-}
+  LEADS_ENABLED: ${LEADS_ENABLED:-false}
+  EMAIL_TRANSPORT_ENABLED: ${EMAIL_TRANSPORT_ENABLED:-false}
+  LEAD_REQUESTS_PER_ADDRESS_DAY: ${LEAD_REQUESTS_PER_ADDRESS_DAY:-5}
+  BREVO_DAILY_QUOTA: ${BREVO_DAILY_QUOTA:-250}
+  BREVO_TRANSACTIONAL_RESERVE: ${BREVO_TRANSACTIONAL_RESERVE:-50}
+  BREVO_API_KEY: ${BREVO_API_KEY:-}
+  BREVO_SENDER_EMAIL: ${BREVO_SENDER_EMAIL:-}
+  BREVO_SENDER_NAME: ${BREVO_SENDER_NAME:-Bibliotheon}
+x-runtime: &runtime
+  image: ${BIBLIOTHEON_IMAGE:?Informe imagem imutável com digest}
+  environment: *environment
+  restart: unless-stopped
+  init: true
+  read_only: true
+  tmpfs: ["/tmp:size=64m,mode=1777"]
+  security_opt: [no-new-privileges:true]
+  cap_drop: [ALL]
+  logging:
+    driver: json-file
+    options: { max-size: 10m, max-file: "3" }
+services:
+  app:
+    <<: *runtime
+    environment:
+      <<: [*environment, *mail-environment]
+      HOSTNAME: 0.0.0.0
+    ports: ["127.0.0.1:${BIBLIOTHEON_PORT:?Escolha porta após inventário}:3000"]
+    volumes: [media:/app/uploads, cache:/app/.next/cache]
+    mem_limit: 1536m
+    cpus: 0.75
+    depends_on:
+      db: { condition: service_healthy }
+    networks: [private]
+  worker:
+    <<: *runtime
+    profiles: [relationship]
+    command: [node, cli/worker.js]
+    environment:
+      <<: [*environment, *mail-environment]
+    volumes: [media:/app/uploads:ro]
+    mem_limit: 768m
+    cpus: 0.5
+    stop_grace_period: 45s
+    depends_on:
+      db: { condition: service_healthy }
+    healthcheck:
+      test: [CMD, node, cli/worker-health.js]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    networks: [private]
+  migrate:
+    <<: *runtime
+    profiles: [maintenance]
+    restart: "no"
+    command: [node, cli/migrate.js]
+    environment:
+      <<: *environment
+      DATABASE_URL: ${DATABASE_MIGRATION_URL:?Configure credencial de migração segregada}
+    volumes: [media:/app/uploads]
+    depends_on:
+      db: { condition: service_healthy }
+    networks: [private]
+  db:
+    image: postgres:17.9-alpine@sha256:c7526c0f6c3f30260a563d7bcf8ad778effac59a44f8ffa86678c35418338609
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bibliotheon
+      POSTGRES_USER: bibliotheon_owner
+      POSTGRES_PASSWORD: ${DB_OWNER_PASSWORD:?Configure senha do owner do banco}
+      DB_RUNTIME_PASSWORD: ${DB_RUNTIME_PASSWORD:?Configure senha do runtime}
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ./ops/init-database.sh:/docker-entrypoint-initdb.d/10-bibliotheon.sh:ro
+    mem_limit: 1024m
+    cpus: 0.5
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U bibliotheon_owner -d bibliotheon"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    logging:
+      driver: json-file
+      options: { max-size: 10m, max-file: "3" }
+    networks: [private]
+networks:
+  private:
+volumes:
+  database:
+  media:
+  cache:

@@ -1,0 +1,30 @@
+{
+  "origin": "http://127.0.0.1:3001",
+  "results": [
+    {
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "limits": "Rodada de login/dashboard; formulários editoriais e demais telas possuem rodadas próprias."
+}

@@ -1,0 +1,302 @@
+{
+  "environment": "Standalone e PostgreSQL loopback; somente contatos sintéticos",
+  "origin": "http://127.0.0.1:3001",
+  "checks": [
+    "API anônima negada; view protegida",
+    "origem ausente/externa negada; JSON inválido/oversize recusado sem mutação",
+    "mesma referência idempotente; conflito recusado",
+    "erro mantém entrada; retentativa por teclado; contato bloqueado; entrada limpa no sucesso"
+  ],
+  "screens": [
+    {
+      "theme": "light",
+      "width": 360,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1920,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1920,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "light",
+      "width": 1920,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1920,
+      "state": "initial",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1920,
+      "state": "error",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1920,
+      "state": "success",
+      "overflow": false,
+      "violations": [],
+      "jsErrors": 0
+    }
+  ],
+  "externalCalls": false,
+  "limits": "Não verifica supressão na conta Brevo nem campanhas promocionais."
+}

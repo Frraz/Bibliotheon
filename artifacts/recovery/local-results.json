@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "environment": "PostgreSQL 17.9, restic 0.19.1, projeto isolado sem portas; fixtures sintéticas",
+  "backupSeconds": 2.36,
+  "restoreSeconds": 1.47,
+  "restoredBooks": 4,
+  "mediaHashes": "verificados e conteúdo comparado",
+  "restoredPoint": "revisão anterior à mudança pós-snapshot",
+  "rejectsOverwrite": true,
+  "outboundServicesStarted": false,
+  "externalBackupVerified": false,
+  "productionRPO_RTO": "não homologados"
+}

@@ -1,0 +1,260 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "results": [
+    {
+      "total": 1,
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 1,
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 0,
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "axeViolations": 0
+    },
+    {
+      "total": 20,
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "axeViolations": 0
+    }
+  ],
+  "pagination": "12+8 itens",
+  "menu": "dialog, Escape e retorno de foco aprovados",
+  "zoom": "Texto 200% e reflow 320px em rodada separada; zoom nativo 400% ainda não homologado"
+}

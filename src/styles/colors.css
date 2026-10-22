@@ -1,0 +1,60 @@
+/* Gerado por scripts/generate-tokens.py. Não editar. */
+:root, [data-theme="light"] {
+  --color-canvas: #F6F5F1;
+  --color-surface: #FFFFFF;
+  --color-raised: #EBEFF2;
+  --color-text: #162D40;
+  --color-muted: #4E6170;
+  --color-border: #6F7D87;
+  --color-divider: #D5DCE1;
+  --color-action: #163C56;
+  --color-actionHover: #0E2B40;
+  --color-onAction: #FFFFFF;
+  --color-focus: #005FCC;
+  --color-mineral: #245F66;
+  --color-slate: #40556F;
+  --color-plum: #654E6C;
+  --color-success: #246147;
+  --color-warning: #78530E;
+  --color-danger: #A12B39;
+}
+[data-theme="dark"] {
+  --color-canvas: #101C26;
+  --color-surface: #172936;
+  --color-raised: #213746;
+  --color-text: #F1F3F2;
+  --color-muted: #B4C1C9;
+  --color-border: #8395A2;
+  --color-divider: #3A5060;
+  --color-action: #B9D9F2;
+  --color-actionHover: #D4E9F8;
+  --color-onAction: #102436;
+  --color-focus: #A5D8FF;
+  --color-mineral: #9CCFD0;
+  --color-slate: #B6C8E1;
+  --color-plum: #D3BDDA;
+  --color-success: #A9D7B8;
+  --color-warning: #E8C67C;
+  --color-danger: #FFADB4;
+}
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]):not([data-theme="dark"]) {
+  --color-canvas: #101C26;
+  --color-surface: #172936;
+  --color-raised: #213746;
+  --color-text: #F1F3F2;
+  --color-muted: #B4C1C9;
+  --color-border: #8395A2;
+  --color-divider: #3A5060;
+  --color-action: #B9D9F2;
+  --color-actionHover: #D4E9F8;
+  --color-onAction: #102436;
+  --color-focus: #A5D8FF;
+  --color-mineral: #9CCFD0;
+  --color-slate: #B6C8E1;
+  --color-plum: #D3BDDA;
+  --color-success: #A9D7B8;
+  --color-warning: #E8C67C;
+  --color-danger: #FFADB4;
+}
+}

@@ -1,0 +1,595 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "environment": "Chromium local; fixtures e transporte em memória",
+  "results": [
+    {
+      "name": "capture",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "capture",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "requested",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "download-ready",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unsubscribed",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "expired",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "limits": "Não homologa entrega real, campanhas de marketing ou conta Brevo."
+}

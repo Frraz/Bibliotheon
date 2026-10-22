@@ -1,0 +1,19 @@
+name: bibliotheon-local
+services:
+  db:
+    image: postgres:17.9-alpine@sha256:c7526c0f6c3f30260a563d7bcf8ad778effac59a44f8ffa86678c35418338609
+    environment:
+      POSTGRES_DB: bibliotheon
+      POSTGRES_USER: bibliotheon
+      POSTGRES_PASSWORD: ${LOCAL_DB_PASSWORD:?Use o arquivo .env.local}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - local-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bibliotheon -d bibliotheon"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  local-db:

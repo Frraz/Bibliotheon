@@ -1,0 +1,7 @@
+{
+  "date": "2026-10-22T01:08:34.110Z",
+  "origin": "http://127.0.0.1:3001",
+  "environment": "Build standalone e banco locais, fixture sintética",
+  "adminListStatus": 200,
+  "limits": "Conferência HTTP do build final; rodada visual completa em results.json."
+}

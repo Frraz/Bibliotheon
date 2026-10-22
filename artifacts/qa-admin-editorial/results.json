@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-21 America/Belem",
+  "origin": "http://127.0.0.1:3001",
+  "results": [
+    {
+      "route": "books-list",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    }
+  ],
+  "keyboardSorted": true,
+  "nativeDraftSaved": true,
+  "reducedMotionScrollStable": true,
+  "limits": "Fase 1; relacionamento, integrações e relatórios dependem da fase 2."
+}

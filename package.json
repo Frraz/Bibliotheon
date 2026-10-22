@@ -1,0 +1,80 @@
+{
+  "name": "bibliotheon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.7",
+  "engines": {
+    "node": ">=22.23.0 <23"
+  },
+  "scripts": {
+    "dev": "next dev --webpack --hostname 127.0.0.1",
+    "build": "next build --webpack",
+    "start": "node --env-file-if-exists=.env.local scripts/start.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:integration": "node --env-file-if-exists=.env.local --import tsx tests/integration/access.ts",
+    "test:catalog": "node --env-file-if-exists=.env.local --import tsx tests/integration/catalog.ts",
+    "test:site": "node --env-file-if-exists=.env.local --import tsx tests/integration/public-site.ts",
+    "payload": "node --env-file-if-exists=.env.local node_modules/payload/bin.js",
+    "generate:types": "node --env-file-if-exists=.env.local node_modules/payload/bin.js generate:types",
+    "generate:importmap": "node --env-file-if-exists=.env.local node_modules/payload/bin.js generate:importmap",
+    "db:migrate": "node --env-file-if-exists=.env.local node_modules/payload/bin.js migrate",
+    "admin:create": "node --env-file-if-exists=.env.local --import tsx scripts/create-admin.ts",
+    "test:marketing": "node --env-file-if-exists=.env.local --import tsx tests/integration/marketing.ts",
+    "worker": "node --env-file-if-exists=.env.local --import tsx scripts/worker.ts",
+    "suppression:apply": "node --env-file-if-exists=.env.local --import tsx scripts/apply-suppression.ts",
+    "admin:recover": "node --env-file-if-exists=.env.local --import tsx scripts/recover-admin.ts",
+    "test:admin-recovery": "node --env-file-if-exists=.env.local --import tsx tests/integration/admin-recovery.ts",
+    "promotions:prepare": "node --env-file-if-exists=.env.local --import tsx scripts/prepare-promotions.ts",
+    "test:sequences": "node --env-file-if-exists=.env.local --import tsx tests/integration/sequences.ts"
+  },
+  "dependencies": {
+    "@fontsource/public-sans": "5.3.0",
+    "@fontsource/source-serif-4": "5.3.1",
+    "@payloadcms/db-postgres": "3.91.0",
+    "@payloadcms/next": "3.91.0",
+    "@payloadcms/richtext-lexical": "3.91.0",
+    "@payloadcms/translations": "3.91.0",
+    "@payloadcms/ui": "3.91.0",
+    "graphql": "16.11.0",
+    "next": "16.4.2",
+    "payload": "3.91.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/eslintrc": "3.3.5",
+    "@playwright/test": "1.64.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.19.15",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "esbuild": "0.28.2",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.4.2",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "sass": "1.106.0",
+      "dompurify": "3.4.16",
+      "esbuild": "0.28.2"
+    },
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild"
+    ],
+    "patchedDependencies": {
+      "@payloadcms/ui@3.91.0": "patches/@payloadcms__ui@3.91.0.patch",
+      "@payloadcms/next@3.91.0": "patches/@payloadcms__next@3.91.0.patch",
+      "@payloadcms/richtext-lexical@3.91.0": "patches/@payloadcms__richtext-lexical@3.91.0.patch"
+    }
+  }
+}
