@@ -2,7 +2,7 @@
 
 ## Contexto e continuidade
 
-Leia [README](README.md), [progresso](docs/14-progresso.md), [estado atual](docs/23-estado-atual.md), [backlog](docs/13-backlog.md) e o documento do subsistema antes de alterar o projeto. Responda em português do Brasil. Preserve `reflexoes.md`; é fonte histórica, não especificação superior às decisões posteriores do usuário.
+Leia [README](README.md), [progresso](docs/14-progresso.md), [estado atual](docs/23-estado-atual.md), [backlog](docs/13-backlog.md) e [pendências para produção](pendencias.md), além do documento do subsistema, antes de alterar o projeto. Responda em português do Brasil. Preserve `reflexoes.md`; é fonte histórica, não especificação superior às decisões posteriores do usuário.
 
 O pedido que originou esta entrega autoriza documentação, não implementação da aplicação nem mudanças na VPS. Em tarefas futuras, cumpra o escopo autorizado pelo usuário. Atualize progresso com o que realmente foi executado, evidências, pendências e próxima ação.
 
@@ -25,7 +25,7 @@ Use fixtures sintéticas para integrações. Registre separadamente testes locai
 
 ## Conclusão de tarefas
 
-Atualize requisitos/backlog/progresso quando necessário; rode verificações proporcionais ao trabalho. Para documentação, execute `python3 scripts/validar_documentacao.py`. Para código, cumpra a [estratégia de qualidade](docs/15-qualidade.md). Só declare concluído o que tiver evidência.
+Atualize requisitos/backlog/progresso e pendencias.md quando necessário; rode verificações proporcionais ao trabalho. Para documentação, execute `python3 scripts/validar_documentacao.py`. Para código, cumpra a [estratégia de qualidade](docs/15-qualidade.md). Só declare concluído o que tiver evidência.
 
 ## Direção de design
 

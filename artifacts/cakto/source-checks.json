@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-24T18:18:31.617905+00:00",
+  "method": "HTTP público direto e leitura web das páginas oficiais; sem API autenticada",
+  "sources": [
+    {
+      "url": "https://docs.cakto.com.br/conceitos/webhooks.md",
+      "bytes": 24704,
+      "sha256": "dd2c383401313851e47873bdfc0187a0c3be4a14db8709b9fc888d354e3411f4"
+    },
+    {
+      "url": "https://docs.cakto.com.br/api-reference/webhooks/event-history.md",
+      "bytes": 19587,
+      "sha256": "c93f774d7027860433bb749a0ebe2ccf0fb6112333fb878cab324413959a40a1"
+    },
+    {
+      "url": "https://docs.cakto.com.br/api-reference/webhooks/test-webhook.md",
+      "bytes": 6089,
+      "sha256": "61a481e96c277448990c7a9f1fd8937b66fac33870dab06491215693c323dce2"
+    },
+    {
+      "url": "https://docs.cakto.com.br/api-reference/webhooks/resend-event.md",
+      "bytes": 5058,
+      "sha256": "391f0bbfd2934922dc6d4111c7e4013bee83edda2c1d0991d9835d6485634a76"
+    },
+    {
+      "url": "https://docs.cakto.com.br/mudancas.md",
+      "bytes": 40973,
+      "sha256": "5e4f96a5a7190ac90b44cd7d909246874c2d057b5c4a2be58c6c17412769a5f3"
+    }
+  ],
+  "accountAccess": false,
+  "homologated": false,
+  "nativeBuyerSamplesPersisted": false
+}

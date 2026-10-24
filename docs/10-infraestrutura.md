@@ -2,7 +2,7 @@
 
 [Índice](../README.md) · [Operação](11-operacao.md)
 
-Dockerfile, Compose e recuperação já possuem implementação/ensaios locais, detalhados no [pacote de produção](21-pacote-producao.md). A revisão atual exige reconstruir/homologar a imagem com as sete migrations, CLIs e quota presentes; os limites abaixo são plano de implantação, não recursos livres comprovados. Nenhuma VPS foi acessada.
+Dockerfile, Compose e recuperação já possuem implementação/ensaios locais, detalhados no [pacote de produção](21-pacote-producao.md). A revisão atual exige reconstruir/homologar a imagem com as 21 migrations e CLIs atuais, inbox/conectores/CSV e filas presentes; os limites abaixo são plano de implantação, não recursos livres comprovados. Nenhuma VPS foi acessada.
 
 ## Inventário obrigatório da VPS compartilhada
 
@@ -36,7 +36,7 @@ Healthchecks, restart policy, usuário não root no app, filesystem somente leit
 | BREVO_API_KEY / EMAIL_FROM | Transporte e remetente validado |
 | HOTMART_HOTTOK | Verificação Hotmart |
 | CAKTO_WEBHOOK_SECRET | Verificação Cakto conforme contrato homologado |
-| Kiwify auth config | Nome/formato a registrar após descoberta B09; não ativar sem ele |
+| Kiwify auth config | KIWIFY_WEBHOOK_ENABLED, KIWIFY_ACCOUNT_KEY, KIWIFY_WEBHOOK_TOKEN e rotação opcional; código D64 local, ativação depende de homologação |
 | TOKEN_SIGNING_SECRET | Tokens de download/preferências, separado do admin |
 | BACKUP_DESTINATION / BACKUP_KEY | Destino externo e criptografia, fora da aplicação |
 

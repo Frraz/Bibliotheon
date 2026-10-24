@@ -1,17 +1,34 @@
-node_modules/
-.next/
+# Dependências e builds
+/node_modules/
+/.pnpm-store/
+/.next/
+/.next-*/
+/.release/
+*.tsbuildinfo
+
+# Ambientes e credenciais locais; exemplos são versionados
 .env*
 !.env.example
 !.env.production.example
-.release/
-coverage/
-test-results/
-playwright-report/
-uploads/
-*.tsbuildinfo
-.pnpm-store/
-.local/
-__pycache__/
-*.pyc
+/.aws/
 
-.next-qa/
+# Runtime local, mídia privada e logs
+/.local/
+/.local-run/
+/.local-logs/
+/uploads/
+*.log
+
+# Relatórios efêmeros; artifacts/ contém evidências revisadas e é versionado
+/coverage/
+/test-results/
+/playwright-report/
+__pycache__/
+*.py[cod]
+
+# Arquivos temporários de sistema/editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

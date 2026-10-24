@@ -1,3 +1,6 @@
+import { processCommercialQueue } from '../src/modules/commerce/inbox'
+import { configuredBrevoCampaignObserver } from '../src/integrations/brevo/campaign-observer'
+import { observePromotionCampaigns } from '../src/modules/marketing/campaign-observation'
 import { setTimeout } from 'node:timers/promises'
 import { writeFile } from 'node:fs/promises'
 import { getPayload } from 'payload'
@@ -15,7 +18,9 @@ import { validLinkSecret } from '../src/modules/marketing/tokens'
 import { configuredQuotaPolicy } from '../src/modules/marketing/quota-policy'
 import { preparePromotionBatches } from '../src/modules/marketing/batches'
 
+const commercialEnabled = process.env.COMMERCIAL_EVENTS_ENABLED === 'true'
 const emailEnabled = process.env.EMAIL_TRANSPORT_ENABLED === 'true'
+const observer = configuredBrevoCampaignObserver()
 const promotional = configuredBrevoCampaignDispatch()
 const contactSync = configuredBrevoContacts()
 const registration = configuredBrevoRegistration()
@@ -23,7 +28,8 @@ if (contactSync && !validLinkSecret(process.env.LEAD_TOKEN_SECRET)) throw new Er
 if (process.env.BREVO_CONTACT_REGISTRATION_ENABLED === 'true' && (!registration || !validLinkSecret(process.env.LEAD_TOKEN_SECRET))) throw new Error('Cadastro externo desativado: configure bloqueios, chave de API e chave privada de links.')
 if (emailEnabled && (!configuredTransport() || !validLinkSecret(process.env.LEAD_TOKEN_SECRET))) throw new Error('Worker de e-mail desativado: configure transporte e chave privada antes de ativar.')
 if (process.env.BREVO_CONTACT_SYNC_ENABLED === 'true' && !contactSync) throw new Error('Sincronização de bloqueios desativada: confira a configuração privada.')
-if (!emailEnabled && !contactSync) throw new Error('Worker desativado: habilite uma função operacional antes de iniciar.')
+if (process.env.BREVO_CAMPAIGN_OBSERVE_ENABLED === 'true' && !observer) throw new Error('Observação de campanhas exige chave privada de API válida.')
+if (!emailEnabled && !contactSync && !observer && !commercialEnabled) throw new Error('Worker desativado: habilite uma função operacional antes de iniciar.')
 if (process.env.BREVO_CAMPAIGN_SEND_ENABLED === 'true' && (!promotional || !configuredBrevoLists() || !configuredBrevoPreferences() || !validLinkSecret(process.env.LEAD_TOKEN_SECRET))) throw new Error('Disparo promocional desativado: confira pipeline, origem e chaves privadas antes de iniciar.')
 if (emailEnabled || promotional) configuredQuotaPolicy()
 const heartbeat = () => writeFile('/tmp/bibliotheon-worker-health', String(Date.now()), { mode: 0o600 })
@@ -34,6 +40,8 @@ for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => { stopping 
 try {
   do {
     try {
+      if (commercialEnabled && !stopping) { await processCommercialQueue(payload, {limit: 1}); await heartbeat() }
+      if (observer && !stopping) { await observePromotionCampaigns(payload, { client: observer, limit: 1 }); await heartbeat() }
       if (emailEnabled) {
         await dispatchEmail(payload)
         await payload.jobs.run({ queue: 'email', limit: 1, overrideAccess: true, silent: true })
@@ -42,7 +50,7 @@ try {
       if (contactSync && !stopping) { await syncBrevoSuppressions(payload, { client: contactSync, limit: 1 }); await heartbeat() }
       if (contactSync && !stopping) { await syncBrevoRegistrationCleanup(payload, { client: contactSync, limit: 1 }); await heartbeat() }
       if (registration && !stopping) { await syncBrevoRegistrations(payload, { client: registration, limit: 1 }); await heartbeat() }
-      if (!stopping) { await preparePromotionBatches(payload); await heartbeat() }
+      if ((emailEnabled || contactSync || promotional) && !stopping) { await preparePromotionBatches(payload); await heartbeat() }
       if (promotional && !stopping) { await dispatchPromotionCampaigns(payload, { dispatch: promotional }); await heartbeat() }
     } catch { console.error('Ciclo operacional falhou. Pendências duráveis serão retomadas; consulte os estados no painel.') }
     if (!process.argv.includes('--once') && !stopping) await setTimeout(30_000, undefined, { signal: shutdown.signal }).catch(() => {})

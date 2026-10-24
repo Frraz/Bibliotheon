@@ -1,0 +1,6 @@
+{
+  "date": "2026-10-24T12:40:36.207Z",
+  "capturesPassedBeforeStop": 31,
+  "cause": "Seletor getByRole(alert) também encontrou o anunciador de rota nativo Next. Corrigido seletor da asserção para o texto da mensagem de consulta. Produto e build mantidos.",
+  "next": "Repetir a rodada completa para concluir os cenários de interação."
+}

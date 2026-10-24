@@ -358,6 +358,105 @@ class DeploymentTests(unittest.TestCase):
             deploy.validate_compose(self.candidate, self.config)
 
 
+    def test_webhook_requires_independent_private_secrets(self):
+        values = self.candidate['services']['app']['environment']
+        values['BREVO_WEBHOOK_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'BREVO_WEBHOOK_TOKEN': 'w'*64, 'BREVO_WEBHOOK_EVENT_SECRET': 'v'*64})
+        deploy.validate_compose(self.candidate, self.config)
+        values['BREVO_WEBHOOK_EVENT_SECRET'] = values['BREVO_WEBHOOK_TOKEN']
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_observation_worker_requires_only_valid_api_key(self):
+        self.config['worker'] = True
+        values = self.candidate['services']['app']['environment']
+        values.update({'EMAIL_TRANSPORT_ENABLED': 'false', 'BREVO_CONTACT_SYNC_ENABLED': 'false', 'BREVO_CAMPAIGN_OBSERVE_ENABLED': 'true'})
+        values['BREVO_API_KEY'] = ''
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values['BREVO_API_KEY'] = 'synthetic-observer'
+        deploy.validate_compose(self.candidate, self.config)
+        values['BREVO_API_KEY'] = 'invalid key'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_hotmart_receiver_requires_account_and_independent_token(self):
+        values = self.candidate['services']['app']['environment']
+        values['HOTMART_WEBHOOK_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'HOTMART_ACCOUNT_KEY': 'synthetic-account', 'HOTMART_HOTTOK': 'synthetic-native-token'})
+        deploy.validate_compose(self.candidate, self.config)
+        for key, bad in [('HOTMART_ACCOUNT_KEY', 'buyer@example.invalid'), ('HOTMART_HOTTOK', values['PAYLOAD_SECRET']), ('HOTMART_PREVIOUS_HOTTOK', 'synthetic-native-token')]:
+            before = values.get(key)
+            values[key] = bad
+            with self.assertRaises(deploy.DeployError):
+                deploy.validate_compose(self.candidate, self.config)
+            if before is None:
+                values.pop(key, None)
+            else:
+                values[key] = before
+
+    def test_hotmart_secret_is_not_needed_by_worker(self):
+        self.candidate['services']['worker']['environment'] = {'HOTMART_HOTTOK': 'synthetic-native-token'}
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_kiwify_receiver_requires_account_and_independent_strong_token(self):
+        values = self.candidate['services']['app']['environment']
+        values['KIWIFY_WEBHOOK_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'KIWIFY_ACCOUNT_KEY': 'synthetic-account', 'KIWIFY_WEBHOOK_TOKEN': 'synthetic-kiwify-token-at-least-32-characters'})
+        deploy.validate_compose(self.candidate, self.config)
+        for key, bad in [('KIWIFY_ACCOUNT_KEY', 'buyer@example.invalid'), ('KIWIFY_WEBHOOK_TOKEN', 'short'), ('KIWIFY_WEBHOOK_TOKEN', values['PAYLOAD_SECRET']), ('KIWIFY_WEBHOOK_PREVIOUS_TOKEN', values['KIWIFY_WEBHOOK_TOKEN'])]:
+            before = values.get(key)
+            values[key] = bad
+            with self.assertRaises(deploy.DeployError):
+                deploy.validate_compose(self.candidate, self.config)
+            if before is None:
+                del values[key]
+            else:
+                values[key] = before
+
+    def test_kiwify_secret_is_not_needed_by_worker(self):
+        self.candidate['services']['worker']['environment'] = {'KIWIFY_WEBHOOK_TOKEN': 'synthetic-kiwify-token-at-least-32-characters'}
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_cakto_receiver_requires_account_and_independent_strong_token(self):
+        values = self.candidate['services']['app']['environment']
+        values['CAKTO_WEBHOOK_ENABLED'] = 'true'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+        values.update({'CAKTO_ACCOUNT_KEY': 'synthetic-account', 'CAKTO_WEBHOOK_SECRET': 'synthetic-cakto-token-at-least-32-characters'})
+        deploy.validate_compose(self.candidate, self.config)
+        for key, bad in [('CAKTO_ACCOUNT_KEY', 'buyer@example.invalid'), ('CAKTO_WEBHOOK_SECRET', 'short'), ('CAKTO_WEBHOOK_SECRET', values['PAYLOAD_SECRET']), ('CAKTO_WEBHOOK_PREVIOUS_SECRET', values['CAKTO_WEBHOOK_SECRET'])]:
+            before = values.get(key)
+            values[key] = bad
+            with self.assertRaises(deploy.DeployError):
+                deploy.validate_compose(self.candidate, self.config)
+            if before is None:
+                del values[key]
+            else:
+                values[key] = before
+
+    def test_cakto_secret_is_not_needed_by_worker(self):
+        self.candidate['services']['worker']['environment'] = {'CAKTO_WEBHOOK_SECRET': 'synthetic-cakto-token-at-least-32-characters'}
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
+    def test_commercial_worker_requires_no_email_or_api_key(self):
+        self.config['worker'] = True
+        values = self.candidate['services']['app']['environment']
+        values.update({'EMAIL_TRANSPORT_ENABLED': 'false', 'BREVO_CONTACT_SYNC_ENABLED': 'false', 'BREVO_CAMPAIGN_OBSERVE_ENABLED': 'false', 'COMMERCIAL_EVENTS_ENABLED': 'true', 'BREVO_API_KEY': ''})
+        deploy.validate_compose(self.candidate, self.config)
+        values['COMMERCIAL_EVENTS_ENABLED'] = 'false'
+        with self.assertRaises(deploy.DeployError):
+            deploy.validate_compose(self.candidate, self.config)
+
     def test_campaign_send_requires_draft_pipeline(self):
         values = self.candidate['services']['app']['environment']
         values['BREVO_CAMPAIGN_SEND_ENABLED'] = 'true'

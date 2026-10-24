@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-24T19:28:58.078Z",
+  "checks": [
+    "Autenticação antes da persistência; duplicatas simultâneas recebem ACK após um commit. Recepção independe do worker desligado; aplicação posterior usa ucode/oferta, total pago e data original, sem PII/comissão/liquidação inferida.",
+    "Reembolso parcial sem quantia fica desconhecido; COMPLETE tardio reforça aprovação original sem apagar reversão. Chargeback permanece separado, com sobreposição explícita e sem duplicar devolução.",
+    "Colisão de payload autenticado é ACK durável, inventariada uma vez e marcada em revisão; não reescreve projeção nem cria retry externo infinito.",
+    "Data de criação futura continua em revisão mesmo com aprovação original passada. Moeda com outra precisão e assinatura ficam duráveis/unknown, sem aplicar uma venda avulsa ou guardar assinante.",
+    "Produto desconhecido não cria transação; cadastro exato e retry owner auditado aplicam o envelope preservado, sem inferir oferta primária ou preço.",
+    "Falha na auditoria de recepção reverte inbox e responde 503; reenvio recupera. Evento não financeiro fica ignorado/auditado sem nova transação.",
+    "Mesmo ID de evento/transação em outra conta exige o outro token e gera identidade independente. Token anterior explicitamente configurado aceita transição; conta do corpo não escolhe namespace."
+  ],
+  "environment": "PostgreSQL loopback; payloads nativos v2 sintéticos; handler HTTP real sem provedor externo",
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Sem conta, transação ou webhook real; autenticação, campos e retry precisam de homologação pelo proprietário. Origem de clique não atribuída; taxas/líquido/liquidação/reembolso monetário não inferidos."
+}

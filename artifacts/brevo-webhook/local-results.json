@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-24T08:10:58.782Z",
+  "timezone": "America/Belem",
+  "environment": "PostgreSQL loopback; eventos totalmente sintéticos; Brevo HTTP interceptado; CLI sem rede",
+  "checks": [
+    "Migração vazia down/up revertida; notificações concorrentes com IDs de webhook distintos deduplicam uma entrega, sem fabricar 204, mexer na quota ou permitir reenvio.",
+    "Devolução temporária não retira consentimento; resultados fora de ordem preservam entrega e devolução separadamente.",
+    "Cancelamento autenticado retira marketing e agenda bloqueio no mesmo commit, preservando amostra solicitada; replay não duplica auditoria.",
+    "Hard bounce/reclamação tornam bloqueio mais restritivo, cancelam entregas pendentes e nunca são apagados por entrega tardia; datas de ocorrências são preservadas.",
+    "Desconhecidos ficam em quarentena sem criar contatos ou guardar endereço; replay não associa contato criado depois. Retirada válida de contato conhecido vale mesmo em campanha não mapeada.",
+    "Campanha própria exige destinatário do conjunto e tempo compatível com intenção; payload antigo ou contato externo não cria comprovante local.",
+    "Falha de commit reverte envelope, supressão e comprovante juntos; nova notificação conclui sem efeito parcial.",
+    "Notificação durante preparação de retry revoga lease e impede que callback posterior rearme ou emita outra campanha.",
+    "Downgrade não apaga envelopes/resultados; owner não forja coleções; replay empacotado usa apenas envelope mínimo sem rede.",
+    "Replay explícito reconcilia envelope com contato já conhecido quando o manifesto local compatível se torna disponível, sem repetir transporte ou supressão.",
+    "Identidade HMAC capturada antes do POST recusa endereço alterado; legado sem prova fica em quarentena sem inventar backfill, preservando supressão negativa e guard de downgrade."
+  ],
+  "externalCalls": false,
+  "realMessagesSent": 0,
+  "limits": "Delivered é notificação do provedor, sem comprovar leitura/compra. Sem conta real, autenticação real homologada, GitHub ou VPS."
+}

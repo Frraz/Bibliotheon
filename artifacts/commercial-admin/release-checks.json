@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-24T13:02:14.344024+00:00",
+  "gitBaseline": "74fe451",
+  "scope": "D62 owner-only commercial operations UI; local validation only",
+  "buildId": "I1cSRFKGWCtGxDwK5Xyls",
+  "unit": {
+    "files": 22,
+    "passed": 104
+  },
+  "integrationGroups": {
+    "commercialAdmin": 4,
+    "commercialInboxRegression": 12
+  },
+  "browser": {
+    "captures": 46,
+    "axeChecks": 45,
+    "violations": 0,
+    "bodyOverflow": 0,
+    "runtimeErrors": [],
+    "externalAttempts": 0,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "viewports": [
+      360,
+      390,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "extraChecks": [
+      "320px reflow",
+      "text size 200%",
+      "keyboard and focus",
+      "native readonly detail/envelope/audit",
+      "busy and duplicate submit",
+      "real local 202 plus one owner audit",
+      "feedback survives attention-filter removal",
+      "intercepted 403/409/503/network failures",
+      "no-JS readonly fallback"
+    ],
+    "visuallyInspected": [
+      "ready-dark-360.png",
+      "native-detail-light.png",
+      "retry-confirmed-light.png",
+      "nojs-read-only.png"
+    ]
+  },
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed; two prior unused-argument warnings in sequences migration",
+    "build": ".next-qa passed",
+    "generatedTypes": "regenerated",
+    "importMap": "current, no new imports on final generation",
+    "httpAccess": "passed",
+    "httpPublicSite": "passed",
+    "httpExitCode": 0,
+    "firstHttpWrapper": "Returned signal 143 after printing success/cleanup; repeated same HTTP suites with explicit exit marker zero",
+    "databaseCounts": {
+      "admin-users": 0,
+      "contacts": 0,
+      "commercial-inbox": 0,
+      "commercial-conflicts": 0,
+      "transactions": 0,
+      "transaction-events": 0,
+      "commercial-audit": 0,
+      "analytics-grants": 0,
+      "visits": 0,
+      "page-views": 0,
+      "checkout-clicks": 0,
+      "brevo-campaign-sends": 0,
+      "brevo-webhook-events": 0,
+      "payload-migrations": 20
+    },
+    "newMigration": false,
+    "qaServer": "owned .next-qa/3001 stopped; managed preview preserved",
+    "ci": "two commercial suites added; not executed on GitHub",
+    "documentation": {
+      "documents": 47,
+      "localLinks": 530,
+      "externalUrlsWithoutNetworkVerification": 82,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76,
+      "status": "passed"
+    },
+    "qaPortReleased": true
+  },
+  "qaCorrections": [
+    "Native extension links failed target-size; fixed 44px targets and reran. Initial failure preserved.",
+    "Playwright alert selector matched Next route announcer; test narrowed without changing product.",
+    "Text matchers ignored noscript; DOM textContent/rect and screenshot verify fallback. Init-script storage errors on opaque frames caught in harness. Full final run passed."
+  ],
+  "warnings": [
+    "Existing pg/Drizzle concurrent-query deprecation in fixture suites",
+    "Two existing lint warnings in applied sequences migration"
+  ],
+  "productionReady": false,
+  "externalCalls": false,
+  "realSales": 0,
+  "githubOrVpsChanged": false,
+  "pending": [
+    "native Hotmart/Kiwify/Cakto contracts, authentication, event mapping and homologation",
+    "purchase attribution using verified provider reference only",
+    "CSV, settlement, costs and financial reports",
+    "retention/deletion",
+    "current production image, empty database, upgrade and restore",
+    "full release visual/performance and external homologation",
+    "owner launch assets/offers/institutional preparation"
+  ],
+  "sha256": {
+    "src/modules/commerce/policy.ts": "886d956d72ba9bece576e79478f3b13854a30ed0e6b6d94e70051ad8624c76c6",
+    "src/modules/commerce/presentation.ts": "bd82fa819922d83907cc7db474941d261e02eb3c2331b7cb99e81983f09fb5b4",
+    "src/modules/commerce/admin.ts": "26e0e1fe17f1e8880da401aba94db0639f5ea2d6e4689217c0c513b117c04025",
+    "src/modules/commerce/inbox.ts": "6ce18f069fc31204950db304f844d24db49d33d99921ee752f2bfe67f34bb0d3",
+    "src/collections/Commerce.ts": "b8f262ee7b5e58068a1fa0857c39c7c8bf73ab7defe401f628390da75bacc968",
+    "src/collections/presentation.ts": "6a5d89251020038dc5d30b75f1d8bf080ff02dfe074660fe4cda7c544c4d6196",
+    "src/components/admin/CommercialInboxView.tsx": "8f38439bd6a7dd6d00fe3b93e703bd11f500d8cd5c140bacadfb811aa000c0ce",
+    "src/components/admin/CommercialRetryForm.tsx": "7ce272398c52693654cc9bf6cefbb814054f3d697673cf829264c5c1f8919db8",
+    "src/components/admin/CommercialRetry.tsx": "c57793d79cbdf70b038ae9d6034eccf8335f3e615305e3c7c714556e1755f219",
+    "src/components/admin/CommercialFeedback.tsx": "6cdd151062df00de9da228cf06f50c7fd6adac8dd4a2c9451eccdf56351324ab",
+    "src/components/admin/Dashboard.tsx": "cafb5007dd14dd052b2632819f79874b92ffe8bfaf926f94fbeebed41c07c995",
+    "src/styles/admin.css": "bfae71f3382de99542d67bc2c8422ef890cc8471984fff4df29b599fa65828e1",
+    "src/payload.config.ts": "d1ba841d17630b78875fc50b6368ffda791d055e968ed5f735845f569ab84260",
+    "src/payload-types.ts": "6d1c525355d6af9a727b842fb1182ae3b861862bd8d34d2df0be0c8c798aad5c",
+    "src/app/(payload)/admin/importMap.js": "9f08d7f57d6c70834fc1616de0a275f15e3af17c2f01d57bd001659fba44f1a8",
+    "tests/unit/commercial-admin.test.ts": "fc8b0ff36d95158c406ff6d6e6c118676a0fa9a22786aece2d4d1bdba6d94dbf",
+    "tests/fixtures/commercial-operations.ts": "527bde5f2fac40b544ca703095d8f84bb99e00771df6c7b31d1234f4151a4031",
+    "tests/integration/commercial-admin.ts": "b54133d1c90d6ed496f3a6cbbecd97897e9aec19af2f1b3c0f6145c3653e6dd7",
+    "scripts/qa-commercial-admin.ts": "27c31d25b7e272cf87bc0637c005b2eb386820e13989206c7db98abe22c40a46",
+    ".github/workflows/quality.yml": "91b164c062e37c120243646f5e84efa0c6529be569e273e2ca51c98d2602fb6f",
+    "package.json": "7ea39c9b1dfa58a54ee0dabc78b240f3f306084772a6c7f6de25bde8b8e591be",
+    "migrations/index.ts": "3dbd6c9d716ad4dc36652c6a282eb3def630688bdce2f2b8ed3a73edd5717734",
+    "migrations/20261024_115633_commercial_inbox.ts": "f2c8dec3e94e3d9ce63b67b8e55184aa478a75e346fe93ff88c955ea7da1fcaf"
+  }
+}

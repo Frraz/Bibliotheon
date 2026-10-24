@@ -32,7 +32,7 @@ def headings(text):
 
 def main():
     errors = []
-    files = [ROOT / 'README.md', ROOT / 'AGENTS.md', ROOT / 'DESIGN-BRIEF.md', ROOT / 'deploy.md', *sorted((ROOT / 'docs').rglob('*.md'))]
+    files = [ROOT / 'README.md', ROOT / 'AGENTS.md', ROOT / 'DESIGN-BRIEF.md', ROOT / 'deploy.md', ROOT / 'pendencias.md', *sorted((ROOT / 'docs').rglob('*.md'))]
     texts = {}
     for path in files:
         if not path.is_file():

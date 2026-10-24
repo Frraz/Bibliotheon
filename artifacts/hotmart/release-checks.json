@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-24T13:57:55.998409+00:00",
+  "gitBaseline": "74fe451",
+  "scope": "D63 Hotmart v2 native adapter/inbound endpoint; local validation only",
+  "adapterVersion": "hotmart-purchase-v2:1",
+  "buildId": "qy7-phMVQzhL4WbuD0iDm",
+  "sources": [
+    {
+      "url": "https://developers.hotmart.com/docs/pt-BR/2.0.0/webhook/purchase-webhook/",
+      "evidence": "Official indexed table/example consulted; direct portal open returned dynamic shell."
+    },
+    {
+      "url": "https://developers.hotmart.com/docs/en/2.0.0/webhook/purchase-webhook/",
+      "evidence": "Official indexed schema cross-check."
+    },
+    {
+      "url": "https://developers.hotmart.com/docs/en/changelog",
+      "evidence": "Official indexed changelog, including price/currency and additional metadata fields."
+    }
+  ],
+  "unit": {
+    "files": 23,
+    "passed": 122
+  },
+  "operationsTests": 35,
+  "integrationGroups": 7,
+  "httpGroups": 4,
+  "regressions": {
+    "commercialInboxGroups": 12,
+    "commercialAdminGroups": 4,
+    "catalog": "passed",
+    "httpAccess": "passed",
+    "httpPublicSite": "passed",
+    "httpExitCode": 0
+  },
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed with two prior migration warnings",
+    "build": ".next-qa passed, /api/v1/webhooks/hotmart included",
+    "runtime": "packed by common inbox regression",
+    "generatedTypes": "regenerated after field help changes",
+    "importMap": "no new imports",
+    "compose": "real/normalized false default and enabled synthetic Hottok with literal dollar, secret absent from worker",
+    "databaseCounts": {
+      "admin-users": 0,
+      "contacts": 0,
+      "commercial-inbox": 0,
+      "commercial-conflicts": 0,
+      "transactions": 0,
+      "transaction-events": 0,
+      "commercial-audit": 0,
+      "analytics-grants": 0,
+      "visits": 0,
+      "page-views": 0,
+      "checkout-clicks": 0,
+      "brevo-campaign-sends": 0,
+      "brevo-webhook-events": 0,
+      "payload-migrations": 20
+    },
+    "newMigration": false,
+    "legacyDigest": "legacy 17-value digest unchanged when optional evidence absent; explicit evidence included when present",
+    "visualQA": "No new D63 screenshots; D62 captures remain previous-stage evidence",
+    "qaServer": "owned .next-qa/3001 stopped and port released; managed preview preserved",
+    "ci": "native domain and HTTP suites added; no GitHub execution claimed",
+    "documentation": {
+      "documents": 47,
+      "localLinks": 554,
+      "externalUrlsWithoutNetworkVerification": 84,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76,
+      "status": "passed"
+    },
+    "qaPortReleased": true
+  },
+  "guards": [
+    "header token before body/database; only configured account alias",
+    "bounded UTF-8 JSON and total body deadline",
+    "exact numeric lexemes; no rounding/coercion or currency conversion",
+    "original approval date separate from notification creation; source event preserved",
+    "partial/full refund needs sufficient native state, amount remains unknown",
+    "unsupported precision/purchase shape/native state held for review",
+    "ACK only after durable receipt, including duplicate/conflict",
+    "PII/payment/origin/commissions excluded; no attribution or settlement inferred"
+  ],
+  "warnings": [
+    "Existing pg/Drizzle concurrent-query deprecation in fixtures",
+    "Two existing unused-argument lint warnings in applied sequences migration"
+  ],
+  "productionReady": false,
+  "nativeAccountHomologated": false,
+  "externalCalls": false,
+  "realSales": 0,
+  "githubOrVpsChanged": false,
+  "defaults": {
+    "HOTMART_WEBHOOK_ENABLED": false,
+    "COMMERCIAL_EVENTS_ENABLED": false
+  },
+  "pending": [
+    "real Hotmart account/payload/checkout/eligibility/report/retry/token transition homologation",
+    "native Kiwify and Cakto adapters and homologation",
+    "verified purchase attribution",
+    "CSV/reconciliation/settlement/costs and audited conflict/catalog-ambiguity resolution",
+    "retention/deletion",
+    "current production image/upgrade/empty database/restore and full visual/performance release"
+  ],
+  "sha256": {
+    "src/integrations/hotmart/numbers.ts": "9cf79158e9e37775b28b36039f4407366f36488d71eb3fa669c0a79b55380da5",
+    "src/integrations/hotmart/webhook.ts": "2446d8cffe3bff543b07a02988561a6918ef742e450a2b175e8400af95679b20",
+    "src/integrations/hotmart/webhook-http.ts": "608eee0f7869894957bb6ce5d05dfe8243db2cada9b5d54669815996ef542075",
+    "src/app/(site)/api/v1/webhooks/hotmart/route.ts": "2a32415081a0aaf31aeb4c4c5bff001c408062665db0e864c38ec651ac8892b9",
+    "src/modules/commerce/events.ts": "1d9be98664642290bcf0143325cc63745d85a77284b4dfddec194528b8bcbb33",
+    "src/modules/commerce/projection.ts": "afa83eb5148bea2c7d9fe933bea37605498c015999098af5dcda89878eb95ab0",
+    "src/modules/commerce/inbox.ts": "6bb391df8bfee689ddac21372b076f177d0ee8d6a16d3e7dff9bf40a0d084562",
+    "src/modules/commerce/presentation.ts": "64f268978c9372deb72c6f148a7c4c4008df2807b100cab261763e9854c09eef",
+    "src/collections/Offers.ts": "d8e5104251cbdfc871879c50a78a7a74ef0dace658e5ac330da7e73a87fc90fd",
+    "src/payload-types.ts": "3a45de9eee4e10d8cc7d5abbb55887c24da9161204db840bfabf2cbf693dad7a",
+    "tests/fixtures/hotmart.ts": "e1840a134b21fe5f9c3302f67e7639b19c472a70edfadc49e523eaf7e306540c",
+    "tests/unit/hotmart.test.ts": "718af856f71fb3e124dac6ffee84552aeb347c3906143ca313cca44231b2edad",
+    "tests/integration/hotmart.ts": "280c51cc7f5186a980f2d95b30095edf6aea772c907b004f8ee5f2fc0552d6f0",
+    "tests/integration/hotmart-http.ts": "f90784f20df51c9bf279069e4b762deca4089087e00a416ca465b584d3ddd697",
+    "tests/ops/test_deploy.py": "58dc376b090fbcd83789686310e9d931e7e4b4d391d5a3661e3b58dc928c7c1b",
+    "ops/deploy.py": "3df7c9f7cd0e1c3558d057f7f50be184e62e215c6438affc8ead56ef01a54e2c",
+    "scripts/qa-deploy-config.py": "0fcc2d5331ab796e312754f48a085fbfc08f48182cb427dc6fd0d27eca3ef90b",
+    "compose.production.yaml": "c4186f4eecd34e8eb03b5c3677d6ab96322a79db41c54084878cdfd99b5d0d95",
+    ".env.example": "8761598f04b41f6eddcc79b3c655ce5e35eb0f13b00336742bbd6920055fc8be",
+    ".env.production.example": "bcf15c1e08d002573841c1296d4c36cd8db7e0084422ee9aa95d5d63de813b68",
+    ".github/workflows/quality.yml": "f94f4650b1da9cd82e6167bbb9f7c8798c9ca9ccbeb3b23d9cfa56dc144e40e9",
+    "package.json": "9dac2f0fb3659e880ee2281c5b1f7df4431417e9d3fef97d5b9bc4233654886c",
+    "migrations/index.ts": "3dbd6c9d716ad4dc36652c6a282eb3def630688bdce2f2b8ed3a73edd5717734",
+    "Dockerfile": "c5f97492a6151342489b5ab9a8e1a564ff91f1b4d026bde06acd0b0772b0e443"
+  }
+}

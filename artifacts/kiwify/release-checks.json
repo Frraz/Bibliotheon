@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-24T18:01:52.081252+00:00",
+  "gitBaseline": "74fe451",
+  "scope": "D64 Kiwify nativa local e regressões do contrato comercial compartilhado",
+  "adapterVersion": "kiwify-orders:1",
+  "buildId": "v599YHz-pGbEsEf23bodO",
+  "node": "v22.23.4",
+  "unit": {
+    "files": 24,
+    "passed": 146
+  },
+  "operationsTests": 37,
+  "integrationGroups": 7,
+  "httpGroups": 4,
+  "regressions": {
+    "hotmartLocal": 7,
+    "hotmartHttp": 4,
+    "commercialInbox": 12,
+    "commercialAdmin": 4
+  },
+  "checks": {
+    "typecheck": true,
+    "lintErrors": 0,
+    "lintHistoricalWarnings": 2,
+    "productionBuildIsolated": true,
+    "composeRealAndFrozen": true,
+    "qaServerExit": 0,
+    "qaPort3001Closed": true,
+    "qaLogsWithoutSignatureTokenOrPII": true,
+    "browserQAThisStage": false
+  },
+  "warnings": [
+    "PostgreSQL local estava desligado; container existente reiniciado preservando volume, testes passaram depois.",
+    "Dois builds restritos falharam no --showConfig; diagnóstico reproduziu spawn Node EPERM, build autorizado e build final passaram.",
+    "Dois avisos antigos de lint na migration de sequências; aviso pg/Drizzle durante fixtures."
+  ],
+  "migrationsAppliedThisStage": 0,
+  "localMigrationCount": 20,
+  "defaults": {
+    "KIWIFY_WEBHOOK_ENABLED": false,
+    "COMMERCIAL_EVENTS_ENABLED": false
+  },
+  "productionReady": false,
+  "nativeAccountHomologated": false,
+  "providerAccountCalls": false,
+  "realSales": 0,
+  "githubOrVpsChanged": false,
+  "pending": [
+    "B10 Cakto com contrato oficial próprio",
+    "Homologação de conta/relatório/rotação/reenvios Hotmart e Kiwify",
+    "Conciliação auditada do instante de chargeback/recusa e formatos especiais Kiwify",
+    "B07 atribuição oficialmente suportada",
+    "B11 CSV/financeiro/colisões/ambiguidade de catálogo com histórico",
+    "B12 retenção",
+    "Imagem atual, banco vazio/upgrade/restore e homologação integral do release"
+  ],
+  "sha256": {
+    "src/integrations/kiwify/dates.ts": "0a994ad2a945e107c6538b44eee4581312c0df778dbef9f83bf487e9ac430b05",
+    "src/integrations/kiwify/webhook.ts": "cea2e129c49c759816f0ba93d670f80ef06d5d1d52a1bf2f09bfa520fb11894a",
+    "src/integrations/kiwify/webhook-http.ts": "aa51d153fedcb4e02b05358be0215694e4c1b52064d4bd9cdf34de9c5ed960cc",
+    "src/app/(site)/api/v1/webhooks/kiwify/route.ts": "20c51e3ae763dde7a1d9d298521b5fdb98299ac75e27f6362c00c33922dfed39",
+    "src/modules/commerce/native-json.ts": "81f1b0e52d87fc52ddf9bf0c2d40b550fc2ad9960ecf662be71c1ac0f67eba3a",
+    "src/modules/commerce/events.ts": "b263494ccdff932aea163b0f81498c29afa8d3d1c41affb6bd7531c97ce6f934",
+    "src/modules/commerce/presentation.ts": "c6eeb380dd6951fa1dbceb81c8b3fa9ef1cbd0509ca9e2553ffd6e84ec8433a6",
+    "src/integrations/hotmart/numbers.ts": "ccc127910b55c53f1072ce08803b14b341f6aabf960cdd5b0b19311f45fbdcd2",
+    "src/integrations/hotmart/webhook.ts": "e276616e6992a065db81e2f539948eee0124f600454e29bdba1a5837c2e320aa",
+    "tests/fixtures/kiwify.ts": "28e33f332d78cd97bcd2c2e6d3c0de5f92bc2f13f1378e0402759072cdde3f56",
+    "tests/unit/kiwify.test.ts": "737e98ccffa1778359fc84714d32a30a7d8264a7051d89da0d6209ac79ad2c32",
+    "tests/integration/kiwify.ts": "6bd1653777df8ecc134ab73fd339e1c522a25d4ec438b4da63f03210ef06c731",
+    "tests/integration/kiwify-http.ts": "eb5f88f2160caec6b9c44df54de76417e5148c0218037a2c18842b6308a90f06",
+    "compose.production.yaml": "0c6009100dca7d1daa3d040fed6108eb8eba34cca077ca6efbaa8a165101bc98",
+    ".env.example": "23dafbecd441ef6f1967192e23e5844916b36c4a3c3ecd1bcc514279870921e1",
+    ".env.production.example": "7419e8ec0e75cce08a7b55bcc4ce5123e9b58ba9286510c453a84f3cc7b933de",
+    "ops/deploy.py": "c44959245bfe730e5fad37bc65258f395a0f26618bef41ef77a817fb75ff59ac",
+    "tests/ops/test_deploy.py": "1792dcf5199b1dda1208badbcc27aff1cbcf8417f4022949d5af0cd24abc50cc",
+    "scripts/qa-deploy-config.py": "9aeca2f9503caa19406ab0681b133f2ba41e2bf86c7e4ddc252ac684033fe01b",
+    ".github/workflows/quality.yml": "1eb4ce832e7a39aa38a8d884ffc523f4b62b0a7dbfb99cd35376b11799b483e6",
+    "package.json": "dea6d1c3816f9dd802e4b0a9b6dd05d09672f76f56c15d3fd02287d59c954ab1",
+    "docs/integracoes/kiwify.md": "f57289731a6ddf669a1d1242ddd872a8aa79decc201d9a3efc66516bd48a601a",
+    "artifacts/kiwify/local-results.json": "c0e6f4f4b90ee6da45d514063fdbeb65ff430e831969d874e8cbf4274ddb7723",
+    "artifacts/kiwify/http-results.json": "f92b62c10f79753bb037f5dacf957c89732d1cf8556f928c98eba7cf152a847c",
+    "artifacts/kiwify/source-checks.json": "e2b0db88ffe718e6c0b478dd401d457d3df72a1197cc431558b2d79f0c7dccc8",
+    "artifacts/kiwify/cleanup-counts.json": "840bf30450d0b257f18b2b9412f8cfa1133fc605fe7d4e11beb91dd9c4d346dc"
+  }
+}

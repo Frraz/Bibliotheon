@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-24T20:11:56.263602+00:00",
+  "stage": "D69",
+  "scope": "Organização de raiz, remoção do alias incorreto, controle local e workflow de qualidade",
+  "checks": {
+    "typecheck": true,
+    "lintErrors": 0,
+    "lintHistoricalWarnings": 2,
+    "unitFiles": 27,
+    "unitTests": 192,
+    "operationTests": 57,
+    "newOperationTests": 18,
+    "shellSyntax": true,
+    "pythonSyntax": true,
+    "workflowYamlParsedLocally": true,
+    "workflowStructureChecked": true,
+    "allManifestIntegrationSuitesCoveredOnce": true,
+    "ignoreRulesChecked": true,
+    "documentation": {
+      "passed": true,
+      "output": [
+        "OK: 76 pares autorizados aprovados, dois temas; relatório consistente.",
+        "Documentos: 49",
+        "Links locais: 733; URLs externas distintas: 102 (sem verificação de rede)",
+        "Requisitos: 34; tarefas: 20; cenários: 29",
+        "OK: estrutura, links locais, rastreabilidade, contrastes e hashes das fontes preservados."
+      ]
+    },
+    "unstagedDiffWhitespace": true,
+    "stagedDiffWhitespace": true
+  },
+  "orchestrationFixtures": {
+    "temporaryProcessesAndCommandsOnly": true,
+    "pidReuseAndWrongCheckoutRefused": true,
+    "detachedProcessTreeStopped": true,
+    "foreignServerPreserved": true,
+    "legacyStateRefused": true,
+    "startIdempotentAndFailureCleanup": true,
+    "keepDatabaseSupported": true,
+    "httpReadinessFailurePreventsTests": true,
+    "httpSuiteFailureStopsSequence": true,
+    "httpTemporaryServerCleaned": true
+  },
+  "gitIndex": {
+    "onlyStagedPath": ".local-logs/next.log",
+    "operation": "remove generated log from index only",
+    "diskFilePreserved": true,
+    "commitCreated": false,
+    "pushPerformed": false
+  },
+  "integrity": {
+    "protectedFilesComparedWithD68": 226,
+    "allPreserved": true,
+    "applicationSchemaDeploymentDriverAndHistoricalSourcesUnchanged": true
+  },
+  "notPerformed": {
+    "applicationStartStop": true,
+    "databaseQueryOrMigration": true,
+    "applicationIntegrationOrHttpTests": true,
+    "productBuild": true,
+    "browserQA": true,
+    "containerOrRestore": true,
+    "githubWorkflowRun": true,
+    "providerAccountAccess": true,
+    "vpsDeploy": true
+  },
+  "productionReady": false,
+  "officialWorkflowSources": [
+    "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+    "https://github.com/actions/setup-node"
+  ],
+  "removedEntrypoint": "altualizar.sh",
+  "retainedProductionEntrypoint": "atualizar.sh",
+  "fileHashes": {
+    ".github/workflows/quality.yml": "d33ddc06011e12880aed22f9298991aac4751058cad3fbf318ae9f0bc11e6f89",
+    ".gitignore": "c37bb96e8cad953d2331dbbf0e3f729ca92f6fa36f253cd9284e76d36f452198",
+    ".dockerignore": "61a573fde85168ad70c56666f232a681e3504c9c28fb1f45e2ccf24c49ea659c",
+    ".nvmrc": "6d07ac247e81cd42c2c20abf8dfe504413d6b2422e4aba9b2c975a776f155921",
+    ".editorconfig": "8e1c9a78d4dedcde12bb3cd6279ce83942819d1cd178f1d9d731ef3a62606ac7",
+    ".gitattributes": "38339b85b5cd3931b297b3fa1443758964e4fbe63dcbd17e3cc0b56cf8c4831d",
+    "README.md": "05f3ce63157203bb4d7b3e9eab0c426f4da0f7c5cc1360c97859a045b5c0e1fa",
+    "atualizar.sh": "014707c44b129d48fbae70b4f9b17db795254371088c73cc78da6f3af97790d2",
+    "start.sh": "abf47d2664e222c325eea6d2588da6fe4a951f3e7f545d3c7cbfe19ea8ca5443",
+    "stop.sh": "f79d7c5fac2e0553a0f5678221a11fa03022b31c3e79122ced78df9a950def94",
+    "package.json": "18d80e1edabe0ceb846272c5a33b472d83206404a1c78c0c6dcbf5f3baea85b8",
+    "scripts/check-local.sh": "52a69976da04c18b5599d7b2f7343e8aa130b0af0051797d15020418f1cf15a5",
+    "scripts/check-integration.sh": "02785e31915de583438ad8e0d0215b4137b8952511b0677e0fa391fb77c1ee34",
+    "scripts/check-http.sh": "9b8e037ed5ca366a557e1c516f4bbe45335e6239d1f6b7aff15838706fcd5848",
+    "scripts/local-dev.py": "53814dc4fce312e723d9a19f1c56fee86ef48222a94a76619a2f5b174aea1887",
+    "tests/ops/test_local_dev.py": "3e1d0e79798e84be782c22f463374934ea86ae3d11657bda771fb80dad8b370c",
+    "deploy.md": "cebbaf67872b114e8f5decbdad026fc64a4eb28ff93178b2eba569162b700a97",
+    "pendencias.md": "a1940522c72badc1455217a0f01738477b9b496cf8e080403266a545a4f17444",
+    "docs/13-backlog.md": "44fe3051c3d40f0108162cea61d142d708a158b0b8cdc270e13b386135a730e5",
+    "docs/14-progresso.md": "0ec5fce41a7330fd043c2723a3634575d1cf912672c02e761b6c4fe310b61063",
+    "docs/15-qualidade.md": "1a86f2bf5867641c076319bf1a54413005e41d0831cd3a72eb7ea4f187e19a49",
+    "docs/17-decisoes.md": "ff0741734977dc7dc1b3ea8027a47db896b084c2235d98ddc31a52af17e9a81f",
+    "docs/18-validacao.md": "78e71c6220a221c2b8c057f5c7f10cc031fec2ba096784a9d37088332acec393",
+    "docs/19-desenvolvimento.md": "e6e331f79cb091424af08168164e10c8601a2701c622bcbc0329b74e767a5088",
+    "docs/20-execucao-local.md": "e38f434e56d394ad2d2c7ba95d439c2e26dec14f050a72af948b66949d6e46e3",
+    "docs/23-estado-atual.md": "983d7e5d5a1534be92d403f08f53ac9c5743556734654a452114862bfe8d7aac"
+  }
+}

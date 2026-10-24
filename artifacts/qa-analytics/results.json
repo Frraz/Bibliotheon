@@ -1,0 +1,221 @@
+{
+  "date": "2026-10-24T08:05:28.643Z",
+  "origin": "http://127.0.0.1:3001",
+  "results": [
+    {
+      "name": "initial-light-360",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-light-360",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-light-360",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-light-390",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-light-390",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-light-390",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-light-768",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-light-768",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-light-768",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-light-1024",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-light-1024",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-light-1024",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-light-1440",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-light-1440",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-light-1440",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-light-1920",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-light-1920",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-light-1920",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-dark-360",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-dark-360",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-dark-360",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-dark-390",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-dark-390",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-dark-390",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-dark-768",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-dark-768",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-dark-768",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-dark-1024",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-dark-1024",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-dark-1024",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-dark-1440",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-dark-1440",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-dark-1440",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "initial-dark-1920",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "granted-dark-1920",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "revoked-dark-1920",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-withdrawal",
+      "overflow": false,
+      "axe": "not_run_javascript_disabled",
+      "functional": "permission revoked; no extra page view"
+    },
+    {
+      "name": "dashboard-light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "campaign-link-light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "dashboard-dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "campaign-link-dark",
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "checks": [
+    "Antes de consentir e após revogar, nenhum identificador/visualização adicional.",
+    "Aceitar/rejeitar têm peso igual e funcionam por teclado; foco restaurado.",
+    "Rota com token não é medida.",
+    "Claro/escuro e seis larguras; painel e gerador privados."
+  ],
+  "externalCalls": false,
+  "externalRequestsBlocked": 0,
+  "limits": "Dados sintéticos e navegador local; não substitui homologação integral do produto ou validação jurídica. Axe não executado no contexto sem JS; revogação/HTML/overflow capturados separadamente."
+}

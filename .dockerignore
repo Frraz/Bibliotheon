@@ -1,13 +1,17 @@
 .git
+.github
 .agents
 .aws
 .codex
 node_modules
 .next
+.next-*
 .release
 .env*
 uploads
 .local
+.local-run
+.local-logs
 .pnpm-store
 artifacts
 test-results
@@ -15,6 +19,7 @@ playwright-report
 coverage
 tests
 scripts/qa-*.ts
+__pycache__
+*.pyc
 *.tsbuildinfo
-
-.next-qa/
+*.log

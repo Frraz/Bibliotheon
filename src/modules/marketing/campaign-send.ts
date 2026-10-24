@@ -1,3 +1,5 @@
+import {captureSendRecipients,readSendRecipients} from './send-recipients'
+import { enqueueCampaignObservation } from './campaign-observation-queue'
 import { randomUUID } from 'node:crypto'
 import type { Payload, PayloadRequest } from 'payload'
 import type { BrevoCampaignSend } from '../../payload-types'
@@ -39,14 +41,15 @@ async function settleLocked(req: PayloadRequest, job: BrevoCampaignSend, token: 
   const settledAt = new Date(Math.max(now,Date.parse(last.issuedAt),Date.parse(last.settledAt||last.issuedAt))).toISOString()
   const outcome: SendAttempt = {...last,state:result.state,settledAt,...('code' in result?{code:result.code}:{})}
   history[history.length-1]=outcome
-  await req.payload.update({collection:'brevo-campaign-sends',id:job.id,data:{state:result.state,history,settledAt,responseCode:'code' in result?result.code:null,errorCode:result.state==='submitted'?null:result.state==='rejected'?'provider_rejected':'uncertain_delivery'},overrideAccess:true,req})
-  await req.payload.update({collection:'email-campaign-batches',id:batch.id,data:{state:result.state==='submitted'?'claimed':result.state,errorCode:result.state==='submitted'?null:result.state==='rejected'?'provider_rejected':'uncertain_delivery'},overrideAccess:true,req})
+  const effectiveState=job.state==='observed'?'observed' as const:result.state
+  await req.payload.update({collection:'brevo-campaign-sends',id:job.id,data:{state:effectiveState,history,settledAt,responseCode:'code' in result?result.code:null,errorCode:effectiveState==='observed'||result.state==='submitted'?null:result.state==='rejected'?'provider_rejected':'uncertain_delivery'},overrideAccess:true,req})
+  await req.payload.update({collection:'email-campaign-batches',id:batch.id,data:{state:effectiveState==='observed'||result.state==='submitted'?'claimed':result.state,errorCode:effectiveState==='observed'||result.state==='submitted'?null:result.state==='rejected'?'provider_rejected':'uncertain_delivery'},overrideAccess:true,req})
   for (const member of members) {
     const stage = await req.payload.findByID({collection:'promotion-deliveries',id:member.delivery,depth:0,overrideAccess:true,req})
     if (!stage.batch || idOf(stage.batch)!==batch.id || idOf(stage.contact)!==member.contact) throw new Error('Etapa do disparo inconsistente.')
-    if (stage.state==='sending'||stage.state==='uncertain') await req.payload.update({collection:'promotion-deliveries',id:stage.id,data:{state:result.state==='submitted'?'accepted':result.state,errorCode:result.state==='submitted'?null:result.state==='rejected'?'provider_rejected':'uncertain_delivery'},overrideAccess:true,req})
+    if (stage.state==='sending'||stage.state==='uncertain') await req.payload.update({collection:'promotion-deliveries',id:stage.id,data:{state:effectiveState==='observed'?'observed':result.state==='submitted'?'accepted':result.state,errorCode:effectiveState==='observed'||result.state==='submitted'?null:result.state==='rejected'?'provider_rejected':'uncertain_delivery'},overrideAccess:true,req})
   }
-  return {state:result.state}
+  return {state:effectiveState}
 }
 /** Each POST is preceded by one committed quota reservation and immutable attempt token. */
 export async function dispatchBrevoBatchCampaign(payload: Payload,batchId:string,options:CampaignSendOptions={}) {
@@ -67,6 +70,8 @@ export async function dispatchBrevoBatchCampaign(payload: Payload,batchId:string
         return {state:'held' as const}
       }
       if (job.state==='rejected'&&options.retryRejected) {
+        const observation=(await payload.find({collection:'brevo-campaign-observations',where:{send:{equals:job.id}},limit:1,depth:0,overrideAccess:true,req})).docs[0]
+        if(observation?.activityObservedAt||observation?.leaseToken&&observation.startedAt&&Date.parse(observation.startedAt)>clock()-LEASE)return{state:'held' as const}
         if (history.at(-1)?.state!=='rejected') throw new Error('Retentativa exige recusa confirmada.')
         await serial(req,`promotion-batch:${batchId}`)
         const batch=await payload.findByID({collection:'email-campaign-batches',id:batchId,depth:0,overrideAccess:true,req}),members=readBatchMembers(batch.members)
@@ -120,6 +125,8 @@ export async function dispatchBrevoBatchCampaign(payload: Payload,batchId:string
     const spec=manifest&&readDraftSpec(manifest.content),at=Date.parse(manifest?.verifiedAt||'')
     const expected=campaignCopy(batchId,review.batch.copy,origin,campaigns.senderId,review.listId)
     if (!manifest||!spec||manifest.state!=='ready'||!manifest.providerCampaignId||manifest.contentHash!==draftHash(spec)||manifest.contentHash!==draftHash(expected)||!Number.isFinite(at)||at>clock()||clock()-at>PROVIDER_CHECK_TTL||job.batchKey!==review.batch.key||job.recipientCount!==review.batch.recipientCount||job.attempts>0&&(job.providerCampaignId!==manifest.providerCampaignId||job.contentHash!==manifest.contentHash)) throw new Error('Rascunho diverge da solicitação de disparo.')
+    const recipientIdentities=captureSendRecipients(review.batch.members,review.recipients,secret)
+    if(job.attempts>0&&JSON.stringify(readSendRecipients(job.recipientIdentities))!==JSON.stringify(recipientIdentities)) throw new Error('Identidade do disparo anterior não pode ser alterada.')
     const reserved=await reservePreparedPromotionBatch(req,review,clock(),policy)
     if (reserved.state!=='claimed') {
       await payload.update({collection:'brevo-campaign-sends',id:job.id,data:{leaseToken:null,errorCode:reserved.state==='quota'?'quota':'prerequisites',nextAttemptAt:reserved.state==='quota'?quotaWindow(clock()).nextDayAt:new Date(clock()+60_000).toISOString()},overrideAccess:true,req})
@@ -129,7 +136,8 @@ export async function dispatchBrevoBatchCampaign(payload: Payload,batchId:string
     if (history.length&&!['rejected'].includes(history.at(-1)!.state)) throw new Error('Tentativa anterior não permite novo disparo.')
     const attempt:SendAttempt={number:history.length+1,token,issuedAt,quotaDay:quotaWindow(clock()).day,count:review.batch.recipientCount,state:'issuing'}
     history.push(attempt)
-    await payload.update({collection:'brevo-campaign-sends',id:job.id,data:{draft:manifest.id,contentHash:manifest.contentHash,providerCampaignId:manifest.providerCampaignId,attempts:history.length,attemptToken:token,history,state:'issuing',issuedAt,settledAt:null,responseCode:null,errorCode:null,leaseToken:null},overrideAccess:true,req})
+    await payload.update({collection:'brevo-campaign-sends',id:job.id,data:{recipientIdentities,draft:manifest.id,contentHash:manifest.contentHash,providerCampaignId:manifest.providerCampaignId,attempts:history.length,attemptToken:token,history,state:'issuing',issuedAt,settledAt:null,responseCode:null,errorCode:null,leaseToken:null},overrideAccess:true,req})
+    await enqueueCampaignObservation(req,job.id,token,clock())
     return {state:'issue' as const,token,campaignId:manifest.providerCampaignId}
   }).catch(()=>hold('held'))
   if (claim.state!=='issue') return claim

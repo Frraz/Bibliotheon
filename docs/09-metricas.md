@@ -2,7 +2,7 @@
 
 [Índice](../README.md) · [Integrações](07-integracoes.md)
 
-Especificação da medição completa. Em 21/10/2026 o dashboard existente apresenta contagens editoriais e operacionais de e-mail; visitas/cliques consentidos, inbox comercial, transações, custos, relatórios e alertas desta especificação ainda não estão implementados. Registros de pedido/consentimento não equivalem ao ledger analítico/comercial. Ver [estado atual](23-estado-atual.md).
+Especificação da medição completa, estado revisto em 24/10/2026. O dashboard existente apresenta contagens editoriais e operacionais de e-mail; visitas/cliques consentidos D59, inbox/histórico/projeções D61, conectores D63–D65 e confirmação CSV limitada D67 existem localmente. Atribuição de compra, liquidação, custos, relatórios financeiros e alertas completos ainda não estão implementados. Registros de pedido/consentimento não equivalem ao ledger analítico/comercial. Ver [estado atual](23-estado-atual.md).
 
 ## Dicionário de eventos
 
@@ -50,3 +50,14 @@ Exibir separadamente tráfego medido, cliques totais operacionais e cliques atri
 Semanal: comparar fontes, revisar fila de falhas, conciliar plataformas e preencher modelo de revisão. Documentar hipótese, ação, período e resultado. Mudança de preço/LP registra data para explicar comparações; evitar teste A/B com tráfego insuficiente.
 
 Alertas: fila pendente >15min, falha de assinatura acima do baseline, backup >26h, disco >80%, erro 5xx persistente. Ausência de venda não é falha técnica; ausência de eventos só é alerta quando existe evento esperado ou divergência no relatório.
+
+
+## Implementação local D59
+
+Sessões/visualizações consentidas e saídas operacionais estão implementadas localmente, com flag false por padrão. Sessão não é pessoa única. First-touch inclui direto; último não direto usa campanha/UTMs registradas e janela de 30 dias. Sem consentimento não há sessão/ID de atribuição; saída operacional continua separada. Dashboard de sete dias apresenta populações distintas e não calcula CTR/conversão entre elas. Não há integração analítica externa.
+
+Gerador no formulário de campanha cria link interno a partir de códigos salvos e oferta/livro disponíveis. Query/referrer livre não são fonte de medição. URLs externas permanecem intactas até adaptador homologado; atribuição final de venda permanece desconhecida. Não existem ainda transações/ledger, relatórios financeiros, inbox comum ou conectores comerciais. [D59](17-decisoes.md) e [estado atual](23-estado-atual.md).
+
+## Prévia não é relatório financeiro — D66
+
+CSV possui prévia local autenticada, sem somar valores nem gerar indicadores. new/matched/duplicate são classificações técnicas de registros, não novas vendas, dinheiro recebido ou conversão. settled_cents, inclusive zero/negativo, exige evidência independente e não é gravado na projeção. Nenhuma margem/custo/lucro é apresentado. [Contrato e próximos passos](24-conciliacao.md). R16 continua pendente.

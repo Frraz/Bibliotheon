@@ -1,4 +1,5 @@
-import { draftHash, readDraftSpec, type DraftSpec } from '../../modules/marketing/campaign-copy'
+import { campaignIdentityMatches } from './campaign-report'
+import { readDraftSpec, type DraftSpec } from '../../modules/marketing/campaign-copy'
 export type CampaignFailure = { state: 'absent' | 'retry' | 'rejected' | 'conflict' }
 export type BrevoCampaigns = { senderId: number; find(name: string): Promise<{state:'found';id:number}|CampaignFailure>; create(spec: DraftSpec): Promise<{state:'created';id:number}|CampaignFailure>; verify(id:number,spec:DraftSpec):Promise<{state:'verified'}|CampaignFailure> }
 const positive = (v:unknown):v is number => typeof v==='number'&&Number.isSafeInteger(v)&&v>0
@@ -39,9 +40,7 @@ export function createBrevoCampaigns(key:string,senderId:number,request:typeof f
     if(!positive(id)||!readDraftSpec(spec)||spec.senderId!==senderId)return{state:'rejected'}
     const response=await read(`/emailCampaigns/${id}?statistics=globalStats`);if(response.state!=='data')return response
     const d=response.data
-    if(!object(d)||d.id!==id||d.status!=='draft'||d.type!=='classic'||d.scheduledAt!==undefined&&d.scheduledAt!==null&&d.scheduledAt!==''||d.abTesting!==undefined&&d.abTesting!==false||d.sendAtBestTime!==undefined&&d.sendAtBestTime!==false||d.recurring!==undefined&&d.recurring!==false||d.mirrorActive!==false||!object(d.sender)||d.sender.id!==senderId||!object(d.recipients)||Object.keys(d.recipients).some(k=>!['lists','exclusionLists'].includes(k))||!Array.isArray(d.recipients.lists)||d.recipients.lists.length!==1||d.recipients.lists[0]!==spec.listId||!Array.isArray(d.recipients.exclusionLists)||d.recipients.exclusionLists.length!==0)return{state:'conflict'}
-    const observed=readDraftSpec({name:d.name,senderId:d.sender.id,listId:d.recipients.lists[0],subject:d.subject,htmlContent:d.htmlContent})
-    return observed&&draftHash(observed)===draftHash(spec)?{state:'verified'}:{state:'conflict'}
+    return campaignIdentityMatches(d,id,spec)&&d.status==='draft'&&(d.scheduledAt===undefined||d.scheduledAt===null||d.scheduledAt==='')?{state:'verified'}:{state:'conflict'}
   }}
 }
 export function configuredBrevoCampaigns():BrevoCampaigns|null{

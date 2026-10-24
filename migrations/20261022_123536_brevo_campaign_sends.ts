@@ -59,12 +59,14 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_brevo_campaign_sends_fk";
   DROP TABLE "brevo_campaign_sends";
   
+  DROP INDEX "promotion_deliveries_due_idx";
   ALTER TABLE "promotion_deliveries" ALTER COLUMN "state" SET DATA TYPE text;
   ALTER TABLE "promotion_deliveries" ALTER COLUMN "state" SET DEFAULT 'scheduled'::text;
   DROP TYPE "public"."enum_promotion_deliveries_state";
   CREATE TYPE "public"."enum_promotion_deliveries_state" AS ENUM('scheduled', 'ready', 'sending', 'accepted', 'uncertain', 'canceled');
   ALTER TABLE "promotion_deliveries" ALTER COLUMN "state" SET DEFAULT 'scheduled'::"public"."enum_promotion_deliveries_state";
   ALTER TABLE "promotion_deliveries" ALTER COLUMN "state" SET DATA TYPE "public"."enum_promotion_deliveries_state" USING "state"::"public"."enum_promotion_deliveries_state";
+  CREATE INDEX promotion_deliveries_due_idx ON promotion_deliveries(next_check_at) WHERE state IN ('scheduled', 'ready');
   ALTER TABLE "promotion_deliveries" ALTER COLUMN "error_code" SET DATA TYPE text;
   DROP TYPE "public"."enum_promotion_deliveries_error_code";
   CREATE TYPE "public"."enum_promotion_deliveries_error_code" AS ENUM('recipient_suppressed', 'material_unavailable', 'sequence_paused', 'offer_unavailable');

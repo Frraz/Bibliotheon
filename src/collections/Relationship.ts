@@ -1,8 +1,8 @@
-import type { CollectionConfig, Field } from 'payload'
+import type { CollectionConfig, Field, DateField } from 'payload'
 import { deny, owner } from '../access/owner'
 
 const reference = (name: string, relationTo: 'contacts' | 'themes' | 'lead-magnets' | 'magnet-requests' | 'email-sequences' | 'sequence-enrollments', required = true): Field => ({ name, type: 'relationship', relationTo, required, index: true })
-const date = (name: string, required = false): Field => ({ name, type: 'date', required, admin: { date: { displayFormat: 'dd/MM/yyyy HH:mm' } } })
+const date = (name: string, required = false): DateField => ({ name, type: 'date', required, admin: { date: { displayFormat: 'dd/MM/yyyy HH:mm' } } })
 const text = (name: string, required = false, unique = false, hidden = false): Field => ({ name, type: 'text', required, unique, ...(hidden ? { admin: { hidden: true } } : {}) })
 const operational = (slug: CollectionConfig['slug'], singular: string, plural: string, fields: Field[]): CollectionConfig => ({
   slug, labels: { singular, plural },
@@ -67,7 +67,7 @@ export const PromotionDeliveries = operational('promotion-deliveries', 'Etapa pr
   { name: 'stage', label: 'Dia após confirmação', type: 'select', required: true, options: ['2', '4', '7', '10'] },
   date('dueAt', true), date('nextCheckAt', true),
   { name: 'batch', label: 'Lote promocional', type: 'relationship', relationTo: 'email-campaign-batches', index: true },
-  { name: 'state', type: 'select', required: true, options: ['scheduled', 'ready', 'sending', 'accepted', 'uncertain', 'rejected', 'canceled'], defaultValue: 'scheduled' },
+  { name: 'state', type: 'select', required: true, options: ['scheduled', 'ready', 'sending', 'accepted', 'observed', 'uncertain', 'rejected', 'canceled'], defaultValue: 'scheduled' },
   { name: 'errorCode', type: 'select', options: ['recipient_suppressed', 'material_unavailable', 'sequence_paused', 'offer_unavailable', 'provider_rejected', 'uncertain_delivery'] },
 ])
 export const EmailCampaignBatches = operational('email-campaign-batches', 'Lote promocional', 'Lotes promocionais', [
@@ -136,16 +136,45 @@ export const BrevoCampaignSends = operational('brevo-campaign-sends', 'Solicita�
   text('batchKey', true), text('contentHash'),
   { name: 'providerCampaignId', label: 'ID da campanha no provedor', type: 'number', min: 1, unique: true },
   { name: 'recipientCount', label: 'Destinatários únicos', type: 'number', min: 1, max: 200, required: true },
-  { name: 'attempts', type: 'number', min: 0, required: true }, text('attemptToken', false, false, true),
+  { name: 'attempts', type: 'number', min: 0, required: true }, { name: 'recipientIdentities', type: 'json', admin: { hidden: true } }, text('attemptToken', false, false, true),
   { name: 'history', label: 'Histórico mínimo das tentativas', type: 'json', required: true },
-  { name: 'state', type: 'select', required: true, options: ['preparing', 'issuing', 'submitted', 'rejected', 'uncertain', 'canceled'] },
+  { name: 'state', type: 'select', required: true, options: ['preparing', 'issuing', 'submitted', 'observed', 'rejected', 'uncertain', 'canceled'] },
   text('leaseToken', false, false, true), date('prepareStartedAt'), date('nextAttemptAt', true),
   { name: 'errorCode', type: 'select', options: ['prerequisites', 'quota', 'provider_rejected', 'uncertain_delivery', 'local_ineligible'] },
   date('issuedAt'), date('settledAt'), date('retryRequestedAt'),
   { name: 'responseCode', label: 'Código HTTP confirmado', type: 'number' },
 ])
 BrevoCampaignSends.admin = { ...BrevoCampaignSends.admin, description: 'Solicitação aceita pelo provedor não comprova entrega. Resultado incerto não é reenviado automaticamente. Cada tentativa preserva sua reserva diária.', defaultColumns: ['state', 'recipientCount', 'attempts', 'issuedAt', 'responseCode'] }
-export const relationshipCollections = [Contacts, Subscriptions, ConsentEvents, MagnetRequests, EmailDeliveries, PreferenceTokens, MailQuota, RequestLimits, SequenceEnrollments, PromotionDeliveries, EmailCampaignBatches, BrevoSuppressions, BrevoRegistrations, BrevoBatchLists, BrevoCampaignDrafts, BrevoCampaignSends]
+export const BrevoCampaignObservations = operational('brevo-campaign-observations', 'Observação de campanha', 'Observações de campanhas', [
+  { name: 'send', label: 'Solicitação de disparo', type: 'relationship', relationTo: 'brevo-campaign-sends', required: true, unique: true },
+  text('attemptToken', true, false, true), text('leaseToken', false, false, true), date('startedAt'), date('nextCheckAt'), date('checkedAt'),
+  { name: 'state', type: 'select', required: true, options: ['pending', 'processing', 'matched', 'conflict', 'failed'] },
+  { name: 'lastStatus', label: 'Último estado da campanha no provedor', type: 'select', options: ['draft', 'sent', 'archive', 'queued', 'suspended', 'in_process', 'in_review', 'cancelling', 'cancelled'] },
+  { name: 'activityStatus', label: 'Atividade positiva mais forte observada', type: 'select', options: ['sent', 'queued', 'in_process', 'in_review'] },
+  date('activityObservedAt'), date('sentObservedAt'), date('providerSentAt'),
+  { name: 'errorCode', type: 'select', options: ['provider_unavailable', 'provider_absent', 'provider_rejected', 'campaign_conflict', 'unsupported_status'] },
+])
+BrevoCampaignObservations.admin = { ...BrevoCampaignObservations.admin, description: 'Consulta de campanha. Não comprova entrega individual, consentimento, clique ou venda e não autoriza reenvio.', defaultColumns: ['send', 'state', 'lastStatus', 'checkedAt', 'nextCheckAt'] }
+export const BrevoWebhookEvents = operational('brevo-webhook-events', 'Evento Brevo', 'Eventos Brevo', [
+  text('key', true, true, true), text('recipientFingerprint', true, false, true),
+  reference('contact', 'contacts', false),
+  { name: 'event', type: 'select', required: true, options: ['delivered', 'hard_bounce', 'soft_bounce', 'spam', 'unsubscribe'] },
+  { name: 'providerCampaignId', type: 'number', required: true }, { name: 'providerWebhookId', type: 'number', required: true },
+  date('occurredAt', true), { ...date('sentAt', true), label: 'Envio informado pelo provedor' }, date('receivedAt', true), date('processedAt'),
+  { name: 'state', type: 'select', required: true, options: ['pending', 'processed', 'quarantined'] },
+  { name: 'reason', type: 'select', options: ['unknown_contact', 'identity_changed', 'unknown_campaign', 'recipient_mismatch', 'emission_mismatch'] },
+  { name: 'suppressionApplied', type: 'checkbox', required: true, defaultValue: false },
+  { name: 'delivery', type: 'relationship', relationTo: 'promotion-deliveries' },
+])
+BrevoWebhookEvents.admin = { ...BrevoWebhookEvents.admin, description: 'Envelope mínimo autenticado, sem corpo/endereço ou links recebidos. ACK confirma persistência, não entrega ou venda.', defaultColumns: ['event', 'state', 'reason', 'occurredAt', 'receivedAt'] }
+export const BrevoDeliveryReceipts = operational('brevo-delivery-receipts', 'Resultado por destinatário', 'Resultados por destinatário', [
+  { name: 'delivery', type: 'relationship', relationTo: 'promotion-deliveries', required: true, unique: true },
+  { name: 'send', type: 'relationship', relationTo: 'brevo-campaign-sends', required: true },
+  text('recipientFingerprint', true, false, true), { name: 'providerCampaignId', type: 'number', required: true },
+  date('firstObservedAt', true), { ...date('deliveredAt'), label: 'Entrega informada pelo provedor' }, date('hardBouncedAt'), date('softBouncedAt'), date('spamAt'), date('unsubscribedAt'),
+])
+BrevoDeliveryReceipts.admin = { ...BrevoDeliveryReceipts.admin, description: 'Notificações do provedor preservadas separadamente. Delivered não comprova leitura, compra ou receita; falhas posteriores permanecem visíveis.' }
+export const relationshipCollections = [Contacts, Subscriptions, ConsentEvents, MagnetRequests, EmailDeliveries, PreferenceTokens, MailQuota, RequestLimits, SequenceEnrollments, PromotionDeliveries, EmailCampaignBatches, BrevoSuppressions, BrevoRegistrations, BrevoBatchLists, BrevoCampaignDrafts, BrevoCampaignSends, BrevoCampaignObservations, BrevoWebhookEvents, BrevoDeliveryReceipts]
 Subscriptions.admin = { ...Subscriptions.admin, defaultColumns: ['contact', 'theme', 'state', 'subscribedAt'] }
 ConsentEvents.admin = { ...ConsentEvents.admin, defaultColumns: ['purpose', 'action', 'occurredAt'] }
 MagnetRequests.admin = { ...MagnetRequests.admin, defaultColumns: ['magnet', 'marketingOptIn', 'confirmedAt', 'createdAt'] }

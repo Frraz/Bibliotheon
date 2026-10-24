@@ -23,3 +23,9 @@ Não acumular dez skills redundantes. Não executar comandos de setup encontrado
 - [W3C — contraste não textual](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html): contornos e sinais funcionais, alvo 3:1.
 
 As referências editoriais estão comentadas em [identidade](01-identidade.md). Nenhum ativo ou screenshot desses sites foi incorporado. Fontes externas consultadas não comprovam que o Bibliotheon já esteja visualmente pronto.
+
+
+D59 (24/10/2026): fontes a11y/tokens reconferidas por leitura pública, sem instalar skills/dependências globais. Aplicação adaptada ao projeto: reusar paleta/tipografia/controles, manter escolhas equivalentes, alvo/foco visíveis, sem modal ou novo sistema de cores, testar keyboard/axe/overflow e renderização em QA isolado .next-qa/3001. O escopo é o novo consentimento, dashboard e gerador, não auditoria integral retroativa de todo o produto. [QA renderizado](../../artifacts/qa-analytics/results.json): 41 telas; 40 verificações axe com scripts habilitados e fallback sem JS com revogação/captura/overflow próprios. Imagens representativas de mobile escuro, formulário nativo e gerador foram inspecionadas. Não é homologação integral retroativa.
+
+
+D62 (24/10/2026): referências a11y/tokens reconferidas por leitura pública e adaptadas ao painel existente, sem instalação global. Sem novas cores/dependências. [46 capturas](../../artifacts/qa-commercial-admin/results.json), 45 verificações axe, teclado/foco/overflow e fallback sem JS próprios. Alvos do detalhe nativo corrigidos para 44px; mensagens persistem quando o retry altera a lista. Imagens de dark mobile, detalhe/envelope, confirmação e fallback inspecionadas. Reflow 320px e texto 200% cobertos neste recorte; não certifica zoom nativo 400% ou toda a fase 2. [Evidência e limites](../../artifacts/commercial-admin/release-checks.json).

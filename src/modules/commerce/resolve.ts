@@ -11,6 +11,7 @@ export async function resolveCheckout(offerID: string, campaignCode?: string, op
   if (!offer.active || !validCents(offer.priceCents) || !validCheckout(offer.checkoutUrl, allowedCheckoutHosts(offer.provider))) throw new CheckoutError(410, 'Esta oferta está indisponível. Consulte o catálogo para ver as informações atuais.')
   const books = await payload.find({ collection: 'ebooks', overrideAccess: true, draft: false, depth: 0, limit: 1, where: { and: [published, { id: { equals: offer.ebook } }, { materialState: { equals: 'ready' } }] }, select: { slug: true }, req })
   if (!books.docs[0]) throw new CheckoutError(410, 'Este livro ainda não está disponível para compra.')
+  let campaignID: string | undefined
   let destination = offer.checkoutUrl!
   if (campaignCode) {
     if (!/^[a-z0-9-]{1,160}$/.test(campaignCode)) throw new CheckoutError(400, 'Campanha inválida.')
@@ -18,10 +19,11 @@ export async function resolveCheckout(offerID: string, campaignCode?: string, op
     const campaign = campaigns.docs[0]
     if (!campaign || campaign.offer !== offer.id || campaign.ebook !== offer.ebook) throw new CheckoutError(400, 'Esta campanha não corresponde à oferta.')
     if (campaign.state !== 'active' || campaign.startsAt && new Date(campaign.startsAt).getTime() > now || campaign.endsAt && new Date(campaign.endsAt).getTime() <= now) throw new CheckoutError(410, 'Esta campanha está indisponível.')
+    campaignID = campaign.id
     if (campaign.kind === 'affiliate') {
       if (!validCheckout(campaign.affiliateUrl, allowedCheckoutHosts(offer.provider))) throw new CheckoutError(410, 'O link desta campanha está indisponível.')
       destination = campaign.affiliateUrl!
     }
   }
-  return { destination, offerID: offer.id, ebookID: typeof offer.ebook === 'string' ? offer.ebook : offer.ebook.id, provider: offer.provider }
+  return { destination, campaignID, offerID: offer.id, ebookID: typeof offer.ebook === 'string' ? offer.ebook : offer.ebook.id, provider: offer.provider }
 }

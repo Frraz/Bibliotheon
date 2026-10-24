@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-24T07:17:50.831Z",
+  "timezone": "America/Belem",
+  "environment": "PostgreSQL loopback; HTTP sintético interceptado; CLI/worker empacotados",
+  "checks": [
+    "GET concorrente resolve atividade de campanha com POST incerto sem inventar 204, alterar histórico/quota ou autorizar reenvio.",
+    "Atividade positiva é preservada após estado posterior regressivo ou conteúdo divergente; envio da campanha encerra polling sem afirmar entrega individual.",
+    "Rascunho não prova aceitação ou ausência de envio; lease de consulta impede retry concorrente e prova observada preserva recusa HTTP histórica.",
+    "Retirada de consentimento permanece intacta após observação de campanha já emitida; rotina não reinscreve contatos.",
+    "ACK HTTP tardio registra código real sem apagar prova observada; histórico e observação seguem separados.",
+    "Rollback pós-GET preserva emissão e lease recuperável; downgrade e API owner não removem nem forjam prova.",
+    "CLI empacotado habilitado faz exatamente um GET interceptado, com envio desligado.",
+    "Coordenador consulta lote vencido sem emitir outro POST; limit=1 respeitado na fila durável.",
+    "Worker somente observador funciona com fila vazia, SMTP/cadastro/envio desligados e sem chave de links; fixtures limpas."
+  ],
+  "externalCalls": false,
+  "realMessagesSent": 0,
+  "limits": "Atividade da campanha não comprova entrega individual ou autoria exclusiva do POST; sem conta real, webhook ou VPS."
+}

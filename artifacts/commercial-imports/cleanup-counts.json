@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-24T19:38:26.836662+00:00",
+  "scope": "Contagens exatas das tabelas locais indicadas; nenhum cadastro/payload consultado",
+  "counts": {
+    "admin_users": 0,
+    "contacts": 0,
+    "commercial_import_batches": 0,
+    "commercial_import_rows": 0,
+    "commercial_import_audit": 0,
+    "commercial_audit": 0,
+    "commercial_conflicts": 0,
+    "commercial_inbox": 0,
+    "transaction_events": 0,
+    "transactions": 0,
+    "payload_migrations": 21
+  },
+  "migrationsAppliedThisStage": 1,
+  "qaPort3001Closed": true
+}

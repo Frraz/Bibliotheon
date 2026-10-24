@@ -1,0 +1,295 @@
+{
+  "date": "2026-10-24T12:55:36.468Z",
+  "origin": "http://127.0.0.1:3001",
+  "passed": true,
+  "runtimeErrors": [],
+  "results": [
+    {
+      "name": "empty-light-360",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "empty-light-1440",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "empty-dark-360",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "empty-dark-1440",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-light-360",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-360",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-light-390",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-390",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-light-768",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-768",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-light-1024",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-1024",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-light-1440",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-1440",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-light-1920",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-1920",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-dark-360",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-360",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-dark-390",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-390",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-dark-768",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-768",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-dark-1024",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-1024",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-dark-1440",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-1440",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "attention-dark-1920",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-1920",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "dashboard-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "pagination-second-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "native-detail-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "invalid-filter-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "retry-busy-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "retry-confirmed-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "retry-error-409-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "retry-error-403-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "retry-error-503-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "retry-network-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "collision-blocked-light",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "dashboard-dark",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "pending-blocked-dark",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "ignored-blocked-dark",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "processing-dark",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "reflow-320-dark",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "text-200-dark",
+      "overflow": false,
+      "axeExecuted": true,
+      "violations": []
+    },
+    {
+      "name": "nojs-read-only",
+      "overflow": false,
+      "axeExecuted": false,
+      "violations": []
+    }
+  ],
+  "checks": [
+    "Anônimo redirecionado ao login sem receber o acompanhamento privado.",
+    "Atenção e formulário expandido em dois temas/seis larguras; identificação longa quebra linha; teclado abre disclosure, confirma revisão e alcança ação habilitada.",
+    "Resumo no dashboard, filtros GET/paginação, seleção por UUID a partir do CMS e erro recuperável; formulário de retry separado do formulário nativo.",
+    "Submissão ocupada bloqueia repetição; resposta 202 real gera uma auditoria, conserva tentativas e atualiza a lista. Feedback e foco persistem quando a linha sai do filtro.",
+    "Estados visuais 409/403/503 e rede interrompida preservam entrada e mostram erro focável sem fabricar auditoria; colisão mantém ação desativada.",
+    "Pendentes/ignorados sem retry, processamento ativo/vencido, dark mobile, reflow 320px/texto 200% e leitura sem JavaScript com ação desabilitada."
+  ],
+  "externalRequestsBlocked": 0,
+  "externalCalls": false,
+  "limits": "Fixtures sintéticas no PostgreSQL loopback. Erros de formulário interceptados; sucesso 202 e auditoria usam API real local. Sem homologação nativa dos provedores, financeiro ou produção. Axe não executado no fallback sem JS."
+}

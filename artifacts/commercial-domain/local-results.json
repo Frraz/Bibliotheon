@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-24T11:47:28.408842+00:00",
+  "timezone": "America/Belem",
+  "scope": "D60 contrato comercial e projeção puros; não ligados ao runtime/DB/HTTP",
+  "results": {
+    "unitTests": 99,
+    "commercialUnitTests": 18,
+    "typecheck": "passed",
+    "lint": "zero erros; dois avisos preexistentes na migração de sequências",
+    "database": "sem nova migração; aplicação continua com19 migrations",
+    "analyticsCleanupFollowup": "Revisão recuperada, consulta aprovada; contagens consultadas zero conforme artifacts/analytics/release-checks.json"
+  },
+  "checks": [
+    "Normalização só após verify explícito, com bytes imutáveis para o caller e envelope sem comprador.",
+    "Chaves separadas por provedor/conta/evento/transação; colisões não viram replay benigno.",
+    "Histórico/ordem de chegada/dedup não duplicam aprovação nem reabrem devolução.",
+    "Bases acumulada/operação e IDs de movimento evitam somar refund duas vezes; desconhecido permanece null.",
+    "Operação tardia preenche valor uma vez; checkpoint já cobre movimento antigo e divergência exige revisão.",
+    "Chargeback/refund separados, sem dedução adicional ou liquidação presumida.",
+    "Quantias seguras/sinal explícito, escopo, moeda, empate, overflow e regressões protegidos.",
+    "Eventos ignorados autenticados não inventam transação ou campos do comprador."
+  ],
+  "limits": [
+    "Nenhuma inbox/Transaction/TransactionEvent persistida, rota pública, worker comercial ou autenticação nativa de provedor implementados.",
+    "Prepared/projected não é ACK, compra comprovada, conta homologada ou recebimento.",
+    "Caminhos nativos de valores/refund/atribuição exigem fonte e homologação por adaptador.",
+    "Imagem/upgrade/restore, retenção e produto completo continuam pendentes."
+  ],
+  "sha256": {
+    "src/modules/commerce/events.ts": "87609b1d6c7529899a3ce95b4ddbd1fc5b406b455de464c59df63d710cb76701",
+    "src/modules/commerce/projection.ts": "3e8a5b7f9f15a2edc06dcb3132d6ec1cfd321c113b6454a1642cc80841495bb2",
+    "tests/unit/commercial-events.test.ts": "3f7b1d87889d07b3252c867b96a32dea721206f0fd6324d1678e76200af569ef",
+    "docs/06-interfaces.md": "6abbfb6140646570e801b51c90ea686e3735da5591b5feeb048d418d48c2259c",
+    "docs/17-decisoes.md": "0bd101e6e7fd7212cee7403995eb618f07a8d535df1ea1229af9b12cdafe5912"
+  }
+}

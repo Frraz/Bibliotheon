@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-24T12:12:25.039861+00:00",
+  "gitBaseline": "74fe451",
+  "scope": "D61 common commercial inbox; local validation only",
+  "migration": "20261024_115633_commercial_inbox",
+  "unit": {
+    "files": 21,
+    "passed": 99
+  },
+  "operationsTests": 33,
+  "integrationGroups": 12,
+  "regressions": {
+    "catalog": "passed",
+    "analyticsGroups": 8,
+    "brevoSendGroups": 12,
+    "httpAccess": "passed, including five commercial collections and retry routing",
+    "httpPublicSite": "passed"
+  },
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed with two pre-existing migration warnings",
+    "runtime": "packed, CLI enabled/disabled and worker commercial-only tested with zero fetch attempts",
+    "compose": "real and normalized, synthetic environment, no containers started",
+    "build": ".next-qa production build passed; native retry route included",
+    "buildFirstAttempt": "Restricted attempt failed parsing TypeScript --showConfig JSON; approved repeat completed without dependency changes",
+    "databaseCounts": {
+      "admin-users": 0,
+      "contacts": 0,
+      "commercial-inbox": 0,
+      "commercial-conflicts": 0,
+      "transactions": 0,
+      "transaction-events": 0,
+      "commercial-audit": 0,
+      "analytics-grants": 0,
+      "visits": 0,
+      "page-views": 0,
+      "checkout-clicks": 0,
+      "brevo-campaign-sends": 0,
+      "brevo-webhook-events": 0,
+      "payload-migrations": 20
+    },
+    "qaServer": "Owned .next-qa/3001 server stopped after HTTP checks; managed preview preserved",
+    "visualQA": "No new browser/screenshot validation in D61",
+    "documentation": {
+      "documents": 47,
+      "localLinks": 512,
+      "externalUrlsWithoutNetworkVerification": 82,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76,
+      "status": "passed"
+    },
+    "qaPortReleased": true
+  },
+  "warnings": [
+    "Existing pg/Drizzle query concurrency deprecation in fixture suites",
+    "Existing two unused-parameter lint warnings in applied sequences migration"
+  ],
+  "productionReady": false,
+  "externalCalls": false,
+  "realSales": 0,
+  "githubOrVpsChanged": false,
+  "pending": [
+    "consolidated inbox observability and visual retry action",
+    "native Hotmart/Kiwify/Cakto authentication, event mapping and homologation",
+    "verified purchase attribution",
+    "CSV, settlement, costs and financial reports",
+    "retention/deletion",
+    "current image, empty database, upgrade and restore validation",
+    "external provider and full visual release homologation"
+  ],
+  "sha256": {
+    "src/collections/Commerce.ts": "88dece178c1477371077b7bca6777184066fb22ccc1e69d25d09b7fcdc1e270c",
+    "src/collections/Offers.ts": "0b3b7f3416b10767268f270b24b4de0fd428507bb8c33601e4fe22e851105459",
+    "src/modules/commerce/lock.ts": "fe94e57a2d9e04bc5e4da13c6d04c43b405d57e77b83c4635af7fb9cd541a17f",
+    "src/modules/commerce/inbox.ts": "fd9d7afa9bb795c4ba59960ad284340b3699dcfd192dc33b307bfd02a7133819",
+    "src/modules/commerce/http.ts": "37003b0e5ad5c96e06fc5df87c454c115176f9b0314f906ea47cd4a25d7a0c60",
+    "src/app/(site)/api/v1/admin/inbox/[id]/retry/route.ts": "781a424839d7669cbf18eed6d0c86d5c88b7bfa5cf29b308cb5f67c780e9c346",
+    "src/payload.config.ts": "4112864cba41a2abc51904e79b57e653bdb85a977f379d985659a71b211dd378",
+    "src/payload-types.ts": "6d1c525355d6af9a727b842fb1182ae3b861862bd8d34d2df0be0c8c798aad5c",
+    "migrations/20261024_115633_commercial_inbox.ts": "f2c8dec3e94e3d9ce63b67b8e55184aa478a75e346fe93ff88c955ea7da1fcaf",
+    "migrations/20261024_115633_commercial_inbox.json": "2067af6eb8abef0f1865dc1fda10bbfc7ed8175cc1b7c0e8159c1a1285a35828",
+    "migrations/index.ts": "3dbd6c9d716ad4dc36652c6a282eb3def630688bdce2f2b8ed3a73edd5717734",
+    "scripts/process-commercial.ts": "f2af9896cb02baae5245ef681fcd50611ec8556568793377cc0108726f8b1c49",
+    "scripts/worker.ts": "c251b4a9bbd24ef9f4843339052cfb09c3fdd7f641036dbeead87f1dedae60f5",
+    "scripts/build-runtime.mjs": "d419b4f508fc4fd8a436ce72cf71a7c3e6aa0da9d72949017afe4ac642a6676f",
+    "compose.production.yaml": "2bb39cbb150b3488dddf4b39da61f7171304875bd79a89421cb8ac37266cbda3",
+    "ops/deploy.py": "c5cab9c63eb2775df8d5f61cfad69c3f23de0494805395890af0d260ae87748b",
+    "tests/fixtures/commerce.ts": "b5b4e004f47a4c9397ea4a025f2fc9b8690885fadf9c4243f67131dfb386e005",
+    "tests/integration/commercial-inbox.ts": "c8b70bd3c40f0bf8c7449c9a7f62a3e0697a66e625b6121e37d00802d92873ef",
+    "tests/integration/access.ts": "533a50c4a395f5b9cb687736231f2ecd03cd8dcd2ac0afe0d393cc63ec584ae5",
+    "tests/ops/test_deploy.py": "0af5a05dc4d175e0bfb027249dc2ed8b2dcaf7b8e35c53c5e4790c90e6a42b67",
+    "scripts/qa-deploy-config.py": "08dde9893ebf2b7ffe5860bf86e176889064936a3b6f9e69c2490a061a56c3f1",
+    "package.json": "db910093c4a1aec7853a922960db2e72686460235168dbec6a5ce7d0b9ba60cd",
+    ".env.example": "92f300387c75b55c645082352ce9bb18fbb1d4fa84d8307d8c00bbd4ca85069a",
+    ".env.production.example": "20a4429886f81c53d36be30a0a9b8af52004885091bcbed8ce21d5cbd052f803",
+    "src/app/(payload)/admin/importMap.js": "6f56c3c96211c8c4ce407f2e6aef36b02812bb74d5aef5d58eaaa3d789aefa48"
+  }
+}

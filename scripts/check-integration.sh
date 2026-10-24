@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Banco sintético exclusivo: as suítes compartilham fixtures e devem ser sequenciais.
+set -euo pipefail
+PROJETO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$PROJETO_DIR"
+SUITES=(catalog media marketing sequences batches brevo-sync preflight brevo-contacts
+  brevo-lists preferences brevo-preferences brevo-campaigns brevo-send brevo-observation
+  brevo-webhook analytics commercial-inbox commercial-admin hotmart kiwify cakto
+  commercial-csv commercial-imports)
+if [[ "${1:-}" == --list && $# == 1 ]]; then
+  printf 'test:%s\n' "${SUITES[@]}"
+  exit 0
+fi
+if [[ $# != 0 ]]; then
+  echo 'Uso: bash scripts/check-integration.sh [--list]. Executar somente com banco sintético exclusivo.' >&2
+  exit 2
+fi
+if [[ "${BIBLIOTHEON_SYNTHETIC_TESTS:-}" != true ]]; then
+  echo 'Confirme banco/ambiente descartáveis com BIBLIOTHEON_SYNTHETIC_TESTS=true; nunca usar em produção.' >&2
+  exit 2
+fi
+
+for suite in "${SUITES[@]}"; do
+  npm run "test:$suite"
+done

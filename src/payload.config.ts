@@ -15,6 +15,9 @@ import { Offers } from './collections/Offers'
 import { Campaigns } from './collections/Campaigns'
 import { SiteSettings } from './collections/SiteSettings'
 import { Redirects } from './collections/Redirects'
+import { commerceCollections } from './collections/Commerce'
+import { commercialImportCollections } from './collections/CommercialImports'
+import { analyticsCollections } from './collections/Analytics'
 import { relationshipCollections } from './collections/Relationship'
 import { EmailSequences } from './collections/EmailSequences'
 import { deliverEmailTask } from './jobs/deliver-email'
@@ -44,12 +47,13 @@ export default buildConfig({
       providers: ['/components/admin/AppearanceAdapter#AppearanceAdapter'],
       views: {
         dashboard: { Component: '/components/admin/Dashboard#Dashboard' },
+        commercialInbox: { Component: '/components/admin/CommercialInboxView#CommercialInboxView', path: '/commercial-inbox', exact: true, meta: { title: 'Acompanhamento de eventos' } },
         suppressions: { Component: '/components/admin/SuppressionView#SuppressionView', path: '/suppressions', exact: true, meta: { title: 'Suspender e-mails' } },
       },
     },
   },
   i18n: { supportedLanguages: { pt }, fallbackLanguage: 'pt' },
-  collections: presentCollections([AdminUsers, Themes, Ebooks, Articles, Media, LeadMagnets, Offers, Campaigns, Redirects, EmailSequences, ...relationshipCollections]),
+  collections: presentCollections([AdminUsers, Themes, Ebooks, Articles, Media, LeadMagnets, Offers, Campaigns, Redirects, EmailSequences, ...relationshipCollections, ...analyticsCollections, ...commerceCollections, ...commercialImportCollections]),
   globals: [SiteSettings],
   jobs: {
     tasks: [deliverEmailTask],

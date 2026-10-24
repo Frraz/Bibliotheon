@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-24T19:29:16.650Z",
+  "checks": [
+    "Assinatura inválida não persiste. V1 concorrente gera um recibo e ACK após commit; recepção independe do worker. Aplicação explícita conserva ids, total decimal exato, taxa e aprovação original, sem segredo/PII/líquido inferido.",
+    "Reembolso/chargeback usam suas datas sem deduzir quantia/recebimento; aprovação recebida depois da devolução não regride o estado financeiro.",
+    "V2 em ordem invertida concorrente não causa deadlock/duplicação: cada pedido tem recibo/identidade próprios e centavos exatos; ACK cobre o lote inteiro.",
+    "Item malformado rejeita todo V2 antes do banco. Falha na segunda auditoria reverte inclusive primeiro recibo/auditoria; nunca há ACK ou persistência parcial, e reenvio recupera.",
+    "Colisões concorrentes de duas transações aplicadas usam locks ordenados e registram dois conflitos sem substituir projeções. Lote misto com colisão confirmada também persiste seu pedido novo antes do ACK.",
+    "MED/pré-chargeback não confirma perda definitiva; recusa sem instante e assinatura ficam em revisão. Pix gerado permanece pendente, sem aprovação inventada.",
+    "Pedido de reembolso não é devolução. Abandono V1/V2 sem id de pedido é ignorado/agrupado por produto/oferta/data sem PII, contato ou contagem de compradores/abandono.",
+    "Produto desconhecido exige mapeamento exato/retry owner auditado; data nativa futura fica em revisão antes da criação de transação.",
+    "Outro segredo seleciona namespace próprio configurado, sem confiar no secret/conta do corpo. Aceitação anterior explícita permite transição; nenhum recibo conserva segredo, dados de acesso ou PII."
+  ],
+  "environment": "PostgreSQL loopback, dados nativos sintéticos V1/V2 e handler HTTP real",
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Sem conta Cakto ou homologação. Recusa/instante desconhecido, assinatura/físico e MED exigem conciliação. Valores devolvidos, liquidação, líquido e atribuição não inferidos. V2 limitado a 25 itens/256 KiB; abandono ignorado agrupado sem identificação de comprador."
+}

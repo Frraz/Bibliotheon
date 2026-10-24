@@ -1,12 +1,14 @@
 import { APIError, type CollectionConfig } from 'payload'
 import { ownerAccess } from '../access/owner'
 import { allowedCheckoutHosts, validCheckout } from '../modules/commerce/checkout'
+import { controlledCode } from '../modules/analytics/validation'
 import { slugValidation } from '../modules/catalog/validation'
 
 export const Campaigns: CollectionConfig = {
   slug: 'campaigns', labels: { singular: 'Campanha', plural: 'Campanhas' }, access: ownerAccess,
   admin: { useAsTitle: 'code', group: 'Comercial' },
   fields: [
+    { name: 'publicCampaignLink', type: 'ui', admin: { components: { Field: '/components/admin/CampaignLink#CampaignLink' } } },
     { name: 'code', label: 'Código', type: 'text', required: true, unique: true, validate: slugValidation },
     { name: 'ebook', type: 'relationship', relationTo: 'ebooks', required: true },
     { name: 'offer', type: 'relationship', relationTo: 'offers', required: true },
@@ -17,8 +19,9 @@ export const Campaigns: CollectionConfig = {
     { name: 'affiliateUrl', label: 'URL oficial do afiliado', type: 'text' },
     { name: 'state', type: 'select', options: ['draft', 'active', 'paused', 'closed'], defaultValue: 'draft', required: true },
     { name: 'startsAt', type: 'date' }, { name: 'endsAt', type: 'date' },
-    { name: 'utmSource', type: 'text', maxLength: 120 }, { name: 'utmMedium', type: 'text', maxLength: 120 },
-    { name: 'utmContent', type: 'text', maxLength: 120 },
+    { name: 'utmSource', type: 'text', maxLength: 120, validate: (value:unknown)=>!value||controlledCode(value)||'Use um código sem dados pessoais, espaços ou URLs.' }, { name: 'utmMedium', type: 'text', maxLength: 120, validate: (value:unknown)=>!value||controlledCode(value)||'Use um código sem dados pessoais, espaços ou URLs.' },
+    { name: 'utmTerm', type: 'text', maxLength: 120, validate: (value:unknown)=>!value||controlledCode(value)||'Use um código sem dados pessoais, espaços ou URLs.' },
+    { name: 'utmContent', type: 'text', maxLength: 120, validate: (value:unknown)=>!value||controlledCode(value)||'Use um código sem dados pessoais, espaços ou URLs.' },
   ],
   hooks: { beforeChange: [async ({ data, originalDoc, req }) => {
     const merged = { ...originalDoc, ...data }

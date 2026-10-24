@@ -38,3 +38,18 @@ Regras de elegibilidade, taxas, reembolsos e exclusividade precisam ser verifica
 ## Design editorial
 
 O [registro de skills e fontes](design/08-skills-referencias.md) identifica instruções aplicadas, limites e referências tipográficas/técnicas. As [referências editoriais comentadas](design/01-identidade.md) distinguem observação documental e interpretação. O arquivo [de inspiração](<../ideais para melhora o desing.md>) permanece íntegro; suas listas não são tratadas como ranking verificado.
+
+
+## Revalidação Hotmart — 24/10/2026 (D63)
+
+[Eventos v2 pt-BR](https://developers.hotmart.com/docs/pt-BR/2.0.0/webhook/purchase-webhook/), [eventos v2 en](https://developers.hotmart.com/docs/en/2.0.0/webhook/purchase-webhook/) e [changelog](https://developers.hotmart.com/docs/en/changelog) cotejados pelo conteúdo oficial indexado consultável. A abertura direta do portal retornou shell dinâmico. Tabela/exemplos confirmam cabeçalho, envelope, ucode, IDs, datas, full_price/price e status. Não tratamos o exemplo ilustrativo como combinação válida de todos os estados; homologar payload efetivo na conta.
+
+Não usamos fontes técnicas de terceiros para preencher semântica ausente. Valores de refund/chargeback, taxas/líquido/liquidação, atribuição e comportamento externo de retries continuam sem prova de conta. Leituras tentadas do centro de ajuda não forneceram conteúdo utilizável; nenhuma quantidade/intervalo de reenvio foi presumida. Sem requisição à API autenticada ou acesso à conta.
+
+## Kiwify — revalidação D64 (24/10/2026)
+
+[Recepção/autenticação](https://docs.kiwify.com.br/api-reference/webhooks/receiving.md) e [datas/assinaturas](https://docs.kiwify.com.br/api-reference/webhooks/subscription-events.md), obtidas por leitura HTTP pública direta: HMAC-SHA1 em signature, token não enviado, eventos/status e datas raiz em Brasília. [Documento complementar de campos/centavos](https://kiwify.notion.site/Webhooks-pt-br-c77eb84be10c42e6bb97cd391bca9dce), consultado por índice público; leitura direta atual limitada por 403/404. [Contrato consolidado e limites](integracoes/kiwify.md). Não são resultados de conta, compra ou homologação externa.
+
+## Cakto — revalidação D65, 24/10/2026
+
+[Guia técnico](https://docs.cakto.com.br/conceitos/webhooks.md), [histórico](https://docs.cakto.com.br/api-reference/webhooks/event-history.md), [teste](https://docs.cakto.com.br/api-reference/webhooks/test-webhook.md), [reenvio](https://docs.cakto.com.br/api-reference/webhooks/resend-event.md) e [changelog](https://docs.cakto.com.br/mudancas.md) consultados publicamente, sem API autenticada. Assinatura/timestamp, versões de payload, datas/valores e política de falha consolidados no [contrato Cakto](integracoes/cakto.md). [Método/hashes](../artifacts/cakto/source-checks.json). Conta e homologação real continuam pendentes.

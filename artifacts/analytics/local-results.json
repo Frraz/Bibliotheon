@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-24T12:06:06.275Z",
+  "timezone": "America/Belem",
+  "checks": [
+    "Migração down/up vazia revertida; nenhuma identificação/sessão antes de consentimento; concorrência deduplica page_view por permissão/evento.",
+    "Sessão usa30 minutos de inatividade, renovada por evento válido; aceitar permissão não cria visita por si só.",
+    "First-touch/last-touch não direto duram30 dias; navegação direta não apaga fonte válida e parâmetros não cadastrados não são persistidos.",
+    "Saídas operacionais sem cookie ficam sem sessão/atribuição; saídas consentidas têm população própria. URL afiliada e parâmetros comerciais intactos, sem prova de compra.",
+    "Revogação bloqueia cookie antigo sem apagar a distinção de histórico; novo aceite explícito emite permissão nova e não reativa token revogado.",
+    "Rollback reverte evento/sessão/contexto juntos; downgrade e APIs não apagam nem reativam permissões. Coleções privadas sem dados de comprador.",
+    "Falha real de hook de gravação analítica no handler não impede redirecionamento seguro nem altera URL/assinatura de checkout.",
+    "Limite real de 60 eventos/minuto bloqueia excedente sem gravar estado parcial; retry idempotente e retirada continuam disponíveis no limite."
+  ],
+  "externalCalls": false,
+  "limits": "Medição local sintética; não comprova pessoas únicas, venda, atribuição de provedor ou homologação legal/produção."
+}

@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-24T18:58:51.002221+00:00",
+  "gitBaseline": "74fe451",
+  "scope": "D66 prévia CSV comercial canônica, owner, provisória e somente de leitura",
+  "buildId": "2jIh7qfutIlyG99oceNv3",
+  "node": "v22.23.4",
+  "unit": {
+    "files": 26,
+    "passed": 182
+  },
+  "integrationGroups": 5,
+  "httpGroups": 4,
+  "checks": {
+    "typecheck": true,
+    "lintErrors": 0,
+    "lintHistoricalWarnings": 2,
+    "productionBuildIsolated": true,
+    "ledgerSnapshotsUnchangedAfterPreviews": true,
+    "ownerAndOriginViaActualPayloadAuth": true,
+    "bulk201IdentitiesViaHttp": true,
+    "qaServerExit": 0,
+    "qaPort3001Closed": true,
+    "qaLogsWithoutSubmittedPersonalDataOrCredentials": true,
+    "noReferrerViaActualHttp": true,
+    "browserQAThisStage": false,
+    "documentation": {
+      "passed": true,
+      "documents": 48,
+      "localLinks": 642,
+      "distinctExternalUrls": 100,
+      "networkVerificationByValidator": false,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76
+    },
+    "gitDiffCheck": true
+  },
+  "limits": {
+    "maxBytes": 5242880,
+    "maxRecords": 10000,
+    "maxFieldCodeUnits": 512,
+    "bodyTimeoutMs": 5000,
+    "transactionQueryChunk": 200,
+    "catalogIdentityQueryChunk": 100,
+    "maxCatalogRowsPerChunk": 1000,
+    "maxCatalogRowsTotal": 10000
+  },
+  "assessment": {
+    "provisional": true,
+    "committable": false,
+    "rawFilePersisted": false,
+    "importBatchesPersisted": false,
+    "ledgerWrites": false,
+    "financialTotalsCalculated": false,
+    "nativeExportSchemasInferred": false
+  },
+  "warnings": [
+    "Primeiro typecheck exigiu tipo Where explícito no callback; verificação final aprovada.",
+    "Primeira rodada HTTP revelou Referrer-Policy global sobrescrevendo no-referrer. Rota incluída na regra privada; build/HTTP finais passaram sem afrouxar teste.",
+    "Dois avisos antigos de lint da migration de sequências e aviso pg/Drizzle nas fixtures."
+  ],
+  "migrationsAppliedThisStage": 0,
+  "localMigrationCount": 20,
+  "productionReady": false,
+  "providerAccountCalls": false,
+  "realSales": 0,
+  "githubOrVpsChanged": false,
+  "pending": [
+    "Lotes/linhas duráveis com fonte/autor/plano/justificativa",
+    "Confirmação idempotente/auditada e revalidação concorrente",
+    "Resolução de colisões e catálogo com histórico sem editar fatos",
+    "Liquidação/custos/relatórios financeiros e UI",
+    "Homologação própria de cada provedor e atribuição B07",
+    "Retenção B12 e release da imagem/banco vazio/upgrade/restore/homologação integral"
+  ],
+  "sha256": {
+    "src/modules/commerce/csv.ts": "bb2261cffbdf5fd5756cac6a7f9d41a5473c6e8ca4bc1ca497a88ae6d87f39b8",
+    "src/modules/commerce/import-preview.ts": "c85c623b2a6af7fec2ef6c8549482a5dbcb81854ad5e7ba37774ee1bb3be9082",
+    "src/modules/commerce/import-http.ts": "2b3d5280af07e1f1ef1e478b9c97a619cfa9b0cfc232ef9defa1ecf22cd01435",
+    "src/app/(site)/api/v1/admin/imports/preview/route.ts": "bf6e463f40d7c3a9de3256746f43dfc12051949608002a51306a4123aa002611",
+    "tests/fixtures/commercial-csv.ts": "7526a5b9f51e6da3a0080d589c7e588121f1d0cab5d5ad228595f19993a1e2ad",
+    "tests/unit/commercial-csv.test.ts": "629a56d0662c5b2e8acbcfacf9764f646ddef5c9cc2fd70878b727afcfad0842",
+    "tests/integration/commercial-csv.ts": "bf4e2f5cb5ebee82d5924bb1528232e2d64b507557c869cad9702646b9071b54",
+    "tests/integration/commercial-csv-http.ts": "3f314f8ab03981c5fac507c181d78363467e1fc7362702dc34d6f9fad4370342",
+    "next.config.mjs": "5e4bf281c610f490f6a36f01e7e7578451f69f2579ccd7ee9ae0268443e9f03a",
+    "package.json": "3d39e708e17cc8f8231183b9805679b47c8c76c03c712236aad1a5230f07cb39",
+    ".github/workflows/quality.yml": "5880ca728c49b732047a8bc0ce86137d5208e0fcd0f744e13ba6256ed96025da",
+    "docs/24-conciliacao.md": "2df6f9a63218966338bc13c404eeba5fb65a379f3464bdadfe7f3d32f0f26f00",
+    "artifacts/commercial-csv/local-results.json": "0aadb31069bcbfb7c4c09c490110e896e567e85423ed0e2890c96bc62954d797",
+    "artifacts/commercial-csv/http-results.json": "47c5bd7175bb096ead5e4ac5482b31cc56a2ac48247bbaa4dcc07acae79b1558",
+    "artifacts/commercial-csv/cleanup-counts.json": "6fd75d5b0f4695c234010a2dc31d5d724c1679b97981534b1f9e4fdcf72f30bd"
+  }
+}

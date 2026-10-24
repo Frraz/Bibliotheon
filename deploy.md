@@ -2,7 +2,7 @@
 
 [README](README.md) · [Estado do produto](docs/23-estado-atual.md) · [Operação e recuperação](docs/21-pacote-producao.md)
 
-Guia de 22/10/2026. Depois da preparação inicial, a atualização normal será:
+Guia iniciado em 22/10/2026, revisado documentalmente em 24/10 até D67. As seções Dxx registram a evolução; o inventário vigente exige as 21 migrations e os [gates de produção](pendencias.md). Depois da preparação inicial, a atualização normal será:
 
 ```bash
 cd /srv/bibliotheon
@@ -11,11 +11,11 @@ cd /srv/bibliotheon
 
 O script faz pull com fast-forward, constrói uma imagem nova, pausa somente app/worker do Bibliotheon, confirma backup externo, aplica migrations e sobe/verifica os serviços. Banco e mídia ficam em volumes persistentes. Há uma janela de indisponibilidade entre a pausa para backup e o término da verificação. Não é deploy sem downtime.
 
-O nome principal é **atualizar.sh**. **altualizar.sh**, com a grafia do primeiro pedido, é um atalho para o mesmo comando.
+O comando único é **atualizar.sh**. O alias antigo com grafia incorreta foi removido em D69; atualize seus atalhos para usar o nome correto.
 
 ## 1. Antes do primeiro deploy
 
-Este guia prepara a infraestrutura; não conclui funcionalidades ainda pendentes. O produto tem [lacunas conhecidas](docs/23-estado-atual.md), incluindo homologação da imagem atual, eventos comerciais, conectores, financeiro e retenção. Homologue a versão antes de abrir operação real. Captura/e-mail/worker ficam desligados inicialmente. O contato público será preenchido por você antes da produção, conforme a decisão já registrada.
+Este guia prepara a infraestrutura; não conclui funcionalidades ainda pendentes. O produto tem [lacunas conhecidas](docs/23-estado-atual.md), incluindo homologação da imagem atual e das três contas, resolução comercial auditada, financeiro e retenção. Os três conectores e a confirmação CSV limitada já possuem código local; veja [pendencias.md](pendencias.md). Homologue a versão antes de abrir operação real. Captura/e-mail/worker ficam desligados inicialmente. O contato público será preenchido por você antes da produção, conforme a decisão já registrada.
 
 Procedimento de referência: Ubuntu 24.04 LTS de 64 bits, Bash, Python **3.11+**, Git, Docker Engine com Buildx e Compose v2 recente (referência local: 2.40.3), restic 0.19.1. Node/pnpm ficam dentro da imagem; não precisam ser instalados no host. Se a VPS já possui serviços, use o sistema/proxy existentes; não reinstale o servidor nem remova pacotes em uso.
 
@@ -105,7 +105,7 @@ git clone git@github-bibliotheon:SEU_USUARIO/SEU_REPOSITORIO.git /srv/bibliotheo
 cd /srv/bibliotheon
 git branch --show-current
 git status --short
-chmod +x atualizar.sh altualizar.sh
+chmod +x atualizar.sh
 ```
 
 Se já clonou, apenas entre na pasta e confira o origin privadamente. A branch padrão do atualizador é main; configure outra em deploy.json se necessário. O checkout precisa estar limpo. Publique os scripts com bit executável no Git; se chmod aparecer como alteração local, corrija o modo no repositório de origem e faça novo pull. Não use reset --hard para contornar modificações.
@@ -273,7 +273,7 @@ apt-get install -y caddy
 ```caddyfile
 bibliotheon.com.br {
     @admin_bloqueado {
-        path /admin /admin/* /api/admin-users /api/admin-users/*
+        path /admin /admin/* /api/admin-users /api/admin-users/* /api/v1/admin /api/v1/admin/*
         not remote_ip SEU_IP_PUBLICO/32
     }
     respond @admin_bloqueado 403
@@ -312,7 +312,7 @@ O comando recusa criar um segundo owner. Apague o arquivo privado temporário qu
 
 Confira HTTPS/renovação, acesso administrativo restrito, anônimo negado nas APIs privadas, upload/preview/publicação e preservação dos outros serviços. Cadastre manualmente responsável, contato público, textos institucionais revisados, livro/amostra e ofertas reais após conferir elegibilidade de cada plataforma. Não publique fixtures. E-mail público vazio mantém a captura desativada por legalReady.
 
-Só habilite captura/transporte/worker depois de homologar conta, remetente, DNS de e-mail, supressões, quota e fluxos atuais. Para isso, altere privadamente production.env e worker no deploy.json e execute ./atualizar.sh; mudança de ambiente dispara release mesmo sem commit novo. Worker=false continua sendo o padrão. O calendário local não equivale a envio promocional: agrupamento/claim locais testados, mas sincronização de listas/campanhas e transporte promocional ainda pendentes. O atualizador não elimina esses gates.
+Só habilite captura/transporte/worker depois de homologar conta, remetente, DNS de e-mail, supressões, quota e fluxos atuais. Para isso, altere privadamente production.env e worker no deploy.json e execute ./atualizar.sh; mudança de ambiente dispara release mesmo sem commit novo. Worker=false continua sendo o padrão. Calendário, agrupamento/claim, listas/campanhas e transporte promocional possuem código/testes locais D48–D58; homologação da conta e ativação real continuam pendentes. O atualizador não elimina esses gates.
 
 ## 10. Atualizações após cada push
 
@@ -441,7 +441,7 @@ O script possui testes de orquestração com Git/Docker/HTTP simulados, incluind
 Verificação local das ferramentas:
 
 ```bash
-bash -n atualizar.sh altualizar.sh
+bash -n atualizar.sh
 python3 -m unittest discover -s tests/ops -p 'test_*.py'
 python3 scripts/qa-deploy-config.py
 python3 scripts/validar_documentacao.py
@@ -489,6 +489,109 @@ A 13a migração adiciona intenção recuperável de links e conferência mínim
 
 ### Rascunhos de campanhas Brevo
 
-Manter BREVO_CAMPAIGN_SYNC_ENABLED=false e BREVO_CAMPAIGN_SENDER_ID vazio no primeiro deploy. Homologar remetente, listas/preferências/bloqueios e representação de HTML/placeholder antes de ativar. Runtime privado: node cli/prepare-brevo-campaign.js UUID_DO_LOTE; --campaign-id ID concilia recurso revisado e --retry-rejected vale somente para criação explicitamente recusada sem ID. Não existe agendamento/disparo nessa rotina ou no worker atual.
+Manter BREVO_CAMPAIGN_SYNC_ENABLED=false e BREVO_CAMPAIGN_SENDER_ID vazio no primeiro deploy. Homologar remetente, listas/preferências/bloqueios e representação de HTML/placeholder antes de ativar. Runtime privado: node cli/prepare-brevo-campaign.js UUID_DO_LOTE; --campaign-id ID concilia recurso revisado e --retry-rejected vale somente para criação explicitamente recusada sem ID. Essa rotina prepara apenas rascunhos. Transporte separado no worker/CLI é descrito na seção D56 abaixo.
 
 A 14a migração adiciona manifesto/inventário de IDs com downgrade protegido; reconstruir e testar imagem/restore das quatorze migrações antes da produção. Em resultado incerto não repetir POST por simples ausência: seguir [operação](docs/11-operacao.md) e [contrato Brevo](docs/integracoes/brevo.md). Rascunhos órfãos e conflitos precisam de inventário; ready não significa e-mail aceito ou entregue.
+
+
+### Transporte promocional opcional (D56)
+
+No primeiro deploy, manter BREVO_CAMPAIGN_SEND_ENABLED=false. Essa flag habilita disparos reais no worker e na CLI; só ativar após homologar conta, quota/reset UTC, limites compartilhados, remetente, listas/preferências e templates. É independente de EMAIL_TRANSPORT_ENABLED: marketing pode funcionar com SMTP desligado. atualizar.sh preserva o ambiente privado e não ativa a flag automaticamente.
+
+Runtime privado: node cli/send-brevo-campaign.js UUID_DO_LOTE. 204/submitted é solicitação aceita/agendada, sem entrega comprovada. Intenção emitida com resultado incerto não deve ser repetida: orçamento permanece reservado e retomada não faz outro POST. --retry-rejected vale somente para recusa 400/402/404 confirmada, depois de corrigir causa e revisar pré-requisitos; reserva novamente, sem devolver a tentativa anterior. Worker não executa esse retry automaticamente.
+
+A 15a migração mantém histórico/estados com downgrade protegido; não apagar tentativas para voltar versão. Em laboratório, down/up preserva o índice parcial das etapas na troca de enum. Reconstruir e testar imagem/restore das quinze migrações antes da produção. Ver [operação](docs/11-operacao.md) e [contrato Brevo](docs/integracoes/brevo.md); observação contínua/webhook e conciliação dos incertos continuam pendentes.
+
+
+## Consultar atividade de campanhas existentes (D57)
+
+Manter BREVO_CAMPAIGN_OBSERVE_ENABLED=false no primeiro deploy; atualizar.sh preserva o ambiente privado. A flag de observação é independente de BREVO_CAMPAIGN_SEND_ENABLED. Após homologar a consulta e conceder chave privada de API, pode ativar somente observação: não exige habilitar SMTP/cadastro/disparo nem altera consentimento. Para execução periódica na VPS, ativar também o worker na configuração privada do atualizador conforme o procedimento anterior.
+
+CLI local: npm run brevo:observe -- UUID_DO_LOTE; runtime da imagem: node cli/observe-brevo-campaign.js UUID_DO_LOTE. Acrescentar --refresh para consultar novamente um registro ainda não vencido/terminal; lease ativo é respeitado. Sem flag retorna disabled; flag com chave inválida falha. Fila é criada com cada intenção de emissão e preenchida para tentativas anteriores pela migração 16. Worker consulta até uma campanha por ciclo; 15 minutos entre consultas, lease de 30 minutos e parada automática em sent/archive/cancelled.
+
+observed significa atividade da campanha, sem comprovar destinatário/entrega ou autoria exclusiva do POST. Histórico HTTP/código e quota permanecem preservados; nenhum estado de consulta autoriza reenviar pedido incerto. Não ligar envio para investigar timeout. Prova, datas e falhas ficam em brevo-campaign-observations, privada e sem resposta bruta. Consulte [contrato Brevo](docs/integracoes/brevo.md) e o estado atual antes da produção.
+
+
+## Callback Brevo de marketing e resultados individuais (D58)
+
+No primeiro deploy manter BREVO_WEBHOOK_ENABLED=false. As migrações 17/18 são aditivas; não fabricam identidade histórica para disparos existentes. Atualizar com ./atualizar.sh preserva o ambiente privado e não ativa webhooks/envio automaticamente. Runtime inclui node cli/replay-brevo-webhook.js UUID_DO_EVENTO; localmente npm run brevo:webhook-replay -- UUID_DO_EVENTO. Replay de envelope não reenvia mensagem nem consulta a API.
+
+Para homologação posterior, gerar segredos privados independentes com pelo menos 32 bytes conforme o procedimento de chaves deste projeto. Configurar BREVO_WEBHOOK_TOKEN (32–128 caracteres ASCII alfanuméricos/hífen/sublinhado) e BREVO_WEBHOOK_EVENT_SECRET (HMAC estável), sem copiar sessão/chave de links. BREVO_WEBHOOK_PREVIOUS_TOKEN é opcional para transição de autorização. Nunca trocar o segredo HMAC junto de rotação de token: a deduplicação histórica depende dele. A identidade capturada no disparo depende também da chave privada de links; recuperar esses segredos junto do banco/configuração privada, fora do Git e com permissões restritas.
+
+Na conta Brevo, configurar manualmente webhook type=marketing, channel=email, batched=false, URL HTTPS da aplicação terminada em /api/webhooks/brevo, events delivered/hardBounce/softBounce/spam/unsubscribed e auth.type=bearer com token privado. A API key usada para criar/configurar webhook na conta não é a credencial do callback. Só ativar BREVO_WEBHOOK_ENABLED=true depois de conferir proxy/TLS, autenticação e teste controlado; não precisa ativar SMTP, worker, envio ou cadastro para receber. Homologação real não foi executada nesta etapa. Não usar os tokens sintéticos de CI em produção.
+
+Callback autentica antes de corpo/banco, limita 32 KiB/5 segundos e confirma somente depois do commit. Configuração desativada/indisponibilidade responde 429 com Retry-After; a política pública da Brevo documenta descarte de notificações em 5xx. Corpo/credencial inválidos não são aceitos. Configurar endpoint/canal/eventos incorretos exige correção e revisão na conta; não presumir retry ilimitado. Não colocar chave na URL nem registrar Authorization/corpos no proxy.
+
+Coleções privadas brevo-webhook-events e brevo-delivery-receipts mostram quarentena/resultados mínimos, sem payload bruto. Desconhecidos exigem revisão na conta e, quando necessário, fluxo manual de supressão; replay não associa um email antigo a cadastro criado depois. Legado sem impressão histórica, identidade divergente, campanha/destinatário/tempo incompatíveis não são entregas conciliadas. Notificações negativas válidas de contato conhecido protegem consentimento mesmo sem campanha mapeada. delivered significa relato do provedor e não comprova leitura/compra. Não reenviar pedido incerto para investigar resultados; quota/histórico permanecem preservados. Ver [contrato Brevo](docs/integracoes/brevo.md).
+
+
+## Medição própria opcional (D59)
+
+ANALYTICS_ENABLED=false no primeiro deploy. A migração 19 cria permissões/sessões/páginas/saídas/limites e termo de campanha. atualizar.sh preserva o ambiente privado e aplica migrations pendentes. Medição também exige institucional legalReady revisado; enquanto responsável/contato/textos não estiverem prontos, não haverá novo aceite/coleta. A autorização de marketing não vale como autorização analítica. Não ativar para operação real antes de retenção/exclusão B12 e revisão do release/políticas.
+
+Em homologação, ativar a flag no ambiente privado e atualizar; não exige Brevo/SMTP/worker/API paga. Verificar aceitar/rejeitar equivalentes no rodapé, cookie __Host/HttpOnly/Secure em HTTPS e revogação com cookie antigo. A recusa só guarda preferência igual para todos. Há formulário nativo de retirada sem JavaScript, com redirecionamento fixo à privacidade. GET de preferência não cria ID/sessão. Revogação já existente permanece acessível se a flag/aviso forem desativados.
+
+Sessões são medidas com 30 minutos inativas; first-touch e último não direto usam janela de 30 dias. Campo de campanha/UTMs deve conter códigos salvos e revisados, sem dados pessoais. Formulário Campaign gera link interno somente com livro/oferta/campanha disponíveis. URLs de checkout/afiliado continuam intactas; nenhum parâmetro de clickId é acrescentado automaticamente. O painel de sete dias separa sessões/páginas consentidas, saídas totais e saídas consentidas. Não ler contagens como pessoas únicas, vendas ou conversão. Falha de medição não interrompe checkout validado.
+
+QA local: npm run test:analytics, npm run test:analytics-http e scripts/qa-analytics.ts, com base sintética/loopback e testes sequenciais. Não copiar hosts/tokens/dados de teste para produção. Nunca persistir query completa, referer, IP, credenciais ou payloads reais em logs; conferir também política do proxy existente, sem alterar os outros serviços da VPS. Retenção de analytics e restauração das 19 migrations permanecem pendentes. Ver [estado atual](docs/23-estado-atual.md).
+
+
+## Processador comercial comum (D61)
+
+A migração 20 cria inbox, conflitos, projeções de transação, fatos e auditoria privados. atualizar.sh aplica migrations pendentes preservando o ambiente privado. COMMERCIAL_EVENTS_ENABLED=false mantém worker/fila comercial desativados. Ainda não há adaptadores/URLs públicos de Hotmart/Kiwify/Cakto homologados; não configurar callbacks comerciais em produção nesta etapa.
+
+Quando o conector correspondente estiver implementado e homologado, a flag permitirá processar os envelopes já persistidos; habilitar o worker conforme o perfil existente deste guia. Worker exclusivamente comercial não exige SMTP, API Brevo ou chave de links e não dispara campanhas. Operação pontual no container app: node cli/process-commercial.js 1 (limite até 25); desligado responde disabled. Nenhuma chamada externa é feita por esse processador.
+
+Consultar estado/erro/attempts/lastSuccessAt nas coleções de Operação comercial. Owner não pode editar/apagar envelopes ou fatos por API; [retry autenticado](docs/06-interfaces.md) exige origem exata e motivo controlado, conserva tentativas e não remove conflitos. [Runbook](docs/11-operacao.md) explica lease/backoff/revisão. Aprovação é distinta de recebimento; CSV, liquidação, custos, retenção, imagem/upgrade/banco vazio/restore do release atual e homologação externa ainda pendentes. Esta validação local não implantou nada na VPS.
+
+
+## Acompanhamento comercial no painel (D62)
+
+Após atualizar o release e entrar como owner, o dashboard oferece “Conferir eventos e reprocessamento” em /admin/commercial-inbox. Consulta por provedor/estado, atenção inicial e páginas de vinte. Datas são de Belém; dados representam eventos locais, não vendas, integração homologada ou dinheiro recebido. Resumo permanece geral e lista respeita filtros.
+
+Retry visual exige motivo e conferência, e reutiliza autenticação/origem/auditoria da API. Pending/applied/ignored, colisão e lease ativo não permitem ação pela interface. Sucesso recoloca na fila e preserva histórico/tentativas; a flag COMMERCIAL_EVENTS_ENABLED=false continua padrão, portanto evento pode aguardar até o worker ser habilitado. Detalhe readonly mostra últimas ações e link de reprocessamento separado do formulário do CMS. Não há migração nova em D62; vinte permanecem necessárias. [Runbook](docs/11-operacao.md) descreve falhas e revisão; adaptadores nativos/release completo continuam pendentes.
+
+
+## Webhook Hotmart v2 (D63)
+
+O conector está implementado/testado localmente, mas não foi homologado em conta real. Primeiro deploy mantém HOTMART_WEBHOOK_ENABLED=false. No ambiente privado deste guia, proprietário preencherá HOTMART_ACCOUNT_KEY (alias opaco igual ao accountKey da oferta), HOTMART_HOTTOK (copiado da conta) e, apenas durante transição conferida, HOTMART_PREVIOUS_HOTTOK. Não envie esses valores ao agente, não versione, não coloque em query string ou comandos salvos no histórico. O token não pode ser o segredo da sessão, links ou Brevo.
+
+Cadastro de oferta Hotmart usa ucode do produto em externalProductId, não ID numérico. externalOfferId usa código da oferta quando houver. Checkout/entrega/eligibilidade e produto real continuam precisando da conferência do proprietário. O CMS informa os identificadores necessários; nenhum cadastro é inventado pelo webhook.
+
+Em homologação controlada, conferir TLS e configurar URL sem query: por exemplo https://bibliotheon.com.br/api/v1/webhooks/hotmart, com versão 2.0.0 e os eventos previstos no [contrato](docs/integracoes/hotmart.md). Ativar a flag de recepção no arquivo privado e aplicar a atualização conforme este guia. Não copiar os tokens/payloads sintéticos dos testes para produção. Hottok é cabeçalho de conta, não assinatura criptográfica do corpo; preservar HTTPS e não registrar Authorization/Hottok/corpo no proxy.
+
+Recepção funciona separada do worker: 200 confirma inbox/auditoria, inclusive duplicata/colisão durável; não comprova pagamento aplicado ou recebimento financeiro. Para aplicar, COMMERCIAL_EVENTS_ENABLED=true e worker habilitado na configuração/perfil do deploy. O worker não recebe Hottok. Operação pontual dentro do container app: node cli/process-commercial.js 1; limite até 25. O caminho de runtime é cli, pois Dockerfile copia .release para essa pasta.
+
+Conferir código/estado no acompanhamento do painel. 401 rejeita token; 415 conteúdo/encoding incompatível; 413 tamanho; 422 versão/esquema; 503 com Retry-After indica configuração desligada ou indisponibilidade. Corrigir causa e conferir histórico/reenvio na conta. Quantidade/intervalos de retries externos e desativação pelo provedor continuam a homologar; não presumir entrega futura.
+
+Teste controlado precisa comprovar IDs, eventos, reenvio, valores/moedas/datas e relatório. Sem inferir reembolso, taxas, líquido, liquidação ou atribuição de compra. Compras recorrentes/físicas, protesto e precisão sem suporte ficam em revisão; unknowns não são zeros. Kiwify/Cakto foram implementados localmente em D64–D65 e CSV limitado em D66–D67; resolução auditada, financeiro/retenção, imagem atual/upgrade/banco vazio/restore e homologação integral continuam pendentes. Nenhuma VPS ou conta de fornecedor foi acessada pelo agente nesta etapa.
+
+## Kiwify: preparar depois da homologação
+
+Conector nativo local D64 disponível em POST /api/v1/webhooks/kiwify; primeiro deploy mantém KIWIFY_WEBHOOK_ENABLED=false. No arquivo privado, preencher KIWIFY_ACCOUNT_KEY (alias igual ao catálogo) e KIWIFY_WEBHOOK_TOKEN (32–512 caracteres aleatórios independentes, configurados também na Kiwify). KIWIFY_WEBHOOK_PREVIOUS_TOKEN só durante rotação. Não enviar ao agente, versionar ou inserir no histórico de comandos.
+
+Cadastrar URL HTTPS sem segredo e sem redirecionamento; fornecedor acrescenta signature com HMAC-SHA1 do corpo bruto. Configurar proxy/APM para não registrar query/URL completa desse endpoint antes de ativar: assinatura permite replay. No Nginx existente, use formato que registre apenas $uri para essa rota, ou access_log off na location específica, preservando proxy/headers atuais; confira também logs de erro/APM. O exemplo Caddy acima não habilita access logs; se habilitar, redigir a query deste callback e dos links privados. Não editar o proxy global sem inventário.
+
+Recepção não exige worker. Conferir inbox e só depois habilitar COMMERCIAL_EVENTS_ENABLED conforme plano de homologação. Token fica no app; worker não recebe esse segredo. Chargeback/recusa sem instante confirmado, recorrência e formatos especiais ficam em revisão; retry não resolve ausência de evidência. Integração permanece parcial até conferência na conta/relatório/reenvio e conciliação. [Contrato e checklist Kiwify](docs/integracoes/kiwify.md). Cakto possui implementação local D65, descrita a seguir; sua homologação é independente.
+
+## Cakto: preparar depois da homologação
+
+Endpoint nativo POST /api/v1/webhooks/cakto implementado localmente em D65, com V1/V2 e recepção atômica de listas. Primeiro deploy mantém CAKTO_WEBHOOK_ENABLED=false e COMMERCIAL_EVENTS_ENABLED=false. No ambiente privado, preencher CAKTO_ACCOUNT_KEY (alias igual ao catálogo) e CAKTO_WEBHOOK_SECRET (copiado do webhook criado na conta, independente de sessão/Brevo/Hotmart/Kiwify). CAKTO_WEBHOOK_PREVIOUS_SECRET só durante transição conferida. Não enviar ao agente, versionar ou digitar em comando salvo no histórico. O Compose repassa segredo só ao app; worker não precisa dele.
+
+Cadastrar URL HTTPS sem segredo e sem redirecionamento. Endpoint exige HMAC-SHA256 de timestamp.corpo bruto nos headers oficiais, com relógio sincronizado e janela de cinco minutos. Não aceita somente secret no corpo. Impedir captura de corpo e headers de autenticação pelo proxy/APM/debug: o JSON nativo contém o segredo mesmo quando há assinatura. Confirmar headers/forma do teste oficial na conta; seu payload artificial pode ficar em revisão sem representar venda.
+
+Cakto não repete automaticamente resposta HTTP de erro, inclusive 503, segundo o guia atual. Monitorar histórico de entregas no fornecedor e reenviar manualmente após falha; Retry-After local não força retry externo. Não confirmar recebimento que falhou no banco. Limites locais: 256 KiB e até 25 itens V2 por entrega, sem aceitação parcial. MED/pré-chargeback, assinatura e falta de instante financeiro exigem conciliação; retry da inbox não inventa evidência. [Contrato, checklist e limites](docs/integracoes/cakto.md). Os três provedores continuam sem homologação em conta; não ativar com base nos testes sintéticos.
+
+## Prévia CSV privada — D66
+
+POST /api/v1/admin/imports/preview está implementado como prévia provisória owner, sem persistência ou confirmação de importação. Não exige nova variável, segredo ou migração. Exige sessão owner, Origin igual a PUBLIC_SITE_URL e text/csv UTF-8; cinco MiB/dez mil registros. Não registrar corpo/Authorization no proxy/APM/debug. O limite do proxy de 21 MiB do guia comporta o CSV; o endpoint impõe o teto menor.
+
+Não há tela de upload, CLI de importação, confirmação ou relatório financeiro nesta etapa. Não tratar new/matched como venda ou valor recebido e não usar o hash da resposta para autorizar escrita. [Contrato e pendências de conciliação](docs/24-conciliacao.md). Projeto completo continua sujeito a confirmação auditada, financeiro/retenção e release da imagem/restore, além da homologação dos provedores.
+
+## Lotes duráveis de conciliação — D67
+
+Atualização local acrescenta migração 21 para commercial-import-batches/rows/audit; aplicar pelo fluxo de migrations do guia, com backup consistente. Nenhum segredo, flag ou serviço novo. Down recusa evidência existente; não apagar registros para forçar rollback. Revalidar imagem/banco vazio/upgrade/restore do código atual antes de produção.
+
+Fonte/justificativa e um provedor/conta por lote. POST /api/v1/admin/imports estagia CSV canônico com owner/origem e headers de fonte/referência/razão/Idempotency-Key; POST /api/v1/admin/imports/{id}/commit exige confirmação explícita/hash do plano durável. Conferir linhas/fonte antes de confirmar. Proteger também /api/v1/admin/* pela mesma restrição de IP/VPN administrativa no proxy existente, como no exemplo Caddy deste guia. queued/202 é inbox durável, não venda aplicada ou recebimento; processar separadamente pela rotina comercial existente. Manter COMMERCIAL_EVENTS_ENABLED=false até homologar a operação. Nenhum token nativo é necessário para processar fatos CSV confirmados.
+
+Somente novos estados sem reversão/recebimento e snapshots já compatíveis têm confirmação nesta etapa. stale/blocked demanda causa corrigida e novo estágio; colisão/catálogo histórico e liquidação não se resolvem editando fatos. Coleções nativas são privadas e somente de leitura; interface customizada e financeiro ainda pendentes. [Contrato/API/limites completos](docs/24-conciliacao.md). Não registrar CSV/Authorization em proxy/APM/debug; medir latência da conta sob carga antes do release.

@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-24T19:29:07.070Z",
+  "checks": [
+    "HMAC inválido não persiste. Reenvio concorrente gera um recibo e ACK durável; worker desligado não aplica venda. Aplicação explícita usa produto/oferta, centavos e aprovação original, sem PII ou líquido inferido.",
+    "Reembolso com refunded_at conserva quantia desconhecida; replay de aprovação e chegada invertida não apagam reversão nem confundem pagamento com recebimento.",
+    "Chargeback/recusa sem instante financeiro confirmado permanecem para conciliação. updated_at não substitui evidência temporal; projeção anterior permanece preservada.",
+    "Mudança em dados pessoais/updated_at não altera digest; mesma ordem/tipo com valor diferente abre colisão uma vez e preserva histórico/projeção.",
+    "Afiliado/assinatura/físico ficam em revisão; PIX gerado permanece pendente. Cancelamento de assinatura não é reembolso e não cria transação.",
+    "Produto desconhecido não é inferido: mapeamento exato e retry owner auditado recuperam o envelope, conservando tentativas e identidade.",
+    "Rollback da auditoria impede ACK sem commit; reenvio recupera. Outra conta exige outro token e mantém namespace próprio; token anterior explícito aceita rotação."
+  ],
+  "environment": "PostgreSQL loopback, dados sintéticos e handler HTTP real",
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Sem conta Kiwify ou homologação externa. Chargeback e recusa sem instante confirmado exigem conciliação. Afiliado/recorrência/parcelamentos especiais fora da projeção automática inicial; líquido, liquidação, atribuição e quantia devolvida não inferidos."
+}

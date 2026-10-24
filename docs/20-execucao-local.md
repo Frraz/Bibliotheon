@@ -2,11 +2,13 @@
 
 [Índice](../README.md) · [Evidências](19-desenvolvimento.md)
 
-Este documento atende ao desenvolvimento/QA local. Para clone na VPS, configuração privada e atualização automática, seguir [deploy.md](../deploy.md); não usar compose.local.yaml em produção. Atualizar.sh/altualizar.sh e seus testes não dependem de Node instalado no host da VPS, mas exigem Python/Docker/Git e configuração inicial conforme o guia.
+Este documento atende ao desenvolvimento/QA local. Para clone na VPS, configuração privada e atualização automática, seguir [deploy.md](../deploy.md); não usar compose.local.yaml em produção. atualizar.sh e seus testes não dependem de Node instalado no host da VPS, mas exigem Python/Docker/Git e configuração inicial conforme o guia.
+
+Estado vigente e ordem de execução em [pendencias.md](../pendencias.md). Seções Dxx abaixo descrevem cada etapa histórica; contagens antigas não substituem as 21 migrations atuais nem comprovam imagem atual homologada.
 
 ## Pré-requisitos
 
-Node 22.23.3, pnpm 10.34.7 e Docker com Compose. Nenhuma conta externa é necessária para os testes sintéticos. O banco local possui nome/volume exclusivos e escuta apenas em loopback na porta 55432. Não use esse Compose na VPS.
+Node >=22.23.0 e <23 (host da D67: 22.23.4; imagem/CI: 22.23.3), pnpm 10.34.7 e Docker com Compose. Nenhuma conta externa é necessária para os testes sintéticos. O banco local possui nome/volume exclusivos e escuta apenas em loopback na porta 55432. Não use esse Compose na VPS.
 
 ```bash
 python3 scripts/setup-local.py
@@ -17,6 +19,34 @@ npm run dev
 ```
 
 Se Corepack não estiver disponível, `npm exec --yes --package=pnpm@10.34.7 -- pnpm install --frozen-lockfile` instala usando a mesma versão. O setup local preserva um arquivo existente; `.env.local` é privado e ignorado. Não copiar seu conteúdo em issues, screenshots ou commits.
+
+## Start e stop locais
+
+Depois do setup e da instalação, `./start.sh` inicia banco, aplica migrations e aguarda `/health/ready` na porta 3000. `./stop.sh` encerra o grupo gerenciado e para somente o banco local, sem remover volumes; `./stop.sh --keep-db` preserva o banco ativo. Implementação em [scripts/local-dev.py](../scripts/local-dev.py). Requer Linux/Python; não substitui o procedimento de produção.
+
+O controle usa lock compartilhado e `.local-run/dev.json` com PID, início no kernel, sessão e checkout. Não adota nem encerra outro servidor; uma prévia gerenciada na porta 3000 impede o start. Logs privados em `.local-logs/next.log`, sem impressão automática no terminal. Estado inválido ou identidade divergente bloqueia a ação. `next.pid` do controle antigo exige conferência/encerramento da instância antiga e remoção apenas do registro obsoleto; o script não migra um processo ativo silenciosamente. Interrupção/falha na inicialização encerra o processo criado, preservando banco para diagnóstico.
+
+## Verificações reproduzidas pelo CI
+
+`npm run check` roda checks sem banco/Docker/configuração privada: Bash, tipos, lint, unitários, testes de operação e documentação. Pode ser chamado de outro diretório por caminho absoluto de scripts/check-local.sh. O workflow usa [.nvmrc](../.nvmrc), lockfile e dois jobs: checks estáticos, depois PostgreSQL descartável/migrations/gerados/integrações/build/HTTP. Não executa deploy, matriz visual ou homologação de fornecedor.
+
+Os runners [check-integration.sh](../scripts/check-integration.sh) e [check-http.sh](../scripts/check-http.sh) compartilham fixtures por suíte e mantêm execução sequencial. Ambos exigem BIBLIOTHEON_SYNTHETIC_TESTS=true, banco exclusivo de testes e configuração sintética. A confirmação não transforma um banco real em ambiente seguro; nunca apontar para produção. Listar as suítes é uma operação sem banco:
+
+```bash
+bash scripts/check-integration.sh --list
+bash scripts/check-http.sh --list
+```
+
+Após preparar e migrar o banco sintético, com PUBLIC_SITE_URL/segredos/hosts de teste conforme o job de integração:
+
+```bash
+BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:integration
+npm run build
+node scripts/build-runtime.mjs
+BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:http
+```
+
+O runner HTTP requer porta 3000 livre e build correspondente. Sobe seu próprio grupo de processos, aguarda saúde com limite explícito, interrompe na primeira falha e encerra o grupo na saída/sinal. Ativa somente recepção sintética/analytics necessários às fixtures; envios e processamento comercial automático ficam desativados. Não inicia worker nem publica log bruto. Rodadas manuais .next-qa/3001 descritas abaixo continuam separadas desse harness; não executar duas baterias no mesmo banco/caches.
 
 ## Primeiro administrador
 
@@ -38,7 +68,7 @@ Parar apenas o banco local: `docker compose --env-file .env.local -f compose.loc
 
 ## Estado
 
-Instruções para a base local; B06 parcial, com calendário e quota implementados/testados, sem campanhas externas. A presença deste procedimento não comprova execução bem-sucedida; resultados e pendências no [estado atual](23-estado-atual.md) e no [histórico](19-desenvolvimento.md).
+Instruções para a aplicação local até D67: B06 possui calendário/quota, listas/campanhas, transporte/observação e callback implementados/testados com fixtures, sem envio externo. Medição, inbox, três conectores nativos e confirmação CSV limitada também existem localmente; financeiro/retenção e homologação externa seguem pendentes. A presença deste procedimento não comprova execução bem-sucedida; resultados e pendências no [estado atual](23-estado-atual.md) e no [histórico](19-desenvolvimento.md).
 
 ## Amostras e e-mail em desenvolvimento
 
@@ -46,7 +76,7 @@ Instruções para a base local; B06 parcial, com calendário e quota implementad
 
 O setup de um ambiente novo gera `LEAD_TOKEN_SECRET` independente de `PAYLOAD_SECRET`. Para ambiente local já existente, acrescentar uma chave aleatória privada de pelo menos 32 bytes, sem sobrescrever o segredo anterior. Manter `LEADS_ENABLED=false` e `EMAIL_TRANSPORT_ENABLED=false` até revisão dos avisos, conta/remetente e fila. A captura também exige `legalReady`; sem e-mail público, não ativá-la.
 
-`npm run worker` processa jobs de e-mail, concorrência 1, polling de 30 segundos; `-- --once` executa um ciclo. O worker recusa ativação sem transporte configurado. Não rodar com credenciais reais nos ensaios. Envios em estado `uncertain` exigem conciliação com o provedor antes de intervenção; não os recolocar automaticamente na fila.
+`npm run worker` processa jobs de e-mail, concorrência 1, polling de 30 segundos; `-- --once` executa um ciclo. As filas são habilitadas por flags independentes; o modo somente comercial ou de observação pode operar sem SMTP. Cada modo exige sua própria configuração válida; sem modo habilitado o worker recusa ativação. Não rodar com credenciais reais nos ensaios. Envios em estado `uncertain` exigem conciliação com o provedor antes de intervenção; não os recolocar automaticamente na fila.
 
 ## Conferir descadastros e bloqueios
 
@@ -66,9 +96,9 @@ No banco loopback vazio e runtime isolado, `TEST_BASE_URL=http://127.0.0.1:3001 
 
 Cadastre a sequência manual no Payload para a versão exata da amostra. Complete os quatro assuntos/textos e a oferta do mesmo livro antes de ativar; aumente a revisão ao editar o conteúdo. A cópia das inscrições existentes é preservada. Desativar cancela as etapas e reativar não as recria. Arquivo de amostra vinculado é preservado: para substituí-lo, envie nova mídia e altere a versão, sem reutilizar versão já solicitada.
 
-`npm run promotions:prepare` confere até 100 etapas por execução e atualiza apenas elegibilidade local. O worker também executa essa conferência após priorizar os jobs transacionais. Etapas retidas/prontas têm nova conferência em 15 minutos, sem alterar a data original. O comando não cria campanha externa, não usa quota e não envia promoção. A aplicação do calendário ao transporte Brevo ainda está pendente.
+`npm run promotions:prepare` confere até 100 etapas por execução e atualiza apenas elegibilidade local. O worker também executa essa conferência após priorizar os jobs transacionais. Etapas retidas/prontas têm nova conferência em 15 minutos, sem alterar a data original. O comando não cria campanha externa, não usa quota e não envia promoção. O transporte opcional D56 aplica o calendário ao disparo, com flag false por padrão; a observação D57 possui flag independente.
 
-A quota local é compartilhada por destinatário/dia UTC, com teto conservador BREVO_DAILY_QUOTA=250 e reserva BREVO_TRANSACTIONAL_RESERVE=50. Ao reduzir o teto, ajuste a reserva para um inteiro positivo que caiba nele. Promoções futuras terão de respeitar total menos reserva; confirmações/amostras podem usar o total. A reserva é gravada na transação do claim, sem estorno automático de tentativas incertas. Configuração inválida interrompe o worker. Essa política não confirma créditos, reset ou outros usos da conta Brevo.
+A quota local é compartilhada por destinatário/dia UTC, com teto conservador BREVO_DAILY_QUOTA=250 e reserva BREVO_TRANSACTIONAL_RESERVE=50. Ao reduzir o teto, ajuste a reserva para um inteiro positivo que caiba nele. O transporte promocional D56 respeita total menos reserva; confirmações/amostras podem usar o total. A reserva é gravada na transação do claim, sem estorno automático de tentativas incertas. Configuração inválida interrompe o worker. Essa política não confirma créditos, reset ou outros usos da conta Brevo.
 
 `npm run test:sequences` usa banco operacional vazio/loopback, relógio controlado e confirmação em memória. Executar sequencialmente com os outros testes que criam owner. O aceite fica no relatório de desenvolvimento; a existência do comando não comprova homologação externa.
 
@@ -170,3 +200,82 @@ npm run test:brevo-preferences empacota CLI e valida emissão/reutilização/rot
 ### Rascunhos de campanhas (D55)
 
 npm run test:brevo-campaigns empacota CLI e exercita criação/conciliação/concorrência/IDs/lease/descadastro com banco loopback e HTTP sintético. Executar sequencialmente às demais fixtures. npm run brevo:campaigns -- UUID_DO_LOTE prepara listas/preferências e cria/confere um rascunho; --campaign-id ID admite reconciliação revisada, --retry-rejected somente criação explicitamente recusada sem ID. Flag falsa retorna disabled antes de banco/rede. Não compartilhe saída bruta de APIs, links privados ou secrets. Não existe envio de campanha nessa CLI.
+
+
+### Transporte promocional (D56)
+
+npm run test:brevo-send empacota CLI/worker e valida intenção/quota atômicas, concorrência, rollback, mudança UTC, timeout após aceitação, retry explícito, descadastro, emissão abandonada e falha ao registrar retorno. Seleção de candidatos do worker exercitada com lote concorrente ativo; worker empacotado --once com fila vazia e rede bloqueada. Tudo em banco loopback/HTTP sintético; executar sequencialmente às demais fixtures.
+
+npm run brevo:send -- UUID_DO_LOTE prepara/concilia e solicita disparo; --retry-rejected somente após recusa documentada. Sem BREVO_CAMPAIGN_SEND_ENABLED=true retorna disabled antes de banco/rede. Worker com flag habilitada pode disparar sem EMAIL_TRANSPORT_ENABLED; dependências e quota inválidas são recusadas antes de getPayload. Não habilitar no ambiente real para reproduzir testes. Use fixtures/interceptação, nunca compradores reais.
+
+
+## Consultar atividade de campanhas existentes (D57)
+
+Manter BREVO_CAMPAIGN_OBSERVE_ENABLED=false no primeiro deploy; atualizar.sh preserva o ambiente privado. A flag de observação é independente de BREVO_CAMPAIGN_SEND_ENABLED. Após homologar a consulta e conceder chave privada de API, pode ativar somente observação: não exige habilitar SMTP/cadastro/disparo nem altera consentimento. Para execução periódica na VPS, ativar também o worker na configuração privada do atualizador conforme o procedimento anterior.
+
+CLI local: npm run brevo:observe -- UUID_DO_LOTE; runtime da imagem: node cli/observe-brevo-campaign.js UUID_DO_LOTE. Acrescentar --refresh para consultar novamente um registro ainda não vencido/terminal; lease ativo é respeitado. Sem flag retorna disabled; flag com chave inválida falha. Fila é criada com cada intenção de emissão e preenchida para tentativas anteriores pela migração 16. Worker consulta até uma campanha por ciclo; 15 minutos entre consultas, lease de 30 minutos e parada automática em sent/archive/cancelled.
+
+observed significa atividade da campanha, sem comprovar destinatário/entrega ou autoria exclusiva do POST. Histórico HTTP/código e quota permanecem preservados; nenhum estado de consulta autoriza reenviar pedido incerto. Não ligar envio para investigar timeout. Prova, datas e falhas ficam em brevo-campaign-observations, privada e sem resposta bruta. Consulte [contrato Brevo](integracoes/brevo.md) e o estado atual antes da produção.
+
+
+## Callback Brevo de marketing e resultados individuais (D58)
+
+No primeiro deploy manter BREVO_WEBHOOK_ENABLED=false. As migrações 17/18 são aditivas; não fabricam identidade histórica para disparos existentes. Atualizar com ./atualizar.sh preserva o ambiente privado e não ativa webhooks/envio automaticamente. Runtime inclui node cli/replay-brevo-webhook.js UUID_DO_EVENTO; localmente npm run brevo:webhook-replay -- UUID_DO_EVENTO. Replay de envelope não reenvia mensagem nem consulta a API.
+
+Para homologação posterior, gerar segredos privados independentes com pelo menos 32 bytes conforme o procedimento de chaves deste projeto. Configurar BREVO_WEBHOOK_TOKEN (32–128 caracteres ASCII alfanuméricos/hífen/sublinhado) e BREVO_WEBHOOK_EVENT_SECRET (HMAC estável), sem copiar sessão/chave de links. BREVO_WEBHOOK_PREVIOUS_TOKEN é opcional para transição de autorização. Nunca trocar o segredo HMAC junto de rotação de token: a deduplicação histórica depende dele. A identidade capturada no disparo depende também da chave privada de links; recuperar esses segredos junto do banco/configuração privada, fora do Git e com permissões restritas.
+
+Na conta Brevo, configurar manualmente webhook type=marketing, channel=email, batched=false, URL HTTPS da aplicação terminada em /api/webhooks/brevo, events delivered/hardBounce/softBounce/spam/unsubscribed e auth.type=bearer com token privado. A API key usada para criar/configurar webhook na conta não é a credencial do callback. Só ativar BREVO_WEBHOOK_ENABLED=true depois de conferir proxy/TLS, autenticação e teste controlado; não precisa ativar SMTP, worker, envio ou cadastro para receber. Homologação real não foi executada nesta etapa. Não usar os tokens sintéticos de CI em produção.
+
+Callback autentica antes de corpo/banco, limita 32 KiB/5 segundos e confirma somente depois do commit. Configuração desativada/indisponibilidade responde 429 com Retry-After; a política pública da Brevo documenta descarte de notificações em 5xx. Corpo/credencial inválidos não são aceitos. Configurar endpoint/canal/eventos incorretos exige correção e revisão na conta; não presumir retry ilimitado. Não colocar chave na URL nem registrar Authorization/corpos no proxy.
+
+Coleções privadas brevo-webhook-events e brevo-delivery-receipts mostram quarentena/resultados mínimos, sem payload bruto. Desconhecidos exigem revisão na conta e, quando necessário, fluxo manual de supressão; replay não associa um email antigo a cadastro criado depois. Legado sem impressão histórica, identidade divergente, campanha/destinatário/tempo incompatíveis não são entregas conciliadas. Notificações negativas válidas de contato conhecido protegem consentimento mesmo sem campanha mapeada. delivered significa relato do provedor e não comprova leitura/compra. Não reenviar pedido incerto para investigar resultados; quota/histórico permanecem preservados. Ver [contrato Brevo](integracoes/brevo.md).
+
+
+## Medição própria opcional (D59)
+
+ANALYTICS_ENABLED=false no primeiro deploy. A migração 19 cria permissões/sessões/páginas/saídas/limites e termo de campanha. atualizar.sh preserva o ambiente privado e aplica migrations pendentes. Medição também exige institucional legalReady revisado; enquanto responsável/contato/textos não estiverem prontos, não haverá novo aceite/coleta. A autorização de marketing não vale como autorização analítica. Não ativar para operação real antes de retenção/exclusão B12 e revisão do release/políticas.
+
+Em homologação, ativar a flag no ambiente privado e atualizar; não exige Brevo/SMTP/worker/API paga. Verificar aceitar/rejeitar equivalentes no rodapé, cookie __Host/HttpOnly/Secure em HTTPS e revogação com cookie antigo. A recusa só guarda preferência igual para todos. Há formulário nativo de retirada sem JavaScript, com redirecionamento fixo à privacidade. GET de preferência não cria ID/sessão. Revogação já existente permanece acessível se a flag/aviso forem desativados.
+
+Sessões são medidas com 30 minutos inativas; first-touch e último não direto usam janela de 30 dias. Campo de campanha/UTMs deve conter códigos salvos e revisados, sem dados pessoais. Formulário Campaign gera link interno somente com livro/oferta/campanha disponíveis. URLs de checkout/afiliado continuam intactas; nenhum parâmetro de clickId é acrescentado automaticamente. O painel de sete dias separa sessões/páginas consentidas, saídas totais e saídas consentidas. Não ler contagens como pessoas únicas, vendas ou conversão. Falha de medição não interrompe checkout validado.
+
+QA local: npm run test:analytics, npm run test:analytics-http e scripts/qa-analytics.ts, com base sintética/loopback e testes sequenciais. Não copiar hosts/tokens/dados de teste para produção. Nunca persistir query completa, referer, IP, credenciais ou payloads reais em logs; conferir também política do proxy existente, sem alterar os outros serviços da VPS. Retenção de analytics e restauração das 19 migrations permanecem pendentes. Ver [estado atual](23-estado-atual.md).
+
+
+## Inbox comercial comum (D61)
+
+Aplicar a migração 20 com npm run db:migrate antes de testar ofertas no schema novo. npm run test:commercial-inbox empacota runtime e valida banco loopback vazio, adaptadores internos sintéticos, concorrência, rollback, retry owner, CLI/worker e cleanup. Não executar fixtures simultaneamente nem apontar para banco real.
+
+COMMERCIAL_EVENTS_ENABLED=false mantém a fila desativada; npm run commerce:process -- 1 retorna disabled sem abrir banco. Em ambiente local de teste habilitado, processa de 1 a 25 envelopes previamente persistidos. Worker pode operar apenas comércio sem SMTP/Brevo. Não há formulário público de evento normalizado, adaptador nativo ou callback comercial externo habilitado. [Operação](11-operacao.md) descreve revisão, lease e retry.
+
+
+## Painel comercial (D62)
+
+Após as vinte migrations, npm run test:commercial-admin valida resumo, atenção, datas, filtros, UUID, paginação e leitura sem efeitos com fixtures locais. npm run test:commercial-inbox cobre o domínio/worker/API de retry. Ambas as suítes estão declaradas no workflow de qualidade, cuja execução no GitHub continua a cargo do proprietário e não foi comprovada nesta sessão.
+
+QA renderizado: iniciar o build isolado .next-qa na porta 3001, com PUBLIC_SITE_URL e TEST_BASE_URL iguais à origem loopback, COMMERCIAL_EVENTS_ENABLED=false, e executar node --env-file-if-exists=.env.local --import tsx scripts/qa-commercial-admin.ts. Requer Chromium já disponível no ambiente. O harness exige banco sem owner/comércio, cria fixtures sintéticas, bloqueia HTTP externo, valida retorno 202/auditoria reais locais, intercepta erros de formulário e limpa em finally. Não executar junto com outras fixtures ou contra banco real.
+
+O fallback sem JS é somente de leitura: filtros GET e details funcionam; envio exige JS e botão permanece desabilitado. Axe só roda nos contextos com JS. Erro da ferramenta de teste não deve ser reportado como defeito do produto sem conferir DOM/estilo/screenshot. Não alterar .next/3000 da prévia gerenciada durante QA.
+
+
+## Hotmart v2 local — D63
+
+npm run test:hotmart usa handler real com PostgreSQL loopback e payloads v2 sintéticos. npm run test:hotmart-http exige servidor QA isolado com HOTMART_WEBHOOK_ENABLED=true, HOTMART_ACCOUNT_KEY=synthetic e HOTMART_HOTTOK=synthetic-hotmart-private-token, sem ativar processamento automático ou serviços externos. Os três valores são exclusivamente de teste e não devem ser copiados para produção. PUBLIC_SITE_URL/TEST_BASE_URL precisam ser a mesma origem loopback; usar .next-qa/3001 e preservar .next/3000 da prévia.
+
+As suítes exigem banco local sem owner/ledger, executam sequencialmente e limpam fixtures. Não testam conta real; nenhuma chamada de saída à Hotmart é feita. Unitários exercitam reviver source do JSON no Node fixado, centavos exatos, tokens, deadlines e datas. Node/runtime sem suporte ao texto numérico original não deve normalizar silenciosamente por arredondamento. Vinte migrações continuam suficientes nesta etapa.
+
+## Kiwify sintética — D64
+
+npm run test:kiwify exige banco loopback sem owner/histórico comercial; cria fixtures e limpa ao final. npm run test:kiwify-http exige build isolado .next-qa/3001, TEST_BASE_URL=http://127.0.0.1:3001 e app com KIWIFY_WEBHOOK_ENABLED=true, KIWIFY_ACCOUNT_KEY=synthetic, KIWIFY_WEBHOOK_TOKEN=synthetic-kiwify-current-token-32-characters. Esse token é deliberadamente público/sintético e proibido na operação real. SMTP/worker reais continuam desligados. Não substituir .next ou usar porta 3000 da prévia para QA. A assinatura gerada pelo teste não deve aparecer nos logs do servidor/proxy.
+
+## Cakto sintética — D65
+
+npm run test:cakto cria fixtures nativas V1/V2 no PostgreSQL loopback, com guards de banco vazio e cleanup. npm run test:cakto-http exige build isolado .next-qa/3001, TEST_BASE_URL=http://127.0.0.1:3001, CAKTO_WEBHOOK_ENABLED=true, CAKTO_ACCOUNT_KEY=synthetic e CAKTO_WEBHOOK_SECRET=synthetic-cakto-current-secret-32-characters no app QA. Esse segredo é público/sintético e proibido na operação real. SMTP/processamento automáticos desligados; testes aplicam fila explicitamente. Executar suítes de banco sequencialmente e encerrar servidor QA ao final; preservar .next/3000. Não imprimir corpo/assinatura em logs.
+
+## Prévia CSV sintética — D66
+
+npm run test:commercial-csv usa PostgreSQL loopback sem owner/histórico e cria somente fixtures locais. npm run test:commercial-csv-http exige build QA isolado .next-qa/3001 e TEST_BASE_URL=http://127.0.0.1:3001; cria owner efêmero, autentica JWT e limpa ao final. Integradores/SMTP/worker podem permanecer desligados. Não executar contra produção ou banco com cadastros reais. Sem nova migração, segredo, flag, CLI de importação ou UI. [Formato/limites](24-conciliacao.md).
+
+## Importações duráveis sintéticas — D67
+
+Aplicar migração 21 somente no banco de desenvolvimento. npm run test:commercial-imports exige owner/histórico comercial e de importação vazios; fixtures incluem estágios/filas e cleanup. npm run test:commercial-imports-http exige .next-qa/3001 e TEST_BASE_URL correspondente, owner/CSV efêmeros, worker/envios/provedores desligados. Não executar em produção. Testes de migração 20 respeitam dependência21. Tipos gerados/import map conferido, sem componente customizado novo. [Protocolo/limites](24-conciliacao.md).

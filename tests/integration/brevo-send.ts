@@ -1,17 +1,20 @@
+import {up as upIdentities,down as downIdentities} from '../../migrations/20261024_071409_brevo_send_recipients'
+import {up as upWebhooks,down as downWebhooks} from '../../migrations/20261024_070440_brevo_webhook_events'
+import {up as upObservations,down as downObservations} from '../../migrations/20261024_064354_brevo_campaign_observations'
 import assert from 'node:assert/strict'
 import { randomBytes } from 'node:crypto'
 import { mkdir,writeFile,mkdtemp,rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
-import type { PostgresAdapter } from '@payloadcms/db-postgres'
+import { sql, type PostgresAdapter } from '@payloadcms/db-postgres'
 import { seedRelationship } from '../fixtures/relationship'
 import { requestMagnet,confirmMagnet,unsubscribe } from '../../src/modules/marketing/service'
 import { processDelivery } from '../../src/modules/marketing/delivery'
 import { CONSENT_VERSION } from '../../src/modules/marketing/validation'
 import { preparePromotionBatches } from '../../src/modules/marketing/batches'
 import { prepareBrevoBatchCampaign } from '../../src/modules/marketing/batch-campaigns'
-import { dispatchBrevoBatchCampaign } from '../../src/modules/marketing/campaign-send'
+import { dispatchBrevoBatchCampaign, dispatchPromotionCampaigns } from '../../src/modules/marketing/campaign-send'
 import { quotaWindow } from '../../src/modules/marketing/quota-policy'
 import { createBrevoCampaigns } from '../../src/integrations/brevo/campaigns'
 import { createBrevoCampaignDispatch } from '../../src/integrations/brevo/campaign-dispatch'
@@ -50,6 +53,7 @@ const transport:typeof fetch=async(input,options)=>{
  assert.equal(options?.method,'GET')
  if(url.pathname==='/v3/emailCampaigns'){const all=[...remote.values()],offset=Number(url.searchParams.get('offset'));return Response.json({count:all.length,campaigns:all.slice(offset,offset+50).map(row=>({id:row.id,name:row.body.name}))})}
  const id=Number(url.pathname.split('/').at(-1)),row=remote.get(id);if(!row)return new Response(null,{status:404})
+ if(modes.get(String(row.body.name))==='hold-verify'){entered?.();await release}
  if(modes.get(String(row.body.name))==='withdraw-before-claim'){
   const email=peopleByBatch.get(String(row.body.name))![0]
   await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due)
@@ -64,7 +68,7 @@ const usedAt=async(now:number)=>(await payload.find({collection:'mail-quota',whe
 let revision=1
 const envEnabled={...process.env,BREVO_CONTACT_SYNC_ENABLED:'true',BREVO_CONTACT_REGISTRATION_ENABLED:'false',BREVO_LIST_SYNC_ENABLED:'true',BREVO_LIST_FOLDER_ID:'10',BREVO_PREFERENCE_SYNC_ENABLED:'true',BREVO_CAMPAIGN_SYNC_ENABLED:'true',BREVO_CAMPAIGN_SENDER_ID:'41',BREVO_CAMPAIGN_SEND_ENABLED:'true',BREVO_API_KEY:'synthetic',LEAD_TOKEN_SECRET:secret,PUBLIC_SITE_URL:origin,EMAIL_TRANSPORT_ENABLED:'false'}
 try{
- await assert.rejects(atomic(payload,async req=>{const id=await req.transactionID;assert.ok(id);const db=(payload.db as unknown as PostgresAdapter).sessions[id].db;await down({db,payload,req});await up({db,payload,req});throw new Error('synthetic rollback')}),/synthetic rollback/)
+ await assert.rejects(atomic(payload,async req=>{const id=await req.transactionID;assert.ok(id);const db=(payload.db as unknown as PostgresAdapter).sessions[id].db;await downIdentities({db,payload,req});await downWebhooks({db,payload,req});await downObservations({db,payload,req});await down({db,payload,req});const index=await db.execute(sql`SELECT indexdef FROM pg_indexes WHERE schemaname='public' AND indexname='promotion_deliveries_due_idx'`);assert.equal(index.rows.length,1);assert.match(String(index.rows[0].indexdef),/scheduled.*ready/);await up({db,payload,req});await upObservations({db,payload,req});await upWebhooks({db,payload,req});await upIdentities({db,payload,req});throw new Error('synthetic rollback')}),/synthetic rollback/)
  const copy=Object.fromEntries([2,4,7,10].map(day=>[`day${day}`,{subject:`Disparo sintético ${day}`,text:`Conteúdo manual sintético ${day}.`}]))
  const sequence=await payload.create({collection:'email-sequences',...seed.auth,data:{name:'Disparos totalmente sintéticos',key:'synthetic',magnet:magnet.id,magnetVersion:magnet.version,revision,offer:seed.offers[0].id,active:true,...copy}})
  async function group(name:string,count=1){
@@ -87,7 +91,7 @@ try{
  assert.equal((await payload.count({collection:'brevo-campaign-sends',overrideAccess:true})).totalDocs,0)
  const results=await Promise.all([run(normal.id),run(normal.id)])
  assert.equal(results.filter(result=>result.state==='submitted').length,1);assert.equal(sends.get(normal.name),1)
- let normalJob=await jobFor(normal.id);assert.equal(normalJob.attempts,1);assert.equal(normalJob.responseCode,204);assert.equal(await usedAt(due),initial+2)
+ const normalJob=await jobFor(normal.id);assert.equal(normalJob.attempts,1);assert.equal(normalJob.responseCode,204);assert.equal(await usedAt(due),initial+2)
  assert.equal(JSON.stringify(normalJob).includes('@example.invalid'),false);assert.equal(JSON.stringify(normalJob).includes('?t='),false)
  const snapshot=remoteCalls;assert.equal((await run(normal.id)).state,'submitted');assert.equal(remoteCalls,snapshot)
  checks.push('Migração vazia revertida; desativação sem intenção. Concorrência emite um POST e reserva dois destinatários uma vez; 204 registra solicitação, não entrega; repetição não consulta nem reenvia.')
@@ -160,6 +164,15 @@ try{
   assert.deepEqual(JSON.parse(output.trim().split('\n').at(-1)!),{state:'submitted'});assert.equal((await jobFor(packed.id)).attempts,1)
  }finally{await rm(temporary,{recursive:true,force:true})}
  checks.push('CLI empacotado habilitado solicita exatamente um disparo sintético e persiste tentativa/quota; cada requisição externa foi interceptada.')
+ const held=await group('held-driver');modes.set(held.name,'hold-verify')
+ let unlockDriver!:()=>void;const driverGate=new Promise<void>(resolve=>{entered=resolve});release=new Promise(resolve=>{unlockDriver=resolve})
+ const runningPreparation=run(held.id);await driverGate
+ const nextBatch=await group('next-driver'),beforeDriver=await usedAt(due)
+ assert.equal((await dispatchPromotionCampaigns(payload,{...settings,now:due})).state,'submitted')
+ assert.equal(sends.get(held.name),undefined);assert.equal(sends.get(nextBatch.name),1);assert.equal(await usedAt(due),beforeDriver+1)
+ unlockDriver();assert.equal((await runningPreparation).state,'submitted')
+ checks.push('Coordenador do worker ultrapassa lote com preparação ativa e emite no máximo uma nova campanha por ciclo, sem duplicar a tentativa concorrente.')
+
 }finally{await seed.cleanup()}
 // Own fixture has ended. Empty operational queue allows a real --once worker check with all fetch blocked.
 const temporary=await mkdtemp(path.join(tmpdir(),'bibliotheon-send-worker-'))
@@ -170,6 +183,6 @@ try{
  checks.push('Worker --once empacotado com promoção habilitada e fila vazia termina sem rede; fixtures limpas antes da execução.')
 }finally{await rm(temporary,{recursive:true,force:true})}
 await mkdir('artifacts/brevo-send',{recursive:true})
-await writeFile('artifacts/brevo-send/local-results.json',JSON.stringify({date:'2026-10-22 America/Belem',environment:'PostgreSQL loopback; HTTP sintético; CLI/worker empacotados interceptados',checks,externalCalls:false,realMessagesSent:0,limits:'204 é solicitação aceita/agendada, sem comprovar entrega. Sem API/conta real; homologação e webhook/observação/conciliação completos continuam pendentes.'},null,2)+'\n')
+await writeFile('artifacts/brevo-send/local-results.json',JSON.stringify({date:new Date().toISOString(),timezone:'America/Belem',environment:'PostgreSQL loopback; HTTP sintético; CLI/worker empacotados interceptados',checks,externalCalls:false,realMessagesSent:0,limits:'204 é solicitação aceita/agendada, sem comprovar entrega. Sem API/conta real; homologação e webhook/observação/conciliação completos continuam pendentes.'},null,2)+'\n')
 console.log(`Transporte promocional: ${checks.length} grupos aprovados; nenhuma chamada real ou mensagem.`)
 process.exit(0)

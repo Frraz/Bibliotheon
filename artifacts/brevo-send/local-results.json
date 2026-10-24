@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-24T12:06:59.406Z",
+  "timezone": "America/Belem",
+  "environment": "PostgreSQL loopback; HTTP sintético; CLI/worker empacotados interceptados",
+  "checks": [
+    "Migração vazia revertida; desativação sem intenção. Concorrência emite um POST e reserva dois destinatários uma vez; 204 registra solicitação, não entrega; repetição não consulta nem reenvia.",
+    "Falha ao gravar intenção de emissão reverte quota/lote/etapas antes do POST; retomada prepara novamente e cobra somente a tentativa efetiva.",
+    "Reserva transacional não é consumida por promoções; quota insuficiente não emite POST e a passagem UTC cobra a nova janela correta.",
+    "Resposta perdida após aceitação mantém quota e estado incerto; nem retry explícito de recusas repete ou consulta essa tentativa.",
+    "402 é recusa confirmada; nova tentativa exige ação explícita e pré-requisitos frescos, com outra reserva conservadora e histórico anterior preservado.",
+    "Descadastro antes da reserva impede disparo; retirada após recusa cancela etapas e torna retry inelegível sem reativar calendário ou consentimento.",
+    "Retirada após intenção/POST em voo não promete recall: supressão permanece e aceitação tardia do pedido não é marcada como entrega individual.",
+    "Intenção emitida abandonada vira incerta, sem novo POST/quota; resposta tardia da mesma tentativa pode confirmar solicitação sem duplicá-la.",
+    "Falha de liquidação após HTTP preserva intenção emitida e orçamento para reconciliação; downgrade e API owner não apagam/forjam tentativas.",
+    "CLI empacotado habilitado solicita exatamente um disparo sintético e persiste tentativa/quota; cada requisição externa foi interceptada.",
+    "Coordenador do worker ultrapassa lote com preparação ativa e emite no máximo uma nova campanha por ciclo, sem duplicar a tentativa concorrente.",
+    "Worker --once empacotado com promoção habilitada e fila vazia termina sem rede; fixtures limpas antes da execução."
+  ],
+  "externalCalls": false,
+  "realMessagesSent": 0,
+  "limits": "204 é solicitação aceita/agendada, sem comprovar entrega. Sem API/conta real; homologação e webhook/observação/conciliação completos continuam pendentes."
+}

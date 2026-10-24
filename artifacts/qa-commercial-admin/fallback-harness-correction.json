@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-24T12:45:03.930Z",
+  "capturesPassedBeforeStop": 45,
+  "cause": "Seletor textual do Playwright não encontrou texto direto de noscript, embora elemento e mensagem estivessem visíveis. Diagnóstico isolado confirmou DOM/CSS, screenshot e ausência de pageerror do produto.",
+  "additionalHarnessFix": "Script de aparência do QA agora trata localStorage indisponível em frames about:blank; os SecurityError registrados provinham do initScript de teste.",
+  "correction": "Usar seletor CSS noscript com texto/conferência de visibilidade, e repetir rodada completa. Mesmo build de produto.",
+  "resolution": "Matchers textuais do Playwright também ignoram noscript por seletor CSS. A asserção usa textContent e retângulo reais do DOM, além de screenshot; diagnóstico isolado confirmou mensagem visível. Sem mudança do produto."
+}

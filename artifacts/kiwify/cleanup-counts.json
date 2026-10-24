@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-24T18:00:54.300745+00:00",
+  "scope": "Contagens exatas das tabelas indicadas no PostgreSQL local; nenhum cadastro ou payload consultado",
+  "counts": {
+    "admin_users": 0,
+    "contacts": 0,
+    "commercial_audit": 0,
+    "commercial_conflicts": 0,
+    "commercial_inbox": 0,
+    "transaction_events": 0,
+    "transactions": 0,
+    "payload_migrations": 20
+  },
+  "migrationsAppliedThisStage": 0,
+  "qaPort3001Closed": true
+}

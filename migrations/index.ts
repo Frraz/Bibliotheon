@@ -13,6 +13,12 @@ import * as migration_20261022_110941_brevo_batch_lists from './20261022_110941_
 import * as migration_20261022_115043_brevo_preferences from './20261022_115043_brevo_preferences';
 import * as migration_20261022_120651_brevo_campaign_drafts from './20261022_120651_brevo_campaign_drafts';
 import * as migration_20261022_123536_brevo_campaign_sends from './20261022_123536_brevo_campaign_sends';
+import * as migration_20261024_064354_brevo_campaign_observations from './20261024_064354_brevo_campaign_observations';
+import * as migration_20261024_070440_brevo_webhook_events from './20261024_070440_brevo_webhook_events';
+import * as migration_20261024_071409_brevo_send_recipients from './20261024_071409_brevo_send_recipients';
+import * as migration_20261024_073316_analytics from './20261024_073316_analytics';
+import * as migration_20261024_115633_commercial_inbox from './20261024_115633_commercial_inbox';
+import * as migration_20261024_190859_commercial_imports from './20261024_190859_commercial_imports';
 
 export const migrations = [
   {
@@ -88,6 +94,36 @@ export const migrations = [
   {
     up: migration_20261022_123536_brevo_campaign_sends.up,
     down: migration_20261022_123536_brevo_campaign_sends.down,
-    name: '20261022_123536_brevo_campaign_sends'
+    name: '20261022_123536_brevo_campaign_sends',
+  },
+  {
+    up: migration_20261024_064354_brevo_campaign_observations.up,
+    down: migration_20261024_064354_brevo_campaign_observations.down,
+    name: '20261024_064354_brevo_campaign_observations',
+  },
+  {
+    up: migration_20261024_070440_brevo_webhook_events.up,
+    down: migration_20261024_070440_brevo_webhook_events.down,
+    name: '20261024_070440_brevo_webhook_events',
+  },
+  {
+    up: migration_20261024_071409_brevo_send_recipients.up,
+    down: migration_20261024_071409_brevo_send_recipients.down,
+    name: '20261024_071409_brevo_send_recipients',
+  },
+  {
+    up: migration_20261024_073316_analytics.up,
+    down: migration_20261024_073316_analytics.down,
+    name: '20261024_073316_analytics',
+  },
+  {
+    up: migration_20261024_115633_commercial_inbox.up,
+    down: migration_20261024_115633_commercial_inbox.down,
+    name: '20261024_115633_commercial_inbox',
+  },
+  {
+    up: migration_20261024_190859_commercial_imports.up,
+    down: migration_20261024_190859_commercial_imports.down,
+    name: '20261024_190859_commercial_imports'
   },
 ];

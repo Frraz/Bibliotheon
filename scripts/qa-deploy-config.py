@@ -33,6 +33,23 @@ with tempfile.TemporaryDirectory(prefix='bibliotheon-deploy-config-') as folder:
     frozen.chmod(0o600)
     second = deploy.compose_literals(json.loads(subprocess.run(deploy.compose(frozen, 'config', '--format', 'json'), env=env, capture_output=True, check=True).stdout), escape=False)
     deploy.compatible_database(data, second)
+    assert second['services']['app']['environment']['CAKTO_WEBHOOK_ENABLED'] == 'false'
+    assert 'CAKTO_WEBHOOK_SECRET' not in second['services']['worker']['environment']
+    assert 'CAKTO_WEBHOOK_PREVIOUS_SECRET' not in second['services']['worker']['environment']
+    assert second['services']['app']['environment']['KIWIFY_WEBHOOK_ENABLED'] == 'false'
+    assert 'KIWIFY_WEBHOOK_TOKEN' not in second['services']['worker']['environment']
+    assert 'KIWIFY_WEBHOOK_PREVIOUS_TOKEN' not in second['services']['worker']['environment']
+    assert second['services']['app']['environment']['HOTMART_WEBHOOK_ENABLED'] == 'false'
+    assert 'HOTMART_HOTTOK' not in second['services']['worker']['environment']
+    assert 'HOTMART_PREVIOUS_HOTTOK' not in second['services']['worker']['environment']
+    assert second['services']['app']['environment']['COMMERCIAL_EVENTS_ENABLED'] == 'false'
+    assert second['services']['worker']['environment']['COMMERCIAL_EVENTS_ENABLED'] == 'false'
+    assert second['services']['app']['environment']['BREVO_CAMPAIGN_OBSERVE_ENABLED'] == 'false'
+    assert second['services']['worker']['environment']['BREVO_CAMPAIGN_OBSERVE_ENABLED'] == 'false'
+    assert second['services']['app']['environment']['BREVO_WEBHOOK_ENABLED'] == 'false'
+    assert second['services']['worker']['environment']['BREVO_WEBHOOK_ENABLED'] == 'false'
+    assert second['services']['app']['environment']['ANALYTICS_ENABLED'] == 'false'
+    assert second['services']['worker']['environment']['ANALYTICS_ENABLED'] == 'false'
     assert second['name'] == 'bibliotheon'
     assert second['services']['app']['environment']['BREVO_CONTACT_SYNC_ENABLED'] == 'false'
     assert second['services']['worker']['environment']['BREVO_CONTACT_SYNC_ENABLED'] == 'false'
@@ -48,4 +65,18 @@ with tempfile.TemporaryDirectory(prefix='bibliotheon-deploy-config-') as folder:
     assert second['services']['worker']['environment']['BREVO_LIST_SYNC_ENABLED'] == 'false'
     assert second['services']['app']['image'] == values['BIBLIOTHEON_IMAGE']
     assert second['services']['migrate']['environment']['DATABASE_URL'] == values['DATABASE_MIGRATION_URL']
+    values.update({'CAKTO_WEBHOOK_ENABLED': 'true', 'CAKTO_ACCOUNT_KEY': 'synthetic-account', 'CAKTO_WEBHOOK_SECRET': 'synthetic$cakto-secret-at-least-32-characters', 'KIWIFY_WEBHOOK_ENABLED': 'true', 'KIWIFY_ACCOUNT_KEY': 'synthetic-account', 'KIWIFY_WEBHOOK_TOKEN': 'synthetic$kiwify-token-at-least-32-characters', 'HOTMART_WEBHOOK_ENABLED': 'true', 'HOTMART_ACCOUNT_KEY': 'synthetic-account', 'HOTMART_HOTTOK': 'synthetic$hotmart-token'})
+    env_file.write_text(''.join(f"{k}='{v}'\n" for k,v in values.items()))
+    enabled_env = deploy.docker_env(env_file, values['BIBLIOTHEON_IMAGE'])
+    enabled = deploy.compose_literals(json.loads(subprocess.run(command, env=enabled_env, capture_output=True, check=True).stdout), escape=False)
+    deploy.validate_compose(enabled, {'worker': False})
+    frozen.write_text(json.dumps(deploy.compose_literals(enabled)))
+    enabled_frozen = deploy.compose_literals(json.loads(subprocess.run(deploy.compose(frozen, 'config', '--format', 'json'), env=enabled_env, capture_output=True, check=True).stdout), escape=False)
+    deploy.validate_compose(enabled_frozen, {'worker': False})
+    assert enabled_frozen['services']['app']['environment']['CAKTO_WEBHOOK_SECRET'] == values['CAKTO_WEBHOOK_SECRET']
+    assert 'CAKTO_WEBHOOK_SECRET' not in enabled_frozen['services']['worker']['environment']
+    assert enabled_frozen['services']['app']['environment']['KIWIFY_WEBHOOK_TOKEN'] == values['KIWIFY_WEBHOOK_TOKEN']
+    assert 'KIWIFY_WEBHOOK_TOKEN' not in enabled_frozen['services']['worker']['environment']
+    assert enabled_frozen['services']['app']['environment']['HOTMART_HOTTOK'] == values['HOTMART_HOTTOK']
+    assert 'HOTMART_HOTTOK' not in enabled_frozen['services']['worker']['environment']
 print('Compose real e JSON privado normalizado aprovados; nenhum container iniciado.')

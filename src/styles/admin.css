@@ -69,3 +69,21 @@ body { overflow-x: clip; overflow-y: visible; }
 .bibliotheon-sequence-copy dd { margin-left: 0; overflow-wrap: anywhere; }
 :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* Commercial operations retain editorial spacing and semantic color tokens. */
+.bibliotheon-commercial-providers { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,18rem),1fr)); gap: 2rem; }
+.bibliotheon-commercial-providers article { min-width: 0; }
+.bibliotheon-commercial-facts { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,12rem),1fr)); gap: 1rem; }
+.bibliotheon-commercial-facts div { min-width: 0; }
+.bibliotheon-commercial-facts dt { color: var(--color-muted); }
+.bibliotheon-commercial-facts dd { margin: .5rem 0 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.bibliotheon-commercial-filters button { margin-block: 1.5rem 0; }
+.bibliotheon-commercial-events { list-style: none; padding: 0; }
+.bibliotheon-commercial-events > li { border-top: 1px solid var(--color-divider); padding-block: 1.5rem; }
+.bibliotheon-commercial-events h3 { overflow-wrap: anywhere; }
+.bibliotheon-commercial-events summary { cursor: pointer; min-height: 44px; padding-block: .75rem; }
+.bibliotheon-commercial-events a,.bibliotheon-commercial-pagination a { display: inline-flex; align-items: center; min-height: 44px; }
+.bibliotheon-commercial-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-block: 2rem; }
+
+.bibliotheon-commercial-history a { display: inline-flex; align-items: center; min-height: 44px; }
+.bibliotheon-commercial-history pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .875rem; }

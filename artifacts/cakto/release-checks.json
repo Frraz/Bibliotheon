@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-24T18:34:29.004570+00:00",
+  "gitBaseline": "74fe451",
+  "scope": "D65 Cakto nativa V1/V2 e recebimento comercial em lote atômico",
+  "adapterVersion": "cakto-orders-v1-v2:1",
+  "buildId": "B8ECfTbMLRMFH6ur5DP7r",
+  "node": "v22.23.4",
+  "unit": {
+    "files": 25,
+    "passed": 166
+  },
+  "operationsTests": 39,
+  "integrationGroups": 9,
+  "httpGroups": 4,
+  "regressions": {
+    "hotmartLocal": 7,
+    "hotmartHttp": 4,
+    "kiwifyLocal": 7,
+    "kiwifyHttp": 4,
+    "commercialInbox": 12,
+    "commercialAdmin": 4
+  },
+  "checks": {
+    "typecheck": true,
+    "lintErrors": 0,
+    "lintHistoricalWarnings": 2,
+    "productionBuildIsolated": true,
+    "composeRealAndFrozen": true,
+    "qaServerExit": 0,
+    "qaPort3001Closed": true,
+    "qaLogsWithoutCredentialSignatureOrPII": true,
+    "browserQAThisStage": false,
+    "documentation": {
+      "documents": 47,
+      "localLinks": 612,
+      "distinctExternalUrls": 100,
+      "externalUrlsNetworkVerifiedByValidator": false,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76,
+      "passed": true
+    },
+    "gitDiffCheck": true
+  },
+  "batchGuards": {
+    "validateAllBeforePayloadFactory": true,
+    "singleCommit": true,
+    "secondAuditRollbackVerified": true,
+    "concurrentReversedOrderVerified": true,
+    "twoAppliedTransactionConflictsVerified": true,
+    "mixedConflictNewReceiptVerified": true,
+    "maxItems": 25,
+    "maxBytes": 262144,
+    "bodyTimeoutMs": 5000
+  },
+  "warnings": [
+    "Teste antigo precisou de guarda explícita de estado após extração do preparador comum; tipos finais aprovados.",
+    "let não reatribuído numa fixture foi corrigido após lint; verificação final sem erros.",
+    "Dois avisos antigos de lint da migration de sequências e aviso pg/Drizzle nas fixtures."
+  ],
+  "migrationsAppliedThisStage": 0,
+  "localMigrationCount": 20,
+  "defaults": {
+    "CAKTO_WEBHOOK_ENABLED": false,
+    "COMMERCIAL_EVENTS_ENABLED": false
+  },
+  "productionReady": false,
+  "nativeAccountHomologated": false,
+  "providerAccountCalls": false,
+  "realSales": 0,
+  "githubOrVpsChanged": false,
+  "pending": [
+    "B11 CSV/financeiro/conciliação/colisões/ambiguidade de catálogo com histórico",
+    "Homologação de conta/relatório/rotação/teste/reenvios de cada provedor",
+    "MED, instantes e formatos especiais",
+    "B07 atribuição suportada",
+    "B12 retenção",
+    "Imagem atual, banco vazio/upgrade/restore e homologação integral do release"
+  ],
+  "sha256": {
+    "src/integrations/cakto/dates.ts": "0be046d2bd9011daadc9e002c2a6514ec07aae25f52bfd1c46d8df8cc3b591a4",
+    "src/integrations/cakto/webhook.ts": "1dccdbdbabc31c706af7934a4fea449e2f160068ec5bcc1b3613a0c0baedf7ff",
+    "src/integrations/cakto/webhook-http.ts": "9f9da67525b0b4523167beaac7f7cf46c447aeabdfbaf31cd3c7289d6b1ea23a",
+    "src/app/(site)/api/v1/webhooks/cakto/route.ts": "39f245de4aa486af7293f143dea6cc3b7822bb9a364cb3ff3772f20de0aac9d5",
+    "src/modules/commerce/events.ts": "859fc9fd1b1f7a2097c92b9badb451b38e57aaf81ffe3950d41d8df985524899",
+    "src/modules/commerce/inbox.ts": "887631b23363188b779f1c71a3c76f6813dae3682273d070b8ee84d88fb3ada3",
+    "src/modules/commerce/money.ts": "9e979357627b21075431ed42de7a3d9195fd7639030dc70fbfc5e7447ea692d1",
+    "src/modules/commerce/native-json.ts": "81f1b0e52d87fc52ddf9bf0c2d40b550fc2ad9960ecf662be71c1ac0f67eba3a",
+    "src/modules/commerce/presentation.ts": "49d8add544fe9f4beb280b95e72a523d4c22e868500b26c666a8d12e6e533603",
+    "src/integrations/hotmart/numbers.ts": "9c924204940617afc3e39a96a0b1abe5dab8d52979f4c8d62719cf2810797744",
+    "src/integrations/hotmart/webhook.ts": "95de9705e828f56f1341162b07946936c70c553b3f0011d6211fb2d953905c91",
+    "src/integrations/kiwify/webhook.ts": "0c400be6dafbe32aec3cdf9fdf2280a89f7e3b6aef009cc310f2b2497fb0f280",
+    "tests/fixtures/cakto.ts": "a3937fb4e6ce93d3ccd2a2e20e326a53b943bcb4521230d8094eeda51a8ee3df",
+    "tests/unit/cakto.test.ts": "65a46aee74462183b8d255478b83ef0da18bb7596701957b738ca51dc5d9eb9f",
+    "tests/unit/commercial-events.test.ts": "00d81442e394bc63a2ae7036b54b82c641236fde40330f3f1f917dfb7b260211",
+    "tests/integration/cakto.ts": "8f4c1c4af3fdd2ab31610994d1bcf386fe0a4c3f692ef209f8656ad7d217e22d",
+    "tests/integration/cakto-http.ts": "c359f91b54026fae498a5963113289079a68675147260336e23439553099b353",
+    "compose.production.yaml": "327f653508bf4a0e5fddda3d3ffbc3be82e8f7cd0c45aabf4b28f22263bfb102",
+    ".env.example": "3c058e59dea33f2fca482aa2f5bb0a099d32b92d4f6f8533c9286ecd5ea2002c",
+    ".env.production.example": "31edc02eacb5dd8da9e5b08a8b5a48a6446ba6725b446971961e089e1dd64f74",
+    "ops/deploy.py": "7b08c744a883fcb34c1d12889d9b367863dcb60d1954e2da1ada6506680365ea",
+    "tests/ops/test_deploy.py": "c64e2d3c751177677b3e9b30d28a536bcda65ddebebe05d4cec63935c4177fde",
+    "scripts/qa-deploy-config.py": "cd053d1739c5ba62f2862e7b4891695310a244926f2ec681158bfec7b6bb122a",
+    ".github/workflows/quality.yml": "1c7544d45ad171df53455831856d1abca746024d3c47dc6a245962e7b0b72f8a",
+    "package.json": "81e94b18b1df63a56d5ab49611b4b4a1ef3cf09c0862d30afd632d02d4052ffd",
+    "docs/integracoes/cakto.md": "7677b0f5522481b631f9c26113bb82a32b2d05eee6792bd4a026c1837bd20b20",
+    "artifacts/cakto/local-results.json": "d381240429dbd57072f20e68f528f8e9171945989fe61267a58b72e4430f8eea",
+    "artifacts/cakto/http-results.json": "60aeebe51f544ed174a5ec343cc60d23ab9cb410bc063c3abe1f551338791123",
+    "artifacts/cakto/source-checks.json": "7a152d0c77ff22c53eec17f9eb47e1c65137ca5d2447cb2cbc335b36df3734d6",
+    "artifacts/cakto/cleanup-counts.json": "1f13fbf57e4a7b85a35fda52dbaa1f09be382f09adb0bc755d9ead5cdb703e88"
+  }
+}

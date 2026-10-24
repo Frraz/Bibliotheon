@@ -23,7 +23,7 @@ try {
   id = created.id
   const anonymous = await fetch(base + '/api/admin-users')
   assert.equal(anonymous.status, 403)
-  for (const collection of ['email-campaign-batches', 'promotion-deliveries', 'sequence-enrollments', 'brevo-suppressions', 'brevo-registrations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) {
+  for (const collection of ['commercial-inbox','commercial-conflicts','transactions','transaction-events','commercial-audit','analytics-grants','visits','page-views','checkout-clicks','analytics-limits','email-campaign-batches', 'promotion-deliveries', 'sequence-enrollments', 'brevo-suppressions', 'brevo-registrations', 'brevo-webhook-events', 'brevo-delivery-receipts', 'brevo-campaign-observations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) {
     assert.equal((await fetch(base + `/api/${collection}`)).status, 403)
     assert.equal((await post(`/api/${collection}`, {})).status, 403)
   }
@@ -46,7 +46,14 @@ try {
   assert.equal(queued.state, 'pending')
   const ownerRead = await fetch(base + '/api/admin-users', { headers: { Authorization: `JWT ${token}` } })
   assert.equal(ownerRead.status, 200)
-  for (const collection of ['email-campaign-batches', 'brevo-suppressions', 'brevo-registrations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) assert.equal((await fetch(base + `/api/${collection}`, { headers: { Authorization: `JWT ${token}` } })).status, 200)
+  for (const collection of ['commercial-inbox','commercial-conflicts','transactions','transaction-events','commercial-audit','analytics-grants','visits','page-views','checkout-clicks','analytics-limits','email-campaign-batches', 'brevo-suppressions', 'brevo-registrations', 'brevo-webhook-events', 'brevo-delivery-receipts', 'brevo-campaign-observations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) assert.equal((await fetch(base + `/api/${collection}`, { headers: { Authorization: `JWT ${token}` } })).status, 200)
+  for (const collection of ['commercial-inbox','commercial-conflicts','transactions','transaction-events','commercial-audit']) {
+    assert.equal((await fetch(base + `/api/${collection}`, {method:'POST',headers:{Authorization:`JWT ${token}`,'Content-Type':'application/json'},body:'{}'})).status,403)
+    for(const method of ['PATCH','DELETE'])assert.equal((await fetch(base + `/api/${collection}/00000000-0000-4000-8000-000000000000`,{method,headers:{Authorization:`JWT ${token}`,'Content-Type':'application/json'},...(method==='PATCH'?{body:'{}'}:{})})).status,403)
+  }
+  assert.equal((await post('/api/v1/admin/inbox/00000000-0000-4000-8000-000000000000/retry',{reason:'service_restored'})).status,403)
+  const retryInput=await fetch(base+'/api/v1/admin/inbox/invalid/retry',{method:'POST',headers:{Authorization:`JWT ${token}`,Origin:base,'Content-Type':'application/json'},body:'{"reason":"service_restored"}'})
+  assert.equal(retryInput.status,422)
   const body = await ownerRead.json() as { docs: { email: string }[] }
   assert.equal(body.docs.length, 1)
   assert.equal(body.docs[0].email, email)

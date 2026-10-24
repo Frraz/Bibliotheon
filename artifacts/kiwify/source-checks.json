@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-24T17:58:09.771589+00:00",
+  "sources": [
+    {
+      "url": "https://docs.kiwify.com.br/api-reference/webhooks/receiving.md",
+      "method": "HTTP público direto sem autenticação",
+      "bytes": 8598,
+      "sha256": "7b23967c92745dbc87c64365933884c6ac64dd011daf8cad1be6bee2ff7ca4a2"
+    },
+    {
+      "url": "https://docs.kiwify.com.br/api-reference/webhooks/subscription-events.md",
+      "method": "HTTP público direto sem autenticação",
+      "bytes": 7100,
+      "sha256": "f859b4b6d51ddbe921ddb66fa361b9df029cff2eb6929154a9b0c07f94db0722"
+    }
+  ],
+  "fieldsSource": {
+    "url": "https://kiwify.notion.site/Webhooks-pt-br-c77eb84be10c42e6bb97cd391bca9dce",
+    "method": "índice público web; leitura direta atual 403/404",
+    "nativeSamplesPersisted": false
+  },
+  "accountAccess": false,
+  "homologated": false,
+  "notes": "Somente fontes documentais públicas. Nenhuma API autenticada de vendas, conta ou comprador consultada."
+}

@@ -93,6 +93,22 @@ export interface Config {
     'brevo-batch-lists': BrevoBatchList;
     'brevo-campaign-drafts': BrevoCampaignDraft;
     'brevo-campaign-sends': BrevoCampaignSend;
+    'brevo-campaign-observations': BrevoCampaignObservation;
+    'brevo-webhook-events': BrevoWebhookEvent;
+    'brevo-delivery-receipts': BrevoDeliveryReceipt;
+    'analytics-grants': AnalyticsGrant;
+    visits: Visit;
+    'page-views': PageView;
+    'checkout-clicks': CheckoutClick;
+    'analytics-limits': AnalyticsLimit;
+    'commercial-inbox': CommercialInbox;
+    'commercial-conflicts': CommercialConflict;
+    transactions: Transaction;
+    'transaction-events': TransactionEvent;
+    'commercial-audit': CommercialAudit;
+    'commercial-import-batches': CommercialImportBatch;
+    'commercial-import-rows': CommercialImportRow;
+    'commercial-import-audit': CommercialImportAudit;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -127,6 +143,22 @@ export interface Config {
     'brevo-batch-lists': BrevoBatchListsSelect<false> | BrevoBatchListsSelect<true>;
     'brevo-campaign-drafts': BrevoCampaignDraftsSelect<false> | BrevoCampaignDraftsSelect<true>;
     'brevo-campaign-sends': BrevoCampaignSendsSelect<false> | BrevoCampaignSendsSelect<true>;
+    'brevo-campaign-observations': BrevoCampaignObservationsSelect<false> | BrevoCampaignObservationsSelect<true>;
+    'brevo-webhook-events': BrevoWebhookEventsSelect<false> | BrevoWebhookEventsSelect<true>;
+    'brevo-delivery-receipts': BrevoDeliveryReceiptsSelect<false> | BrevoDeliveryReceiptsSelect<true>;
+    'analytics-grants': AnalyticsGrantsSelect<false> | AnalyticsGrantsSelect<true>;
+    visits: VisitsSelect<false> | VisitsSelect<true>;
+    'page-views': PageViewsSelect<false> | PageViewsSelect<true>;
+    'checkout-clicks': CheckoutClicksSelect<false> | CheckoutClicksSelect<true>;
+    'analytics-limits': AnalyticsLimitsSelect<false> | AnalyticsLimitsSelect<true>;
+    'commercial-inbox': CommercialInboxSelect<false> | CommercialInboxSelect<true>;
+    'commercial-conflicts': CommercialConflictsSelect<false> | CommercialConflictsSelect<true>;
+    transactions: TransactionsSelect<false> | TransactionsSelect<true>;
+    'transaction-events': TransactionEventsSelect<false> | TransactionEventsSelect<true>;
+    'commercial-audit': CommercialAuditSelect<false> | CommercialAuditSelect<true>;
+    'commercial-import-batches': CommercialImportBatchesSelect<false> | CommercialImportBatchesSelect<true>;
+    'commercial-import-rows': CommercialImportRowsSelect<false> | CommercialImportRowsSelect<true>;
+    'commercial-import-audit': CommercialImportAuditSelect<false> | CommercialImportAuditSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -366,7 +398,13 @@ export interface Offer {
   name: string;
   ebook: string | Ebook;
   provider: 'hotmart' | 'kiwify' | 'cakto';
+  /**
+   * Use o mesmo identificador local definido na configuração da integração desta conta.
+   */
   accountKey: string;
+  /**
+   * Na Hotmart, use o ucode do produto, não o ID numérico. Para Kiwify e Cakto, confira o identificador no contrato da plataforma.
+   */
   externalProductId: string;
   externalOfferId?: string | null;
   checkoutUrl?: string | null;
@@ -398,6 +436,7 @@ export interface Campaign {
   endsAt?: string | null;
   utmSource?: string | null;
   utmMedium?: string | null;
+  utmTerm?: string | null;
   utmContent?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -663,7 +702,7 @@ export interface PromotionDelivery {
   dueAt: string;
   nextCheckAt: string;
   batch?: (string | null) | EmailCampaignBatch;
-  state: 'scheduled' | 'ready' | 'sending' | 'accepted' | 'uncertain' | 'rejected' | 'canceled';
+  state: 'scheduled' | 'ready' | 'sending' | 'accepted' | 'observed' | 'uncertain' | 'rejected' | 'canceled';
   errorCode?:
     | (
         | 'recipient_suppressed'
@@ -911,6 +950,15 @@ export interface BrevoCampaignSend {
   providerCampaignId?: number | null;
   recipientCount: number;
   attempts: number;
+  recipientIdentities?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   attemptToken?: string | null;
   history:
     | {
@@ -921,7 +969,7 @@ export interface BrevoCampaignSend {
     | number
     | boolean
     | null;
-  state: 'preparing' | 'issuing' | 'submitted' | 'rejected' | 'uncertain' | 'canceled';
+  state: 'preparing' | 'issuing' | 'submitted' | 'observed' | 'rejected' | 'uncertain' | 'canceled';
   leaseToken?: string | null;
   prepareStartedAt?: string | null;
   nextAttemptAt: string;
@@ -930,6 +978,457 @@ export interface BrevoCampaignSend {
   settledAt?: string | null;
   retryRequestedAt?: string | null;
   responseCode?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Consulta de campanha. Não comprova entrega individual, consentimento, clique ou venda e não autoriza reenvio.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-campaign-observations".
+ */
+export interface BrevoCampaignObservation {
+  id: string;
+  send: string | BrevoCampaignSend;
+  attemptToken: string;
+  leaseToken?: string | null;
+  startedAt?: string | null;
+  nextCheckAt?: string | null;
+  checkedAt?: string | null;
+  state: 'pending' | 'processing' | 'matched' | 'conflict' | 'failed';
+  lastStatus?:
+    | ('draft' | 'sent' | 'archive' | 'queued' | 'suspended' | 'in_process' | 'in_review' | 'cancelling' | 'cancelled')
+    | null;
+  activityStatus?: ('sent' | 'queued' | 'in_process' | 'in_review') | null;
+  activityObservedAt?: string | null;
+  sentObservedAt?: string | null;
+  providerSentAt?: string | null;
+  errorCode?:
+    | ('provider_unavailable' | 'provider_absent' | 'provider_rejected' | 'campaign_conflict' | 'unsupported_status')
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Envelope mínimo autenticado, sem corpo/endereço ou links recebidos. ACK confirma persistência, não entrega ou venda.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-webhook-events".
+ */
+export interface BrevoWebhookEvent {
+  id: string;
+  key: string;
+  recipientFingerprint: string;
+  contact?: (string | null) | Contact;
+  event: 'delivered' | 'hard_bounce' | 'soft_bounce' | 'spam' | 'unsubscribe';
+  providerCampaignId: number;
+  providerWebhookId: number;
+  occurredAt: string;
+  sentAt: string;
+  receivedAt: string;
+  processedAt?: string | null;
+  state: 'pending' | 'processed' | 'quarantined';
+  reason?:
+    ('unknown_contact' | 'identity_changed' | 'unknown_campaign' | 'recipient_mismatch' | 'emission_mismatch') | null;
+  suppressionApplied: boolean;
+  delivery?: (string | null) | PromotionDelivery;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Notificações do provedor preservadas separadamente. Delivered não comprova leitura, compra ou receita; falhas posteriores permanecem visíveis.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-delivery-receipts".
+ */
+export interface BrevoDeliveryReceipt {
+  id: string;
+  delivery: string | PromotionDelivery;
+  send: string | BrevoCampaignSend;
+  recipientFingerprint: string;
+  providerCampaignId: number;
+  firstObservedAt: string;
+  deliveredAt?: string | null;
+  hardBouncedAt?: string | null;
+  softBouncedAt?: string | null;
+  spamAt?: string | null;
+  unsubscribedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Medição própria sem IP, email ou identidade do comprador.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-grants".
+ */
+export interface AnalyticsGrant {
+  id: string;
+  tokenHash: string;
+  consentVersion: string;
+  grantedAt: string;
+  expiresAt: string;
+  revokedAt?: string | null;
+  currentVisit?: (string | null) | Visit;
+  firstTouch?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  lastNonDirectTouch?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  attributionExpiresAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Medição própria sem IP, email ou identidade do comprador.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "visits".
+ */
+export interface Visit {
+  id: string;
+  grant: string | AnalyticsGrant;
+  startedAt: string;
+  lastSeenAt: string;
+  expiresAt: string;
+  firstTouch?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  lastNonDirectTouch?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Medição própria sem IP, email ou identidade do comprador.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-views".
+ */
+export interface PageView {
+  id: string;
+  key: string;
+  visit: string | Visit;
+  pagePath: string;
+  ebook?: (string | null) | Ebook;
+  campaign?: (string | null) | Campaign;
+  utms?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Medição própria sem IP, email ou identidade do comprador.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "checkout-clicks".
+ */
+export interface CheckoutClick {
+  id: string;
+  offer: string | Offer;
+  ebook: string | Ebook;
+  campaign?: (string | null) | Campaign;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  visit?: (string | null) | Visit;
+  attributionAllowed: boolean;
+  firstTouch?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  lastNonDirectTouch?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Medição própria sem IP, email ou identidade do comprador.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-limits".
+ */
+export interface AnalyticsLimit {
+  id: string;
+  key: string;
+  count: number;
+  expiresAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Envelope mínimo/histórico privado. Clique, aprovação e recebimento são conceitos distintos.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-inbox".
+ */
+export interface CommercialInbox {
+  id: string;
+  key: string;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  accountKey: string;
+  eventKey: string;
+  adapterVersion: string;
+  envelopeHash: string;
+  envelope:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  transactionKey?: string | null;
+  kind: 'event' | 'ignored';
+  state: 'pending' | 'processing' | 'applied' | 'ignored' | 'needs_review' | 'failed';
+  receivedAt: string;
+  nextAttemptAt: string;
+  startedAt?: string | null;
+  processedAt?: string | null;
+  lastSuccessAt?: string | null;
+  attempts: number;
+  attemptBase: number;
+  leaseToken?: string | null;
+  errorCode?: string | null;
+  conflicted: boolean;
+  transaction?: (string | null) | Transaction;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Envelope mínimo/histórico privado. Clique, aprovação e recebimento são conceitos distintos.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "transactions".
+ */
+export interface Transaction {
+  id: string;
+  key: string;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  accountKey: string;
+  externalTransactionId: string;
+  externalProductId: string;
+  externalOfferId?: string | null;
+  ebook: string | Ebook;
+  offer?: (string | null) | Offer;
+  state: 'unknown' | 'pending' | 'approved' | 'refused' | 'canceled' | 'partially_refunded' | 'refunded' | 'chargeback';
+  currency: string;
+  grossCents?: number | null;
+  refundedCents?: number | null;
+  chargebackCents?: number | null;
+  feesCents?: number | null;
+  producerNetCents?: number | null;
+  approvedAt?: string | null;
+  lastEventAt?: string | null;
+  lastSuccessAt?: string | null;
+  needsReview: boolean;
+  reviewReason?: string | null;
+  projection?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Envelope mínimo/histórico privado. Clique, aprovação e recebimento são conceitos distintos.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-conflicts".
+ */
+export interface CommercialConflict {
+  id: string;
+  key: string;
+  inbox: string | CommercialInbox;
+  envelopeHash: string;
+  adapterVersion: string;
+  envelope:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  receivedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Envelope mínimo/histórico privado. Clique, aprovação e recebimento são conceitos distintos.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "transaction-events".
+ */
+export interface TransactionEvent {
+  id: string;
+  key: string;
+  transaction: string | Transaction;
+  inbox: string | CommercialInbox;
+  envelope:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  occurredAt: string;
+  outcome: 'applied' | 'needs_review';
+  errorCode?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Envelope mínimo/histórico privado. Clique, aprovação e recebimento são conceitos distintos.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-audit".
+ */
+export interface CommercialAudit {
+  id: string;
+  inbox: string | CommercialInbox;
+  transaction?: (string | null) | Transaction;
+  actor?: (string | null) | AdminUser;
+  actorType: 'receiver' | 'worker' | 'owner';
+  action: 'received' | 'ignored' | 'conflict' | 'applied' | 'review' | 'failed' | 'retry';
+  reason?: string | null;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Registro privado. Confirmação de lote não comprova aplicação, liquidação ou venda real.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-import-batches".
+ */
+export interface CommercialImportBatch {
+  id: string;
+  key: string;
+  requestHash: string;
+  fileHash: string;
+  manifestHash: string;
+  planHash: string;
+  sourceKind: 'provider_report' | 'manual_reconciliation';
+  sourceReference: string;
+  reason: 'missing_webhook' | 'report_reconciliation';
+  actor: string | AdminUser;
+  state: 'ready' | 'blocked' | 'stale' | 'queued' | 'confirmed';
+  rowCount: number;
+  counts:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  stagedAt: string;
+  confirmedAt?: string | null;
+  confirmedBy?: (string | null) | AdminUser;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Registro privado. Confirmação de lote não comprova aplicação, liquidação ou venda real.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-import-rows".
+ */
+export interface CommercialImportRow {
+  id: string;
+  key: string;
+  batch: string | CommercialImportBatch;
+  line: number;
+  rowHash: string;
+  transactionKey: string;
+  normalized:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  classification:
+    'new' | 'matched' | 'duplicate' | 'conflict' | 'unknown_catalog' | 'ambiguous_catalog' | 'needs_review' | 'invalid';
+  reason: string;
+  duplicateOf?: number | null;
+  state: 'planned' | 'matched' | 'duplicate' | 'blocked' | 'queued';
+  inbox?: (string | null) | CommercialInbox;
+  transaction?: (string | null) | Transaction;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Registro privado. Confirmação de lote não comprova aplicação, liquidação ou venda real.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-import-audit".
+ */
+export interface CommercialImportAudit {
+  id: string;
+  batch: string | CommercialImportBatch;
+  actor: string | AdminUser;
+  action: 'staged' | 'queued' | 'confirmed' | 'stale' | 'duplicate_commit';
+  occurredAt: string;
+  reason: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -1152,6 +1651,70 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'brevo-campaign-sends';
         value: string | BrevoCampaignSend;
+      } | null)
+    | ({
+        relationTo: 'brevo-campaign-observations';
+        value: string | BrevoCampaignObservation;
+      } | null)
+    | ({
+        relationTo: 'brevo-webhook-events';
+        value: string | BrevoWebhookEvent;
+      } | null)
+    | ({
+        relationTo: 'brevo-delivery-receipts';
+        value: string | BrevoDeliveryReceipt;
+      } | null)
+    | ({
+        relationTo: 'analytics-grants';
+        value: string | AnalyticsGrant;
+      } | null)
+    | ({
+        relationTo: 'visits';
+        value: string | Visit;
+      } | null)
+    | ({
+        relationTo: 'page-views';
+        value: string | PageView;
+      } | null)
+    | ({
+        relationTo: 'checkout-clicks';
+        value: string | CheckoutClick;
+      } | null)
+    | ({
+        relationTo: 'analytics-limits';
+        value: string | AnalyticsLimit;
+      } | null)
+    | ({
+        relationTo: 'commercial-inbox';
+        value: string | CommercialInbox;
+      } | null)
+    | ({
+        relationTo: 'commercial-conflicts';
+        value: string | CommercialConflict;
+      } | null)
+    | ({
+        relationTo: 'transactions';
+        value: string | Transaction;
+      } | null)
+    | ({
+        relationTo: 'transaction-events';
+        value: string | TransactionEvent;
+      } | null)
+    | ({
+        relationTo: 'commercial-audit';
+        value: string | CommercialAudit;
+      } | null)
+    | ({
+        relationTo: 'commercial-import-batches';
+        value: string | CommercialImportBatch;
+      } | null)
+    | ({
+        relationTo: 'commercial-import-rows';
+        value: string | CommercialImportRow;
+      } | null)
+    | ({
+        relationTo: 'commercial-import-audit';
+        value: string | CommercialImportAudit;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1380,6 +1943,7 @@ export interface CampaignsSelect<T extends boolean = true> {
   endsAt?: T;
   utmSource?: T;
   utmMedium?: T;
+  utmTerm?: T;
   utmContent?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1699,6 +2263,7 @@ export interface BrevoCampaignSendsSelect<T extends boolean = true> {
   providerCampaignId?: T;
   recipientCount?: T;
   attempts?: T;
+  recipientIdentities?: T;
   attemptToken?: T;
   history?: T;
   state?: T;
@@ -1710,6 +2275,299 @@ export interface BrevoCampaignSendsSelect<T extends boolean = true> {
   settledAt?: T;
   retryRequestedAt?: T;
   responseCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-campaign-observations_select".
+ */
+export interface BrevoCampaignObservationsSelect<T extends boolean = true> {
+  send?: T;
+  attemptToken?: T;
+  leaseToken?: T;
+  startedAt?: T;
+  nextCheckAt?: T;
+  checkedAt?: T;
+  state?: T;
+  lastStatus?: T;
+  activityStatus?: T;
+  activityObservedAt?: T;
+  sentObservedAt?: T;
+  providerSentAt?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-webhook-events_select".
+ */
+export interface BrevoWebhookEventsSelect<T extends boolean = true> {
+  key?: T;
+  recipientFingerprint?: T;
+  contact?: T;
+  event?: T;
+  providerCampaignId?: T;
+  providerWebhookId?: T;
+  occurredAt?: T;
+  sentAt?: T;
+  receivedAt?: T;
+  processedAt?: T;
+  state?: T;
+  reason?: T;
+  suppressionApplied?: T;
+  delivery?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brevo-delivery-receipts_select".
+ */
+export interface BrevoDeliveryReceiptsSelect<T extends boolean = true> {
+  delivery?: T;
+  send?: T;
+  recipientFingerprint?: T;
+  providerCampaignId?: T;
+  firstObservedAt?: T;
+  deliveredAt?: T;
+  hardBouncedAt?: T;
+  softBouncedAt?: T;
+  spamAt?: T;
+  unsubscribedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-grants_select".
+ */
+export interface AnalyticsGrantsSelect<T extends boolean = true> {
+  tokenHash?: T;
+  consentVersion?: T;
+  grantedAt?: T;
+  expiresAt?: T;
+  revokedAt?: T;
+  currentVisit?: T;
+  firstTouch?: T;
+  lastNonDirectTouch?: T;
+  attributionExpiresAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "visits_select".
+ */
+export interface VisitsSelect<T extends boolean = true> {
+  grant?: T;
+  startedAt?: T;
+  lastSeenAt?: T;
+  expiresAt?: T;
+  firstTouch?: T;
+  lastNonDirectTouch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-views_select".
+ */
+export interface PageViewsSelect<T extends boolean = true> {
+  key?: T;
+  visit?: T;
+  pagePath?: T;
+  ebook?: T;
+  campaign?: T;
+  utms?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "checkout-clicks_select".
+ */
+export interface CheckoutClicksSelect<T extends boolean = true> {
+  offer?: T;
+  ebook?: T;
+  campaign?: T;
+  provider?: T;
+  visit?: T;
+  attributionAllowed?: T;
+  firstTouch?: T;
+  lastNonDirectTouch?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-limits_select".
+ */
+export interface AnalyticsLimitsSelect<T extends boolean = true> {
+  key?: T;
+  count?: T;
+  expiresAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-inbox_select".
+ */
+export interface CommercialInboxSelect<T extends boolean = true> {
+  key?: T;
+  provider?: T;
+  accountKey?: T;
+  eventKey?: T;
+  adapterVersion?: T;
+  envelopeHash?: T;
+  envelope?: T;
+  transactionKey?: T;
+  kind?: T;
+  state?: T;
+  receivedAt?: T;
+  nextAttemptAt?: T;
+  startedAt?: T;
+  processedAt?: T;
+  lastSuccessAt?: T;
+  attempts?: T;
+  attemptBase?: T;
+  leaseToken?: T;
+  errorCode?: T;
+  conflicted?: T;
+  transaction?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-conflicts_select".
+ */
+export interface CommercialConflictsSelect<T extends boolean = true> {
+  key?: T;
+  inbox?: T;
+  envelopeHash?: T;
+  adapterVersion?: T;
+  envelope?: T;
+  receivedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "transactions_select".
+ */
+export interface TransactionsSelect<T extends boolean = true> {
+  key?: T;
+  provider?: T;
+  accountKey?: T;
+  externalTransactionId?: T;
+  externalProductId?: T;
+  externalOfferId?: T;
+  ebook?: T;
+  offer?: T;
+  state?: T;
+  currency?: T;
+  grossCents?: T;
+  refundedCents?: T;
+  chargebackCents?: T;
+  feesCents?: T;
+  producerNetCents?: T;
+  approvedAt?: T;
+  lastEventAt?: T;
+  lastSuccessAt?: T;
+  needsReview?: T;
+  reviewReason?: T;
+  projection?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "transaction-events_select".
+ */
+export interface TransactionEventsSelect<T extends boolean = true> {
+  key?: T;
+  transaction?: T;
+  inbox?: T;
+  envelope?: T;
+  occurredAt?: T;
+  outcome?: T;
+  errorCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-audit_select".
+ */
+export interface CommercialAuditSelect<T extends boolean = true> {
+  inbox?: T;
+  transaction?: T;
+  actor?: T;
+  actorType?: T;
+  action?: T;
+  reason?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-import-batches_select".
+ */
+export interface CommercialImportBatchesSelect<T extends boolean = true> {
+  key?: T;
+  requestHash?: T;
+  fileHash?: T;
+  manifestHash?: T;
+  planHash?: T;
+  sourceKind?: T;
+  sourceReference?: T;
+  reason?: T;
+  actor?: T;
+  state?: T;
+  rowCount?: T;
+  counts?: T;
+  stagedAt?: T;
+  confirmedAt?: T;
+  confirmedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-import-rows_select".
+ */
+export interface CommercialImportRowsSelect<T extends boolean = true> {
+  key?: T;
+  batch?: T;
+  line?: T;
+  rowHash?: T;
+  transactionKey?: T;
+  normalized?: T;
+  classification?: T;
+  reason?: T;
+  duplicateOf?: T;
+  state?: T;
+  inbox?: T;
+  transaction?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-import-audit_select".
+ */
+export interface CommercialImportAuditSelect<T extends boolean = true> {
+  batch?: T;
+  actor?: T;
+  action?: T;
+  occurredAt?: T;
+  reason?: T;
   updatedAt?: T;
   createdAt?: T;
 }

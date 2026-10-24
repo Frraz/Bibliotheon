@@ -1,3 +1,6 @@
+import {up as upIdentities,down as downIdentities} from '../../migrations/20261024_071409_brevo_send_recipients'
+import {up as upWebhooks,down as downWebhooks} from '../../migrations/20261024_070440_brevo_webhook_events'
+import {up as upObservations,down as downObservations} from '../../migrations/20261024_064354_brevo_campaign_observations'
 import assert from 'node:assert/strict'
 import { randomBytes } from 'node:crypto'
 import { mkdir,writeFile,mkdtemp,rm } from 'node:fs/promises'
@@ -17,6 +20,7 @@ import type { BrevoContacts } from '../../src/integrations/brevo/contacts'
 import type { BrevoPreferences } from '../../src/integrations/brevo/preferences'
 import { atomic } from '../../src/modules/marketing/transaction'
 import { up,down } from '../../migrations/20261022_120651_brevo_campaign_drafts'
+import { up as upSends, down as downSends } from '../../migrations/20261022_123536_brevo_campaign_sends'
 
 const seed=await seedRelationship(),{payload,magnet}=seed
 const secret=randomBytes(32).toString('hex'),origin='http://127.0.0.1:3001',start=Date.now(),due=start+2*86_400_000,checks:string[]=[]
@@ -53,7 +57,7 @@ const run=(id:string,now=due,more:Partial<Parameters<typeof prepareBrevoBatchCam
 const jobFor=async(batch:string)=>(await payload.find({collection:'brevo-campaign-drafts',where:{batch:{equals:batch}},limit:1,depth:0,overrideAccess:true})).docs[0]
 let revision=1
 try{
- await assert.rejects(atomic(payload,async req=>{const id=await req.transactionID;assert.ok(id);const db=(payload.db as unknown as PostgresAdapter).sessions[id].db;await down({db,payload,req});await up({db,payload,req});throw new Error('synthetic rollback')}),/synthetic rollback/)
+ await assert.rejects(atomic(payload,async req=>{const id=await req.transactionID;assert.ok(id);const db=(payload.db as unknown as PostgresAdapter).sessions[id].db;await downIdentities({db,payload,req});await downWebhooks({db,payload,req});await downObservations({db,payload,req});await downSends({db,payload,req});await down({db,payload,req});await up({db,payload,req});await upSends({db,payload,req});await upObservations({db,payload,req});await upWebhooks({db,payload,req});await upIdentities({db,payload,req});throw new Error('synthetic rollback')}),/synthetic rollback/)
  const copy=Object.fromEntries([2,4,7,10].map(day=>[`day${day}`,{subject:`Campanha sintética ${day}`,text:`Conteúdo manual sintético ${day}.`}]))
  const sequence=await payload.create({collection:'email-sequences',...seed.auth,data:{name:'Rascunhos de campanhas sintéticas',key:'synthetic',magnet:magnet.id,magnetVersion:magnet.version,revision,offer:seed.offers[0].id,active:true,...copy}})
  async function group(name:string,count=1){

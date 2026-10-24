@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-24T12:32:17.541Z",
+  "passed": false,
+  "capturesBeforeStop": 31,
+  "failure": {
+    "name": "native-detail-light",
+    "overflow": false,
+    "axeExecuted": true,
+    "violations": [
+      {
+        "id": "target-size",
+        "targets": [
+          [
+            "p:nth-child(2) > a[href$=\"commercial-inbox\"]"
+          ],
+          [
+            "p:nth-child(3) > a"
+          ]
+        ]
+      }
+    ]
+  },
+  "screenshot": "native-detail-light-before-fix.png",
+  "correction": "Alvos de links da extensão nativa receberam min-height de 44px; envelope mínimo ganhou leitura nativa em details/pre. Repetir QA completo."
+}

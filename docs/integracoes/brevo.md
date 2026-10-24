@@ -2,7 +2,7 @@
 
 [Índice](../../README.md) · [Aquisição](../08-aquisicao.md) · [Interfaces](../06-interfaces.md)
 
-Consulta pública às fontes oficiais em 21/10/2026; GET/PUT de contatos revalidados em 22/10/2026. Conta, remetente, créditos, DNS e webhooks não foram acessados/homologados. Calendário e confirmação possuem implementação local; agrupamento e claim/quota internos implementados/testados localmente em 22/10; bloqueio outbound possui implementação e testes sintéticos em 22/10, sem ativação; transporte promocional e sincronização de listas/campanhas continuam pendentes. Não confundir consulta documental com integração ativa.
+Consulta pública às fontes oficiais em 21/10/2026; GET/PUT de contatos revalidados em 22/10/2026. Conta, remetente, créditos, DNS e webhooks não foram acessados/homologados. Calendário e confirmação possuem implementação local; agrupamento e claim/quota internos implementados/testados localmente em 22/10; bloqueio outbound possui implementação e testes sintéticos em 22/10, sem ativação; transporte promocional, sincronização de listas/campanhas, observação e callback têm testes locais D51–D58; homologação real continua pendente. Não confundir consulta documental com integração ativa.
 
 ## Separação operacional
 
@@ -27,7 +27,7 @@ Fontes: [criar contato](https://developers.brevo.com/reference/create-contact), 
 
 O corpo documentado usa spam, hard_bounce e unsubscribe, enquanto os nomes de seleção na configuração do webhook incluem hardBounce e unsubscribed. Não reutilizar um enum para as duas interfaces. ts_event/ts_sent são UTC; strings de data têm outras convenções. O campo id é descrito como ID interno do webhook: não assumir que sozinho identifica exclusivamente um evento.
 
-Antes de ativar: comprovar autenticação da notificação, definir chave de deduplicação, validar fixtures próprias e persistir apenas envelope mínimo. Mensagens de abertura/clique não provam compra. O endpoint de ingestão Brevo ainda não está implementado; o fallback atual é revisão manual pelo owner.
+Antes de ativar: comprovar autenticação da notificação, definir chave de deduplicação, validar fixtures próprias e persistir apenas envelope mínimo. Mensagens de abertura/clique não provam compra. O endpoint de marketing foi implementado localmente em D58, descrito ao final; ativação real depende de homologação. Revisão manual continua disponível ao owner.
 
 Fonte: [eventos de marketing](https://developers.brevo.com/docs/marketing-webhooks).
 
@@ -95,3 +95,38 @@ Contrato público reconferido em 22/10/2026: [criação](https://developers.brev
 Renderer usa assunto/conteúdo do snapshot manual, escapando HTML e chaves no corpo e recusando instruções de template no assunto. Rodapé inclui {{ contact.BIBLIOTHEON_PREFERENCES }} e {{ unsubscribe }}; nenhum token real compartilhado na cópia. Campanhas comerciais direcionam ao resolver interno de checkout com o contexto c preservado. Homologar renderização na conta e representação do HTML no GET; consulta pública não prova esse comportamento real.
 
 Nome opaco por lote e cópia/hash persistidos antes de POST, ID/inventário retidos antes de GET. Reconciliação exige nome único em consulta completa paginada até mil campanhas, ou ID revisado com metadados exatos. Ausência após intenção emitida não autoriza recriar; recusas confirmadas exigem retry privado. Nenhuma remoção/alteração automática em conflito. Rascunho pronto exige pré-requisitos recentes e consentimento/tokens válidos, mas não faz claim/quota/envio. BREVO_CAMPAIGN_SYNC_ENABLED=false e BREVO_CAMPAIGN_SENDER_ID vazio por padrão; listas/preferências/bloqueios obrigatórios, CLI fora do worker.
+
+
+## Transporte guardado por intenção — D56 (24/10/2026)
+
+[sendNow oficial](https://developers.brevo.com/reference/send-email-campaign-now) reconferido em 24/10: POST por campaignId e 204 significam solicitação agendada para processamento imediato; 400/402/404 são recusas documentadas. O adaptador projeta somente esse resultado: não salva corpo/headers e não infere entrega individual, clique ou venda. Qualquer outra resposta/falha/timeout fica uncertain, sem retry de rede no cliente.
+
+Coordenador prepara listas/preferências/rascunho, exige provas/consentimento frescos e grava reserva por destinatário + intenção/token no mesmo commit. POST depois do commit; descontinuidade entre intenção e HTTP fica conservadoramente incerta. 204 mantém lote claimed e etapas accepted (solicitação aceita); não é evento de recebimento. Resultado incerto preserva quota/histórico e não consulta/reenvia automaticamente; emissão abandonada após 30 minutos pode ser marcada uncertain sem rede. Resposta positiva tardia do mesmo token é aproveitada sem nova tentativa.
+
+Recusa documentada só tem retry com --retry-rejected explícito, revisão completa e outra reserva diária. Descadastro cancela também etapas recusadas; não restaura inscrição. Preparação abandonada usa lease próprio e pode retomar operações idempotentes; não se confunde com POST de disparo emitido. Worker examina no máximo 20 candidatos e processa uma nova campanha por ciclo, sem retry automático de rejeição/incerteza.
+
+BREVO_CAMPAIGN_SEND_ENABLED=false por padrão, dependente de bloqueios/listas/preferências/rascunhos/remetente/chave/origem/quota válidos. CLI empacotado e worker opcional testados só com HTTP sintético. Homologar conta, créditos, reset UTC, limites compartilhados, remetente/templates e automações antes de ativar. Observação contínua, webhook e conciliação dos incertos continuam pendentes.
+
+
+## Observação GET implementada localmente — D57 (24/10/2026)
+
+Cliente [campaign-observer](../../src/integrations/brevo/campaign-observer.ts) consulta apenas GET /v3/emailCampaigns/{id}?statistics=globalStats, com timeout, limite de corpo, sem seguir redirecionamento. Compara identidade completa com rascunho original; ignora estatísticas e não persiste resposta bruta. Enum nativo e fontes oficiais em [D57](../17-decisoes.md). Campo sentDate é opcional e normalizado quando válido; não comprova recebimento individual.
+
+queued/in_process/in_review/sent geram prova de atividade, separada de HTTP. draft/archive/suspended/cancelling/cancelled, ausência e erro não provam que POST nunca foi aceito. Não há reenvio ou estorno de quota por observação. Prova positiva não regride; lease bloqueia retry concorrente. 16a migração adiciona fila e backfill. [Nove grupos locais](../../artifacts/brevo-observation/local-results.json), HTTP sintético; sem conta real ou mensagens.
+
+Flag BREVO_CAMPAIGN_OBSERVE_ENABLED=false; CLI npm run brevo:observe -- UUID_DO_LOTE [--refresh] ou runtime node cli/observe-brevo-campaign.js UUID_DO_LOTE [--refresh]. Sem flag retorna disabled antes de abrir banco. Se habilitada com chave inválida, CLI/worker recusam iniciar. Worker pode operar somente observação com API key, sem SMTP, chave de links ou permissão local de disparo. Uma consulta por ciclo; intervalo de 15 minutos, lease de 30; sent/archive/cancelled suspendem polling. --refresh permite nova consulta explícita sem ignorar lease ativo. Webhook, eventos por destinatário e homologação continuam pendentes.
+
+
+## Callback de marketing e conciliação individual — D58 (24/10/2026)
+
+POST /api/webhooks/brevo recebe eventos individuais marketing/email autenticados por Bearer, com BREVO_WEBHOOK_ENABLED=false por padrão. Autenticação antecede leitura/banco. Nomes de corpo delivered/hard_bounce/soft_bounce/spam/unsubscribe; seleção no provedor usa delivered/hardBounce/softBounce/spam/unsubscribed. Configurar batched=false; arrays não são aceitos. Não usar token de API para o callback. Contratos e fontes oficiais revalidados em [D58](../17-decisoes.md).
+
+Inbox/resultados são privados. HMAC semântico deduplica campanha/evento/datas/destinatário, sem depender do ID isolado. Envelope não guarda email/corpo/IP/URL/razão. ACK somente após commit da persistência, efeitos locais e conciliação/quarentena. Falha temporária/configuração off retorna 429 com Retry-After, pois a documentação de retry indica descarte em 5xx. Credencial inválida é 401; envelope inválido422, limite413, tipo415. Eventos não selecionados são ignorados, sem analytics ou venda.
+
+Para conciliar, exige conjunto original, manifesto/hash/campanha íntegros, tempo compatível com intenção e impressão de destinatário capturada antes do POST. Migração17 cria eventos/resultados;18 acrescenta identidade de emissão sem backfill inventado. Legado sem prova, identidade alterada ou destinatário externo ficam em quarentena. Contato desconhecido não é criado nem associado depois. Replay explícito usa somente envelope mínimo, sem rede, e não reaplica supressão. Desconhecidos exigem revisão privada na conta/fluxo manual; não exportar payloads reais para Git/logs.
+
+Cancelamento nativo é retirada global local; hard bounce/reclamação restringem entrega. Contato conhecido é protegido mesmo sem campanha mapeada. Amostra solicitada é preservada no unsubscribe; bounce/spam cancelam transacionais pendentes, sem prometer recall de envios iniciados. Soft bounce não cancela consentimento. Eventos positivos não reativam e não apagam negativos. Resultados guardam datas separadas por etapa; delivered não prova leitura, compra ou receita. Atividade correlacionada bloqueia retry e revoga lease de preparação; histórico HTTP/quota permanecem intactos.
+
+BREVO_WEBHOOK_TOKEN e BREVO_WEBHOOK_PREVIOUS_TOKEN permitem rotação de autorização sem mudar a deduplicação. BREVO_WEBHOOK_EVENT_SECRET e a chave de links são estáveis, independentes e necessárias para verificar históricos; recuperar configuração privada junto do banco, sem substituir segredos indiscriminadamente. CLI npm run brevo:webhook-replay -- UUID_DO_EVENTO ou runtime node cli/replay-brevo-webhook.js UUID_DO_EVENTO. Não é replay de envio.
+
+[11 grupos locais](../../artifacts/brevo-webhook/local-results.json) com eventos/conta sintéticos, sem mensagens reais. [Teste HTTP](../../tests/integration/brevo-webhook-http.ts) exige QA isolado com tokens explicitamente sintéticos. Homologação de callback real, permissões da conta, resultados e recuperação continuam pendentes; B07 comercial permanece separado.

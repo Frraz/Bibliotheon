@@ -49,7 +49,7 @@ export async function applySuppression(payload: Payload, input: SuppressionInput
 }
 
 /** Caller holds the contact lock; identity and audit key were already checked. */
-async function suppressLockedContact(req: PayloadRequest, contact: Contact, reason: Reason | 'provider_blocked', key: string, now: number) {
+export async function suppressLockedContact(req: PayloadRequest, contact: Contact, reason: Reason | 'provider_blocked', key: string, now: number) {
   const { payload } = req
   const at = new Date(now).toISOString()
   // Suppression can only become stricter here; it never clears bounce, complaint or consent.

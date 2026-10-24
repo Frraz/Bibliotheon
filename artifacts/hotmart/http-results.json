@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-24T18:29:51.837Z",
+  "origin": "http://127.0.0.1:3001",
+  "checks": [
+    "Endpoint real exige Hottok no cabeçalho, rejeita query/cookie/MIME/encoding/JSON/versão incorretos antes de persistência.",
+    "ACK 200 real após inbox durável; worker desligado não aplica aprovação. Processamento posterior explícito aplica 29 centavos exatos e data original, sem deduzir líquido.",
+    "Reenvios HTTP preservam uma única transação/fato/tentativa; colisão é ACK durável e mantém projeção anterior em revisão.",
+    "Metadados PIX não aprovam evento pendente; evento não financeiro não vira transação. Respostas/envelopes não contêm PII ou Hottok."
+  ],
+  "realProvider": false,
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Servidor loopback com credenciais e payloads sintéticos; aplicação da fila feita explicitamente pelo teste. Sem contato com Hotmart ou homologação na conta."
+}

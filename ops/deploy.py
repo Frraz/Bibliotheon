@@ -208,8 +208,49 @@ def validate_compose(data, config):
     media = [mount for mount in app.get('volumes', []) if mount.get('target') == '/app/uploads']
     if len(media) != 1 or media[0].get('type') != 'volume' or media[0].get('source') != 'media':
         raise DeployError('App precisa manter a mídia no volume persistente media.')
-    if config["worker"] and values.get("EMAIL_TRANSPORT_ENABLED") != "true" and values.get("BREVO_CONTACT_SYNC_ENABLED") != "true":
-        raise DeployError("Worker solicitado sem e-mail ou sincronização de bloqueios habilitados.")
+    if config["worker"] and values.get("EMAIL_TRANSPORT_ENABLED") != "true" and values.get("BREVO_CONTACT_SYNC_ENABLED") != "true" and values.get("BREVO_CAMPAIGN_OBSERVE_ENABLED") != "true" and values.get("COMMERCIAL_EVENTS_ENABLED") != "true":
+        raise DeployError("Worker solicitado sem função operacional habilitada.")
+    if worker.get('environment', {}).get('HOTMART_HOTTOK') or worker.get('environment', {}).get('HOTMART_PREVIOUS_HOTTOK'):
+        raise DeployError('Token de recepção Hotmart deve ficar somente no serviço app.')
+    if values.get('HOTMART_WEBHOOK_ENABLED') == 'true':
+        account = values.get('HOTMART_ACCOUNT_KEY', '')
+        current = values.get('HOTMART_HOTTOK', '')
+        previous = values.get('HOTMART_PREVIOUS_HOTTOK', '')
+        valid_token = lambda token: bool(token) and len(token) <= 512 and not re.search(r'[\s\x00-\x1f\x7f]', token) and not token.startswith('REPLACE_')
+        unrelated = [values.get(name) for name in ['PAYLOAD_SECRET', 'LEAD_TOKEN_SECRET', 'BREVO_API_KEY', 'BREVO_WEBHOOK_TOKEN', 'BREVO_WEBHOOK_EVENT_SECRET', 'KIWIFY_WEBHOOK_TOKEN', 'KIWIFY_WEBHOOK_PREVIOUS_TOKEN', 'CAKTO_WEBHOOK_SECRET', 'CAKTO_WEBHOOK_PREVIOUS_SECRET'] if values.get(name)]
+        if not account or len(account) > 200 or re.search(r'[\s\x00-\x1f\x7f@]', account) or re.match(r'^https?:', account, re.I) or not valid_token(current) or current in unrelated or (previous and (not valid_token(previous) or previous == current or previous in unrelated)):
+            raise DeployError('Hotmart exige conta local opaca e Hottok copiado da conta, privado e independente.')
+    if worker.get('environment', {}).get('KIWIFY_WEBHOOK_TOKEN') or worker.get('environment', {}).get('KIWIFY_WEBHOOK_PREVIOUS_TOKEN'):
+        raise DeployError('Token de recepção Kiwify deve ficar somente no serviço app.')
+    if values.get('KIWIFY_WEBHOOK_ENABLED') == 'true':
+        account = values.get('KIWIFY_ACCOUNT_KEY', '')
+        current = values.get('KIWIFY_WEBHOOK_TOKEN', '')
+        previous = values.get('KIWIFY_WEBHOOK_PREVIOUS_TOKEN', '')
+        valid_token = lambda token: 32 <= len(token) <= 512 and not re.search(r'[\s\x00-\x1f\x7f]', token) and not token.startswith('REPLACE_')
+        unrelated = [values.get(name) for name in ['PAYLOAD_SECRET', 'LEAD_TOKEN_SECRET', 'BREVO_API_KEY', 'BREVO_WEBHOOK_TOKEN', 'BREVO_WEBHOOK_EVENT_SECRET', 'HOTMART_HOTTOK', 'HOTMART_PREVIOUS_HOTTOK', 'CAKTO_WEBHOOK_SECRET', 'CAKTO_WEBHOOK_PREVIOUS_SECRET'] if values.get(name)]
+        if not account or len(account) > 200 or re.search(r'[\s\x00-\x1f\x7f@]', account) or re.match(r'^https?:', account, re.I) or not valid_token(current) or current in unrelated or (previous and (not valid_token(previous) or previous == current or previous in unrelated)):
+            raise DeployError('Kiwify exige conta local opaca e token privado independente com ao menos 32 caracteres.')
+    if worker.get('environment', {}).get('CAKTO_WEBHOOK_SECRET') or worker.get('environment', {}).get('CAKTO_WEBHOOK_PREVIOUS_SECRET'):
+        raise DeployError('Token de recepção Cakto deve ficar somente no serviço app.')
+    if values.get('CAKTO_WEBHOOK_ENABLED') == 'true':
+        account = values.get('CAKTO_ACCOUNT_KEY', '')
+        current = values.get('CAKTO_WEBHOOK_SECRET', '')
+        previous = values.get('CAKTO_WEBHOOK_PREVIOUS_SECRET', '')
+        valid_token = lambda token: 32 <= len(token) <= 512 and not re.search(r'[\s\x00-\x1f\x7f]', token) and not token.startswith('REPLACE_')
+        unrelated = [values.get(name) for name in ['PAYLOAD_SECRET', 'LEAD_TOKEN_SECRET', 'BREVO_API_KEY', 'BREVO_WEBHOOK_TOKEN', 'BREVO_WEBHOOK_EVENT_SECRET', 'HOTMART_HOTTOK', 'HOTMART_PREVIOUS_HOTTOK', 'KIWIFY_WEBHOOK_TOKEN', 'KIWIFY_WEBHOOK_PREVIOUS_TOKEN'] if values.get(name)]
+        if not account or len(account) > 200 or re.search(r'[\s\x00-\x1f\x7f@]', account) or re.match(r'^https?:', account, re.I) or not valid_token(current) or current in unrelated or (previous and (not valid_token(previous) or previous == current or previous in unrelated)):
+            raise DeployError('Cakto exige conta local opaca e token privado independente com ao menos 32 caracteres.')
+    if values.get("BREVO_WEBHOOK_ENABLED") == "true":
+        webhook_token = values.get("BREVO_WEBHOOK_TOKEN", "")
+        webhook_previous = values.get("BREVO_WEBHOOK_PREVIOUS_TOKEN", "")
+        webhook_secret = values.get("BREVO_WEBHOOK_EVENT_SECRET", "")
+        token_valid = lambda token: bool(re.fullmatch(r"[A-Za-z0-9_-]{32,128}", token)) and not token.startswith("REPLACE_")
+        if not token_valid(webhook_token) or (webhook_previous and not token_valid(webhook_previous)) or len(webhook_secret.encode()) < 32 or webhook_secret.startswith("REPLACE_") or re.search(r"[\x00-\x20\x7f]", webhook_secret) or webhook_secret in [webhook_token, webhook_previous, values.get("LEAD_TOKEN_SECRET"), values.get("PAYLOAD_SECRET")] or webhook_token in [values.get("LEAD_TOKEN_SECRET"), values.get("PAYLOAD_SECRET")] or (webhook_previous and webhook_previous in [webhook_token, values.get("LEAD_TOKEN_SECRET"), values.get("PAYLOAD_SECRET")]):
+            raise DeployError("Webhook exige token e segredo de deduplicação privados e independentes.")
+    if values.get("BREVO_CAMPAIGN_OBSERVE_ENABLED") == "true":
+        observation_key = values.get("BREVO_API_KEY", "")
+        if not observation_key or observation_key.startswith("REPLACE_") or re.search(r"[\x00-\x20\x7f]", observation_key):
+            raise DeployError("Observação exige chave privada válida antes da atualização.")
     if config["worker"] and values.get("BREVO_CONTACT_SYNC_ENABLED") == "true":
         contact_key = values.get("BREVO_API_KEY", "")
         if not contact_key or re.search(r"[\x00-\x20\x7f]", contact_key):
