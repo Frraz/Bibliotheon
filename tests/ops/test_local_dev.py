@@ -61,11 +61,13 @@ class LocalDevelopmentTests(unittest.TestCase):
         marker = self.root / 'child.pid'
         code = '''import os, signal, subprocess, sys, time
 child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)'])
-open('child.pid', 'w').write(str(child.pid))
 def stop(*args):
     child.wait(timeout=3)
     sys.exit(0)
 signal.signal(signal.SIGTERM, stop)
+with open('child.pid.tmp', 'w') as stream:
+    stream.write(str(child.pid))
+os.replace('child.pid.tmp', 'child.pid')
 time.sleep(60)
 '''
         parent = self.process(code)
@@ -219,7 +221,7 @@ class EntrypointTests(unittest.TestCase):
 
 class HTTPHarnessTests(unittest.TestCase):
     """Executa o shell real em checkout temporário com servidor/comandos sintéticos."""
-    def harness(self, fail_readiness=False, fail_suite=''):
+    def harness(self, fail_readiness=False, fail_suite='', args=()):
         with tempfile.TemporaryDirectory(prefix='bibliotheon-http-harness-') as directory:
             root = Path(directory)
             (root / 'scripts').mkdir()
@@ -238,7 +240,7 @@ class HTTPHarnessTests(unittest.TestCase):
                 path = fake_bin / name
                 path.write_text(body)
                 path.chmod(0o755)
-            result = subprocess.run(['bash', str(script)], cwd=root,
+            result = subprocess.run(['bash', str(script), *args], cwd=root,
                 env={**os.environ, 'PATH': str(fake_bin) + ':' + os.environ['PATH'],
                      'BIBLIOTHEON_SYNTHETIC_TESTS': 'true'}, capture_output=True, text=True, timeout=15)
             suites = (root / 'suites.txt').read_text().splitlines() if (root / 'suites.txt').exists() else []
@@ -260,11 +262,25 @@ class HTTPHarnessTests(unittest.TestCase):
         self.assertEqual(suites[-1], 'test:cakto-http')
         self.assertNotIn('test:commercial-csv-http', suites)
 
+    def test_selected_http_suite_runs_alone_and_is_stopped(self):
+        result, suites = self.harness(args=('--only', 'financial-ledger-http'))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(suites, ['test:financial-ledger-http'])
+
+    def test_unknown_http_suite_is_rejected_before_start(self):
+        result, suites = self.harness(args=('--only', 'not-a-suite'))
+        self.assertEqual(result.returncode, 2)
+        self.assertEqual(suites, [])
+
     def test_healthy_server_runs_all_suites_and_is_stopped(self):
         result, suites = self.harness()
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(len(suites), 10)
-        self.assertEqual(suites[-1], 'test:admin-recovery')
+        self.assertEqual(suites, [
+            'test:integration', 'test:site', 'test:hotmart-http', 'test:kiwify-http',
+            'test:cakto-http', 'test:commercial-csv-http', 'test:commercial-imports-http',
+            'test:catalog-resolutions-http', 'test:transaction-review-http', 'test:financial-resolutions-http', 'test:report-evidence-http', 'test:financial-ledger-http', 'test:brevo-webhook-http',
+            'test:analytics-http', 'test:privacy-delete-http', 'test:admin-recovery',
+        ])
 
 
 if __name__ == '__main__':

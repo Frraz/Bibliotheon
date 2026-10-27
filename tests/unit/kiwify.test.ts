@@ -37,6 +37,11 @@ describe('Kiwify: contrato nativo assinado',()=>{
   const fixture=kiwifyFixture();delete (fixture.Product as Partial<typeof fixture.Product>).product_offer_id
   expect((await event(fixture)).externalOfferId).toBeNull()
  })
+ it('aceita TrackingParameters.sck somente como UUID do registro interno de saída',async()=>{
+  const fixture=kiwifyFixture(),reference='a7196251-3e51-45b3-8d24-18a263d74191';(fixture.TrackingParameters as typeof fixture.TrackingParameters&{sck?:string}).sck=reference
+  expect((await event(fixture)).externalClickReference).toBe(reference);
+  (fixture.TrackingParameters as typeof fixture.TrackingParameters&{sck?:string}).sck='buyer@example.invalid';expect((await event(fixture)).externalClickReference).toBeNull()
+ })
  it('lê centavos inteiros sem multiplicar por 100, arredondar ou converter strings',()=>{
   const integer=(source:string,signed=false)=>nativeInteger(record(nativeJSON(kiwifyBytes(`{"v":${source}}`)))!.v,signed)
   for(const [source,result] of [['11094',11094],['1e2',100],['11094.000',11094],['0',0],['9007199254740991',Number.MAX_SAFE_INTEGER]] as const)expect(integer(source)).toBe(result)

@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-25T06:23:14Z",
+  "decision": "D78 P04 parcial; validação local não representa homologação nem release de produção.",
+  "migration": {
+    "declared": 28,
+    "appliedTo": "PostgreSQL local sintético",
+    "productionTouched": false
+  },
+  "verification": {
+    "typecheck": "passed",
+    "lint": "passed with two pre-existing warnings in migrations/20261021_233105_sequences.ts",
+    "unitTests": {
+      "files": 30,
+      "passed": 225
+    },
+    "operationalTests": {
+      "passed": 59
+    },
+    "financialLedgerIntegration": "passed after final calculation hardening; 3 groups; fixtures cleaned",
+    "build": {
+      "command": "NEXT_DIST_DIR=.next-qa npm run build",
+      "status": "passed"
+    },
+    "fullHttpSuites": {
+      "passed": 15,
+      "status": "passed on D78 build"
+    },
+    "financialLedgerHttpAfterFinalHardening": {
+      "command": "CHECK_HTTP_PORT=3001 NEXT_DIST_DIR=.next-qa BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:http -- --only financial-ledger-http",
+      "status": "passed"
+    },
+    "documentation": "python3 scripts/validar_documentacao.py passed",
+    "diffCheck": "git diff --check passed",
+    "externalCalls": false
+  },
+  "sha256": {
+    "src/collections/FinancialLedger.ts": "4093ff65e727b1092cab06859c6408a135adb134ff2690a02f9f9fc06f383a3b",
+    "src/modules/commerce/financial-ledger.ts": "ea324c93e9030361186c1d2134e971a6b73a78ce773eeb6e92372be1127e4afd",
+    "src/modules/commerce/financial-ledger-http.ts": "b1222aaaac8562e66c5afb9566bd053bcd3b8266105897af3ddb5af07bd8391b",
+    "migrations/20261025_054113_financial_ledger.ts": "be3853510086d66cb0818c1177e3113fd242114c31e9f1278fe42700986f2290",
+    "tests/integration/financial-ledger.ts": "87f2340d0e832527ac2e110e6157b177e0a1ea08320582edfd8c78f8a3168490",
+    "tests/integration/financial-ledger-http.ts": "cbe23e062bc7eff8bc243c466775c79c96fbf630341650f7dab693432dfbda85",
+    "tests/ops/test_local_dev.py": "3bc38fb55dd0390a9a2b629abd20a96b3e6e0dd075fc99f29c03eb0c2ab1481e",
+    "scripts/check-http.sh": "3de8e4e63046d8e4924b6901207cfbd712798cb927798e822229a514501ad7ba"
+  },
+  "open": [
+    "P03 remaining reconciliation evidence cases",
+    "P04 complete coverage and operator-facing financial interface",
+    "P05 import/resolution/financial UI and browser QA",
+    "native report contracts and provider account homologation",
+    "production image, empty database/upgrade/restore, security/privacy/visual/performance gates"
+  ]
+}

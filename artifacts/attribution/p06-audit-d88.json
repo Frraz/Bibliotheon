@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-25",
+  "revision": "D88",
+  "phase": "P06",
+  "status": "local_http_passed_external_homologation_pending",
+  "implementation": {
+    "checkout": "Consent-valid active campaign redirects carry the UUID of their local checkout-click row in sck; a preexisting sck is preserved and no site UUID is added without consent.",
+    "providers": "Hotmart purchase.origin.sck, Kiwify TrackingParameters.sck, and Cakto data.sck were exercised with synthetic native-shaped callback payloads.",
+    "report": "The HTTP callback reaches the inbox and financial projection; only a stored consented click with matching provider, account, offer, book, and approval window is attributed. Missing, free-text, and mismatched references remain unassigned. Unknown reversal amounts keep campaign revenue null.",
+    "schema": "No application schema, migration, endpoint, secret, or activation flag changed in D88; 28 migrations remain declared."
+  },
+  "validation": {
+    "build": "npm run build passed; standalone Next.js image compiled and route collection completed.",
+    "typecheck": "npm run typecheck passed after D88 test changes.",
+    "analytics_checkout_http": {
+      "status": "passed",
+      "artifact": "artifacts/attribution/analytics-http-d88.json",
+      "groups": 6,
+      "coverage": [
+        "consent-required click reference",
+        "no site reference without consent",
+        "preexisting operator sck preserved",
+        "replay/withdrawal/privacy controls"
+      ]
+    },
+    "provider_callback_http": [
+      {
+        "provider": "hotmart",
+        "status": "passed",
+        "artifact": "artifacts/attribution/hotmart-http-d88.json",
+        "groups": 5,
+        "coverage": "valid reference/replay, incompatible context, free text, absent reference, report attribution"
+      },
+      {
+        "provider": "kiwify",
+        "status": "passed",
+        "artifact": "artifacts/attribution/kiwify-http-d88.json",
+        "groups": 5,
+        "coverage": "synthetic TrackingParameters.sck, replay, report attribution"
+      },
+      {
+        "provider": "cakto",
+        "status": "passed",
+        "artifact": "artifacts/attribution/cakto-http-d88.json",
+        "groups": 5,
+        "coverage": "synthetic data.sck, replay, report attribution"
+      }
+    ],
+    "full_local_check": "npm run check passed: typecheck, lint with zero errors and two historical warnings, 280 unit tests across 34 files, 61 operational tests, and documentation validation.",
+    "documentation_validation": "49 documents, 1103 valid local links, 106 external URLs catalogued and not checked by the local validator, 34 requirements, 20 tasks, 29 scenarios, 76 contrast pairs across two themes.",
+    "fixtures": "Synthetic PostgreSQL rows cleaned by each suite. No real provider, buyer, checkout, or sale used."
+  },
+  "remaining": [
+    "Confirm the returned attribution field and checkout behavior independently in each authorized Hotmart, Kiwify, and Cakto account; synthetic Kiwify/Cakto shapes do not establish real provider delivery.",
+    "Complete P07 retention, withdrawal, deletion, and restore behavior for linked analytics and commercial records.",
+    "Complete release image/database-empty/upgrade/restore, security/privacy, accessibility/performance and owner-controlled GitHub/VPS gates."
+  ]
+}

@@ -39,6 +39,11 @@ describe('Cakto: contrato nativo assinado V1/V2',()=>{
   for(const marker of ['never-store','never-use','never-infer','SYNTHETIC-DOCUMENT',config.secret])expect(JSON.stringify(normalized)).not.toContain(marker)
   expect(normalized.reviewReason).toBeUndefined()
  })
+ it('aceita sck somente quando corresponde a uma saída UUID interna e ignora texto livre',async()=>{
+  const row=caktoOrder() as ReturnType<typeof caktoOrder>&{sck?:string},reference='a7196251-3e51-45b3-8d24-18a263d74191';row.sck=reference
+  expect((await event(caktoFixture({data:row}))).externalClickReference).toBe(reference)
+  row.sck='buyer@example.invalid';expect((await event(caktoFixture({data:row}))).externalClickReference).toBeNull()
+ })
  it('converte centavos exatamente, sem aceitar strings, perda de precisão ou arredondamento',async()=>{
   const original=JSON.stringify(caktoFixture())
   for(const [source,result] of [['0.29',29],['1e-2',1],['90071992547409.91',Number.MAX_SAFE_INTEGER]] as const)expect((await event(original.replace('99.9',source))).grossCents).toBe(result)

@@ -13,6 +13,11 @@ export type NormalizedCommercialEvent=AccountScope&{
  refundBasis:'cumulative'|'operation'|null;externalRefundId:string|null;chargebackCents:number|null;
 }
 export const opaqueID=(value:unknown):value is string=>typeof value==='string'&&value.length>=1&&value.length<=200&&value.trim()===value&&!/[\s\x00-\x1f\x7f@]/.test(value)&&!/^https?:/i.test(value)
+/** Accept only IDs minted by checkout-clicks; arbitrary provider tracking text may contain PII. */
+export const checkoutClickReference=(...values:unknown[]):string|null=>{
+ const refs=[...new Set(values.filter((value):value is string=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(value)).map(value=>value.toLowerCase()))]
+ return refs.length===1?refs[0]:null
+}
 export const signedCents=(value:unknown):value is number|null=>value===null||typeof value==='number'&&Number.isSafeInteger(value)
 export const cents=(value:unknown):value is number|null=>signedCents(value)&&(value===null||value>=0)
 function utc(value:unknown):string|null{
@@ -74,6 +79,12 @@ function validateCommercialReceipt(adapter:CommercialAdapter,scope:AccountScope,
  const parsed=parseCommercialEvent(value,scope)
  if(!parsed.ok)return{state:'invalid_event' as const,reason:parsed.reason}
  return{state:'prepared' as const,key:commercialEventKey(parsed.event),digest:commercialEventDigest(parsed.event),transactionKey:commercialTransactionKey(parsed.event),adapterVersion:adapter.version,event:parsed.event}
+}
+
+/** Revalidates an already persisted normalized envelope; does not authenticate a webhook. */
+export function restoreStoredCommercialReceipt(value:unknown,scope:AccountScope,adapterVersion:string){
+ if(!commercialProviders.includes(scope.provider)||!opaqueID(scope.accountKey)||!opaqueID(adapterVersion))return{state:'invalid_event' as const}
+ return validateCommercialReceipt({provider:scope.provider,version:adapterVersion,verify:async()=>false,normalize:()=>null},scope,value)
 }
 
 export async function prepareCommercialReceipt(adapter:CommercialAdapter,scope:AccountScope,body:Uint8Array,headers:Headers){

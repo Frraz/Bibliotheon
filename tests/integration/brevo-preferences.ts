@@ -99,7 +99,7 @@ try{
   const inflight=run(withdrawn.id);await gate
   const pref=(await payload.find({collection:'preference-tokens',where:{contact:{equals:withdrawn.people[0].id}},depth:0,overrideAccess:true})).docs[0]
   const raw=(await atomic(payload,async req=>{await serial(req,`contact:${withdrawn.people[0].id}`);return issuePreferenceLink(req,withdrawn.people[0].id,secret,origin,due)})).url
-  await unsubscribe(payload,new URL(raw).searchParams.get('t'),due);unlock()
+  await unsubscribe(payload,new URL(raw).searchParams.get('t'),due, secret);unlock()
   assert.equal((await inflight).state,'canceled');assert.equal((await batch(withdrawn.id)).preferenceCheck,null)
   assert.ok((await payload.findByID({collection:'preference-tokens',id:pref.id,overrideAccess:true})).tokenHash)
   mode='normal'

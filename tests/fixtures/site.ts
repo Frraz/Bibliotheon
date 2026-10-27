@@ -1,3 +1,4 @@
+import {mkdir,writeFile,rm} from 'node:fs/promises'
 import { getPayload } from 'payload'
 import config from '../../src/payload.config'
 import { randomBytes } from 'node:crypto'
@@ -17,6 +18,9 @@ export async function seedSite() {
   const user = { ...owner, collection: 'admin-users' as const }
   const auth = { user, overrideAccess: false }
   const previous = await payload.findGlobal({ slug: 'site-settings', overrideAccess: true, depth: 0 })
+  await mkdir('.local-run',{recursive:true})
+  const settingsBackup=`.local-run/fixture-site-settings-${suffix}.json`
+  await writeFile(settingsBackup,JSON.stringify(previous)+'\n',{mode:0o600,flag:'wx'})
   const theme = await payload.create({ collection: 'themes', ...auth, data: { name: 'Aprendizagem sintética', slug: `tema-${suffix}`, introduction: 'Tema exclusivo de testes locais.', _status: 'published' } })
   const image = await sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900"><rect width="600" height="900" fill="#163C56"/><path d="M64 64H536V836H64Z" fill="none" stroke="#B9D9F2" stroke-width="2"/><text x="100" y="200" fill="white" font-family="serif" font-size="48">Edição</text><text x="100" y="265" fill="white" font-family="serif" font-size="48">sintética</text><text x="100" y="760" fill="#B9D9F2" font-family="sans-serif" font-size="20">Somente para testes locais</text></svg>')).png().toBuffer()
   const cover = await payload.create({ collection: 'media', ...auth, data: { alt: 'Capa sintética para testes', presentationRole: 'cover', visibility: 'public' }, file: { data: image, size: image.length, name: 'cover.png', mimetype: 'image/png' } })
@@ -44,6 +48,7 @@ export async function seedSite() {
     await payload.delete({ collection: 'media', id: cover.id, overrideAccess: true })
     await payload.delete({ collection: 'themes', id: theme.id, overrideAccess: true })
     await payload.delete({ collection: 'admin-users', id: owner.id, overrideAccess: true })
+    await rm(settingsBackup)
     await payload.destroy()
   } }
 }

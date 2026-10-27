@@ -72,3 +72,17 @@ A página atual documenta ACK 2xx, timeout de 40 segundos no fornecedor, tentati
 Suítes locais: npm test, npm run test:kiwify e npm run test:kiwify-http. Integração exige PostgreSQL loopback vazio de owner/histórico comercial; faz cleanup. HTTP exige QA isolado com KIWIFY_ACCOUNT_KEY=synthetic e token exclusivamente sintético das fixtures; não executar contra produção. Workflow preparado não significa CI executado no GitHub.
 
 Pendente na conta: assinatura autêntica/rotação, oferta e IDs entregues, moeda/taxa comparadas ao relatório, precisão/fuso/datas de reversão, ordem dos eventos, duplicatas/reenvios, produto prioritário, URL afiliada e atribuição suportada. O botão Testar Webhook usa dados fictícios; API não oferece sandbox, segundo a documentação. Não usar conta real como ambiente descartável. Chargeback, recusa e formatos especiais continuam sem projeção automática por insuficiência de evidência confirmada.
+
+## Aditivo P06 — referência de clique consentido (D87)
+
+A central oficial informa que checkout aceita `sck` e que os parâmetros de rastreamento ficam em cookies e são usados nas compras. A integração passa uma UUID aleatória de `checkout-clicks` em `sck`, só para saída de campanha com consentimento vigente, sem substituir um `sck` já presente. O adaptador lê `TrackingParameters.sck`, mas só conserva UUID; texto livre e dados que pareçam pessoais são descartados. O retorno precisa ainda corresponder ao registro consentido, provedor/conta/oferta/livro e janela de 30 dias. O artigo oficial confirma o transporte no checkout, mas a página técnica de Webhooks ligada pela Kiwify não pôde ser aberta nesta consulta; a forma exata do campo no evento e sua entrega real permanecem em H01 e impedem declarar P06 concluída.
+
+Fontes públicas consultadas em 25/10/2026: [parâmetros de rastreamento no checkout](https://ajuda.kiwify.com.br/pt-br/article/como-passar-parametros-de-rastreamento-na-url-do-checkout-src-utm-tags-entre-outros-1spiptc/) e [webhooks Kiwify](https://kiwify.notion.site/Webhooks-pt-br-c77eb84be10c42e6bb97cd391bca9dce). Evidência/auditoria: [P06 D87](../../artifacts/attribution/p06-audit-d87.json).
+
+## Callback atribuído por HTTP sintético — D88
+
+Fixture loopback com `TrackingParameters.sck` passou pela autenticação configurada para teste, inbox, projeção e relatório; repetição não duplicou o fato. O campo teve shape sintético definido pelo adaptador e não foi lido de documentação oficial acessível nem recebido de conta real. Isto confirma apenas o comportamento local do código; H01 deve conferir campo/conta antes de ativação. [Resultado D88](../../artifacts/attribution/kiwify-http-d88.json).
+
+## Continuidade da conciliação local — D80
+
+Os contratos nativos e as datas de fonte acima permanecem os desta integração. Posteriormente, associação/decisão financeira auditadas, evidência complementar/CSV e ledger foram acrescentados localmente; D80 permite a importação canônica no painel. Esses fluxos não autenticam exportação nativa, não inventam dados ausentes e não concluem a homologação desta conta. Casos suportados e limites estão no [contrato de conciliação](../24-conciliacao.md) e no [estado vigente](../23-estado-atual.md); H01 continua necessário.

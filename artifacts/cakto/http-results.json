@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T18:29:35.130Z",
+  "date": "2026-10-25T06:11:18.626Z",
   "origin": "http://127.0.0.1:3001",
   "checks": [
     "Rota real exige HMAC/timestamp fresco e bytes exatos; secret no corpo não basta. MIME/encoding, JSON inválido, limite e item V2 malformado rejeitados sem recibo parcial; GET retorna 405.",

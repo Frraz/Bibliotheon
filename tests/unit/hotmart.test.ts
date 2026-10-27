@@ -29,6 +29,11 @@ describe('Hotmart v2: contrato nativo verificado',()=>{
   for(const fragment of ['never-store','SYNTHETIC-DOCUMENT','private-pix','untrusted-personal','untrusted-body','commissions'])expect(JSON.stringify(normalized)).not.toContain(fragment)
   const mismatch=await prepareCommercialReceipt(createHotmartAdapter(config),{...scope,accountKey:'another-account'},bytes(native),headers());expect(mismatch.state).toBe('invalid_event')
  })
+ it('aceita sck somente quando corresponde a uma saída UUID gerada pelo site',async()=>{
+  const native=hotmartFixture(),reference='a7196251-3e51-45b3-8d24-18a263d74191';native.data.purchase.origin.sck=reference
+  expect((await event(native)).externalClickReference).toBe(reference)
+  native.data.purchase.origin.sck='buyer@example.invalid';expect((await event(native)).externalClickReference).toBeNull()
+ })
  it('converte números a partir do texto original sem arredondamento binário, coerção ou perda de precisão',()=>{
   const amount=(raw:string)=>nativeCents(record(nativeJSON(bytes(`{"value":${raw}}`)))!.value)
   for(const [raw,expected] of [['0.29',29],['1.10',110],['1.100',110],['1e-2',1],['1e2',10000],['90071992547409.91',Number.MAX_SAFE_INTEGER]] as const)expect(amount(raw)).toBe(expected)

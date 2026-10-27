@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25T04:06:48.952Z",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "Rota de estágio real exige owner/origem e metadados controlados; entradas pessoais/invalidas não geram lote ou linha.",
+    "201 cria plano durável; repetição recupera mesmo lote. Confirmação explícita/plano correto gera 202 e um recibo, sem aplicação antecipada; retry uppercase é idempotente.",
+    "Vínculo de linha leva à inbox. Processamento explícito aplica centavos/data com fonte CSV, sem líquido inferido; snapshot compatível confirma sem criar novo fato financeiro.",
+    "Catálogo mudado invalida o plano com 409 sem importação parcial. Coleções permitem consulta owner e negam escrita direta/anônimo; lote inexistente retorna 404 e registros não contêm entrada rejeitada."
+  ],
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Next/PostgreSQL loopback, owner/CSV sintéticos. Confirmação enfileira e aplicação é explícita no teste. Sem conta/relatório nativo, resolução de conflitos, custos/liquidação, relatório ou UI customizada."
+}

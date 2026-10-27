@@ -1,0 +1,370 @@
+{
+  "phase": "D99",
+  "date": "2026-10-25T19:08:00-03:00",
+  "status": "passed",
+  "scope": "Expiracao transacional de tokens de preferencias vencidos (24h) e alinhamento de P07",
+  "previousReview": "artifacts/documentation/documentation-review-d98.json",
+  "documentsReviewed": 49,
+  "documentsUpdated": 12,
+  "documentsRetained": 37,
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "title": "# Instruções de trabalho — Bibliotheon",
+      "sha256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "DESIGN-BRIEF.md",
+      "title": "# Bibliotheon — Design Brief",
+      "sha256": "89b8ac56fbeb2eec1753bbe3f476801bfb154e56aafa3acc5482e80f69790e19",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "README.md",
+      "title": "# Bibliotheon",
+      "sha256": "1a3469007007ce8983db7761b205421447e2ca8bac56a671a529b677410dd9a1",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "deploy.md",
+      "title": "# Deploy do Bibliotheon na VPS",
+      "sha256": "84c07440bbe214c837c0fe919df46f6e0e5b6744241bd65076c8232781fa12d1",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/01-visao-estrategia.md",
+      "title": "# 01 — Visão e estratégia",
+      "sha256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/02-requisitos.md",
+      "title": "# 02 — Requisitos e jornadas",
+      "sha256": "ca04893c7063f861fbd10babbb8c0a9f53bdd56d534015a372944c81df19b58c",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/03-experiencia.md",
+      "title": "# 03 — Experiência, páginas e painel",
+      "sha256": "dc0792a00592db67104055ea495a701937ed9a27401b13529e7da108bd6afb5a",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/04-arquitetura.md",
+      "title": "# 04 — Arquitetura",
+      "sha256": "ee3e7e7e790d148fd1dfd489cdc9b5d4d979c13337c5e1d44e34c584bff41b5f",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/05-dados.md",
+      "title": "# 05 — Modelo de dados e invariantes",
+      "sha256": "648389a2c66b615e8e13e6595b068d6cf8516dc4d2a36eb652c506ce28fc06c3",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/06-interfaces.md",
+      "title": "# 06 — Interfaces e contratos internos",
+      "sha256": "9220449b5bea4a29f5c8fe12240befa92c62786ffc75d7c3bfa6cba845d209e0",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/07-integracoes.md",
+      "title": "# 07 — Integrações comerciais",
+      "sha256": "91439bb295d579ffd7441b267d36335fa793428078c60a8fbdb78fb4e1eddb37",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/08-aquisicao.md",
+      "title": "# 08 — Aquisição, conteúdo e relacionamento",
+      "sha256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/09-metricas.md",
+      "title": "# 09 — Medição e decisões",
+      "sha256": "a272da5722de49b7b8da56d814e3f870b62fbfc650dfced1f7a08104f13a89cd",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/10-infraestrutura.md",
+      "title": "# 10 — Infraestrutura e implantação planejada",
+      "sha256": "d7c6afc6e2550f14f78b894ded6674cd54bf553de8122867cf0c880153092c1a",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/11-operacao.md",
+      "title": "# 11 — Runbooks de operação",
+      "sha256": "577ae56c662a171676d93858675804cb767feade6733f28920443232ae158a10",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/12-seguranca-privacidade.md",
+      "title": "# 12 — Segurança e privacidade",
+      "sha256": "45ac793d9a733fc8a3cb01f01b8db4a12e77a5e78a5b25b4dc46f61e4ac35847",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/13-backlog.md",
+      "title": "# 13 — Backlog de implementação",
+      "sha256": "4d4dd336883305f54f562861f2f17ae49ecfcc635586d97e6e0a767555604327",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/14-progresso.md",
+      "title": "# 14 — Progresso e retomada",
+      "sha256": "f974c7ac08a42b649e24e04bac47e1ac55077a767466a7d4c2f980052838ca4a",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/15-qualidade.md",
+      "title": "# 15 — Qualidade e homologação",
+      "sha256": "ceb3146591d617bcfc2c5b9071a4d7ec8871a544c5398a4ccee52673eef26b70",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/16-referencias.md",
+      "title": "# 16 — Referências e limites da pesquisa",
+      "sha256": "f57d3ef0c1cccbbc4da40d21125d70749d8f982fb3a71597f3543682faf433d1",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/17-decisoes.md",
+      "title": "# 17 — Registro de decisões",
+      "sha256": "cad759f516b82e4f504ced2c66acfa7b244adb649586d6537a0322e670a3c606",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/18-validacao.md",
+      "title": "# 18 — Validação da entrega documental",
+      "sha256": "48648421d95505c7a756eb8df3e207e74523b9b90b5145f273ad14b000dedf2e",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/19-desenvolvimento.md",
+      "title": "# 19 — Implementação e evidências locais",
+      "sha256": "ecc6aa10f163c9fb57a52d8c4f5bc627cafae7524701ce0a97fb7e3851ed3729",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/20-execucao-local.md",
+      "title": "# 20 — Executar o Bibliotheon localmente",
+      "sha256": "5a605d4618ac31697c3d54154051cab113a7c567bd9687a864f831e07f22990f",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/21-pacote-producao.md",
+      "title": "# 21 — Pacote de produção e validação local",
+      "sha256": "17deee2adc15d28ebe221cfdbe2ccd5485d9df1cc6680b01f461b8106fc75262",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/22-lancamento.md",
+      "title": "# 22 — Preparação do primeiro lançamento",
+      "sha256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/23-estado-atual.md",
+      "title": "# 23 — Estado atual e mapa da implementação",
+      "sha256": "5b2666938c50bcab04a1aed40f6a75792efa635000c9a3287a4cb329120ba89a",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    },
+    {
+      "path": "docs/24-conciliacao.md",
+      "title": "# 24 — Conciliação comercial e CSV",
+      "sha256": "2ce288c0244b7cff2b8b995017efcceb27c940bc05f133835cf0aa72b31232ff",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/01-identidade.md",
+      "title": "# Identidade, imagem e referências",
+      "sha256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/02-tokens.md",
+      "title": "# Tokens, cores e tipografia",
+      "sha256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/03-componentes.md",
+      "title": "# Componentes e estados",
+      "sha256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/04-paginas.md",
+      "title": "# Wireframes de páginas públicas",
+      "sha256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/05-painel.md",
+      "title": "# Design do painel administrativo",
+      "sha256": "9e3f36fdf968ace9ee8787ff9de69a130864a54278e2dbb7f7a160f3480d22ee",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/06-comportamento.md",
+      "title": "# Responsividade, tema e movimento",
+      "sha256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/07-qualidade.md",
+      "title": "# Qualidade visual e aceite",
+      "sha256": "54df9190c42695c74881bc8e57e63412720e7b0e2873f74f9e2bd3bd665b4097",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/08-skills-referencias.md",
+      "title": "# Skills aplicadas e fontes",
+      "sha256": "07757dc67fad5752d06fbc8c97b1071786def65cb6fd8f3b569639de6c040af5",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/design/09-contrastes.md",
+      "title": "# Contrastes calculados",
+      "sha256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/integracoes/brevo.md",
+      "title": "# Brevo — calendário, campanhas e supressão",
+      "sha256": "8ff443b39d5bc611b5fa13c532815804f528b5ce17b3eee3e8828154e72adb19",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/integracoes/cakto.md",
+      "title": "# Cakto — contrato e operação",
+      "sha256": "8ccfc7dfb8d0bd82257f9b8d4e772de2c5dc00a19db0227ee7ab7fe4915cf6b0",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/integracoes/hotmart.md",
+      "title": "# Conector Hotmart",
+      "sha256": "688db5c2ff8be6353b10bfa332da4d99c7f11182c5ccfa45c96b8b924339e026",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/integracoes/kiwify.md",
+      "title": "# Kiwify — contrato e operação",
+      "sha256": "c58e2efd22fc649666b6ae142398cdcf23d49d4187d74b95d18080e5c0b94e20",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/01-briefing-livro.md",
+      "title": "# Modelo — Briefing do livro",
+      "sha256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/02-copy-lp.md",
+      "title": "# Modelo — Copy e revisão da LP",
+      "sha256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/03-campanha.md",
+      "title": "# Modelo — Campanha inicial",
+      "sha256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/04-kit-afiliados.md",
+      "title": "# Modelo — Kit de afiliados",
+      "sha256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/05-revisao-semanal.md",
+      "title": "# Modelo — Revisão semanal",
+      "sha256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/06-homologacao.md",
+      "title": "# Modelo — Homologação e release",
+      "sha256": "de0700a4a146c1eaee7ecd11dc7401aa291497287701b7154714f02230503112",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "docs/templates/README.md",
+      "title": "# Modelos operacionais",
+      "sha256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051",
+      "action": "retained",
+      "basis": "Escopo D99 revisado; conteudo mantido e hash verificado."
+    },
+    {
+      "path": "pendencias.md",
+      "title": "# Pendências para colocar o Bibliotheon em produção",
+      "sha256": "4116e1a1070c339e4a4ffa7cdb7529ebb7e9c2381e3912ae2c9a8db975674a29",
+      "action": "updated",
+      "basis": "D99 remove tokens de preferencias vencidos e atualiza o estado P07."
+    }
+  ],
+  "validation": {
+    "command": "python3 scripts/validar_documentacao.py",
+    "status": "passed",
+    "localLinks": 1156,
+    "requirements": 34,
+    "tasks": 20,
+    "scenarios": 29,
+    "externalUrlsUnverified": 106
+  },
+  "limitations": [
+    "Retencao ampla de relacionamento/comercio permanece incompleta.",
+    "Identidades externas requerem conciliacao antes de limpeza.",
+    "A politica continua default operacional e requer revisao antes de dados reais.",
+    "A revisao documental e os testes locais nao comprovam homologacao ou operacao real."
+  ]
+}

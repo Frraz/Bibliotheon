@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-25T15:30:13.094263+00:00",
+  "source": "SELECT COUNT(*) independente no PostgreSQL sintético após as duas jornadas",
+  "counts": {
+    "migrations": 28,
+    "owners": 0,
+    "contacts": 0,
+    "campaigns": 0,
+    "offers": 0,
+    "settlement_evidence": 0,
+    "costs": 0,
+    "transactions": 0,
+    "transaction_events": 0,
+    "import_batches": 0,
+    "report_evidence": 0
+  },
+  "localDatabaseStopped": true,
+  "volumePreserved": true,
+  "fixtureInstitutionalBackupsRemaining": 0
+}

@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-25T04:38:09.606Z",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "HTTP real exige autenticação/origem exata; recusa ator forjado, conteúdo incompatível e corpo excedido. Coleção privada não vira endpoint de escrita.",
+    "Prévia sem escrita e confirmação HTTP 201 com autoria autenticada; repetição upper/lower retorna 200 sem duplicar. Fonte alterada na mesma chave é 409; prova insuficiente 422; trilha não permite edição/exclusão owner.",
+    "CSV HTTP usa decisão ao enfileirar; aplicação explícita registra decisão no fato e livro efetivo sem líquido inventado. Hold concorrente tem único vencedor, invalida lote pronto com 409 e não altera venda já aplicada; revisão supersedida retorna current=false."
+  ],
+  "externalCalls": false,
+  "limits": "HTTP/Next e PostgreSQL locais; fixtures sintéticas. Decisão não prova venda/liquidação; aplicação da inbox é explícita na suíte. Sem UI customizada ou homologação externa."
+}

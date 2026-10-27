@@ -67,3 +67,17 @@ npm run test:hotmart valida contrato/ledger via handler com PostgreSQL loopback;
 - [ ] Reenvio, falha temporária, configuração desativada e transição de token conferidos pelo proprietário.
 
 Estado: **implementado/testado localmente; não homologado no provedor e desligado por padrão**.
+
+## Aditivo P06 — referência de clique consentido (D87)
+
+A documentação oficial do Webhook V2 descreve `purchase.origin.sck` como origem da página de pagamento e `purchase.origin.xcod` como código personalizado; o changelog também registra campos de origem. Esta integração usa somente `sck`: UUID do registro local da saída, nunca UTM livre, email ou ID de visitante. A aplicação só acrescenta o parâmetro se houver consentimento vigente, campanha ativa e nenhum `sck` preexistente. O adaptador aceita apenas UUID; o relatório confirma registro, provedor, conta, oferta/livro e janela antes de atribuir.
+
+Fontes públicas consultadas em 25/10/2026: [Webhook de compra V2](https://developers.hotmart.com/docs/en/2.0.0/webhook/purchase-webhook/), [changelog](https://developers.hotmart.com/docs/en/changelog) e [integração de checkout](https://developers.hotmart.com/docs/en/tutorials/checkout-elements/). Testes sintéticos não homologam conta nem todos os caminhos de checkout/afiliado; H01 continua aberto. [Auditoria P06 D87](../../artifacts/attribution/p06-audit-d87.json).
+
+## Callback atribuído por HTTP sintético — D88
+
+O teste loopback enviou callback V2 com `purchase.origin.sck` de clique consentido, repetiu a entrega e conferiu inbox, projeção e relatório financeiro. Só contexto correspondente foi atribuído; outro provedor/oferta, texto livre e ausência permanecem sem campanha. Reversões sem valor mantiveram receita null. [Resultado D88](../../artifacts/attribution/hotmart-http-d88.json). É fixture sintética; H01 ainda precisa confirmar evento e fluxo da conta real.
+
+## Continuidade da conciliação local — D80
+
+Os contratos nativos e as datas de fonte acima permanecem os desta integração. Posteriormente, associação/decisão financeira auditadas, evidência complementar/CSV e ledger foram acrescentados localmente; D80 permite a importação canônica no painel. Esses fluxos não autenticam exportação nativa, não inventam dados ausentes e não concluem a homologação desta conta. Casos suportados e limites estão no [contrato de conciliação](../24-conciliacao.md) e no [estado vigente](../23-estado-atual.md); H01 continua necessário.

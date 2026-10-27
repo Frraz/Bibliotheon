@@ -1,0 +1,151 @@
+{
+  "date": "2026-10-25T17:33:42.873Z",
+  "status": "passed",
+  "checks": [
+    "21 casos: sete estados por provedor, preview sem escrita, stage durável sem aplicação, commit explícito, decisão independente, repetição idempotente e conflitos bloqueados. Prova não fabrica webhook/caixa.",
+    "Seis provas insuficientes/incompatíveis são preservadas, mas aplicação é recusada sem transação ou zero inferido: aprovação, reembolso, chargeback, estado e valor.",
+    "Arquivo inválido/misto/futuro/nativo não aceito recusa o lote inteiro sem persistir prefixo válido ou adivinhar layout.",
+    "Falha tardia após registrar os estados reverte prova/linhas/auditoria/confirmacão do lote inteiro; repetição após restaurar o serviço confirma sem prefixo residual.",
+    "Mudança real após stage marca lote stale sem gravar prova adicional; nova conferência reconhece a evidência existente.",
+    "Snapshot de 13 colunas continua queued/reprocessável sob seu contrato; evidência de 18 colunas exige decisão própria. Nenhum deles comprova liquidação ou cria custos."
+  ],
+  "cases": [
+    {
+      "provider": "hotmart",
+      "kind": "pending",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "approved",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "refused",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "canceled",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "partially_refunded",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "refunded",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "chargeback",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "pending",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "approved",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "refused",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "canceled",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "partially_refunded",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "refunded",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "kiwify",
+      "kind": "chargeback",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "pending",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "approved",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "refused",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "canceled",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "partially_refunded",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "refunded",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "cakto",
+      "kind": "chargeback",
+      "result": "persisted_committed_and_explicitly_applied"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "approval_missing",
+      "result": "proof_persisted_but_financial_application_refused"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "refund_missing",
+      "result": "proof_persisted_but_financial_application_refused"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "full_refund_mismatch",
+      "result": "proof_persisted_but_financial_application_refused"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "partial_refund_mismatch",
+      "result": "proof_persisted_but_financial_application_refused"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "chargeback_missing",
+      "result": "proof_persisted_but_financial_application_refused"
+    },
+    {
+      "provider": "hotmart",
+      "kind": "money_wrong_kind",
+      "result": "proof_persisted_but_financial_application_refused"
+    }
+  ],
+  "fixturesCleaned": true,
+  "limits": "Contratos canônicos sintéticos; sem interpretação de exportação nativa, relatório real, homologação externa, imagem/restore ou produção."
+}

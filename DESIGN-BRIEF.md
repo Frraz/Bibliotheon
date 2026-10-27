@@ -22,7 +22,7 @@ O visitante precisa reconhecer o livro, entender o que recebe, avaliar uma amost
 | Imagem | Capas e páginas reais, sem alteração de cor pelo tema |
 | Tema | Sistema por padrão; escolhas claro/escuro persistidas localmente |
 | Painel | Extensões suportadas pelo Payload, sem reconstruir o CMS |
-| Escopo atual | Documentos, wireframes textuais e cálculos; sem protótipo, logo final ou frontend |
+| Estado atual | Direção documentada e implementação local autorizada no site/painel; QA renderizado por recortes, homologação integral ainda pendente |
 
 ## Fontes de verdade
 

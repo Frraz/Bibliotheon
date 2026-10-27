@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-25T02:52:24.074127+00:00",
+  "baseCommit": "cba2edb934d66319ad3b26bd35c25266caed93f0",
+  "worktree": "D70–D73 sem commit/push; hashes finais das fontes/contratos registrados abaixo",
+  "environment": "PostgreSQL 17.9 loopback exclusivo/sintético; Next standalone .next-qa/3000 para HTTP, já encerrado",
+  "checks": {
+    "check-local": {
+      "passed": true,
+      "unitTestsAtRun": 205,
+      "unitFiles": 29,
+      "opsTests": 57,
+      "documentation": true,
+      "typecheck": true
+    },
+    "final-unit-typecheck-lint": {
+      "passed": true,
+      "unitTests": 206,
+      "unitFiles": 29,
+      "lintErrors": 0,
+      "lintWarnings": 2
+    },
+    "migration24": {
+      "passed": true,
+      "scope": "Índice funcional e flags de quarentena; índice transaction_key existente reutilizado",
+      "emptyDownUpRollback": true,
+      "legacyFlagRepairRollback": true
+    },
+    "transaction-review-domain": {
+      "passed": true,
+      "groups": 7,
+      "artifact": "local-results.json"
+    },
+    "transaction-review-http": {
+      "passed": true,
+      "groups": 3,
+      "artifact": "http-results.json"
+    },
+    "regressions": {
+      "commercialInbox": 12,
+      "commercialCSV": 5,
+      "commercialImports": 10,
+      "catalogResolutions": 9,
+      "passed": true
+    },
+    "build": {
+      "passed": true,
+      "dist": ".next-qa",
+      "buildId": "PONlutD2VDUKbEtrZSbSM"
+    },
+    "check-http": {
+      "passed": true,
+      "suites": 12,
+      "suiteNames": [
+        "integration",
+        "site",
+        "hotmart-http",
+        "kiwify-http",
+        "cakto-http",
+        "commercial-csv-http",
+        "commercial-imports-http",
+        "catalog-resolutions-http",
+        "transaction-review-http",
+        "brevo-webhook-http",
+        "analytics-http",
+        "admin-recovery"
+      ],
+      "syntheticHosts": "pay.example.invalid nas três plataformas",
+      "externalTransportsAndAutomaticProcessing": false
+    },
+    "cleanup": {
+      "passed": true,
+      "artifacts": [
+        "cleanup-counts.json",
+        "process-cleanup.json"
+      ]
+    },
+    "documentationFinal": {
+      "passed": true,
+      "documents": 49,
+      "localLinks": 791,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76,
+      "externalURLsChecked": false
+    },
+    "finalAdditionalConcurrencyTypecheckLint": {
+      "passed": true,
+      "domainGroups": 7,
+      "lintErrors": 0,
+      "lintWarnings": 2
+    }
+  },
+  "observations": [
+    "Prévia inteira é READ ONLY, provisional=true e committable=false; processable é somente diagnóstico.",
+    "Quarentena cobre os IDs citados em variantes, incluindo corrida de recepção/worker; não edita valores conhecidos.",
+    "Foi removido um índice redundante criado inicialmente nesta migração ainda inédita; o índice equivalente já existia na migração20. Banco final confere índice20 e índice funcional24.",
+    "Primeira limpeza de fixture falhou por ordem de FKs e erro não lançado pelo bulk delete. Resíduos sintéticos foram removidos com namespaces/contagens conferidos. Textos institucionais sintéticos foram limpos, deixando contato vazio/legalReady=false, sem presumir reconstrução de valores anteriores não registrados. Tentativa seguinte recuperada de backup privado; fixture agora preserva backup0600 até completar cleanup.",
+    "Asserção de rollback foi corrigida para o contrato do receptor interno que propaga exceção; reexecução passou.",
+    "Relatórios de regressão desta rodada copiados para regressions e suas versões anteriores restauradas."
+  ],
+  "warnings": [
+    "Dois avisos históricos de parâmetros não utilizados na migration de sequências.",
+    "pg/Drizzle concorrente ainda emite aviso; causa não resolvida."
+  ],
+  "limits": [
+    "P02 continua parcial: faltam decisões financeiras duráveis/imutáveis, prova complementar, idempotência e aplicação atômica por componente.",
+    "Sem confirmação financeira nova, relatório de liquidação/custos, UI customizada, QA visual nova, imagem/restore atuais, contas externas, GitHub ou VPS.",
+    "Sem envio externo, venda, publicação ou resultado comercial real."
+  ],
+  "regressionArtifacts": [
+    "artifacts/transaction-review/regressions/catalog-resolutions/local-results.json",
+    "artifacts/transaction-review/regressions/catalog-resolutions/http-results.json",
+    "artifacts/transaction-review/regressions/analytics/http-results.json",
+    "artifacts/transaction-review/regressions/commercial-imports/local-results.json",
+    "artifacts/transaction-review/regressions/commercial-imports/http-results.json",
+    "artifacts/transaction-review/regressions/admin-recovery/local-results.json",
+    "artifacts/transaction-review/regressions/cakto/http-results.json",
+    "artifacts/transaction-review/regressions/commercial-inbox/local-results.json",
+    "artifacts/transaction-review/regressions/brevo-webhook/http-results.json",
+    "artifacts/transaction-review/regressions/commercial-csv/local-results.json",
+    "artifacts/transaction-review/regressions/commercial-csv/http-results.json",
+    "artifacts/transaction-review/regressions/hotmart/http-results.json",
+    "artifacts/transaction-review/regressions/kiwify/http-results.json"
+  ],
+  "sourceSha256": {
+    "README.md": "db969e1e22f059d7d7b2e916f40f179cad1280f2a3769a5bd268974f66f313c2",
+    "deploy.md": "5861fa24f676f11b70205e47b36bfbde9a8e0e38987bc1b9e70348258bf9e6b8",
+    "docs/05-dados.md": "12c60841e8122abb07ed911a07c04c803c049ed4f4e4f5db09b9412d1275e4d3",
+    "docs/06-interfaces.md": "b311d0c0c48edf4576c4d9cdc3fc94a975ecb47788848275412a2dc222243ef8",
+    "docs/10-infraestrutura.md": "bed06d692cd8fad7a2781a06b45c87d4a6e63ea02812a7f5ad1c52362c0e49f1",
+    "docs/13-backlog.md": "8056c47033ed86310ffbdaf70d61d5d9d2f5de2db3bbcc269f4e2afc81c2e8f4",
+    "docs/14-progresso.md": "7a8b9145c6452ca714b7e6c6f1ff5f421ce48eae2b371b2daab162c9f63d94f2",
+    "docs/15-qualidade.md": "64d71b0d0a03ab0dc1b48f33da0ef3174f5f232ea7d520e632327780b39655b9",
+    "docs/17-decisoes.md": "ac178ed5e69977f80b24f09b0c4f323638ff9efee575d8bd9384774553c66b5a",
+    "docs/20-execucao-local.md": "7495316fead94e5c82951b11586847ce05dc828c08218c196211bb1b6d6aa4a2",
+    "docs/21-pacote-producao.md": "4c3fc1d64f93a691fade1215df2920fa46a30c97a33f8a3f5a349a9e741ccc46",
+    "docs/23-estado-atual.md": "923ac5d2fc668acb5f62a47b3b001ecfa46c6e632939fa9c6ff7f7c2f3bc9de8",
+    "docs/24-conciliacao.md": "45d7f34d92f9b4b91aeafe659368567e360874f4fcffaf8a07b39971a80acdc8",
+    "migrations/20261024_231500_offer_identity_guard.ts": "3d37c72c60f8fd0f5c47fd405e7063948fdeda4d4c617b2e0e18ca46f2f9d0d8",
+    "migrations/20261025_003403_catalog_resolutions.json": "ac2a08a5bfff983cc29593758a7d2f058f51dcf0980c94df71225a4346755ff7",
+    "migrations/20261025_003403_catalog_resolutions.ts": "f4c43d1c35789fd72f16a3be3a4cbada0e9127d227532ce043aa7ea39695ff20",
+    "migrations/20261025_014000_commercial_review_lookup.ts": "bf34d02b83380b69a86096b39cf20a7069d4187e806757cdf4489081b4e52b45",
+    "migrations/index.ts": "ea6bfecb571ae437b42e851cc3a415aa69e566f5e700e988627b4a1e063f21c3",
+    "next.config.mjs": "27b322d15b10e71991bf5ee0ff294b4d2907e1f9ed46da41f447eaa67ce5b7ee",
+    "package.json": "42d4a454f811314cd23753ad920d33e1617e1cd84ed33f2318c3d226f3fd9061",
+    "pendencias.md": "2bd0333459ac67a781d6b925a1b6588da2f97dc4a2ddfdf73e60445bd36bc40d",
+    "scripts/check-http.sh": "7ddd1c6198ce372b3fb8668df5d54e23f8fcdca44658da9ea66e2bfc87020553",
+    "scripts/check-integration.sh": "1d376113295fabbe335a3df9954b9f003a1d9a825472058fcc186334d31366e5",
+    "src/app/(site)/api/v1/admin/catalog-resolutions/preview/route.ts": "66b95e835031763798085e75f2ab28b099ae8062ff7f6528eb3e54e849d64d7a",
+    "src/app/(site)/api/v1/admin/catalog-resolutions/route.ts": "c9a216d2ebc2aec0a04454323781dab3edd67ba4169e07ff5fe861fcc7ab9b7e",
+    "src/app/(site)/api/v1/admin/transaction-resolutions/preview/route.ts": "f1ae9db9862e0a56039114cf7c19119bcea87c4b9b7ca72e607885c23011928f",
+    "src/collections/CatalogResolutions.ts": "3832e353ca8c09755dc7ec546e20e4cb5c93207237e033edc5eaf87575eba438",
+    "src/collections/Commerce.ts": "c65e97fb82abfcfaf3e9a15bb80afbf300a957857ee108319b39952f05ebe8cd",
+    "src/collections/Offers.ts": "8db3863bb39c5c63f2bb7c2e49cde99187253dcad16f066563a6c95ddc80475b",
+    "src/modules/commerce/catalog-mapping.ts": "3214d8174f6e34f511927e0a96b7ad0cf4ea0a412a6c698443e5aeaa51272639",
+    "src/modules/commerce/catalog-resolution-http.ts": "70ce7a620dd034e8d2f9fa4a11bb039a211037a0a0ebd49b2030a5964418be96",
+    "src/modules/commerce/catalog-resolutions.ts": "d2e735c6a92a3f156669d4d6d77930171d2594e30dca0c62880e061066e5c4c7",
+    "src/modules/commerce/collisions.ts": "4efbaf3b3de01f4f9c967089ad8bed4cac7d685d17e843c8fd900cdaf7fb94e9",
+    "src/modules/commerce/events.ts": "83e3d104c754d74f663a5759cd2571f44ef9db82a29ef207c91ac7b650d7ad91",
+    "src/modules/commerce/import-http.ts": "47bf861868d64e721424105331388ca720f2be1274d05efc24be5be05d7ff800",
+    "src/modules/commerce/import-plan.ts": "0b90f932effbed611781f97e849e6d7502b13dd4f845c911418b7771e01e59c3",
+    "src/modules/commerce/import-preview.ts": "b3793b1f01951de7e9ed02e8dcd1f84f26a94433ee8f8f958372a134cead7de5",
+    "src/modules/commerce/inbox.ts": "4aa9cf4614e0614e6385c68f7c18355cb9f24953baa473af17a5d28cbec4f232",
+    "src/modules/commerce/lock.ts": "7286fd89802e0edfd4b3a36e24617656be32982523c109b68f3159fa93a74277",
+    "src/modules/commerce/presentation.ts": "3ec8658f063d56dfeb7ce4861a448ead9d439d691f04af598cb2801129e7a879",
+    "src/modules/commerce/transaction-review-http.ts": "d12b34c11dcb2d498c55a1722d99d2d9da46e5ed5fe46b9c91b3da45e457ea91",
+    "src/modules/commerce/transaction-review.ts": "f4dd8d0ab8345b775a16eacbd796f97d28fde7c2b5151af2617b8ed3d322ce66",
+    "src/payload-types.ts": "b7aff819844c3fabf42ac76eba485d6024af0df2c273014ec06f5ead0291a7b2",
+    "src/payload.config.ts": "37d5708abdc01c2500c7727fd6e52f9d4728947f4752242f34c89a802119eafa",
+    "tests/fixtures/commerce.ts": "84620677fd7d6ac8d4c4c3fe84ffa452cef2bf22ff7ed846a9f8c27d4ada278d",
+    "tests/fixtures/site.ts": "8dc627786c3333ea717015f54db0423e85fb928d5985272f55464caf609d523d",
+    "tests/integration/catalog-identities.ts": "8d9f3910faf23e52821d20e33e7095d1642f1fda67482570894ac66f3d2047b1",
+    "tests/integration/catalog-identity-db.ts": "ef313d9b5b792a6753fb1fcb8bc5b39885059d5d738ccda2b38f7e7171ac1567",
+    "tests/integration/catalog-resolutions-http.ts": "a1f7d88d802e50c97a2a074c4e0a0ddb11e72479137b962776b7d2c8963c5f4f",
+    "tests/integration/catalog-resolutions.ts": "6f59d42606f93c86c046096bfe21fffe9bc303933bfb749afc77721c022aae78",
+    "tests/integration/commercial-csv.ts": "5890721be09c4671203765c5b63530a1ea4fa7f5376cbc637e1544985f0d3c7d",
+    "tests/integration/commercial-imports-http.ts": "809892369b37260bbe69038cb2866926f161f2df45e95f0e187eed9211237e73",
+    "tests/integration/commercial-imports.ts": "dadaa273d9e89f5c550c55c001a2407c8641390540f05d42f867e3f6548d3293",
+    "tests/integration/commercial-inbox.ts": "7d9c0c8d9688b94b2580f078d36beff6aa9124377071d190206dfe66180d1322",
+    "tests/integration/transaction-review-http.ts": "e925c7293c39dfa0aec3118161226523953c4d68598ea951bb140c38b5717903",
+    "tests/integration/transaction-review.ts": "3c581971ee1ee492da0df5852500306367c7f61fb78f552fb92f52eb2a0cd783",
+    "tests/ops/test_local_dev.py": "0ffbfedc79ed7b66491a5187b9d5191a9b5a9259d924ae37f9ff7310d28a061b",
+    "tests/unit/catalog-mapping.test.ts": "080d872c6eb781681800f947a342110922db035119aef61396013c6e487f11c7",
+    "tests/unit/transaction-review.test.ts": "953b5bacc92d8a768a1e7302ef99af75ca5edb0dd3c5854b71853fcc71b1a404"
+  }
+}

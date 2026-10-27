@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-25T05:12:49.521Z",
+  "stage": "D76",
+  "environment": "PostgreSQL local loopback sintético; Next standalone em .next-qa e porta 3001; sem chamadas externas",
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed with 2 historical warnings",
+    "unitTests": "223 passed across 30 files",
+    "operationalTests": "57 passed",
+    "documentation": "passed; 49 docs, 863 local links, 34 requirements, 20 tasks, 29 scenarios",
+    "diffWhitespace": "passed",
+    "reportEvidenceIntegrationGroups": 7,
+    "reportEvidenceHttpGroups": 4,
+    "httpSuites": 14,
+    "isolatedBuild": "passed; route report-evidence/batch present",
+    "localSyntheticDatabaseStopped": true,
+    "volumePreserved": true,
+    "qaServerStopped": true,
+    "existingPort3000Preserved": true
+  },
+  "httpSuiteNames": [
+    "test:integration",
+    "test:site",
+    "test:hotmart-http",
+    "test:kiwify-http",
+    "test:cakto-http",
+    "test:commercial-csv-http",
+    "test:commercial-imports-http",
+    "test:catalog-resolutions-http",
+    "test:transaction-review-http",
+    "test:financial-resolutions-http",
+    "test:report-evidence-http",
+    "test:brevo-webhook-http",
+    "test:analytics-http",
+    "test:admin-recovery"
+  ],
+  "harnessChanges": [
+    "CHECKOUT_ALLOWED_HOSTS_* recebe pay.example.invalid para os testes de checkout",
+    "CHECK_HTTP_PORT permite executar em porta loopback alternativa sem interromper servidor existente"
+  ],
+  "knownWarnings": [
+    "Dois avisos de lint preexistentes em migrations/20261021_233105_sequences.ts",
+    "Aviso pg/Drizzle durante testes de integração"
+  ],
+  "limitations": [
+    "P03 continua aberta: CSV de treze colunas permanece inalterado; sem parser de exportações nativas",
+    "P04 a P07 e homologações H01 a H06 continuam pendentes",
+    "Sem imagem final de produção, teste de banco vazio/upgrade de release, restore, QA visual, GitHub, VPS ou operação real"
+  ],
+  "sourceSHA256": {
+    "src/modules/commerce/report-evidence.ts": "6086bed0c038a1de4c9219ab5de72243c510f711c201f314717eda1b88938682",
+    "src/modules/commerce/report-evidence-http.ts": "a28182360435fed709081b61431e7ebacc786f30a2b2389df6e65b0752feba11",
+    "src/app/(site)/api/v1/admin/report-evidence/batch/route.ts": "b8f7d495874cfbcf43c5483ba9a6446580a0e0bdfa11d61ba9a4142170c75826",
+    "tests/integration/report-evidence.ts": "56ad736a7dea66a1747740aa62a38cbe00745eac3ec1091e3c5cd8495f16392c",
+    "tests/integration/report-evidence-http.ts": "30c5e06a31a780a5b2583778f86d616299b189c01579d4eaf9b5f39ad972fae6",
+    "scripts/check-http.sh": "4f0b85878e36870393458b1912eb03790463f8ea8d685ffad3f19de114b76279",
+    "pendencias.md": "1567c06a07d5532b33799e04718d063606db490ae09f402848f8395254ded457",
+    "docs/06-interfaces.md": "f2bceec1cce1fb64b411c72dfdee0137a9f7a2d05ac80a6dcfe952e35d1a85a6",
+    "docs/13-backlog.md": "9f3dc436a4e588859f97c7ff75920f7dc8025f6cefc50510cd0007f01f94cbb8",
+    "docs/14-progresso.md": "6ad01ba9899cad394b376b183c29085e3bd1043900373851398cc89f074eea8e",
+    "docs/20-execucao-local.md": "cbb2fd954ab81c6f5ce2a887a3e1d68545736065425a94adeae2a7a1a3421c97",
+    "docs/23-estado-atual.md": "03d0f1ca4ee0d061fab5856dc5efe9835a692bb4302f7ffcd2e7be445bd6c36b",
+    "docs/24-conciliacao.md": "1026c40160660bef5c7562e2a7ab49a12a5e5399db657c2598dbdb3435e44c93"
+  }
+}

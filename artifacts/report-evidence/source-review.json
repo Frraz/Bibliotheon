@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-25T04:38:24.993442+00:00",
+  "purpose": "Conferir a fronteira com contratos nativos; nenhuma mudança em autenticação, campos ou estados dos adaptadores.",
+  "observations": [
+    {
+      "url": "https://developers.hotmart.com/docs/pt-BR/2.0.0/webhook/purchase-webhook/",
+      "result": "Página retornou apenas iframe no leitor; campos nativos não revalidados nesta consulta."
+    },
+    {
+      "url": "https://docs.kiwify.com.br/api-reference/webhooks/receiving.md",
+      "result": "Não acessível pelo leitor nesta consulta."
+    },
+    {
+      "url": "https://docs.cakto.com.br/conceitos/webhooks.md",
+      "result": "Não acessível pelo leitor nesta consulta."
+    },
+    {
+      "url": "https://ajuda.kiwify.com.br/pt-br/article/como-funcionam-os-webhooks-2ydtgl/",
+      "result": "Fonte oficial localizada; não comprova esquema de exportação financeira."
+    },
+    {
+      "url": "https://ajuda.cakto.com.br/pt-br/articles/1-como-funcionam-os-webhooks-na-cakto-guia-completo",
+      "result": "Fonte oficial localizada; não comprova esquema de exportação financeira."
+    }
+  ],
+  "conclusion": "Somente contrato próprio canônico conferido pelo operador. Nenhum parser de relatório nativo, campo presumido, contrato de conta homologado ou alteração de adaptador."
+}

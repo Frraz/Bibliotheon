@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-25T19:14:39.504Z",
+  "timezone": "UTC",
+  "checks": [
+    "Prévia reporta apenas contagens e não altera eventos, permissões ou agregados.",
+    "Aplicação agrega por dia/dimensão em uma transação por fonte, remove evento identificável, visita e limites expirados, preserva permissão ativa sem contexto de sessão; repetição é idempotente.",
+    "Reexecução não duplica contagens; agregados não contêm UUID de clique, grant ou visita.",
+    "Downgrade recusa remover agregados históricos."
+  ],
+  "externalCalls": false,
+  "limits": "Fixtures PostgreSQL sintéticas; política de retenção de cadastro comercial e reaplicação pós-restore continuam fora desta etapa."
+}

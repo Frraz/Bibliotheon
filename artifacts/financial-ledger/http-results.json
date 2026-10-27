@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-25T06:21:31.977Z",
+  "checks": [
+    "HTTP owner/origem/MIME e coleções nativas protegem liquidação/custos; repetição idempotente, conflito e vínculo transacional não verificado são tratados sem escrita indevida.",
+    "Prévia responde privada, limita datas, mantém recebido/custos separados e não afirma margem completa; cadastro não cria evento comercial."
+  ],
+  "schemaMigrations": 28,
+  "externalCalls": false,
+  "limits": "HTTP local sintético; prova transcrita pelo owner, sem relatório nativo homologado, interface ou operação real."
+}

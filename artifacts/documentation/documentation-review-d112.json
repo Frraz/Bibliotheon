@@ -1,0 +1,370 @@
+{
+  "phase": "D112",
+  "date": "2026-10-27T00:29:45.936925+00:00",
+  "status": "passed",
+  "scope": "Revisao documental integral apos descadastro/retencao tematica e replay v4.",
+  "previousReview": "artifacts/documentation/documentation-review-d111.json",
+  "documentsReviewed": 49,
+  "documentsUpdated": 20,
+  "documentsRetained": 29,
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "title": "# Instruções de trabalho — Bibliotheon",
+      "sha256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "DESIGN-BRIEF.md",
+      "title": "# Bibliotheon — Design Brief",
+      "sha256": "89b8ac56fbeb2eec1753bbe3f476801bfb154e56aafa3acc5482e80f69790e19",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "README.md",
+      "title": "# Bibliotheon",
+      "sha256": "9bfabd18b222c485e1de6dad38ce134d70a552810abc63670831c17264ae3ee6",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "deploy.md",
+      "title": "# Deploy do Bibliotheon na VPS",
+      "sha256": "668615f2e156464f71020c50cfc4fafc935544efa0a5433c31872ed2fff0eaed",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/01-visao-estrategia.md",
+      "title": "# 01 — Visão e estratégia",
+      "sha256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/02-requisitos.md",
+      "title": "# 02 — Requisitos e jornadas",
+      "sha256": "ca04893c7063f861fbd10babbb8c0a9f53bdd56d534015a372944c81df19b58c",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/03-experiencia.md",
+      "title": "# 03 — Experiência, páginas e painel",
+      "sha256": "dc0792a00592db67104055ea495a701937ed9a27401b13529e7da108bd6afb5a",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/04-arquitetura.md",
+      "title": "# 04 — Arquitetura",
+      "sha256": "727aeb464ccb977ad51b1c7fd4f885aabb64cae4ebcd067b0576a1357825eb76",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/05-dados.md",
+      "title": "# 05 — Modelo de dados e invariantes",
+      "sha256": "22cfd0032d598093241cc6da07396052ba36e29035effc766632c944638ba8f9",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/06-interfaces.md",
+      "title": "# 06 — Interfaces e contratos internos",
+      "sha256": "e3978e02c9e539ab30a8e5874188e12ac1a5a383c7acc469d1cd7bb789aed03e",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/07-integracoes.md",
+      "title": "# 07 — Integrações comerciais",
+      "sha256": "91439bb295d579ffd7441b267d36335fa793428078c60a8fbdb78fb4e1eddb37",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/08-aquisicao.md",
+      "title": "# 08 — Aquisição, conteúdo e relacionamento",
+      "sha256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/09-metricas.md",
+      "title": "# 09 — Medição e decisões",
+      "sha256": "a272da5722de49b7b8da56d814e3f870b62fbfc650dfced1f7a08104f13a89cd",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/10-infraestrutura.md",
+      "title": "# 10 — Infraestrutura e implantação planejada",
+      "sha256": "119ad53241c8272271690b4919e0efb6732545c9fe4cfbc950c9e0fa4cdef36f",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/11-operacao.md",
+      "title": "# 11 — Runbooks de operação",
+      "sha256": "7dd7531624c2cf236b3c2ed29adfde5c82b83767414800f92d41786fd3f97b2e",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/12-seguranca-privacidade.md",
+      "title": "# 12 — Segurança e privacidade",
+      "sha256": "211e4ce86216343a9383cb12d383ac605209af6bedff309a85ae185e223c69dc",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/13-backlog.md",
+      "title": "# 13 — Backlog de implementação",
+      "sha256": "c05733347c111c2a25d4dbb1a658fbd98b2683ce17d115554dd0a18a2de362ec",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/14-progresso.md",
+      "title": "# 14 — Progresso e retomada",
+      "sha256": "bd1bc77acf01e29b7c36fdb88ad4a5b5bc8bb7248b580af43c24873d5bf80ec8",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/15-qualidade.md",
+      "title": "# 15 — Qualidade e homologação",
+      "sha256": "bcdff4d8419c9371c0532970603659ac217ff5300985cb97d9464148f431f6fb",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/16-referencias.md",
+      "title": "# 16 — Referências e limites da pesquisa",
+      "sha256": "f9513367a919e21012b8fe17e620e3bb21e7a157dee032683652cfe8a3223b32",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/17-decisoes.md",
+      "title": "# 17 — Registro de decisões",
+      "sha256": "679ee8b5dd17da8345bfbbb47b1e790a10f11b4f2c172978d05cf7e3e81b3efb",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/18-validacao.md",
+      "title": "# 18 — Validação da entrega documental",
+      "sha256": "9d1e49d7ca7b920e24600d7f887178578957a695f96d61434cff1a4ad250a275",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/19-desenvolvimento.md",
+      "title": "# 19 — Implementação e evidências locais",
+      "sha256": "12a377b99c3de1fa2abac883dc2ae6490f3893645639aee4d2038354366e6d55",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/20-execucao-local.md",
+      "title": "# 20 — Executar o Bibliotheon localmente",
+      "sha256": "63b2a03b0e3e9bd8ff57ce2f9fafbf3469d5a9b2eaff9ed72d0dfb683cce7a2c",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/21-pacote-producao.md",
+      "title": "# 21 — Pacote de produção e validação local",
+      "sha256": "3868ce2c4a173f228214009ba271633d8dde76ee08d802b8035ae4cbd2c79886",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/22-lancamento.md",
+      "title": "# 22 — Preparação do primeiro lançamento",
+      "sha256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/23-estado-atual.md",
+      "title": "# 23 — Estado atual e mapa da implementação",
+      "sha256": "046dfa482d2aedfe893425b3465a3c00daf2db7ea0cf421c483685d48ba2dab6",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/24-conciliacao.md",
+      "title": "# 24 — Conciliação comercial e CSV",
+      "sha256": "857378c903d892a5230139c3513f20dde7d2944ef1b17617f87a5d5667b83d8b",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/01-identidade.md",
+      "title": "# Identidade, imagem e referências",
+      "sha256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/02-tokens.md",
+      "title": "# Tokens, cores e tipografia",
+      "sha256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/03-componentes.md",
+      "title": "# Componentes e estados",
+      "sha256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/04-paginas.md",
+      "title": "# Wireframes de páginas públicas",
+      "sha256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/05-painel.md",
+      "title": "# Design do painel administrativo",
+      "sha256": "9e3f36fdf968ace9ee8787ff9de69a130864a54278e2dbb7f7a160f3480d22ee",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/06-comportamento.md",
+      "title": "# Responsividade, tema e movimento",
+      "sha256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/07-qualidade.md",
+      "title": "# Qualidade visual e aceite",
+      "sha256": "54df9190c42695c74881bc8e57e63412720e7b0e2873f74f9e2bd3bd665b4097",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/08-skills-referencias.md",
+      "title": "# Skills aplicadas e fontes",
+      "sha256": "07757dc67fad5752d06fbc8c97b1071786def65cb6fd8f3b569639de6c040af5",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/design/09-contrastes.md",
+      "title": "# Contrastes calculados",
+      "sha256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/integracoes/brevo.md",
+      "title": "# Brevo — calendário, campanhas e supressão",
+      "sha256": "89e699c0d422bcb4e17826d7a3a0a5841d2fb42d3a000fd44578cdb9b94e6d1b",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/integracoes/cakto.md",
+      "title": "# Cakto — contrato e operação",
+      "sha256": "8ccfc7dfb8d0bd82257f9b8d4e772de2c5dc00a19db0227ee7ab7fe4915cf6b0",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/integracoes/hotmart.md",
+      "title": "# Conector Hotmart",
+      "sha256": "688db5c2ff8be6353b10bfa332da4d99c7f11182c5ccfa45c96b8b924339e026",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/integracoes/kiwify.md",
+      "title": "# Kiwify — contrato e operação",
+      "sha256": "c58e2efd22fc649666b6ae142398cdcf23d49d4187d74b95d18080e5c0b94e20",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/templates/01-briefing-livro.md",
+      "title": "# Modelo — Briefing do livro",
+      "sha256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/templates/02-copy-lp.md",
+      "title": "# Modelo — Copy e revisão da LP",
+      "sha256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/templates/03-campanha.md",
+      "title": "# Modelo — Campanha inicial",
+      "sha256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/templates/04-kit-afiliados.md",
+      "title": "# Modelo — Kit de afiliados",
+      "sha256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/templates/05-revisao-semanal.md",
+      "title": "# Modelo — Revisão semanal",
+      "sha256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "docs/templates/06-homologacao.md",
+      "title": "# Modelo — Homologação e release",
+      "sha256": "eef6577a5b2ab50f46e995dbcd6497d5917edffdb525e93d09d5cba07e40c7a3",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    },
+    {
+      "path": "docs/templates/README.md",
+      "title": "# Modelos operacionais",
+      "sha256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051",
+      "action": "retained",
+      "basis": "Contrato conferido; sem impacto desta etapa."
+    },
+    {
+      "path": "pendencias.md",
+      "title": "# Pendências para colocar o Bibliotheon em produção",
+      "sha256": "2904c1074eaa76fac9cb37c62bc74f4612affbb6c08d43b18e20b18404fbe89d",
+      "action": "updated",
+      "basis": "D112: schema, descadastro tematico, retencao, confirmacao e replay v4 alinhados."
+    }
+  ],
+  "validation": {
+    "command": "python3 scripts/validar_documentacao.py",
+    "status": "passed",
+    "localLinks": 1338,
+    "requirements": 34,
+    "tasks": 20,
+    "scenarios": 29,
+    "externalUrlsUnverified": 110
+  },
+  "limitations": [
+    "P07 permanece parcial: legado sem fato verificavel, contatos ativos, demais finalidades, compartilhamentos, provedor e ledger.",
+    "Imagem final, homologacoes, guarda externa atual e RPO/RTO reais permanecem pendentes.",
+    "Replay preserva consentimento posterior presente no snapshot; nao recria um opt-in perdido apos o backup.",
+    "Meta maxima de 30 dias ainda exige alinhamento entre cutoff e agendamento diario."
+  ]
+}

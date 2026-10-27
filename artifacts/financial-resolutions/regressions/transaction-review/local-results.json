@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-25T03:50:24.769Z",
+  "checks": [
+    "Colisão cujo segundo envelope nomeia outra transação sinaliza ambos os lados sem editar valores/fatos. Migração repara flags legadas; mesmo flag ausente não permite nova aplicação/retry da segunda transação.",
+    "Expansão A–B–C cobre cinco recibos/sete variantes e é simétrica por raiz. Cobertura completa permite apenas simular projeções; conflito financeiro e seleção parcial bloqueiam. Hold conserva desconhecidos, e todas as prévias deixam ledger/auditoria intactos.",
+    "CSV e confirmação também bloqueiam transação presente só em variante de colisão. Novo ID ainda sem projeção permanece em quarentena quando outro recibo limpo chega; nenhum registro de venda é criado.",
+    "Hotmart/Kiwify/Cakto e aliases de conta isolam as chaves; colisão de uma conta não bloqueia a aplicação de eventos independentes.",
+    "Hash divergente recusa prévia sem aceitar envelope adulterado. Falha de auditoria na recepção reverte nova variante e flags; nenhum ACK falso ou mudança parcial de projeção.",
+    "Recepção de colisão e worker da segunda transação executados concorrentemente convergem para quarentena dos dois IDs; não sobra projeção considerada válida sem revisão.",
+    "Handler usa autenticação Payload real e origem exata, recusa ator forjado e retorna apenas prévia privada/provisória. Sem fonte não inventa transação; nenhum endpoint de confirmação ou escrita financeira foi adicionado."
+  ],
+  "externalCalls": false,
+  "migrationUnderTest": 24,
+  "limits": "Prévia de componente e quarentena; P02 permanece parcial sem decisão financeira durável/aplicação. Sem provedores reais, relatório nativo, liquidação/custos, UI ou homologação externa."
+}

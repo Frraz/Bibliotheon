@@ -15,7 +15,7 @@ export async function stageCommercialImport(payload:Payload,actor:ImportActor,by
   if(existing){if(existing.requestHash!==requestHash)throw new CommercialImportError(409,'idempotency_conflict');return{state:existing.state,id:existing.id,planHash:existing.planHash,duplicate:true}}
   await lockCommercialAccounts(req,[parsed.lines[0].row])
   const plan=await buildImportPlan(payload,parsed,req,now)
-  const batch=await payload.create({collection:'commercial-import-batches',data:{key,requestHash,fileHash:parsed.fileHash,manifestHash:importManifestHash(parsed),planHash:plan.planHash,...source,actor:owner.id,state:plan.state,rowCount:parsed.lines.length,counts:plan.counts,stagedAt:new Date(now).toISOString()},overrideAccess:true,req})
+  const batch=await payload.create({collection:'commercial-import-batches',data:{key,kind:'snapshot',requestHash,fileHash:parsed.fileHash,manifestHash:importManifestHash(parsed),planHash:plan.planHash,...source,actor:owner.id,state:plan.state,rowCount:parsed.lines.length,counts:plan.counts,stagedAt:new Date(now).toISOString()},overrideAccess:true,req})
   await storeImportRows(req,batch.id,parsed,plan)
   await payload.create({collection:'commercial-import-audit',data:{batch:batch.id,actor:owner.id,action:'staged',occurredAt:new Date(now).toISOString(),reason:source.reason},overrideAccess:true,req})
   return{state:batch.state,id:batch.id,planHash:batch.planHash,duplicate:false}

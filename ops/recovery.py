@@ -156,7 +156,7 @@ def restore(args):
         target.mkdir(parents=True, exist_ok=True)
         shutil.copytree(content / 'uploads', target, dirs_exist_ok=True)
         age = (datetime.now(timezone.utc) - datetime.fromisoformat(manifest['capturedAt'])).total_seconds()
-        print(json.dumps({ 'status': 'restored_isolated', 'durationSeconds': round(time.monotonic() - started, 2), 'snapshotAgeSeconds': round(age, 2), 'mediaFiles': len(files), 'outboundServicesStarted': False, 'limitations': 'Idade do snapshot não comprova RPO de produção; reaplicar exclusões/supressões antes de qualquer envio.' }))
+        print(json.dumps({ 'status': 'restored_isolated', 'capturedAt': manifest['capturedAt'], 'privacyReplayRequired': True, 'durationSeconds': round(time.monotonic() - started, 2), 'snapshotAgeSeconds': round(age, 2), 'mediaFiles': len(files), 'outboundServicesStarted': False, 'limitations': 'Idade do snapshot não comprova RPO de produção; reaplicar exclusões/supressões antes de qualquer envio.' }))
 
 
 def main():

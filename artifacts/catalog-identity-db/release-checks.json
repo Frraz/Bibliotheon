@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-25T00:28:48.881780+00:00",
+  "baseCommit": "cba2edb934d66319ad3b26bd35c25266caed93f0",
+  "worktree": "D70/D71 sem commit/push; hashes abaixo identificam fontes testadas",
+  "worktreeSha256": {
+    "migrations/20261024_231500_offer_identity_guard.ts": "3d37c72c60f8fd0f5c47fd405e7063948fdeda4d4c617b2e0e18ca46f2f9d0d8",
+    "migrations/index.ts": "3eff2734f7b62c0016baac03a75a8cf810a9ace3339d228249c0fef5182355fd",
+    "src/collections/Offers.ts": "91714bdc7abcee8eb9aa5931eebdd15ccbb706c3aa57434ab67bc1b2de4a6558",
+    "src/modules/commerce/lock.ts": "7286fd89802e0edfd4b3a36e24617656be32982523c109b68f3159fa93a74277",
+    "tests/fixtures/commerce.ts": "0091e99536be1c2b4f854fcf4819a3dd595d934b394b6575c3ccdb85d3ca382c",
+    "tests/integration/catalog-identities.ts": "8d9f3910faf23e52821d20e33e7095d1642f1fda67482570894ac66f3d2047b1",
+    "tests/integration/catalog-identity-db.ts": "ef313d9b5b792a6753fb1fcb8bc5b39885059d5d738ccda2b38f7e7171ac1567",
+    "tests/integration/commercial-inbox.ts": "7d9c0c8d9688b94b2580f078d36beff6aa9124377071d190206dfe66180d1322",
+    "tests/integration/commercial-csv.ts": "c0053a5ae4b1db788d1d1bda46ce9a743b022b635e95662ddc1a63e68461a5c7",
+    "tests/integration/commercial-imports.ts": "dadaa273d9e89f5c550c55c001a2407c8641390540f05d42f867e3f6548d3293",
+    "scripts/check-integration.sh": "73f3c4f07e7a1f4aaa45b983fa025140f0b2110b44b6374df3e9cff24f8b73a5",
+    "package.json": "4553fec1311451ed980e59ceaeeb603f3a74afce2aad959cb27ebca2df00803e"
+  },
+  "environment": "PostgreSQL 17.9 loopback, fixtures sintéticas e papel efêmero sem DDL",
+  "checks": {
+    "npm run db:migrate": {
+      "passed": true,
+      "upgrade": "21 para 22 no banco local"
+    },
+    "npm run check": {
+      "passed": true,
+      "unitTests": 192,
+      "unitFiles": 27,
+      "opsTests": 57,
+      "lintErrors": 0,
+      "lintWarnings": 2,
+      "documentation": true
+    },
+    "npm run typecheck && npm run lint": {
+      "passed": true,
+      "afterFixtureUpdates": true
+    },
+    "test:catalog-identity-db": {
+      "passed": true,
+      "groups": 6,
+      "concurrencyObserved": "pg_locks"
+    },
+    "test:catalog-identities": {
+      "passed": true,
+      "groups": 4
+    },
+    "test:catalog": {
+      "passed": true
+    },
+    "test:commercial-inbox": {
+      "passed": true,
+      "groups": 12,
+      "runtimeCLIsBundled": true
+    },
+    "test:commercial-csv": {
+      "passed": true,
+      "groups": 5
+    },
+    "test:commercial-imports": {
+      "passed": true,
+      "groups": 10
+    },
+    "cleanupCounts": {
+      "passed": true,
+      "artifact": "cleanup-counts.json"
+    }
+  },
+  "syntheticConfirmation": "BIBLIOTHEON_SYNTHETIC_TESTS=true em todas as suites de banco",
+  "warnings": [
+    "pg/Drizzle query concorrente reproduzido; causa histórica não resolvida.",
+    "Dois parâmetros não utilizados na migration de sequências."
+  ],
+  "limits": [
+    "Migração 22 testada vazia/up-down em transação revertida, upgrade local21->22 e sobre duplicatas legadas; não é teste integral das22 em imagem vazia/restore.",
+    "Sem novo build Next, HTTP, browser, container, homologação externa ou CI GitHub.",
+    "P01 continua aberta para resolução histórica auditada; sem deploy/vendas/envios reais."
+  ]
+}

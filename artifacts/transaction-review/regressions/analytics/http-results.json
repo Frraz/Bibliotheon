@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25T02:43:55.544Z",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "Sem aceite não há identificador/sessão; rejeição é não identificável; origem externa, página sensível e compra enviada pelo browser são recusadas.",
+    "Aceite explícito usa cookie __Host/HttpOnly/Secure; token não aparece no JSON. Visualização autenticada é deduplicada no servidor.",
+    "Redirecionamento HTTP mantém URL afiliada exatamente e separa saída operacional de saída consentida; nenhum clickId é acrescentado ao provedor.",
+    "Retirada bloqueia replay do cookie antigo e coleções analíticas permanecem privadas por HTTP.",
+    "Aviso institucional não revisado bloqueia nova coleta/aceite; retirada de permissão existente continua disponível.",
+    "Fallback de formulário nativo revoga sem JavaScript e só redireciona para privacidade; parâmetros duplicados são recusados."
+  ],
+  "externalCalls": false,
+  "limits": "HTTP loopback e dados sintéticos; checkout externo não foi seguido."
+}

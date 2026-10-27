@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-25T06:23:14Z",
+  "migration": 28,
+  "database": "PostgreSQL local sintético em loopback; migration 28 aplicada; sem acesso a produção",
+  "commands": [
+    "npm run db:migrate",
+    "BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:financial-ledger"
+  ],
+  "checks": [
+    "Down/up vazio executado em transação sintética com rollback; downgrade recusa registros existentes.",
+    "Liquidação exige transação aprovada, data e moeda compatíveis; repetição é idempotente, conflito é recusado e correções substituem sem editar a linha anterior.",
+    "Créditos e débitos são somados separadamente; custos confirmados/estimados têm substituição append-only.",
+    "Totais financeiros permanecem null quando a cobertura por transação é incompleta; sobreposição de reembolso/chargeback desconhecida bloqueia subtotal líquido.",
+    "Relatório conserva moedas, coortes e períodos independentes; transações sem data de aprovação são contadas fora da janela; margem permanece incompleta."
+  ],
+  "externalCalls": false,
+  "fixturesCleaned": true,
+  "limits": "Somente validação local sintética. Sem parser de relatório nativo, fonte/conta homologada, UI, release final, VPS ou operação real."
+}

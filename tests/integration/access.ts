@@ -23,7 +23,7 @@ try {
   id = created.id
   const anonymous = await fetch(base + '/api/admin-users')
   assert.equal(anonymous.status, 403)
-  for (const collection of ['commercial-inbox','commercial-conflicts','transactions','transaction-events','commercial-audit','analytics-grants','visits','page-views','checkout-clicks','analytics-limits','email-campaign-batches', 'promotion-deliveries', 'sequence-enrollments', 'brevo-suppressions', 'brevo-registrations', 'brevo-webhook-events', 'brevo-delivery-receipts', 'brevo-campaign-observations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens']) {
+  for (const collection of ['commercial-inbox','commercial-conflicts','transactions','transaction-events','commercial-audit','analytics-grants','visits','page-views','checkout-clicks','analytics-limits','email-campaign-batches', 'promotion-deliveries', 'sequence-enrollments', 'brevo-suppressions', 'brevo-registrations', 'brevo-webhook-events', 'brevo-delivery-receipts', 'brevo-campaign-observations', 'brevo-campaign-sends', 'brevo-campaign-drafts', 'brevo-batch-lists', 'preference-tokens', 'contact-retirements', 'theme-withdrawals']) {
     assert.equal((await fetch(base + `/api/${collection}`)).status, 403)
     assert.equal((await post(`/api/${collection}`, {})).status, 403)
   }

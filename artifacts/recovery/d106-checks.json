@@ -1,0 +1,48 @@
+{
+  "phase": "D106",
+  "date": "2026-10-26T03:09:47.103127+00:00",
+  "environment": "local sintetico exclusivo",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 288,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:recovery": {
+      "status": "passed",
+      "physicalRestore": true,
+      "migrations": 32,
+      "manifestVersion": 2,
+      "externalSends": 0
+    },
+    "finalFixtureTypecheckAndLint": "passed",
+    "runtimeBundle": "passed",
+    "resticVersion": "0.19.1",
+    "git diff --check": "passed"
+  },
+  "sourceSHA256": {
+    "scripts/qa-recovery.ts": "98811d526dc19e380f7af4ed66b44dcd88fd1261b4387788a2c657f37f4f8ba8",
+    "src/payload.config.ts": "f6e0fc8551448269c6a938ea96579287af808879b69c6d10dd75f196c776db84",
+    "ops/recovery.py": "5f9326d69f297dccc183fdf25ed30dcd3d24ae17dfbfe76c683f2df5e432d14b",
+    "package.json": "a3246e3274800d090f4878ded590fc7e770e476ea456fa50c9bf41c6f1395bfc",
+    "migrations/index.ts": "a3ea52bfb7cb6f131cb2db6892d42e0b0bfb61765cf2f848484cbce9299fcafc"
+  },
+  "packagedCLISHA256": "5ecf355f90f58f5be4ac8b301f5b5743b5678e7d05392eb1f8d9692b6eed0617",
+  "limitations": [
+    "Imagem atual e banco vazio/upgrade ainda nao homologados.",
+    "Backup/manifesto externos e RPO/RTO reais permanecem abertos.",
+    "Aviso pg/Drizzle de queries concorrentes permanece em H06."
+  ],
+  "productionChanged": false,
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourcePrivacyAudits": 0,
+    "sourceSuppressionTombstones": 0,
+    "sourceLocalDatabaseStopped": true,
+    "isolatedResourcesRemoved": true
+  }
+}

@@ -59,8 +59,8 @@ body { overflow-x: clip; overflow-y: visible; }
 .bibliotheon-operational-form summary { cursor: pointer; padding-block: .75rem; }
 .bibliotheon-operational-form .bibliotheon-review { display: flex; align-items: flex-start; gap: .75rem; margin-block: 2rem; }
 .bibliotheon-review input { width: 1.5rem; height: 1.5rem; flex-shrink: 0; accent-color: var(--color-mineral); margin: 0; }
-.bibliotheon-operational-form button { min-height: 44px; padding: .75rem 1.25rem; background: var(--color-action); color: var(--color-onAction); border: 1px solid var(--color-action); border-radius: .25rem; font: inherit; font-weight: 600; cursor: pointer; }
-.bibliotheon-operational-form button:disabled { background: var(--color-raised); color: var(--color-muted); border-color: var(--color-border); cursor: default; }
+.bibliotheon-operational-form button,.bibliotheon-catalog-preview button { min-height: 44px; padding: .75rem 1.25rem; background: var(--color-action); color: var(--color-onAction); border: 1px solid var(--color-action); border-radius: .25rem; font: inherit; font-weight: 600; cursor: pointer; }
+.bibliotheon-operational-form button:disabled,.bibliotheon-catalog-preview button:disabled { background: var(--color-raised); color: var(--color-muted); border-color: var(--color-border); cursor: default; }
 .bibliotheon-operational-form [role=alert] { border-left: 3px solid var(--color-border); padding-left: 1rem; }
 .bibliotheon-sequence-copy { margin-block: 2rem; max-width: 70ch; }
 .bibliotheon-sequence-copy details { border-top: 1px solid var(--color-divider); padding-block: .5rem; }
@@ -87,3 +87,92 @@ body { overflow-x: clip; overflow-y: visible; }
 
 .bibliotheon-commercial-history a { display: inline-flex; align-items: center; min-height: 44px; }
 .bibliotheon-commercial-history pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .875rem; }
+
+/* Financial preview keeps monetary facts readable without implying profit or conversion. */
+.bibliotheon-financial-report header { max-width: 68ch; }
+.bibliotheon-financial-filters { max-width: 58rem; }
+.bibliotheon-financial-filter-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,12rem),1fr)); gap: 1rem; }
+.bibliotheon-financial-filter-grid label { min-width: 0; }
+.bibliotheon-financial-filters button { margin-top: 1.25rem; }
+.bibliotheon-financial-report .bibliotheon-financial-note { border-left: 3px solid var(--color-border); padding-left: 1rem; }
+.bibliotheon-financial-currency h2 { font-family: var(--font-serif); }
+.bibliotheon-financial-values { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap: 1.5rem; }
+.bibliotheon-financial-values div { min-width: 0; border-left: 1px solid var(--color-border); padding-left: 1rem; }
+.bibliotheon-financial-values dt,.bibliotheon-financial-values small { color: var(--color-muted); }
+.bibliotheon-financial-values dd { margin: .5rem 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.bibliotheon-financial-values small { display: block; margin-top: .25rem; }
+.bibliotheon-financial-details summary { cursor: pointer; min-height: 44px; padding-block: .75rem; }
+.bibliotheon-financial-table-wrap { max-width: 100%; overflow-x: auto; border: 1px solid var(--color-border); }
+.bibliotheon-financial-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.bibliotheon-financial-table caption { text-align: left; padding: .75rem; font-weight: 600; }
+.bibliotheon-financial-table th,.bibliotheon-financial-table td { padding: .75rem; border-top: 1px solid var(--color-divider); text-align: left; vertical-align: top; white-space: nowrap; }
+
+.bibliotheon-import-form { max-width: 58rem; }
+.bibliotheon-commercial-imports { line-height: 1.5; }
+.bibliotheon-commercial-imports :is(p,li,dt,dd,label,summary,legend,button,a) { line-height: 1.5; }
+.bibliotheon-commercial-imports :is(h1,h2,h3) { line-height: 1.25; }
+.bibliotheon-import-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-block: 1.5rem; }
+.bibliotheon-import-lines { list-style: none; padding: 0; }
+.bibliotheon-import-lines > li { border-top: 1px solid var(--color-divider); padding-block: 1.25rem; overflow-wrap: anywhere; }
+.bibliotheon-import-lines p { margin-block: .5rem; }
+.bibliotheon-import-lines summary,.bibliotheon-import-help summary,.bibliotheon-import-audit summary { min-height: 44px; padding-block: .75rem; cursor: pointer; }
+.bibliotheon-import-counts { display: flex; flex-wrap: wrap; gap: .5rem 2rem; }
+.bibliotheon-import-identifier { overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.bibliotheon-import-confirmation { margin-block: 2rem; border-left: 3px solid var(--color-border); padding-left: 1rem; }
+.bibliotheon-import-form a,.bibliotheon-import-lines > li > a { display: inline-flex; align-items: center; min-height: 44px; }
+
+.bibliotheon-ledger-records { line-height: 1.5; }
+.bibliotheon-ledger-records :is(p,li,dt,dd,label,summary,legend,button,a) { line-height: 1.5; }
+.bibliotheon-ledger-records :is(h1,h2,h3) { line-height: 1.25; }
+.bibliotheon-ledger-form { max-width: 62rem; }
+.bibliotheon-ledger-fields { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap: 1rem; }
+.bibliotheon-ledger-fields > div { min-width: 0; }
+.bibliotheon-ledger-records .bibliotheon-financial-note { border-left: 3px solid var(--color-border); padding-left: 1rem; overflow-wrap: anywhere; }
+.bibliotheon-ledger-records .bibliotheon-review { display: flex; align-items: flex-start; gap: .75rem; min-height: 44px; }
+.bibliotheon-ledger-history { list-style: none; padding: 0; }
+.bibliotheon-ledger-history > li { border-top: 1px solid var(--color-divider); padding-block: 1rem; overflow-wrap: anywhere; }
+.bibliotheon-ledger-history summary { cursor: pointer; min-height: 44px; padding-block: .75rem; }
+.bibliotheon-ledger-records a { overflow-wrap: anywhere; }
+.bibliotheon-ledger-filter button { margin-block: 1rem; }
+
+/* D82: decisões auditadas de catálogo na extensão suportada do Payload. */
+.bibliotheon-catalog-resolutions :is(p,li,dt,dd,label,summary,legend,button,a,h1,h2,h3) { line-height: 1.55; overflow-wrap: anywhere; }
+.bibliotheon-catalog-resolutions :is(section,fieldset,details,form,dd) { min-width: 0; }
+.bibliotheon-catalog-resolutions :is(input,select,button) { max-width: 100%; }
+.bibliotheon-catalog-form fieldset { display: grid; gap: .75rem; border: 1px solid var(--theme-elevation-200); padding: 1rem; }
+.bibliotheon-catalog-preview > button { margin: .75rem .75rem .75rem 0; }
+.bibliotheon-catalog-resolutions details { margin-block: 1rem; }
+.bibliotheon-catalog-resolutions summary { cursor: pointer; padding-block: .75rem; }
+.bibliotheon-catalog-feedback:empty { display: none; }
+
+.bibliotheon-catalog-resolutions [hidden] { display: none; }
+.bibliotheon-catalog-preview .bibliotheon-ledger-checkbox { display: flex; align-items: flex-start; gap: .75rem; padding-block: .75rem; }
+.bibliotheon-catalog-preview .bibliotheon-ledger-checkbox input { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; margin-top: .2rem; }
+
+.bibliotheon-catalog-resolutions a { display: inline-block; min-height: 44px; max-width: 100%; }
+
+/* D83: seleção e prova financeira, usando controles e tokens existentes. */
+.bibliotheon-financial-resolutions :is(p,li,dt,dd,label,summary,legend,button,a,h1,h2,h3) { line-height: 1.55; overflow-wrap: anywhere; }
+.bibliotheon-financial-resolutions :is(section,fieldset,details,form,dd,article) { min-width: 0; }
+.bibliotheon-financial-resolutions [hidden] { display: none; }
+.bibliotheon-financial-resolutions :is(input,select,button) { max-width: 100%; }
+.bibliotheon-financial-resolutions button { min-height: 44px; padding: .75rem 1.25rem; margin-block: .5rem; background: var(--color-action); color: var(--color-onAction); border: 1px solid var(--color-action); border-radius: .25rem; font: inherit; font-weight: 600; cursor: pointer; }
+.bibliotheon-financial-resolutions button:disabled { background: var(--color-raised); color: var(--color-muted); border-color: var(--color-border); cursor: default; }
+.bibliotheon-financial-resolutions a { display: inline-block; min-height: 44px; max-width: 100%; }
+.bibliotheon-financial-resolutions summary { cursor: pointer; min-height: 44px; padding-block: .75rem; }
+.bibliotheon-financial-resolutions details { margin-block: 1rem; }
+.bibliotheon-financial-resolutions .bibliotheon-review-source { border-top: 1px solid var(--color-border); padding-block: 1rem; }
+.bibliotheon-review-confirm { display: flex; align-items: flex-start; gap: .75rem; padding-block: .75rem; }
+.bibliotheon-review-confirm input { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; margin-top: .2rem; }
+
+.bibliotheon-financial-resolutions button { line-height: 1.55; }
+
+/* D84: cobertura/coortes mantêm leitura e controles proporcionais no texto ampliado. */
+.bibliotheon-financial-report :is(p,li,dt,dd,small,th,td,label,summary,legend,button,a,h1,h2) { line-height: 1.55; overflow-wrap: anywhere; }
+.bibliotheon-financial-report :is(input,select,button,fieldset,label,section) { min-width: 0; max-width: 100%; }
+.bibliotheon-financial-report a { display: inline-block; min-height: 44px; max-width: 100%; }
+
+/* D85: detalhamentos usam o scroll regional e disclosures nativos. */
+.bibliotheon-financial-table small { display: block; white-space: normal; min-width: 10rem; max-width: 22rem; }
+.bibliotheon-financial-processing-coverage { display: block; }
+.bibliotheon-financial-report details[id^="financial-"] > summary { cursor: pointer; min-height: 44px; padding-block: .75rem; }

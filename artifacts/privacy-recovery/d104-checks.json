@@ -1,0 +1,44 @@
+{
+  "phase": "D104",
+  "date": "2026-10-25T21:22:13.857251-03:00",
+  "environment": "local sintético exclusivo",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 286,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "test:privacy-recovery": {
+      "status": "passed",
+      "groups": 6,
+      "packagedCLI": true,
+      "manifestMode": "600",
+      "externalCalls": 0
+    },
+    "test:privacy-delete": {
+      "status": "passed",
+      "groups": 2
+    },
+    "python recovery syntax": "passed",
+    "git diff --check": "passed"
+  },
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-recovery-manifest.ts": "e443db917596717dd76ebfa926297e629930802824aa3df1379be824c8eae80a",
+    "src/modules/marketing/privacy-recovery.ts": "3c64da9300604b8983b566ddd86c91a52b11785e9ffb7a4440b8ae24f67f7386",
+    "src/modules/marketing/privacy-delete.ts": "e71551a2721db8aea995edea7a0c1b5714b3e16aa7d67f2b639b2e174e341c8d",
+    "scripts/privacy-recovery.ts": "7e5fdd54e5a6ef37730d974645ecacd85b6c437871ceebe6b2343450c23fbf36",
+    "scripts/build-runtime.mjs": "19bd7dd3d5e936b48f00e8eead92b93e51c1d81e4986980312f0a04761fb5cae",
+    "scripts/check-integration.sh": "316268815dda81f258dd08f43d30439db92579079cb4df63d8f3fd1aca4005b3",
+    "ops/recovery.py": "5f9326d69f297dccc183fdf25ed30dcd3d24ae17dfbfe76c683f2df5e432d14b",
+    "package.json": "488b2905ab5acfc861e76c3300ef90ecce0a92a505110a57270859be6e0c1f67",
+    "tests/unit/privacy-recovery-manifest.test.ts": "87f89df50bc76d9d69d385578f14a57e44b90d61be1d1558e8fbed3b9cfae711",
+    "tests/integration/privacy-recovery.ts": "85e70f25d755a9fbedfe9f859e55548329ca65239441e19d42efebaf5e6cafe2"
+  },
+  "packagedCLISHA256": "bb3c5f727e30c7c6f23fcdfe3725cbe94b9c308fc9a992283a5dd016cf60f18d",
+  "physicalRestoreValidated": false,
+  "externalManifestStorageValidated": false,
+  "productionChanged": false
+}

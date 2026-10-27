@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25T00:28:22.307074+00:00",
+  "environment": "PostgreSQL local loopback; consulta independente psql após suites",
+  "counts": {
+    "offers": 0,
+    "owners": 0,
+    "transactions": 0,
+    "inbox": 0,
+    "importBatches": 0,
+    "migrations": 22,
+    "guardEnabled": "O",
+    "temporaryRoles": 0
+  }
+}

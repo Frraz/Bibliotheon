@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25T18:50:09.551Z",
+  "origin": "http://127.0.0.1:3011",
+  "checks": [
+    "Rota real exige HMAC/timestamp fresco e bytes exatos; secret no corpo não basta. MIME/encoding, JSON inválido, limite e item V2 malformado rejeitados sem recibo parcial; GET retorna 405.",
+    "ACK real somente com dois recibos V2 duráveis; worker desligado não cria venda. Aplicação posterior conserva 29 centavos, taxa de três e data original, sem líquido inferido.",
+    "Reenvio HTTP de V2 com ordem trocada conserva dois fatos; lote misto registra colisão e novo recibo no mesmo commit, preservando projeção anterior.",
+    "V1 e V2 compartilham histórico sem misturar Pix/estorno/MED. Devolução monetária desconhecida e MED para conciliação; recibos não contêm segredo/assinatura/PII.",
+    "Callback HTTP Cakto sintético liga data.sck ao clique consentido e relatório; replay não duplica. Reversões sem quantia mantêm receita null."
+  ],
+  "realProvider": false,
+  "externalCalls": false,
+  "realSales": 0,
+  "fixturesCleaned": true,
+  "limits": "Next loopback e payloads/segredo sintéticos. Aplicação da fila explícita; sem conta ou webhook real da Cakto."
+}

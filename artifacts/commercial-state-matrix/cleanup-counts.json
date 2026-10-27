@@ -1,0 +1,24 @@
+{
+  "phase": "D86",
+  "date": "2026-10-25T17:50:04.937352+00:00",
+  "migrations": 28,
+  "counts": {
+    "admin_users": 0,
+    "contacts": 0,
+    "campaigns": 0,
+    "offers": 0,
+    "catalog_resolutions": 0,
+    "commercial_import_batches": 0,
+    "commercial_report_evidence": 0,
+    "financial_resolutions": 0,
+    "financial_resolution_applications": 0,
+    "transactions": 0,
+    "transaction_events": 0,
+    "commercial_settlement_evidence": 0,
+    "financial_cost_entries": 0
+  },
+  "independentlyCheckedWith": "psql local apos jornada integrada",
+  "databaseStopped": true,
+  "volumePreserved": true,
+  "siteSettingsFixtureBackupsRemaining": 0
+}

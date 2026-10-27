@@ -15,6 +15,7 @@ const errors:Record<string,string> = {
  unsupported_currency_precision: 'A moeda exige conferência de unidade/precisão antes da aplicação.', unsupported_purchase_shape: 'Assinatura, plano ou produto físico exige conciliação específica.', unsupported_native_status: 'O estado nativo exige conferência antes da aplicação.', approval_time_conflict: 'Os eventos divergem na data original de aprovação.',
  unknown_product: 'Produto sem mapeamento no catálogo.', unknown_offer: 'Oferta sem mapeamento no catálogo.',
  ambiguous_product: 'O produto corresponde a mais de um livro.', ambiguous_offer: 'A oferta corresponde a mais de um cadastro.',
+ catalog_resolution_held: 'Associação mantida em revisão por decisão auditada.', catalog_resolution_invalid: 'A decisão de associação precisa de nova conferência.',
  catalog_limit: 'Há cadastros demais para resolver o produto com segurança.', catalog_identity_changed: 'A identidade do catálogo diverge do histórico.',
  event_key_conflict: 'Há envelopes diferentes para a mesma chave de evento.', transaction_conflicted: 'A transação tem uma colisão de evento não resolvida.',
  invalid_envelope: 'O envelope salvo não atende ao contrato.', envelope_integrity: 'A integridade do envelope precisa de conferência.',

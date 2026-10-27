@@ -10,6 +10,9 @@ import { createOpaqueToken, UNSUBSCRIBE_TTL } from '../../src/modules/marketing/
 import { CONSENT_VERSION } from '../../src/modules/marketing/validation'
 import { sequenceDays } from '../../src/modules/marketing/sequence-copy'
 import { preparePromotionBatches, claimPromotionBatch } from '../../src/modules/marketing/batches'
+import { POST as privacyExportPost } from '../../src/app/(site)/api/v1/admin/privacy/export/route'
+import { applySuppression } from '../../src/modules/marketing/suppression'
+import { suppressionFingerprint } from '../../src/modules/marketing/suppression-tombstone'
 
 const seed = await seedRelationship(), { payload } = seed
 const secret = randomBytes(32).toString('hex'), now = Date.now(), checks: string[] = []
@@ -27,6 +30,21 @@ try {
   const contact = (await payload.find({ collection: 'contacts', where: { email: { equals: email } }, overrideAccess: true })).docs[0]
   const request = (await payload.find({ collection: 'magnet-requests', where: { contact: { equals: contact.id } }, overrideAccess: true })).docs[0]
   const delivery = (await payload.find({ collection: 'email-deliveries', where: { request: { equals: request.id } }, overrideAccess: true })).docs[0]
+  const login = await payload.login({ collection: 'admin-users', data: { email: seed.owner.email, password: seed.password } })
+  const exportPost = (input: unknown, token: string | null | undefined = login.token, origin = 'http://127.0.0.1:3000') => privacyExportPost(new Request('http://127.0.0.1:3001/api/v1/admin/privacy/export', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: origin, ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify(input) }))
+  assert.equal((await exportPost({ email, identityVerified: true }, null)).status, 403)
+  assert.equal((await exportPost({ email, identityVerified: true }, login.token, 'https://foreign.example.invalid')).status, 403)
+  assert.equal((await exportPost({ email })).status, 422)
+  const exported = await exportPost({ email, identityVerified: true })
+  assert.equal(exported.status, 200); assert.equal(exported.headers.get('Cache-Control'), 'private, no-store'); assert.equal(exported.headers.get('Referrer-Policy'), 'no-referrer')
+  const exportBody = await exported.json()
+  assert.equal(exportBody.data.email, email); assert.equal(exportBody.counts['magnet-requests'], 1)
+  assert.equal(JSON.stringify(exportBody).includes('confirmationTokenHash'), false); assert.equal(JSON.stringify(exportBody).includes('tokenHash'), false)
+  const audit = (await payload.find({ collection: 'privacy-request-audit', overrideAccess: true })).docs[0]
+  assert.equal(audit.action, 'export'); assert.equal(JSON.stringify(audit).includes(email), false)
+  await mkdir('artifacts/privacy-export', { recursive: true })
+  await writeFile('artifacts/privacy-export/local-results.json', JSON.stringify({ date: '2026-10-25 America/Belem', environment: 'PostgreSQL local sintético; sem serviço externo', checks: ['owner obrigatório', 'origem exata', 'declaração operacional identityVerified obrigatória', 'retorno private no-store/no-referrer', 'exportação paginada por referências diretas', 'hashes e identificadores técnicos excluídos', 'auditoria HMAC sem email'], syntheticRecords: true, externalCalls: false, messagesSent: 0 }, null, 2) + '\n')
+  checks.push('Exportação exige owner/origem/verificação declarada; resposta privada exclui hashes de tokens e auditoria não guarda email.')
   let confirmation = ''
   await processDelivery(payload, delivery.id, { secret, origin: 'http://127.0.0.1:3001', now, transport: async message => { confirmation = /confirmar\?t=([\w-]+)/.exec(message.text)![1]; return { state: 'sent', messageId: 'synthetic' } } })
   await confirmMagnet(payload, confirmation, secret, now)
@@ -96,11 +114,25 @@ try {
   assert.equal((await readPreferences(payload, token.token, due)).themes.length, 0)
   assert.equal((await payload.find({ collection: 'brevo-registrations', overrideAccess: true })).docs[0].state, 'canceled')
   assert.equal((await payload.count({ collection: 'brevo-suppressions', overrideAccess: true })).totalDocs, 1)
-  await Promise.all([unsubscribe(payload, token.token, due + 1), unsubscribeTheme(payload, token.token, theme2.id, due + 1)])
+  await Promise.all([unsubscribe(payload, token.token, due + 1, secret), unsubscribeTheme(payload, token.token, theme2.id, due + 1)])
   assert.equal((await readPreferences(payload, token.token, due + 1)).suppressed, true)
   checks.push('Último tema cancela cadastro e enfileira bloqueio externo; cancelamento global concorrente continua válido, sem reativação.')
+
+  const renewedEmail = `explicit-renewal-${randomUUID()}@example.invalid`, renewalAt = Date.now()
+  await applySuppression(payload, { email: renewedEmail, reason: 'unsubscribed', source: 'manual', reference: `explicit-renewal-${randomUUID()}` }, secret, renewalAt)
+  const renewedContact = (await payload.find({ collection: 'contacts', where: { email: { equals: renewedEmail } }, limit: 1, depth: 0, overrideAccess: true })).docs[0]
+  const renewalFingerprint = suppressionFingerprint(renewedEmail, secret)
+  assert.equal((await payload.count({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: renewalFingerprint } }, overrideAccess: true })).totalDocs, 1)
+  await requestMagnet(payload, { email: renewedEmail, magnetId: seed.magnet.id, marketingOptIn: true, consentVersion: CONSENT_VERSION }, secret, renewalAt + 1)
+  const renewalRequest = (await payload.find({ collection: 'magnet-requests', where: { contact: { equals: renewedContact.id } }, limit: 1, depth: 0, overrideAccess: true })).docs[0]
+  const renewalToken = createOpaqueToken()
+  await payload.update({ collection: 'magnet-requests', id: renewalRequest.id, data: { confirmationTokenHash: renewalToken.hash }, overrideAccess: true })
+  await confirmMagnet(payload, renewalToken.token, secret, renewalAt + 2)
+  assert.equal((await payload.count({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: renewalFingerprint } }, overrideAccess: true })).totalDocs, 0)
+  assert.equal((await payload.count({ collection: 'subscriptions', where: { and: [{ contact: { equals: renewedContact.id } }, { state: { equals: 'subscribed' } }] }, overrideAccess: true })).totalDocs, 1)
+  checks.push('Tombstone HMAC persiste após descadastro e só é removido quando novo opt-in explícito é confirmado.')
   await mkdir('artifacts/preferences', { recursive: true })
-  await writeFile('artifacts/preferences/local-results.json', JSON.stringify({ date: '2026-10-22 America/Belem', environment: 'PostgreSQL local; fixtures sintéticas; sem API real', checks, externalCalls: false, messagesSent: 0, limits: 'Segundo tema semeado sinteticamente; apenas primeiro tema usa fluxo completo de confirmação e calendário. Não comprova personalização Brevo ou UI renderizada.' }, null, 2)+'\n')
+  await writeFile('artifacts/preferences/local-results.json', JSON.stringify({ date: '2026-10-25 America/Belem', environment: 'PostgreSQL local; fixtures sintéticas; sem API real', checks, externalCalls: false, messagesSent: 0, limits: 'Segundo tema semeado sinteticamente; apenas primeiro tema usa fluxo completo de confirmação e calendário. Não comprova personalização Brevo ou UI renderizada.' }, null, 2)+'\n')
   console.log(`Preferências: ${checks.length} grupos aprovados; nenhum envio real.`)
 } finally {
   await payload.update({ collection: 'ebooks', id: seed.draft.id, ...seed.auth, data: { theme: null } })

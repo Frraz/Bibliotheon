@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-24T23:10:09.140Z",
+  "environment": "PostgreSQL loopback; adaptadores internos sintéticos; CLI/worker empacotados",
+  "checks": [
+    "Migração vazia down/up revertida; autenticação antes do banco; ACK após commit/auditoria; rollback e concorrência deduplicam sem guardar corpo original/PII.",
+    "Mesmo processador com fixtures internas dos três provedores; concorrência/replay mantêm uma transação/fato. Oferta ausente, taxa, líquido e liquidação continuam desconhecidos.",
+    "Reversão e evento atrasado reconstroem pelo tempo original; divergência monetária conserva a última projeção válida e o fato que precisa de revisão.",
+    "Colisão de chave fica durável uma vez; conserva projeção e impede outro evento/retry de apagar a divergência da mesma transação.",
+    "Produto desconhecido não vira venda; correção de catálogo permite retry autenticado, com origem exata, motivo fechado e ator derivado da sessão. Campos extras/forjados são recusados.",
+    "Mapeamento exige identidade exata; produto ligado a dois livros fica em revisão. Oferta explícita é vinculada; identidade com histórico é congelada e metadados continuam editáveis.",
+    "Lease ativo impede concorrência/retry; lease abandonado é recuperado com tentativa acumulada. Hash alterado e timestamp futuro não modificam transações.",
+    "Falha de persistência reverte fato/projeção juntos e aplica backoff; cinco tentativas suspendem automação. Retry auditado reabre orçamento sem zerar histórico, incluindo ação sem alteração.",
+    "Falha na auditoria final após escrever a projeção reverte projeção/fato/inbox juntos; retry aplica a reversão exatamente uma vez.",
+    "Evento autenticado ignorado fica auditado sem transação; anônimo não lê e owner não reescreve/exclui histórico por API. Downgrade com dados é recusado; fila desligada não consulta banco.",
+    "CLI empacotado processa envelope sintético com fetch bloqueado; desligado retorna antes de abrir banco inválido.",
+    "Worker somente comercial executa ciclo com fila vazia sem SMTP, chave de links, API Brevo ou rede; fixtures limpas."
+  ],
+  "nativeAdapters": false,
+  "realSales": 0,
+  "externalCalls": false,
+  "limits": "Sem autenticação/eventos nativos de Hotmart/Kiwify/Cakto homologados; sem atribuição de compra, liquidação, conta real ou VPS."
+}

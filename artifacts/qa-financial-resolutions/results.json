@@ -1,0 +1,291 @@
+{
+  "date": "2026-10-25T16:28:31.131Z",
+  "status": "passed",
+  "checks": [
+    "Anônimo sem view/API; coleções imutáveis negam escrita owner; consulta vazia/inexistente sem decisão.",
+    "Fontes sem seleção automática; prova contraditória bloqueia registro; exclusão explícita libera projeção; valores assinados/null corretos; confirmação por teclado e perda de resposta idempotente preservam fatos originais.",
+    "Hold não atesta fontes nem zera valores; pais consultáveis; decisão concorrente bloqueia plano stale e exige nova conferência.",
+    "Três provedores/moedas separados; prova complementar exige excluir fonte substituída e corrige valores sem fabricar fato nativo.",
+    "Continuação worker aplica 11 reembolsos sem nova decisão; 12 aplicações paginadas 10+2; fatos originais intactos e resultado registrado separado das aplicações posteriores.",
+    "21 fontes em páginas 20+1 conservam escolhas e exigem cobertura completa antes de preparar a prévia; sem aplicar compra pendente.",
+    "Leitura sem JS, entrada inválida, temas/larguras 320–1920px, seleção/conferência com texto 200%, detalhes, axe/overflow/runtime."
+  ],
+  "captures": [
+    {
+      "name": "empty-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "sources-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "blocked-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "ready-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "loading-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lost-response-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "registered-detail-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "hold-detail-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "stale-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-blocked-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-ready-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "applications-page-2-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "sources-page-2-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-history-390",
+      "theme": "light",
+      "width": 390,
+      "axe": false,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-360",
+      "theme": "light",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-768",
+      "theme": "light",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "selection-text-200-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preview-text-200-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "detail-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lookup-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "selection-text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preview-text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "detail-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "UI financeira local sintética. Sem homologação de fonte/conta, cobertura final P03/P04/P05, zoom nativo 400%, imagem/restore final, GitHub, VPS ou produção."
+}

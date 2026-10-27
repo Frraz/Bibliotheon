@@ -1,0 +1,338 @@
+{
+  "date": "2026-10-25T15:11:24.554Z",
+  "status": "passed",
+  "checks": [
+    "View e endpoints negam anônimo; operações usam sessão/origem owner e não escrevem por GET.",
+    "Conferência não grava. Crédito com resposta perdida repete sem duplicar; correção preserva original/data milissegundos, bloqueia identidade e soma apenas a linha vigente menos o débito.",
+    "Custo estimado é substituído explicitamente por confirmado; campanha é gravada no relacionamento real e preservada na correção. Substituídos não são somados, ausência permanece null e margem não vira lucro.",
+    "Hotmart/Kiwify/Cakto registram movimentos na moeda da aprovação; BRL/USD continuam separados e a prévia existente reflete o ledger sem nova transação/evento nativo.",
+    "Aprovação ausente, moeda divergente, campanha inexistente, futuro e formato monetário ambíguo não gravam. Erros preservam entrada; CRUD nativo continua negado.",
+    "Histórico paginado/filtrado inclui substituídos, datas, fontes e vínculos; 21 registros com o mesmo recordedAt não duplicam nas páginas. Identificador inválido não prepara formulário e leitura sem JS funciona sem habilitar gravação."
+  ],
+  "captures": [
+    {
+      "name": "empty-settlement-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-cost-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-settlement-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-cost-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "review-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "loading-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "correction-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unverified-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": false,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-360",
+      "theme": "light",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-768",
+      "theme": "light",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-360",
+      "theme": "light",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-768",
+      "theme": "light",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "review-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "correction-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Ledger owner local sintético. Sem homologação de fonte/conta, decisão financeira visual, zoom nativo 400%, imagem/restore final ou produção."
+}

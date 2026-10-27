@@ -1,0 +1,96 @@
+{
+  "phase": "D111",
+  "date": "2026-10-27T00:10:08.402587+00:00",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 290,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "lintWarnings": 0
+    },
+    "databaseBulk": {
+      "status": "passed",
+      "groups": 4,
+      "baselineConcurrentHooks": 4,
+      "patchedConcurrentHooks": 1,
+      "concurrentQueryWarnings": 0
+    },
+    "privacyRetentionRegression": {
+      "status": "passed",
+      "checks": 18
+    },
+    "marketingRetentionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "identityRetentionRegression": {
+      "status": "passed",
+      "groups": 12
+    },
+    "financialResolutionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "mediaIntegrityRegression": {
+      "status": "passed",
+      "groups": 6
+    },
+    "frozenIsolatedInstallation": {
+      "status": "passed",
+      "lifecycleScriptsExecuted": false
+    },
+    "directDependencyVersions": "unchanged",
+    "lockResolutions": "unchanged except patch and peer context hashes",
+    "migrationSQL": "byte-identical; unused signature parameters removed",
+    "runtimeBundle": "passed",
+    "npm run build": {
+      "status": "passed",
+      "sandboxAttempt": "failed capturing TypeScript subprocess output",
+      "outsideSandbox": "passed"
+    },
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1321,
+      "updated": 17,
+      "retained": 32
+    }
+  },
+  "sourceSHA256": {
+    "patches/payload@3.91.0.patch": "89feddb5dda6001a72282bfe1844c0ef6e6da9915fdd871b3a4e2b74f09f7f11",
+    "pnpm-lock.yaml": "26a522dacb7fa7a948c949c33720a0bc6e89e21fd5f57aa12b5d949b82ce0e89",
+    "package.json": "889402be10f66659e6a5a1664f336e6c1a957f8cab984e2e1afd3a9d31d1eaf7",
+    "scripts/check-integration.sh": "6d2e8d0bde0a5091141f8b7b5ee62868d4f69389d716e0472a423b7fbb5101a8",
+    "tests/integration/database-bulk.ts": "aa64d09835f66d6db1c6e349c8af5e9213f3eca916f72552e573ed844c3cc439",
+    "migrations/20261021_233105_sequences.ts": "70f4c9ad94ce725761d70243edf96f33162729d839f8fcf655c5f7b8d9e8acc1"
+  },
+  "schemaMigrations": 33,
+  "imageRevalidated": false,
+  "physicalRestoreRevalidatedAfterPatch": false,
+  "fullSecurityAuditCompleted": false,
+  "productionChanged": false,
+  "limitations": [
+    "H06 continua aberto para seguranca integral, dependencias, contas/host, segredos, alertas e CI.",
+    "P07 e H03/H04/H05 permanecem abertos.",
+    "Instalacao isolada ignorou scripts de lifecycle; nao equivale a build de imagem."
+  ],
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourcePrivacyAudits": 0,
+    "sourceRetirements": 0,
+    "sourceTransactions": 0,
+    "sourceFinancialResolutions": 0,
+    "localDatabaseStopped": true
+  },
+  "buildID": "nWlWutVYH9_PFMCcjPxXY",
+  "packagedCLISHA256": {
+    "privacy-retention": "34bdef24dbec5a212cb68535386a54518309234aaf2a786923d09b8b645425a0",
+    "privacy-recovery": "0858d584e9195c70ad27c72b04c7bc4c8c5eb5665418c74d6fe293730831343e",
+    "worker": "483e7dcd9f5f2e553baae860e4989e1b2d3131e72f68888f749ac5cf75b86453",
+    "migrate": "750d4854a20ca69f548f01ec4b5bb3d47ab122a98e9cd1bd260b197ab910d336"
+  }
+}

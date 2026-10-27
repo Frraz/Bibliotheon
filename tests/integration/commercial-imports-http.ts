@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import {randomUUID} from 'node:crypto'
 import {mkdir,writeFile} from 'node:fs/promises'
 import {testOrigin as base} from '../fixtures/origin'
-import {seedCommerce} from '../fixtures/commerce'
+import {seedCommerce,seedLegacyOffer,deleteLegacyOffer} from '../fixtures/commerce'
 import {canonicalCSV,csvFields} from '../fixtures/commercial-csv'
 import {processCommercialInbox} from '../../src/modules/commerce/inbox'
 const seed=await seedCommerce(),{payload}=seed,checks:string[]=[],extras:string[]=[],path='/api/v1/admin/imports'
@@ -36,7 +36,7 @@ try{
  const matchedResponse=await post(canonicalCSV([row]),auth),matched=await matchedResponse.json();assert.equal(matched.state,'ready');const matchedCommit=await commit(matched.id,{confirmed:true,planHash:matched.planHash});assert.equal(matchedCommit.status,200);assert.equal((await matchedCommit.json()).state,'confirmed');assert.equal((await payload.count({collection:'transaction-events',overrideAccess:true})).totalDocs,1)
  checks.push('Vínculo de linha leva à inbox. Processamento explícito aplica centavos/data com fonte CSV, sem líquido inferido; snapshot compatível confirma sem criar novo fato financeiro.')
 
- const stale=await(await post(canonicalCSV([fields('http-stale')]),auth)).json(),offer=await payload.create({collection:'offers',...seed.auth,data:{name:'Ambiguidade HTTP sintética',provider:'hotmart',accountKey:'synthetic',externalProductId:'synthetic-product',ebook:seed.books[1].id,active:false,currency:'BRL'}});extras.push(offer.id)
+ const stale=await(await post(canonicalCSV([fields('http-stale')]),auth)).json(),offer=await seedLegacyOffer(seed,{name:'Ambiguidade HTTP sintética',provider:'hotmart',accountKey:'synthetic',externalProductId:'synthetic-product',ebook:seed.books[1].id,active:false,currency:'BRL'});extras.push(offer.id)
  const staleCommit=await commit(stale.id,{confirmed:true,planHash:stale.planHash});assert.equal(staleCommit.status,409);assert.equal((await staleCommit.json()).state,'stale');assert.equal((await payload.count({collection:'commercial-inbox',overrideAccess:true})).totalDocs,1)
  for(const collection of ['commercial-import-batches','commercial-import-rows','commercial-import-audit'] as const){
   assert.equal((await fetch(base+'/api/'+collection)).status,403)
@@ -49,7 +49,7 @@ try{
  assert.equal((await commit(randomUUID(),{confirmed:true,planHash:'a'.repeat(64)})).status,404)
  checks.push('Catálogo mudado invalida o plano com 409 sem importação parcial. Coleções permitem consulta owner e negam escrita direta/anônimo; lote inexistente retorna 404 e registros não contêm entrada rejeitada.')
 }finally{
- for(const id of extras)await payload.delete({collection:'offers',id,overrideAccess:true})
+ for(const id of extras)await deleteLegacyOffer(seed,id)
  await seed.cleanup()
 }
 await mkdir('artifacts/commercial-imports',{recursive:true})

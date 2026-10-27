@@ -1,0 +1,91 @@
+{
+  "phase": "D114",
+  "date": "2026-10-27T01:10:34.976014+00:00",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 297,
+      "unitFiles": 36,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "lintWarnings": 0
+    },
+    "legacyThematicProof": {
+      "status": "passed",
+      "groups": 8
+    },
+    "privacyRetentionRegression": {
+      "status": "passed",
+      "checks": 18
+    },
+    "thematicRetentionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "deadlineRegression": {
+      "status": "passed",
+      "groups": 4
+    },
+    "recoveryRegression": {
+      "status": "passed",
+      "groups": 6
+    },
+    "pendingRecoveryRegression": {
+      "status": "passed",
+      "groups": 7
+    },
+    "physicalHostRestoreV4": "passed",
+    "legacyExportWithoutDatabaseMutation": "passed",
+    "npm run build": "passed",
+    "runtimeBundle": "passed",
+    "finalTypecheckAndFocusedLint": "passed",
+    "pythonHarnessSyntax": "passed",
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1374,
+      "updated": 18,
+      "retained": 31
+    }
+  },
+  "sourceSHA256": {
+    "src/modules/marketing/legacy-theme-withdrawal.ts": "35594f9d38829e1faa55bedc741085e1647d47d743e050c7a207705ce34dbbda",
+    "src/modules/marketing/privacy-theme-retention.ts": "e1dd44c139f21597423ede1cf026e0339e470c074d5b448ba9a0930f5405f4e7",
+    "src/modules/marketing/privacy-recovery.ts": "228439865c886601c24c9ca57b71d60618cc3b26c08483c2673e00c604fca45f",
+    "src/modules/marketing/privacy-retention.ts": "2d7015c81fbac05a0fcab2aec37c13d7010dd7db7d12e45bd80de69684726fc0",
+    "scripts/worker.ts": "5667c9b33822b17b9d18ef667c1999893bbddf3aefabe3d14f0f9d676403db2c",
+    "scripts/qa-recovery.ts": "9e060a1369a23d4dad9bb21279ada9551b73600c9f1f1b0d9a7dc137ba6d5bc2",
+    "scripts/qa-container.py": "04fc072c87e026e27ed4776fa503514db01fd001c3522a74408098f22fb95b74",
+    "scripts/check-integration.sh": "b14f1e59899663ddee69be946c1bb9c59ca3538f5470bed0daaf9bd4b226ed8e",
+    "tests/integration/privacy-theme-legacy.ts": "f0b7402346527b6adb25e1006fbe32b577b524b148599e2a916b8834108c3943",
+    "tests/integration/privacy-retention.ts": "b0ea3c9b7e63704ddac118e624e2932e7cfeba30fbd03a3f0b0ff5f6754e1718",
+    "package.json": "4c3656860239a2944d498f5e04d43cbfb593208c07af91ce356997cd75a2f24f"
+  },
+  "schemaMigrations": 34,
+  "buildID": "kCDOweSK87RFvcFpsERLe",
+  "packagedCLISHA256": {
+    "privacy-retention": "478a979e1377ee6ad420e46af73d197ea3dcb782ebed2fd852b1241dccb35be7",
+    "privacy-recovery": "d53edaf4881d659d034cb5b5a0a955b08de09b86e8bf6d30f387d6b8083f5f61",
+    "worker": "ba8adfc8e33dc6aedd154fe574c086924f1e6e0328dda065eebc1f08132c8462",
+    "worker-health": "6c98875713ddfe2861aaf7e703111c45bd12efeab8aab03b4611a54a5cf1cddc"
+  },
+  "physicalRestoreValidated": true,
+  "fullApplicationImageValidated": false,
+  "externalBackupVerified": false,
+  "productionChanged": false,
+  "limitations": [
+    "Fonte de prova e historico privado da aplicacao, nao autenticacao externa.",
+    "Legado sem prova, contatos ativos e outras finalidades/compartilhamentos/provedor/ledger continuam pendentes.",
+    "Imagem final, continuidade/alertas, homologacoes, guarda externa e RPO/RTO reais permanecem abertos."
+  ],
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourceSubscriptions": 0,
+    "sourceThemeWithdrawals": 0,
+    "sourceRetirements": 0,
+    "sourcePrivacyAudits": 0,
+    "localDatabaseStopped": true
+  }
+}

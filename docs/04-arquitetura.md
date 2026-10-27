@@ -6,7 +6,7 @@
 
 Monólito modular em TypeScript: Next.js App Router entrega páginas e rotas; Payload oferece administração, autenticação, coleções e jobs; PostgreSQL armazena conteúdo e operação. Tailwind implementa apresentação. Sem IA, Redis ou microserviços.
 
-Arquitetura do produto completo; o diagrama inclui integrações e infraestrutura ainda não homologadas. Implementação existente, versões fixadas e lacunas estão no [estado atual](23-estado-atual.md). O diagrama inclui operação externa ainda não homologada. Adaptadores e endpoints Hotmart/Kiwify/Cakto existem localmente em D63–D65; lotes CSV limitados foram acrescentados em D67. Inbox/processador/histórico comerciais comuns existem localmente em D61, além das filas de relacionamento; nenhum adaptador comercial nativo foi habilitado.
+Arquitetura do produto completo; o diagrama inclui integrações e infraestrutura ainda não homologadas. Implementação existente, versões fixadas e lacunas estão no [estado atual](23-estado-atual.md). Adaptadores e endpoints Hotmart/Kiwify/Cakto existem localmente em D63–D65; inbox/processador/histórico e filas de relacionamento também existem. Conciliação inclui lotes D67/D77, decisões/evidências D72–D75, ledger D78 e views suportadas do Payload D79–D81, incluindo registro/correção de liquidações/custos. Essas interfaces reutilizam autenticação e serviços existentes, sem novo serviço, biblioteca, migration ou integração externa. Nenhum adaptador comercial nativo foi habilitado para operação real.
 
 ```mermaid
 flowchart LR
@@ -48,7 +48,7 @@ Endpoints públicos retornam projeções explícitas, não a coleção completa.
 
 Receber webhook: autenticar → validar envelope → persistir evento mínimo durável → responder → worker mapeia catálogo e aplica transação. Inbox no banco é a fonte durável; dispatcher recupera eventos pendentes mesmo se a criação do job falhar. Operações comerciais usam transação e chave única.
 
-Um worker na mesma imagem da aplicação, concorrência inicial 1. Polling de pendências a cada 30 segundos; rotina diária de retenção ainda pendente. Jobs de e-mail solicitado usam APIs Payload sem executor público. Repetição transacional: 1, 5, 30 minutos e 2 horas; após cinco tentativas totais, falha visível para intervenção. Timeout incerto exige conciliação, sem repetição cega. Calendário promocional só prepara elegibilidade; não dispara campanha. Jobs comerciais e observação integral continuam previstos.
+Um worker na mesma imagem da aplicação, concorrência inicial 1. Polling de pendências a cada 30 segundos; rotina diária de retenção parcial implementada, opt-in com DATA_RETENTION_ENABLED=false por padrão. Jobs de e-mail solicitado usam APIs Payload sem executor público. Repetição transacional: 1, 5, 30 minutos e 2 horas; após cinco tentativas totais, falha visível para intervenção. Timeout incerto exige conciliação, sem repetição cega. Calendário promocional só prepara elegibilidade; não dispara campanha. Inbox comercial e observação Brevo possuem implementação local; homologação e cobertura integral continuam pendentes.
 
 ## Ambientes
 
@@ -85,3 +85,45 @@ Pipeline comercial aceita batch nativo explícito além do caminho individual. A
 ## Conciliação durável — D67
 
 Três coleções privadas para lote, linhas e auditoria, com confirmação atômica para a inbox existente. Prévia continua separada/somente de leitura. Barreira por conta antes dos demais locks compartilhada pelos escritores do catálogo/histórico; SQL parametrizado em blocos após validação, sem serviço/fila externos. Aplicação segue pelo worker comercial, sem token de fornecedor. [Decisão e limites](24-conciliacao.md).
+
+## Extensão operacional de identidade — D82
+
+View owner `/admin/catalog-resolutions` reutiliza o template do Payload e os contratos transacionais D72. Prévia/decisão continuam no servidor, com barreira de conta, hash e chave idempotente; o navegador conserva o envelope em memória para repetição. Leitura de histórico respeita a política da coleção. Nenhuma migration, dependência, serviço ou integração foi adicionada; são 28 migrations. A seleção/aplicação de fontes financeiras permanece em sua API existente e aguarda interface própria.
+
+## Interface financeira auditada — D83
+
+View owner `/admin/financial-resolutions` reutiliza os contratos D73–D75 e o template Payload. Busca inicial é prévia hold sem escrita para obter o componente inteiro; não registra bloqueio. Seleção explícita de cada fonte/variante precede outra prévia e a decisão transacional existente. Histórico/detalhe consultam coleções privadas; cabeças mais recentes são lidas pelo helper interno após verificar owner. GET não aplica decisão. Nenhuma migration, dependência, serviço, segredo ou flag nova.
+
+## Snapshot de cobertura financeira — D84
+
+A prévia continua em transação PostgreSQL REPEATABLE READ READ ONLY. Consulta inclui candidatas pagas ou em revisão, mantendo quarentena fora dos valores confirmados. Cobertura por moeda é calculada no próprio grupo; caixa/custos mantêm janela independente e substituições são resolvidas antes do filtro temporal. Módulo puro financial-report-cohort calcula somente cobertura, taxa observável e idade sem janela presumida. Sem novo serviço, schema, dependência ou integração.
+
+## Detalhamentos e processamento — D85
+
+Snapshot mantém REPEATABLE READ READ ONLY. Agregação pura por livro/provedor/campanha usa transações na janela de aprovação, movimentos de caixa e custos em suas janelas. Metadados de transações de caixa aprovadas fora da janela são lidos em blocos de 200 para alocação; títulos/códigos atuais são rótulos. Sem nova tabela, migration, serviço, dependência, segredo ou flag.
+
+Livro efetivo prevalece sobre original quando o vínculo está conferido. Caixa com alocação em revisão/ausente/moeda divergente fica sem livro conferido; valor do movimento é preservado. Custos somente usam campanha declarada; não ratear por provedor/livro nem inferir receita. lastSuccessAt vem dos processadores existentes, separado da observação da consulta e da data do evento.
+
+## Aceite integrado sem mudança de aplicação — D86
+
+Matriz PostgreSQL percorre sete estados por provedor nos contratos existentes: preview sem escrita, stage durável, commit de prova e decisão/aplicação separados. Jornada de navegador conecta importação, resolução de catálogo, decisão financeira, caixa/custo e relatório. Fontes da aplicação foram conferidas contra as hashes do build D85, reutilizado; somente testes/harness/runner/documentação mudaram. Sem nova arquitetura, schema/migration, segredo, flag ou integração.
+
+## Retenção de identidade — D110
+
+O worker integra retenção de identidades encerradas, com transação e locks compartilhados com captura/promoções. Fatos automáticos HMAC de 24 meses ficam separados de solicitações humanas; replay v3 preserva nova finalidade e mantém dependências antigas em quarentena. Schema vigente: 33 migrations; imagem final e recuperação externa continuam pendentes. Contratos em [privacidade](12-seguranca-privacidade.md).
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+O patch versionado `patches/payload@3.91.0.patch` serializa atualização/exclusão em lote quando há transactionID compartilhado: uma transação usa um único cliente PostgreSQL. Exclusão passa a iniciar cada documento depois do anterior, sem apenas aguardar promises já iniciadas. O caminho sem transação preserva concorrência; não introduz mutex global nem muda locks/regras de domínio. Mantém a proteção anterior de exclusão diferida de arquivos.
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+theme-withdrawals guarda fato por subjectFingerprint HMAC + UUID estável do assunto, sem FK/email/ator owner. O descadastro e seu fato são atômicos sob o lock do contato; a chave do fato serializa upsert/expiração. Retenção temática e replay usam promotion-batches → contact → theme-withdrawal. Confirmação consulta o fato sob o lock do contato mesmo sem assinatura; somente pedido posterior ao descadastro pode conceder marketing. Não introduz serviço ou provedor adicional.
+
+## D113 — Margem e acompanhamento do prazo — 26/10/2026
+
+retention-policy centraliza elegibilidade de 28 dias, meta máxima de 30 dias e frescor operacional de 25 horas. O worker continua a executar diariamente por dia UTC; 28 dias + 25 horas deixam 23 horas de margem matemática antes dos 30 dias, condicionada à operação saudável. A conclusão do ciclo publica arquivo privado de saúde atomicamente; falha não avança o dia executado. Health distingue processo vivo de tarefa atrasada ou com assinaturas para revisão. Não introduz serviço, flag ou tabela.
+
+## D114 — Legado temático verificável — 26/10/2026
+
+legacy-theme-withdrawal deriva somente de assinatura canônica e evento interno consistente; não busca provedor nem usa aparência do estado como data. Backfill é transacional por contato, com lock contact → theme-withdrawal. Retenção direta também consegue persistir o fato no mesmo commit que retira a assinatura. Exportação usa snapshot REPEATABLE READ READ ONLY e pode compor o fato assinado sem persistir nada no banco. O formato permanece v4, sem tabela/serviço novo.

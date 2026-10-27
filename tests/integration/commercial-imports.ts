@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import {randomUUID} from 'node:crypto'
 import {mkdir,writeFile} from 'node:fs/promises'
 import type {PostgresAdapter} from '@payloadcms/db-postgres'
-import {seedCommerce} from '../fixtures/commerce'
+import {deleteLegacyOffer,seedLegacyOffer,seedCommerce} from '../fixtures/commerce'
 import {canonicalCSV,csvFields} from '../fixtures/commercial-csv'
 import {stageCommercialImport,commitCommercialImport} from '../../src/modules/commerce/import-service'
 import {processCommercialInbox,processCommercialQueue,receiveCommercialWebhook} from '../../src/modules/commerce/inbox'
@@ -54,8 +54,8 @@ try{
 
  const stale=await stage([fields('stale-native'),fields('stale-companion')]);assert.equal(stale.state,'ready');const receipt=await native('stale-native'),beforeStale=await count('commercial-inbox')
  assert.equal((await confirm(stale)).state,'stale');assert.equal(await count('commercial-inbox'),beforeStale);assert.ok((await storedRows(stale.id)).every(row=>!row.inbox));assert.equal((await payload.findByID({collection:'commercial-inbox',id:receipt.id,overrideAccess:true})).state,'pending')
- const catalog=await stage([fields('stale-catalog')]);const offer=await payload.create({collection:'offers',...seed.auth,data:{name:'Ambiguidade sintética de importação',provider:'hotmart',accountKey:'synthetic',externalProductId:'synthetic-product',ebook:seed.books[1].id,active:false,currency:'BRL'}});extraOffers.push(offer.id)
- assert.equal((await confirm(catalog)).state,'stale');await payload.delete({collection:'offers',id:offer.id,overrideAccess:true});extraOffers.splice(extraOffers.indexOf(offer.id),1)
+ const catalog=await stage([fields('stale-catalog')]);const offer=await seedLegacyOffer(seed,{name:'Ambiguidade sintética de importação',provider:'hotmart',accountKey:'synthetic',externalProductId:'synthetic-product',ebook:seed.books[1].id,active:false,currency:'BRL'});extraOffers.push(offer.id)
+ assert.equal((await confirm(catalog)).state,'stale');await deleteLegacyOffer(seed,offer.id);extraOffers.splice(extraOffers.indexOf(offer.id),1)
  checks.push('Webhook recebido e catálogo alterado depois do estágio invalidam o plano inteiro, registram stale e preservam inbox/projeções. Linha companheira não é importada parcialmente.')
 
  const unsupported=fields('reversal-unsupported');unsupported[5]='refunded';const blocked=await stage([unsupported]);assert.equal(blocked.state,'blocked');assert.equal((await storedRows(blocked.id))[0].reason,'snapshot_not_supported')

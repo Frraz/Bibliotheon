@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-25T18:31:42.752Z",
+  "status": "passed",
+  "checks": [
+    "Último sucesso vem do processamento real da inbox, separado do evento e da consulta; datas ausentes/futuras não viram sucesso.",
+    "Provedor/moeda/chave externa separados; livro efetivo prevalece sem editar original; caixa fora da coorte mantém alocação e caixa disputado fica sem livro conferido.",
+    "Campanha só recebe receita após junção da UUID retornada ao clique consentido, com conta/provedor/oferta/livro e janela compatíveis; custo isolado e texto livre não provam atribuição.",
+    "Filtro aplica-se também às dimensões/processamento; snapshot permanece somente leitura, mantendo livro original e fatos."
+  ],
+  "fixturesCleaned": true,
+  "limits": "PostgreSQL local sintético; processamento em relógio controlado. Não homologa retorno sck por conta, fonte externa, imagem/restore ou produção."
+}

@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25T06:12:29.113Z",
+  "checks": [
+    "Lote exige owner/origem, persiste atomicamente, deduplica repetição integral, rejeita conflito sem adicionar linhas e limita o lote a vinte registros.",
+    "Rota real exige owner/origem/MIME e contrato exato; retorna registro privado e idempotente, sem aplicação. Snapshot pago sem prova de aprovação não confirma nem cria transação.",
+    "Relatório completo é selecionado na revisão inteira com exclusão da fonte substituída. Confirmação aplica projeção sem criar recibo/fato nativo; repetição do registro não invalida decisão vigente.",
+    "Evidência nova põe cobertura em revisão; base de reembolso ausente bloqueia até nova prova/decisão explícita. CRUD nativo segue negado e líquido desconhecido permanece null.",
+    "CSV canônico é preview sem persistência, estágio owner idempotente e commit explicitamente confirmado. Resposta mantém cache privado; commit registra evidência sem recibo/webhook/evento nativo."
+  ],
+  "schemaMigrations": 27,
+  "externalCalls": false,
+  "limits": "HTTP local sintético do contrato canônico; sem relatório nativo homologado, liquidação, UI ou produção."
+}

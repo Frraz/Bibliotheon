@@ -1,5 +1,5 @@
 import {createHash,timingSafeEqual} from 'node:crypto'
-import {opaqueID,type CommercialAdapter,type NormalizedCommercialEvent,type CommercialKind,type AccountScope,type IgnoredCommercialEvent} from '../../modules/commerce/events'
+import {checkoutClickReference,opaqueID,type CommercialAdapter,type NormalizedCommercialEvent,type CommercialKind,type AccountScope,type IgnoredCommercialEvent} from '../../modules/commerce/events'
 import {NativeNumber,nativeJSON,nativeEpoch,nativeCents,hundredthCurrency,record} from './numbers'
 
 export type HotmartWebhookConfig={accountKey:string;hottok:string;previousHottok?:string}
@@ -30,6 +30,7 @@ function normalize(bytes:Uint8Array,scope:AccountScope):NormalizedCommercialEven
  const data=record(root.data),product=record(data?.product),purchase=record(data?.purchase)
  if(!product||!purchase||!opaqueID(product.ucode)||!opaqueID(purchase.transaction))throw new Error('invalid_native_identity')
  const offer=purchase.offer==null?null:record(purchase.offer)
+ const origin=record(purchase.origin)
  if(purchase.offer!=null&&!offer||offer?.code!=null&&!opaqueID(offer.code))throw new Error('invalid_native_offer')
  const full=purchase.full_price==null?null:record(purchase.full_price),price=purchase.price==null?null:record(purchase.price)
  if(purchase.full_price!=null&&!full||purchase.price!=null&&!price)throw new Error('invalid_native_money')
@@ -48,7 +49,7 @@ function normalize(bytes:Uint8Array,scope:AccountScope):NormalizedCommercialEven
  const subscription=record(data?.subscription),content=record(product.content)
  if(product.is_physical_product===true||content?.has_physical_products===true||data?.subscription!=null&&(!subscription||Object.keys(subscription).length>0)||purchase.flexPayPlan!=null||purchase.subscription_anticipation_purchase===true||purchase.recurrence_number instanceof NativeNumber&&Number(purchase.recurrence_number.source)>1)reviewReason='unsupported_purchase_shape'
  if(root.event==='PURCHASE_PROTEST'||root.event==='PURCHASE_COMPLETE'&&!approvedAt||root.event==='PURCHASE_REFUNDED'&&!['REFUNDED','PARTIALLY_REFUNDED'].includes(String(purchase.status)))reviewReason='unsupported_native_status'
- return{...scope,eventKey:root.id,externalTransactionId:purchase.transaction,externalProductId:product.ucode,externalOfferId:(offer?.code??null) as string|null,kind,occurredAt:kind==='approved'&&approvedAt?approvedAt:createdAt,sourceCreatedAt:createdAt,sourceEvent:root.event,approvedAt,currency,grossCents,refundedCents:null,feesCents:null,producerNetCents:null,externalClickReference:null,refundBasis:null,externalRefundId:null,chargebackCents:null,...(reviewReason?{reviewReason}:{})}
+ return{...scope,eventKey:root.id,externalTransactionId:purchase.transaction,externalProductId:product.ucode,externalOfferId:(offer?.code??null) as string|null,kind,occurredAt:kind==='approved'&&approvedAt?approvedAt:createdAt,sourceCreatedAt:createdAt,sourceEvent:root.event,approvedAt,currency,grossCents,refundedCents:null,feesCents:null,producerNetCents:null,externalClickReference:checkoutClickReference(origin?.sck),refundBasis:null,externalRefundId:null,chargebackCents:null,...(reviewReason?{reviewReason}:{})}
 }
 export function createHotmartAdapter(config:HotmartWebhookConfig):CommercialAdapter {
  return{provider:'hotmart',version:'hotmart-purchase-v2:1',verify:async(_body,headers)=>authenticatedHotmart(headers,config),normalize:(bytes,scope)=>{

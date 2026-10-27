@@ -10,10 +10,13 @@ CI alvo: instalar com lockfile → lint/typecheck → testes unitários/integra�
 
 ## Matriz de cenários
 
+QA administrativa D79–D80 usa `check:qa-financial-ledger` e `check:qa-commercial-imports` sobre build `.next-qa` e banco sintético exclusivo, conforme [execução local](20-execucao-local.md). A importação cobre acesso anônimo/API, prévia sem persistência, invalidação de entrada, resposta perdida após stage/commit, retomada após reload, três provedores, evidência sem fato nativo, bloqueio, stale real, erro/tamanho, paginação, teclado e fallback sem JS. São 8 grupos e 24 capturas; 23 recebem axe e a captura sem JS tem leitura/ação desabilitada verificadas à parte. Inclui claro/escuro, 320–1920 px, loading, erro e texto 200%. Na ampliação, a verificação também recusa entrelinha computada menor que a fonte; a inspeção visual detectou a necessidade de corrigir o line-height fixo herdado do admin. [Resultados](../artifacts/qa-commercial-imports/results.json). O recorte não conclui zoom nativo 400%, matriz integral, imagem ou conta externa.
+
 | Teste | Requisitos | Cenário e resultado esperado |
 |---|---|---|
 | T01 | R01 | Anônimo tenta REST/GraphQL/preview/admin: sem acesso privado; owner autorizado |
 | T02 | R02, R05 | Rascunho, livro em produção e oferta incompleta não habilitam compra; única primária no banco |
+
 | T03 | R03, R07 | Busca com acentos, filtro vazio, paginação, canonical e sitemap de publicados |
 | T04 | R04, R20 | LP 360/768/1280/1920px, teclado, foco, contraste e FAQ; preço legível e amostra real |
 | T05 | R06 | Oferta inativa retorna indisponível; URL arbitrária rejeitada; afiliado mantém destino/parâmetros |
@@ -33,6 +36,16 @@ CI alvo: instalar com lockfile → lint/typecheck → testes unitários/integra�
 | T19 | R24 | Restaurar banco/mídia fora da produção; medir RPO/RTO; impedir envio de e-mails no restore |
 | T20 | R25 | Queda após persistir inbox recupera pendência; ACK sem commit impossível; owner consulta o resumo, filtra e reprocessa com auditoria, foco e feedback persistentes, sem alterar envelope ou tratar evento como venda |
 | T21 | R26 | Retenção/exclusão removem dados previstos e reaplicam supressão após restore |
+
+P07 D90: `test:preferences` valida exportação owner-only, origem exata, verificação declarada, resposta no-store/no-referrer, exclusão de hashes e auditoria HMAC sem email em PostgreSQL sintético. Evidência [local](../artifacts/privacy-export/local-results.json). Não cobre pedido real, identidade verificada por provedor, correção/exclusão, volume operacional ou restauração.
+
+P07 D91: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-retention` cobre preview sem escrita, cutoff UTC de 24 meses, expurgo seletivo, repetição idempotente e preservação de auditoria recente. [Evidência](../artifacts/privacy-retention/local-results.json). Não equivale a revisão jurídica da política nem a operação com dados reais.
+
+P07 D93: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-delete` verifica remoção local/tombstone e bloqueio `pending` que preserva contato/outbox diante de entrega `uncertain`. [Evidência](../artifacts/privacy-delete/d93-results.json). A suíte não homologa API/conta Brevo, restauração, volume de produção ou política jurídica.
+
+P07 D94: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:http -- --only privacy-delete-http` verifica autorização owner, origem exata, confirmação, cabeçalhos privados, resposta sem email, repetição e bloqueio `pending` via HTTP no build standalone com PostgreSQL sintético. [Evidência](../artifacts/privacy-delete/http-results.json). Não equivale a homologação externa ou prova de restauração.
+
+P07 D95–D96: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-correct` verifica correção de endereço com relações locais, preservação dos eventos de consentimento, revogação de pedidos não confirmados, cancelamento do outbox de confirmação ainda pendente, replay, tombstone do endereço anterior e bloqueio sem efeitos quando o envio está `uncertain`. [Evidência](../artifacts/privacy-correct/local-results.json). Não homologa sincronização do novo endereço nem exclusão no Brevo; identidades externas permanecem em `pending`.
 
 ## Critérios de release
 
@@ -133,3 +146,151 @@ npm run test:commercial-imports-http: rotas reais, JWT/origem, metadados/linha i
 Manutenção de scripts verificada por tests/ops/test_local_dev.py: identidade reciclada/checkout divergente não recebem sinais; encerramento alcança a árvore criada; servidor/registro legado impedem adoção e parada do banco; início idempotente não repete migrations; falha de início limpa processo/estado e preserva banco. As fixtures usam diretórios e processos efêmeros, sem Docker/Next/banco reais. Testam ainda wrappers a partir de outro diretório, cobertura única das suítes declaradas no manifesto e confirmação de ambiente descartável.
 
 Harness HTTP executado em checkout temporário com comandos/servidor sintéticos: falha de saúde impede testes; falha de suíte interrompe a sequência; sucesso executa a lista completa; processo encerrado em todos esses caminhos. Isso testa orquestração, não substitui executar contratos HTTP da aplicação. Workflow separado em checks e integração sequencial, conferido por parser YAML e sintaxe Bash; execução real no GitHub permanece pendente.
+
+## Identidade histórica — D72
+
+Acrescentar aos cenários T02/T12/T20: duplicidade nova bloqueada na API/SQL; ambiguidade legada preservada; prévia/decisão owner com origem exata, fonte e justificativa; concorrência/idempotência/rollback; correção por oferta ou diretamente por livro sem duplicar cadastro; hold sem fallback; camada efetiva sem editar envelope/referências originais; vínculo da decisão nos novos fatos; alteração da revisão invalida lote pronto; decisões não removem colisão nem substituem evidência financeira insuficiente. Comandos test:catalog-identities, test:catalog-identity-db, test:catalog-resolutions e test:catalog-resolutions-http, em ambiente sintético exclusivo. QA customizada de UI permanece em P05/B19/B20.
+
+
+## Colisão que muda o ID da transação — D73
+
+T12/T20 passam a cobrir os dois lados da chave compartilhada, inclusive novo ID ainda sem projeção, outro evento limpo do segundo ID e cadeia A–B–C. Provar quarentena em worker/retry/CSV, reparo de flag legada, corrida entre colisão e aplicação, hash de fonte, namespace dos três provedores/contas e ausência de escrita na prévia READ ONLY. Simulação nunca recebe committable=true nesta etapa. Fixtures devem conferir erros de bulk delete e preservar backup institucional privado até concluir cleanup; não chamar isso de backup de produção. Testes: test:transaction-review e test:transaction-review-http.
+
+## Decisão financeira por componente — D74
+
+T12/T20 incluem decisão/aplicação atômica, falha tardia com rollback integral, chave idempotente em concorrência, plano stale, referências originais/efetivas, continuidade por reembolso nativo e conflito posterior. Cobrir união de componentes/pais e confirmações concorrentes, guarda SQL/API de provas, down/up vazio e recusa de downgrade com evidência. CSV deve comparar projeção efetiva e revalidar vigência ao confirmar. Comandos: test:financial-resolutions e test:financial-resolutions-http, adicionados aos runners sequenciais; usar somente banco sintético exclusivo. Sem declaração de homologação nativa, recebimento, margem ou QA visual.
+
+## Prova complementar — D75
+
+test:report-evidence cobre down/up vazio, imutabilidade/downgrade, deduplicação concorrente e conflito de linha, fonte incompleta, IDs corrigidos, exclusão obrigatória e sobreposição de substituições, rollback, quarentena anterior à primeira projeção/decisão, CSV/lote stale, continuidade nativa e correções de moeda/valor/data/estado sem alterar fatos. test:report-evidence-http cobre owner/origem/MIME/contrato, resposta privada, provas insuficientes e confirmações reais da rota, sem criar fato/recibo nativo. Ambos entram nos runners sequenciais; somente ambiente sintético exclusivo. Unitários verificam preservação de null, provas combinadas e hashes após serialização JSONB.
+
+## Registros financeiros — D81
+
+`tests/unit/ledger-entry.test.ts` cobre 22 cenários de entrada monetária/data: limite inteiro seguro, zero, round-trip sem arredondamento, rejeição de milhar/expoente/sinais/overflow, calendário e UTC com milissegundos. `check:qa-financial-records` usa o harness administrativo isolado e banco exclusivo: aprovação/moeda, resposta perdida depois de gravar, correções vigentes, campanha persistida, estimado/confirmado, crédito/débito, três provedores/moedas, zero explícito, erros sem gravação, permissão por API, história paginada com instantes iguais, fallback sem JS e matriz visual dos dois formulários. A conferência local não substitui a validação no servidor.
+
+Evidência D81: [jornada completa](../artifacts/qa-financial-records/results.json) com seis grupos/40 capturas e [complemento `--zoom`](../artifacts/qa-financial-records/zoom-results.json) com oito capturas dos formulários/conferências em 320px/texto 200%. São 47 análises axe; fallback sem JS é verificado separadamente. O complemento verifica valores/IDs nos limites sem gravar e não reexecuta nem substitui o fluxo financeiro.
+
+## Resolução de identidade no painel — D82
+
+`check:qa-catalog-resolutions` usa build isolado e banco sintético exclusivo. [Seis grupos/29 capturas](../artifacts/qa-catalog-resolutions/results.json), 28 com axe: prévia sem escrita, voltar preservando campos, confirmação por teclado, resposta perdida após commit, repetição idempotente, associação/hold com fonte/atestação, anterior/sucessora, três namespaces, destino inexistente ou de outro escopo, stale concorrente, snapshot 20+1 e histórico 20+2 com datas iguais, filtro e leitura sem JS. Também cobre 14 combinações tema/largura de 320–1920px e formulário/conferência com texto 200%/IDs longos. Detalhe em ambos os temas, loading/erro/sucesso, permissões por API e projeções originais preservadas.
+
+Axe identificou alvos pequenos no detalhe; botões e links foram corrigidos e a suíte integral repetida sobre o build final, sem violações/overflow/runtime. Check geral D82: 247 unitários/31 arquivos, 61 operacionais, tipos e lint sem erros (dois avisos históricos). Não conclui resolução financeira visual, matriz integral, zoom nativo 400%, homologação externa ou release da imagem.
+
+## Resolução financeira visual — D83
+
+`check:qa-financial-resolutions` testa os endpoints reais existentes pelo navegador com banco sintético: ausência de seleção automática, prova contraditória bloqueada, exclusões explícitas, conciliação/hold com fontes/atestação, resposta perdida após gravação e repetição idempotente, stale concorrente e nova prévia. Confere fatos originais, três namespaces/moedas, relatório substituto com exclusão obrigatória, 11 reembolsos posteriores via worker, aplicações em páginas 10+2 e fontes 20+1 conservando escolhas/cobertura. Sem JS há histórico/detalhe e prova JSON integral, com consulta/registro desabilitados. Seleção/prévia/detalhe são renderizados nos temas e texto ampliado; a QA também rejeita entrelinha computada menor que a fonte para impedir sobreposição de rótulos em 200%.
+
+Quatro testes novos em ledger-entry cobrem -1/-99/-101 centavos e limite negativo seguro, sem arredondamento. Os 22 cenários positivos/de entrada anteriores continuam válidos. A função de exibição passa a suportar sinal negativo; entrada de liquidação/custo continua não negativa, com direção de caixa separada.
+
+Evidência D83: [sete grupos/34 capturas](../artifacts/qa-financial-resolutions/results.json), 33 com axe sem violações; runtime/overflow/tentativas externas zerados. [Checks e limitações](../artifacts/qa-financial-resolutions/release-checks.json). Check geral: 251 unitários/31 arquivos, 61 operacionais, tipos e lint sem erros, com dois avisos históricos. Fix de entrelinha teve rodada integral final sobre build atualizado; fixtures limpas e banco parado preservando volume. P03/P04/P05 e B20 integrais continuam abertos.
+
+## Cobertura financeira — D84
+
+`financial-report-cohort.test.ts` acrescenta sete testes de população em revisão, taxa desconhecida/zero, não duplicação de reversão, status sem valor, idade sem prazo presumido, população vazia e overflow seguro. `test:financial-coverage` acrescenta [cinco grupos PostgreSQL](../artifacts/financial-coverage/local-results.json) no runner sequencial, cobrindo também queries reais de estado unknown/datas ausentes, moedas/janelas, correção fora do período, custos zero/ausência, overflow assinado e ausência de escrita. financial-ledger mantém seus três grupos de regressão aprovados.
+
+[QA D84](../artifacts/qa-financial-coverage/results.json): quatro grupos/21 capturas, 20 com axe; POST real, cobertura por moeda, revisão/limite, tabela/filtro/teclado, dois temas/320–1920px, texto 200% com entrelinha proporcional e filtro/leitura sem JS. Zero runtime, overflow da página ou tentativas externas. Tipos/lint sem erros, 258 unitários/32 arquivos e 61 operacionais. [Auditoria de aceite restante](../artifacts/financial-coverage/acceptance-audit-d84.json) distingue evidência local de requisitos incompletos; não conclui P03/P04/P05, B20 integral ou homologação externa.
+
+## Detalhamentos e processamento — D85
+
+`financial-report-dimensions.test.ts` acrescenta seis cenários de livro efetivo, revisão/alocação desconhecida, caixa fora da janela, custos sem inferência, processamento real versus datas ausentes/inválidas/futuras e null/zero/overflow. `test:financial-dimensions` cobre [quatro grupos PostgreSQL](../artifacts/financial-dimensions/local-results.json), incluindo escrita de lastSuccessAt pelo processador real, namespaces, rótulos, campos efetivos/originais, clique sem atribuição e leitura sem escrita. Runner sequencial atualizado; cinco grupos financial-coverage reexecutados com [cópia D85](../artifacts/financial-dimensions/coverage-regression-results.json).
+
+[QA final](../artifacts/qa-financial-dimensions/results.json): quatro grupos/25 capturas distintas/24 análises axe, POST real privado, 20+1 grupos de livro, disclosure/paginador server/filtros, temas/320–1920px, texto 200% e sem JS. Zero overflow/runtime/tentativas externas. Tipos/lint sem erros, 264 unitários/33 arquivos e 61 operacionais. [Aceite local P04](../artifacts/financial-dimensions/p04-audit-d85.json) não conclui P03/P05/P06, matriz B20 integral ou release/homologação.
+
+## Estados persistidos e jornada conjunta — D86
+
+`test:commercial-state-matrix` verifica [seis grupos/27 casos](../artifacts/commercial-state-matrix/local-results.json) em PostgreSQL: 21 estados/provedores persistidos e aplicados explicitamente, seis provas recusadas sem transação, preview/stage/commit, chaves/repetição/conflito, arquivos inválidos, rollback tardio, stale e snapshot compatível. Teste de planilha neutralizada continua em commercial-csv.test.ts.
+
+`check:qa-commercial-operation` verifica [seis grupos/22 capturas/21 análises axe](../artifacts/qa-commercial-operation/results.json), ligando as cinco views, sete estados, catálogo, fonte/atestação, caixa/custo, relatório e repetição. Anônimo recusado, resultado nos dois temas e sem JS; zero runtime/overflow/tentativas externas. Aceites [P03](../artifacts/commercial-state-matrix/p03-audit-d86.json) e [P05](../artifacts/qa-commercial-operation/p05-audit-d86.json) são locais; matriz B20 integral/performance e homologações continuam abertas. Build D85 reutilizado com fontes conferidas; 264 unitários/33 arquivos e 61 operacionais, tipos/lint sem erros (dois avisos históricos).
+
+## Atribuição HTTP sintética — D88
+
+Quatro suítes loopback exercitam checkout analítico e callback Hotmart/Kiwify/Cakto com PostgreSQL e payloads sintéticos. A jornada Hotmart liga consentimento, clique, `sck`, inbox, projeção e relatório; verifica replay, contexto divergente, texto livre, referência ausente e cobertura financeira incompleta. Kiwify/Cakto verificam replay e vínculo usando os campos `TrackingParameters.sck`/`data.sck` dos fixtures, sem homologar entrega das contas. [Auditoria e resultados](../artifacts/attribution/p06-audit-d88.json). O check geral, build e typecheck locais passaram em D88; visual/browser não foi reexecutado e H01/P07 permanecem separados.
+
+## Retenção analítica — D89
+
+`test:analytics-retention` exige `BIBLIOTHEON_SYNTHETIC_TESTS=true` e banco loopback exclusivo sem owner/analytics prévios. Três grupos cobrem preview sem escrita; agregação por dia UTC e expurgo na mesma transação; remoção de sessão sem dependências; limpeza de contexto mantendo grant ativo; expiração de limites; repetição sem duplicar contagens e ausência de UUID/session/grant no agregado. Migration 29 aplicada no PostgreSQL local; fixtures limpas. Não testa pedidos de titular, cancelamento de envio, retenção comercial, restore, imagem, carga ou validade jurídica da política. Worker permanece opt-in.
+
+## D92 — Retenção de pedidos sem confirmação
+
+`test:privacy-retention` cobre preview sem escrita; cutoff UTC de 24 meses e expurgo idempotente da auditoria; remoção do pedido antigo não confirmado, seu evento e outbox; preservação de contato ainda referenciado/suprimido; proteção de estados `sending/uncertain`; retenção de solicitação recente/confirmada; relatório sem PII. A saída [D92](../artifacts/privacy-retention/d92-results.json) confirma sete verificações e zero mensagens/chamadas externas. Banco sintético obrigatório; não habilita a flag do worker.
+
+## D97 — Inventário agregado de privacidade
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-inventory` verifica totais por coleção/grupo, soma coerente e ausência de email/ID/conteúdo no relatório agregado. [Evidência](../artifacts/privacy-inventory/local-results.json). Teste PostgreSQL sintético; não verifica retenção, exclusão, provedores ou restore.
+
+
+## D98 — Tombstones de supressão
+
+`npm run test:privacy-retention` cobre preview sem escrita, expiração seletiva/idempotente de tombstones vencidos e preservação dos ativos: [D98](../artifacts/privacy-retention/d98-results.json). `npm run test:brevo-sync` verifica que a supressão cria apenas HMAC de 12 meses, sem email, e que rollback desfaz tombstone junto com outbox/consentimento: [resultado](../artifacts/brevo-suppressions/local-results.json). `npm run test:brevo-webhook` cobre criação transacional pelo evento autenticado e rollback; [11 grupos](../artifacts/brevo-webhook/local-results.json). `npm run test:preferences` confirma que um novo opt-in só remove o tombstone depois da confirmação explícita: [resultado](../artifacts/preferences/local-results.json). `npm run test:privacy-inventory` também passou com a nova coleção no grupo marketing. PostgreSQL local sintético; sem chamadas externas ou mensagens reais.
+
+## D99 — Expiração de tokens de preferências
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-retention` verifica preview sem escrita, exclusão do token vencido sob lock de contato, preservação de token ainda válido, limpeza do token antes de decidir se o contato pode ser removido, tombstone ativo e reexecução idempotente. [Nove verificações PostgreSQL sintéticas](../artifacts/privacy-retention/d99-results.json); sem migration, mensagem ou chamada externa.
+
+## D100 — Retenção da auditoria comercial
+
+A mesma suíte verifica cutoff UTC de 24 meses, expurgo idempotente de auditoria ligada a inbox `applied`, e preservação de inbox em revisão, conflito, transação com `needsReview` e registro recente. Preview não escreve; apply revalida sob lock da conta; relatório contém contagens. [12 verificações PostgreSQL sintéticas](../artifacts/privacy-retention/d100-results.json); sem migration, API externa ou mensagem.
+
+## D101 — Retenção do envelope da inbox
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-retention` valida cutoff de 90 dias por `processedAt`, preview sem escrita, exclusão do envelope da cópia terminal e integridade do `transaction-event` preservado. Conflito, revisão financeira, referência incompleta e registro recente são retidos. Após o expurgo, processamento idempotente e `transactionReviewContext` reconstroem o evento do ledger validando hash. [15 verificações PostgreSQL sintéticas](../artifacts/privacy-retention/d101-results.json). Regressões de `test:transaction-review` (7 grupos) e `test:report-evidence` (10 grupos) passaram. Não é homologação externa, operação com dados reais ou teste de restore.
+
+## D102 — Retenção de amostras confirmadas
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-samples-retention` passou em cinco grupos com 14 pedidos sintéticos: preview integrado sem escrita/PII e cutoff exato; rollback após excluir outbox/eventos; remoção de pedidos com envios enviados/falhos/cancelados; preservação de opt-in vigente, prova posterior ausente, sequência vinculada, estado pendente/incerto e alterações recentes; repetição idempotente. Contatos, assinatura vigente e evento de supressão são preservados. [Evidência D102](../artifacts/privacy-retention/d102-results.json). O runner de integração inclui a suíte sequencialmente. Sem migration, provedor, mensagem, política real homologada ou restore.
+
+## D103 — Retenção além da primeira página
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-retention` passou em 18 verificações. Regressão adicional cria 100 pedidos com IDs/datas controlados e envios `sending`/`uncertain` antes de um pedido removível; somados ao fixture em voo anterior, são 102 candidatos. Preview não escreve. Apply preserva os 101 casos em voo, remove somente pedido/evento/outbox elegíveis e mantém o contato compartilhado. Reexecução remove zero e continua contando os 101 retidos. [Evidência D103](../artifacts/privacy-retention/d103-results.json). Fixtures sintéticas foram limpas; sem chamadas externas ou mensagens.
+
+## D104 — Manifesto e replay de recuperação
+
+Seis testes unitários cobrem assinatura/chave/domínio, schema estrito/adulteração, duplicatas/limite, prazos, datas do snapshot e isolamento. `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-recovery` passou em seis grupos PostgreSQL: exportação consistente sem emails/IDs/ator; CLI empacotada, modo 600 e recusa de permissões amplas; preview sem escrita e guards de isolamento/freshness; exclusão/correção reaplicada inclusive com auditoria preexistente e envio incerto revogado/bloqueado; retirada promocional independente de amostra e bounce restaurado; repetição sem duplicar decisão/renovar prazo, recaptura bloqueada e zero fetch. [Evidência D104](../artifacts/privacy-recovery/d104-results.json). Regressão `test:privacy-delete` passou em duas verificações. O ensaio simula banco anterior alterando fixtures exclusivas; não executa restic/pg_restore nem comprova arquivo externo atualizado, RPO/RTO ou conta real.
+
+## D105 — Pending antes e depois do restore
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-recovery-pending` passou em sete grupos: pending preserva identidade e envio incerto, mas barra captura/confirmação; dispatcher/promoção/cadastro novo não emitem HTTP nem quota; auditoria pending com três anos sobrevive ao expurgo e entra no v2 sem prazo; replay preserva pending sem concluir/apagar identidade e bloqueia ausente; repetição não duplica nem expira a conciliação; bloqueio de entrega independe de globalSuppressedAt; apenas resolução owner explícita produz completed. [Evidência D105](../artifacts/privacy-recovery/d105-results.json).
+
+Oito testes unitários incluem assinatura v1 legada e schema v2 pending/expiração inválida. A suíte D104 permanece com seis grupos. A fixture independente de marketing passou a exigir tombstones/auditorias vazios e remover seus tombstones na limpeza; a guarda da suíte seguinte identificou os sete resíduos sintéticos, que foram removidos só após verificar as demais coleções relacionais vazias. Registros reais/contas e restore físico continuam fora do ensaio.
+
+## D106 — Restore físico local e privacidade — 26/10/2026
+
+D106 validou backup criptografado e restore físico local das 32 migrations, com mídia íntegra e replay do manifesto v2 separado do snapshot; completed é reaplicado e pending permanece pendente. A telemetria automática do Payload foi desativada após a barreira de rede detectar sua tentativa. Imagem atual, guarda externa do manifesto/backup, RPO/RTO reais e release continuam pendentes. [Evidência D106](../artifacts/recovery/d106-results.json) Fonte, dump e destino usam somente fixtures sintéticas. Preview não escreve; repetição mantém prazos; amostra independente é preservada, bounce cancela pendência e identidade sem decisão não é alterada. Flags seguem falsas; sem conta real, VPS ou deploy.
+
+O ensaio `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:recovery` é separado do runner de integrações de banco: também exige Docker Compose e restic local verificado. Não é executado pelo CI atual nem pelo check sem serviços.
+
+## D107 — Imagem atual e upgrade local — 26/10/2026
+
+D107 construiu a imagem local atual e verificou 32 migrations em banco vazio e upgrade real de 6 para 32, preservando contato e owner sintéticos. Saúde, HTTP interno, ACL, runtime sem root/read-only/DDL, CLIs de privacidade e worker de retenção passaram em rede Docker internal, sem saída para provedores. Corrigidos o encerramento das CLIs de inventário/retenção após a limpeza do Payload e a renovação do heartbeat no ciclo ocioso do worker de retenção. A imagem não foi publicada. Bateria funcional integral do release, restore físico nesta imagem, destino externo/RPO/RTO, contas e VPS continuam pendentes. [Evidência D107](../artifacts/container/d107-results.json). As sondagens HTTP rodam no loopback do container; não homologam proxy, TLS ou acesso da VPS. Replay v2 na imagem usa manifesto vazio; decisões reais de fixtures pós-snapshot ainda exigem o ensaio físico nessa imagem.
+
+## D108 — Restore físico com a imagem atual — 26/10/2026
+
+D108 aprovou restore físico com a imagem D107: 32 migrations, mídia íntegra, seis decisões de privacidade posteriores ao snapshot e replay v2 dentro da imagem. Preview, exclusão/correção, pending, supressão/bounce e repetição sem renovar prazos foram verificados. A aplicação só iniciou depois do replay, com credencial de banco separada e limitada: saúde/catálogo/capa responderam 200, contatos privados 403 e amostra privada na rota pública 404. Rede interna sem portas publicadas; transportes e worker desligados. Destino externo, guarda atual do manifesto, RPO/RTO reais, bateria integral e homologações continuam pendentes. [Evidência D108](../artifacts/recovery/d108-results.json). Não houve nova migration, rebuild, dado real, conta externa, VPS ou deploy; identidade sem decisão e entregas incertas foram preservadas.
+
+## D109 — Retenção de estado promocional — 26/10/2026
+
+D109 implementa retenção local de estado promocional para contatos globalmente descadastrados há pelo menos 30 dias: remove assinaturas encerradas e calendários cancelados com etapas antigas, sem lote. Preserva identidade, amostras/outbox, consentimento, auditoria e supressão com o prazo original. Não executa exclusão de identidade nem forja pedido owner. Impedimentos de privacidade, provedor, envio incerto, vínculo cruzado e manifestos compartilhados/JSON preservam os registros. Preview é padrão; apply revalida sob locks e é atômico por contato. P07 continua parcial para identidade, demais finalidades e dados compartilhados. A imagem/restore D107–D108 são evidências da revisão anterior, não incluem esta rotina. [Oito grupos PostgreSQL sintéticos](../artifacts/privacy-retention/d109-results.json). Sem migration, chamada externa, dado real, nova imagem, VPS ou deploy.
+
+## D109 — Critérios de retenção promocional — 26/10/2026
+
+Compartilha os locks promotion-batches → contact com a construção de lotes, revalida estado e datas e só remove etapas canceladas antigas sem lote/recibo/vínculo externo. Varre referências JSON paginadas; limites de 10 mil relações por contato/coleção de manifestos, um milhão de nós JSON e profundidade 64 interrompem a operação, sem tratar inventário truncado como elegível. Identidade, consentimento e amostras têm finalidades/prazos distintos; a rotina não conclui P07 nem homologa exclusão de identidade/provedor.
+
+## D110 — Retenção de identidade e recuperação — 26/10/2026
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-identity-retention` passou em 12 grupos: preview, prazo duplo, ACL, exportação sem identidade, vínculos HMAC/callback, rollback, manifesto v3, nova finalidade, quarentena, concorrência, paginação e down/up vazio. `npm run check:recovery` com a mesma flag aprovou restore físico local de 33 migrations e mídia, preview/replay v3 de oito entradas, um expurgo automático e repetição sem renovar prazo. Não validou a imagem atual nem retomada HTTP. [Resultados de retenção](../artifacts/privacy-retention/d110-results.json) e [restore](../artifacts/recovery/d110-results.json). Corrigida corrida na fixture de encerramento de processos: PID publicado atomicamente após instalação do handler.
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:database-bulk` verifica quatro grupos: atualização sem hooks simultâneos, exclusão com rollback integral em transação explícita, exclusão com commit automático e ausência do aviso de consultas concorrentes/rede externa até a limpeza. A suíte entra primeiro no runner sequencial. O mesmo teste falhou antes do patch (quatro hooks concorrentes) e passou depois. [Resultado](../artifacts/database-bulk/d111-results.json); [checks](../artifacts/database-bulk/d111-checks.json). Não substitui auditoria de todas as consultas ou volume de produção.
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-theme-retention` cobre oito grupos PostgreSQL, incluindo rollback após remover etapas/calendário, concorrência sob lock, backlog de 100 retidos, confirmação antiga e novo opt-in real com transporte sintético. 13 unitários de manifesto incluem v4, tema inválido/duplicado/pending, prazo e downgrade assinado, mantendo leitura v1/v2/v3. [Evidência temática](../artifacts/privacy-retention/d112-results.json). O harness físico agora testa nove entradas v4 e o assunto retirado, preservando outro assunto/amostra no snapshot restaurado; não equivale à imagem final ou conta homologada.
+
+## D113 — Margem e acompanhamento do prazo — 26/10/2026
+
+Quatro unitários em retention-policy verificam margem 28 dias + 25h <30 dias, fases horárias do ciclo UTC, fim de mês/relógio e saúde com arquivo ausente/corrompido/futuro/velho/exceções. `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-retention-deadline` testa quatro grupos com PostgreSQL exclusivo. `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:worker-health` executa oito cenários reais das CLIs atuais em container sem rede/banco, montadas read-only numa imagem antiga; não certifica a imagem inteira. [Testes do prazo](../artifacts/privacy-retention/d113-results.json) e [CLIs](../artifacts/worker-health/d113-results.json). Runner de integrações inclui o novo teste de prazo.
+
+## D114 — Legado temático verificável — 26/10/2026
+
+`BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-theme-legacy` verifica oito grupos no PostgreSQL exclusivo. Inclui exportação sem escrita, prova expirada sem renovação, snapshot anterior à retirada vencida recusado, omissão não permitida, cobertura global legítima, expurgo anterior a finalidade nova, chave divergente, tema/data/finalidade/prefixo errados, conflito temporal, rollback de fato+expurgo, reativação concorrente e paginação. [Resultado](../artifacts/privacy-retention/d114-results.json). O harness físico D114 remove só o fato sintético após descadastro nativo e prova que exportação/replay usam o evento preservado; não chama conta/provedor.

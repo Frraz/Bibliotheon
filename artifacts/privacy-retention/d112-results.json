@@ -1,0 +1,51 @@
+{
+  "phase": "D112",
+  "date": "2026-10-27T00:57:38.040Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "preview sem escrita e expurgo de um assunto preservam identidade, outro assunto ativo, amostra e prova",
+    "manifesto v4 reaplica só o assunto, preview não escreve e repetição não renova prazo nem fabrica pedido owner",
+    "consentimento temático posterior é preservado; fato sem contato/tema local é importado sem criar identidade ou FK",
+    "prova ausente, provedor, manifesto HMAC e chave ausente preservam dados; falha de delete reverte a transação",
+    "revalidação sob lock preserva nova assinatura concorrente após a seleção",
+    "100 candidatos retidos não impedem expurgo elegível no fim do backlog",
+    "descadastro idempotente bloqueia confirmação antiga após remover assinatura, entrega amostra e permite novo opt-in confirmado",
+    "API owner somente leitura, exportação sem HMAC/chave, prazo de 24 meses e down com dados recusado"
+  ],
+  "preview": {
+    "cutoff": "2026-09-29T00:57:31.007Z",
+    "guardAvailable": true,
+    "candidates": 1,
+    "eligible": 1,
+    "processed": 0,
+    "removedSubscriptions": 0,
+    "removedEnrollments": 0,
+    "removedPromotions": 0,
+    "preservedForReconciliation": 0,
+    "expiredMarkers": 0,
+    "backfilledMarkers": 0,
+    "expiredProofClosures": 0
+  },
+  "applied": {
+    "cutoff": "2026-09-29T00:57:31.007Z",
+    "guardAvailable": true,
+    "candidates": 1,
+    "eligible": 1,
+    "processed": 1,
+    "removedSubscriptions": 1,
+    "removedEnrollments": 1,
+    "removedPromotions": 1,
+    "preservedForReconciliation": 0,
+    "expiredMarkers": 0,
+    "backfilledMarkers": 0,
+    "expiredProofClosures": 0
+  },
+  "replay": {
+    "manifestVersion": 4,
+    "withdrawnThemes": 1
+  },
+  "migrations": 34,
+  "externalCalls": 0,
+  "physicalRestoreValidated": false,
+  "productionChanged": false
+}

@@ -1,0 +1,15 @@
+{
+  "phase": "D111",
+  "date": "2026-10-27T00:04:25.698Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "atualização em lote aguarda cada documento na mesma transação, sem perder linhas",
+    "exclusão sequencial em transação explícita reverte integralmente quando o chamador falha",
+    "exclusão em lote com transação automática confirma todas as linhas",
+    "suíte e limpeza terminam sem aviso de consultas concorrentes e sem rede externa"
+  ],
+  "concurrentQueryWarnings": 0,
+  "externalCalls": 0,
+  "schemaMigrations": 33,
+  "productionChanged": false
+}

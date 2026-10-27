@@ -1,0 +1,99 @@
+{
+  "phase": "D110",
+  "date": "2026-10-26T23:58:35.194535+00:00",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 290,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "identityRetention": {
+      "status": "passed",
+      "groups": 12
+    },
+    "retentionRegression": {
+      "status": "passed",
+      "checks": 18
+    },
+    "marketingRetentionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "recoveryRegression": {
+      "status": "passed",
+      "groups": 6
+    },
+    "pendingRecoveryRegression": {
+      "status": "passed",
+      "groups": 7
+    },
+    "privacyInventoryRegression": "passed",
+    "physicalHostRestoreV3": "passed",
+    "runtimeBundle": "passed",
+    "pythonHarnessSyntax": "passed",
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1308,
+      "updated": 20,
+      "retained": 29
+    }
+  },
+  "sourceSHA256": {
+    "src/collections/Relationship.ts": "97a7982a52dbd4a213574c8b2e2c8fd584e40bd48d23313dcae60b607bbee7c5",
+    "src/payload-types.ts": "77be222b86c53a83ddd86bb14cb247724223183c55c610efeff2b4a29b0c85ae",
+    "migrations/20261026_231335_contact_retirements.ts": "07d0ca2a2993e425887a8943ddfc36bbd9b1c412b46b164638db5fc5e98ee747",
+    "migrations/20261026_231335_contact_retirements.json": "6c885ae2da72b54d6d959178356474e34501a38bb279c81b321e8891c5b19236",
+    "migrations/index.ts": "b6069580bc97a9ca437c6b433aabfc67e9ab12d3e23bd902449efc833c8230fd",
+    "src/modules/marketing/privacy-identity-retention.ts": "b7568de308444dee17e564c9d91145b091616f40f822d485d2cb67a24c4990bb",
+    "src/modules/marketing/privacy-marketing-retention.ts": "74faa0c011f1a4fbdc33efacf5d5f9f1e51068dd73420150f193ea4ac18ea5bd",
+    "src/modules/marketing/privacy-retention.ts": "e9d76ce3a07aa1c6b0ca07de3e714b423090b1f8d12974871ade49e02a71e55d",
+    "src/modules/marketing/privacy-export.ts": "fcb18b8c87b28790193fe7ee86f2f703bd7cb7973f7c7428fb537d2337cde3e6",
+    "src/modules/marketing/privacy-inventory.ts": "02282d3c1805bdf8ec31672bc8845518fafe1a11be4f531b1fecb980a5908792",
+    "src/modules/marketing/privacy-recovery-manifest.ts": "30116b1fc117bc679a66231a3f35393f29a155ac19db38c5649e3846ba431e01",
+    "src/modules/marketing/privacy-recovery.ts": "b4eba4deba52f0876f878a817b9fcbf19ac1d091417d88dee5aba117e7b3b0ad",
+    "scripts/worker.ts": "2be79b9c7205337e76cc8d5226f870b407ec9a50f7822f68b27d23f94908f3b3",
+    "scripts/qa-recovery.ts": "2dba015371edf3fad37f7876ece227302b6f5ac46f11f73b4cc66cff54667f16",
+    "scripts/qa-container.py": "975f7825163921bc08b454b61a6274a1ada0f28325581021fabad60782fe6a3b",
+    "scripts/check-integration.sh": "a14ad430551643891ccdb3bcf46d2a379fd415315516fa4ebe748e2e6dc0da98",
+    "tests/integration/privacy-identity-retention.ts": "8cbd80f2b21ed7b4962ede7dc6cfaf7ad69c8131257bfcf3e65af87c671f0401",
+    "tests/integration/privacy-retention.ts": "2ef08a2a9b674d70f75ced30c1c9a62d6f3fff43c3fba4c1a4e4d43fc54f78cc",
+    "tests/integration/access.ts": "6b8f1f5f55f7d50101281c47eeea5c64279a95db3a02e3e9b7e67a14c3e0f4c0",
+    "tests/integration/marketing.ts": "dd83f530538bf8c015513cc1dc976fd18252829067eae462fd525326a7cffda1",
+    "tests/fixtures/relationship.ts": "3c0d0f63990dcdd262854ba169866085340414ca7fe1abb56c096082064764f1",
+    "tests/unit/privacy-recovery-manifest.test.ts": "bcba0cfce9dd546dad9ee400c9e373372efe8ec248afd3a1674c778d3b794620",
+    "tests/ops/test_local_dev.py": "f3b2596025e61c782dd16acceddfa0fb1137552977b4f053d6dad863dcf2f4d9",
+    "package.json": "5df280cfe467c8488068947857dd569cadf178b92d92a86a0b183e15d6ec27d4"
+  },
+  "packagedCLISHA256": {
+    "privacy-retention": "34bdef24dbec5a212cb68535386a54518309234aaf2a786923d09b8b645425a0",
+    "privacy-recovery": "0858d584e9195c70ad27c72b04c7bc4c8c5eb5665418c74d6fe293730831343e",
+    "privacy-inventory": "8934bebab262f68b51c27d3e2c02570d15eb14bdc7fd142588d0ae5b59389532",
+    "worker": "483e7dcd9f5f2e553baae860e4989e1b2d3131e72f68888f749ac5cf75b86453"
+  },
+  "schemaMigrations": 33,
+  "physicalRestoreValidated": true,
+  "applicationImageValidated": false,
+  "providerReconciliationImplemented": false,
+  "productionChanged": false,
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourcePrivacyAudits": 0,
+    "sourceSubscriptions": 0,
+    "sourceRetirements": 0,
+    "sourceEnrollments": 0,
+    "sourcePromotions": 0,
+    "localDatabaseStopped": true
+  },
+  "limitations": [
+    "P07 continua parcial para finalidades remanescentes, compartilhamentos, provedor e ledger.",
+    "Imagem D107 e restore D108 precedem o schema novo; revalidar release final.",
+    "Guarda externa atual, RPO/RTO reais e homologacoes continuam pendentes.",
+    "Aviso pg/Drizzle e dois avisos historicos de lint permanecem em H06."
+  ]
+}

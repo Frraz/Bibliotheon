@@ -42,6 +42,9 @@ def main():
         texts[path] = text
         if not text.startswith('# '):
             errors.append(f'Sem título: {path.relative_to(ROOT)}')
+        number = re.match(r'^(\d{2})-', path.name)
+        if path.parent == ROOT / 'docs' and number and not re.match(r'^#\s+' + number[1] + r'\b', text):
+            errors.append(f'Número/título incompatível: {path.relative_to(ROOT)} deve começar com # {number[1]}')
         if len(re.findall(r'^```', text, re.M)) % 2:
             errors.append(f'Bloco de código sem fechamento: {path.relative_to(ROOT)}')
 

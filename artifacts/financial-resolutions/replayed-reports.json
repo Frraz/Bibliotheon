@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-25T04:08:38.446663+00:00",
+  "schemaMigrations": 25,
+  "originalReportsRestored": true,
+  "note": "Relatos de suítes históricas conservam o escopo Dxx e podem citar migrationUnderTest ou limitações da etapa original. A contagem do schema da reexecução é 25; o estado atual é o contrato D74.",
+  "reports": [
+    {
+      "original": "artifacts/catalog-resolutions/local-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/catalog-resolutions/local-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "a8c5f8f3fa0a725d9307700fbc24e168847ec070aa3dd9fade17508de7a5d98e",
+      "replaySHA256": "cd7346af314423643e44e74ea7336346447df26fd1003e6650b3e2c7e97eac44"
+    },
+    {
+      "original": "artifacts/catalog-resolutions/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/catalog-resolutions/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "64e642b328835e89dfb77ae1da89750d9e80ae0781091eee29345fb5eb108d54",
+      "replaySHA256": "6f39f4bb5f5d7cf0a164254350735c66ed2ed10ea66b9888b6a1de0c22fad6d4"
+    },
+    {
+      "original": "artifacts/analytics/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/analytics/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "f33258b932ac105d96f27160dfc6ca1e5f16675ae2b0608661e739c8f398feef",
+      "replaySHA256": "15355e0f062199ab84e7298c33fe7231e7e654369b59f3772c6aea2f1877ea08"
+    },
+    {
+      "original": "artifacts/commercial-imports/local-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/commercial-imports/local-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "e89a02e6a4fa8e2f8ff1120a0f664ceae9862b378661522fcedd2826b23811ba",
+      "replaySHA256": "714f4211db4c027491479c1a5c74e986ff4272f62d57dc005b3ac3db3a3e2fc6"
+    },
+    {
+      "original": "artifacts/commercial-imports/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/commercial-imports/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "17d37e792db69cd7923eb7588fc06c51b01b3077ce1c7e8efeb51666f2252a14",
+      "replaySHA256": "1548949adda1bd6d44b3dd7faff88e1a8c7245bed4c2b4c30903ba13ab60f06a"
+    },
+    {
+      "original": "artifacts/admin-recovery/local-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/admin-recovery/local-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "f5d15216e471fbf1ea72256d4fd30ab9e88c97bdcf9003b4fa1ce0c30dd5597b",
+      "replaySHA256": "b3190f4df2fc182625171ba9fb3a18ede69b61041f78e84b52e6d500ad140bbc"
+    },
+    {
+      "original": "artifacts/transaction-review/local-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/transaction-review/local-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "2d56a9a8bdbccb8abd5797acbe3cd714ce0771da32836ec4a4b83563ad3a8a16",
+      "replaySHA256": "da38a9b791a5ec38349df45ebf8c0dbc293f5ff742b37e3a874e3bd3a334dd6d"
+    },
+    {
+      "original": "artifacts/transaction-review/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/transaction-review/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "1c41e8041fafb5ee80bf9dd518013d51ee673be96675a4373e942ee3170b9df1",
+      "replaySHA256": "a896ac54551171fde53ff1531ebb18b2ff0da715a3b081a5f81c5d2615919812"
+    },
+    {
+      "original": "artifacts/cakto/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/cakto/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "60aeebe51f544ed174a5ec343cc60d23ab9cb410bc063c3abe1f551338791123",
+      "replaySHA256": "8bc2dbef9221edb71f9a99fb6506337023863910c8e03657d3fd1788f61d8715"
+    },
+    {
+      "original": "artifacts/commercial-inbox/local-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/commercial-inbox/local-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "dd9634a09397c92c1176b24c5335b58e5fab442ee9a990785e02fe42f506da1e",
+      "replaySHA256": "22d163e81749743de531e4274ccf379e4979f2a331108fafe64fb6c1d29afca8"
+    },
+    {
+      "original": "artifacts/brevo-webhook/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/brevo-webhook/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "01d46afcd2c4ff5406062b0a29c35a09f518e4280d375dffd77a8bb5eea85f9c",
+      "replaySHA256": "161abb3e4c6e2c8f2d9f7ba7686ef8225d2731d7fcdb411a61e881d075bb14ca"
+    },
+    {
+      "original": "artifacts/commercial-csv/local-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/commercial-csv/local-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "4b7381382dba624f977bf024487de762d1a47d5fa34a84f467605552c38e85f9",
+      "replaySHA256": "6ef289439878105be26dad8aadcb1ef86e24be631fdb8733dcf3a78be0ad6167"
+    },
+    {
+      "original": "artifacts/commercial-csv/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/commercial-csv/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "cb57d001a11583559812e498ac6ac82045677a48ae41951289e83bbdf1101662",
+      "replaySHA256": "0f0e946bd59491c0201d2b415f155f56956798a02c20f0aff8a4feea7fe2ca54"
+    },
+    {
+      "original": "artifacts/hotmart/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/hotmart/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "a255a2bb0aba901502e9c0ee4ee89b1aa1af805afa335479254a3e5d5e633457",
+      "replaySHA256": "1728de5ce175039900f94f8cc6f5c641740980db6a007c646308f4d3682e815d"
+    },
+    {
+      "original": "artifacts/kiwify/http-results.json",
+      "replay": "artifacts/financial-resolutions/regressions/kiwify/http-results.json",
+      "replaySchemaMigrations": 25,
+      "originalSHA256": "9e3794d72ff5e0bdbc186e579b0e84a3b49642cf6b346ac369f0aaa99011eb5d",
+      "replaySHA256": "29e9f0a93ac72563b7f8e6fcb5b807f14e5a0142cc7c9604887381136b2bf678"
+    }
+  ]
+}

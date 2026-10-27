@@ -17,6 +17,12 @@ Mapa do produto completo; rotas existentes e pendentes estão discriminadas no [
 | `/amostras/[slug]` | Captura de material ativo; usa contrato existente de solicitação |
 | `/amostras/confirmar` e `/preferencias` | Confirmação e gestão de assinatura, noindex |
 | `/admin` | Painel Payload autenticado |
+| `/admin/commercial-inbox` | Acompanhamento e retry de eventos, com motivo e confirmação |
+| `/admin/commercial-imports` | Upload dos dois CSVs canônicos, prévia, lote persistido e confirmação explícita; retomada do histórico |
+| `/admin/financial-ledger` | Prévia financeira por moeda/período, cobertura e coortes; somente leitura |
+| `/admin/financial-resolutions` | Escolhas por fonte/variante, prévia de todo o componente, conciliação/hold auditados e histórico de decisões/aplicações |
+| `/admin/catalog-resolutions` | Prévia de associação/bloqueio de identidade, fonte/motivo, confirmação e histórico imutável |
+| `/admin/financial-records` | Conferência e registro de liquidações/custos, correções por substituição e histórico paginado |
 
 Não criar página de ferramenta vazia na primeira versão. Alteração de slug publicado exige redirecionamento permanente de caminho antigo para novo, sem cadeias ou ciclos. Busca/filtros não geram infinitas páginas indexáveis.
 
@@ -45,6 +51,8 @@ Grupos: Conteúdo (livros, temas, artigos, mídia, amostras); Comercial (ofertas
 Livro apresenta checklist de publicação e ação “Pré-visualizar”. Publicação valida campos, amostra existente quando anunciada, oferta e referências. Arquivar retira de listagens; preservar página informativa útil ou aplicar redirecionamento editorial, sem redirecionar tudo para home.
 
 Relatório mostra período, fuso, plataforma e qualidade dos dados. Vazio diz “nenhuma venda registrada”, não “ninguém comprou”. Integração atrasada aparece ao lado dos números.
+
+Importação D80 tem três momentos distintos: consultar o arquivo sem gravação, preparar um lote durável e confirmar o plano conferido. Dados/valores da linha ficam em detalhe expansível; bloqueios e mudanças posteriores no histórico impedem confirmação. Resposta incerta permite repetir a mesma tentativa ou retomar o lote registrado. Snapshot confirmado pode apenas enfileirar fatos; evidência complementar registrada exige decisão posterior para aplicar valores. D81 acrescenta a conferência e o registro/correção de liquidação/custos; as telas de decisão auditada permanecem no P05.
 
 ## Busca e SEO
 

@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "PostgreSQL local sintético; titulares fictícios",
+  "checks": [
+    "correção mantém relações locais e replay idempotente",
+    "pedido não confirmado invalidado e outbox de confirmação cancelado",
+    "subscription/consentimento preservados; job de registro ainda não enviado é revisado para novo endereço",
+    "tokens de preferência antigos invalidados",
+    "tombstone impede recaptura do endereço anterior e impede reutilizá-lo como destino",
+    "entrega uncertain retorna pending sem alterar contato"
+  ],
+  "externalCalls": false,
+  "messagesSent": 0
+}

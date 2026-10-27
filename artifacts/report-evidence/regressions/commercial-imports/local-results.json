@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-25T04:28:29.464Z",
+  "checks": [
+    "Migração 21 round-trip em transação revertida; coleções privadas negam leitura anônima/criação owner. Fonte inválida/linha com PII não cria lote; autorização é exigida no serviço.",
+    "Estágio concorrente com UUID em caixas diferentes é idempotente e guarda três linhas/uma auditoria. Mesmo idempotency key com conteúdo diferente é recusado; downgrade com evidência não apaga registros.",
+    "Confirmação exige conferência/plano exatos; concorrência inclusive UUID upper/lower enfileira uma vez. Duas evidências e seus vínculos/auditorias são atômicos; confirmação não aplica venda nem ignora flag do worker.",
+    "Evidência pendente bloqueia novo lote da mesma transação. Aplicação explícita usa centavos/data/fonte CSV sem líquido/recebimento inferidos; relatório já compatível confirma sem novos fatos ou transações.",
+    "Webhook recebido e catálogo alterado depois do estágio invalidam o plano inteiro, registram stale e preservam inbox/projeções. Linha companheira não é importada parcialmente.",
+    "Reversão/recebimento sem contrato suficiente ficam bloqueados. Linha persistida adulterada não passa por whitelist/hash/manifesto nem gera fato financeiro.",
+    "Falha na auditoria do estágio reverte lote/linhas. Falha final após enfileirar 201 itens em dois blocos reverte tudo; retry confirma todos juntos, sem efeitos parciais.",
+    "Barreira por conta protege confirmação contra recepção concorrente: webhook aguarda commit e permanece durável depois, sem ser perdido ou considerado já importado.",
+    "Kiwify e Cakto também recebem/aplicam snapshots CSV independentes com a mesma política; nenhum provedor foi removido ou tratado como formato nativo de outro.",
+    "Owner consulta coleções nativas, mas não edita/apaga plano/linhas/auditoria por API; dados inválidos não são preservados. Nenhum comprador, segredo ou arquivo bruto no manifesto."
+  ],
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Confirmação somente de novos estados sem reversão/recebimento e snapshots já compatíveis. Commit significa fila durável, aplicação depende do worker. Fonte/owner/CSV sintéticos, sem relatório nativo/conta real, resolução de conflitos, financeiro ou UI customizada."
+}

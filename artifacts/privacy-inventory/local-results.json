@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "PostgreSQL local sintético",
+  "groups": [
+    "marketing",
+    "analytics",
+    "commerce"
+  ],
+  "checks": [
+    "contagens agregadas refletem registros sintéticos",
+    "nenhum email, ID, data de linha ou conteúdo sai no relatório",
+    "total coincide com a soma das coleções"
+  ],
+  "externalCalls": false,
+  "mutations": false
+}

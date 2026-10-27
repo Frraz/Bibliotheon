@@ -99,7 +99,7 @@ try {
   try {
     const token = createOpaqueToken()
     await payload.create({ collection: 'preference-tokens', data: { contact: racing.contact.id, tokenHash: token.hash, expiresAt: new Date(due + UNSUBSCRIBE_TTL).toISOString() }, overrideAccess: true })
-    await unsubscribe(payload, token.token, due)
+    await unsubscribe(payload, token.token, due, secret)
   } finally { release() }
   assert.equal((await flight).state, 'canceled')
   assert.equal(await quota(), before)

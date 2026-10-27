@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-25T04:38:21.189Z",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "Rota real exige owner/origem exata, recusa ator/confirmação fora do contrato e MIME errado; sem fonte retorna 404 em vez de inventar transação.",
+    "Prévia HTTP inclui os dois lados da colisão; plano integral pode ser simulado, mas permanece committable=false. Nenhuma transação, valor, fato ou auditoria é alterado pela prévia.",
+    "Variantes desconhecidas/duplicadas não simulam decisão válida; hold mantém revisão e não altera valores conhecidos. Endpoint de aplicação financeira continua pendente."
+  ],
+  "externalCalls": false,
+  "limits": "HTTP local sintético de prévia; não confirma decisão nem aplica financeiro. Sem homologação de contas ou UI customizada."
+}

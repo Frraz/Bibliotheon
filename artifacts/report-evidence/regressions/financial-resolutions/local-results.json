@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25T04:27:05.467Z",
+  "checks": [
+    "Migração 25 desce/sobe vazia atomicamente e restaura esquema no rollback.",
+    "Falha após escrever aplicação reverte decisão e todas as mudanças financeiras do componente.",
+    "Decisão concorrente idempotente aplica somente variante escolhida; originais/fatos preservados, descartado desconhecido em revisão, líquido desconhecido não vira zero.",
+    "Consumidor CSV reconhece decisão vigente e repetição de variante já julgada não invalida projeção.",
+    "Novo reembolso nativo íntegro suspende validade até aplicação; worker reaplica escolha e novo fato atomicamente, sem duplicar decisão, aplicação ou fato.",
+    "Nova variante invalida o componente inteiro; hold mantém valores anteriores em quarentena, impede continuação e prévia antiga não confirma.",
+    "Nova revisão substitui hold com referência à decisão anterior. Trilhas negam alteração, remoção, escrita pública e downgrade com evidência.",
+    "Produto/livro/oferta efetivos corrigidos preservam referências originais e guard de identidade. Ponte nova invalida dois componentes; revisão completa referencia ambos, e confirmações concorrentes têm um vencedor."
+  ],
+  "schemaMigrations": 25,
+  "externalCalls": false,
+  "limits": "Somente evidência sintética persistida e atestação do operador. Sem homologação nativa, recebimento, lucro, UI ou produção."
+}

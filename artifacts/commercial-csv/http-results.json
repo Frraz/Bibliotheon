@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:31:13.136Z",
+  "date": "2026-10-25T06:11:29.532Z",
   "origin": "http://127.0.0.1:3001",
   "checks": [
     "Rota real exige sessão owner e origem exata; anônimo, outra origem e ausência de Origin rejeitados, GET não disponível. Nenhuma escrita comercial.",

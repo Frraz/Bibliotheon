@@ -7,11 +7,12 @@ import { applyObservedProviderBlock } from './suppression'
 import { enqueueBrevoSuppression } from './brevo-suppression-queue'
 import { enqueueBrevoRegistration } from './brevo-registration-queue'
 import { validLinkSecret } from './tokens'
+import { privacySubjectBlocked } from './privacy-block'
 
 const LEASE = 30 * 60_000
 const retryDelay = (attempt: number) => Math.min(6 * 3_600_000, 60_000 * 2 ** Math.min(attempt - 1, 9))
-async function eligible(req: PayloadRequest, contact: Contact) {
-  if (!contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok') return false
+async function eligible(req: PayloadRequest, contact: Contact, secret: string) {
+  if (!contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok' || await privacySubjectBlocked(req.payload,contact.email,secret,req)) return false
   return (await req.payload.count({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { state: { equals: 'subscribed' } }] }, overrideAccess: true, req })).totalDocs > 0
 }
 /** Durable intent precedes HTTP. Registration alone never authorizes a campaign/send. */
@@ -25,7 +26,7 @@ export async function processBrevoRegistration(payload: Payload, id: string, opt
     if (!(['pending', 'canceling'].includes(job.state) && Date.parse(job.nextAttemptAt) <= now || job.state === 'processing' && job.startedAt && Date.parse(job.startedAt) <= now - LEASE)) return { state: 'held' as const }
     await serial(req, `contact:${idOf(job.contact)}`)
     const contact = await payload.findByID({ collection: 'contacts', id: idOf(job.contact), depth: 0, overrideAccess: true, req })
-    const consent = await eligible(req, contact)
+    const consent = await eligible(req, contact,secret)
     if (!consent && job.attempts === 0 && !job.providerId) {
       await payload.update({ collection: 'brevo-registrations', id, data: { state: 'canceled', errorCode: 'local_ineligible' }, overrideAccess: true, req })
       return { state: 'canceled' as const }
@@ -52,7 +53,7 @@ export async function processBrevoRegistration(payload: Payload, id: string, opt
       if (currentLease) await payload.update({ collection: 'brevo-registrations', id, data: { state: 'failed', errorCode: 'identity_changed' }, overrideAccess: true, req })
       return { state: 'failed' as const }
     }
-    if (!await eligible(req, contact)) {
+    if (!await eligible(req, contact,secret)) {
       // Never forget a possible late POST merely because another lookup saw 404.
       await enqueueBrevoSuppression(req, contact.id, completedAt)
       const resolved = result.state === 'found' || result.state === 'blocked'

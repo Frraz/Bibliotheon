@@ -1,0 +1,19 @@
+{
+  "phase": "D84",
+  "date": "2026-10-25T16:56:30.616409+00:00",
+  "migrations": 28,
+  "counts": {
+    "admin_users": 0,
+    "contacts": 0,
+    "campaigns": 0,
+    "offers": 0,
+    "transactions": 0,
+    "transaction_events": 0,
+    "commercial_settlement_evidence": 0,
+    "financial_cost_entries": 0
+  },
+  "independentlyCheckedWith": "psql local apos QA final",
+  "databaseStopped": true,
+  "volumePreserved": true,
+  "siteSettingsFixtureBackupsRemaining": 0
+}

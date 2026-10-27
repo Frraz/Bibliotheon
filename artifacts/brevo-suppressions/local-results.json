@@ -1,10 +1,11 @@
 {
-  "date": "2026-10-22 America/Belem",
+  "date": "2026-10-25 America/Belem",
   "environment": "PostgreSQL loopback, relógio controlado, transporte de contatos/HTTP inteiramente sintético",
   "checks": [
     "Up/down e backfill exercitados dentro de transação revertida: bloqueios anteriores entram na fila e contato ativo permanece fora; schema/dados originais preservados.",
+    "Supressão persiste somente fingerprint HMAC e expiração de 12 meses sem FK nem email.",
     "Supressão local grava outbox mesmo offline; replay não duplica/reinicia; claim concorrente faz um PUT e confere o bloqueio, sem guardar endereço ou corpo na fila.",
-    "Falha ao persistir outbox reverte cancelamento e assinatura; descadastro confirmado grava ambos na mesma transação e preserva confirmação/amostra independentes.",
+    "Falha ao persistir outbox reverte tombstone, cancelamento e assinatura; descadastro confirmado grava tombstone/outbox na mesma transação e preserva confirmação/amostra independentes.",
     "Timeout após bloqueio mantém pendência com backoff; tentativa seguinte reconcilia por GET, sem repetir a escrita já aplicada.",
     "Nova supressão durante chamada externa aumenta revisão; conclusão antiga não apaga intenção nova e a última revisão é retomada.",
     "Processo perdido é retomado após lease de 30 minutos; resposta antiga não sobrescreve tentativa mais recente já confirmada.",

@@ -50,6 +50,10 @@ export const PreferenceTokens = operational('preference-tokens', 'Link de prefer
   text('sourceKey', false, true, true), text('nonce', false, false, true),
 ])
 PreferenceTokens.admin = { ...PreferenceTokens.admin, hidden: true }
+export const MarketingSuppressionTombstones = operational('marketing-suppression-tombstones', 'Supressão pseudonimizada', 'Supressões pseudonimizadas', [
+  text('fingerprint', true, true, true), date('expiresAt', true),
+])
+MarketingSuppressionTombstones.admin = { ...MarketingSuppressionTombstones.admin, hidden: true, description: 'Impressão HMAC sem endereço ou relação com contato; mantida por até 12 meses para prevenir reimportação automática.' }
 export const MailQuota = operational('mail-quota', 'Quota diária', 'Quotas diárias', [
   text('day', true, true), { name: 'reserved', type: 'number', required: true, defaultValue: 0, min: 0 },
 ])
@@ -174,7 +178,28 @@ export const BrevoDeliveryReceipts = operational('brevo-delivery-receipts', 'Res
   date('firstObservedAt', true), { ...date('deliveredAt'), label: 'Entrega informada pelo provedor' }, date('hardBouncedAt'), date('softBouncedAt'), date('spamAt'), date('unsubscribedAt'),
 ])
 BrevoDeliveryReceipts.admin = { ...BrevoDeliveryReceipts.admin, description: 'Notificações do provedor preservadas separadamente. Delivered não comprova leitura, compra ou receita; falhas posteriores permanecem visíveis.' }
-export const relationshipCollections = [Contacts, Subscriptions, ConsentEvents, MagnetRequests, EmailDeliveries, PreferenceTokens, MailQuota, RequestLimits, SequenceEnrollments, PromotionDeliveries, EmailCampaignBatches, BrevoSuppressions, BrevoRegistrations, BrevoBatchLists, BrevoCampaignDrafts, BrevoCampaignSends, BrevoCampaignObservations, BrevoWebhookEvents, BrevoDeliveryReceipts]
+export const PrivacyRequestAudit = operational('privacy-request-audit', 'Auditoria de pedido de dados', 'Auditorias de pedidos de dados', [
+ {name:'subjectFingerprint',type:'text',required:true,index:true,admin:{hidden:true}},
+ {name:'action',type:'select',required:true,options:['export','delete','correct']},
+ {name:'outcome',type:'select',required:true,options:['completed','not_found','pending','failed']},
+ {name:'counts',type:'json',required:true},
+ {name:'actor',type:'relationship',relationTo:'admin-users',required:true},
+ date('occurredAt',true),
+])
+PrivacyRequestAudit.admin={...PrivacyRequestAudit.admin,description:'Trilha sem email ou conteúdo exportado. A impressão HMAC é pseudônima e sujeita a prazo de retenção restrito.',defaultColumns:['action','outcome','occurredAt']}
+export const ContactRetirements = operational('contact-retirements', 'Expurgo automático de identidade', 'Expurgos automáticos de identidade', [
+  { name: 'subjectFingerprint', type: 'text', required: true, unique: true, admin: { hidden: true }, validate: (value: unknown) => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value) || 'Impressão HMAC inválida.' },
+  date('retiredAt', true), date('expiresAt', true),
+])
+ContactRetirements.admin = { ...ContactRetirements.admin, hidden: true, description: 'Fato de expurgo automático sem email, ID de contato ou atribuição a um pedido humano; usado na recuperação por até 24 meses.', defaultColumns: ['retiredAt', 'expiresAt'] }
+export const ThemeWithdrawals = operational('theme-withdrawals', 'Descadastro temático preservado', 'Descadastros temáticos preservados', [
+  text('key', true, true, true),
+  { name: 'subjectFingerprint', type: 'text', required: true, index: true, admin: { hidden: true }, validate: (value: unknown) => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value) || 'Impressão HMAC inválida.' },
+  { name: 'themeId', type: 'text', required: true, index: true, validate: (value: unknown) => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(value) || 'Tema inválido.' },
+  date('withdrawnAt', true), date('expiresAt', true),
+])
+ThemeWithdrawals.admin = { ...ThemeWithdrawals.admin, hidden: true, description: 'Fato de descadastro por assunto, sem endereço ou relação com contato; preservado por 24 meses para restauração.', defaultColumns: ['themeId', 'withdrawnAt', 'expiresAt'] }
+export const relationshipCollections = [Contacts, Subscriptions, ConsentEvents, MagnetRequests, EmailDeliveries, PreferenceTokens, MarketingSuppressionTombstones, MailQuota, RequestLimits, SequenceEnrollments, PromotionDeliveries, EmailCampaignBatches, BrevoSuppressions, BrevoRegistrations, BrevoBatchLists, BrevoCampaignDrafts, BrevoCampaignSends, BrevoCampaignObservations, BrevoWebhookEvents, BrevoDeliveryReceipts, PrivacyRequestAudit, ContactRetirements, ThemeWithdrawals]
 Subscriptions.admin = { ...Subscriptions.admin, defaultColumns: ['contact', 'theme', 'state', 'subscribedAt'] }
 ConsentEvents.admin = { ...ConsentEvents.admin, defaultColumns: ['purpose', 'action', 'occurredAt'] }
 MagnetRequests.admin = { ...MagnetRequests.admin, defaultColumns: ['magnet', 'marketingOptIn', 'confirmedAt', 'createdAt'] }

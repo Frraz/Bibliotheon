@@ -1,0 +1,60 @@
+{
+  "phase": "D105",
+  "date": "2026-10-25T21:44:31.831651-03:00",
+  "environment": "local sintético exclusivo",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 288,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "test:privacy-recovery-pending": {
+      "status": "passed",
+      "groups": 7
+    },
+    "test:privacy-recovery": {
+      "status": "passed",
+      "groups": 6
+    },
+    "regressions": {
+      "status": "passed",
+      "marketingGroups": 11,
+      "sequenceGroups": 7,
+      "registrationGroups": 10,
+      "promotionalTransportGroups": 12,
+      "privacyRetentionChecks": 18,
+      "privacyCorrection": "passed"
+    },
+    "runtimeBundle": "passed",
+    "git diff --check": "passed"
+  },
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-block.ts": "e3fe00d22f849d74f1bebf182ff7793172f4ac4c0d1b81683c8f5c42e0aea0db",
+    "src/modules/marketing/privacy-recovery-manifest.ts": "8fdd5430bc03979f70bcb8fe6b69387f326a617f7770df6751d13170e8b3ce79",
+    "src/modules/marketing/privacy-recovery.ts": "4a7b9c36a6cceeff165b958ef0c6c92c75d099b650dbc3f0e8a74af8f72e6b9c",
+    "src/modules/marketing/privacy-retention.ts": "9d286771347e1334729edef66c8b659dd98114b4998fe13ebcf7997dc665eafc",
+    "src/modules/marketing/privacy-correct.ts": "06b40bb632ffaa63112659a47fa4f5c3b5bbc198a86c8e067d8755f95c8a4679",
+    "src/modules/marketing/service.ts": "4d6b57e13caeb407eb3a8738488e3344bc0cbb88a664837bf58e0567d5a303c8",
+    "src/modules/marketing/delivery.ts": "046fd1e9f03e6286235ff44a71442dd93b848ec77e4fcf09e25c53eef5cce6e8",
+    "src/modules/marketing/sequence.ts": "b89a06eaeddbdacef56f02bbb67339ff13e41394442f9ddb74b319b4782b4ff4",
+    "src/modules/marketing/brevo-registration.ts": "978bbb73415f11872172d0a8e70f681c752f0cea4dfda38d6a30135c675b9e9d",
+    "src/modules/marketing/suppression.ts": "268a48c5303f4778ff8938c56c33aaafcb72c56963e0b042f047053d85af8c1f",
+    "src/modules/marketing/campaign-send.ts": "dde95d7126c3170dea7c11f67ee01f57cf357fa83668806c0d3a249fae76caa5",
+    "scripts/privacy-recovery.ts": "ca1ec663bb0fca6ac67f0e26eb2eee42b06c665bce53e4c3d2bbe682c32a326d",
+    "scripts/check-integration.sh": "d6f1ea994bc7511940965d0c956c72c45de2bf16bb2b7d4774e5a67e99a96824",
+    "package.json": "68d3b79b436b05b6170d5c0c33796aa14e58b2e714b55517f828d0d917a56a6a",
+    "tests/integration/privacy-recovery-pending.ts": "aa9ebaea1249fdea36ffdbbf3c55d262af5d2b9794565ac7a4a7f8c3e980521c",
+    "tests/unit/privacy-recovery-manifest.test.ts": "7c185d8eec46a21e9108cb310b22a9056ed699a68edf04c16c93295c5b795600",
+    "tests/integration/marketing.ts": "c4a2cf3676dcca8b36fac0c86441c1328aeab3a3a66ed3ec849360a8984290ce"
+  },
+  "packagedCLISHA256": "0e361e2bfeae5e2330fcae9c1ed0f4f02485ba40bfdb102d27a64f6c25783db2",
+  "knownLimitations": [
+    "Aviso pg/Drizzle continua registrado em H06.",
+    "Guarda externa atual, conciliacao efetiva e restore fisico ainda nao homologados."
+  ],
+  "physicalRestoreValidated": false,
+  "productionChanged": false
+}

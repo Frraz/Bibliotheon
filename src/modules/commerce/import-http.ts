@@ -9,7 +9,7 @@ async function authorize(request:Request,payload:Payload,env:Readonly<Record<str
  if(user?.collection!=='admin-users'||user.role!=='owner'||request.headers.get('origin')!==new URL(env.PUBLIC_SITE_URL||'http://127.0.0.1:3000').origin)throw new CommercialImportError(403,'forbidden')
  return{id:user.id,collection:user.collection,role:user.role}
 }
-async function readBody(request:Request,max:number,mime:'text/csv'|'application/json'){
+export async function readCommercialBody(request:Request,max:number,mime:'text/csv'|'application/json'){
  const type=request.headers.get('content-type')?.toLowerCase(),encoding=request.headers.get('content-encoding')?.toLowerCase()
  const charsets=type?.split(';').slice(1).map(value=>value.trim()).filter(value=>/^charset\s*=/.test(value))??[]
  if(!type||type.split(';')[0].trim()!==mime||charsets.length>1||charsets.some(value=>!/^charset\s*=\s*(?:utf-8|"utf-8")$/.test(value))||encoding&&encoding!=='identity'||!request.body)throw new CommercialImportError(415,'unsupported_content')
@@ -29,19 +29,19 @@ function failure(error:unknown){
  return response(503,{code:'unavailable'})
 }
 export async function previewCommercialImportRequest(request:Request,payload:Payload,env:Readonly<Record<string,string|undefined>>=process.env){
- try{await authorize(request,payload,env);return response(200,await previewCommercialCSV(payload,await readBody(request,CSV_MAX_BYTES,'text/csv')))}catch(error){return failure(error)}
+ try{await authorize(request,payload,env);return response(200,await previewCommercialCSV(payload,await readCommercialBody(request,CSV_MAX_BYTES,'text/csv')))}catch(error){return failure(error)}
 }
 export async function stageCommercialImportRequest(request:Request,payload:Payload,env:Readonly<Record<string,string|undefined>>=process.env){
  try{
   const actor=await authorize(request,payload,env),metadata=importMetadata({sourceKind:request.headers.get('x-import-source'),sourceReference:request.headers.get('x-import-reference'),reason:request.headers.get('x-import-reason')})
   if(!metadata)throw new CommercialImportError(422,'invalid_import_metadata')
-  const result=await stageCommercialImport(payload,actor,await readBody(request,CSV_MAX_BYTES,'text/csv'),metadata,request.headers.get('idempotency-key'))
+  const result=await stageCommercialImport(payload,actor,await readCommercialBody(request,CSV_MAX_BYTES,'text/csv'),metadata,request.headers.get('idempotency-key'))
   return response(result.duplicate?200:201,result)
  }catch(error){return failure(error)}
 }
 export async function commitCommercialImportRequest(request:Request,id:string,payload:Payload,env:Readonly<Record<string,string|undefined>>=process.env){
  try{
-  const actor=await authorize(request,payload,env),body=await readBody(request,4096,'application/json');let input:unknown
+  const actor=await authorize(request,payload,env),body=await readCommercialBody(request,4096,'application/json');let input:unknown
   try{input=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(body))}catch{throw new CommercialImportError(422,'invalid_confirmation')}
   const result=await commitCommercialImport(payload,actor,id,input)
   return response(result.state==='stale'?409:result.state==='queued'&&!result.duplicate?202:200,result)

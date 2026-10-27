@@ -1,0 +1,102 @@
+{
+  "phase": "D84",
+  "date": "2026-10-25T16:56:30.616409+00:00",
+  "status": "incomplete",
+  "basis": [
+    "pendencias.md",
+    "docs/09-metricas.md",
+    "docs/15-qualidade.md",
+    "docs/24-conciliacao.md"
+  ],
+  "scope": "Aceite local P03/P04/P05, sem reduzir requisitos nem substituir homologacao externa",
+  "items": [
+    {
+      "id": "P03.canonical_contracts",
+      "status": "implemented_with_tests",
+      "evidence": [
+        "src/modules/commerce/report-evidence-csv.ts",
+        "tests/unit/report-evidence.test.ts",
+        "tests/integration/report-evidence.ts"
+      ],
+      "finding": "Contratos canonicos de snapshot/evidencia existem; matriz unitaria preserva os sete estados. Nao interpreta exportacao nativa."
+    },
+    {
+      "id": "P03.persisted_state_acceptance",
+      "status": "full_acceptance_evidence_missing",
+      "evidence": [
+        "tests/unit/report-evidence.test.ts",
+        "tests/integration/report-evidence.ts",
+        "tests/integration/commercial-imports.ts"
+      ],
+      "finding": "Parsing dos sete estados nao prova por si so o aceite completo de persistencia, confirmacao e aplicacao/recusa de cada caso; completar censo dos casos e provas."
+    },
+    {
+      "id": "P04.currency_period_review_overflow",
+      "status": "verified_locally_D84",
+      "evidence": [
+        "artifacts/financial-coverage/local-results.json",
+        "artifacts/qa-financial-coverage/results.json"
+      ],
+      "finding": "Cobertura por moeda, janelas independentes, revisao unknown/datas ausentes, substituicao antes do periodo, null/zero/overflow e leitura sem escrita verificados."
+    },
+    {
+      "id": "P04.cohort_status_and_age",
+      "status": "verified_locally_D84",
+      "evidence": [
+        "tests/unit/financial-report-cohort.test.ts",
+        "artifacts/qa-financial-coverage/results.json"
+      ],
+      "finding": "Taxa depende de cobertura integral/ausencia de revisao; idade observada nao certifica janela do provedor."
+    },
+    {
+      "id": "P04.dimensions",
+      "status": "implementation_missing",
+      "evidence": [
+        "docs/09-metricas.md",
+        "src/modules/commerce/financial-ledger.ts",
+        "src/components/admin/FinancialReportView.tsx"
+      ],
+      "finding": "Relatorio ainda agrega por moeda/coorte; faltam detalhamentos por livro/provedor/campanha e cobertura de atribuicao. Sem prova P06, campanha deve continuar desconhecida."
+    },
+    {
+      "id": "P04.processing_freshness",
+      "status": "implementation_missing",
+      "evidence": [
+        "docs/09-metricas.md",
+        "src/modules/commerce/financial-ledger.ts"
+      ],
+      "finding": "observedAt mede consulta. Ainda falta ultimo processamento bem-sucedido; nao usar lastEventAt ou consulta como substituto."
+    },
+    {
+      "id": "P05.operational_views",
+      "status": "implemented_with_local_evidence",
+      "evidence": [
+        "artifacts/qa-commercial-imports/results.json",
+        "artifacts/qa-financial-records/results.json",
+        "artifacts/qa-catalog-resolutions/results.json",
+        "artifacts/qa-financial-resolutions/results.json",
+        "artifacts/qa-financial-coverage/results.json"
+      ],
+      "finding": "Views operacionais possuem jornadas API/navegador locais; estes recortes nao encerram P04/estados completos nem toda a matriz B20."
+    },
+    {
+      "id": "P05.complete_financial_operation",
+      "status": "incomplete",
+      "evidence": [
+        "pendencias.md",
+        "src/components/admin/FinancialReportView.tsx"
+      ],
+      "finding": "Aceite integrado depende do relatorio completo P04 e dos casos aceitos P03. Confirmar criterios apos implementacao; evitar mover o aceite por novos requisitos inventados."
+    },
+    {
+      "id": "external_and_release_gates",
+      "status": "not_verified",
+      "evidence": [
+        "pendencias.md",
+        "deploy.md"
+      ],
+      "finding": "P06/P07, H01-H06, fornecedores, CI/GitHub, imagem/restore e VPS permanecem separados e abertos."
+    }
+  ],
+  "nextAction": "Concluir os detalhamentos e a informacao de processamento P04; completar provas dos casos P03 e aceite integrado P05; prosseguir com atribuicao/retencao e release."
+}

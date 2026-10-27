@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-27T01:02:43.309Z",
+  "environment": "PostgreSQL sintético local; restauração de histórico simulada sem restore físico",
+  "checks": [
+    "exportação consistente e assinada com sete decisões; sem email, ID de contato, owner ou conteúdo",
+    "CLI empacotada exporta com modo 600, preview sem conteúdo e recusa arquivo com permissões amplas",
+    "preview sem escrita e recusa de adulteração, operação habilitada, isolamento ausente e consentimento posterior",
+    "exclusão/correção antigas reaplicadas inclusive com auditoria já existente; envio incerto retido, revogado e bloqueado",
+    "retirada de marketing preserva amostra; bounce restaura restrição; causa desconhecida bloqueia sem inventar reclamação",
+    "replay não duplica decisões nem renova prazos; recaptura de ausente bloqueada; relatório agregado e zero rede"
+  ],
+  "checksPassed": 6,
+  "outboundCalls": 0,
+  "realProviderUsed": false,
+  "productionChanged": false,
+  "physicalRestoreValidated": false
+}

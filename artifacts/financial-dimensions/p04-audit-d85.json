@@ -1,0 +1,94 @@
+{
+  "phase": "D85",
+  "date": "2026-10-25T17:23:17.578655+00:00",
+  "status": "implemented_and_tested_locally",
+  "scope": "P04: liquidacoes, custos e relatorio financeiro local, incluindo desconhecidos explicitos; nao equivale ao aceite integral R16/release",
+  "basis": [
+    "pendencias.md",
+    "docs/02-requisitos.md",
+    "docs/09-metricas.md",
+    "docs/24-conciliacao.md"
+  ],
+  "criteria": [
+    {
+      "criterion": "Liquidacao independente de aprovacao/liquido, credito/debito, fonte e transacao compativeis",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/financial-ledger/local-results.json",
+        "artifacts/financial-ledger/http-results.json",
+        "artifacts/qa-financial-records/results.json"
+      ]
+    },
+    {
+      "criterion": "Custos confirmados/estimados, campanha declarada e substituicao append-only, null distinto de zero",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-financial-records/results.json",
+        "artifacts/financial-dimensions/local-results.json",
+        "artifacts/financial-dimensions/coverage-regression-results.json"
+      ]
+    },
+    {
+      "criterion": "Moedas, periodos independentes, revisao/datas ausentes, overflow, sem duplicar reversoes",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/financial-dimensions/coverage-regression-results.json",
+        "tests/unit/financial-report-cohort.test.ts",
+        "artifacts/qa-financial-coverage/results.json"
+      ]
+    },
+    {
+      "criterion": "Coortes, cobertura de estado/valor e idade sem janela de provedor presumida",
+      "result": "verified_locally",
+      "evidence": [
+        "tests/unit/financial-report-cohort.test.ts",
+        "artifacts/qa-financial-coverage/results.json"
+      ]
+    },
+    {
+      "criterion": "Detalhamento por livro/provedor/campanha com valores/atribuicao desconhecidos explicitos",
+      "result": "verified_locally",
+      "evidence": [
+        "tests/unit/financial-report-dimensions.test.ts",
+        "artifacts/financial-dimensions/local-results.json",
+        "artifacts/qa-financial-dimensions/results.json"
+      ]
+    },
+    {
+      "criterion": "Ultimo sucesso registrado, sem substituir por consulta/evento, com cobertura de datas e escopo",
+      "result": "verified_locally",
+      "evidence": [
+        "src/modules/commerce/inbox.ts",
+        "src/modules/commerce/financial-resolutions.ts",
+        "artifacts/financial-dimensions/local-results.json",
+        "artifacts/qa-financial-dimensions/results.json"
+      ]
+    },
+    {
+      "criterion": "Owner/origem/privacidade e leitura sem escrita; interface com filtros/paginacao/teclado/temas/sem JS",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/financial-ledger/http-results.json",
+        "artifacts/qa-financial-records/results.json",
+        "artifacts/qa-financial-coverage/results.json",
+        "artifacts/qa-financial-dimensions/results.json"
+      ]
+    },
+    {
+      "criterion": "Sem lucro fiscal ou atribuicao por custo/referencia nao comprovada",
+      "result": "verified_locally",
+      "evidence": [
+        "src/modules/commerce/financial-ledger.ts",
+        "src/modules/commerce/financial-report-dimensions.ts",
+        "artifacts/qa-financial-dimensions/results.json"
+      ]
+    }
+  ],
+  "unchangedLimits": [
+    "Sem parsing de exportacao nativa ou homologacao de conta; H01/H02/H06 abertos",
+    "Atribuicao real continua P06; receitas/quantidades especificas de campanha sao null, nao zero",
+    "Custos sem regra comprovada nao sao rateados por livro/provedor e nao geram margem nesses grupos",
+    "P03/P05 e dependencias/aceite integral R16 permanecem abertos; nao encerra B11/B20",
+    "Sem imagem/restore final, GitHub, VPS ou operacao real"
+  ]
+}

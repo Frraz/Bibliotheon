@@ -1,0 +1,65 @@
+{
+  "phase": "D84",
+  "date": "2026-10-25T16:56:30.616409+00:00",
+  "status": "passed_local_phase",
+  "scope": "Cobertura/quarentena/coortes e criterios restantes P03/P04/P05",
+  "checks": {
+    "isolatedBuild": "passed",
+    "buildDirectory": ".next-qa",
+    "buildID": "_YHRfBmHqz2SQCoi9n5RI",
+    "typecheck": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 2,
+    "unitTests": 258,
+    "unitFiles": 32,
+    "newCohortTests": 7,
+    "operationalTests": 61,
+    "newPostgresGroups": 5,
+    "existingLedgerRegressionGroups": 3,
+    "browserGroups": 4,
+    "captures": 21,
+    "axeRuns": 20,
+    "externalRequests": 0,
+    "runtimeErrors": [],
+    "fixturesCleaned": true,
+    "databaseStopped": true,
+    "documentation": "passed",
+    "documents": 49,
+    "localLinks": 989,
+    "externalURLsUnchecked": 102,
+    "contrastPairs": 76,
+    "diffCheck": "passed",
+    "qaShellSyntax": "passed",
+    "integrationRunnerIncludesCoverage": true
+  },
+  "sourceSHA256": {
+    "src/modules/commerce/financial-report-cohort.ts": "40637b4b50ec441323a9bc70a7022a79f31612a8dc569b8b4122143191913360",
+    "src/modules/commerce/financial-ledger.ts": "6730ce1500b876813ceee18d86b4791a18a3e71d43afc44cc567159acb154512",
+    "src/components/admin/FinancialReportView.tsx": "bdf410a7b6f957023cc52159d9c61f772fd251f3f26f67f5c248071cf12c2e8a",
+    "tests/unit/financial-report-cohort.test.ts": "49109af8de52d3b244ea49dcb8c85f1875c5e581d4ce80a5f0b4cb5577aaca96",
+    "tests/integration/financial-coverage.ts": "7a6154f9aa0d9ac45a334e1c4b65b380d3929f2f1250d1ad7642a13f0f08df65",
+    "scripts/qa-financial-coverage.ts": "08143180529a27a94b9f583b9309fe21c405c852f7c4c95a29092fa0b68f8e9a",
+    "src/styles/admin.css": "7c280a7bd68d2f46a7599ff886875d2f100376129dc201608a50879fc7fd612c",
+    "scripts/check-integration.sh": "5285ff42d60ea3f925483737627436acd63cb129666ee9b1e340e7b266ffafd7",
+    "scripts/check-qa-admin.sh": "939372d67a4e2d87828bbb6357b750e20f44a8b8464d2b78ebbfcab6128c1035",
+    "package.json": "f03ce5dd15e1c5fba212a2ea3ae05a64a1a1935381115369ea06ac71cf0b3d51"
+  },
+  "consolidatedCheckEvidence": {
+    "exitCode": 0,
+    "sha256": "3130cb820f0839874174d319c90df3391277eab4d692af0c6d6b06d2ddcc869c",
+    "note": "npm run check local; testes operacionais simulados, sem deploy. Documentacao final validada separadamente."
+  },
+  "legacyRegressionEvidence": {
+    "exitCode": 0,
+    "sha256": "293eb8c99d6718fbfbf465eee723fc3ad9e4145302774f238a4833382d12d813"
+  },
+  "knownWarnings": [
+    "Dois avisos historicos na migration de sequencias",
+    "pg/Drizzle de queries concorrentes; H06 continua aberto"
+  ],
+  "limits": [
+    "P03/P04/P05 ainda incompletos conforme acceptance-audit-d84.json",
+    "Sem schema/migration/dependencia/segredo/flag novos; 28 migrations",
+    "Sem nova fonte externa, janela de reversao homologada, imagem/restore final, GitHub ou VPS"
+  ]
+}

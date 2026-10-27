@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-25T04:08:26.546423+00:00",
+  "environment": "PostgreSQL loopback sintético; censo independente após cleanup",
+  "owners": 0,
+  "contacts": 0,
+  "offers": 0,
+  "transactions": 0,
+  "facts": 0,
+  "inbox": 0,
+  "conflicts": 0,
+  "commercialAudit": 0,
+  "catalogResolutions": 0,
+  "financialResolutions": 0,
+  "financialApplications": 0,
+  "importBatches": 0,
+  "importRows": 0,
+  "importAudit": 0,
+  "migrations": 25,
+  "publicContactEmpty": true,
+  "legalReady": false,
+  "financialGuardsEnabled": true,
+  "financialIndexesPresent": true
+}

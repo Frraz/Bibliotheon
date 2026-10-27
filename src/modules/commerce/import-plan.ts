@@ -52,7 +52,7 @@ export async function buildImportPlan(payload:Payload,parsed:ParsedImport,req:Pa
   if(result.totalDocs>10000||receipts.size+result.docs.length>10000)throw new CommercialImportError(503,'history_limit')
   for(const row of result.docs)receipts.set(row.key,row)
  }
- const pending=new Set([...receipts.values()].filter(row=>row.state!=='applied'||row.conflicted).map(row=>row.transactionKey))
+ const pending=new Set([...receipts.values()].filter(row=>(row.state!=='applied'||row.conflicted)&&context.financial.get(row.transactionKey??'')?.state!=='active').map(row=>row.transactionKey))
  const lines=context.assessment.lines.map((line):Omit<PreviewLine,'reason'>&{reason:string}=>{
   if(!line.row||!['new','matched'].includes(line.classification))return line
   const source=parsed.lines[line.line-2]
@@ -63,7 +63,7 @@ export async function buildImportPlan(payload:Payload,parsed:ParsedImport,req:Pa
  })
  const blocked=lines.some(line=>!['new','matched','duplicate'].includes(line.classification))
  const stable=(values:readonly unknown[])=>[...values].map(value=>JSON.stringify(value)).sort()
- const planHash=hashImport([importManifestHash(parsed),lines,stable(context.catalog),stable(context.transactions),stable([...receipts.values()])])
+ const planHash=hashImport([importManifestHash(parsed),lines,stable(context.catalog),stable(context.transactions),stable(context.resolutions),stable([...context.collisions]),stable([...context.financial]),stable([...receipts.values()])])
  const counts:Record<string,number>={};for(const line of lines)counts[line.classification]=(counts[line.classification]??0)+1
  return{planHash,lines,counts,state:blocked?'blocked' as const:'ready' as const}
 }

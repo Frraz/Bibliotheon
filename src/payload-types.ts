@@ -83,6 +83,7 @@ export interface Config {
     'magnet-requests': MagnetRequest;
     'email-deliveries': EmailDelivery;
     'preference-tokens': PreferenceToken;
+    'marketing-suppression-tombstones': MarketingSuppressionTombstone;
     'mail-quota': MailQuota;
     'request-limits': RequestLimit;
     'sequence-enrollments': SequenceEnrollment;
@@ -96,11 +97,15 @@ export interface Config {
     'brevo-campaign-observations': BrevoCampaignObservation;
     'brevo-webhook-events': BrevoWebhookEvent;
     'brevo-delivery-receipts': BrevoDeliveryReceipt;
+    'privacy-request-audit': PrivacyRequestAudit;
+    'contact-retirements': ContactRetirement;
+    'theme-withdrawals': ThemeWithdrawal;
     'analytics-grants': AnalyticsGrant;
     visits: Visit;
     'page-views': PageView;
     'checkout-clicks': CheckoutClick;
     'analytics-limits': AnalyticsLimit;
+    'analytics-daily-aggregates': AnalyticsDailyAggregate;
     'commercial-inbox': CommercialInbox;
     'commercial-conflicts': CommercialConflict;
     transactions: Transaction;
@@ -109,6 +114,12 @@ export interface Config {
     'commercial-import-batches': CommercialImportBatch;
     'commercial-import-rows': CommercialImportRow;
     'commercial-import-audit': CommercialImportAudit;
+    'catalog-resolutions': CatalogResolution;
+    'financial-resolutions': FinancialResolution;
+    'financial-resolution-applications': FinancialResolutionApplication;
+    'commercial-report-evidence': CommercialReportEvidence;
+    'commercial-settlement-evidence': CommercialSettlementEvidence;
+    'financial-cost-entries': FinancialCostEntry;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -133,6 +144,7 @@ export interface Config {
     'magnet-requests': MagnetRequestsSelect<false> | MagnetRequestsSelect<true>;
     'email-deliveries': EmailDeliveriesSelect<false> | EmailDeliveriesSelect<true>;
     'preference-tokens': PreferenceTokensSelect<false> | PreferenceTokensSelect<true>;
+    'marketing-suppression-tombstones': MarketingSuppressionTombstonesSelect<false> | MarketingSuppressionTombstonesSelect<true>;
     'mail-quota': MailQuotaSelect<false> | MailQuotaSelect<true>;
     'request-limits': RequestLimitsSelect<false> | RequestLimitsSelect<true>;
     'sequence-enrollments': SequenceEnrollmentsSelect<false> | SequenceEnrollmentsSelect<true>;
@@ -146,11 +158,15 @@ export interface Config {
     'brevo-campaign-observations': BrevoCampaignObservationsSelect<false> | BrevoCampaignObservationsSelect<true>;
     'brevo-webhook-events': BrevoWebhookEventsSelect<false> | BrevoWebhookEventsSelect<true>;
     'brevo-delivery-receipts': BrevoDeliveryReceiptsSelect<false> | BrevoDeliveryReceiptsSelect<true>;
+    'privacy-request-audit': PrivacyRequestAuditSelect<false> | PrivacyRequestAuditSelect<true>;
+    'contact-retirements': ContactRetirementsSelect<false> | ContactRetirementsSelect<true>;
+    'theme-withdrawals': ThemeWithdrawalsSelect<false> | ThemeWithdrawalsSelect<true>;
     'analytics-grants': AnalyticsGrantsSelect<false> | AnalyticsGrantsSelect<true>;
     visits: VisitsSelect<false> | VisitsSelect<true>;
     'page-views': PageViewsSelect<false> | PageViewsSelect<true>;
     'checkout-clicks': CheckoutClicksSelect<false> | CheckoutClicksSelect<true>;
     'analytics-limits': AnalyticsLimitsSelect<false> | AnalyticsLimitsSelect<true>;
+    'analytics-daily-aggregates': AnalyticsDailyAggregatesSelect<false> | AnalyticsDailyAggregatesSelect<true>;
     'commercial-inbox': CommercialInboxSelect<false> | CommercialInboxSelect<true>;
     'commercial-conflicts': CommercialConflictsSelect<false> | CommercialConflictsSelect<true>;
     transactions: TransactionsSelect<false> | TransactionsSelect<true>;
@@ -159,6 +175,12 @@ export interface Config {
     'commercial-import-batches': CommercialImportBatchesSelect<false> | CommercialImportBatchesSelect<true>;
     'commercial-import-rows': CommercialImportRowsSelect<false> | CommercialImportRowsSelect<true>;
     'commercial-import-audit': CommercialImportAuditSelect<false> | CommercialImportAuditSelect<true>;
+    'catalog-resolutions': CatalogResolutionsSelect<false> | CatalogResolutionsSelect<true>;
+    'financial-resolutions': FinancialResolutionsSelect<false> | FinancialResolutionsSelect<true>;
+    'financial-resolution-applications': FinancialResolutionApplicationsSelect<false> | FinancialResolutionApplicationsSelect<true>;
+    'commercial-report-evidence': CommercialReportEvidenceSelect<false> | CommercialReportEvidenceSelect<true>;
+    'commercial-settlement-evidence': CommercialSettlementEvidenceSelect<false> | CommercialSettlementEvidenceSelect<true>;
+    'financial-cost-entries': FinancialCostEntriesSelect<false> | FinancialCostEntriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -631,6 +653,19 @@ export interface PreferenceToken {
   createdAt: string;
 }
 /**
+ * Impressão HMAC sem endereço ou relação com contato; mantida por até 12 meses para prevenir reimportação automática.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketing-suppression-tombstones".
+ */
+export interface MarketingSuppressionTombstone {
+  id: string;
+  fingerprint: string;
+  expiresAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Dados privados. Alterações operacionais passam pelos fluxos auditados.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1057,6 +1092,61 @@ export interface BrevoDeliveryReceipt {
   createdAt: string;
 }
 /**
+ * Trilha sem email ou conteúdo exportado. A impressão HMAC é pseudônima e sujeita a prazo de retenção restrito.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-request-audit".
+ */
+export interface PrivacyRequestAudit {
+  id: string;
+  subjectFingerprint: string;
+  action: 'export' | 'delete' | 'correct';
+  outcome: 'completed' | 'not_found' | 'pending' | 'failed';
+  counts:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  actor: string | AdminUser;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Fato de expurgo automático sem email, ID de contato ou atribuição a um pedido humano; usado na recuperação por até 24 meses.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-retirements".
+ */
+export interface ContactRetirement {
+  id: string;
+  subjectFingerprint: string;
+  retiredAt: string;
+  expiresAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Fato de descadastro por assunto, sem endereço ou relação com contato; preservado por 24 meses para restauração.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme-withdrawals".
+ */
+export interface ThemeWithdrawal {
+  id: string;
+  key: string;
+  subjectFingerprint: string;
+  themeId: string;
+  withdrawnAt: string;
+  expiresAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Medição própria sem IP, email ou identidade do comprador.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1202,6 +1292,25 @@ export interface AnalyticsLimit {
   createdAt: string;
 }
 /**
+ * Contagens diárias sem sessão, permissão, clique, token ou identificador de visitante. Contagens agregadas são mantidas após expirar os eventos-fonte.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-daily-aggregates".
+ */
+export interface AnalyticsDailyAggregate {
+  id: string;
+  key: string;
+  day: string;
+  kind: 'page_view' | 'checkout_click';
+  ebook?: (string | null) | Ebook;
+  campaign?: (string | null) | Campaign;
+  provider?: ('hotmart' | 'kiwify' | 'cakto') | null;
+  pagePath?: string | null;
+  count: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Envelope mínimo/histórico privado. Clique, aprovação e recebimento são conceitos distintos.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1215,7 +1324,7 @@ export interface CommercialInbox {
   eventKey: string;
   adapterVersion: string;
   envelopeHash: string;
-  envelope:
+  envelope?:
     | {
         [k: string]: unknown;
       }
@@ -1249,6 +1358,10 @@ export interface CommercialInbox {
  */
 export interface Transaction {
   id: string;
+  financialResolution?: (string | null) | FinancialResolution;
+  effectiveEbook?: (string | null) | Ebook;
+  effectiveOffer?: (string | null) | Offer;
+  effectiveProductId?: string | null;
   key: string;
   provider: 'hotmart' | 'kiwify' | 'cakto';
   accountKey: string;
@@ -1278,6 +1391,85 @@ export interface Transaction {
     | number
     | boolean
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Prova imutável de resolução. Projeções substituem o resultado derivado; não somar aplicações como novas vendas.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "financial-resolutions".
+ */
+export interface FinancialResolution {
+  id: string;
+  key: string;
+  requestHash: string;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  accountKey: string;
+  revision: number;
+  transactionKeys:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  previousIds:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  action: 'reconcile' | 'hold';
+  choice:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  coverage:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  snapshot:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  outcomes:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  sourceHash: string;
+  planHash: string;
+  actor: string | AdminUser;
+  occurredAt: string;
+  sourceKind: 'provider_report' | 'manual_reconciliation';
+  sourceReference: string;
+  reason: 'provider_records_verified' | 'incorrect_source_reconciled' | 'evidence_inconclusive';
+  evidenceVerified: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -1317,6 +1509,8 @@ export interface TransactionEvent {
   key: string;
   transaction: string | Transaction;
   inbox: string | CommercialInbox;
+  catalogResolution?: (string | null) | CatalogResolution;
+  financialResolution?: (string | null) | FinancialResolution;
   envelope:
     | {
         [k: string]: unknown;
@@ -1329,6 +1523,45 @@ export interface TransactionEvent {
   occurredAt: string;
   outcome: 'applied' | 'needs_review';
   errorCode?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Trilha imutável. Associação efetiva não altera referências/envelopes originais nem aplica venda. Nova decisão exige prévia e conferência no servidor.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-resolutions".
+ */
+export interface CatalogResolution {
+  id: string;
+  key: string;
+  requestHash: string;
+  scopeKey: string;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  accountKey: string;
+  externalProductId: string;
+  externalOfferId?: string | null;
+  revision: number;
+  previous?: (string | null) | CatalogResolution;
+  action: 'associate' | 'hold';
+  targetOffer?: (string | null) | Offer;
+  targetEbook?: (string | null) | Ebook;
+  actor: string | AdminUser;
+  occurredAt: string;
+  sourceKind: 'provider_report' | 'manual_reconciliation';
+  sourceReference: string;
+  reason: 'catalog_mapping_verified' | 'historical_mapping_correction' | 'evidence_inconclusive';
+  evidenceVerified: boolean;
+  planHash: string;
+  snapshot:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1359,6 +1592,7 @@ export interface CommercialAudit {
 export interface CommercialImportBatch {
   id: string;
   key: string;
+  kind: 'snapshot' | 'report_evidence';
   requestHash: string;
   fileHash: string;
   manifestHash: string;
@@ -1410,7 +1644,7 @@ export interface CommercialImportRow {
     'new' | 'matched' | 'duplicate' | 'conflict' | 'unknown_catalog' | 'ambiguous_catalog' | 'needs_review' | 'invalid';
   reason: string;
   duplicateOf?: number | null;
-  state: 'planned' | 'matched' | 'duplicate' | 'blocked' | 'queued';
+  state: 'planned' | 'matched' | 'duplicate' | 'blocked' | 'queued' | 'recorded';
   inbox?: (string | null) | CommercialInbox;
   transaction?: (string | null) | Transaction;
   updatedAt: string;
@@ -1429,6 +1663,152 @@ export interface CommercialImportAudit {
   action: 'staged' | 'queued' | 'confirmed' | 'stale' | 'duplicate_commit';
   occurredAt: string;
   reason: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Prova imutável de resolução. Projeções substituem o resultado derivado; não somar aplicações como novas vendas.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "financial-resolution-applications".
+ */
+export interface FinancialResolutionApplication {
+  id: string;
+  key: string;
+  resolution: string | FinancialResolution;
+  sourceHash: string;
+  coverage:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  outcomes:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  actorType: 'owner' | 'worker';
+  actor?: (string | null) | AdminUser;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Evidência canônica conferida pelo operador; não é webhook autenticado nem recebimento. Cadastro não aplica valores.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-report-evidence".
+ */
+export interface CommercialReportEvidence {
+  id: string;
+  key: string;
+  requestHash: string;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  accountKey: string;
+  externalTransactionId: string;
+  transactionKey: string;
+  transactionKeys:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  relatedTransactionIds:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  input:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  envelope:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  envelopeHash: string;
+  version: string;
+  actor: string | AdminUser;
+  recordedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Movimento de recebimento conferido pelo owner; não é calculado do bruto/líquido e não autentica relatório externo.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-settlement-evidence".
+ */
+export interface CommercialSettlementEvidence {
+  id: string;
+  key: string;
+  requestHash: string;
+  provider: 'hotmart' | 'kiwify' | 'cakto';
+  accountKey: string;
+  externalTransactionId: string;
+  transactionKey: string;
+  currency: string;
+  direction: 'credit' | 'debit';
+  amountCents: number;
+  settlementReference: string;
+  sourceKind: 'provider_report' | 'manual_reconciliation';
+  sourceReference: string;
+  recordReference: string;
+  supersedes?: (string | null) | CommercialSettlementEvidence;
+  evidenceVerified: boolean;
+  actor: string | AdminUser;
+  settledAt: string;
+  recordedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Custo operacional versionado. Confirmado e estimado permanecem separados; substituições mantêm a trilha anterior.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "financial-cost-entries".
+ */
+export interface FinancialCostEntry {
+  id: string;
+  key: string;
+  requestHash: string;
+  category: 'advertising' | 'commission' | 'production' | 'software' | 'operations' | 'other';
+  amountCents: number;
+  currency: string;
+  campaign?: (string | null) | Campaign;
+  classification: 'confirmed' | 'estimated';
+  sourceKind: 'invoice' | 'provider_report' | 'manual_reconciliation';
+  sourceReference: string;
+  recordReference: string;
+  supersedes?: (string | null) | FinancialCostEntry;
+  actor: string | AdminUser;
+  incurredAt: string;
+  recordedAt: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -1613,6 +1993,10 @@ export interface PayloadLockedDocument {
         value: string | PreferenceToken;
       } | null)
     | ({
+        relationTo: 'marketing-suppression-tombstones';
+        value: string | MarketingSuppressionTombstone;
+      } | null)
+    | ({
         relationTo: 'mail-quota';
         value: string | MailQuota;
       } | null)
@@ -1665,6 +2049,18 @@ export interface PayloadLockedDocument {
         value: string | BrevoDeliveryReceipt;
       } | null)
     | ({
+        relationTo: 'privacy-request-audit';
+        value: string | PrivacyRequestAudit;
+      } | null)
+    | ({
+        relationTo: 'contact-retirements';
+        value: string | ContactRetirement;
+      } | null)
+    | ({
+        relationTo: 'theme-withdrawals';
+        value: string | ThemeWithdrawal;
+      } | null)
+    | ({
         relationTo: 'analytics-grants';
         value: string | AnalyticsGrant;
       } | null)
@@ -1683,6 +2079,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'analytics-limits';
         value: string | AnalyticsLimit;
+      } | null)
+    | ({
+        relationTo: 'analytics-daily-aggregates';
+        value: string | AnalyticsDailyAggregate;
       } | null)
     | ({
         relationTo: 'commercial-inbox';
@@ -1715,6 +2115,30 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'commercial-import-audit';
         value: string | CommercialImportAudit;
+      } | null)
+    | ({
+        relationTo: 'catalog-resolutions';
+        value: string | CatalogResolution;
+      } | null)
+    | ({
+        relationTo: 'financial-resolutions';
+        value: string | FinancialResolution;
+      } | null)
+    | ({
+        relationTo: 'financial-resolution-applications';
+        value: string | FinancialResolutionApplication;
+      } | null)
+    | ({
+        relationTo: 'commercial-report-evidence';
+        value: string | CommercialReportEvidence;
+      } | null)
+    | ({
+        relationTo: 'commercial-settlement-evidence';
+        value: string | CommercialSettlementEvidence;
+      } | null)
+    | ({
+        relationTo: 'financial-cost-entries';
+        value: string | FinancialCostEntry;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -2094,6 +2518,16 @@ export interface PreferenceTokensSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketing-suppression-tombstones_select".
+ */
+export interface MarketingSuppressionTombstonesSelect<T extends boolean = true> {
+  fingerprint?: T;
+  expiresAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "mail-quota_select".
  */
 export interface MailQuotaSelect<T extends boolean = true> {
@@ -2341,6 +2775,44 @@ export interface BrevoDeliveryReceiptsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-request-audit_select".
+ */
+export interface PrivacyRequestAuditSelect<T extends boolean = true> {
+  subjectFingerprint?: T;
+  action?: T;
+  outcome?: T;
+  counts?: T;
+  actor?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-retirements_select".
+ */
+export interface ContactRetirementsSelect<T extends boolean = true> {
+  subjectFingerprint?: T;
+  retiredAt?: T;
+  expiresAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme-withdrawals_select".
+ */
+export interface ThemeWithdrawalsSelect<T extends boolean = true> {
+  key?: T;
+  subjectFingerprint?: T;
+  themeId?: T;
+  withdrawnAt?: T;
+  expiresAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "analytics-grants_select".
  */
 export interface AnalyticsGrantsSelect<T extends boolean = true> {
@@ -2415,6 +2887,22 @@ export interface AnalyticsLimitsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-daily-aggregates_select".
+ */
+export interface AnalyticsDailyAggregatesSelect<T extends boolean = true> {
+  key?: T;
+  day?: T;
+  kind?: T;
+  ebook?: T;
+  campaign?: T;
+  provider?: T;
+  pagePath?: T;
+  count?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "commercial-inbox_select".
  */
 export interface CommercialInboxSelect<T extends boolean = true> {
@@ -2461,6 +2949,10 @@ export interface CommercialConflictsSelect<T extends boolean = true> {
  * via the `definition` "transactions_select".
  */
 export interface TransactionsSelect<T extends boolean = true> {
+  financialResolution?: T;
+  effectiveEbook?: T;
+  effectiveOffer?: T;
+  effectiveProductId?: T;
   key?: T;
   provider?: T;
   accountKey?: T;
@@ -2493,6 +2985,8 @@ export interface TransactionEventsSelect<T extends boolean = true> {
   key?: T;
   transaction?: T;
   inbox?: T;
+  catalogResolution?: T;
+  financialResolution?: T;
   envelope?: T;
   occurredAt?: T;
   outcome?: T;
@@ -2521,6 +3015,7 @@ export interface CommercialAuditSelect<T extends boolean = true> {
  */
 export interface CommercialImportBatchesSelect<T extends boolean = true> {
   key?: T;
+  kind?: T;
   requestHash?: T;
   fileHash?: T;
   manifestHash?: T;
@@ -2568,6 +3063,148 @@ export interface CommercialImportAuditSelect<T extends boolean = true> {
   action?: T;
   occurredAt?: T;
   reason?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-resolutions_select".
+ */
+export interface CatalogResolutionsSelect<T extends boolean = true> {
+  key?: T;
+  requestHash?: T;
+  scopeKey?: T;
+  provider?: T;
+  accountKey?: T;
+  externalProductId?: T;
+  externalOfferId?: T;
+  revision?: T;
+  previous?: T;
+  action?: T;
+  targetOffer?: T;
+  targetEbook?: T;
+  actor?: T;
+  occurredAt?: T;
+  sourceKind?: T;
+  sourceReference?: T;
+  reason?: T;
+  evidenceVerified?: T;
+  planHash?: T;
+  snapshot?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "financial-resolutions_select".
+ */
+export interface FinancialResolutionsSelect<T extends boolean = true> {
+  key?: T;
+  requestHash?: T;
+  provider?: T;
+  accountKey?: T;
+  revision?: T;
+  transactionKeys?: T;
+  previousIds?: T;
+  action?: T;
+  choice?: T;
+  coverage?: T;
+  snapshot?: T;
+  outcomes?: T;
+  sourceHash?: T;
+  planHash?: T;
+  actor?: T;
+  occurredAt?: T;
+  sourceKind?: T;
+  sourceReference?: T;
+  reason?: T;
+  evidenceVerified?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "financial-resolution-applications_select".
+ */
+export interface FinancialResolutionApplicationsSelect<T extends boolean = true> {
+  key?: T;
+  resolution?: T;
+  sourceHash?: T;
+  coverage?: T;
+  outcomes?: T;
+  actorType?: T;
+  actor?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-report-evidence_select".
+ */
+export interface CommercialReportEvidenceSelect<T extends boolean = true> {
+  key?: T;
+  requestHash?: T;
+  provider?: T;
+  accountKey?: T;
+  externalTransactionId?: T;
+  transactionKey?: T;
+  transactionKeys?: T;
+  relatedTransactionIds?: T;
+  input?: T;
+  envelope?: T;
+  envelopeHash?: T;
+  version?: T;
+  actor?: T;
+  recordedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commercial-settlement-evidence_select".
+ */
+export interface CommercialSettlementEvidenceSelect<T extends boolean = true> {
+  key?: T;
+  requestHash?: T;
+  provider?: T;
+  accountKey?: T;
+  externalTransactionId?: T;
+  transactionKey?: T;
+  currency?: T;
+  direction?: T;
+  amountCents?: T;
+  settlementReference?: T;
+  sourceKind?: T;
+  sourceReference?: T;
+  recordReference?: T;
+  supersedes?: T;
+  evidenceVerified?: T;
+  actor?: T;
+  settledAt?: T;
+  recordedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "financial-cost-entries_select".
+ */
+export interface FinancialCostEntriesSelect<T extends boolean = true> {
+  key?: T;
+  requestHash?: T;
+  category?: T;
+  amountCents?: T;
+  currency?: T;
+  campaign?: T;
+  classification?: T;
+  sourceKind?: T;
+  sourceReference?: T;
+  recordReference?: T;
+  supersedes?: T;
+  actor?: T;
+  incurredAt?: T;
+  recordedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

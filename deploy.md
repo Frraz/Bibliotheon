@@ -2,7 +2,7 @@
 
 [README](README.md) · [Estado do produto](docs/23-estado-atual.md) · [Operação e recuperação](docs/21-pacote-producao.md)
 
-Guia iniciado em 22/10/2026, revisado documentalmente em 24/10 até D67. As seções Dxx registram a evolução; o inventário vigente exige as 21 migrations e os [gates de produção](pendencias.md). Depois da preparação inicial, a atualização normal será:
+Guia iniciado em 22/10/2026 e revisado documentalmente em 26/10/2026 até D114. As seções Dxx registram a evolução; o inventário vigente exige as 34 migrations e os [gates de produção](pendencias.md). As views D79–D81 não acrescentam migration, segredo, flag ou serviço. Depois da preparação inicial, a atualização normal será:
 
 ```bash
 cd /srv/bibliotheon
@@ -15,7 +15,7 @@ O comando único é **atualizar.sh**. O alias antigo com grafia incorreta foi re
 
 ## 1. Antes do primeiro deploy
 
-Este guia prepara a infraestrutura; não conclui funcionalidades ainda pendentes. O produto tem [lacunas conhecidas](docs/23-estado-atual.md), incluindo homologação da imagem atual e das três contas, resolução comercial auditada, financeiro e retenção. Os três conectores e a confirmação CSV limitada já possuem código local; veja [pendencias.md](pendencias.md). Homologue a versão antes de abrir operação real. Captura/e-mail/worker ficam desligados inicialmente. O contato público será preenchido por você antes da produção, conforme a decisão já registrada.
+Este guia prepara a infraestrutura; não conclui funcionalidades ainda pendentes. O produto tem [lacunas conhecidas](docs/23-estado-atual.md), incluindo homologação da imagem atual e das contas, cobertura integral de conciliação/financeiro, interface de resolução auditada, cobertura operacional integral e retenção. Conectores, decisões auditadas, CSVs canônicos, ledger e interfaces de importação/prévia financeira já possuem código local; veja [pendencias.md](pendencias.md). Homologue a versão antes de abrir operação real. Captura/e-mail/worker ficam desligados inicialmente. O contato público será preenchido por você antes da produção, conforme a decisão já registrada.
 
 Procedimento de referência: Ubuntu 24.04 LTS de 64 bits, Bash, Python **3.11+**, Git, Docker Engine com Buildx e Compose v2 recente (referência local: 2.40.3), restic 0.19.1. Node/pnpm ficam dentro da imagem; não precisam ser instalados no host. Se a VPS já possui serviços, use o sistema/proxy existentes; não reinstale o servidor nem remova pacotes em uso.
 
@@ -595,3 +595,69 @@ Atualização local acrescenta migração 21 para commercial-import-batches/rows
 Fonte/justificativa e um provedor/conta por lote. POST /api/v1/admin/imports estagia CSV canônico com owner/origem e headers de fonte/referência/razão/Idempotency-Key; POST /api/v1/admin/imports/{id}/commit exige confirmação explícita/hash do plano durável. Conferir linhas/fonte antes de confirmar. Proteger também /api/v1/admin/* pela mesma restrição de IP/VPN administrativa no proxy existente, como no exemplo Caddy deste guia. queued/202 é inbox durável, não venda aplicada ou recebimento; processar separadamente pela rotina comercial existente. Manter COMMERCIAL_EVENTS_ENABLED=false até homologar a operação. Nenhum token nativo é necessário para processar fatos CSV confirmados.
 
 Somente novos estados sem reversão/recebimento e snapshots já compatíveis têm confirmação nesta etapa. stale/blocked demanda causa corrigida e novo estágio; colisão/catálogo histórico e liquidação não se resolvem editando fatos. Coleções nativas são privadas e somente de leitura; interface customizada e financeiro ainda pendentes. [Contrato/API/limites completos](docs/24-conciliacao.md). Não registrar CSV/Authorization em proxy/APM/debug; medir latência da conta sob carga antes do release.
+
+## D74 — Provas financeiras e compatibilidade
+
+Na etapa D74 o schema chegou à migração 25; o inventário atual está no início deste guia. Decisões e aplicações financeiras são imutáveis; downgrade é recusado com provas. Código anterior à D74 não reconhece escolha/associação financeira efetiva e vigência das fontes: não usar troca de imagem ou limpeza de flags como recuperação. Preparar e testar recuperação isolada preservando trilhas, referências e banco/mídia/configuração antes do release. Bateria de imagem/upgrade/restore atual ainda pendente em [H03/H04](pendencias.md); os testes locais D74 não são implantação nem homologação externa.
+
+## Interfaces e inventário vigente — D80
+
+A versão local incorpora decisões/provas/ledger das migrations 22–28 e as views owner de prévia financeira/importação canônica. D80 não acrescenta migration, segredo, flag ou serviço. As rotas `/admin/financial-ledger` e `/admin/commercial-imports` reutilizam autenticação/serviços existentes; confirmar CSV não habilita worker, conector ou envio externo. Conferir as jornadas também na imagem homologada antes de produção. Estado e critérios atuais estão em [pendencias.md](pendencias.md); nenhuma etapa desta documentação executou deploy na VPS.
+
+## Registro financeiro — D81
+
+A versão local acrescenta `/admin/financial-records` para registrar/conferir/corrigir liquidações e custos e corrige a gravação do vínculo de campanha no serviço de custos. Sem nova migration, flag, segredo ou serviço; permanecem 28 migrations. Homologar esses fluxos na imagem final e incluir originais/substituições/campanha no ensaio de recuperação. Conferência no painel não habilita conector, worker ou envio externo e não conclui H01–H06.
+
+D82 acrescenta somente a interface de resolução de identidades e QA/documentação locais; o inventário continua em 28 migrations e a operação externa permanece desativada. Sem imagem/restore final, GitHub, inventário ou deploy na VPS. Revalidar o release completo pelos gates de pendencias.md.
+
+D83 acrescenta interface de resolução financeira e correção de exibição de centavos negativos, sem schema/migration/flag nova. As 28 migrations e o release completo ainda exigem imagem, banco vazio/upgrade, restore e homologações; QA local não comprova produção.
+
+D84 altera a resposta calculada/UI de cobertura financeira, sem schema/migration/flag nova. Testes locais não comprovam imagem, restore, recursos da VPS ou homologação de fornecedor. As 28 migrations e o release completo mantêm os gates de pendencias.md.
+
+D85 conclui aceite local P04 de cálculo/interface com detalhamentos e processamento registrado. Não é release de produção; 28 migrations sem alteração e gates de imagem/restore, fornecedor, CI/GitHub e VPS permanecem abertos.
+
+D86 fecha aceites locais P03/P05 com testes sobre build D85 conferido, sem mudança de aplicação/schema. P06/P07 e H01–H06 permanecem abertos; não houve imagem/restore novo, GitHub ou VPS. 28 migrations. Não publicar nem ativar fornecedor com base somente nesse aceite local.
+
+## D104 — Reaplicar decisões de privacidade antes de retomar tráfego
+
+O restore isolado informa `capturedAt` e `privacyReplayRequired=true`. A imagem atual empacota `cli/privacy-recovery.js` para exportar/aplicar manifesto HMAC privado sem emails/IDs, conforme [runbook de recuperação](docs/11-operacao.md). Conservar o arquivo mais recente criptografado fora do snapshot a restaurar; atualizar também após novo opt-in que remove bloqueio anterior. Usar chave original e owner do banco restaurado com todas as flags falsas, app/worker parados; preview antes do apply. Dependências externas/envio incerto permanecem em quarentena. O relatório não autoriza release. A imagem, restauração física, guarda externa atualizada e conciliação por conta precisam de homologação H03/H04/H06; só o ensaio sintético local foi executado em D104.
+
+## D105 — Conferir cobertura de pending no restore
+
+Exportar manifesto v2 atual após registrar ou resolver pedidos pending. A ferramenta mantém esses pedidos sem expiração automática e bloqueia novas emissões/cadastros; replay não os converte em completed por ausência de dependência no backup antigo. Arquivos v1 continuam aceitos para concluídos, com pendingCoverage=false: isso não prova a recuperação de pending. Homologar o v2 atual, sua guarda externa e restauração física com todas as flags falsas antes de liberar operação; conciliar cada estado incerto pelo procedimento apropriado.
+
+## D106 — Limite do ensaio local — 26/10/2026
+
+D106 validou backup criptografado e restore físico local das 32 migrations, com mídia íntegra e replay do manifesto v2 separado do snapshot; completed é reaplicado e pending permanece pendente. A telemetria automática do Payload foi desativada após a barreira de rede detectar sua tentativa. Imagem atual, guarda externa do manifesto/backup, RPO/RTO reais e release continuam pendentes. [Evidência](artifacts/recovery/d106-results.json). Não usar os tempos do dataset sintético como aceite de RPO/RTO real; homologar imagem e destino externo antes de implantar.
+
+## D107 — Imagem local e limites do aceite — 26/10/2026
+
+D107 construiu a imagem local atual e verificou 32 migrations em banco vazio e upgrade real de 6 para 32, preservando contato e owner sintéticos. Saúde, HTTP interno, ACL, runtime sem root/read-only/DDL, CLIs de privacidade e worker de retenção passaram em rede Docker internal, sem saída para provedores. Corrigidos o encerramento das CLIs de inventário/retenção após a limpeza do Payload e a renovação do heartbeat no ciclo ocioso do worker de retenção. A imagem não foi publicada. Bateria funcional integral do release, restore físico nesta imagem, destino externo/RPO/RTO, contas e VPS continuam pendentes. [Evidência](artifacts/container/d107-results.json). A tag local é de laboratório; implantação continua condicionada aos gates e fica com o proprietário.
+
+## D108 — Restore local da imagem validada — 26/10/2026
+
+D108 aprovou restore físico com a imagem D107: 32 migrations, mídia íntegra, seis decisões de privacidade posteriores ao snapshot e replay v2 dentro da imagem. Preview, exclusão/correção, pending, supressão/bounce e repetição sem renovar prazos foram verificados. A aplicação só iniciou depois do replay, com credencial de banco separada e limitada: saúde/catálogo/capa responderam 200, contatos privados 403 e amostra privada na rota pública 404. Rede interna sem portas publicadas; transportes e worker desligados. Destino externo, guarda atual do manifesto, RPO/RTO reais, bateria integral e homologações continuam pendentes. [Evidência](artifacts/recovery/d108-results.json). Não usar os tempos locais como RPO/RTO real nem liberar processamento antes de verificar as pendências e homologações.
+
+## D109 — Revalidação antes do release — 26/10/2026
+
+D109 implementa retenção local de estado promocional para contatos globalmente descadastrados há pelo menos 30 dias: remove assinaturas encerradas e calendários cancelados com etapas antigas, sem lote. Preserva identidade, amostras/outbox, consentimento, auditoria e supressão com o prazo original. Não executa exclusão de identidade nem forja pedido owner. Impedimentos de privacidade, provedor, envio incerto, vínculo cruzado e manifestos compartilhados/JSON preservam os registros. Preview é padrão; apply revalida sob locks e é atômico por contato. P07 continua parcial para identidade, demais finalidades e dados compartilhados. A imagem/restore D107–D108 são evidências da revisão anterior, não incluem esta rotina. [Evidência](artifacts/privacy-retention/d109-results.json). Não usar a imagem antiga como aceite desta rotina; manter os gates de pendencias.md.
+
+## D110 — Retenção de identidade e recuperação — 26/10/2026
+
+Inventário vigente: 33 migrations, incluindo contact_retirements, e runtime com replay v3. Antes de deploy, construir e ensaiar a revisão final (banco vazio, upgrade e restore/HTTP/worker); D110 validou restore host, enquanto D107/D108 cobrem imagem de 32 migrations. Nunca apontar o harness sintético ao banco operacional. Não houve ação na VPS, publicação ou habilitação de flags nesta fase.
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+Usar o lockfile atualizado que aplica o patch do Payload às operações em lote com transação compartilhada. Não há SQL novo; permanecem 33 migrations. A imagem anterior não contém a correção: construir e homologar a revisão final em H03/H04 antes de deploy. A etapa D111 ocorreu somente localmente.
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+A revisão final agora exige 34 migrations, incluindo theme_withdrawals, e runtime v4/guarda de confirmação antiga. D107/D108 são históricos. Reconstruir/revalidar imagem vazia, upgrade e restore da versão final antes de publicar. Fato temático, chave e manifesto precisam da mesma guarda privada/atual que as demais decisões; nada foi implantado nesta etapa.
+
+## D113 — Margem e acompanhamento do prazo — 26/10/2026
+
+Worker de retenção exige chave válida e health atual verifica conclusão diária ≤25h e assinaturas para revisão, além do heartbeat. Incluir arquivos/CLIs da revisão final, reconstruir imagem e homologar comportamento sob falha/atraso antes de ativar a flag. Prazos de 30 dias não são comprovados por container vivo. Permanecem 34 migrations; nenhuma VPS ou flag foi alterada.
+
+## D114 — Legado temático verificável — 26/10/2026
+
+O exportador vigente recusa descadastro temático sem prova/fato ou cobertura global aplicável. Antes de produção/retorno, conciliar lacunas e guardar manifesto atual completo; não reutilizar silenciosamente arquivo antigo quando a exportação falhar. D114 prova derivação nativa e replay em restore host, mantendo 34 migrations, mas não reconstrói/homologa imagem/VPS. Nenhuma implantação ou ativação ocorreu.

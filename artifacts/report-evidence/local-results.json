@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-25T22:22:38.476Z",
+  "checks": [
+    "Lote canônico reverte integralmente a primeira linha se a gravação seguinte falhar; não deixa evidência nem revisão parcial.",
+    "Cadastro canônico concorrente deduplica por provedor/conta/fonte/linha e não aplica valores. Correção do ID conecta a fonte antiga; aprovação ausente mantém bloqueio e não gera venda.",
+    "Rollback de evidência não deixa prova parcial. Escolher substituto exige excluir fonte antiga; sobreposição bloqueia. Decisão aplica ID corrigido sem reescrever recibo/fato nativo nem criar webhook de relatório.",
+    "Novo relatório suspende cobertura anterior e não é aplicado automaticamente. Reembolso com total/base/aprovação explícitos requer nova decisão, preserva líquido desconhecido e é reconhecido pelo CSV.",
+    "Continuidade por novo evento nativo íntegro reaplica a escolha que usa relatório e acrescenta somente fato nativo, sem duplicar decisões/vendas ou apagar revisão original.",
+    "Prova independente corrige moeda, valor, data e estado sob nova decisão completa, excluindo as fontes substituídas. Fatos históricos permanecem íntegros e aplicações não são novas vendas.",
+    "CSV canônico D77 gera prévia sem gravação, estágio idempotente e commit owner de evidência com duplicata interna; confirma evidência, não webhook/transação/venda.",
+    "Evidência criada depois do estágio altera planHash efetivo; commit CSV marca lote stale sem duplicar nem sobrescrever prova.",
+    "Falha durante gravação reverte evidência, estado de linha, confirmação e auditoria; retry explícito confirma atomicamente. Migration 27 protege lotes persistidos no downgrade.",
+    "Referências de outra conta são recusadas; CRUD nativo e alteração SQL por override são negados. Downgrade recusa evidência; down/up vazio foi ensaiado atomicamente."
+  ],
+  "schemaMigrations": 27,
+  "externalCalls": false,
+  "limits": "Contrato canônico conferido pelo operador; sem parser/exportação nativa homologada, liquidação, recebimento, custos, UI ou produção."
+}

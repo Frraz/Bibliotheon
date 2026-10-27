@@ -1,0 +1,250 @@
+{
+  "date": "2026-10-25T16:06:14.914Z",
+  "status": "passed",
+  "checks": [
+    "Anônimo sem view/API; coleções nativas negam escrita owner; GET inicial sem decisão.",
+    "Prévia sem persistência, retorno preserva campos, confirmação por teclado, resposta perdida após commit e repetição idempotente; projeção original preservada.",
+    "Bloqueio encadeado com motivo/atestação corretos, anterior/sucessora navegáveis, oferta Kiwify e livro Cakto registrados em namespaces próprios.",
+    "Oferta fora do namespace e destino inexistente rejeitados sem gravação; alteração concorrente bloqueia plano stale e exige nova conferência.",
+    "22 decisões em páginas 20+2, instantes empatados sem duplicação, filtro por provedor, entrada inválida sem formulário e leitura/paginação sem JavaScript.",
+    "Formulário em 14 combinações tema/largura 320–1920px, conferência e formulário com texto 200%/IDs longos, detalhes em ambos os temas; axe/overflow/runtime."
+  ],
+  "captures": [
+    {
+      "name": "empty-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "review-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "loading-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lost-response-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "hold-detail-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "previous-detail-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "error-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "stale-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-history-390",
+      "theme": "light",
+      "width": 390,
+      "axe": false,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-360",
+      "theme": "light",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-768",
+      "theme": "light",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-form-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-preview-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "detail-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "form-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-form-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-preview-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "detail-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "UI de identidade/catalogo local, fontes sintéticas. Sem decisão financeira visual, homologação externa, zoom nativo 400%, release da imagem/restore ou produção."
+}

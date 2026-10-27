@@ -1,7 +1,7 @@
 import { APIError, type CollectionConfig } from 'payload'
 import { ownerAccess } from '../access/owner'
 import { allowedCheckoutHosts, providers, validCents, validCheckout } from '../modules/commerce/checkout'
-import { lockCommercialProducts, lockEbooks, lockCommercialAccounts } from '../modules/commerce/lock'
+import { lockCommercialProducts, lockEbooks, lockCommercialAccounts, assertNewCatalogIdentity } from '../modules/commerce/lock'
 
 export const Offers: CollectionConfig = {
   slug: 'offers', labels: { singular: 'Oferta', plural: 'Ofertas' }, access: { ...ownerAccess, delete: () => false },
@@ -25,7 +25,15 @@ export const Offers: CollectionConfig = {
     await lockCommercialAccounts(req,[merged,...(originalDoc?[originalDoc]:[])])
     await lockCommercialProducts(req,[merged,...(originalDoc?[originalDoc]:[])])
     await lockEbooks(req, [ebookId, previousId].filter(Boolean))
-    if(originalDoc&&(ebookId!==previousId||['provider','accountKey','externalProductId','externalOfferId'].some(key=>(merged[key]||null)!==(originalDoc[key]||null)))){
+    const identityChanged = !originalDoc || ebookId !== previousId || ['provider','accountKey','externalProductId','externalOfferId'].some(key => (merged[key] || null) !== (originalDoc[key] || null))
+    if (identityChanged) {
+      // Inactive offers also resolve historical events. Never filter by active/primary.
+      // The account/product locks above serialize concurrent creates and identity edits.
+      await assertNewCatalogIdentity(req, { ...merged, ebook: ebookId }, originalDoc?.id)
+    }
+    if(originalDoc?.id&&identityChanged){
+      const decisions=await req.payload.count({collection:'catalog-resolutions',where:{targetOffer:{equals:originalDoc.id}},overrideAccess:true,req})
+      if(decisions.totalDocs)throw new APIError('Preserve a identidade da oferta referenciada por decisão auditada.',422)
       const history=await req.payload.count({collection:'transactions',where:{and:[{provider:{equals:originalDoc.provider}},{accountKey:{equals:originalDoc.accountKey}},{externalProductId:{equals:originalDoc.externalProductId}}]},overrideAccess:true,req})
       if(history.totalDocs)throw new APIError('Preserve a identidade da oferta com histórico. Cadastre uma nova oferta para outro produto/conta/livro.',422)
     }

@@ -2,13 +2,15 @@
 
 [Índice](../README.md) · [Retomada](14-progresso.md) · [Backlog](13-backlog.md) · [Histórico técnico](19-desenvolvimento.md)
 
-Fotografia documental revisada em 24/10/2026 (D68), com manutenção de raiz/CI D69 registrada abaixo, America/Belem, contra código, índice de migrations e relatórios existentes até D67. D68 não reexecutou aplicação/banco; D69 reexecutou checks estáticos e 192 unitários, além de testes de operação sintéticos. Nenhuma dessas revisões homologou contas/VPS ou repetiu a bateria de banco/HTTP da aplicação. O [inventário de 21/10](../artifacts/documentation/state-audit-2026-10-21.json) é histórico; a evidência local mais recente está no [release D67](../artifacts/commercial-imports/release-checks.json). Consulte [pendencias.md](../pendencias.md) para o plano de conclusão. Datas ISO dos artefatos podem estar em UTC.
+**Revisão D114:** D114 reconstrói fatos temáticos legados somente com evento nativo coincidente, sem renovar prazo nem inventar consentimento. A exportação recusa lacunas sem cobertura verificável e preserva finalidades posteriores. Schema mantém 34 migrations; P07 e gates finais continuam abertos. Flags desligadas e produção não alterada.
+
+Estado revisado em 26/10/2026 (D114): P01–P05 têm aceite local D86; P06 passou por HTTP sintético local, ainda sem H01 em contas. P07 inclui retenção analítica, exportação, auditoria, expiração de solicitações/tokens e auditorias comerciais resolvidas, expiração de envelope processado da inbox com ledger íntegro, exclusão owner, correção que preserva consentimentos/relações locais, inventário agregado sem PII e tombstone HMAC por 12 meses para supressões. Migration 34 aplicada no banco PostgreSQL sintético; replay e revisão recuperam envelope do ledger com hash validado. Sem produção, conta externa ou recuperação de produção homologada. P07 permanece parcial: manifesto/replay local D104 implementado, com pending v2 e bloqueio local D105 implementados, com restore físico local/replay v2 D106 aprovado. D107 verificou imagem atual, banco vazio/upgrade e recortes de API/CLI/worker. D108 comprovou restore físico/replay v2 nessa imagem e retomada HTTP com credencial limitada. Guarda atual/externa, retenção ampla, conciliação e bateria integral do release continuam abertas. A flag diária permanece falsa por padrão. O [inventário de 21/10](../artifacts/documentation/state-audit-2026-10-21.json) e [release D67](../artifacts/commercial-imports/release-checks.json) são históricos. D102 expira pedidos de amostra confirmados há mais de 24 meses quando pedido e outbox encerrado não têm alterações recentes; preserva dependências e prova de consentimento ativo. Consulte [pendencias.md](../pendencias.md) e as atualizações D90–D114 ao final.
 
 ## Situação do produto
 
-Existe aplicação local funcional, com vitrine, painel manual e parte do relacionamento. **O projeto completo ainda não está pronto para produção.** Medição consentida e inbox/histórico comerciais comuns possuem implementação local D59/D61. Hotmart possui adaptador/endpoint nativos locais D63, desligados e sem homologação; Kiwify possui adaptador/endpoint locais D64, desligados e sem homologação; Cakto possui adaptador/endpoint V1/V2 locais D65, desligados e sem homologação; B11 possui prévia CSV D66 e lotes/linhas duráveis com confirmação auditada limitada D67; atribuição de compra, resolução de divergências, liquidação/custos, financeiro, retenção e operação comercial permanecem pendentes. Teste sintético não comprova homologação de fornecedor, publicação ou venda.
+Existe aplicação local funcional, com vitrine, painel manual e parte do relacionamento. **O projeto completo ainda não está pronto para produção.** Medição consentida e inbox/histórico comerciais comuns possuem implementação local D59/D61. Adaptadores Hotmart/Kiwify/Cakto D63–D65 seguem desligados e sem homologação. D87–D88 implementaram/validaram atribuição por `sck` UUID sintética; cada conta ainda exige homologação. D89 implementou retenção analítica agregada de 90 dias; D98 adiciona tombstone HMAC por 12 meses, D99 expira tokens de preferências vencidos, D100 expira auditorias comerciais resolvidas e D101 expira envelope da inbox processada preservando o ledger; D102 expira amostras confirmadas antigas sem remover prova vigente ou trabalho pendente. Retenção ampla de contatos/marketing/comércio continua pendente em P07; replay físico local passou com CLI do host em D106 e dentro da imagem atual em D108. Guarda externa atual e conciliação real permanecem pendentes. P01–P05 têm aceite local D86. Teste sintético não comprova homologação, publicação ou venda.
 
-O proprietário autorizou implementação e testes locais; GitHub e deploy na VPS ficam com ele. Git local conferido em 24/10: commit 74fe451 existente; nenhum commit/push feito pelo agente nesta continuação. Sem execução de CI no GitHub comprovada ou acesso à VPS. Lotes promocionais duráveis foram acrescentados/testados localmente em 22/10; ver atualização final D48.
+O proprietário autorizou implementação e testes locais; GitHub e deploy na VPS ficam com ele. Git local conferido em 24/10: base cba2edb; D70–D72 permanecem no worktree; nenhum commit/push feito pelo agente nesta continuação. Sem execução de CI no GitHub comprovada ou acesso à VPS. Lotes promocionais duráveis foram acrescentados/testados localmente em 22/10; ver atualização final D48.
 
 Primeiro título: **Crie Sistemas com IA e Ganhe Dinheiro**. Domínio informado: **bibliotheon.com.br**; responsável: **Warley Ferraz Almeida**. E-mail público fica vazio por decisão do proprietário, que o acrescentará antes da produção. Público específico, arquivos, preço, checkout e elegibilidade ainda precisam ser conferidos. Subdomínios não foram definidos. Ver [lançamento](22-lancamento.md).
 
@@ -21,14 +23,15 @@ Invariantes vigentes: nenhuma IA no produto; cadastro manual no Payload; checkou
 | Base e acesso | Next/Payload/PostgreSQL, owner único, provisionamento privado, REST/Local API protegidas, GraphQL desabilitado, healthchecks | MFA/allowlist/VPN e operação do host não homologados |
 | Editorial | Temas, livros, artigos, mídia, amostras, ofertas, campanhas e redirects; drafts, preview e validação de publicação | Fixtures não são livros/ofertas reais |
 | Vitrine | Home, catálogo/busca/filtro/paginação, três LPs, artigos/temas, institucionais, sitemap/robots | Indexação exige revisão institucional; performance de campo não medida |
-| Checkout | URL por host exato/provedor, oferta atual, campanha afiliada sem fallback, contexto c preservado em slug histórico | Nenhuma compra é confirmada por redirect; sem atribuição comercial implementada |
+| Checkout | URL por host exato/provedor, campanha afiliada sem fallback, referência `sck` da saída consentida quando ausente | Redirect não confirma compra; atribuição exige callback compatível e segue parcial até QA/homologação por conta |
 | Amostras | Captura, confirmação por POST, PDF privado temporário, consentimento opcional e descadastro | Captura e transporte desligados; sem contato público legalReady permanece falso |
 | E-mail solicitado | Outbox, jobs, dispatcher, tokens só em hash, transporte Brevo transacional e classificação de falhas | Testes em memória; nenhum envio real ou remetente homologado |
 | Supressão | Serviço, API owner/origem exata, formulário e CLI; auditoria por referência HMAC, fila outbound e callback inbound D58 | Testados localmente e desligados; homologação Brevo pendente |
 | Cadastro consentido Brevo | Fila atômica com opt-in confirmado; reconciliação, lease e compensação tardia, listas/rascunhos/transporte/observação | Testes sintéticos locais D51–D58; flags false e conta não homologada |
 | Conectores nativos | Hotmart D63, Kiwify D64 e Cakto V1/V2 D65; autenticação e recepção durável com fixtures | Endpoints locais desligados por padrão; contas/relatórios/reenvios ainda não homologados |
-| Conciliação CSV | Prévia D66, lotes/linhas/auditoria privados e confirmação idempotente/revalidada D67 | Confirmação limitada para inbox; 202 queued não é aplicação; resolução, liquidação/custos/relatório e UI customizada pendentes |
-| Inbox comercial | Recepção interna durável, conflitos, projeções/fatos/auditoria, lease/backoff, CLI/worker e retry owner | D61/D62 locais; acompanhamento/retry visuais; atribuição, resolução auditada e liquidação pendentes; QA por etapa na seção final |
+| Conciliação CSV / financeiro | Snapshot D66/D67, associação D72, decisão financeira D74, evidências D75–D77, ledger D78 e interfaces de prévia/importação/registro/identidade D79–D83 | 202 queued não é aplicação; P01–P05 locais D86; faltam casos/cobertura completos e aceite integrado das interfaces; sem layout nativo homologado |
+| Inbox comercial | Recepção durável, conflitos, projeções/fatos/auditoria, lease/backoff, CLI/worker e retry owner; resoluções auditadas D72–D75 | Acompanhamento/retry visuais D62; atribuição, cobertura final de conciliação e homologação pendentes; QA por etapa na seção final |
+| Retenção e privacidade | D89–D106: pending/bloqueio e manifesto/replay isolado e retenção analítica/auditoria e amostras confirmadas antigas, expiração de solicitações/tokens/envelope da inbox, auditoria comercial resolvida, tombstones, exportação, exclusão/correção owner e inventário agregado sem PII | `DATA_RETENTION_ENABLED=false`; retenção geral, conciliação externa e restore permanecem pendentes |
 | Recuperação do owner | CLI por stdin privado, senha nova, revogação de sessões/tokens e limpeza de lockout | Recuperação por e-mail indisponível; forgot/reset 503 genérico, unlock público negado |
 | Sequências | Conteúdo manual revisado, snapshot imutável por inscrição, calendário D+2/4/7/10, elegibilidade e cancelamento | Agrupamento durável local; sem campanhas externas ou envio real; transporte sintético D56 validado |
 | Quota | Contabilidade compartilhada por destinatário/dia UTC, teto até 250 e reserva transacional padrão 50; lock e rollback | Reserva ligada ao claim e à intenção de disparo no mesmo commit; worker opcional com flag false |
@@ -53,12 +56,12 @@ Esta matriz não altera os aceites de [R01–R34](02-requisitos.md). “Local”
 | R08 | Local, captura desativada | test:marketing e QA de relacionamento; revisão institucional/remetente antes de coletar |
 | R09 | Parcial | Consentimento, descadastro e supressão local testados; bloqueios outbound testados com HTTP sintético; preflight importa bloqueio pontual; callback e sincronização/observação locais D58 presentes; falta homologação na conta Brevo |
 | R10 | Parcial | Calendário, quota, lotes/claim e falhas/retentativas testados localmente; transporte/sincronização/observação de campanha testados localmente; callback e conciliação individual testados localmente em D58; falta homologação Brevo |
-| R11 | Implementado/testado localmente; release pendente | D59: consentimento, Visit/PageView/CheckoutClick, UTMs controladas, endpoint de events, gerador e resumo; clique permanece distinto de compra. Inbox/histórico/retry locais D61; atribuição de compra pendente |
+| R11 | Parcial; base D59–D61 local e atribuição D87 parcial; release pendente | Consentimento, saídas e inbox locais. D87 transporta UUID consentida em `sck` e exige retorno/contexto compatíveis; Fluxo HTTP sintético integrado D88 validado nos três provedores; callback real e homologação por conta pendentes |
 | R12 | Parcial, local | Adaptador/endpoint Hotmart v2, inbox e HTTP D63; conta, atribuição, relatório e homologação pendentes |
 | R13 | Parcial | Adaptador/endpoint Kiwify nativos locais D64; HMAC, inbox e centavos testados. Conta, relatório, tempos de reversão e homologação pendentes |
 | R14 | Parcial | Adaptador/endpoint Cakto V1/V2 locais D65; assinatura/janela e lote atômico testados. Conta, relatório, MED e homologação pendentes |
-| R15 | Parcial | Prévia D66 e lotes/linhas duráveis, confirmação idempotente/auditada/revalidada para inbox D67; resolução de conflitos, exportação financeira e UI pendentes |
-| R16 | Parcial, domínio local | Histórico/projeção D61; custos, liquidação e relatório financeiro ainda não implementados |
+| R15 | Implementado/testado localmente D66–D86; homologação pendente | Dois contratos canônicos, origem/auditoria, 21 estados/provedores, seis provas recusadas e jornada integrada; sem parsing nativo ou homologação de fornecedor |
+| R16 | Parcial por dependências/homologação; P04 local D78–D85 | Liquidações/custos, cobertura/coortes, detalhamentos por livro/provedor/campanha e sucesso registrado aceitos localmente; null honesto. Aceite integrado P05 local D86; atribuição P06 e homologações/release ainda pendentes |
 | R17 | Parcial | Cadastro de campanha/hipótese existe; tarefas, prazo e kit autorizado pendentes |
 | R18 | Pendente | Título escolhido; sem lançamento, três conteúdos ou distribuição comprovados |
 | R19 | Pendente | Modelo semanal existe; relatório conciliado e rotina comercial ainda não executados |
@@ -66,16 +69,16 @@ Esta matriz não altera os aceites de [R01–R34](02-requisitos.md). “Local”
 | R21 | Pendente de medição | Build passou; não há evidência de orçamento completo de laboratório ou p75 real |
 | R22 | Parcial, local | Acesso, uploads, tokens e origem testados; preservação em troca recusada/rollback e coleta com carência testadas em seis grupos; imagem atual ainda pendente |
 | R23 | Parcial, local | Container limitado e banco privado testados; VPS/proxy/baseline não inspecionados |
-| R24 | Parcial, local | Restore criptografado e mídia verificados em dataset anterior; destino externo/RPO/RTO reais pendentes |
+| R24 | Parcial, local | D114: restore físico host das 34 migrations, mídia e nove entradas v4 com retirada legada derivada sem escrita. Imagem D107/restore D108 históricos; release final, guarda externa e RPO/RTO reais pendentes |
 | R25 | Parcial, local | Inbox/histórico duráveis, retorno após commit, replay/retry e auditoria D61; acompanhamento/retry visuais D62; recepção nativa local nos três provedores D63–D65; homologação externa pendente |
-| R26 | Parcial | Consentimento/revogação implementados; retenção, exportação/exclusão e reaplicação após restore não executáveis ainda |
+| R26 | Parcial | D89–D114: retenção parcial, pedidos owner, fatos, v1–v4, margem/saúde e legado nativo verificável. Casos sem prova, contatos ativos, demais finalidades/compartilhamentos/provedor/ledger e operação/guarda externa pendentes |
 | R27 | Local | Fontes, tokens, briefing e QA de fundação; continuar aplicando em telas novas |
-| R28 | Parcial | Tema persistente/system/fallback testados em site/painel; relacionamento e inbox visuais locais; importação/resolução/financeiro e matriz completa ainda pendentes |
+| R28 | Parcial | Tema persistente/system/fallback no site/painel; relacionamento, inbox, financeiro D79, importação D80, registros D81 e identidade D82 têm recortes visuais locais; resolução financeira D83 local; matriz completa pendente |
 | R29 | Parcial | Contrastes e controles atuais testados em recortes; matriz integral de estados permanece aberta |
 | R30 | Local | Três variantes e acentos controlados, test:catalog/site e QA público; sem CSS livre |
 | R31 | Parcial | Seis larguras, 320px e texto 200% em rodadas específicas; zoom nativo 400% e matriz integral pendentes |
 | R32 | Parcial | Reduced-motion e ordenação nativa por teclado aprovados; repetir para telas/interações futuras |
-| R33 | Parcial | Painel editorial e relacionamento testados; telas/estados financeiros dependem de R16 |
+| R33 | Parcial | Editorial/relacionamento, prévia financeira D79 e importação D80 têm QA local; registro/correção D81 disponível; faltam decisão auditada e matriz integral de estados |
 | R34 | Parcial | Relatórios renderizados e screenshots existentes; falta homologação completa da fase 2 e do release final |
 
 ## Evidências conferidas
@@ -84,7 +87,7 @@ Os relatórios representam revisões distintas. Não somar screenshots como uma 
 
 | Evidência | Resultado registrado | Limite |
 |---|---|---|
-| [Última bateria da aplicação: D67](../artifacts/commercial-imports/release-checks.json) | 192 unitários/27 arquivos, dez grupos de importação e quatro HTTP; regressões, tipos, lint e build aprovados | Execução anterior à revisão documental D68; sem nova QA visual, imagem, conta ou deploy |
+| [Bateria histórica da aplicação: D67](../artifacts/commercial-imports/release-checks.json) | 192 unitários/27 arquivos, dez grupos de importação e quatro HTTP; regressões, tipos, lint e build aprovados | Execução anterior à revisão documental D68; sem nova QA visual, imagem, conta ou deploy |
 | Verificação histórica do baseline de 21/10 | 29 testes/9 arquivos unitários, tipos aprovados, lint sem erros e com 2 avisos | Logs da última execução conferidos; testes não reexecutados nesta revisão documental |
 | Build standalone registrado no histórico | Webpack 18,3s, TypeScript 16,7s, build concluído | Não é imagem atual homologada ou deploy |
 | [HTTP do build final](../artifacts/qa-admin-editorial/runtime-smoke.json) | Listagem de livros autenticada 200 | Conferência HTTP; não é nova rodada visual |
@@ -105,7 +108,7 @@ Os relatórios representam revisões distintas. Não somar screenshots como uma 
 
 Host local Node 22.23.4 conferido em 24/10; imagem/CI fixam Node 22.23.3 e manifesto fixa pnpm 10.34.7; Next 16.4.2, React 19.3.1, Payload 3.91.0 e Sharp 0.35.5 fixados em [package.json](../package.json)/lockfile. PostgreSQL 17.9 por digest no Compose. Overrides e patches locais de Payload estão versionados; instalação exige lockfile e revalidação ao atualizar. Não houve instalação global de skills de referência.
 
-21 migrações declaradas em [migrations/index.ts](../migrations/index.ts), conferidas no código nesta revisão documental. Aplicação local das 21 registrada na D67; o banco não foi consultado novamente na D68. Ordem:
+32 migrations declaradas em [migrations/index.ts](../migrations/index.ts); migrations 29–32 cobrem retenção analítica, auditoria de pedidos, tombstones de supressão e envelope de inbox anulável, aplicadas no PostgreSQL sintético local. A bateria da imagem/restore e o release integral permanecem pendentes. Ordem:
 
 1. 20261021_012104_initial
 2. 20261021_013444_catalog
@@ -128,8 +131,14 @@ Host local Node 22.23.4 conferido em 24/10; imagem/CI fixam Node 22.23.3 e manif
 19. 20261024_073316_analytics (consentimento/sessões/páginas/saídas/limites próprios e Campaign.utmTerm)
 20. 20261024_115633_commercial_inbox (inbox, conflitos, transações/fatos e auditoria privados)
 21. 20261024_190859_commercial_imports (lotes, linhas e auditoria da conciliação)
+22. 20261024_231500_offer_identity_guard (trigger de integridade de ofertas; preserva legado)
+23. 20261025_003403_catalog_resolutions (decisões imutáveis e vínculo dos novos fatos)
+24. 20261025_014000_commercial_review_lookup (lookup de variantes e quarentena de projeções legadas)
+25. 20261025_031113_financial_resolutions (decisões/aplicações imutáveis e referências efetivas)
+26. 20261025_041432_financial_report_evidence (evidência complementar canônica imutável e associação de IDs)
+27. 20261025_051744_report_evidence_csv (tipo/state dos lotes duráveis para importação de evidência CSV)
 
-O [censo após cleanup da D67](../artifacts/commercial-imports/cleanup-counts.json) registrou owner/contatos e oito tabelas comerciais/importações consultadas zerados, com 21 migrations preservadas. É fotografia de testes locais, não censo comercial nem consulta repetida nesta revisão. Ensaios antigos de down/up em transação revertida não autorizam rollback destrutivo. A migration 21 recusa downgrade com registros. A imagem de laboratório anterior não comprova banco vazio, upgrade e restore das 21 migrations atuais; repetir antes do release.
+O [censo após cleanup da D67](../artifacts/commercial-imports/cleanup-counts.json) registrou owner/contatos e oito tabelas comerciais/importações consultadas zerados, com 21 migrations preservadas. É fotografia de testes locais, não censo comercial nem consulta repetida nesta revisão. Ensaios antigos de down/up em transação revertida não autorizam rollback destrutivo. A migration 21 recusa downgrade com registros. A imagem de laboratório anterior não comprova banco vazio, upgrade e restore das 32 migrations atuais; repetir antes do release.
 
 Prévia gerenciada usa .next/porta 3000; QA standalone usa .next-qa/porta 3001 ou outra livre, com NEXT_DIST_DIR/TEST_BASE_URL. Não sobrescrever caches entre processos. O servidor de QA da última rodada foi encerrado; não presumir uma porta atualmente ativa só porque houve teste anterior.
 
@@ -142,11 +151,11 @@ Inventário de código, sem substituir os contratos de [interfaces](06-interface
 | Público | /, /ebooks, /ebooks/[slug], /artigos, /artigos/[slug], /temas/[slug], /[institutional], /robots.txt, /sitemap.xml |
 | Conteúdo privado/saída | /preview/ebooks/[id], /comprar/[offerId], /api/v1/media/[id] |
 | Relacionamento | /amostras/[slug], /amostras/confirmar, /preferencias; POST /api/v1/lead-requests, /api/v1/lead-confirmations, /api/v1/unsubscribe; GET /api/v1/downloads/[token] |
-| Admin | /admin e /admin/suppressions; POST /api/v1/admin/suppressions; CRUD/autenticação Payload /api/[...slug] protegido |
+| Admin | /admin, /admin/suppressions, /admin/financial-ledger, /admin/commercial-imports e /admin/financial-records e /admin/catalog-resolutions e /admin/financial-resolutions; POST /api/v1/admin/suppressions; CRUD/autenticação Payload /api/[...slug] protegido |
 | Medição | POST /api/v1/analytics-consent, /api/v1/analytics-withdrawal e /api/v1/events; aviso e retirada nas páginas públicas |
 | Inbox comercial | /admin/commercial-inbox; POST /api/v1/admin/inbox/[id]/retry |
 | Recepção comercial | POST /api/v1/webhooks/hotmart, /api/v1/webhooks/kiwify, /api/v1/webhooks/cakto |
-| Conciliação CSV | POST /api/v1/admin/imports/preview, /api/v1/admin/imports e /api/v1/admin/imports/[id]/commit; coleções privadas somente leitura |
+| Conciliação CSV | POST /api/v1/admin/imports/preview, /api/v1/admin/imports e /api/v1/admin/imports/[id]/commit; importação canônica de evidência em /api/v1/admin/report-evidence/imports/*; coleções privadas somente leitura; UI em /admin/commercial-imports |
 | Saúde | /health/live, /health/ready |
 
 | Comando/ferramenta | Finalidade |
@@ -158,6 +167,7 @@ Inventário de código, sem substituir os contratos de [interfaces](06-interface
 | npm run admin:create / admin:recover / suppression:apply | Operação privada por stdin; nunca senha, token ou dados pessoais em argumentos/documentação |
 | npm run worker | Jobs solicitados, filas Brevo e inbox comercial conforme flags independentes; pode operar sem SMTP; requer configuração privada e homologação de cada modo |
 | npm run commerce:process | Processamento privado da inbox conforme scripts do manifesto; consultar execução local antes de operar |
+| npm run privacy:retention / test:privacy-retention | Preview/apply de retenção de privacidade e suíte sintética; apply é mutante, exige revisão do cutoff e nunca deve apontar para dados reais antes da aprovação da política |
 | npm run promotions:prepare | Até 100 etapas por execução, somente elegibilidade local; sem quota ou envio promocional |
 | npm run test:integration / test:catalog / test:site | Acesso, domínio editorial e HTTP público |
 | npm run test:marketing / test:sequences / test:admin-recovery | Domínio de relacionamento, calendário e recuperação por operador |
@@ -172,9 +182,9 @@ Comandos de integração/QA que criam owner ou fixtures usam banco sintético e 
 
 ## Pendências concretas e ordem de retomada
 
-O plano vigente está em [pendencias.md](../pendencias.md), com responsáveis, dependências e critérios de conclusão. Próxima implementação: resolução auditada de divergências e identidades históricas B11, preservando fatos e bloqueando novas duplicidades. Seguir com ampliação segura da conciliação, liquidação/custos/relatório, UI e retenção B12. Hotmart/Kiwify/Cakto possuem código local; cada provedor e Brevo ainda exigem homologação própria.
+O plano vigente está em [pendencias.md](../pendencias.md), com responsáveis, dependências e critérios de conclusão. D77 tem CSV canônico separado, D78 ledger/liquidação/custos, D79 prévia financeira e D80 importação canônica pelo painel. P01–P05 possuem aceite local D86; P06 segue para homologação por conta, enquanto P07 avançou em D89–D92 e permanece aberta para retenção ampla, correção/exclusão e restore. Registro operacional D81, resolução do catálogo D82 e resolução financeira D83 já implementados. Associação do catálogo e prevenção de duplicidades têm implementação local D70–D72. Hotmart/Kiwify/Cakto possuem código local; cada provedor e Brevo ainda exigem homologação própria.
 
-Antes de produção: bateria do release atual com 21 migrations em banco vazio/upgrade/restore; segurança, privacidade, matriz visual, zoom/performance, inventário da VPS compartilhada e backup externo. GitHub e deploy ficam com o proprietário. B13–B15 tratam operação/campanha inicial; B16 é expansão condicionada, sem bloquear o primeiro deploy técnico por si só.
+Antes de produção: bateria do release atual com 32 migrations em banco vazio/upgrade/restore; segurança, privacidade, matriz visual, zoom/performance, inventário da VPS compartilhada e backup externo. GitHub e deploy ficam com o proprietário. B13–B15 tratam operação/campanha inicial; B16 é expansão condicionada, sem bloquear o primeiro deploy técnico por si só.
 
 Aviso pg/Drizzle nas fixtures sem causa específica resolvida e dois avisos históricos de lint seguem registrados. O erro SortColumn/useListQuery anterior não se repetiu no build limpo, sem causa provada. Preservação/coleta de mídia D47 passou localmente; ainda precisa de homologação na imagem atual. Checks verdes parciais não eliminam essas limitações.
 
@@ -429,3 +439,258 @@ Próxima ação: resolução auditada de divergências/colisões e identidades d
 [README](../README.md) passa a concentrar setup, comandos e organização; atualizar.sh é o único atualizador e o alias incorreto foi removido. start.sh/stop.sh usam [controle local comum](../scripts/local-dev.py), sem adotar processos existentes. Há pin Node compartilhado .nvmrc, padrões de edição/LF e exclusões de caches/estado/logs/mídia. Log local antes versionado saiu apenas do índice, permanecendo no disco.
 
 [Workflow](../.github/workflows/quality.yml) separado em checks sem banco e integração sequencial; duas listas de suítes reutilizáveis com confirmação de banco sintético, saúde explícita e limpeza do grupo criado. Checks locais aprovaram 192 unitários, tipos, lint com dois avisos históricos, testes de operação e documentação. Sintaxe/estrutura conferidas; isso não é execução GitHub, bateria HTTP real da aplicação, homologação de imagem/restore ou deploy. Sem mudanças no schema/domínio comercial. [Evidência](../artifacts/maintenance/root-files-2026-10-24.json).
+
+
+## D70 — Prevenção de novas ambiguidades do catálogo — 24/10/2026
+
+P01/B11 parcial: a API Payload recusa nova identidade externa duplicada em provedor/conta/produto/oferta (null e vazio equivalentes), ou associação do mesmo produto a outro livro. Inclui ofertas inativas; ofertas externas distintas para o mesmo livro continuam permitidas. Locks transacionais existentes serializam criações/alterações; edição de metadados legados permanece possível sem reescrever identidades/fatos. Não existe bypass no contexto da aplicação. As fixtures de ambiguidade histórica usam SQL exclusivamente no banco sintético.
+
+[Evidência local](../artifacts/catalog-identities/local-results.json): quatro grupos com permissão via API local Payload, concorrência de criação/update, rollback, isolamento dos três provedores/contas e legado. Comando: BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:catalog-identities; incluído no runner sequencial/CI preparado. Sem migration nova: continuam 21. Não é proteção contra SQL administrativo direto, teste HTTP/browser ou homologação externa.
+
+Próxima ação: complementar P01 com integridade no banco e fluxo auditado de resolução histórica, preservando referências/fatos originais; depois P02–P04. P01 e produção continuam pendentes.
+
+Validação D70: [checks e regressões locais](../artifacts/catalog-identities/release-checks.json) aprovados: tipos/lint (dois avisos históricos), 192 unitários, 57 testes de operação, documentação, catálogo e regressões de inbox (12 grupos), CSV (cinco) e importação (dez). Aviso pg/Drizzle reproduzido, sem causa resolvida. Relatórios desta reexecução foram preservados na pasta D70, mantendo os relatórios históricos originais. Sem novo build/HTTP/browser/imagem/restore.
+
+
+## D71 — Integridade SQL de identidades do catálogo — 24/10/2026
+
+Migração 22, [offer_identity_guard](../migrations/20261024_231500_offer_identity_guard.ts), aplicada somente no PostgreSQL local. Trigger BEFORE INSERT/UPDATE/DELETE e índice por provedor/conta/produto reforçam o guard da API D70: impedem novas duplicatas (null/vazio equivalentes), associação do produto a outro livro e alteração/exclusão de identidade com transação histórica. Inclui ofertas inativas. Preserva registros legados e seus metadados; não escolhe livro/oferta automaticamente nem altera fatos.
+
+[Evidência SQL local](../artifacts/catalog-identity-db/local-results.json): seis grupos, papel runtime efêmero sem DDL, concorrência observada em pg_locks, API versus SQL, commit/rollback, lote de INSERT revertido, isolamento de contas/provedores, compatibilidade das chaves de lock e upgrade sem alteração de registros legados. Comando: BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:catalog-identity-db; incluído no runner sequencial de CI preparado. Sem novo serviço/flag/coleção ou campos/tipos Payload. Produção e P01 continuam pendentes até a resolução histórica auditada e homologação do release.
+
+Validação final D71: [checks, hashes e regressões](../artifacts/catalog-identity-db/release-checks.json), com 192 unitários, 57 testes de operação, tipos/lint/documentação e regressões locais de catálogo, inbox e CSV/importação aprovados. [Censo independente após cleanup](../artifacts/catalog-identity-db/cleanup-counts.json): ofertas/owners/transações/inbox/lotes zerados, 22 migrations, trigger habilitado e nenhum papel de teste restante. CLIs reconstruídas pela suíte inbox; sem novo build Next/HTTP/browser/imagem/restore. Dois avisos históricos de lint e aviso pg/Drizzle permanecem. P01 continua aberta para decisões auditadas de associação histórica.
+
+
+## D72 — Associação histórica auditada — 24/10/2026
+
+P01 concluída como implementação/testes locais D70–D72: prevenção de novas duplicidades pela API/banco e trilha imutável de associação/hold com fonte, justificativa, autor e revisões. Permite escolher oferta no namespace ou diretamente livro conferido, corrigindo um cadastro único errado sem duplicá-lo. Transações/fatos/cadastros originais são preservados; novos fatos vinculam a decisão usada. Inbox e CSV consultam a associação efetiva; lote desatualizado não confirma. A decisão não contorna revisão financeira nativa, colisão ou evidência insuficiente.
+
+Migração 23 aplicada/testada somente em PostgreSQL local; coleção privada catalog-resolutions, referência opcional nos novos fatos e constraints/triggers. [Contrato completo](24-conciliacao.md). Coleção nativa é somente de leitura owner; API privada exige origem exata e confirmação revalidada/idempotente. Interface customizada permanece em P05, sem nova QA visual.
+
+[Evidências e hashes D72](../artifacts/catalog-resolutions/release-checks.json): 198 unitários/28 arquivos, 57 testes de operação, tipos/lint/documentação, nove grupos locais e três HTTP de resolução, regressões de catálogo, inbox, CSV/importação e guards D70/D71. Build standalone isolado .next-qa e 11 suítes HTTP locais aprovados; geração de tipos/import map conferida. [Censo independente](../artifacts/catalog-resolutions/cleanup-counts.json): owners/contatos/ofertas/histórico/inbox/importações/decisões zerados nas tabelas consultadas; 23 migrations, quatro triggers habilitados e nenhum papel efêmero restante. Servidor QA encerrado, porta 3000 sem listener; .next preservado. Relatórios desta reexecução ficam na pasta D72 e os históricos anteriores foram preservados.
+
+P02 é a próxima ação: divergências e colisões de identidade da transação/valores/moeda/datas/estados com prova e auditoria. Depois P03/P04 para ampliar conciliação e financeiro. R15/B11 continuam parciais; P05/P06/P07, imagem final/upgrade/banco vazio/restore, segurança/privacidade/visual/performance e homologação externa permanecem abertos. Dois avisos antigos de lint e aviso pg/Drizzle continuam sem resolução. Sem contas externas, GitHub, VPS, mensagem, publicação ou venda real. Projeto completo ainda não pronto para produção.
+
+
+## D73 — Quarentena e prévia do componente financeiro — 24/10/2026
+
+P02 permanece parcial. Corrigida a quarentena quando uma variante da mesma chave de evento nomeia outra transação: recepção sinaliza as projeções dos dois IDs, e worker/retry/CSV consultam também os IDs dos envelopes de commercial-conflicts. ID ainda sem projeção não é aplicado por outro recibo limpo. Fatos, envelopes, referências e valores conhecidos são preservados. Migração 24 acrescenta lookup funcional e repara flags legadas; reutiliza o índice transaction_key existente.
+
+Nova API owner/origem exata POST /api/v1/admin/transaction-resolutions/preview expande todos os recibos/variantes conectados A–B–C e permite simular uma escolha por recibo. Abre transação READ ONLY, revalida hashes/schema e usa a projeção e associação comuns. **Sempre provisional=true/committable=false.** processable não autoriza escrita; hold, cobertura incompleta, fonte insuficiente/ignorada, processamento ativo, catálogo pendente ou projeção divergente ficam explícitos. [Contrato](24-conciliacao.md).
+
+[Checks, hashes e limitações D73](../artifacts/transaction-review/release-checks.json): 206 unitários/29 arquivos, 57 testes de operação, tipos/lint/documentação; sete grupos locais, três HTTP de revisão, regressões inbox/CSV/importação/associação e 12 suítes HTTP locais aprovados. Build standalone isolado .next-qa aprovado; servidor QA encerrado. [Censo independente](../artifacts/transaction-review/cleanup-counts.json): tabelas comerciais consultadas, owners/contatos/ofertas zerados; 24 migrations e índices conferidos; contato público vazio/legalReady=false. [Limpeza de processos/fixtures](../artifacts/transaction-review/process-cleanup.json): porta 3000 sem listener e nenhum backup institucional de fixture pendente. Relatórios anteriores preservados; reexecuções ficam na pasta D73. Dois avisos históricos de lint e aviso pg/Drizzle continuam abertos.
+
+Próxima ação: persistir decisão financeira imutável com autoria/fonte/justificativa/idempotência e aplicar as projeções efetivas atomicamente para o componente inteiro, revalidando sob barreira de conta. Integrar evidência nova e prova complementar/relatórios quando as variantes existentes não bastarem, sem escolher dois lados da mesma chave em decisões separadas. P03–P07, UI, imagem final/upgrade/banco vazio/restore, QA visual/performance/segurança e homologação externa continuam pendentes. Sem GitHub, contas reais, VPS, mensagem externa, publicação ou venda. O projeto completo ainda não está pronto para produção.
+
+
+## D74 — Decisão financeira e aplicação atômica — 25/10/2026
+
+Decisão owner imutável por componente completo, com autoria/fonte/motivo/idempotência, cobertura por recibo, hold/revisões/pais e projeções efetivas. Aplicações têm trilha separada e são atômicas com decisão/projeções/novos fatos elegíveis. Originais são preservados; produto/livro/oferta efetivos ficam separados. Novo fato nativo limpo pode continuar a escolha; novo conflito ou união de componentes exige revisão completa. Worker/retry/CSV conferem vigência. Migração 25 aplicada e down/up vazio ensaiado localmente; com provas o downgrade é recusado. [Contrato](24-conciliacao.md).
+
+[Oito grupos locais](../artifacts/financial-resolutions/local-results.json), [três HTTP](../artifacts/financial-resolutions/http-results.json) e [checks/hashes](../artifacts/financial-resolutions/release-checks.json): rollback tardio owner/worker, integridade de vínculos, concorrência/idempotência, fusão de componentes, produto/livro corrigidos, continuidade por reembolso nativo, hold/stale e permissões/imutabilidade. 211 unitários/29 arquivos, 57 testes de operação, tipos/lint/documentação, regressões comerciais e 13 suítes HTTP locais aprovados. Build standalone isolado atualizado após o ajuste final de integridade. Dois avisos históricos de lint e aviso pg/Drizzle permanecem em H06.
+
+[Censo independente](../artifacts/financial-resolutions/cleanup-counts.json): owners/contatos/ofertas e tabelas comerciais consultadas zerados, inclusive decisões/aplicações; 25 migrations, guards/índices conferidos; contato vazio/legalReady=false. [Limpeza de processos](../artifacts/financial-resolutions/process-cleanup.json): porta QA livre e nenhum backup de fixture pendente. Banco local encerrado preservando volume; 127 relatórios anteriores preservados byte a byte, com [15 reexecuções separadas](../artifacts/financial-resolutions/replayed-reports.json).
+
+P02 continua parcial para evidência complementar quando as fontes existentes não bastam, junto de P03. Próxima ação: implementar esse contrato de prova e os casos restantes de conciliação; depois liquidação/custos/relatório P04, UI P05, atribuição P06 e retenção P07, incluindo as novas trilhas. Atestação do operador não é autenticação/homologação de relatório ou conta externa. Sem nova imagem/restore, QA visual, conta externa, mensagem, GitHub, VPS ou operação real. Projeto completo ainda não pronto para produção.
+
+
+## D75 — Evidência complementar e conclusão local P02 — 25/10/2026
+
+P02 implementada/testada localmente com prova canônica individual, imutável e atestada pelo owner. Fonte/linha/autoria, referências de substituição e IDs relacionados integram a revisão completa; escolher substituto exige excluir fonte anterior e não permite sobreposição. Sem prova de aprovação/reversão, estado/data incoerentes ou origem íntegra, confirmação continua bloqueada. Cadastros de prova não aplicam valores nem criam webhook/fato nativo. Novo relatório exige decisão; fato nativo limpo pode continuar a escolha conforme D74. [Contrato](24-conciliacao.md) e [auditoria P02 por requisito/evidência](../artifacts/report-evidence/p02-audit.json).
+
+Migração 26 aplicada localmente, com down/up vazio e recusa de downgrade com prova; coleção readonly e guard SQL imutável. [Seis grupos locais](../artifacts/report-evidence/local-results.json) cobrem ID corrigido, origem/fonte insuficiente, substituições, rollback, deduplicação/concorrência, CSV/lote stale, continuidade nativa e correções de moeda/valor/data/estado. [Três HTTP](../artifacts/report-evidence/http-results.json) cobrem acesso/origem/MIME/contrato, resposta privada, evidência insuficiente e aplicação explícita. [Checks/hashes](../artifacts/report-evidence/release-checks.json): 223 unitários/30 arquivos, 57 testes de operação, tipos/lint/documentação, regressões comerciais e 14 suítes HTTP locais aprovados. Build isolado final inclui limites de consulta/gravação.
+
+[Censo independente](../artifacts/report-evidence/cleanup-counts.json): tabelas comerciais consultadas/owners/contatos/ofertas zerados, inclusive prova/decisão/aplicações; 26 migrations e guards/índices conferidos; contato vazio/legalReady=false. [Processos/fixtures](../artifacts/report-evidence/process-cleanup.json): porta QA livre e sem backup institucional pendente; banco local encerrado preservando volume. 148 relatórios históricos preservados byte a byte; [17 reexecuções separadas](../artifacts/report-evidence/replayed-reports.json).
+
+Próxima ação: P03, ampliar ingestão/lotes e os casos restantes de conciliação com prova de aprovação/reversões e recebimento independente junto de P04. O CSV de treze colunas/confirmador D67 não foi ampliado nesta etapa. B11/R15 continuam parciais; P04/P05/P06/P07 e gates de [pendencias.md](../pendencias.md) seguem abertos. [Consulta de fontes](../artifacts/report-evidence/source-review.json) não confirmou esquema de exportação nativa; não foi implementado parser de relatório nativo nem alterada autenticação dos provedores. Dois avisos de lint e aviso pg/Drizzle permanecem em H06. Sem nova imagem/restore, QA visual, conta externa, mensagem, GitHub, VPS ou operação real. Projeto completo ainda não pronto para produção.
+
+## D76 — Lote canônico de evidências — 25/10/2026
+
+Endpoint owner de lote JSON `POST /api/v1/admin/report-evidence/batch`, 1–20 registros D75, transação all-or-nothing e deduplicação por referência de linha. Sete grupos locais, quatro grupos HTTP da evidência, 14 suítes HTTP, 223 unitários/30 arquivos, 57 testes de operação, lint/typecheck/documentação e build `.next-qa` passaram; dois avisos antigos de lint e aviso pg/Drizzle permanecem. [Evidência D76](../artifacts/report-evidence/d76-checks.json). O endpoint não interpreta CSV/exportações nativas; P03 permanece aberta. Runner HTTP encerrado em 3001; prévia 3000 preservada; banco sintético parado com volume preservado. Sem deploy/VPS ou homologação externa.
+
+## D77 — CSV canônico de evidências — 25/10/2026
+
+O CSV de evidência em 18 colunas tem preview provisório, stage durável D67 e commit explicitamente confirmado/revalidado. Snapshot D66 de 13 colunas não mudou. Migração 27 está aplicada localmente; parser (13 testes), typecheck e integração local (10 grupos) passaram. [Checks D77](../artifacts/report-evidence/d77-checks.json) comprovam 224 unitários/30 arquivos, 57 operacionais, build isolado e 14 suítes HTTP (cinco grupos HTTP de evidência). CSV permanece transcrição canônica do owner, sem parser nativo ou homologação externa. P03 continua aberta para os casos restantes; sem VPS, conta externa ou produção.
+
+
+## D78 — Ledger financeiro parcial — 25/10/2026
+
+P04 possui implementação local de duas coleções privadas e imutáveis e três endpoints owner: evidência independente de liquidação, custos e relatório provisório. O serviço exige pagamento aprovado/verificado, preserva crédito/débito, substituições append-only e moedas separadas. Relatório tem coortes por aprovação, movimentos pelo período liquidado e custos pelo período ocorrido; ausência é null, margem completa false e lucro fiscal não calculado. Cobertura e limites estão em [conciliação](24-conciliacao.md).
+
+Migração 28 aplicada localmente. Typecheck, 225 testes unitários/30 arquivos, lint com dois avisos históricos, 59 testes operacionais, documentação, integração sintética de ledger, build `.next-qa` e 15 suítes HTTP aprovados. Evidências: [local](../artifacts/financial-ledger/local-results.json), [HTTP](../artifacts/financial-ledger/http-results.json), [checks](../artifacts/financial-ledger/d78-checks.json). Faltam UI P05, cobertura completa P04/P03, release final/restore, revisão de privacidade/segurança/visual/performance e homologação H01–H06. Nenhuma mudança em GitHub/VPS, conta externa ou operação real.
+
+## D79 — Painel financeiro somente leitura e QA visual recortado — 25/10/2026
+
+P05 iniciada no admin do Payload com `/admin/financial-ledger`: apenas owner, filtro GET por período/moeda, coortes e prévia D78 sem mutação. Exibe valores incompletos como “Não informado”, cobertura, recebimentos por créditos/débitos e custos confirmados/estimados em janelas próprias; não sugere lucro nem converte moedas. O dashboard fornece acesso direto. A interface operacional de CSV/resolução e registro de evidências/custos permanece pendente.
+
+Build `.next-qa` passou. QA navegador local em banco sintético cobriu acesso anônimo, estado vazio em dois temas e 14 capturas de relatório em claro/escuro de 320 a 1920 px: sem overflow da página, violações axe ou erros de runtime; filtros foram submetidos por teclado e tabelas largas permanecem em região rolável. [Resultados e screenshots](../artifacts/qa-financial-ledger/results.json). O CSS foi ajustado após inspeção visual direta de 320 px e nova matriz completa passou. Fixtures foram limpas; nenhuma requisição externa foi permitida. Isto é evidência parcial B20 somente para esta tela, não homologação visual integral.
+
+Typecheck está incluído no build; a validação documental passou (49 documentos, 868 links locais, 34 requisitos, 20 tarefas, 29 cenários e 76 pares de contraste). P03/P04/P05 continuam parciais. Faltam telas operacionais, cobertura integral, release/restore atual, segurança/privacidade/performance, homologação de contas externas e etapas H01–H06. Sem alteração na VPS/GitHub ou operação real.
+
+## D80 — Importação pelo painel e documentação alinhada — 25/10/2026
+
+View owner `/admin/commercial-imports` reutiliza as APIs de snapshot/evidência, sem nova migration, flag, segredo ou serviço. Upload/prévia, preparação idempotente, dados completos por linha, confirmação explícita, retomada/auditoria e paginação estão implementados localmente. As coleções nativas continuam readonly. O check geral D80 passou com 225 testes unitários/30 arquivos e 61 operacionais; a correção visual final usa entrelinha proporcional e verificação própria no texto 200%. [8 grupos e 24 capturas](../artifacts/qa-commercial-imports/results.json) cobrem três provedores, ausência de persistência na prévia, respostas perdidas após stage/commit sem duplicação, stale real, bloqueios/erros/tamanho, teclado, loading, duas aparências, 320–1920 px, texto 200% e fallback sem JS. São 23 análises axe sem violações; fallback sem JS tem controles próprios. Zero overflow nas capturas, erros de runtime ou tentativas externas; fixtures limpas.
+
+Build `.next-qa`/typecheck, lint (dois avisos históricos), documentação e controle negativo de troca de título aprovados; [checks](../artifacts/qa-commercial-imports/release-checks.json). O aviso pg/Drizzle conhecido reapareceu, sem causa resolvida. Revisão dos 49 documentos corrigiu resumos antigos, inventário de migrations e recuperação dos documentos 17/24, encontrados como cópias indevidas de métricas. [Auditoria e hashes documentais](../artifacts/documentation/documentation-review-d80.json). Decisões e contratos restaurados não ampliam o escopo aprovado.
+
+P03/P04/P05 continuam parciais: casos/cobertura integrais, resolução visual e registro operacional de liquidação/custos ainda faltam. P06/P07 e H01–H06 permanecem abertos; 28 migrations declaradas, sem nova imagem/restore, conta externa, GitHub, VPS ou operação real. As fontes externas mantêm suas datas de consulta; essa revisão local não substitui a revalidação de homologação.
+
+## D81 — Registro financeiro operacional — 25/10/2026
+
+`/admin/financial-records` está implementado localmente: owner, conferência local sem escrita, registro/correção por endpoints D78, valores exatos sem ponto flutuante, instantes UTC, fontes/linhas, campanha opcional e histórico vigente/substituído. O mapeamento campaignId → campaign foi corrigido e verificado por leitura do relacionamento no banco, inclusive após correção. Os originais permanecem; identidade/fonte/campanha fixadas seguem os limites do contrato, sem backfill nem migration nova.
+
+[Seis grupos de jornadas e 40 capturas](../artifacts/qa-financial-records/results.json), [oito capturas de ampliação](../artifacts/qa-financial-records/zoom-results.json), build/typecheck e 22 testes novos de valor/data passaram localmente. Total: 48 capturas e 47 análises axe, com dois formulários, claro/escuro, 320–1920px, texto 200%, teclado, erro/carregamento, correções, zero explícito, resposta perdida após gravação repetida sem duplicação, três provedores/moedas, paginação e fallback sem JS. Sem overflow da página, erros de runtime ou tentativas externas. Lint/pg mantêm os avisos históricos. [Checks da fase](../artifacts/qa-financial-records/release-checks.json) e [auditoria dos documentos](../artifacts/documentation/documentation-review-d81.json).
+
+P05 ainda exige resolução auditada pela UI e cobertura integral dos estados. P03/P04, atribuição/P06, retenção/P07 e H01–H06 seguem abertos. Não há nova migration (28 declaradas), imagem/restore final, conta externa, GitHub, VPS ou operação real; não declarar sistema pronto para produção.
+
+## D82 — Resolução de identidades do catálogo — 25/10/2026
+
+View owner `/admin/catalog-resolutions` implementada sobre os contratos D72: associação por livro/oferta ou hold inconclusivo, prévia sem escrita, escopo/destino/hash/revisão/snapshot, fonte/motivo e atestação, confirmação revalidada e idempotente, histórico por provedor com anterior/sucessora. GET não grava e as coleções nativas continuam imutáveis. Nenhuma migration, dependência, segredo ou flag nova; são 28 migrations. A decisão não reescreve transações nem substitui a resolução financeira.
+
+Build `.next-qa` e check geral passaram: typecheck, lint sem erros (dois avisos históricos), 247 unitários/31 arquivos e 61 operacionais. [QA local](../artifacts/qa-catalog-resolutions/results.json): seis grupos, 29 capturas, 28 análises axe sem violações; sem overflow da página, erros de runtime ou requisições externas. Foram verificados prévia sem persistência, fonte/atestação de hold, três provedores, resposta perdida após commit e repetição sem duplicação, alvo inválido, plano stale e nova conferência, transações originais preservadas, snapshot paginado 20+1, histórico 20+2 com empate de data, filtros, permissão por API e fallback sem JS. Formulário em claro/escuro e 320–1920px; formulário/conferência com texto 200%/320px e IDs longos. A rodada detectou alvos de interação pequenos no detalhe: botões/links corrigidos antes da repetição aprovada. Capturas representativas de detalhe, desktop e ampliação foram inspecionadas.
+
+Fixtures limpas, contagens confirmadas no banco local e PostgreSQL parado com volume preservado. [Checks/hashes](../artifacts/qa-catalog-resolutions/release-checks.json) e [revisão dos documentos](../artifacts/documentation/documentation-review-d82.json). O aviso pg/Drizzle conhecido reapareceu e H06 continua aberto. P03/P04/P05 seguem parciais: próxima ação é a interface de resolução financeira auditada e cobertura integral, depois atribuição/retenção e gates de release. Sem zoom nativo 400%, imagem/restore final, conta externa, GitHub, VPS ou operação real.
+
+## D83 — Resolução financeira pela interface — 25/10/2026
+
+View owner `/admin/financial-resolutions` implementada sobre os contratos D73–D75. Consulta inicial obtém o componente sem gravar hold; operador confirma/exclui fontes e variantes explicitamente, prepara prévia de todo o componente, confere efeitos/bloqueios e registra conciliação ou hold com fonte/motivo/atestação. Nenhuma seleção automática. Escolha/hash/metadados/UUID são conservados para repetição após resposta perdida; stale exige outra prévia. Histórico/detalhe mostram pais/cabeças e separam resultado registrado de aplicações posteriores; fontes/variantes/resultados paginam 20, decisões 20 e aplicações 10. Sem JS há leitura/filtro/detalhe e prova JSON integral; consulta nova/registro exigem JS. Sem schema, migration, dependência, segredo ou flag nova; 28 migrations.
+
+Corrigida exibição compartilhada de centavos negativos, usando BigInt absoluto e sinal explícito: -1 centavo agora aparece como -0,01, mantendo precisão até o limite seguro. Quatro testes novos, sem alterar cálculo financeiro ou entrada não negativa de liquidação/custo. Build `.next-qa`, typecheck, lint sem erros (dois avisos históricos), 251 testes unitários/31 arquivos e 61 operacionais passaram. A inspeção visual detectou entrelinha restaurada pelo shorthand font nos botões em 200%; fixada após o shorthand e verificada por comparação computada de fonte/entrelinha antes da rodada final.
+
+[QA final](../artifacts/qa-financial-resolutions/results.json): sete grupos/34 capturas/33 análises axe sem violações, sem overflow da página, runtime ou requisições externas. Cobertura: contradição bloqueada, exclusões explícitas, conciliação/hold, preservação de fatos originais, resposta perdida após commit e repetição sem duplicar decisão/aplicação, concorrência stale, relatório substituto/exclusão obrigatória, três provedores/moedas, 11 reembolsos posteriores via worker e 12 aplicações em páginas 10+2, 21 fontes em páginas 20+1 conservando escolhas. Também permissões por API, fallback sem JS, 14 combinações de tema/largura 320–1920px, seleção/conferência com texto 200%/320px, loading/erro/sucesso e detalhe nos dois temas. Capturas representativas foram inspecionadas. Não certifica zoom nativo 400%, performance ou toda a matriz B20.
+
+Fixtures limpas, contagens independentes do banco zeradas e PostgreSQL parado preservando volume. [Checks/hashes](../artifacts/qa-financial-resolutions/release-checks.json) e [auditoria documental](../artifacts/documentation/documentation-review-d83.json). Aviso pg/Drizzle conhecido reapareceu; H06 continua aberto. P03/P04/P05 continuam parciais para cobertura integral/aceite integrado. Próximo: conferir os critérios/estados de conciliação e cobertura financeira e encerrar o aceite integrado das interfaces; depois atribuição/retenção e gates de release. Sem imagem/restore final, conta externa, GitHub, VPS ou operação real.
+
+## D84 — Cobertura financeira, quarentena e coortes — 25/10/2026
+
+Corrigida a contagem de liquidações por moeda/coorte (antes reutilizada entre moedas), inclusão visível de candidatas em revisão state=unknown e exclusão dos seus valores das coortes. Datas ausentes têm contagens próprias sem inferência de período; caixa/custos mantêm período independente, resolvendo substituições antes do filtro. Overflow de totais mantém null com motivo explícito e cobertura da origem. Coortes agora mostram população sem revisão/quarentena, estado de reversão, taxa somente com cobertura integral e idade observada, com windowVerified=false. observedAt é consulta, não último processamento. Sem migration/schema, dependência, segredo ou flag nova; continuam 28 migrations.
+
+Sete unitários novos verificam quarentena, ausência versus zero, contagem única de reversão, estado conhecido sem valor, idade sem prazo presumido, população vazia e limite inteiro. Check geral: 258 unitários/32 arquivos, 61 operacionais, tipos e lint sem erros (dois avisos históricos). Build `.next-qa` passou. [Cinco grupos PostgreSQL](../artifacts/financial-coverage/local-results.json) cobrem moedas/períodos, correção que sai da janela, revisão unknown/datas ausentes, zero conhecido, overflow positivo/negativo e leitura sem escrita. A regressão existente financial-ledger também passou em três grupos; a nova suíte entra no runner sequencial de integração/CI preparado, sem execução no GitHub.
+
+[QA local](../artifacts/qa-financial-coverage/results.json): quatro grupos/21 capturas, 20 análises axe sem violações, sem overflow da página/runtime/tentativas externas. POST real confirmou autorização/origem/MIME/período/privacidade e novos campos; UI confirmou tabela/denominadores/0% versus taxa desconhecida, filtro GET/erro, scroll regional por teclado, dois temas e 320–1920px, texto 200% com entrelinha proporcional e leitura/filtro sem JS. Captura representativa inspecionada. Fixtures limpas e contagens independentes zeradas; PostgreSQL parado com volume preservado. Aviso pg/Drizzle conhecido reapareceu; H06 continua aberto.
+
+[Checks/hashes](../artifacts/financial-coverage/release-checks.json), [auditoria de aceite P03/P04/P05](../artifacts/financial-coverage/acceptance-audit-d84.json) e [revisão documental](../artifacts/documentation/documentation-review-d84.json). P03/P04/P05 continuam parciais: faltam comprovação integral dos casos persistidos de conciliação, detalhamentos por livro/provedor/campanha e último processamento bem-sucedido; depois, aceite integrado das interfaces. Atribuição P06 e retenção P07 continuam abertas. Não houve layout nativo/conta homologados, zoom nativo 400%, imagem/restore final, GitHub, VPS ou operação real.
+
+## D85 — Detalhamentos financeiros e processamento registrado — 25/10/2026
+
+Implementadas dimensões por livro efetivo/provedor/campanha, separadas por moeda, com cobertura de valores/revisão/atribuição e custos declarados versus parcela sem campanha. Referência de clique/custo não atribui receita: campanha específica continua com quantidade/receita null sem P06. Caixa de aprovação fora da janela mantém alocação; revisão/vínculo ausente/moeda divergente ficam sem livro conferido, preservando o movimento. Custos não são rateados por livro/provedor e esses grupos não calculam margem.
+
+Sucesso vem de lastSuccessAt já persistido pelos processadores. População é approval_window, com cobertura de datas válidas não futuras; sucesso histórico não libera revisão atual nem prova saúde global do provedor. observedAt e lastEventAt continuam distintos. Títulos/códigos atuais são rótulos; IDs e originais ficam preservados. Tabelas paginam 20 grupos por GET, mantendo filtros/disclosure aberto, inclusive sem JS. Sem schema/migration, dependência, segredo ou flag nova; 28 migrations.
+
+Build `.next-qa` e check geral passaram: 264 unitários/33 arquivos, 61 operacionais, tipos e lint sem erros (dois avisos históricos). Seis unitários novos cobrem dimensões, alocações desconhecidas, campanha sem inferência, processamento/datas e aritmética. [Quatro grupos PostgreSQL](../artifacts/financial-dimensions/local-results.json) verificam processamento real da inbox, campos efetivos, moedas/caixa, custos/campanhas e snapshot sem escrita; [cinco grupos de cobertura reexecutados](../artifacts/financial-dimensions/coverage-regression-results.json) passaram. A suíte de regressão atualiza seu caminho padrão e a reexecução D85 está identificada na cópia acima.
+
+[QA final](../artifacts/qa-financial-dimensions/results.json): quatro grupos/25 capturas distintas/24 análises axe sem violações, sem overflow da página/runtime/tentativas externas. POST real, títulos/códigos, sucesso separado de evento/consulta, 21 grupos de livro em páginas 20+1, filtros, disclosure preservado, dois temas/320–1920px e livros/campanhas em texto 200%/320px com entrelinha proporcional; paginação sem JS. Captura representativa inspecionada. Fixtures e livros extras limpos; contagens independentes zeradas e PostgreSQL parado preservando volume. Aviso pg/Drizzle conhecido reapareceu; H06 continua aberto.
+
+P04 implementado/testado localmente conforme [auditoria dos critérios](../artifacts/financial-dimensions/p04-audit-d85.json). [Checks/hashes](../artifacts/financial-dimensions/release-checks.json) e [revisão documental](../artifacts/documentation/documentation-review-d85.json). Próximo: prova integral dos casos persistidos P03 e aceite integrado P05, depois atribuição P06/retenção P07 e release/homologações. Não encerra R16/B11 dependentes, B20 integral, zoom nativo 400%, conta/fornecedor, imagem/restore, GitHub ou VPS; produto completo ainda não pronto para produção.
+
+## D86 — Estados canônicos e aceite operacional conjunto — 25/10/2026
+
+P03/P05 implementados/testados localmente, conforme [auditoria P03](../artifacts/commercial-state-matrix/p03-audit-d86.json) e [auditoria P05](../artifacts/qa-commercial-operation/p05-audit-d86.json). Aplicação/schema não mudaram: build D85 foi reutilizado com 25 fontes registradas mais recentes conferidas contra D80–D85. Nenhuma migration, dependência, segredo ou flag nova; continuam 28 migrations.
+
+[Seis grupos PostgreSQL/27 casos](../artifacts/commercial-state-matrix/local-results.json): sete estados por provedor persistidos/confirmados/aplicados separadamente (21), seis provas insuficientes/incompatíveis recusadas sem transação, preview sem escrita, stage durável sem aplicação, commit/decisão idempotentes, conflito bloqueado, arquivo inválido/misto/futuro/nativo não suportado, rollback após registro de provas e antes da confirmação final, stale por prova nova, reestágio duplicado e snapshot de 13 colunas compatível/queued/reprocessável. Não foi necessário mudar a lógica existente. Matriz entra no runner sequencial após report-evidence.
+
+[Seis grupos navegador/22 capturas distintas/21 análises axe](../artifacts/qa-commercial-operation/results.json) passaram: cinco views negam anônimo; CSV de sete estados passa por prévia/stage/commit sem fabricar transação; catálogo desconhecido bloqueia, associação auditada libera nova conferência; sete decisões preservam estado/valores/null/livro; caixa pendente é recusado, aprovação permite caixa separado e custo manual; relatório distingue 400,00 BRL de bruto, 75,00 de caixa e 10,00 de custo sintéticos, sem margem completa/atribuição inferida. Reimportação não duplica. Resultado consultável nos dois temas e sem JS, sem overflow/runtime/tentativas externas. Captura representativa inspecionada; não encerra matriz B20 integral, zoom nativo 400% ou performance.
+
+Check geral passou: 264 unitários/33 arquivos, 61 operacionais, tipos/lint sem erros (dois avisos históricos). Fixtures limpas e contagens independentes zeradas; PostgreSQL parado preservando volume. Aviso pg/Drizzle conhecido reapareceu; H06 permanece aberto. [Checks/hashes](../artifacts/commercial-state-matrix/release-checks.json) e [revisão documental](../artifacts/documentation/documentation-review-d86.json).
+
+P01–P05 têm aceite local D86. A cadeia P06 foi exercitada por HTTP sintético nos três provedores D88 e no relatório, sem provar entrega da conta. Próximo desenvolvimento: P07/retenção e política; em paralelo, H01 deve confirmar callback/campo em cada conta e H03–H06 validar o release final. Nenhuma conta, envio, venda, imagem/restore final, CI/GitHub ou VPS foi homologada. R15/R16/B11 completos para produção continuam dependendo desses gates; objetivo permanece em desenvolvimento.
+
+## D87 — Referência de checkout consentida — 25/10/2026
+
+`/comprar/{offerId}` registra a saída e acrescenta `sck` apenas quando medição está ativa, campanha vigente e consentimento válido; mantém URL já configurada com `sck` e não emite referência se o registro opcional falhar. O valor passado é a UUID do próprio `checkout-clicks`, sem cookie/ID analítico ou dados pessoais.
+
+Os três adaptadores filtram a origem para UUID. A prévia financeira cruza a UUID retornada ao registro de saída, valida consentimento, provedor, conta na identidade histórica da oferta, livro/oferta e janela de 30 dias; revisão e falta de prova não atribuem. Receita de campanha depende da cobertura completa de bruto e reversões. Custos não criam venda e não há ROAS/margem.
+
+Validação executada nesta etapa: 84 unit tests direcionados e typecheck passaram. QA PostgreSQL/HTTP integrado, revisão visual e contas externas não foram executados. P06 permanece parcial até a cobertura integrada e homologação separada dos três provedores; P07 continua aberta. [Pesquisa/critério/evidência](../artifacts/attribution/p06-audit-d87.json). Schema mantém 28 migrations.
+
+## D88 — Atribuição HTTP nos três provedores — 25/10/2026
+
+O checkout consentido passou pela rota HTTP e preservou o `sck` configurado pelo operador, sem acrescentar UUID própria quando não há consentimento. Os callbacks HTTP sintéticos Hotmart, Kiwify e Cakto foram ligados à inbox, projeção e prévia financeira. Hotmart também cobriu replay, contexto incompatível, referência livre e ausente; Kiwify/Cakto cobriram replay e atribuição por campo sintético. Receita permaneceu null porque reversões sem valores não são presumidas. [Quatro evidências HTTP](../artifacts/attribution/p06-audit-d88.json).
+
+`npm run build`, `npm run typecheck` e `npm run check` passaram; o check reportou 280 unitários/34 arquivos e 61 operacionais, lint sem erros (dois avisos históricos). As quatro suítes HTTP usaram PostgreSQL local sintético e limparam as fixtures; o banco foi parado preservando volume. Não houve contato com provedor/conta, envio, venda, migration, visual QA ou deploy. Próximos gates: P07, callback real de cada conta H01, imagem/upgrade/restore e demais H03–H06.
+
+## D89 — Retenção analítica inicial — 25/10/2026
+
+Migration 29 cria `analytics-daily-aggregates` com chaves de dimensão/controladas e contagem, sem relacionamento com visitante, grant, sessão ou clique. `runAnalyticsRetention` oferece preview e apply. Page views e checkout clicks com mais de 90 dias são agregados por dia UTC, tipo, livro/campanha/provedor e família de rota; slug nunca é copiado. Incrementar/criar o agregado e apagar cada evento-fonte ocorre na mesma transação, sob lock idempotente. Contextos de grant expiram após 30 dias. Depois, visitas sem eventos vinculados e anteriores ao prazo são removidas; grants vencidos só são excluídos sem visitas dependentes. Limites analytics/request expirados também são removidos.
+
+CLI `npm run analytics:retention` é preview; `--apply` executa. Worker diário requer `DATA_RETENTION_ENABLED=true`; Compose/exemplos deixam falso. [Quatro grupos PostgreSQL sintéticos](../artifacts/analytics-retention/local-results.json) passaram (preview sem escrita, agregação/expurgo, reexecução idempotente e downgrade protegido). Migration aplicada no banco local. `npm run check` passou com 280 unitários/34 arquivos, 61 operacionais, tipos, lint e documentação; permanecem dois avisos históricos de lint. Build standalone passou, incluindo CLI empacotada. Fixtures removidas.
+
+P07 continua parcial: nenhum fluxo de localizar/exportar/corrigir/excluir contato foi implementado; filas de envio/marketing, consentimento, inbox, importações e evidências/decisões comerciais não entram na retenção D89; não há manifesto tombstone nem reaplicação pós-restore. A flag permanece desligada e a revisão da política para operação real ainda é requisito. Sem dados reais, restore, conta externa ou produção.
+
+## D90 — Exportação privada de titular — 25/10/2026
+
+Migration 30 cria auditoria de pedidos de dados com fingerprint HMAC, ação, resultado, contagens, owner e instante. A rota `POST /api/v1/admin/privacy/export` exige sessão owner, Origin pública exata e declaração `identityVerified: true`; a verificação real da identidade ocorre fora do sistema. Retorna dados de contato e relações paginadas (incluindo recibos vinculados às etapas) com allowlist de campos, excluindo hashes, chaves, HMACs de destinatários e payloads. Resposta `private, no-store`/`no-referrer`; exportação não gera log com email nem grava conteúdo no audit. A suíte sintética passou em oito grupos [com evidência local](../artifacts/privacy-export/local-results.json); build standalone e `npm run check` passaram (280 unitários/34 arquivos, 61 operacionais, lint sem erros e dois avisos históricos). Nenhuma identidade real, pedido externo ou envio foi processado.
+
+P07 segue parcial: ainda faltam correção de contatos vinculados com conciliação segura, exclusão abrangente, cancelamento global de envios pendentes, retenção de relacionamento/comércio e reaplicação após restore. A flag de retenção permanece desativada; nenhuma revisão jurídica ou operação real foi inferida.
+
+## D91 — Retenção da auditoria de pedidos — 25/10/2026
+
+`runPrivacyRequestAuditRetention` aplica o default documental de 24 meses a `privacy-request-audit`; preview informa cutoff/candidatos sem PII, e apply exclui seletivamente, uma linha por transação idempotente. CLI `privacy:retention` usa preview por padrão e aceita `--apply`. O worker diário executa esse expurgo junto da retenção analítica sob `DATA_RETENTION_ENABLED=true`, falso nos exemplos. [Cinco verificações PostgreSQL sintéticas](../artifacts/privacy-retention/local-results.json) passaram. Não há migration nova nem mudança do default habilitado. P07 continua aberta para retenção abrangente das demais coleções, correção/exclusão completa e restauração.
+
+## D92 — Expiração de solicitações não confirmadas — 25/10/2026
+
+A rotina de privacidade também remove pedidos de amostra não confirmados há mais de sete dias, seus eventos de solicitação e entregas do outbox. Transação e advisory lock do contato coordenam cleanup com confirmação/envio; estados `sending/uncertain` mantêm pedido e identidade para conciliação. Contato só é excluído quando não há referências restantes nem supressão. Preview segue sem mutação; apply é repetível, sem migration ou mudança da flag. Sete verificações PostgreSQL sintéticas: [resultado D92](../artifacts/privacy-retention/d92-results.json).
+
+## D93 — Exclusão owner parcial — 25/10/2026
+
+`POST /api/v1/admin/privacy/delete` requer owner, origem exata, `identityVerified: true` e confirmação `EXCLUIR`. A transação local remove relações de relacionamento, recibos associados e limites por endereço, registra contagens sem email e preserva fatos comerciais não relacionados. O tombstone HMAC retido por 24 meses evita recriação pelo formulário de amostra e pela importação de supressão. Duas verificações PostgreSQL sintéticas passaram: exclusão e proteção contra recriação; envio `uncertain` resulta em `pending` e mantém os dados para conciliação. [Resultado D93](../artifacts/privacy-delete/d93-results.json).
+
+Estados Brevo existentes, eventos pendentes, envios em andamento/incertos e manifestos compartilhados bloqueiam a exclusão sem efeitos parciais. Não há remoção externa nem chamada a API do provedor. Correção, retenção ampla, reconciliação manual e reaplicação pós-restore permanecem em P07; sem migration nova ou produção.
+
+## D94 — Homologação HTTP local da exclusão — 25/10/2026
+
+O teste standalone confirmou owner obrigatório, origem exata, confirmação literal, resposta sem endereço, `private, no-store`, `no-referrer`, repetição idempotente e `pending` com preservação do contato quando o envio está `uncertain`. A verificação encontrou a política global do Next sobrescrevendo o `Referrer-Policy` das rotas de privacidade; `/api/v1/admin/privacy/:path*` agora aplica cabeçalhos privados. Build otimizado e suíte HTTP sintética passaram. [Resultado HTTP](../artifacts/privacy-delete/http-results.json).
+
+D95 implementou inicialmente correção só para contato sem relações. D96 amplia `POST /api/v1/admin/privacy/correct`: mantém subscriptions, eventos de consentimento, pedidos confirmados, sequências e promoções locais elegíveis; invalida tokens e revoga solicitação não confirmada; exclui tokens antigos de preferência. Jobs Brevo sem tentativas seguem o contato atualizado; opt-in ativo elegível pode gerar job local de cadastro. Envio incerto/ativo, jobs Brevo já tentados/concluídos, webhooks e manifestos externos retornam `pending`. O teste sintético confirmou consentimento preservado, confirmação/outbox invalidados, revisão do job local, idempotência e bloqueio de envio incerto. `identityVerified` continua declaração do operador; sem sincronização externa, envio ou teste de restore.
+
+## D102 — Retenção de amostras confirmadas — 25/10/2026
+
+Pedidos confirmados há mais de 24 meses podem expirar com seu outbox terminal e eventos diretamente vinculados, preservando atividade recente, sequência dependente, referências incompletas e prova de opt-in vigente. Uma assinatura posterior só libera a anterior com evento de consentimento correspondente. Contatos, assinatura atual e eventos de supressão permanecem. Preview/apply por pedido sob lock do contato, relatório agregado e rollback verificados em [cinco grupos PostgreSQL sintéticos](../artifacts/privacy-retention/d102-results.json). Sem migration; flag diária continua falsa. Retenção ampla, identidade externa e manifesto de restore seguem em P07.
+
+## D103 — Paginação do expurgo — 25/10/2026
+
+A retenção não confirmada usa cursor por ID e continua depois de uma página sem exclusões quando há casos retidos. Cutoff e locks preservados; outbox lido sem truncamento por página. [18 verificações PostgreSQL sintéticas](../artifacts/privacy-retention/d103-results.json) passaram, incluindo backlog com 102 candidatos, preservação dos 101 casos em voo e reexecução segura. A lacuna identificada em D102 está corrigida localmente. P07 continua aberta para retenção ampla, coordenação externa e restore.
+
+## D104 — Manifesto privado e replay isolado — 25/10/2026
+
+Implementados export/preview/apply de decisões concluídas e tombstones ativos, com HMAC, prazos originais, owner, flags falsas, limites e conferência da janela do snapshot. Exclusão/correção reaplicada remove cópia local elegível ou mantém quarentena; retirada de marketing preserva amostra e bounce/complaint preserva restrição. Marcadores voltam mesmo sem contato; arquivo/relatório não contêm email/IDs. [Seis grupos PostgreSQL sintéticos e CLI](../artifacts/privacy-recovery/d104-results.json), mais seis unitários e regressão de exclusão passaram. Sem migration, rede ou produção. Guarda externa do manifesto atualizado, pedidos pendentes, conciliação e restore físico da imagem atual continuam P07/H04/H06.
+
+## D105 — Preservação de pedidos pendentes — 25/10/2026
+
+Manifesto v2 inclui pending sem expiração automática; auditoria não é expurgada até resolução. Captura/confirmação e novos envios/promoções/cadastros consultam o bloqueio. Restore preserva pending mesmo se a cópia local parecer removível, mantendo identidade e quarentena; ausência de contato não remove a pendência. V1 é compatível apenas para completed e o relatório informa a cobertura. [Sete grupos sintéticos](../artifacts/privacy-recovery/d105-results.json) e regressões locais passaram. Sem migration/rede/produção; retenção ampla, conciliação externa, guarda atualizada e ensaio físico seguem abertos.
+
+## D106 — Restore físico local e privacidade — 26/10/2026
+
+D106 validou backup criptografado e restore físico local das 32 migrations, com mídia íntegra e replay do manifesto v2 separado do snapshot; completed é reaplicado e pending permanece pendente. A telemetria automática do Payload foi desativada após a barreira de rede detectar sua tentativa. Imagem atual, guarda externa do manifesto/backup, RPO/RTO reais e release continuam pendentes. [Evidência D106](../artifacts/recovery/d106-results.json) Fonte, dump e destino usam somente fixtures sintéticas. Preview não escreve; repetição mantém prazos; amostra independente é preservada, bounce cancela pendência e identidade sem decisão não é alterada. Flags seguem falsas; sem conta real, VPS ou deploy.
+
+## D107 — Imagem atual e upgrade local — 26/10/2026
+
+D107 construiu a imagem local atual e verificou 32 migrations em banco vazio e upgrade real de 6 para 32, preservando contato e owner sintéticos. Saúde, HTTP interno, ACL, runtime sem root/read-only/DDL, CLIs de privacidade e worker de retenção passaram em rede Docker internal, sem saída para provedores. Corrigidos o encerramento das CLIs de inventário/retenção após a limpeza do Payload e a renovação do heartbeat no ciclo ocioso do worker de retenção. A imagem não foi publicada. Bateria funcional integral do release, restore físico nesta imagem, destino externo/RPO/RTO, contas e VPS continuam pendentes. [Evidência D107](../artifacts/container/d107-results.json). As sondagens HTTP rodam no loopback do container; não homologam proxy, TLS ou acesso da VPS. Replay v2 na imagem usa manifesto vazio; decisões reais de fixtures pós-snapshot ainda exigem o ensaio físico nessa imagem.
+
+## D108 — Restore físico com a imagem atual — 26/10/2026
+
+D108 aprovou restore físico com a imagem D107: 32 migrations, mídia íntegra, seis decisões de privacidade posteriores ao snapshot e replay v2 dentro da imagem. Preview, exclusão/correção, pending, supressão/bounce e repetição sem renovar prazos foram verificados. A aplicação só iniciou depois do replay, com credencial de banco separada e limitada: saúde/catálogo/capa responderam 200, contatos privados 403 e amostra privada na rota pública 404. Rede interna sem portas publicadas; transportes e worker desligados. Destino externo, guarda atual do manifesto, RPO/RTO reais, bateria integral e homologações continuam pendentes. [Evidência D108](../artifacts/recovery/d108-results.json). Não houve nova migration, rebuild, dado real, conta externa, VPS ou deploy; identidade sem decisão e entregas incertas foram preservadas.
+
+## D109 — Retenção de estado promocional — 26/10/2026
+
+D109 implementa retenção local de estado promocional para contatos globalmente descadastrados há pelo menos 30 dias: remove assinaturas encerradas e calendários cancelados com etapas antigas, sem lote. Preserva identidade, amostras/outbox, consentimento, auditoria e supressão com o prazo original. Não executa exclusão de identidade nem forja pedido owner. Impedimentos de privacidade, provedor, envio incerto, vínculo cruzado e manifestos compartilhados/JSON preservam os registros. Preview é padrão; apply revalida sob locks e é atômico por contato. P07 continua parcial para identidade, demais finalidades e dados compartilhados. A imagem/restore D107–D108 são evidências da revisão anterior, não incluem esta rotina. [Oito grupos PostgreSQL sintéticos](../artifacts/privacy-retention/d109-results.json). Sem migration, chamada externa, dado real, nova imagem, VPS ou deploy.
+
+## D110 — Retenção de identidade e recuperação — 26/10/2026
+
+Estado vigente: 33 migrations, retenção automática de identidades sem finalidade/provas antigas e replay v3 implementados/testados localmente. [12 grupos](../artifacts/privacy-retention/d110-results.json); [restore físico host](../artifacts/recovery/d110-results.json) com mídia íntegra e oito entradas, incluindo expurgo automático, sem fake pedido humano. Guardas cobrem novos propósitos, callbacks órfãos, HMAC e falha de chaves; nenhuma supressão é renovada. A imagem D107/restore D108 não incluem este schema/rotina. P07 e gates de produção permanecem abertos conforme pendencias.md; próximo: finalidades remanescentes e revalidação do release final.
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+H06 avançou localmente: concorrência update/delete do Payload em transação compartilhada foi reproduzida e corrigida via patch versionado; novo teste PostgreSQL cobre rollback e ausência do aviso no caminho exercitado. As 33 migrations e versões permanecem. Retenção P07 e gates finais continuam abertos; nenhuma conta, imagem nova, VPS ou deploy.
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+D112 implementa retenção temática com fato HMAC por 24 meses, sem FK/email, e protege confirmação antiga após expurgo da assinatura. Manifesto v4/replay por assunto preservam outros temas/amostras e consentimento posterior; dependências externas ficam pendentes. Schema tem 34 migrations locais. [Oito grupos](../artifacts/privacy-retention/d112-results.json), [restore físico](../artifacts/recovery/d112-results.json) e [checks](../artifacts/privacy-retention/d112-checks.json). P07 permanece parcial; próximos são legado verificável, demais finalidades e gates do release.
+
+## D113 — Margem e acompanhamento do prazo — 26/10/2026
+
+D113 implementa margem de 28 dias para estado promocional/temático, marketingDeadline e saúde do worker que verifica sucesso recente/assinaturas para revisão, mantendo identidade/provas com seus prazos. [Quatro grupos](../artifacts/privacy-retention/d113-results.json) e [oito cenários CLI](../artifacts/worker-health/d113-results.json). Schema: 34 migrations; flags falsas. Prazo real requer continuidade/duração/alertas homologados. P07 segue aberto para demais finalidades e legado, sem declarar todas as retenções concluídas.
+
+## D114 — Legado temático verificável — 26/10/2026
+
+D114 cobre legado temático verificável e impede omissão silenciosa na exportação, preservando finalidade posterior a expurgo. [Oito grupos](../artifacts/privacy-retention/d114-results.json), [restore físico host](../artifacts/recovery/d114-results.json) e [checks](../artifacts/privacy-retention/d114-checks.json). Fatos recebem data/vencimento originais; prova vencida não renova supressão. Schema: 34 migrations, flags falsas. P07 permanece parcial para casos sem prova, contatos ativos, demais finalidades/compartilhamentos/provedor/ledger, exceções e guarda externa; H03–H06 finais abertos.

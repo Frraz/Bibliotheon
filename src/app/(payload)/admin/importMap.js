@@ -29,6 +29,11 @@ import { Brand as Brand_81fda60f3e3709e861f40982a767707d } from '../../../compon
 import { AppearanceAdapter as AppearanceAdapter_1a67c0d20a11b9f0523e01365946a240 } from '../../../components/admin/AppearanceAdapter'
 import { Dashboard as Dashboard_16b88e9b8c48e393fa86591406efd08f } from '../../../components/admin/Dashboard'
 import { CommercialInboxView as CommercialInboxView_1835d716bf7c59ed7b98e79fed13f373 } from '../../../components/admin/CommercialInboxView'
+import { FinancialReportView as FinancialReportView_9d16e3724e934bf4c234571c3e211640 } from '../../../components/admin/FinancialReportView'
+import { FinancialResolutionsView as FinancialResolutionsView_3e7e4cabf1a03ddf4a10447b6136e13d } from '../../../components/admin/FinancialResolutionsView'
+import { CatalogResolutionsView as CatalogResolutionsView_baf8d4e4644eedb8bb7fdb4bdbeadbfa } from '../../../components/admin/CatalogResolutionsView'
+import { FinancialRecordsView as FinancialRecordsView_a8a646a1110c132e426e77ac3a008346 } from '../../../components/admin/FinancialRecordsView'
+import { CommercialImportsView as CommercialImportsView_13ef429604548283ebb074e7514f6e17 } from '../../../components/admin/CommercialImportsView'
 import { SuppressionView as SuppressionView_6afa7f3fe70e2f05fad8e2e3d02f499e } from '../../../components/admin/SuppressionView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -65,6 +70,11 @@ export const importMap = {
   "/components/admin/AppearanceAdapter#AppearanceAdapter": AppearanceAdapter_1a67c0d20a11b9f0523e01365946a240,
   "/components/admin/Dashboard#Dashboard": Dashboard_16b88e9b8c48e393fa86591406efd08f,
   "/components/admin/CommercialInboxView#CommercialInboxView": CommercialInboxView_1835d716bf7c59ed7b98e79fed13f373,
+  "/components/admin/FinancialReportView#FinancialReportView": FinancialReportView_9d16e3724e934bf4c234571c3e211640,
+  "/components/admin/FinancialResolutionsView#FinancialResolutionsView": FinancialResolutionsView_3e7e4cabf1a03ddf4a10447b6136e13d,
+  "/components/admin/CatalogResolutionsView#CatalogResolutionsView": CatalogResolutionsView_baf8d4e4644eedb8bb7fdb4bdbeadbfa,
+  "/components/admin/FinancialRecordsView#FinancialRecordsView": FinancialRecordsView_a8a646a1110c132e426e77ac3a008346,
+  "/components/admin/CommercialImportsView#CommercialImportsView": CommercialImportsView_13ef429604548283ebb074e7514f6e17,
   "/components/admin/SuppressionView#SuppressionView": SuppressionView_6afa7f3fe70e2f05fad8e2e3d02f499e,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

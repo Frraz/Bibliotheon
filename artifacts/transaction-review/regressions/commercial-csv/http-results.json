@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25T02:43:00.120Z",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "Rota real exige sessão owner e origem exata; anônimo, outra origem e ausência de Origin rejeitados, GET não disponível. Nenhuma escrita comercial.",
+    "Owner recebe prévia privada de candidato novo e repetição sem criar venda, recibo, fato, conflito ou auditoria; confirmação permanece indisponível.",
+    "Erros por registro não refletem dados pessoais. MIME/charset/encoding/cabeçalho/limite incorretos não persistem arquivo nem informações financeiras.",
+    "Consultas em blocos cobrem 201 identidades sem gravação; recebimento informado exige evidência própria e não é inferido de aprovação/bruto."
+  ],
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Next loopback e owner/CSV sintéticos. Somente prévia provisória, sem persistência/commit/importação nativa/relatório financeiro ou homologação comercial."
+}

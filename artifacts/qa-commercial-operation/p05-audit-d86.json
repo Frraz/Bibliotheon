@@ -1,0 +1,74 @@
+{
+  "phase": "D86",
+  "date": "2026-10-25T17:50:04.937352+00:00",
+  "status": "implemented_and_tested_locally",
+  "scope": "P05: operacao conjunta das cinco views existentes; nao encerra matriz B20 integral ou homologacao de release",
+  "criteria": [
+    {
+      "criterion": "Importacao privada, preview/linhas, stage/confirmacao e retomada com erros/stale/repeticao",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-commercial-imports/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Associacao/hold de catalogo com fonte/atestacao e historico imutavel",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-catalog-resolutions/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Selecao/exclusao de fontes do componente, previa/bloqueios, decisao/hold e aplicacoes sem editar fatos",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-financial-resolutions/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Caixa/custos independentes com conferencia, correcao por substituicao e fonte/campanha",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-financial-records/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Relatorio com null/revisao/cobertura, moedas/coortes/detalhamentos/processamento e sem atribuicao inferida",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-financial-coverage/results.json",
+        "artifacts/qa-financial-dimensions/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Jornada conjunta CSV -> catalogo bloqueado/resolvido -> sete decisoes -> caixa/custo -> relatorio -> reimportacao",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Permissoes API/views, teclado, temas, reflow/texto ampliado, feedback/carregamento/erro e fallbacks pertinentes",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/qa-commercial-imports/results.json",
+        "artifacts/qa-financial-records/results.json",
+        "artifacts/qa-catalog-resolutions/results.json",
+        "artifacts/qa-financial-resolutions/results.json",
+        "artifacts/qa-financial-coverage/results.json",
+        "artifacts/qa-financial-dimensions/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    }
+  ],
+  "limits": [
+    "Aceite operacional local; capturas por view/jornada nao sao certificacao integral B20/zoom nativo 400%/performance",
+    "P06/P07 e H01-H06 continuam no escopo; sem fornecedor, operacao real, imagem/restore, GitHub ou VPS",
+    "Custos nao atribuem receita; pagamento aprovado nao comprova recebimento ou lucro"
+  ]
+}

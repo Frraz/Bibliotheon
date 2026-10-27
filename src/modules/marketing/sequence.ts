@@ -5,6 +5,7 @@ import { availableMagnet } from './service'
 import { copyHash, dueAt, enrollmentKey, idOf, sequenceCopy, sequenceDays, readSequenceSnapshot, type SequenceSnapshot } from './sequence-copy'
 import { cancelPromotions } from './sequence-state'
 import { CheckoutError, resolveCheckout } from '../commerce/resolve'
+import { privacySubjectBlocked } from './privacy-block'
 
 export { readSequenceSnapshot } from './sequence-copy'
 export type { SequenceSnapshot } from './sequence-copy'
@@ -40,7 +41,7 @@ export async function preparePromotions(payload: Payload, now = Date.now()) {
 }
 
 /** Caller holds the contact lock; rechecks immediately before batching/claiming. */
-export async function reviewPromotion(req: PayloadRequest, delivery: import('../../payload-types').PromotionDelivery, now: number) {
+export async function reviewPromotion(req: PayloadRequest, delivery: import('../../payload-types').PromotionDelivery, now: number, secret = process.env.LEAD_TOKEN_SECRET) {
   const { payload } = req
   const enrollment = await payload.findByID({ collection: 'sequence-enrollments', id: idOf(delivery.enrollment), depth: 0, overrideAccess: true, req })
   const fail = async (errorCode: 'recipient_suppressed' | 'material_unavailable' | 'sequence_paused') => {
@@ -51,7 +52,7 @@ export async function reviewPromotion(req: PayloadRequest, delivery: import('../
   }
   const contact = await payload.findByID({ collection: 'contacts', id: idOf(enrollment.contact), depth: 0, overrideAccess: true, req })
   const subscription = (await payload.find({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { theme: { equals: idOf(enrollment.theme) } }, { state: { equals: 'subscribed' } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
-  if (enrollment.state !== 'active' || !contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok' || !subscription) return fail('recipient_suppressed')
+  if (enrollment.state !== 'active' || !contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok' || !subscription || await privacySubjectBlocked(payload,contact.email,secret,req)) return fail('recipient_suppressed')
   const templateKey = enrollmentKey('sequence', idOf(enrollment.magnet), enrollment.magnetVersion)
   await serial(req, `sequence:${templateKey}`)
   const template = (await payload.find({ collection: 'email-sequences', where: { and: [{ id: { equals: idOf(enrollment.sequence) } }, { active: { equals: true } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]

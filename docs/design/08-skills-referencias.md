@@ -29,3 +29,17 @@ D59 (24/10/2026): fontes a11y/tokens reconferidas por leitura pública, sem inst
 
 
 D62 (24/10/2026): referências a11y/tokens reconferidas por leitura pública e adaptadas ao painel existente, sem instalação global. Sem novas cores/dependências. [46 capturas](../../artifacts/qa-commercial-admin/results.json), 45 verificações axe, teclado/foco/overflow e fallback sem JS próprios. Alvos do detalhe nativo corrigidos para 44px; mensagens persistem quando o retry altera a lista. Imagens de dark mobile, detalhe/envelope, confirmação e fallback inspecionadas. Reflow 320px e texto 200% cobertos neste recorte; não certifica zoom nativo 400% ou toda a fase 2. [Evidência e limites](../../artifacts/commercial-admin/release-checks.json).
+
+D80 (25/10/2026): aplicados os princípios já documentados de hierarquia, disclosure, tokens/tema existentes, foco/teclado e estados de carregamento/erro. Não houve instalação global nem nova consulta externa das referências nesta rodada. [QA local de importação](../../artifacts/qa-commercial-imports/results.json): 24 capturas, 23 análises axe, texto 200%, reflow e fallback sem JS. A view permanece na extensão suportada do Payload; B20 integral continua aberto.
+
+D81 (25/10/2026): reusados tokens, controles, disclosure/hierarquia, foco/teclado e a extensão suportada do Payload para registro/correção financeiro. Sem novas cores, instalação global ou consulta externa das referências. [QA principal](../../artifacts/qa-financial-records/results.json) e [texto 200% dos formulários](../../artifacts/qa-financial-records/zoom-results.json): 48 capturas/47 análises axe, além de permissão por API e fonte/campanha verificadas no banco sintético. O recorte não encerra B20 nem integra IA ao produto.
+
+D82 (25/10/2026): mesmos princípios locais de controles/tokens, hierarquia, disclosure, foco e feedback aplicados à resolução do catálogo, sem instalação global nem nova consulta externa. A inspeção/axe do detalhe detectou alvos de interação pequenos; botões da conferência reutilizam o estilo existente e os links da view têm altura mínima de 44px. O recorte não homologa toda a fase 2.
+
+D83 (25/10/2026): reusados template/tokens, controles, disclosure, confirmação explícita, paginação e foco. Sem instalação global ou nova consulta externa de referências. A inspeção de texto 200% revelou que o shorthand font podia restaurar entrelinha fixa nos botões; corrigido com entrelinha proporcional após o shorthand e incluída verificação computada na QA. Não introduz IA ou novo sistema visual.
+
+D84 (25/10/2026): reusados os princípios locais de tokens, hierarquia, cobertura junto ao indicador, tabela com região de scroll/teclado e entrelinha proporcional. Sem instalação global ou nova consulta externa de referências. Estados de revisão/null/limite monetário têm rótulos textuais; nenhuma cor ou biblioteca nova.
+
+D85 (25/10/2026): reutilizados tokens, foco, scroll regional, disclosure progressivo e paginação server para detalhamentos. Desconhecidos e limite de prova ficam junto ao indicador. Sem instalação global, nova consulta externa ou IA no produto; customização segue extensão suportada do Payload.
+
+D86 (25/10/2026): princípios já aplicados de disclosure, confirmação explícita, foco, feedback e linguagem financeira foram verificados na jornada conjunta. Sem alteração visual, instalação global, nova consulta externa ou IA integrada; build D85 foi reutilizado com hashes conferidas. Aceite operacional local não substitui matriz B20 integral.

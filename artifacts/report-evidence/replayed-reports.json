@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-25T04:40:39.070811+00:00",
+  "schemaMigrations": 26,
+  "originalReportsRestored": true,
+  "originalReportCount": 148,
+  "note": "Relatos históricos conservam escopo Dxx e migrationUnderTest da etapa original; schema de reexecução é 26. Estado atual no contrato D75.",
+  "reports": [
+    {
+      "original": "artifacts/catalog-resolutions/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/catalog-resolutions/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "a8c5f8f3fa0a725d9307700fbc24e168847ec070aa3dd9fade17508de7a5d98e",
+      "replaySHA256": "a8acdf3444f0a5fa75a1241e2a8769ef095578b97dd90ee360bf4c5d91ebf9f8"
+    },
+    {
+      "original": "artifacts/catalog-resolutions/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/catalog-resolutions/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "64e642b328835e89dfb77ae1da89750d9e80ae0781091eee29345fb5eb108d54",
+      "replaySHA256": "fc415172b3b6845f599cc449006b37ceb910fe1ba4003c4631331c1ead16e84f"
+    },
+    {
+      "original": "artifacts/analytics/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/analytics/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "f33258b932ac105d96f27160dfc6ca1e5f16675ae2b0608661e739c8f398feef",
+      "replaySHA256": "8007382d293674b04ccbe06ea691589607aa00e5981c8c7f29a7b3b41741b326"
+    },
+    {
+      "original": "artifacts/commercial-imports/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/commercial-imports/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "e89a02e6a4fa8e2f8ff1120a0f664ceae9862b378661522fcedd2826b23811ba",
+      "replaySHA256": "5c1577b57fe525e46ec6853bb9f7b02ae92446c68149e83eaddda07e34b16ee2"
+    },
+    {
+      "original": "artifacts/commercial-imports/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/commercial-imports/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "17d37e792db69cd7923eb7588fc06c51b01b3077ce1c7e8efeb51666f2252a14",
+      "replaySHA256": "cd852c50fdcddecc2bd5da97e066bb301c863f688a97b3915d1c080b766034d8"
+    },
+    {
+      "original": "artifacts/financial-resolutions/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/financial-resolutions/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "a41543c38931ed2ad787bb424380c622eff846ca93b2736c91cb96456d5710b0",
+      "replaySHA256": "e85db4b855564279a62f5c126488bbd782eab7f53c936d723f768d5d3f06686b"
+    },
+    {
+      "original": "artifacts/financial-resolutions/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/financial-resolutions/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "770652cbee41bd820921919306fa68895caac956c9e98e4a4b3f979d39a87b0e",
+      "replaySHA256": "22da061acc073106203338fecdb0487461ea89c671e87842d6aeedca679b86fa"
+    },
+    {
+      "original": "artifacts/admin-recovery/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/admin-recovery/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "f5d15216e471fbf1ea72256d4fd30ab9e88c97bdcf9003b4fa1ce0c30dd5597b",
+      "replaySHA256": "b3190f4df2fc182625171ba9fb3a18ede69b61041f78e84b52e6d500ad140bbc"
+    },
+    {
+      "original": "artifacts/transaction-review/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/transaction-review/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "2d56a9a8bdbccb8abd5797acbe3cd714ce0771da32836ec4a4b83563ad3a8a16",
+      "replaySHA256": "3327c353a0c17105372c5e76aefae37b1cb1a48d7ba87deb225248f83eefea50"
+    },
+    {
+      "original": "artifacts/transaction-review/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/transaction-review/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "1c41e8041fafb5ee80bf9dd518013d51ee673be96675a4373e942ee3170b9df1",
+      "replaySHA256": "e198ac75621317442d5bfa1219e5c1e4388335f77948344b0e03315f0129b55b"
+    },
+    {
+      "original": "artifacts/cakto/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/cakto/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "60aeebe51f544ed174a5ec343cc60d23ab9cb410bc063c3abe1f551338791123",
+      "replaySHA256": "9f72bc37367c57a36b24aa428de395a432422a9590294f1d4deef27b6830ef79"
+    },
+    {
+      "original": "artifacts/commercial-inbox/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/commercial-inbox/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "dd9634a09397c92c1176b24c5335b58e5fab442ee9a990785e02fe42f506da1e",
+      "replaySHA256": "f375cae96ac6ce9cc4ff0742476f5dee028c960396e214195add43efde9d489f"
+    },
+    {
+      "original": "artifacts/brevo-webhook/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/brevo-webhook/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "01d46afcd2c4ff5406062b0a29c35a09f518e4280d375dffd77a8bb5eea85f9c",
+      "replaySHA256": "0b0b8b4ea99b6736de61c8fe8afad0cb8e3a2c70bc28f8b6eff96ed7bc9c0f7f"
+    },
+    {
+      "original": "artifacts/commercial-csv/local-results.json",
+      "replay": "artifacts/report-evidence/regressions/commercial-csv/local-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "4b7381382dba624f977bf024487de762d1a47d5fa34a84f467605552c38e85f9",
+      "replaySHA256": "70c82f3c185cb3e56d3842a22c8c4ff15a24fadae8cb7f2b0ef195578202a9e9"
+    },
+    {
+      "original": "artifacts/commercial-csv/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/commercial-csv/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "cb57d001a11583559812e498ac6ac82045677a48ae41951289e83bbdf1101662",
+      "replaySHA256": "ab3a6109360b4c29e0cb26ebf087d61e92b56a398198cfd0bb7ef0e12a888adb"
+    },
+    {
+      "original": "artifacts/hotmart/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/hotmart/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "a255a2bb0aba901502e9c0ee4ee89b1aa1af805afa335479254a3e5d5e633457",
+      "replaySHA256": "a3fadbf10f418eecb0d09a751deab6436c5dafdda2b39bc25596d02b9335744f"
+    },
+    {
+      "original": "artifacts/kiwify/http-results.json",
+      "replay": "artifacts/report-evidence/regressions/kiwify/http-results.json",
+      "replaySchemaMigrations": 26,
+      "originalSHA256": "9e3794d72ff5e0bdbc186e579b0e84a3b49642cf6b346ac369f0aaa99011eb5d",
+      "replaySHA256": "6af7b2efddcbafb0eb49cfa872ca4d14bd580bb7169231314a04008abe1fdb3a"
+    }
+  ]
+}

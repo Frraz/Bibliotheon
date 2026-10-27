@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-25T03:51:50.988Z",
+  "checks": [
+    "Migração vazia/down-up revertida; coleção nega leitura anônima/escritas owner. Prévia não escreve; prova/alvo/escopo inválidos são recusados. Confirmação concorrente upper/lower UUID é idempotente e conserva transação, fatos e inbox originais.",
+    "CSV expõe associação efetiva e decisão sem reescrever livro/oferta originais. Novo evento aplica ao mesmo histórico, sem segunda transação, e referencia a decisão usada; fatos antigos intactos. Outros provedores/contas não herdam a decisão.",
+    "Cadastro único associado ao livro errado é corrigido por livro verificado, sem criar oferta duplicada. CSV e novos fatos usam a decisão; transação/cadastro originais permanecem preservados e nenhuma oferta externa é inferida.",
+    "Evento sem oferta conserva o envelope null; a associação da transação usa a oferta já conhecida em fatos anteriores e a decisão desse escopo exato, sem inferir primária ou reescrever a fonte.",
+    "Decisões concorrentes sobre a mesma prévia têm um vencedor e uma stale, sem fork. Hold suspende inbox e CSV; nova revisão associada exige retry explícito e aplica depois. Repetição de revisão supersedida informa current=false. Falha tardia reverte auditoria/revisão integralmente.",
+    "Alteração de decisão invalida plano CSV pronto sem importar linhas; nova transação observada invalida prévia da decisão. Hash do cliente não autoriza aplicar plano desatualizado.",
+    "Trilha nega update/delete por API e SQL, assim como salto de revisão por INSERT direto; downgrade com prova recusa perda de evidência. Oferta referenciada somente por decisão também conserva identidade, via API e trigger.",
+    "Associação auditada não contorna revisão nativa por evidência financeira insuficiente nem colisão: valores não são projetados e retry permanece recusado.",
+    "Handlers com autenticação Payload real exigem owner/origem exata antes do corpo. Prévia privada/no-store, campo de ator forjado e corpo excedido recusados; sem nova credencial/token ou chamadas externas."
+  ],
+  "externalCalls": false,
+  "migrations": 23,
+  "limits": "Resolução de associação local; não resolve colisões/valores/moeda/estados, não altera fonte original nem aplica financeiro ao decidir. UI e homologação externa pendentes."
+}

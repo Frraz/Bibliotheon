@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "PostgreSQL local sintético; sem dados pessoais reais",
+  "checks": [
+    "preview sem escrita e relatório sem identificadores pessoais",
+    "cutoff UTC de 24 meses para auditoria",
+    "expurgo seletivo/idempotente da auditoria",
+    "pedidos não confirmados após sete dias removem outbox pendente e evento associado",
+    "sending/uncertain retém pedido para conciliação",
+    "solicitações recentes/confirmadas preservadas",
+    "contatos com referência ou supressão preservados; identidade órfã removida",
+    "tombstone HMAC expirado é removido e tombstone ativo é preservado",
+    "token de preferências expirado é removido antes de avaliar vínculos; token ativo é preservado",
+    "auditoria comercial resolvida expira após 24 meses",
+    "auditoria de inbox não resolvido ou conflitante é preservada",
+    "auditoria ligada a transação ainda em revisão e registro recente são preservados",
+    "envelope da inbox expira após 90 dias somente com ledger normalizado íntegro",
+    "replay e revisão reconstroem envelope pelo ledger sem restaurar cópia da inbox",
+    "conflito, revisão, referência incompleta e envelope recente são preservados",
+    "preview de backlog com 102 candidatos sem escrita",
+    "100 casos retidos na primeira página não impedem expurgo posterior",
+    "reexecução preserva 101 envios em andamento/incertos sem repetir exclusão"
+  ],
+  "syntheticRecords": true,
+  "externalCalls": false,
+  "messagesSent": 0
+}

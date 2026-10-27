@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25T17:10:36.076Z",
+  "status": "passed",
+  "checks": [
+    "Cobertura de liquidação pertence à moeda/coorte correta; caixa de aprovação fora da janela continua independente. Revisões unknown e datas ausentes permanecem visíveis, sem contaminar valores/coortes.",
+    "Substituições vigentes são resolvidas antes do filtro temporal; linha antiga não reaparece quando a correção muda de período. Zero confirmado permanece distinto de ausência.",
+    "Filtro de moeda aplica-se a totais, coortes, caixa, custos e cobertura de datas, sem conversão cambial ou mistura de populações.",
+    "Somas monetárias positivas e negativas acima do inteiro seguro retornam null com motivo explícito, sem arredondar nem alegar dado de origem ausente.",
+    "Prévia segue somente leitura; análise de cobertura não cria fatos, decisões, caixa ou custos."
+  ],
+  "fixturesCleaned": true,
+  "limits": "PostgreSQL local sintético, relógio controlado. Sem layout nativo, atribuição, fechamento de janela do provedor ou homologação de conta."
+}

@@ -150,7 +150,7 @@ try {
   try {
     const token = createOpaqueToken()
     await payload.create({ collection: 'preference-tokens', data: { contact: race.people[0].id, tokenHash: token.hash, expiresAt: new Date(due + UNSUBSCRIBE_TTL).toISOString() }, overrideAccess: true })
-    await unsubscribe(payload, token.token, due)
+    await unsubscribe(payload, token.token, due, secret)
   } finally { finish() }
   assert.equal((await flight).state, 'canceled')
   assert.equal((await jobFor(race.batch)).state, 'canceled')
@@ -179,7 +179,7 @@ try {
   try {
     const token = createOpaqueToken()
     await payload.create({ collection: 'preference-tokens', data: { contact: creating.people[0].id, tokenHash: token.hash, expiresAt: new Date(due + UNSUBSCRIBE_TTL).toISOString() }, overrideAccess: true })
-    await unsubscribe(payload, token.token, due)
+    await unsubscribe(payload, token.token, due, secret)
   } finally { createFinish() }
   await creatingFlight
   const canceledCreation = await jobFor(creating.batch)

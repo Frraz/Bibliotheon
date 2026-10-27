@@ -10,6 +10,7 @@ import { type PostgresAdapter } from '@payloadcms/db-postgres'
 import { seedRelationship } from '../fixtures/relationship'
 import { requestMagnet,confirmMagnet,unsubscribe } from '../../src/modules/marketing/service'
 import { processDelivery } from '../../src/modules/marketing/delivery'
+import { suppressionFingerprint } from '../../src/modules/marketing/suppression-tombstone'
 import { CONSENT_VERSION } from '../../src/modules/marketing/validation'
 import { preparePromotionBatches } from '../../src/modules/marketing/batches'
 import { dispatchBrevoBatchCampaign } from '../../src/modules/marketing/campaign-send'
@@ -55,7 +56,7 @@ const transport:typeof fetch=async(input,options)=>{
  if(modes.get(String(row.body.name))==='hold-verify'){entered?.();await release}
  if(modes.get(String(row.body.name))==='withdraw-before-claim'){
   const email=peopleByBatch.get(String(row.body.name))![0]
-  await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due)
+  await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due, secret)
  }
  return Response.json(report(row))
 }
@@ -112,6 +113,7 @@ try{
  assert.equal((await payload.findByID({collection:'email-deliveries',id:sampleBefore.id,overrideAccess:true})).state,sampleBefore.state)
  assert.equal((await payload.find({collection:'subscriptions',where:{contact:{equals:person.id}},overrideAccess:true})).docs.every(x=>x.state==='unsubscribed'),true)
  assert.ok((await payload.find({collection:'brevo-suppressions',where:{contact:{equals:person.id}},overrideAccess:true})).docs.length)
+ assert.equal((await payload.count({collection:'marketing-suppression-tombstones',where:{fingerprint:{equals:suppressionFingerprint(person.email,config.linkSecret)}},overrideAccess:true})).totalDocs,1)
  const auditBefore=(await payload.count({collection:'consent-events',where:{contact:{equals:person.id}},overrideAccess:true})).totalDocs
  assert.equal((await replayBrevoWebhook(payload,(await rowFor(withdrawJob.providerCampaignId!,'unsubscribe')).id,config,due+90_000)).state,'duplicate');assert.equal((await payload.count({collection:'consent-events',where:{contact:{equals:person.id}},overrideAccess:true})).totalDocs,auditBefore)
  checks.push('Cancelamento autenticado retira marketing e agenda bloqueio no mesmo commit, preservando amostra solicitada; replay não duplica auditoria.')
@@ -142,7 +144,9 @@ try{
  const rollbackEvent=makeEvent(rollback.people[0].email,rollbackJob.providerCampaignId!,'spam')
  try{await assert.rejects(ingest(rollbackEvent),/synthetic webhook rollback/)}finally{hooks.afterChange=previous}
  assert.equal((await payload.findByID({collection:'contacts',id:rollback.people[0].id,overrideAccess:true})).deliveryState,'ok');assert.equal(await receiptFor(rollbackJob.id),undefined);assert.equal(await rowFor(rollbackJob.providerCampaignId!,'spam'),undefined)
+ assert.equal((await payload.count({collection:'marketing-suppression-tombstones',where:{fingerprint:{equals:suppressionFingerprint(rollback.people[0].email,config.linkSecret)}},overrideAccess:true})).totalDocs,0)
  assert.equal((await ingest(rollbackEvent)).state,'processed')
+ assert.equal((await payload.count({collection:'marketing-suppression-tombstones',where:{fingerprint:{equals:suppressionFingerprint(rollback.people[0].email,config.linkSecret)}},overrideAccess:true})).totalDocs,1)
  checks.push('Falha de commit reverte envelope, supressão e comprovante juntos; nova notificação conclui sem efeito parcial.')
  const race=await group('retry-race');modes.set(race.name,'reject');assert.equal((await run(race.id)).state,'rejected');const raceJob=await jobFor(race.id),beforeRace=await usedAt(due)
  modes.set(race.name,'hold-verify');let unlock!:()=>void;const gate=new Promise<void>(r=>{entered=r});release=new Promise<void>(r=>{unlock=r})

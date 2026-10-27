@@ -1,0 +1,374 @@
+{
+  "phase": "D88",
+  "date": "2026-10-25T18:54:35.413625+00:00",
+  "status": "passed",
+  "scope": "Impacto documental da validação HTTP sintética P06 nos três callbacks e atualização das pendências",
+  "previousReview": "artifacts/documentation/documentation-review-d87.json",
+  "documentsReviewed": 49,
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "title": "# Instruções de trabalho — Bibliotheon",
+      "sha256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "DESIGN-BRIEF.md",
+      "title": "# Bibliotheon — Design Brief",
+      "sha256": "89b8ac56fbeb2eec1753bbe3f476801bfb154e56aafa3acc5482e80f69790e19",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "README.md",
+      "title": "# Bibliotheon",
+      "sha256": "7f39ee8a9b5312d63ed18a7c6397e2df9370e73088b17d0e0f661d8b4bbb54a7",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "deploy.md",
+      "title": "# Deploy do Bibliotheon na VPS",
+      "sha256": "84c07440bbe214c837c0fe919df46f6e0e5b6744241bd65076c8232781fa12d1",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/01-visao-estrategia.md",
+      "title": "# 01 — Visão e estratégia",
+      "sha256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/02-requisitos.md",
+      "title": "# 02 — Requisitos e jornadas",
+      "sha256": "ca04893c7063f861fbd10babbb8c0a9f53bdd56d534015a372944c81df19b58c",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/03-experiencia.md",
+      "title": "# 03 — Experiência, páginas e painel",
+      "sha256": "dc0792a00592db67104055ea495a701937ed9a27401b13529e7da108bd6afb5a",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/04-arquitetura.md",
+      "title": "# 04 — Arquitetura",
+      "sha256": "ee3e7e7e790d148fd1dfd489cdc9b5d4d979c13337c5e1d44e34c584bff41b5f",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/05-dados.md",
+      "title": "# 05 — Modelo de dados e invariantes",
+      "sha256": "842172cf45fad2d2999fb2c6f66e8f97add30a538faa4db30a7d5c9836422d1a",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/06-interfaces.md",
+      "title": "# 06 — Interfaces e contratos internos",
+      "sha256": "55e73b89e02c5be7d60a94837fed5441abb66db161653d9e84a6e4a46e46a43a",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/07-integracoes.md",
+      "title": "# 07 — Integrações comerciais",
+      "sha256": "91439bb295d579ffd7441b267d36335fa793428078c60a8fbdb78fb4e1eddb37",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/08-aquisicao.md",
+      "title": "# 08 — Aquisição, conteúdo e relacionamento",
+      "sha256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/09-metricas.md",
+      "title": "# 09 — Medição e decisões",
+      "sha256": "89069c536c5285f106b7e64db7ef2561f212abb272006d899f72ae5d3639a0fa",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/10-infraestrutura.md",
+      "title": "# 10 — Infraestrutura e implantação planejada",
+      "sha256": "ddd57a5f27e6044d3c4ec094650a96d922023f2391ec4bc8aa522f1e417f3a6f",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/11-operacao.md",
+      "title": "# 11 — Runbooks de operação",
+      "sha256": "ec35dc3e97837178c45f2d14b489a28412d6aab976aa22404c0af629927ea7db",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/12-seguranca-privacidade.md",
+      "title": "# 12 — Segurança e privacidade",
+      "sha256": "9ade39263d6d7c2defa3785c986c1af6a14789d577f3957de1d6668679413a2e",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/13-backlog.md",
+      "title": "# 13 — Backlog de implementação",
+      "sha256": "bebb7ef56bb408df3418ccf31fabe4e5e78fd4100ee6c6652e61507c51e32b50",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/14-progresso.md",
+      "title": "# 14 — Progresso e retomada",
+      "sha256": "54ef7ae000f70c4a798db631a2631c53993c6cd9a4538d55532f051466b5a451",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/15-qualidade.md",
+      "title": "# 15 — Qualidade e homologação",
+      "sha256": "072abbe7641cb611c3fad44b301b2d1046ae1e2152aa292085010d5b63d31af0",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/16-referencias.md",
+      "title": "# 16 — Referências e limites da pesquisa",
+      "sha256": "f57d3ef0c1cccbbc4da40d21125d70749d8f982fb3a71597f3543682faf433d1",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/17-decisoes.md",
+      "title": "# 17 — Registro de decisões",
+      "sha256": "10dd1ce2cb8ede4dfea1e4e4d37d55c9a1c03470a9fe5453f55e8dedd159a29a",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/18-validacao.md",
+      "title": "# 18 — Validação da entrega documental",
+      "sha256": "24282884b44720728c083d870a4d62affa09c9969ebc3a56a8074bb5b5d8f107",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/19-desenvolvimento.md",
+      "title": "# 19 — Implementação e evidências locais",
+      "sha256": "375dd10ae1e7898323ff38ab8c26f9cfc3ad01bf881589ae91a7e1aea93fdbaa",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/20-execucao-local.md",
+      "title": "# 20 — Executar o Bibliotheon localmente",
+      "sha256": "f900d14c50ac84c015558c857694c7917a44a5e6d25502b9b743f572c47753b8",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/21-pacote-producao.md",
+      "title": "# 21 — Pacote de produção e validação local",
+      "sha256": "6145b2b562388d5d94e58088308058806325b0faae3b4fb7d543007b1d69393a",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/22-lancamento.md",
+      "title": "# 22 — Preparação do primeiro lançamento",
+      "sha256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/23-estado-atual.md",
+      "title": "# 23 — Estado atual e mapa da implementação",
+      "sha256": "7abcf75d262e18ed696c89234a067f207f6374bc06c0c62c75c08ed35083b82b",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/24-conciliacao.md",
+      "title": "# 24 — Conciliação comercial e CSV",
+      "sha256": "2ce288c0244b7cff2b8b995017efcceb27c940bc05f133835cf0aa72b31232ff",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/01-identidade.md",
+      "title": "# Identidade, imagem e referências",
+      "sha256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/02-tokens.md",
+      "title": "# Tokens, cores e tipografia",
+      "sha256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/03-componentes.md",
+      "title": "# Componentes e estados",
+      "sha256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/04-paginas.md",
+      "title": "# Wireframes de páginas públicas",
+      "sha256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/05-painel.md",
+      "title": "# Design do painel administrativo",
+      "sha256": "9e3f36fdf968ace9ee8787ff9de69a130864a54278e2dbb7f7a160f3480d22ee",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/06-comportamento.md",
+      "title": "# Responsividade, tema e movimento",
+      "sha256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/07-qualidade.md",
+      "title": "# Qualidade visual e aceite",
+      "sha256": "54df9190c42695c74881bc8e57e63412720e7b0e2873f74f9e2bd3bd665b4097",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/08-skills-referencias.md",
+      "title": "# Skills aplicadas e fontes",
+      "sha256": "07757dc67fad5752d06fbc8c97b1071786def65cb6fd8f3b569639de6c040af5",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/design/09-contrastes.md",
+      "title": "# Contrastes calculados",
+      "sha256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/integracoes/brevo.md",
+      "title": "# Brevo — calendário, campanhas e supressão",
+      "sha256": "8ff443b39d5bc611b5fa13c532815804f528b5ce17b3eee3e8828154e72adb19",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/integracoes/cakto.md",
+      "title": "# Cakto — contrato e operação",
+      "sha256": "8ccfc7dfb8d0bd82257f9b8d4e772de2c5dc00a19db0227ee7ab7fe4915cf6b0",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/integracoes/hotmart.md",
+      "title": "# Conector Hotmart",
+      "sha256": "688db5c2ff8be6353b10bfa332da4d99c7f11182c5ccfa45c96b8b924339e026",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/integracoes/kiwify.md",
+      "title": "# Kiwify — contrato e operação",
+      "sha256": "c58e2efd22fc649666b6ae142398cdcf23d49d4187d74b95d18080e5c0b94e20",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/01-briefing-livro.md",
+      "title": "# Modelo — Briefing do livro",
+      "sha256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/02-copy-lp.md",
+      "title": "# Modelo — Copy e revisão da LP",
+      "sha256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/03-campanha.md",
+      "title": "# Modelo — Campanha inicial",
+      "sha256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/04-kit-afiliados.md",
+      "title": "# Modelo — Kit de afiliados",
+      "sha256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/05-revisao-semanal.md",
+      "title": "# Modelo — Revisão semanal",
+      "sha256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/06-homologacao.md",
+      "title": "# Modelo — Homologação e release",
+      "sha256": "de0700a4a146c1eaee7ecd11dc7401aa291497287701b7154714f02230503112",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "docs/templates/README.md",
+      "title": "# Modelos operacionais",
+      "sha256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051",
+      "action": "retained",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    },
+    {
+      "path": "pendencias.md",
+      "title": "# Pendências para colocar o Bibliotheon em produção",
+      "sha256": "37d96fcc28114f4be3543bedb20fc4626d4e9d0ce09135187bc2abe5194fd88e",
+      "action": "updated",
+      "basis": "Impacto D88 revisado; atribuição HTTP local e gates de conta/retenção/release alinhados, sem inferir homologação."
+    }
+  ],
+  "preservedSources": {
+    "reflexoes.md": "e9be41f92ab65d33cfdc5e8f9447d7fb05cf84ad43cb920d7d4906d15d8a262c",
+    "ideais para melhora o desing.md": "a78685e178c4453a71f9abfcc30aac0c32a7f114b4081f41790c1a6f7561e122"
+  },
+  "externalSourcesRequeried": false,
+  "limits": [
+    "P06 parcial até H01 confirmar cada conta, especialmente campos Kiwify/Cakto",
+    "P07, QA visual e H01-H06/release continuam abertos; sem produção inferida"
+  ],
+  "documentsUpdated": 15,
+  "documentsRetained": 34,
+  "validation": {
+    "documents": 49,
+    "localLinks": 1103,
+    "externalURLsUnchecked": 106,
+    "requirements": 34,
+    "tasks": 20,
+    "scenarios": 29,
+    "contrastPairs": 76,
+    "output": "OK: 76 pares autorizados aprovados, dois temas; relatório consistente. Documentos: 49. Links locais: 1103; URLs externas distintas: 106 (sem verificação de rede). Requisitos: 34; tarefas: 20; cenários: 29. OK: estrutura, links locais, rastreabilidade, contrastes e hashes das fontes preservados."
+  }
+}

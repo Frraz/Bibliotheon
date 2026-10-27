@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-25T04:38:32.667Z",
+  "checks": [
+    "HTTP real exige owner/origem/MIME/idempotência e evidência atestada; ator forjado, confirmação ausente e plano stale não escrevem decisões.",
+    "Confirmação aplica a variante selecionada, responde 201 privado e repetição responde 200; chave reutilizada com outra prova é conflito e não duplica aplicações.",
+    "API nativa nega escrita até ao owner e leitura anônima; confirmação controlada é o caminho autorizado. Decisão histórica não pode ser apagada."
+  ],
+  "schemaMigrations": 25,
+  "externalCalls": false,
+  "limits": "HTTP local sintético, sem relatório nativo, conta externa, UI ou produção."
+}

@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25T04:28:06.528Z",
+  "checks": [
+    "Mesmo produto em três provedores resolve namespaces separados e três snapshots compatíveis. Prévia não modifica histórico, projeções, recibos, conflitos ou auditoria; nunca habilita commit.",
+    "Repetição exata aponta o registro original; divergência com ledger ou dentro do CSV exige revisão sem criar novo fato ou alterar total.",
+    "Produto/conta desconhecidos e catálogo ambíguo não usam oferta primária, outro provedor ou outro livro como fallback. Leitura detecta ambiguidade legada sem reescrever identidades.",
+    "Recebimento informado exige evidência própria; campos vazios não viram zero. Revisão/colisão existente continua bloqueada, e CSV não resolve ou reprocessa a transação.",
+    "Handler com autenticação Payload real exige owner/origem; JWT válido permite consulta sem qualquer escrita comercial. Retorno privado e provisório, sem confirmação falsa."
+  ],
+  "externalCalls": false,
+  "realSales": 0,
+  "limits": "Prévia somente de leitura e provisória. Sem ImportBatch/Row, commit, resolução de conflitos, liquidação/custos persistidos, relatório financeiro ou UI. Fixtures sintéticas em PostgreSQL loopback; sem exportação nativa de fornecedor."
+}

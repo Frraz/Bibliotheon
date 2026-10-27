@@ -90,7 +90,10 @@ export async function recordCheckoutClick(payload:Payload,target:CheckoutMeasure
   const campaign=grant&&target.campaignID?(await payload.find({collection:'campaigns',where:{id:{equals:target.campaignID}},depth:0,limit:1,overrideAccess:true,req})).docs[0]:null
   const touch=campaign?await campaignContext(req,campaign.code,undefined,now):null
   const measured=grant?await session(req,grant,touch,now):null
-  await payload.create({collection:'checkout-clicks',data:{offer:target.offerID,ebook:target.ebookID,provider:target.provider,campaign:target.campaignID,visit:measured?.visit.id,attributionAllowed:!!grant,firstTouch:measured?.first,lastNonDirectTouch:measured?.last,occurredAt:new Date(now).toISOString()},overrideAccess:true,req})
-  return{state:'recorded' as const}
+  const click=await payload.create({collection:'checkout-clicks',data:{offer:target.offerID,ebook:target.ebookID,provider:target.provider,campaign:target.campaignID,visit:measured?.visit.id,attributionAllowed:!!grant,firstTouch:measured?.first,lastNonDirectTouch:measured?.last,occurredAt:new Date(now).toISOString()},overrideAccess:true,req})
+  // The random Payload UUID is the only provider reference. It is emitted only
+  // for an active, consented campaign click and only when a supported parameter
+  // can carry it; no visitor token or personal data crosses the checkout.
+  return{state:'recorded' as const,attributionReference:grant&&touch?.campaign===target.campaignID?click.id:undefined}
  })
 }

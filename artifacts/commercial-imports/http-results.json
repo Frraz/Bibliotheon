@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:31:04.339Z",
+  "date": "2026-10-25T06:11:41.330Z",
   "origin": "http://127.0.0.1:3001",
   "checks": [
     "Rota de estágio real exige owner/origem e metadados controlados; entradas pessoais/invalidas não geram lote ou linha.",

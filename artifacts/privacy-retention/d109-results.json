@@ -1,0 +1,47 @@
+{
+  "phase": "D109",
+  "date": "2026-10-27T00:38:27.443Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "preview agregado sem escrita; cutoff inclusivo de 28 dias, estado recente e contato ativo preservados",
+    "aplicação remove apenas estado promocional elegível; preserva identidade, amostra, prova e TTL da supressão; repetição sem trabalho",
+    "pending, vínculo de provedor, manifesto JSON sem FK, estado contraditório e envio incerto bloqueiam; chave ausente não permite expurgo",
+    "falha após remover etapa reverte o contato inteiro, sem apagar parcialmente calendário ou assinatura",
+    "revalidação sob lock preserva contato reativado depois da seleção inicial",
+    "referências cruzadas entre contato e calendário são preservadas antes de qualquer delete por FK",
+    "página inicial com 100 contatos retidos não impede expurgo elegível no fim do backlog",
+    "rotina de privacidade incorpora o relatório sem PII; nenhuma chamada externa"
+  ],
+  "preview": {
+    "cutoff": "2026-09-29T00:38:19.382Z",
+    "guardAvailable": true,
+    "candidates": 8,
+    "eligible": 2,
+    "processed": 0,
+    "removedSubscriptions": 0,
+    "removedEnrollments": 0,
+    "removedPromotions": 0,
+    "preservedForReconciliation": 5,
+    "withoutExpiredMarketing": 1
+  },
+  "applied": {
+    "cutoff": "2026-09-29T00:38:19.382Z",
+    "guardAvailable": true,
+    "candidates": 8,
+    "eligible": 2,
+    "processed": 2,
+    "removedSubscriptions": 2,
+    "removedEnrollments": 2,
+    "removedPromotions": 2,
+    "preservedForReconciliation": 5,
+    "withoutExpiredMarketing": 1
+  },
+  "backlog": {
+    "candidates": 111,
+    "processed": 1
+  },
+  "externalCalls": 0,
+  "identityDeletionPerformed": false,
+  "externalReconciliationPerformed": false,
+  "productionChanged": false
+}

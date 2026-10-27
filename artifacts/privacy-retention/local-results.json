@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "PostgreSQL local sintético; sem dados pessoais reais",
+  "checks": [
+    "preview sem escrita",
+    "cutoff UTC de 24 meses",
+    "expurgo seletivo",
+    "reexecução idempotente",
+    "relatório apenas com contagem/cutoff"
+  ],
+  "syntheticRecords": true,
+  "externalCalls": false,
+  "messagesSent": 0
+}

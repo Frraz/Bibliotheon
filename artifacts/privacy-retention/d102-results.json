@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-26T23:34:50.051Z",
+  "environment": "PostgreSQL local sintético exclusivo",
+  "checks": [
+    "preview integrado sem escrita/PII; cutoff de 24 meses e limite exato preservados",
+    "falha depois do expurgo de outbox/eventos reverte o pedido inteiro",
+    "pedido/outbox/eventos antigos removidos atomicamente; contato e assinatura atual preservados",
+    "prova do opt-in ativo, sequência dependente, entrega pendente/incerta e atividade recente preservadas",
+    "reexecução idempotente sem apagar estado de consentimento ou supressão"
+  ],
+  "checksPassed": 5,
+  "migrationAdded": false,
+  "externalCalls": false,
+  "messagesSent": 0
+}

@@ -80,7 +80,7 @@ export async function dispatchBrevoBatchCampaign(payload: Payload,batchId:string
         for (const member of members) {
           const stage=await payload.findByID({collection:'promotion-deliveries',id:member.delivery,depth:0,overrideAccess:true,req})
           if (stage.state!=='rejected'||!stage.batch||idOf(stage.batch)!==batchId||idOf(stage.contact)!==member.contact) throw new RetryHeld('canceled')
-          const review=await reviewPromotion(req,stage,clock())
+          const review=await reviewPromotion(req,stage,clock(),secret)
           if (review.state!=='ready') throw new RetryHeld(review.state==='canceled'?'canceled':'held')
         }
         await payload.update({collection:'email-campaign-batches',id:batchId,data:{state:'prepared',providerCheck:null,preferenceCheck:null,errorCode:null,nextAttemptAt:new Date(clock()).toISOString()},overrideAccess:true,req})

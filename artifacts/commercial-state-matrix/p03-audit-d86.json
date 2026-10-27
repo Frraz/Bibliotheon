@@ -1,0 +1,72 @@
+{
+  "phase": "D86",
+  "date": "2026-10-25T17:50:04.937352+00:00",
+  "status": "implemented_and_tested_locally",
+  "scope": "P03: dois contratos canonicos, estados, auditoria e confirmacao/aplicacao explicitas; homologacao externa separada",
+  "criteria": [
+    {
+      "criterion": "Snapshot de 13 colunas preservado; complementar de 18 sem adivinhar layout nativo",
+      "result": "verified_locally",
+      "evidence": [
+        "tests/unit/commercial-csv.test.ts",
+        "tests/unit/report-evidence.test.ts",
+        "artifacts/commercial-state-matrix/local-results.json"
+      ]
+    },
+    {
+      "criterion": "Sete estados persistidos/confirmados/aplicados nos tres provedores com datas/valores/null honestos",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/commercial-state-matrix/local-results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Preview sem escrita, stage auditado sem aplicacao, commit de prova e decisao financeira separados",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/commercial-state-matrix/local-results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Repeticao/idempotencia, conflito bloqueado, stale e rollback integral",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/commercial-state-matrix/local-results.json",
+        "artifacts/qa-commercial-imports/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Provas insuficientes/incompativeis e lote invalido/misto/futuro recusados no estagio adequado sem transacao indevida",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/commercial-state-matrix/local-results.json"
+      ]
+    },
+    {
+      "criterion": "Permissoes, campos limitados, fonte/autor/historico e formulas neutralizadas em apresentacao de planilha",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/report-evidence/http-results.json",
+        "tests/unit/commercial-csv.test.ts",
+        "artifacts/qa-commercial-imports/results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    },
+    {
+      "criterion": "Confirmacao nao comprova recebimento, nao cria email ou webhook autenticado",
+      "result": "verified_locally",
+      "evidence": [
+        "artifacts/commercial-state-matrix/local-results.json",
+        "artifacts/qa-commercial-operation/results.json"
+      ]
+    }
+  ],
+  "limits": [
+    "Somente contratos canonicos sinteticos; nenhum parser/exportacao nativa ou conta homologada",
+    "Atribuicao P06, retencao P07 e H01-H06 abertos",
+    "R15/B11 completos para producao dependem dos fornecedores e do release; sem GitHub/VPS/imagem/restore novos"
+  ]
+}

@@ -1,3 +1,6 @@
+import { storeThemeWithdrawal } from './theme-withdrawal'
+import { contactFingerprint } from './contact'
+import { validLinkSecret } from './tokens'
 import type { Payload, PayloadRequest } from 'payload'
 import { hashOpaqueToken } from './tokens'
 import { LeadFlowError } from './service'
@@ -35,14 +38,18 @@ export async function readPreferences(payload: Payload, token: unknown, now = Da
 }
 
 /** Withdrawal only. Re-subscription always goes through a new explicit request and confirmation. */
-export async function unsubscribeTheme(payload: Payload, token: unknown, theme: unknown, now = Date.now()) {
+export async function unsubscribeTheme(payload: Payload, token: unknown, theme: unknown, now = Date.now(), secret = process.env.LEAD_TOKEN_SECRET) {
   if (typeof theme !== 'string' || !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(theme)) throw new LeadFlowError('invalid_input', 422)
   return atomic(payload, async req => {
     const { contact } = await authorize(req, token, now)
     const subscription = (await payload.find({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact } }, { theme: { equals: theme } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
     if (!subscription) throw new LeadFlowError('invalid_input', 422)
+    if (!validLinkSecret(secret)) throw new LeadFlowError('unavailable', 503)
+    const person = await payload.findByID({ collection: 'contacts', id: contact, overrideAccess: true, depth: 0, req })
+    const at = subscription.state === 'unsubscribed' ? subscription.unsubscribedAt : new Date(now).toISOString()
+    if (!at) throw new LeadFlowError('unavailable', 503)
+    await storeThemeWithdrawal(req, contactFingerprint(person.email, secret!), theme.toLowerCase(), at)
     if (subscription.state === 'unsubscribed') return
-    const at = new Date(now).toISOString()
     await payload.update({ collection: 'subscriptions', id: subscription.id, data: { state: 'unsubscribed', unsubscribedAt: at }, overrideAccess: true, req })
     await cancelPromotions(req, { and: [{ contact: { equals: contact } }, { theme: { equals: theme } }] }, now)
     await payload.create({ collection: 'consent-events', data: { contact, theme, purpose: 'marketing', action: 'unsubscribed', occurredAt: at, key: `theme-unsubscribe:${subscription.id}:${at}` }, overrideAccess: true, req })

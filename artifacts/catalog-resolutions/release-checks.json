@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-25T01:29:02.952052+00:00",
+  "baseCommit": "cba2edb934d66319ad3b26bd35c25266caed93f0",
+  "worktree": "D70–D72 sem commit/push; hashes das fontes abaixo",
+  "sourceSha256": {
+    "README.md": "db969e1e22f059d7d7b2e916f40f179cad1280f2a3769a5bd268974f66f313c2",
+    "deploy.md": "9820f19a2a4a46932a9dff3ae893eddae25075f0d69d4cad19a0c47a33565d33",
+    "docs/05-dados.md": "e22be568c83c73a5f8b74847666b5c5675cc362a2280dcc8c99914868c5ff33f",
+    "docs/06-interfaces.md": "88f28198d8d4636ed0a644e108392784b77d42c102efba75d2528296a6289d7b",
+    "docs/10-infraestrutura.md": "0fe3bbe39476e6b11d8a1da345fbf6f5079a83e3e1946a0b9df9b14854d2830d",
+    "docs/13-backlog.md": "83dfb1bd52eb6890f7a4fe0bc306a86b46c12f091c00ae313327b5060ce2847e",
+    "docs/14-progresso.md": "7bd2a8e33f4ff3395f2d8f5603c8f55a0d8e6dc2d0ca6bb20eaa7f3dd4a838d6",
+    "docs/15-qualidade.md": "fcbca546ce13d324cc55d668a6222930599dbeb6463a199a9702187a4ab20b2b",
+    "docs/17-decisoes.md": "c545309c582f456c93d5581b95baa34b97909e783c701b9e39286ba9ea336318",
+    "docs/21-pacote-producao.md": "600e0bba158c118bdd9ff552b6d261c2f9cc34ab68bf35635337c1fafa8fac41",
+    "docs/23-estado-atual.md": "e2212105f510f7d520e0854a8cac3b67d22b1b42cc87b037c895053ba3545307",
+    "docs/24-conciliacao.md": "3bb8a2b84956fc51d1b0e9641c01c85cf6f46a07add470b3f9c8fd4d32db6dba",
+    "migrations/20261024_231500_offer_identity_guard.ts": "3d37c72c60f8fd0f5c47fd405e7063948fdeda4d4c617b2e0e18ca46f2f9d0d8",
+    "migrations/20261025_003403_catalog_resolutions.json": "ac2a08a5bfff983cc29593758a7d2f058f51dcf0980c94df71225a4346755ff7",
+    "migrations/20261025_003403_catalog_resolutions.ts": "f4c43d1c35789fd72f16a3be3a4cbada0e9127d227532ce043aa7ea39695ff20",
+    "migrations/index.ts": "3d9879bb0ebd97dd5bab4fccf1659eb24f00f3ffa37a8fa93de74cfba41c28d9",
+    "next.config.mjs": "0222afe8f1ed527900a6eb71507d183aec7f430f8a5aae1c90a6a938de1419ea",
+    "package.json": "c9f70bb7e27aebef9261d5b62f72a1f8d7643a24393d4fdb69ecf316da0c52b1",
+    "pendencias.md": "b155acb1214c40e9928da13206d9f45d7ac58c85e9b0d601baa37992625d3469",
+    "scripts/check-http.sh": "e8cfd0a89d28adab3a7b4ba25d92d5e6bac950e252041e0ee3f44f6eb9036b4d",
+    "scripts/check-integration.sh": "fad2bbb83f170b1e9eb33b7c9ea4d64b5a4f9c01ca4728bbe641065c02bb8b30",
+    "src/app/(site)/api/v1/admin/catalog-resolutions/preview/route.ts": "66b95e835031763798085e75f2ab28b099ae8062ff7f6528eb3e54e849d64d7a",
+    "src/app/(site)/api/v1/admin/catalog-resolutions/route.ts": "c9a216d2ebc2aec0a04454323781dab3edd67ba4169e07ff5fe861fcc7ab9b7e",
+    "src/collections/CatalogResolutions.ts": "3832e353ca8c09755dc7ec546e20e4cb5c93207237e033edc5eaf87575eba438",
+    "src/collections/Commerce.ts": "c65e97fb82abfcfaf3e9a15bb80afbf300a957857ee108319b39952f05ebe8cd",
+    "src/collections/Offers.ts": "8db3863bb39c5c63f2bb7c2e49cde99187253dcad16f066563a6c95ddc80475b",
+    "src/modules/commerce/catalog-mapping.ts": "3214d8174f6e34f511927e0a96b7ad0cf4ea0a412a6c698443e5aeaa51272639",
+    "src/modules/commerce/catalog-resolution-http.ts": "70ce7a620dd034e8d2f9fa4a11bb039a211037a0a0ebd49b2030a5964418be96",
+    "src/modules/commerce/catalog-resolutions.ts": "d2e735c6a92a3f156669d4d6d77930171d2594e30dca0c62880e061066e5c4c7",
+    "src/modules/commerce/import-http.ts": "47bf861868d64e721424105331388ca720f2be1274d05efc24be5be05d7ff800",
+    "src/modules/commerce/import-plan.ts": "1a1440153e5ed3fc3962ae9b363be512aaf2249eb1e91cebd4494ec19f93bc13",
+    "src/modules/commerce/import-preview.ts": "bf22fe2693929e59909e568802dbd20d31e8e9198d2e8bb0be2dcbb1488d76b1",
+    "src/modules/commerce/inbox.ts": "042d1b48c99b5af907b9b71a53214ac6ee3609e393bb9699b31ff8cf925a49a2",
+    "src/modules/commerce/lock.ts": "7286fd89802e0edfd4b3a36e24617656be32982523c109b68f3159fa93a74277",
+    "src/modules/commerce/presentation.ts": "3ec8658f063d56dfeb7ce4861a448ead9d439d691f04af598cb2801129e7a879",
+    "src/payload-types.ts": "b7aff819844c3fabf42ac76eba485d6024af0df2c273014ec06f5ead0291a7b2",
+    "src/payload.config.ts": "37d5708abdc01c2500c7727fd6e52f9d4728947f4752242f34c89a802119eafa",
+    "tests/fixtures/commerce.ts": "51ee088049a89788f39dbb42e7d5196c419f91bba1457bedf78c1466919baa04",
+    "tests/integration/catalog-identities.ts": "8d9f3910faf23e52821d20e33e7095d1642f1fda67482570894ac66f3d2047b1",
+    "tests/integration/catalog-identity-db.ts": "ef313d9b5b792a6753fb1fcb8bc5b39885059d5d738ccda2b38f7e7171ac1567",
+    "tests/integration/catalog-resolutions-http.ts": "a1f7d88d802e50c97a2a074c4e0a0ddb11e72479137b962776b7d2c8963c5f4f",
+    "tests/integration/catalog-resolutions.ts": "6f59d42606f93c86c046096bfe21fffe9bc303933bfb749afc77721c022aae78",
+    "tests/integration/commercial-csv.ts": "c0053a5ae4b1db788d1d1bda46ce9a743b022b635e95662ddc1a63e68461a5c7",
+    "tests/integration/commercial-imports-http.ts": "809892369b37260bbe69038cb2866926f161f2df45e95f0e187eed9211237e73",
+    "tests/integration/commercial-imports.ts": "dadaa273d9e89f5c550c55c001a2407c8641390540f05d42f867e3f6548d3293",
+    "tests/integration/commercial-inbox.ts": "7d9c0c8d9688b94b2580f078d36beff6aa9124377071d190206dfe66180d1322",
+    "tests/ops/test_local_dev.py": "844f8d0f00a50212389a3b097f57f56d601c493bce26515334325e972ae4b54d",
+    "tests/unit/catalog-mapping.test.ts": "080d872c6eb781681800f947a342110922db035119aef61396013c6e487f11c7"
+  },
+  "environment": "PostgreSQL 17.9 loopback, owner/CSV/eventos exclusivamente sintéticos; Next standalone .next-qa na porta3000 encerrado pelo harness",
+  "checks": {
+    "npm run check": {
+      "passed": true,
+      "unitTests": 198,
+      "unitFiles": 28,
+      "opsTests": 57,
+      "typecheck": true,
+      "lintErrors": 0,
+      "lintWarnings": 2,
+      "documentation": true
+    },
+    "generate:types / generate:importmap": {
+      "passed": true,
+      "newImportMapEntries": false
+    },
+    "migration23": {
+      "passed": true,
+      "upgrade": "22 para23 local; refinamento da migração inédita reinstalado com tabelas sintéticas verificadas vazias",
+      "emptyDownUpRollback": true,
+      "evidenceDowngradeRefused": true
+    },
+    "test:catalog-resolutions": {
+      "passed": true,
+      "groups": 9,
+      "artifact": "local-results.json"
+    },
+    "test:catalog-resolutions-http": {
+      "passed": true,
+      "groups": 3,
+      "artifact": "http-results.json"
+    },
+    "test:catalog-identities": {
+      "passed": true,
+      "groups": 4,
+      "replaySchema": 23,
+      "originalTestScope": "D70 API guard"
+    },
+    "test:catalog-identity-db": {
+      "passed": true,
+      "groups": 6,
+      "replaySchema": 23,
+      "originalTestScope": "D71 migration22/SQL guard"
+    },
+    "test:catalog": {
+      "passed": true
+    },
+    "test:commercial-inbox": {
+      "passed": true,
+      "groups": 12,
+      "runtimeCLIsBundled": true
+    },
+    "test:commercial-csv": {
+      "passed": true,
+      "groups": 5
+    },
+    "test:commercial-imports": {
+      "passed": true,
+      "groups": 10
+    },
+    "isolatedBuild": {
+      "passed": true,
+      "dist": ".next-qa",
+      "buildId": "J49zmiNRwS0NCZhkAFqZU"
+    },
+    "check:http": {
+      "passed": true,
+      "suiteCount": 11,
+      "suites": [
+        "integration",
+        "site",
+        "hotmart-http",
+        "kiwify-http",
+        "cakto-http",
+        "commercial-csv-http",
+        "commercial-imports-http",
+        "catalog-resolutions-http",
+        "brevo-webhook-http",
+        "analytics-http",
+        "admin-recovery"
+      ],
+      "syntheticConfirmation": true,
+      "checkoutHosts": "pay.example.invalid nas três plataformas",
+      "transportAndAutomaticProcessing": false
+    },
+    "cleanup": {
+      "passed": true,
+      "artifact": "cleanup-counts.json",
+      "port3000Listening": false
+    },
+    "finalTestFileTypecheckLint": {
+      "passed": true,
+      "scope": "npm run typecheck e eslint da última suíte alterada após assertions adicionais"
+    },
+    "documentationFinal": {
+      "passed": true,
+      "documents": 49,
+      "links": 773,
+      "requirements": 34,
+      "tasks": 20,
+      "scenarios": 29,
+      "contrastPairs": 76,
+      "externalURLsCheckedOverNetwork": false
+    }
+  },
+  "observations": [
+    "Inicialização de fixture detectou originalDoc vazio em criação; guard corrigido para exigir id, fixture parcial sintética limpa e suíte repetida com sucesso.",
+    "Build no sandbox falhou ao ler saída TypeScript; builds isolados fora do sandbox passaram, incluindo a versão final.",
+    "Primeira rodada HTTP local carecia dos hosts sintéticos de checkout; repetida com configuração explícita,11 suites passaram.",
+    "Teste do harness atualizado de10 para11 suítes, validando a lista completa.",
+    "Relatórios de regressão desta rodada preservados em regressions; cópia anterior/históricos do Git restaurados. Metadados de escopo D70/D71 nesses relatórios não são censo de migrations da D72."
+  ],
+  "warnings": [
+    "Dois avisos antigos de parâmetros não utilizados na migration de sequências.",
+    "Aviso pg/Drizzle de consultas concorrentes reproduzido; causa não resolvida."
+  ],
+  "limits": [
+    "P01 concluída como implementação/testes locais; P02–P07 e demais gates permanecem.",
+    "Sem QA visual nova/interface customizada, imagem atual/restore, contas externas, CI GitHub ou VPS.",
+    "Sem compra, envio externo, publicação ou resultado comercial real."
+  ]
+}

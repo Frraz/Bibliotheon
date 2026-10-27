@@ -4,14 +4,33 @@ set -euo pipefail
 PROJETO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJETO_DIR"
 SUITES=(integration site hotmart-http kiwify-http cakto-http commercial-csv-http
-  commercial-imports-http brevo-webhook-http analytics-http admin-recovery)
+  commercial-imports-http catalog-resolutions-http transaction-review-http financial-resolutions-http report-evidence-http financial-ledger-http brevo-webhook-http analytics-http privacy-delete-http admin-recovery)
+QA_PORT="${CHECK_HTTP_PORT:-3000}"
+if [[ ! "$QA_PORT" =~ ^[0-9]{1,5}$ ]] || (( QA_PORT < 1024 || QA_PORT > 65535 )); then
+  echo 'CHECK_HTTP_PORT deve ser uma porta TCP entre 1024 e 65535.' >&2
+  exit 2
+fi
 if [[ "${1:-}" == --list && $# == 1 ]]; then
   printf 'test:%s\n' "${SUITES[@]}"
   exit 0
 fi
+if [[ $# == 2 && "${1:-}" == --only ]]; then
+  requested="$2"
+  if [[ ! "$requested" =~ ^[a-z0-9-]+$ ]]; then
+    echo "Suíte desconhecida: $requested" >&2
+    exit 2
+  fi
+  if [[ ! " ${SUITES[*]} " == *" $requested "* ]]; then
+    echo "Suíte desconhecida: $requested" >&2
+    exit 2
+  fi
+  SUITES=("$requested")
+fi
 if [[ $# != 0 ]]; then
-  echo 'Uso: bash scripts/check-http.sh [--list]. Build e banco sintéticos exclusivos necessários.' >&2
-  exit 2
+  if [[ $# == 2 && "${1:-}" == --only ]]; then :; else
+    echo 'Uso: bash scripts/check-http.sh [--list | --only SUITE]. Build e banco sintéticos exclusivos necessários.' >&2
+    exit 2
+  fi
 fi
 if [[ "${BIBLIOTHEON_SYNTHETIC_TESTS:-}" != true ]]; then
   echo 'Confirme banco/ambiente descartáveis com BIBLIOTHEON_SYNTHETIC_TESTS=true; nunca usar em produção.' >&2
@@ -21,17 +40,21 @@ fi
 command -v setsid >/dev/null || { echo 'setsid não encontrado.' >&2; exit 1; }
 command -v curl >/dev/null || { echo 'curl não encontrado.' >&2; exit 1; }
 # Evita testar ou encerrar um servidor previamente iniciado por outra ferramenta.
-python3 - <<'PY'
+QA_PORT="$QA_PORT" python3 - <<'PY'
+import os
 import socket
 with socket.socket() as probe:
     try:
-        probe.bind(('127.0.0.1', 3000))
+        probe.bind(('127.0.0.1', int(os.environ['QA_PORT'])))
     except OSError:
-        raise SystemExit('Porta 3000 ocupada; servidor existente preservado.')
+        raise SystemExit(f"Porta {os.environ['QA_PORT']} ocupada; servidor existente preservado.")
 PY
-export PUBLIC_SITE_URL=http://127.0.0.1:3000
+export PUBLIC_SITE_URL="http://127.0.0.1:$QA_PORT"
 export TEST_BASE_URL="$PUBLIC_SITE_URL"
-export PORT=3000 APP_HOST=127.0.0.1
+export PORT="$QA_PORT" APP_HOST=127.0.0.1
+export CHECKOUT_ALLOWED_HOSTS_HOTMART=pay.example.invalid
+export CHECKOUT_ALLOWED_HOSTS_KIWIFY=pay.example.invalid
+export CHECKOUT_ALLOWED_HOSTS_CAKTO=pay.example.invalid
 export EMAIL_TRANSPORT_ENABLED=false LEADS_ENABLED=false COMMERCIAL_EVENTS_ENABLED=false
 export BREVO_CONTACT_SYNC_ENABLED=false BREVO_CONTACT_REGISTRATION_ENABLED=false
 export BREVO_LIST_SYNC_ENABLED=false BREVO_CAMPAIGN_SEND_ENABLED=false BREVO_CAMPAIGN_OBSERVE_ENABLED=false

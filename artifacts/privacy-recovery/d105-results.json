@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-27T00:58:36.691Z",
+  "environment": "PostgreSQL local sintético; histórico de restore simulado",
+  "checks": [
+    "pedido pending mantém identidade e envio incerto, mas bloqueia nova captura e confirmação",
+    "envio transacional, promoção e cadastro novo são barrados antes de transporte ou quota",
+    "auditoria pending de três anos preservada e manifesto v2 prefere pending a completed mais antigo, sem prazo automático",
+    "replay mantém pending sem excluir identidade nem fabricar conclusão; ausente também permanece bloqueado",
+    "repetição não duplica pending e a retenção não apaga sua conciliação aberta",
+    "auditoria pending bloqueia entrega mesmo sem globalSuppressedAt e sem decisão completed",
+    "somente resolução explícita muda pending para completed e inicia a retenção da decisão concluída"
+  ],
+  "checksPassed": 7,
+  "externalCalls": 0,
+  "physicalRestoreValidated": false,
+  "productionChanged": false
+}

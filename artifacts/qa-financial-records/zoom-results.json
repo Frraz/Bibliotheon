@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-25T15:18:16.385Z",
+  "status": "passed",
+  "checks": [
+    "Dois formulários e suas conferências em 320px/texto 200%, claro/escuro, valor máximo seguro e referências/IDs longos; nenhuma gravação."
+  ],
+  "captures": [
+    {
+      "name": "zoom-form-settlement-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-review-settlement-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-form-settlement-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-review-settlement-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-form-cost-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-review-cost-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-form-cost-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "zoom-review-cost-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Ledger owner local sintético. Sem homologação de fonte/conta, decisão financeira visual, zoom nativo 400%, imagem/restore final ou produção."
+}

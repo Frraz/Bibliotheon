@@ -24,12 +24,16 @@ try{
  assert.equal(await count('visits'),1);assert.equal(await count('page-views'),1)
  checks.push('Aceite explícito usa cookie __Host/HttpOnly/Secure; token não aparece no JSON. Visualização autenticada é deduplicada no servidor.')
  const checkout=`/comprar/${seed.offers[1].id}?c=${seed.campaign.code}`
- const linked=await fetch(origin+checkout,{headers:{Cookie:cookie},redirect:'manual'});assert.equal(linked.status,302);assert.equal(linked.headers.get('location'),seed.campaign.affiliateUrl)
+ const linked=await fetch(origin+checkout,{headers:{Cookie:cookie},redirect:'manual'});assert.equal(linked.status,302);const linkedURL=new URL(linked.headers.get('location')!),originalURL=new URL(seed.campaign.affiliateUrl!);assert.equal(linkedURL.origin+linkedURL.pathname,originalURL.origin+originalURL.pathname);assert.equal(linkedURL.searchParams.get('affiliate'),originalURL.searchParams.get('affiliate'));assert.equal(linkedURL.searchParams.get('signature'),originalURL.searchParams.get('signature'));assert.match(linkedURL.searchParams.get('sck')||'',/^[a-f0-9-]{36}$/)
  const unlinked=await fetch(origin+checkout,{redirect:'manual'});assert.equal(unlinked.status,302);assert.equal(unlinked.headers.get('location'),seed.campaign.affiliateUrl)
  assert.equal((await fetch(origin+checkout,{method:'HEAD',redirect:'manual'})).status,302)
  assert.equal((await fetch(origin+checkout,{headers:{'Sec-Purpose':'prefetch'},redirect:'manual'})).status,302)
  const clicks=(await payload.find({collection:'checkout-clicks',depth:0,overrideAccess:true})).docs;assert.equal(clicks.length,2);assert.equal(clicks.filter(v=>v.attributionAllowed&&v.visit).length,1);assert.equal(clicks.filter(v=>!v.attributionAllowed&&!v.visit).length,1)
- checks.push('Redirecionamento HTTP mantém URL afiliada exatamente e separa saída operacional de saída consentida; nenhum clickId é acrescentado ao provedor.')
+ const attributedClick=(await payload.find({collection:'checkout-clicks',where:{attributionAllowed:{equals:true}},limit:1,depth:0,overrideAccess:true})).docs[0];assert.equal(linkedURL.searchParams.get('sck'),attributedClick.id)
+ const operatorURL=new URL(seed.campaign.affiliateUrl!);operatorURL.searchParams.set('sck','operator-reference-preserved');await payload.update({collection:'campaigns',id:seed.campaign.id,...seed.auth,data:{affiliateUrl:operatorURL.toString()}})
+ const preserved=await fetch(origin+checkout,{headers:{Cookie:cookie},redirect:'manual'});assert.equal(preserved.status,302);assert.equal(new URL(preserved.headers.get('location')!).toString(),operatorURL.toString())
+ const withoutConsent=await fetch(origin+checkout,{redirect:'manual'});assert.equal(new URL(withoutConsent.headers.get('location')!).searchParams.get('sck'),'operator-reference-preserved')
+ checks.push('sck UUID da saída consentida acompanha checkout sem substituir referência preexistente; sem consentimento o site não acrescenta identificador próprio.')
  assert.equal((await post('/api/v1/analytics-consent',{choice:'reject'},cookie)).status,200)
  await post('/api/v1/events',{...event,eventId:randomUUID()},cookie);assert.equal(await count('page-views'),1)
  for(const collection of ['analytics-grants','visits','page-views','checkout-clicks','analytics-limits'])assert.equal((await fetch(origin+`/api/${collection}`)).status,403)
@@ -46,4 +50,4 @@ try{
  checks.push('Fallback de formulário nativo revoga sem JavaScript e só redireciona para privacidade; parâmetros duplicados são recusados.')
 
 }finally{await seed.cleanup()}
-await mkdir('artifacts/analytics',{recursive:true});await writeFile('artifacts/analytics/http-results.json',JSON.stringify({date:new Date().toISOString(),origin,checks,externalCalls:false,limits:'HTTP loopback e dados sintéticos; checkout externo não foi seguido.'},null,2)+'\n');console.log(`Analytics HTTP: ${checks.length} grupos aprovados; fixtures limpas.`);process.exit(0)
+await mkdir('artifacts/attribution',{recursive:true});await writeFile('artifacts/attribution/analytics-http-d88.json',JSON.stringify({date:new Date().toISOString(),origin,checks,externalCalls:false,limits:'HTTP loopback e dados sintéticos; checkout externo não foi seguido.'},null,2)+'\n');console.log(`Analytics HTTP: ${checks.length} grupos aprovados; fixtures limpas.`);process.exit(0)

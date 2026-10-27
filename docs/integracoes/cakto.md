@@ -77,3 +77,17 @@ npm test cobre assinatura/janela/versões, números, datas, status, V2 e descart
 Evento oficial de teste tem forma fixa diferente da entrega real: inclui todos os meios de pagamento, subscription mesmo sem recorrência e omite campos. O adaptador preserva a assinatura como requisito, mas pode manter esse shape para revisão. Não afrouxar regras financeiras para fazer teste de conectividade parecer venda. Confirmar assinatura/headers do teste na conta antes de ativar; não enviar dados reais para capturadores públicos.
 
 Pendente na conta: assinatura/timestamp/rotação, V1/V2 entregues, ids/total/taxas/moeda comparados ao relatório, datas e status de reembolso/chargeback/MED, política de falha/reenvio, atribuição por callback e URL afiliada. Campo oficialmente documentado não equivale a atribuição homologada; externalClickReference continua null. Sem homologação e conciliação, R14/B10 permanece parcial e projeto completo não está pronto para produção.
+
+## Continuidade da conciliação local — D80
+
+Os contratos nativos e as datas de fonte acima permanecem os desta integração. Posteriormente, associação/decisão financeira auditadas, evidência complementar/CSV e ledger foram acrescentados localmente; D80 permite a importação canônica no painel. Esses fluxos não autenticam exportação nativa, não inventam dados ausentes e não concluem a homologação desta conta. Casos suportados e limites estão no [contrato de conciliação](../24-conciliacao.md) e no [estado vigente](../23-estado-atual.md); H01 continua necessário.
+
+## Aditivo P06 — referência de clique consentido (D87)
+
+A central oficial Cakto lista `sck` entre os parâmetros aceitos no checkout e informa que rastreio é conservado para a compra; o contrato técnico atual documenta os campos do webhook, mas a lista de campos rastreados deve ser conferida no evento efetivo da conta. A aplicação passa somente uma UUID local em `sck`, em saída de campanha com consentimento, sem sobrescrever valor preexistente. O adaptador aceita apenas UUID de `data.sck`; o relatório exige registro interno correspondente, provedor/conta/oferta/livro e janela de 30 dias. Essa evidência local não comprova que o campo chega em todos os meios, links afiliados ou entregas reais. Homologação H01 permanece obrigatória.
+
+Fontes públicas consultadas em 25/10/2026: [parâmetros de rastreamento no checkout](https://ajuda.cakto.com.br/pt-br/articles/54-como-passar-parametros-de-rastreamento-na-url-do-checkout-src-utm-tags-entre-outros), [guia técnico de webhooks](https://docs.cakto.com.br/conceitos/webhooks) e [API para desenvolvedores](https://docs.cakto.com.br/). [Auditoria P06 D87](../../artifacts/attribution/p06-audit-d87.json).
+
+## Callback atribuído por HTTP sintético — D88
+
+Fixture loopback com `data.sck` passou pelo endpoint, inbox, projeção e relatório; replay não duplicou fato. Esse campo no webhook foi construído sinteticamente, não confirmado no payload/documentação consultável da conta. O teste confirma somente o código local; H01 deve verificar presença/estabilidade do campo em cada conta e meio de pagamento. [Resultado D88](../../artifacts/attribution/cakto-http-d88.json).

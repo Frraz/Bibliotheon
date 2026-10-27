@@ -1,0 +1,61 @@
+{
+  "phase": "D107",
+  "date": "2026-10-26T11:10:58.130196+00:00",
+  "imageID": "sha256:d3dbf0b6cacfb292cf172c3bc6206a55d21c8dd83a5d1d17fe80ff4d0a38a8d3",
+  "checks": {
+    "dockerBuild": "passed",
+    "emptyAndUpgradeImageQA": "passed",
+    "previousMigrations": 6,
+    "currentMigrations": 32,
+    "idleHeartbeatInBothScenarios": "passed",
+    "fiveImageBundlesMatchLocal": "passed",
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 288,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1252,
+      "updated": 16,
+      "retained": 33
+    }
+  },
+  "sourceSHA256": {
+    "Dockerfile": "c5f97492a6151342489b5ab9a8e1a564ff91f1b4d026bde06acd0b0772b0e443",
+    "compose.production.yaml": "721182a08342ea0053402b828b754f32fdd2cd563bbb95a3e2c5e9e7d97ab493",
+    "scripts/qa-container.py": "4cdc34e9f5dc7aa16f61d9a0b7012f061378c99165c5865a512aef2df959c2ee",
+    "scripts/build-runtime.mjs": "19bd7dd3d5e936b48f00e8eead92b93e51c1d81e4986980312f0a04761fb5cae",
+    "migrations/index.ts": "a3ea52bfb7cb6f131cb2db6892d42e0b0bfb61765cf2f848484cbce9299fcafc",
+    "src/payload.config.ts": "f6e0fc8551448269c6a938ea96579287af808879b69c6d10dd75f196c776db84",
+    "pnpm-lock.yaml": "09ee6a6e507e11e19e75ba366f7f9d92e414b8d8cce5fd02465a98c1d120ba2f",
+    "scripts/privacy-inventory.ts": "f37d850ef54869181294efb303d5f22ddcab96b2c6ffd93aec3a56216572231a",
+    "scripts/privacy-retention.ts": "93cd69698a1c7228e47e49b34e2b2ce36249a69f13d91bcbd058cd3876f98cfe",
+    "scripts/analytics-retention.ts": "cc703ce7506b953608348995e8e9c9c369c118a67758aca244fd11a638ecc2c8",
+    "scripts/worker.ts": "d055f929bf9e0005dec61fdf637ee8f0fd9dbfa649936695699092454d60c343"
+  },
+  "packagedCLISHA256": {
+    "privacy-inventory": "5202164629a1c5701413207a31d1d1bdc8966492834035c89b2c24bae7363e28",
+    "privacy-retention": "1562b40413c7df23d1eaffbb7e64a84bbe75196c57b5e6931586dc5f3888a824",
+    "analytics-retention": "2defc7ba180950f1e4042493579d9822dac40ada4d9b694935056b6ea7efc6e9",
+    "privacy-recovery": "5ecf355f90f58f5be4ac8b301f5b5743b5678e7d05392eb1f8d9692b6eed0617",
+    "worker": "361b8882c8be39df74c9ba7043a2ec80e60b446b55c3e9b507e9c43673192bbe"
+  },
+  "limitations": [
+    "HTTP testado dentro do container; proxy/TLS/VPS nao homologados.",
+    "Replay na imagem usou manifesto vazio; restore fisico/replay com decisoes nesta imagem permanece aberto.",
+    "H03 requer bateria funcional integral; H04 requer destino externo e RPO/RTO reais.",
+    "H06 conserva aviso pg/Drizzle e avisos historicos de lint."
+  ],
+  "productionChanged": false,
+  "cleanup": {
+    "qaContainersRemaining": 0,
+    "qaVolumesRemaining": 0,
+    "verifiedByDocker": true
+  }
+}

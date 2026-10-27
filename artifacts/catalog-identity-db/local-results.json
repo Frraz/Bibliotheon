@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25T00:25:21.834Z",
+  "checks": [
+    "Migração up/down em banco sem ofertas e rollback transacional preservam a proteção; sem reescrever dados.",
+    "Papel runtime sem ownership/DDL não desativa trigger. SQL direto bloqueia duplicatas null/vazio, update conflitante, livro nulo e duplicação no mesmo INSERT com rollback integral; permite ofertas distintas e namespaces de Hotmart/Kiwify/Cakto/contas. Isolamento de snapshot fixo recusado explicitamente.",
+    "SQL concorrente observado em pg_locks: commit do primeiro faz segundo recusar com snapshot renovado; rollback permite segundo gravar. Um único registro após cada cenário.",
+    "SQL e API disputam a mesma barreira de conta; a API recusa associação divergente após commit SQL. Chave com aspas/barra/Unicode mantém compatibilidade JSON dos locks.",
+    "SQL não troca identidade nem apaga oferta com histórico; metadados permanecem editáveis e a transação original fica byte a byte preservada.",
+    "Upgrade sobre duplicatas legadas não reescreve ofertas; metadados legados editáveis, novas ambiguidades bloqueadas. Downgrade com ofertas recusa remoção silenciosa da proteção."
+  ],
+  "externalCalls": false,
+  "migrations": 22,
+  "limits": "PostgreSQL local/sintético com papel runtime efêmero; sem container/restore/HTTP/browser, resolução histórica auditada ou homologação externa."
+}

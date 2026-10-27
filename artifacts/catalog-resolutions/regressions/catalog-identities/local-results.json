@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-25T00:59:09.807Z",
+  "checks": [
+    "API local nega anônimo; identidade exata inclusive vazio/null e produto de outro livro são recusados mesmo inativos. Ofertas distintas do mesmo livro permanecem permitidas; update recusado preserva original.",
+    "Provedor e conta isolam namespaces; metadados continuam editáveis e os três provedores permanecem no escopo.",
+    "Criações e alterações concorrentes para a mesma identidade têm um único vencedor sob locks transacionais; nenhuma segunda oferta fica gravada.",
+    "Rollback remove a escrita e libera locks para nova tentativa. Ambiguidade legada sintética conserva identidades/metadados, bloqueando novas associações; correção histórica auditada ainda pendente."
+  ],
+  "externalCalls": false,
+  "limits": "Guard da API Payload sob locks; SQL administrativo direto não é coberto. Sem migration/constraint nova, resolução auditada histórica, HTTP/browser ou homologação externa."
+}

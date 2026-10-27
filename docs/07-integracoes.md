@@ -2,7 +2,7 @@
 
 [Índice](../README.md) · [Hotmart](integracoes/hotmart.md) · [Kiwify](integracoes/kiwify.md) · [Cakto](integracoes/cakto.md)
 
-**Estado em 24/10/2026:** ofertas e campanhas podem ser cadastradas para as três plataformas; redirects/medição consentida possuem testes locais. Relacionamento Brevo tem fluxos locais D48–D58, sem conta homologada. D60 implementa contrato/projeção e D61 acrescenta inbox/processador/histórico/auditoria privados locais. D63 acrescenta adaptador/endpoint Hotmart v2 local, desligado e sem conta homologada. D64 acrescenta adaptador/endpoint Kiwify local com HMAC-SHA1, desligado e sem homologação. D65 acrescenta Cakto V1/V2 local com assinatura e recepção atômica, desligado e sem homologação. Atribuição de compra, liquidação e conciliação financeira seguem pendentes. Ver [estado atual](23-estado-atual.md), [D60](17-decisoes.md) e [contrato Brevo](integracoes/brevo.md).
+**Estado em 25/10/2026, D81:** ofertas/campanhas, redirects e medição consentida possuem testes locais. Relacionamento Brevo tem fluxos locais D48–D58; inbox/processador/histórico/auditoria comerciais existem em D60–D61. Hotmart v2 D63, Kiwify D64 e Cakto V1/V2 D65 têm adaptadores/endpoints locais, desligados e sem conta homologada. Conciliação inclui associação/decisão auditadas, CSVs canônicos de snapshot/evidência, ledger de liquidação/custos, prévia financeira, importação e registro/correção de liquidações/custos pelo painel. P03/P04/P05 continuam parciais; atribuição, cobertura/rotina integral e homologação das contas permanecem pendentes. Ver [estado atual](23-estado-atual.md), [contrato canônico](24-conciliacao.md) e [Brevo](integracoes/brevo.md).
 
 ## Separar oferta de integração
 
@@ -69,3 +69,23 @@ Primeira etapa de B11 implementa prévia owner, provisória e somente de leitura
 ## Confirmação CSV para inbox — D67
 
 Lotes/linhas/fonte/autor/justificativa são duráveis; confirmação auditada revalida catálogo/projeção/inbox sob barreira por conta. Só candidatos permitidos geram recibo csv-owner-snapshot-v1; compatíveis não geram fato. CSV não é HMAC do fornecedor e confirmação não é aplicação/liquidação. Worker existente processa separadamente, desligado por padrão. Conflitos/recebimento/reversão insuficiente permanecem bloqueados. [Contrato](24-conciliacao.md). Sem layout nativo inferido ou conta consultada.
+
+D82 acrescenta interface local de associação/bloqueio do catálogo para os três namespaces de provedor, sem autenticação/eventos/conectores novos. Atestação owner não autentica relatório externo nem conclui homologação. Resolução financeira visual e cobertura integral permanecem pendentes.
+
+D83 permite resolver por UI fontes já persistidas dos três namespaces e evidências canônicas D75–D77. Não altera autenticação/eventos/adaptadores nem adivinha relatório nativo. Seleção de prova substituta exige exclusão da fonte substituída. Uma decisão aplicada localmente não homologa fornecedor, atribui compra a campanha ou comprova liquidação.
+
+D84 calcula taxa/idade de coorte a partir das provas internas sem adivinhar janelas de reembolso/chargeback dos provedores. windowVerified=false permanece explícito; idade observada não homologa maturidade nem fonte/conta. Nenhuma autenticação/evento/adaptador foi alterado.
+
+D85 mostra processamento a partir de lastSuccessAt já escrito pela inbox e pela aplicação financeira. Não usa data de consulta, evento, recebimento ou custo como prova de sucesso. Dados são da população consultada; não homologam conectores, saúde atual da conta nem atribuição P06. Referência de clique sem validação permanece sem campanha comprovada.
+
+D86 verifica localmente sete estados canônicos para cada provedor, sem interpretar exportação nativa ou autenticar um relatório do fornecedor. CSV complementar registra prova; decisão financeira aplica; liquidação comprovada usa trilha própria. Aceite P03/P05 é local e não ativa flags, envia e-mail ou homologa conta. Atribuição P06 continua exigindo contrato oficial atual e prova suportada, sem inferência.
+
+## Referência de saída consentida — D87
+
+O redirecionador pode anexar `sck=<UUID do registro checkout-clicks>` somente para campanha ativa com consentimento válido e URL sem `sck` preexistente. As centrais atuais dos três provedores aceitam `sck` em links de checkout; Hotmart V2 documenta `purchase.origin.sck`. Kiwify usa `TrackingParameters.sck` nas fixtures locais, mas o documento técnico direto não abriu nesta rodada; Cakto documenta parâmetros no checkout, porém a presença no payload real também depende de H01. Assim, os adaptadores extraem exclusivamente UUID; homologação separada confirma preservação e entrega em cada conta.
+
+No relatório, referência só vale se apontar para saída consentida e coincidir com provedor, conta da oferta, oferta/livro e aprovação dentro da janela de 30 dias, sem revisão. O valor de campanha não é derivado de UTM livre, pessoa, preço ou momento. Referência ausente/inválida não recebe correspondência retrospectiva. [Pesquisa oficial e evidência](16-referencias.md#revalidação-de-rastreamento-de-vendas--25102026-d87) e [auditoria](../artifacts/attribution/p06-audit-d87.json).
+
+## Jornada HTTP local dos callbacks — D88
+
+Os testes loopback ligaram `sck` da saída consentida às rotas Hotmart, Kiwify e Cakto, à projeção financeira e ao relatório. Hotmart incluiu replay, UUID de outro contexto, texto livre e referência ausente; só a referência/contexto correspondente gera atribuição. Kiwify `TrackingParameters.sck` e Cakto `data.sck` passaram em payloads sintéticos construídos a partir dos adaptadores; isso não verifica o payload que as contas reais entregam. Reversões sem cobertura mantêm receita null. [Auditoria e resultados](../artifacts/attribution/p06-audit-d88.json). H01 por provedor segue obrigatório; nenhuma integração foi habilitada em conta.

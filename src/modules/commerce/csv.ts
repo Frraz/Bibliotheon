@@ -10,10 +10,10 @@ export type CommercialCSVRow={
 }
 export type CSVLine={line:number;ok:true;row:CommercialCSVRow;key:string;digest:string}|{line:number;ok:false;code:'column_count'|'invalid_provider'|'invalid_identity'|'invalid_status'|'invalid_time'|'invalid_currency'|'invalid_money'}
 /** RFC 4180 quoting; no trimming, delimiter guessing or raw input in diagnostics. */
-function records(text:string):string[][]{
+export function parseCSVRecords(text:string,maxColumns:number):string[][]{
  const rows:string[][]=[];let row:string[]=[],field='',state:'start'|'plain'|'quoted'|'closed'='start'
  const append=(value:string)=>{field+=value;if(field.length>512)throw new CommercialCSVError('field_too_long',rows.length+1)}
- const finish=()=>{if(row.length<=commercialCSVHeaders.length)row.push(field);field='';state='start'}
+ const finish=()=>{if(row.length<=maxColumns)row.push(field);field='';state='start'}
  const record=()=>{finish();rows.push(row);row=[];if(rows.length>CSV_MAX_ROWS+1)throw new CommercialCSVError('too_many_rows')}
  for(let i=0;i<text.length;i++){
   const char=text[i]
@@ -64,7 +64,7 @@ export function parseCommercialCSV(bytes:Uint8Array){
  if(bytes.byteLength>CSV_MAX_BYTES)throw new CommercialCSVError('too_large')
  let text:string
  try{text=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(bytes).replace(/^\uFEFF/,'')}catch{throw new CommercialCSVError('invalid_utf8')}
- const rows=records(text),header=rows.shift()
+ const rows=parseCSVRecords(text,commercialCSVHeaders.length),header=rows.shift()
  if(!header||header.length!==commercialCSVHeaders.length||header.some((value,index)=>value!==commercialCSVHeaders[index]))throw new CommercialCSVError('invalid_header')
  if(!rows.length)throw new CommercialCSVError('empty_file')
  return{fileHash:createHash('sha256').update(bytes).digest('hex'),lines:rows.map((values,index)=>normalize(values,index+2))}

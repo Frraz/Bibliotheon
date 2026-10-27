@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-25T12:17:29.463026+00:00",
+  "phase": "D80",
+  "scope": "UI owner dos dois CSVs canônicos e revisão documental integral; P03/P04/P05 continuam parciais",
+  "checks": {
+    "isolatedBuild": "passed",
+    "buildDirectory": ".next-qa",
+    "buildID": "POy_psHGhfrOtxydOjCR5",
+    "typecheck": "passed in final isolated build",
+    "lint": "passed with 2 historical warnings",
+    "browserGroups": 8,
+    "captures": 24,
+    "axeRuns": 23,
+    "browser": "passed",
+    "externalRequests": 0,
+    "runtimeErrors": [],
+    "fixturesCleaned": true,
+    "documentation": "passed; 49 documents, 910 local links, 34 requirements, 20 tasks, 29 scenarios",
+    "unitTests": 225,
+    "unitFiles": 30,
+    "operationalTests": 61,
+    "documentationGuardTests": 2,
+    "diffWhitespace": "passed",
+    "enlargedText": "passed; proportional line-height, no cramped computed line-height, final screenshot inspected",
+    "qaServerStopped": true
+  },
+  "database": {
+    "migrations": 28,
+    "localStopped": true,
+    "volumePreserved": true
+  },
+  "knownWarnings": [
+    "Dois avisos históricos de lint em migrations/20261021_233105_sequences.ts",
+    "Aviso pg/Drizzle de query concorrente reapareceu no QA; H06 continua aberto"
+  ],
+  "sourceSHA256": {
+    "src/components/admin/CommercialImportActions.tsx": "476882c99455b3a6bdeb1a01d082792c122a70ffabd3328f21a337558cfef684",
+    "src/components/admin/CommercialImportsView.tsx": "57e6a4afa1b2f4abd8d4acbea4baaf32f6273a4e9d68a9eebc78e516d5e0e783",
+    "src/modules/commerce/import-presentation.ts": "2e15ddb7cd96d8ddfa0b4b91705a0f1ee5a0ad359aa5034f4e873f1b99ee8e67",
+    "src/components/admin/Dashboard.tsx": "a84499462c00a9bbd635a13807c3b57f4eb6d82b9f78a23f72608f637e6fca6f",
+    "src/payload.config.ts": "38369fcbb8c01ec6eb00959a68a2e28d906b7649a7e825d4b50d79527f4a574d",
+    "src/app/(payload)/admin/importMap.js": "d9a7e7227030ce8c91e7521a7cbc9cda5851ae5c82ac12bda476e13fe0f9cc7a",
+    "src/styles/admin.css": "388be81087e240b2319c6f6623ff29f6de011a38d1e976770461644a9f3fee47",
+    "scripts/check-qa-admin.sh": "38187386f4c07b2e0d8ee2c30db04ab654c960a0c2ee08206332729e21f353ee",
+    "scripts/check-qa-financial-ledger.sh": "1b2f7f3594c7e6c92b05f93f8d52535a018b38707febb1ad22263f8cd70077bf",
+    "scripts/qa-commercial-imports.ts": "f4c8d71d562a41710ae56a8d5ef54ff5b407f7d86c60025d1d9fef5f5c3839f6",
+    "scripts/validar_documentacao.py": "977a6e14c90e5d3debfebe91114ac490572cbe36b1e5ef3d83c2660da6f64e01",
+    "tests/ops/test_documentation.py": "f29af43a1914622df31315d6cb19b193a3c83c29c7718e5d8ac3897352a1788f",
+    "package.json": "98ee82187ebe7add6b70a12ddedd27837b948fba0d341c63ec0fd2f2d27330e3"
+  },
+  "limits": [
+    "Fixtures/HTTP/browser locais sintéticos; sem conta/layout nativo homologado",
+    "Resolução auditada e registro de liquidação/custos pela UI ainda pendentes",
+    "Sem imagem final/banco vazio/upgrade/restore, zoom nativo 400% ou matriz B20 integral",
+    "Sem GitHub, VPS, compra, mensagem ou operação externa"
+  ],
+  "status": "passed_local_phase",
+  "visualReview": [
+    "ready-light-390.png",
+    "confirmed-light-320.png",
+    "confirmed-dark-1440.png",
+    "text-200-dark-320.png"
+  ]
+}

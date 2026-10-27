@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-25T17:41:20.536Z",
+  "status": "passed",
+  "checks": [
+    "Todas as cinco views operacionais recusam acesso anônimo.",
+    "CSV de sete estados passa por prévia/stage/commit sem fabricar transação; retomada não confirma novamente e catálogo desconhecido impede aplicação.",
+    "Associação auditada por livro libera nova conferência; sete decisões pela UI preservam estados/valores/null e livro efetivo, sem aplicação automática ou fato nativo.",
+    "Liquidação de pendente é recusada sem gravação; pagamento aprovado aceita caixa separado e custo manual vinculado, ambos com conferência explícita.",
+    "Relatório soma aprovações sem confundir com caixa/custo/margem ou atribuição; reimportação idêntica preserva sete provas/transações/decisões e um movimento.",
+    "Resultado integrado consultável nos dois temas e sem JS; sem runtime, overflow da página ou requisições externas. Matriz B20/global permanece separada."
+  ],
+  "captures": [
+    {
+      "name": "report-preview-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-stage-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-confirmed-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog-blocked-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog-review-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-pending-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-approved-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-refused-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-canceled-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-partially_refunded-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-refunded-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-chargeback-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "unapproved-cash-rejected-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "settlement-review-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "cost-review-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-book-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-campaign-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "replayed-batch-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "import-batch-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "financial-decision-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-book-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-integrated-report-390",
+      "theme": "light",
+      "width": 390,
+      "axe": false,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Aceite operacional local sintético. Sem fonte/exportação nativa homologada, atribuição P06, matriz B20 integral/zoom nativo 400%, imagem/restore, GitHub ou VPS."
+}

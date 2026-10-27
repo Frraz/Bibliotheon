@@ -1,0 +1,112 @@
+{
+  "phase": "D112",
+  "date": "2026-10-27T00:29:45.936925+00:00",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 293,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "lintWarnings": 0
+    },
+    "thematicRetention": {
+      "status": "passed",
+      "groups": 8
+    },
+    "preferencesRegression": {
+      "status": "passed",
+      "groups": 9
+    },
+    "privacyRetentionRegression": {
+      "status": "passed",
+      "checks": 18
+    },
+    "recoveryRegression": {
+      "status": "passed",
+      "groups": 6
+    },
+    "pendingRecoveryRegression": {
+      "status": "passed",
+      "groups": 7
+    },
+    "identityRetentionRegression": {
+      "status": "passed",
+      "groups": 12
+    },
+    "marketingRetentionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "inventoryRegression": "passed",
+    "finalTypecheckAndFocusedLint": "passed",
+    "pythonHarnessSyntax": "passed",
+    "git diff --check": "passed",
+    "physicalHostRestoreV4": "passed",
+    "npm run build": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1338,
+      "updated": 20,
+      "retained": 29
+    }
+  },
+  "schemaMigrations": 34,
+  "sourceSHA256": {
+    "src/collections/Relationship.ts": "a8c1b000a7aa20dd76ebd4deb4114f19a95d75492984439492e7e7da7f12c39d",
+    "src/payload-types.ts": "becfa2ea2a3587b3fed4ba9c56c4240dc35be25cacabd5737b4390f9bf73d133",
+    "src/modules/marketing/theme-withdrawal.ts": "02df22f3bcca91984fae6b0e392bccd18e5c236d7d9de5be076c75af0b2707ab",
+    "src/modules/marketing/privacy-theme-retention.ts": "ca7629a854b2715a6da62eab20ff0eb220b3175eba34f701df1d8232b5f9e4b1",
+    "src/modules/marketing/privacy-recovery-manifest.ts": "4379bb9da0c28e8c06f431f39d78c9591576da36d4d6a18c0905c3fa6d850909",
+    "src/modules/marketing/privacy-recovery.ts": "a8935ee5764274125f53a32dea0e4aadf33590b3b6e9ca947034fded3e05489d",
+    "src/modules/marketing/preferences.ts": "790a8babda5855de4963a4016f332136a3e888f6a9e0c41f4d18b52c053b641b",
+    "src/modules/marketing/service.ts": "44993ae2c2db5246aafb88d64ecceb64c067cb7f5a0a338eaab722a4c086e45b",
+    "src/modules/marketing/privacy-retention.ts": "270fb56938b10e8c6d917ddd1deb6202b3341617974f802814a30fff917fddef",
+    "src/modules/marketing/privacy-inventory.ts": "30aec2b48601fe9f82a1466f606a14e94e146a615dc4067231faac20dec2200d",
+    "src/modules/marketing/privacy-export.ts": "a9383fd0d4a0314cb33b9dc856d52917e0d219cea7fade0e00b58235d46bfffc",
+    "scripts/worker.ts": "9c9bbd35d2bcfd7da8b681a3e697389192d385772f9184143a2c803889acb09c",
+    "scripts/qa-recovery.ts": "71324bcbfd48ceb815942488d036f011b7554f0360a36b3bd3cc23330f3cd006",
+    "scripts/qa-container.py": "8d0989d28460f70486bdaf9577e388a746de7af1d7c9913d91f1a7e2bf48fb04",
+    "scripts/check-integration.sh": "0675d5b1c0e66ff39fbb869ae0b45039240eff360b861c82fa3fc6e56910e64f",
+    "tests/integration/privacy-theme-retention.ts": "24e1c4ec70f171da25a37186b09e599f8e1aeca2ad5303543eba998bc362ccd0",
+    "tests/integration/privacy-identity-retention.ts": "710d2a426d5ca428c710e7fabc6f929f437027b4423d5d03aa391aa56b3f7f69",
+    "tests/integration/privacy-retention.ts": "e7fec01b985a7581c8729c40c4965a01d2c6c218e5e6a6cd84e29f02044041c8",
+    "tests/integration/access.ts": "85358ff21ba5cbf44d227ef08cd9ea46d5b9d5b89cefc71eaae3e8081456d563",
+    "tests/integration/marketing.ts": "86829a63413effb0145c6452e92a6c3a4df50350c63b640f1cd3141fd721b0a6",
+    "tests/fixtures/relationship.ts": "6bdc935b4a95634cfc6b8371f9ff5821fdb85a4d44f2f58934912d5d4f31cc65",
+    "tests/unit/privacy-recovery-manifest.test.ts": "fcca5fdc749d102a07c45bd2ae0b5ed85141c4276b0a12114d83a626197877fb",
+    "migrations/20261027_001515_theme_withdrawals.ts": "0c0de5e7cc4a76c94f9aa13b1f31577a66755c5ae0db322e6391884b961e4195",
+    "migrations/20261027_001515_theme_withdrawals.json": "533b78d0dce31bb70f1e676273b730bf0176d77c23e83302e38461de8d200768",
+    "migrations/index.ts": "5ce44e92bebb0da72cf2bd68c06630ed5e74f2ccebfdbb698b441bb603ae0268",
+    "package.json": "4243422c313d6bf6483737d3b6fbf8471904c616545a8452bc2bcdf18edf2cb8"
+  },
+  "applicationImageValidated": false,
+  "externalBackupVerified": false,
+  "providerReconciliationImplemented": false,
+  "productionChanged": false,
+  "limitations": [
+    "P07 permanece parcial: legado sem fato verificavel, contatos ativos, demais finalidades, compartilhamentos, provedor e ledger.",
+    "Imagem final, homologacoes, guarda externa atual e RPO/RTO reais permanecem pendentes.",
+    "Replay preserva consentimento posterior presente no snapshot; nao recria um opt-in perdido apos o backup.",
+    "Meta maxima de 30 dias ainda exige alinhamento entre cutoff e agendamento diario."
+  ],
+  "physicalRestoreValidated": true,
+  "buildID": "M-nlLnK4WosF4psKnpQQI",
+  "packagedCLISHA256": {
+    "privacy-retention": "63a365060e1bf03f25cb40e65ad4d210ae93fff4992eea673ffecbbdb363e6e5",
+    "privacy-recovery": "ac2a84ca9d1b613aa559e45d3eaa0e43f5cf05c24b8340204c2ab9ece42824d9",
+    "privacy-inventory": "e27fbeebb1e5bf3f72efaff6586a5938f33ade5f27a98b03a74438840db36252",
+    "worker": "17c041cc525dfe83971b7f2eca597be2e0586b2a317ff2bb0383d9711b8fc27d"
+  },
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourcePrivacyAudits": 0,
+    "sourceThemeWithdrawals": 0,
+    "sourceSubscriptions": 0,
+    "sourceEnrollments": 0,
+    "sourcePromotions": 0,
+    "localDatabaseStopped": true
+  }
+}

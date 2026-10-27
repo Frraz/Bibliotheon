@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "Next standalone e PostgreSQL local sintético; dados fictícios",
+  "checks": [
+    "owner obrigatório",
+    "origem exata e confirmação explícita",
+    "no-store/no-referrer sem eco de email",
+    "conclusão repetida sem falha",
+    "estado uncertain retorna pending e preserva contato"
+  ],
+  "externalCalls": false,
+  "messagesSent": 0
+}

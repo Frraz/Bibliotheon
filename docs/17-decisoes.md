@@ -2,7 +2,7 @@
 
 [Índice](../README.md)
 
-As decisões iniciais e visuais são de 20/10/2026; a seção de implementação registra a evolução autorizada de 20–22/10/2026. Alterações futuras devem registrar motivo, impacto, migração e evidência; não apagar a decisão anterior. Estado vigente no [mapa de implementação](23-estado-atual.md); o limite documental D16 foi sucedido por D23.
+As decisões iniciais e visuais são de 20/10/2026; a seção de implementação registra a evolução autorizada a partir de 20/10/2026. Alterações futuras devem registrar motivo, impacto, migração e evidência; não apagar a decisão anterior. Estado vigente no [mapa de implementação](23-estado-atual.md); o limite documental D16 foi sucedido por D23.
 
 | ID | Decisão | Justificativa / consequência |
 |---|---|---|
@@ -270,3 +270,133 @@ Barreira PostgreSQL por provedor/conta precede demais locks no estágio/commit, 
 A pedido do proprietário, retirar o alias altualizar.sh criado em D46 e manter somente atualizar.sh; o fluxo de backup/migrations/saúde permanece no orquestrador existente. start.sh/stop.sh atendem desenvolvimento Linux, com implementação comum e identidade de processo; não controlam produção nem adotam uma prévia existente. Runners de CI reutilizáveis preservam execução sequencial e exigem confirmação de ambiente descartável. Node compartilhado em .nvmrc mantém o patch já aceito. Mudança operacional, sem alteração da arquitetura comercial ou ativação externa.
 
 Referências oficiais consultadas para o workflow: [sintaxe de workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) e [setup-node](https://github.com/actions/setup-node). Ações/dependências existentes não foram atualizadas de versão nesta manutenção.
+
+
+## Continuidade operacional — D68–D77
+
+As decisões abaixo são conferidas nos serviços/coleções atuais e nas evidências cronológicas de [progresso](14-progresso.md). Implementação/teste local não significa homologação externa.
+
+| ID | Decisão | Justificativa / consequência |
+|---|---|---|
+| D68 | Separar estado vigente e histórico de execução | Pendências e mapa de requisitos não podem ser concluídos por um relatório antigo |
+| D69 | Um atualizador e controle local por identidade de processo | Alias com grafia incorreta retirado; wrappers preservam processos alheios e CI usa fixtures sequenciais |
+| D70 | Impedir novas identidades de catálogo duplicadas pela API | Legados ambíguos precisam de correção auditada, sem duplicar cadastro para contornar vínculo incorreto |
+| D71 | Reforçar identidade e integridade do catálogo no SQL | Migração 22 protege caminhos que não passam pelo formulário; não elimina ambiguidades históricas por exclusão |
+| D72 | Associação histórica imutável por provedor/conta/produto/oferta | Migração 23 e trilha associate/hold; escolha por oferta ou livro, revisão/fonte/autoria, sem reescrever fatos originais |
+| D73 | Conferir o componente inteiro de evidências relacionadas | Migração 24 e prévia somente leitura; IDs secundários/colisões não podem ser decididos em componentes independentes |
+| D74 | Decisão e aplicação financeira atômicas e imutáveis | Migração 25, projeção efetiva separada e cobertura revisada pelo worker/CSV; fonte nova conflitante reabre revisão |
+| D75 | Evidência complementar canônica atestada pelo owner | Migração 26; fonte/linha e substituições explícitas; não autentica relatório do provedor nem fabrica webhook nativo |
+| D76 | Lote JSON canônico limitado e atômico | Até 20 evidências, rollback integral, deduplicação por linha; nenhuma inferência de layout de fornecedor |
+| D77 | CSV de evidência separado do snapshot | Migração 27; 18 colunas, preview/stage/commit revalidado; snapshot de 13 colunas mantém sua semântica |
+
+## Livro de liquidação, custos e prévia financeira — D78 (25/10/2026)
+
+Liquidação é um movimento de caixa comprovado, com crédito/débito, alocado explicitamente pelo owner a uma transação já aprovada e na mesma moeda. Não se infere a partir do bruto ou do líquido informado, e não se cria evento nativo, webhook ou projeção de venda. Custos têm trilha própria, fonte/linha, categoria, período e classificação confirmada/estimada; custos compartilhados podem permanecer sem campanha. Correções são registros substitutivos append-only.
+
+O relatório expõe separadamente coortes por aprovação, caixa por data de liquidação e custos por data de ocorrência; moedas nunca são convertidas. Ausências permanecem null e vêm com cobertura. Não existe ROAS/atribuição de receita a campanha nesta etapa. Tributos e demais componentes não estão todos registrados: margem completa permanece false e lucro fiscal não é calculado. Migração 28 impõe forma, integridade referencial, imutabilidade SQL e bloqueio de downgrade com dados. [Contrato](24-conciliacao.md).
+
+## Interfaces administrativas — D79–D80
+
+| ID | Decisão | Justificativa / consequência |
+|---|---|---|
+| D79 | View owner de prévia financeira dentro do Payload | Reutiliza o serviço D78, GET sem mutação, filtros UTC/moeda e ausência explícita; QA local recortado não encerra R16/B20 |
+| D80 | View owner dos dois CSVs canônicos reutiliza endpoints existentes | Upload em memória, preview separado de lote/commit, tentativa estável para repetição e retomada de lotes; confirmação perdida não duplica fatos. Sem novo serviço, biblioteca, migração, flag ou segredo |
+
+A documentação de decisões e conciliação foi reconstituída na revisão D80 após identificar cópia indevida de conteúdo de métricas. Decisões originais D01–D67 foram recuperadas da base Git e a seção D78 existente foi preservada; continuidade D68–D80 foi conferida no código/relatórios. A identidade numérica dos documentos passa a ser verificada pelo validador. O [mapa vigente](23-estado-atual.md) continua a autoridade de conclusão por requisito.
+
+## Entrada financeira no painel — D81
+
+D81 acrescenta view owner suportada pelo Payload para os contratos D78, com conferência local antes do POST, valores decimais convertidos exatamente por BigInt, instante UTC sem conversão implícita, repetição por fonte/linha e correção por supersedes. Campos de identidade/fonte são preservados conforme o contrato existente; históricos paginam com desempate por ID e não escrevem por GET. Sem novo schema, biblioteca, segredo, flag ou integração.
+
+A ligação de campaignId do contrato ao relacionamento campaign passa a ser explícita no serviço de custos: o campo recebido antes não era persistido no relacionamento da coleção. A correção é de mapeamento, sem backfill nem alteração dos registros anteriores. O fluxo de decisão financeira auditada pela UI permanece em P05; custo vinculado não implica receita atribuída.
+
+## D82 — Expor resolução do catálogo no painel
+
+Adicionar view suportada pelo Payload para os contratos de identidade D72, sem migrations/endpoints/dependências novos. Manter decisão financeira como fluxo distinto: associar livro/oferta não deve aparentar resolver valores ou aprovar compra. Reusar prévia/hash/revalidação do servidor; congelar escolha e fonte com UUID idempotente até repetição ou retorno explícito. Histórico append-only apresenta revisões do mesmo escopo; ausência de sucessora não certifica validade atual da oferta. Destino UUID não é adivinhado; operador confere o cadastro existente pelo link.
+
+## D83 — Expor escolhas e aplicação financeira
+
+Reutilizar prévia/decisão D73–D75 numa extensão suportada do Payload. Consultar componente por preview hold é somente leitura; bloqueio só existe após confirmação. Exigir escolha explícita para todas as fontes e exclusões, inclusive em páginas diferentes; separar identidade de catálogo, fonte substituta e resolução financeira. Congelar envelope/UUID para repetição, e exigir prévia nova quando stale. Resultado histórico da decisão não deve se confundir com aplicações posteriores ou comprovação de caixa.
+
+Corrigida apresentação monetária compartilhada para sinal negativo: módulo anterior usava resto negativo diretamente e exibia incorretamente valores como -1 centavo. BigInt absoluto e sinal explícito mantêm centavos e limite seguro. Não mudou o domínio/cálculo, schema, contratos de fornecedor ou integrações.
+
+## D84 — Tornar cobertura financeira consistente
+
+Correções: contagem de transações liquidadas deve pertencer à mesma moeda/coorte; candidatas em revisão state=unknown devem continuar visíveis, e nenhuma soma de coorte pode usar valores em quarentena. Manter datas ausentes separadas e resolver substituição antes do filtro temporal. Acrescentar avisos explícitos de soma fora do inteiro seguro.
+
+Coortes passam a apresentar taxa somente com estado de reversão integralmente conhecido e nenhuma revisão, sem contar reembolso/chargeback duas vezes. Idade é observação da população sem revisão, com windowVerified=false; não inventar prazo por fornecedor. observedAt mede a consulta; último processamento é requisito distinto ainda pendente. Não mudou schema, arquitetura, autenticação/eventos ou escopo de plataformas. Critérios restantes P03/P04/P05 ficam discriminados na auditoria D84, sem marcar conclusão apenas por testes verdes.
+
+## D85 — Detalhar sem inferir atribuição e expor sucesso real
+
+Agregar por livro/provedor/moeda e mostrar custos por campanha declarada com receita atribuída desconhecida enquanto P06 não existir. Não usar custo, campanha atual do livro ou referência de clique como prova. Livro efetivo tem precedência quando conferido; revisão e alocação de caixa sem metadado confiável ficam sem livro conferido. Manter caixa de aprovações fora da janela e não reescrever originais.
+
+Expor lastSuccessAt registrado pelos processadores e cobertura de datas, separado de observedAt/lastEventAt. O escopo é a população de aprovação consultada, sem alegar heartbeat global. Usar rótulos atuais do catálogo/campanha, páginas GET de 20 e disclosure aberto por parâmetro validado, sem novo CMS/endpoint/schema/dependência. Aceite P04 é local e não conclui P03/P05/P06 ou homologação de release/fornecedor.
+
+## D86 — Encerrar aceite local P03/P05 por evidência
+
+Verificar em PostgreSQL o percurso completo dos sete estados por provedor, preservando snapshot e prova como contratos distintos. Não tratar parsing ou preview como prova de persistência/aplicação. Acrescentar casos de recusa sem transação, atomicidade tardia, stale e repetição; conectar pelo navegador importação, catálogo, financeiro, caixa/custo e relatório.
+
+Build D85 foi reutilizado após conferência das hashes das fontes da aplicação: nenhuma mudança de comportamento/schema foi necessária para os casos aceitos. Testes/censos e documentação tornam os aceites revisáveis. P03/P05 encerram somente implementação/validação local; R15/R16/B11 ainda dependem de atribuição/fornecedores/release, com P06/P07 e H01–H06 abertos. Não reduzir nem reescrever os requisitos para acompanhar testes verdes.
+
+## D87 — vínculo de venda por referência consentida, 25/10/2026
+
+Usar UUID do registro local `checkout-clicks` em `sck` só após consentimento válido e campanha ativa; preservar `sck` já presente. Hotmart/Kiwify/Cakto aceitam o parâmetro no checkout, mas confirmação do campo retornado em evento Kiwify/Cakto e dos caminhos de compra continua em H01. Adaptadores aceitam apenas UUID, descartando origem livre que poderia conter dados pessoais.
+
+O relatório atribui apenas quando há clique armazenado com consentimento, retorno exato, provedor/conta/oferta/livro compatíveis, aprovação em janela inclusiva de 30 dias e transação fora de revisão. Valor UTM, email, IP, custo e coincidência temporal não são evidência. Receita atribuída continua null se bruto/reversões não tiverem cobertura integral; não calcular ROAS, caixa da campanha ou lucro com esse vínculo. P06 permanece parcial até QA integrado e homologações por conta; P07 é necessário para retenção/exclusão da trilha.
+
+## D89 — Agregar antes de expirar analytics
+
+Para atender à janela inicial de 90 dias sem descartar as contagens agregadas, criar coleção privada com dimensões de negócio controladas e sem grant/sessão/clique. Por fonte antiga, atualizar o grupo diário e excluir o evento na mesma transação sob lock determinístico. Caminho fica limitado à família pública, sem slug. Limpar contexto de atribuição ao vencer 30 dias; retirar sessões apenas sem eventos filhos e grants vencidos só sem sessões dependentes. Preview é o padrão da CLI, apply é explícito, e worker diário fica falso até revisão da política/ambiente. Não tratar os totais agregados como pessoas, conversões ou vendas. Essa decisão cobre somente analytics; retenção comercial e reaplicação pós-restore não podem ser inferidas desse mecanismo.
+
+
+## D98 — Separar supressão pseudonimizada do contato
+
+Guardar a prevenção de reimportação em coleção própria, sem FK nem endereço, usando HMAC derivado da chave privada de links e expiração de 12 meses. Não reutilizar `privacy-request-audit`: seu prazo/semântica são distintos e a trilha exige ator. Renovar marcador sob lock junto da supressão; removê-lo apenas após opt-in temático explícito confirmado. A CLI de retenção apaga somente tombstones vencidos. Essa decisão cobre o marcador, não autoriza purge de filas/manifests comerciais ou cópias de provedor; a política continua default a ser revisado antes de coleta real.
+
+## D104 — Reaplicar decisões de privacidade de uma fonte posterior ao backup
+
+Um backup antigo contém estado anterior à exclusão/retirada. Acrescentar CLI privada para exportar decisões concluídas/tombstones ativos em manifesto assinado, sem email/IDs, e reaplicar no banco restaurado isolado. Reutilizar `LEAD_TOKEN_SECRET` com domínio criptográfico separado e preservar prazos existentes; sua rotação continua exigindo migração coordenada. Arquivo 600 fora do Git/imagem, sem sobrescrita e guardado criptografado fora do snapshot restaurado. Sem dependência, serviço, segredo ou migration novos.
+
+Manifesto deve ser posterior ao snapshot e atual segundo conferência do operador. Limitar o replay à janela de três meses da política de backups; recusar assinatura/chave/schema/limites inválidos e histórico de opt-in posterior ao manifesto. Exportação repeatable read/somente leitura; replay por contato, reexecutável sob flags falsas. Descarte local elegível reutiliza exclusão; identidade externa/envio incerto fica bloqueado. A exclusão idempotente não pode retornar sucesso só por haver auditoria se o contato reapareceu no restore: revalidar existência e remover/quarentenar a cópia restaurada. Restrições de entrega são preservadas sem inventar causa.
+
+Declaração de isolamento e assinatura não provam que o arquivo é o mais recente da origem perdida. Automatizar/homologar guarda externa após decisões e novo opt-in, preservar pedidos ainda pendentes, conciliar provedores e ensaiar restore físico da imagem atual continuam em P07/H04/H06. O relatório nunca autoriza release. Evidência sintética D104 não altera esse gate.
+
+## D105 — Pedido pending preserva dados e impede novas emissões
+
+A dependência externa que motivou pending pode ter desaparecido do backup antigo. Portanto replay não pode reinterpretar a cópia restaurada como autorização para concluir exclusão/correção. Evoluir o manifesto para v2 com outcome e expiração nula para pending; aceitar v1 como completed, exibindo cobertura de pendências ausente. Preservar auditoria pending até resolução e compartilhar lock do fingerprint no expurgo para não apagar uma conciliação concorrente.
+
+Manter identidade/dados e consentimentos no estado pending, acrescentando verificação de auditoria antes de captura, confirmação, dispatcher, promoção e cadastro novo. Isso reduz novas emissões enquanto o owner concilia; não conclui tentativas já iniciadas. Falha de chave aborta a conferência, sem gravar uma retirada de consentimento presumida. Nenhum campo, serviço, segredo ou migration novo; aproveitar o índice de fingerprint e os locks existentes. Retenção encerrada e tombstones mantêm os prazos aprovados. Guarda externa atual do v2, conciliação do provedor e restore físico continuam requisitos do release.
+
+## D106 — Telemetria automática do Payload desativada — 26/10/2026
+
+A barreira de rede do ensaio de restore detectou tentativa de telemetria habilitada por padrão no framework. `telemetry: false` na configuração Payload elimina essa comunicação automática em todos os modos; não altera os transportes opt-in nem os contratos dos três provedores. O ensaio físico local repetido concluiu com zero tentativa fetch. Sem dependência, migration ou serviço adicional. [Evidência](../artifacts/recovery/d106-results.json).
+
+## D107 — Encerramento de manutenção — 26/10/2026
+
+O ensaio real da imagem detectou a CLI de inventário presa por mais de 180 segundos. A implementação instalada de destroy do adapter limpa referências, mas não fecha o pool. As três CLIs recentes passam a encerrar explicitamente após aguardar a operação e Payload.destroy(), seguindo o padrão das CLIs de migração e recuperação; exceções e validação mantêm códigos não zero. A imagem é reconstruída pelo Dockerfile e o harness comprova conclusão em prazo limitado. [Evidência](../artifacts/container/d107-results.json).
+
+## D109 — Retenção de estado promocional — 26/10/2026
+
+D109 implementa retenção local de estado promocional para contatos globalmente descadastrados há pelo menos 30 dias: remove assinaturas encerradas e calendários cancelados com etapas antigas, sem lote. Preserva identidade, amostras/outbox, consentimento, auditoria e supressão com o prazo original. Não executa exclusão de identidade nem forja pedido owner. Impedimentos de privacidade, provedor, envio incerto, vínculo cruzado e manifestos compartilhados/JSON preservam os registros. Preview é padrão; apply revalida sob locks e é atômico por contato. P07 continua parcial para identidade, demais finalidades e dados compartilhados. A imagem/restore D107–D108 são evidências da revisão anterior, não incluem esta rotina. [Oito grupos PostgreSQL sintéticos](../artifacts/privacy-retention/d109-results.json). Sem migration, chamada externa, dado real, nova imagem, VPS ou deploy.
+
+## D110 — Retenção de identidade e recuperação — 26/10/2026
+
+Retenção automática não representa pedido humano: registrar fato HMAC próprio de 24 meses, distinto de privacy-request-audit. O manifesto só usa v3 quando inclui retention e mantém leitura v1/v2. Nova finalidade posterior ao fato impede apagar o contato; dependências antigas exigem quarentena/conciliação. Reaplicar fato original não reinicia prazo; ausência de supressão ainda exigível bloqueia expurgo, sem inventar/renovar tombstone. Preservar ao faltar chave ou cobertura verificável de relações, incluindo callbacks sem FK e manifests por HMAC. Esta decisão mantém arquitetura/provedores/flags aceitos.
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+Manter Payload 3.91.0 e o patch já existente, ampliando-o para aguardar update/delete por documento quando há transação compartilhada, conforme reprodução PostgreSQL. Não silenciar o aviso nem reduzir versão de pg. Preservar caminho sem transação, sem mutex global; manter inalterado o SQL da migration ao limpar somente parâmetros não usados. Reavaliar o patch ao atualizar Payload e repetir rollback/mídia/retenção.
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+Descadastro temático precisa sobreviver à retirada do estado local e à ausência do contato/tema no snapshot. Registrar HMAC do endereço + UUID textual do assunto em coleção privada, sem FK ou pedido humano; prazo inicial de 24 meses, alinhado às provas encerradas. Manifesto v4 exige theme somente em theme-unsubscribe, enquanto v1/v2/v3 mantêm contrato. Replay aplica retirada, não inventa opt-in perdido após backup nem resolve provedor. Retenção após 30 dias exige fato vigente e relações verificáveis; legado sem prova preservado. Sem mudar flags, arquitetura base ou os três provedores.
+
+A implementação D112 não altera a meta máxima de 30 dias da política. A diferença entre cutoff inclusivo de 30 dias e execução diária foi identificada na D112 e tratada em código na D113; homologação operacional permanece pendente, sem ampliar o prazo aprovado.
+
+## D113 — Margem e acompanhamento do prazo — 26/10/2026
+
+Manter a meta aprovada de retirar marketing em até 30 dias, antecipando elegibilidade para 28 dias em vez de ampliar o prazo máximo. Com execução diária e frescor de sucesso limitado a 25 horas, há margem teórica de 23 horas; comprovação operacional requer ambiente/monitoramento homologados. Preservações por dependência continuam e são explicitadas por contador de assinaturas para revisão. Não usar heartbeat isolado como prova de retenção cumprida, nem descarte inseguro como forma de recuperar saúde. Prazos de identidade, consentimento, supressões e fatos permanecem.
+
+## D114 — Legado temático verificável — 26/10/2026
+
+A fonte para preencher legado é o histórico nativo consistente, não apenas sub.state ou uma data isolada. Exigir chave canônica, contato/assunto/finalidade/ação/data exatos e ausência de conflito. Manter 24 meses desde a retirada original, sem reiniciar prazo na derivação. Prova vencida pode permitir retirar estado local sob os mesmos guards sem criar novo HMAC, pois nenhum snapshot aceito (até três meses) pode anteceder essa retirada de mais de 24 meses. Exportação deve falhar diante de lacuna não coberta; uma decisão automática anterior a nova finalidade não é cobertura válida. Nenhuma prova de provedor ou solicitação humana é inferida.

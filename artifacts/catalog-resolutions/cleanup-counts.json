@@ -1,0 +1,22 @@
+{
+  "environment": "PostgreSQL local sintético; censo independente psql após todas as suites",
+  "date": "2026-10-25T01:28:12.309066+00:00",
+  "owners": 0,
+  "contacts": 0,
+  "offers": 0,
+  "transactions": 0,
+  "facts": 0,
+  "inbox": 0,
+  "conflicts": 0,
+  "commercialAudit": 0,
+  "catalogResolutions": 0,
+  "importBatches": 0,
+  "importRows": 0,
+  "importAudit": 0,
+  "migrations": 23,
+  "identityGuard": "O",
+  "resolutionImmutable": "O",
+  "resolutionInsertGuard": "O",
+  "offerReferenceGuard": "O",
+  "temporaryRoles": 0
+}

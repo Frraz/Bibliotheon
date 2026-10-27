@@ -5,6 +5,7 @@ import { availableMagnet } from './service'
 import { createOpaqueToken, signDownload, UNSUBSCRIBE_TTL } from './tokens'
 import { reserveMailQuota } from './quota'
 import { configuredQuotaPolicy } from './quota-policy'
+import { privacySubjectBlocked } from './privacy-block'
 
 const relationId = (v: string | { id: string }) => typeof v === 'string' ? v : v.id
 const retryDelays = [60_000, 300_000, 1_800_000, 7_200_000]
@@ -30,7 +31,7 @@ export async function processDelivery(payload: Payload, id: string, options?: { 
       await payload.update({ collection: 'email-deliveries', id, data: { state: 'canceled', errorCode }, overrideAccess: true, req })
       return null
     }
-    if (contact.deliveryState !== 'ok') return finish('recipient_suppressed')
+    if (contact.deliveryState !== 'ok' || await privacySubjectBlocked(payload,contact.email,secret,req)) return finish('recipient_suppressed')
     if (!material || material.magnet.version !== request.magnetVersion || request.revokedAt || material.theme.id !== relationId(request.theme)) return finish('material_unavailable')
     if (delivery.kind === 'confirmation' && (request.confirmedAt || Date.parse(request.expiresAt) <= now)) return finish('material_unavailable')
     if (delivery.kind === 'delivery' && !request.confirmedAt) return finish('material_unavailable')

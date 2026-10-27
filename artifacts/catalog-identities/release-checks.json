@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-24T23:11:12.596352+00:00",
+  "baseCommit": "cba2edb934d66319ad3b26bd35c25266caed93f0",
+  "worktree": "D70, alterações locais não commitadas; hashes dos arquivos no local-results.json",
+  "environment": "PostgreSQL 17.9 loopback, fixtures sintéticas exclusivas; sem calls externos",
+  "checks": {
+    "npm run check": {
+      "passed": true,
+      "unitTests": 192,
+      "unitFiles": 27,
+      "opsTests": 57,
+      "documentation": true,
+      "typecheck": true,
+      "lintErrors": 0,
+      "lintWarnings": 2
+    },
+    "BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:catalog-identities": {
+      "passed": true,
+      "groups": 4
+    },
+    "npm run test:catalog": {
+      "passed": true
+    },
+    "npm run test:commercial-inbox": {
+      "passed": true,
+      "groups": 12
+    },
+    "npm run test:commercial-csv": {
+      "passed": true,
+      "groups": 5
+    },
+    "npm run test:commercial-imports": {
+      "passed": true,
+      "groups": 10
+    }
+  },
+  "warnings": [
+    "pg/Drizzle: chamada client.query enquanto outra query está em execução; aviso histórico reproduzido, causa não resolvida.",
+    "Dois avisos de parâmetros não utilizados na migration de sequências."
+  ],
+  "limits": [
+    "Sem nova migration ou constraint SQL.",
+    "Sem nova bateria HTTP/browser/build/imagem/restore ou execução de CI GitHub.",
+    "Sem homologação externa, deploy ou venda."
+  ],
+  "artifactNotice": "Na D71, local-results.json foi atualizado pela reexecução com migração 22. Os checks deste release-checks.json são históricos D70; usar artifacts/catalog-identity-db/release-checks.json para código/evidência atuais."
+}

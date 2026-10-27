@@ -1,0 +1,370 @@
+{
+  "phase": "D108",
+  "date": "2026-10-26T15:20:34.687854+00:00",
+  "status": "passed",
+  "scope": "Restore fisico/replay v2 na imagem D107 e retomada HTTP com credencial limitada",
+  "previousReview": "artifacts/documentation/documentation-review-d107.json",
+  "documentsReviewed": 49,
+  "documentsUpdated": 14,
+  "documentsRetained": 35,
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "title": "# Instruções de trabalho — Bibliotheon",
+      "sha256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "DESIGN-BRIEF.md",
+      "title": "# Bibliotheon — Design Brief",
+      "sha256": "89b8ac56fbeb2eec1753bbe3f476801bfb154e56aafa3acc5482e80f69790e19",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "README.md",
+      "title": "# Bibliotheon",
+      "sha256": "21ab981794fd4525edbd28c12df03ce42e6963c0f7a6cdb232ab32f930f75948",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "deploy.md",
+      "title": "# Deploy do Bibliotheon na VPS",
+      "sha256": "fa56522c27de3a1c5b29a7603965d6067db2979d9a430c6616728a26fde48f49",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/01-visao-estrategia.md",
+      "title": "# 01 — Visão e estratégia",
+      "sha256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/02-requisitos.md",
+      "title": "# 02 — Requisitos e jornadas",
+      "sha256": "ca04893c7063f861fbd10babbb8c0a9f53bdd56d534015a372944c81df19b58c",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/03-experiencia.md",
+      "title": "# 03 — Experiência, páginas e painel",
+      "sha256": "dc0792a00592db67104055ea495a701937ed9a27401b13529e7da108bd6afb5a",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/04-arquitetura.md",
+      "title": "# 04 — Arquitetura",
+      "sha256": "ee3e7e7e790d148fd1dfd489cdc9b5d4d979c13337c5e1d44e34c584bff41b5f",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/05-dados.md",
+      "title": "# 05 — Modelo de dados e invariantes",
+      "sha256": "5577a1cf83879ba7945ff51c44b58b5f30149408218508365ae9c9dce46b122d",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/06-interfaces.md",
+      "title": "# 06 — Interfaces e contratos internos",
+      "sha256": "690997363a62540e0969b7d4e6bab5302dfa2b299baafca9ea9714d6b413d70a",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/07-integracoes.md",
+      "title": "# 07 — Integrações comerciais",
+      "sha256": "91439bb295d579ffd7441b267d36335fa793428078c60a8fbdb78fb4e1eddb37",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/08-aquisicao.md",
+      "title": "# 08 — Aquisição, conteúdo e relacionamento",
+      "sha256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/09-metricas.md",
+      "title": "# 09 — Medição e decisões",
+      "sha256": "a272da5722de49b7b8da56d814e3f870b62fbfc650dfced1f7a08104f13a89cd",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/10-infraestrutura.md",
+      "title": "# 10 — Infraestrutura e implantação planejada",
+      "sha256": "62612bef2e5bc79b3abbe5f4ac360e6f9f1ff37540544371119ccbd139c135ad",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/11-operacao.md",
+      "title": "# 11 — Runbooks de operação",
+      "sha256": "355dae0113fbebe78a7abed102d51322a8f813254ce53de16f8d90cd25d496c2",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/12-seguranca-privacidade.md",
+      "title": "# 12 — Segurança e privacidade",
+      "sha256": "e44e7adbb573c04c0d00639030ea1522b1862f760340fee4f354f1a046c4e4d5",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/13-backlog.md",
+      "title": "# 13 — Backlog de implementação",
+      "sha256": "ed6efca5fd549a1f21b0f35035a30b4fa3e3ac6e270d02d6f553636a214d9df3",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/14-progresso.md",
+      "title": "# 14 — Progresso e retomada",
+      "sha256": "95b554e88e9b9a250a005fa9577525eefa0aa0bcca61005df7c72e40c77ed606",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/15-qualidade.md",
+      "title": "# 15 — Qualidade e homologação",
+      "sha256": "63b3230514dbeef54f97328ad0cd85575cf258c635b6bc984f1a0e0a65009470",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/16-referencias.md",
+      "title": "# 16 — Referências e limites da pesquisa",
+      "sha256": "f57d3ef0c1cccbbc4da40d21125d70749d8f982fb3a71597f3543682faf433d1",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/17-decisoes.md",
+      "title": "# 17 — Registro de decisões",
+      "sha256": "8fdad9c4ab6ccb2e818416f172adf1b96ad56a86c93a58a8548cdbb1419cee27",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/18-validacao.md",
+      "title": "# 18 — Validação da entrega documental",
+      "sha256": "3950e10464bed8db95ad513891a7416519459431f1b269c1d6fd196c69336c91",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/19-desenvolvimento.md",
+      "title": "# 19 — Implementação e evidências locais",
+      "sha256": "46e7fd751f91d6168fbd25ef713ddd1e07eec065daf1d7366350ab83c14ab79f",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/20-execucao-local.md",
+      "title": "# 20 — Executar o Bibliotheon localmente",
+      "sha256": "0ec0127c1b70c9e00059daa913b5ec8a4408c76c2392236673fe36879da47fa8",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/21-pacote-producao.md",
+      "title": "# 21 — Pacote de produção e validação local",
+      "sha256": "b436d9313229e619c02b2c482a19c74292e6677f0d5617331d66eb415f08537d",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/22-lancamento.md",
+      "title": "# 22 — Preparação do primeiro lançamento",
+      "sha256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/23-estado-atual.md",
+      "title": "# 23 — Estado atual e mapa da implementação",
+      "sha256": "7a3007ab007cf2e7a795c4d50cda47d42e2df95bfae70e45d114ecfb6218e0f9",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    },
+    {
+      "path": "docs/24-conciliacao.md",
+      "title": "# 24 — Conciliação comercial e CSV",
+      "sha256": "857378c903d892a5230139c3513f20dde7d2944ef1b17617f87a5d5667b83d8b",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/01-identidade.md",
+      "title": "# Identidade, imagem e referências",
+      "sha256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/02-tokens.md",
+      "title": "# Tokens, cores e tipografia",
+      "sha256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/03-componentes.md",
+      "title": "# Componentes e estados",
+      "sha256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/04-paginas.md",
+      "title": "# Wireframes de páginas públicas",
+      "sha256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/05-painel.md",
+      "title": "# Design do painel administrativo",
+      "sha256": "9e3f36fdf968ace9ee8787ff9de69a130864a54278e2dbb7f7a160f3480d22ee",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/06-comportamento.md",
+      "title": "# Responsividade, tema e movimento",
+      "sha256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/07-qualidade.md",
+      "title": "# Qualidade visual e aceite",
+      "sha256": "54df9190c42695c74881bc8e57e63412720e7b0e2873f74f9e2bd3bd665b4097",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/08-skills-referencias.md",
+      "title": "# Skills aplicadas e fontes",
+      "sha256": "07757dc67fad5752d06fbc8c97b1071786def65cb6fd8f3b569639de6c040af5",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/design/09-contrastes.md",
+      "title": "# Contrastes calculados",
+      "sha256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/integracoes/brevo.md",
+      "title": "# Brevo — calendário, campanhas e supressão",
+      "sha256": "8ff443b39d5bc611b5fa13c532815804f528b5ce17b3eee3e8828154e72adb19",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/integracoes/cakto.md",
+      "title": "# Cakto — contrato e operação",
+      "sha256": "8ccfc7dfb8d0bd82257f9b8d4e772de2c5dc00a19db0227ee7ab7fe4915cf6b0",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/integracoes/hotmart.md",
+      "title": "# Conector Hotmart",
+      "sha256": "688db5c2ff8be6353b10bfa332da4d99c7f11182c5ccfa45c96b8b924339e026",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/integracoes/kiwify.md",
+      "title": "# Kiwify — contrato e operação",
+      "sha256": "c58e2efd22fc649666b6ae142398cdcf23d49d4187d74b95d18080e5c0b94e20",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/01-briefing-livro.md",
+      "title": "# Modelo — Briefing do livro",
+      "sha256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/02-copy-lp.md",
+      "title": "# Modelo — Copy e revisão da LP",
+      "sha256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/03-campanha.md",
+      "title": "# Modelo — Campanha inicial",
+      "sha256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/04-kit-afiliados.md",
+      "title": "# Modelo — Kit de afiliados",
+      "sha256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/05-revisao-semanal.md",
+      "title": "# Modelo — Revisão semanal",
+      "sha256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/06-homologacao.md",
+      "title": "# Modelo — Homologação e release",
+      "sha256": "de0700a4a146c1eaee7ecd11dc7401aa291497287701b7154714f02230503112",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "docs/templates/README.md",
+      "title": "# Modelos operacionais",
+      "sha256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051",
+      "action": "retained",
+      "basis": "Escopo D108 conferido; contrato sem alteracao nesta fase."
+    },
+    {
+      "path": "pendencias.md",
+      "title": "# Pendências para colocar o Bibliotheon em produção",
+      "sha256": "e5e00bc792557e80d361a1a2e94d5fef90e679ef57c16961300c23bd061b4c1b",
+      "action": "updated",
+      "basis": "D108: restore e replay na imagem, retomada HTTP limitada, gates e proxima acao."
+    }
+  ],
+  "validation": {
+    "command": "python3 scripts/validar_documentacao.py",
+    "status": "passed",
+    "localLinks": 1270,
+    "requirements": 34,
+    "tasks": 20,
+    "scenarios": 29,
+    "externalUrlsUnverified": 106
+  },
+  "limitations": [
+    "Backup e manifesto externos, RPO/RTO reais ainda nao homologados.",
+    "H03 exige bateria integral da revisao final; P07 exige retencao ampla e conciliacao efetiva.",
+    "Sem dado real, conta externa, VPS ou deploy.",
+    "Aviso pg/Drizzle e dois avisos historicos de lint seguem em H06."
+  ]
+}

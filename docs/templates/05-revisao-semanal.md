@@ -3,6 +3,8 @@
 [Modelos](README.md)
 
 Período/fuso: America/Belem.
+Janela UTC inclusiva usada na consulta:
+Dimensões: aprovação/coorte, liquidação/caixa e ocorrência de custos:
 Campanha, livro e versão da oferta:
 Responsável:
 
@@ -21,6 +23,9 @@ Responsável:
 | Falhas de integração | | | |
 
 Conciliação por plataforma executada? Evidência e divergências:
+Lotes/decisões/provas usados e estado do processamento:
+Moedas separadas, valores desconhecidos e cobertura incompleta:
+Custos confirmados/estimados, tributos/componentes ausentes e limites da margem:
 
 O que foi distribuído e onde:
 Dúvidas/feedback reais:

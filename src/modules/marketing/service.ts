@@ -1,3 +1,4 @@
+import { withdrawalKey } from './theme-withdrawal'
 import { enqueueBrevoRegistration, cancelBrevoRegistration } from './brevo-registration-queue'
 import { enqueueBrevoSuppression } from './brevo-suppression-queue'
 import type { Payload, PayloadRequest } from 'payload'
@@ -7,6 +8,8 @@ import { CONFIRMATION_TTL, hashOpaqueToken, signDownload, validLinkSecret } from
 import { contactFingerprint } from './contact'
 import { enrollSequence } from './sequence'
 import { cancelPromotions } from './sequence-state'
+import { retainSuppressionTombstone, clearSuppressionTombstone } from './suppression-tombstone'
+import { privacySubjectBlocked } from './privacy-block'
 
 const relationId = (v: string | { id: string }) => typeof v === 'string' ? v : v.id
 export class LeadFlowError extends Error {
@@ -34,6 +37,7 @@ export async function requestMagnet(payload: Payload, input: LeadInput, secret: 
     if (!material) throw new LeadFlowError('invalid_input', 422)
     const fingerprint = contactFingerprint(input.email, secret)
     await serial(req, fingerprint)
+    if (await privacySubjectBlocked(payload,input.email,secret,req)) throw new LeadFlowError('unavailable', 503)
     const recent = await payload.find({ collection: 'contacts', where: { email: { equals: input.email } }, limit: 1, depth: 0, overrideAccess: true, req })
     let contact = recent.docs[0]
     if (contact) {
@@ -92,7 +96,7 @@ export async function confirmMagnet(payload: Payload, token: unknown, secret: st
     const material = await availableMagnet(payload, relationId(request.magnet), req)
     if (!material || material.magnet.version !== request.magnetVersion || material.theme.id !== relationId(request.theme)) throw new LeadFlowError('expired', 410)
     const contact = await payload.findByID({ collection: 'contacts', id: contactId, depth: 0, overrideAccess: true, req })
-    if (contact.deliveryState !== 'ok') throw new LeadFlowError('expired', 410)
+    if (contact.deliveryState !== 'ok' || await privacySubjectBlocked(payload,contact.email,secret,req)) throw new LeadFlowError('expired', 410)
     const at = new Date(now).toISOString()
     if (!request.confirmedAt) {
       await payload.update({ collection: 'magnet-requests', id: request.id, data: { confirmedAt: at }, overrideAccess: true, req })
@@ -103,12 +107,15 @@ export async function confirmMagnet(payload: Payload, token: unknown, secret: st
         const subKey = `${contactId}:${material.theme.id}`
         const subscriptions = await payload.find({ collection: 'subscriptions', where: { key: { equals: subKey } }, limit: 1, depth: 0, overrideAccess: true, req })
         const subscription = subscriptions.docs[0]
-        if (!subscription?.unsubscribedAt || Date.parse(subscription.unsubscribedAt) < Date.parse(request.createdAt)) {
+        const withdrawal = (await payload.find({ collection: 'theme-withdrawals', where: { key: { equals: withdrawalKey(contactFingerprint(contact.email, secret), material.theme.id) } }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
+        // Pruning the subscription must not turn an old confirmation into a new grant.
+        if ((!subscription?.unsubscribedAt || Date.parse(subscription.unsubscribedAt) < Date.parse(request.createdAt)) && (!withdrawal || Date.parse(withdrawal.withdrawnAt) < Date.parse(request.createdAt))) {
           const data = { state: 'subscribed' as const, consentVersion: request.consentVersion, subscribedAt: at, unsubscribedAt: null }
           if (subscription) await payload.update({ collection: 'subscriptions', id: subscription.id, data, overrideAccess: true, req })
           else await payload.create({ collection: 'subscriptions', data: { ...data, contact: contactId, theme: material.theme.id, key: subKey }, overrideAccess: true, req })
           if (contact.globalSuppressedAt) await payload.update({ collection: 'contacts', id: contactId, data: { globalSuppressedAt: null }, overrideAccess: true, req })
           await payload.create({ collection: 'consent-events', data: { contact: contactId, theme: material.theme.id, purpose: 'marketing', action: 'subscribed', version: request.consentVersion, occurredAt: at, key: `subscribed:${request.id}` }, overrideAccess: true, req })
+          await clearSuppressionTombstone(payload, contact.email, secret, req)
           await enqueueBrevoRegistration(req, contactId, now)
           await enrollSequence(req, request, material.book.id, at)
         }
@@ -119,7 +126,7 @@ export async function confirmMagnet(payload: Payload, token: unknown, secret: st
   })
 }
 
-export async function unsubscribe(payload: Payload, token: unknown, now = Date.now()) {
+export async function unsubscribe(payload: Payload, token: unknown, now: number, secret: string) {
   const hash = hashOpaqueToken(token)
   if (!hash) throw new LeadFlowError('expired', 410)
   return atomic(payload, async req => {
@@ -129,9 +136,10 @@ export async function unsubscribe(payload: Payload, token: unknown, now = Date.n
     const contactId = relationId(preference.contact)
     await serial(req, `contact:${contactId}`)
     const contact = await payload.findByID({ collection: 'contacts', id: contactId, depth: 0, overrideAccess: true, req })
-    if (contact.globalSuppressedAt) return
+    if (contact.globalSuppressedAt) { await retainSuppressionTombstone(payload, contact.email, secret, now, req); return }
     const at = new Date(now).toISOString()
     await payload.update({ collection: 'contacts', id: contactId, data: { globalSuppressedAt: at }, overrideAccess: true, req })
+    await retainSuppressionTombstone(payload, contact.email, secret, now, req)
     await payload.update({ collection: 'subscriptions', where: { and: [{ contact: { equals: contactId } }, { state: { not_equals: 'unsubscribed' } }] }, data: { state: 'unsubscribed', unsubscribedAt: at }, overrideAccess: true, req })
     await cancelPromotions(req, { contact: { equals: contactId } }, now)
     await enqueueBrevoSuppression(req, contactId, now)

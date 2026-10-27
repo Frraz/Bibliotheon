@@ -1,0 +1,66 @@
+{
+  "phase": "D85",
+  "date": "2026-10-25T17:23:17.578655+00:00",
+  "status": "passed_local_phase",
+  "scope": "Detalhamentos financeiros/processamento; P04 aceito localmente, sem concluir o produto",
+  "checks": {
+    "isolatedBuild": "passed",
+    "buildDirectory": ".next-qa",
+    "buildID": "beM_tOUcH4tPUCGRbVQ6-",
+    "typecheck": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 2,
+    "unitTests": 264,
+    "unitFiles": 33,
+    "newDimensionalTests": 6,
+    "operationalTests": 61,
+    "newPostgresGroups": 4,
+    "coverageRegressionGroups": 5,
+    "browserGroups": 4,
+    "captures": 25,
+    "distinctCaptureFiles": 25,
+    "axeRuns": 24,
+    "externalRequests": 0,
+    "runtimeErrors": [],
+    "fixturesCleaned": true,
+    "databaseStopped": true,
+    "documentation": "passed",
+    "documents": 49,
+    "localLinks": 1022,
+    "externalURLsUnchecked": 102,
+    "contrastPairs": 76,
+    "diffCheck": "passed",
+    "qaShellSyntax": "passed",
+    "integrationRunnerIncludesDimensions": true
+  },
+  "sourceSHA256": {
+    "src/modules/commerce/financial-report-dimensions.ts": "d78126b2ddb7bd68bf79ccc958c38af6ba85c6bcc5d8e3b13579f7914ac9287a",
+    "src/modules/commerce/financial-ledger.ts": "9b3d174257eea59057e255e415c448f0a738e026dd657d2703e10bfb39bd987e",
+    "src/components/admin/FinancialDimensions.tsx": "1d48430adecb5750be0c9daf17c1a621a52f2cfc55722bfe20d629270d427524",
+    "src/components/admin/FinancialReportView.tsx": "62ee8e44c65390d4a684fd1b0ad34159b75b33f41d83b1ed393f106be303a286",
+    "src/styles/admin.css": "ee72962b182225a3f4ac4bc8bdb44051c95962ca40304374d0948d3f1e99d79a",
+    "tests/unit/financial-report-dimensions.test.ts": "06b8ba231cec2572673b14db1b0a234229fd2075e45a71bbe9907fce441824e3",
+    "tests/integration/financial-dimensions.ts": "1eaef35f4a1713bb55197bb65fc3bf53b7caf63b4bc9f644fdf8ac17e50c52ac",
+    "scripts/qa-financial-dimensions.ts": "746c5a08113f5de0374b468660c9e2b79cfc7a3045a57f9534bfe584509bb727",
+    "scripts/check-integration.sh": "1b71fc82809232854c887e3cdba631eea19f3c4ba52447630363144e4c51363a",
+    "scripts/check-qa-admin.sh": "857a6d391a0868d6192580a9455c807f2eefefc05bdf48b6b7dfaa55c19d3723",
+    "package.json": "234eea4785a62acf9570eba142012ef56b9c34efa527d6e9a9afdddc7fd496e6"
+  },
+  "consolidatedCheckEvidence": {
+    "exitCode": 0,
+    "sha256": "b32a4b88d9b728c1a19daac4a531dfa1a3cdc099f70c9ef6081ed33d1094dc91",
+    "note": "npm run check local; operacionais simulados e documentacao final validada separadamente."
+  },
+  "knownWarnings": [
+    "Dois avisos historicos da migration de sequencias",
+    "pg/Drizzle de queries concorrentes; H06 aberto"
+  ],
+  "limits": [
+    "Sem parsing de exportacao nativa ou homologacao de conta; H01/H02/H06 abertos",
+    "Atribuicao real continua P06; receitas/quantidades especificas de campanha sao null, nao zero",
+    "Custos sem regra comprovada nao sao rateados por livro/provedor e nao geram margem nesses grupos",
+    "P03/P05 e dependencias/aceite integral R16 permanecem abertos; nao encerra B11/B20",
+    "Sem imagem/restore final, GitHub, VPS ou operacao real"
+  ],
+  "regressionArtifactNote": "financial-coverage reexecutado atualiza seu resultado padrao; copia D85 identificada em coverage-regression-results.json"
+}

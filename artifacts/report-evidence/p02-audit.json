@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-25T04:41:50.813171+00:00",
+  "scope": "P02 de pendencias.md: backend de resolução auditada; não é conclusão do projeto nem homologação externa",
+  "state": "implemented_and_verified_locally",
+  "requirements": [
+    {
+      "requirement": "Decisões explícitas para identidade, valores, moeda, datas e estados",
+      "evidence": [
+        "tests/integration/financial-resolutions.ts",
+        "tests/integration/report-evidence.ts",
+        "artifacts/report-evidence/local-results.json"
+      ],
+      "observation": "ID corrigido conecta fonte anterior; revisão aplica valores/moeda/instante/estado conferidos; associação efetiva separada preserva referências originais."
+    },
+    {
+      "requirement": "Prova complementar quando variantes existentes não bastam",
+      "evidence": [
+        "src/modules/commerce/report-evidence-schema.ts",
+        "src/modules/commerce/report-evidence.ts",
+        "tests/integration/report-evidence.ts",
+        "tests/integration/report-evidence-http.ts"
+      ],
+      "observation": "Fonte canônica individual, atestada pelo owner e imutável, integra o componente sem fingir webhook. Aprovação/reversão insuficientes ficam bloqueadas."
+    },
+    {
+      "requirement": "Cobertura de todos os IDs/recibos e exclusão das fontes substituídas",
+      "evidence": [
+        "src/modules/commerce/transaction-review.ts",
+        "tests/integration/report-evidence.ts",
+        "tests/integration/financial-resolutions.ts"
+      ],
+      "observation": "Expansão de componentes e pais, rejeição de fonte substituída selecionada/sobreposição e um vencedor em confirmações concorrentes."
+    },
+    {
+      "requirement": "Preservação de originais, autoria, fonte/motivo e histórico",
+      "evidence": [
+        "src/collections/ReportEvidence.ts",
+        "src/collections/FinancialResolutions.ts",
+        "migrations/20261025_031113_financial_resolutions.ts",
+        "migrations/20261025_041432_financial_report_evidence.ts",
+        "tests/integration/report-evidence.ts"
+      ],
+      "observation": "Autoria autenticada, aliases controlados, revisão/aplicações imutáveis, hash do original preservado; relatório não cria fato/recibo nativo."
+    },
+    {
+      "requirement": "Permissões por API e idempotência/deduplicação",
+      "evidence": [
+        "tests/integration/financial-resolutions-http.ts",
+        "tests/integration/report-evidence-http.ts",
+        "tests/integration/report-evidence.ts"
+      ],
+      "observation": "Owner/origem exata, contratos/MIME, escrita nativa negada, identidade de linha estável e conflito de conteúdo, duplicata concorrente."
+    },
+    {
+      "requirement": "Aplicação atômica e rollback",
+      "evidence": [
+        "tests/integration/financial-resolutions.ts",
+        "tests/integration/report-evidence.ts"
+      ],
+      "observation": "Falha tardia de aplicação owner/worker reverte mudanças; prova incompleta não confirma, falha de gravação de prova não deixa registro parcial."
+    },
+    {
+      "requirement": "Continuidade segura em worker/retry/CSV e nova evidência",
+      "evidence": [
+        "tests/integration/report-evidence.ts",
+        "tests/integration/financial-resolutions.ts",
+        "src/modules/commerce/report-evidence-store.ts"
+      ],
+      "observation": "Prova anterior à primeira projeção bloqueia canais, lote pronto fica stale; novo relatório exige nova decisão; fonte nativa íntegra pode continuar escolha existente."
+    },
+    {
+      "requirement": "Formatos/reversões sem suporte e evidência ausente não são inventados",
+      "evidence": [
+        "tests/unit/report-evidence.test.ts",
+        "tests/unit/transaction-review.test.ts",
+        "tests/integration/report-evidence-http.ts"
+      ],
+      "observation": "Null preservado, aprovação/refund basis/valor de chargeback exigem prova; revisão nativa original permanece; nenhuma liquidação é inferida."
+    }
+  ],
+  "remaining": [
+    "P03: ampliação de ingestão/lotes CSV e casos restantes de conciliação/recebimento.",
+    "P04: prova independente de liquidação, custos e relatório.",
+    "P05/P06/P07: interface, atribuição e retenção.",
+    "H01-H06 e O01-O04: homologação, release, contas e preparação externa."
+  ]
+}

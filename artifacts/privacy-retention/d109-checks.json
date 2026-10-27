@@ -1,0 +1,74 @@
+{
+  "phase": "D109",
+  "date": "2026-10-26T23:06:31.856700+00:00",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 288,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "privacyMarketingRetention": {
+      "status": "passed",
+      "groups": 8
+    },
+    "privacyRetentionRegression": {
+      "status": "passed",
+      "checks": 18
+    },
+    "confirmedSampleRetentionRegression": {
+      "status": "passed",
+      "groups": 5
+    },
+    "pendingPrivacyRegression": {
+      "status": "passed",
+      "groups": 7
+    },
+    "packagedCLIEmptyDatabasePreview": "passed",
+    "runtimeBundle": "passed",
+    "finalFixtureTypecheckAndLint": "passed",
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1289,
+      "updated": 17,
+      "retained": 32
+    }
+  },
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-marketing-retention.ts": "8bc8847f093d3cd6f41dc6a8d2bc3b7870fbebb0dcf433d546aa2451cdb22aed",
+    "src/modules/marketing/privacy-retention.ts": "2d401c9fdfb73ac11513075e860ed9560fe98217fd9db6253fade4475d56f004",
+    "scripts/worker.ts": "c00f5a86974dcb32dc9b91983f1823e2fd459991c95ce75ef3d65d838dbf7ce3",
+    "tests/integration/privacy-marketing-retention.ts": "b413f3e2f54767c35e3cdc9421bdc2ea2b5b5774b792e1493767c947e30dfbce",
+    "tests/integration/privacy-retention.ts": "0a169fadb71510a92c116510d7b8c158729a67e46b9d2b8bce7ae7d92e54dad6",
+    "scripts/check-integration.sh": "a4f3ac99cb50ce80713c7ef69bafac8e1afe87423fac7820cbb3f705ffb5cdd2",
+    "package.json": "4c7c38049378fb2bb66375a6753631c53c3e72d31f4e77e8b0f9a29a99efbff3"
+  },
+  "packagedCLISHA256": {
+    "privacy-retention": "f2e5e1a22c32907c72606dfe58bd6eec1c76ee4eab93efbc8ec0799f1cac2725",
+    "worker": "86a14e00f1a8e234588aa56352401d3d2eb7667073e12f12101c5a99f374f801"
+  },
+  "schemaMigrations": 32,
+  "imageAndRestoreRevalidated": false,
+  "identityDeletionImplemented": false,
+  "providerReconciliationImplemented": false,
+  "limitations": [
+    "Retencao geral, identidade/provas e dados compartilhados ainda pendentes.",
+    "D107/D108 sao evidencias anteriores a esta alteracao; revalidar a imagem/release final.",
+    "Guarda externa atual, RPO/RTO reais e homologacoes externas continuam pendentes.",
+    "Aviso pg/Drizzle e dois avisos historicos de lint permanecem em H06."
+  ],
+  "productionChanged": false,
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourcePrivacyAudits": 0,
+    "sourceSubscriptions": 0,
+    "sourceEnrollments": 0,
+    "sourcePromotions": 0,
+    "localDatabaseStopped": true
+  }
+}

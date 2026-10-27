@@ -1,5 +1,5 @@
 import {createHash,createHmac,timingSafeEqual} from 'node:crypto'
-import {opaqueID,type CommercialAdapter,type NormalizedCommercialEvent,type CommercialKind,type AccountScope,type IgnoredCommercialEvent} from '../../modules/commerce/events'
+import {checkoutClickReference,opaqueID,type CommercialAdapter,type NormalizedCommercialEvent,type CommercialKind,type AccountScope,type IgnoredCommercialEvent} from '../../modules/commerce/events'
 import {nativeJSON,nativeInteger,record} from '../../modules/commerce/native-json'
 import {kiwifyDate} from './dates'
 
@@ -37,6 +37,7 @@ function normalize(bytes:Uint8Array,scope:AccountScope):NormalizedCommercialEven
  const key=eventKey(root.order_id,root.webhook_event_type)
  if(!Object.hasOwn(kinds,root.webhook_event_type))return{...scope,eventKey:key,kind:'ignored',eventType:root.webhook_event_type,occurredAt:null}
  const product=record(root.Product),money=record(root.Commissions),createdAt=kiwifyDate(root.created_at)
+ const tracking=record(root.TrackingParameters)
  if(!product||!opaqueID(product.product_id)||product.product_offer_id!=null&&!opaqueID(product.product_offer_id)||!money||typeof money.currency!=='string'||!/^[A-Z]{3}$/.test(money.currency)||!createdAt)throw new Error('invalid_native_event')
  const gross=money.charge_amount==null?null:nativeInteger(money.charge_amount)
  if(money.charge_amount!=null&&gross===null)throw new Error('invalid_native_money')
@@ -48,7 +49,7 @@ function normalize(bytes:Uint8Array,scope:AccountScope):NormalizedCommercialEven
  let reviewReason:NormalizedCommercialEvent['reviewReason']=eventTime&&eventTime>=createdAt&&!(mapping.kind==='refunded'&&approvedAt&&eventTime<approvedAt)?undefined:'unknown_event_time'
  if(root.order_status!==mapping.status)reviewReason='unsupported_native_status'
  if(root.sale_type!=='producer'||root.subscription_id!=null||root.Subscription!=null||root.charges!=null||root.event_tickets!=null||root.event_batch!=null||root.SmartInstallment!=null||root.ScheduledInstallment!=null||root.ShippingOption!=null||!['digital','payment','membership','club'].includes(String(root.product_type)))reviewReason='unsupported_purchase_shape'
- return{...scope,eventKey:key,externalTransactionId:root.order_id,externalProductId:product.product_id,externalOfferId:(product.product_offer_id??null) as string|null,kind:mapping.kind,occurredAt:eventTime??createdAt,sourceCreatedAt:createdAt,sourceEvent:root.webhook_event_type,approvedAt,currency:money.currency,grossCents:gross,feesCents:fees,producerNetCents:null,refundedCents:null,chargebackCents:null,refundBasis:null,externalRefundId:null,externalClickReference:null,...(reviewReason?{reviewReason}:{})}
+ return{...scope,eventKey:key,externalTransactionId:root.order_id,externalProductId:product.product_id,externalOfferId:(product.product_offer_id??null) as string|null,kind:mapping.kind,occurredAt:eventTime??createdAt,sourceCreatedAt:createdAt,sourceEvent:root.webhook_event_type,approvedAt,currency:money.currency,grossCents:gross,feesCents:fees,producerNetCents:null,refundedCents:null,chargebackCents:null,refundBasis:null,externalRefundId:null,externalClickReference:checkoutClickReference(tracking?.sck),...(reviewReason?{reviewReason}:{})}
 }
 export function createKiwifyAdapter(config:KiwifyWebhookConfig,signature:string|null):CommercialAdapter {
  return{provider:'kiwify',version:'kiwify-orders:1',verify:async(body)=>authenticatedKiwify(body,signature,config),normalize:(body,scope)=>{

@@ -10,6 +10,7 @@ import { unsubscribe } from '../../src/modules/marketing/service'
 import { createOpaqueToken, UNSUBSCRIBE_TTL } from '../../src/modules/marketing/tokens'
 import { processBrevoSuppression, syncBrevoSuppressions, retryFailedBrevoSuppressions } from '../../src/modules/marketing/brevo-suppression'
 import { createBrevoContacts, type BrevoContacts } from '../../src/integrations/brevo/contacts'
+import { suppressionFingerprint } from '../../src/modules/marketing/suppression-tombstone'
 
 const seed = await seedRelationship(), { payload } = seed
 const secret = randomBytes(32).toString('hex'), suffix = randomBytes(6).toString('hex'), now = Date.now(), checks: string[] = []
@@ -18,6 +19,11 @@ async function suppress(name: string) {
   const email = `${name}-${suffix}@example.invalid`
   await applySuppression(payload, { email, reason: 'unsubscribed', source: 'manual', reference: `${name}-${suffix}` }, secret, now)
   const contact = (await payload.find({ collection: 'contacts', where: { email: { equals: email } }, depth: 0, overrideAccess: true })).docs[0]
+  const tombstone = (await payload.find({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: suppressionFingerprint(email, secret) } }, limit: 1, depth: 0, overrideAccess: true })).docs[0]
+  assert.ok(tombstone)
+  const expires = new Date(now); expires.setUTCFullYear(expires.getUTCFullYear() + 1)
+  assert.equal(tombstone.expiresAt, expires.toISOString())
+  assert.equal(JSON.stringify(tombstone).includes(email), false)
   return { contact, job: await jobFor(contact.id) }
 }
 function deferred<T>() { let resolve!: (value: T) => void; const promise = new Promise<T>(done => { resolve = done }); return { promise, resolve } }
@@ -43,6 +49,7 @@ try {
   const basic = await suppress('basic')
   assert.equal(basic.job.state, 'pending')
   assert.equal(JSON.stringify(basic.job).includes(basic.contact.email), false)
+  checks.push('Supressão persiste somente fingerprint HMAC e expiração de 12 meses sem FK nem email.')
   assert.deepEqual(await syncBrevoSuppressions(payload, { client: null, now }), { enabled: false, examined: 0, synced: 0, pending: 0, failed: 0 })
   assert.equal((await jobFor(basic.contact.id)).attempts, 0)
   await applySuppression(payload, { email: basic.contact.email, reason: 'unsubscribed', source: 'manual', reference: `basic-${suffix}` }, secret, now)
@@ -65,15 +72,17 @@ try {
   await payload.create({ collection: 'preference-tokens', data: { contact: contact.id, tokenHash: token.hash, expiresAt: new Date(now + UNSUBSCRIBE_TTL).toISOString() }, overrideAccess: true })
   const hooks = payload.collections['brevo-suppressions'].config.hooks, previous = hooks.afterChange
   hooks.afterChange = [...previous, async () => { throw new Error('synthetic suppression rollback') }]
-  try { await assert.rejects(unsubscribe(payload, token.token, now), /synthetic suppression rollback/) }
+  try { await assert.rejects(unsubscribe(payload, token.token, now, secret), /synthetic suppression rollback/) }
   finally { hooks.afterChange = previous }
   assert.equal((await payload.findByID({ collection: 'contacts', id: contact.id, depth: 0, overrideAccess: true })).globalSuppressedAt, null)
   assert.equal((await payload.findByID({ collection: 'subscriptions', id: subscription.id, depth: 0, overrideAccess: true })).state, 'subscribed')
   assert.equal(await jobFor(contact.id), undefined)
-  await unsubscribe(payload, token.token, now)
+  assert.equal((await payload.count({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: suppressionFingerprint(contact.email, secret) } }, overrideAccess: true })).totalDocs, 0)
+  await unsubscribe(payload, token.token, now, secret)
   assert.equal((await jobFor(contact.id)).state, 'pending')
+  assert.equal((await payload.count({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: suppressionFingerprint(contact.email, secret) } }, overrideAccess: true })).totalDocs, 1)
   await processBrevoSuppression(payload, (await jobFor(contact.id)).id, { client: blockedClient, now })
-  checks.push('Falha ao persistir outbox reverte cancelamento e assinatura; descadastro confirmado grava ambos na mesma transação e preserva confirmação/amostra independentes.')
+  checks.push('Falha ao persistir outbox reverte tombstone, cancelamento e assinatura; descadastro confirmado grava tombstone/outbox na mesma transação e preserva confirmação/amostra independentes.')
 
   const lost = await suppress('lost-response')
   let blocked = false, put = 0, get = 0
@@ -133,7 +142,7 @@ try {
   assert.equal((await payload.count({ collection: 'email-deliveries', overrideAccess: true })).totalDocs, 0)
   checks.push('Coleção privada: anônimo não lê e owner não altera estados; nenhum e-mail criado ou quota de mensagem consumida.')
   await mkdir('artifacts/brevo-suppressions', { recursive: true })
-  await writeFile('artifacts/brevo-suppressions/local-results.json', JSON.stringify({ date: '2026-10-22 America/Belem', environment: 'PostgreSQL loopback, relógio controlado, transporte de contatos/HTTP inteiramente sintético', checks, externalCalls: false, messagesSent: 0, limits: 'Fluxo local de bloqueio outbound; conta Brevo, webhooks inbound, listas/campanhas, preferências promocionais e envio ainda não homologados.' }, null, 2))
+  await writeFile('artifacts/brevo-suppressions/local-results.json', JSON.stringify({ date: '2026-10-25 America/Belem', environment: 'PostgreSQL loopback, relógio controlado, transporte de contatos/HTTP inteiramente sintético', checks, externalCalls: false, messagesSent: 0, limits: 'Fluxo local de bloqueio outbound; conta Brevo, webhooks inbound, listas/campanhas, preferências promocionais e envio ainda não homologados.' }, null, 2))
   console.log(`Sincronização de bloqueios: ${checks.length} grupos aprovados; nenhuma chamada externa ou mensagem.`)
 } finally { await seed.cleanup() }
 process.exit(0)

@@ -1,0 +1,93 @@
+{
+  "phase": "D113",
+  "date": "2026-10-27T00:43:51.499256+00:00",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 297,
+      "unitFiles": 36,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "lintWarnings": 0
+    },
+    "retentionDeadline": {
+      "status": "passed",
+      "groups": 4
+    },
+    "healthCLIs": {
+      "status": "passed",
+      "scenarios": 8,
+      "networkDisabled": true,
+      "databaseStarted": false,
+      "fullImageValidated": false
+    },
+    "retentionRegression": {
+      "status": "passed",
+      "checks": 18
+    },
+    "marketingRetentionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "thematicRetentionRegression": {
+      "status": "passed",
+      "groups": 8
+    },
+    "identityRetentionRegression": {
+      "status": "passed",
+      "groups": 12
+    },
+    "npm run build": "passed",
+    "runtimeBundle": "passed",
+    "finalTypecheckAndFocusedLint": "passed",
+    "pythonHarnessSyntax": "passed",
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1356,
+      "updated": 17,
+      "retained": 32
+    }
+  },
+  "sourceSHA256": {
+    "src/modules/marketing/retention-policy.ts": "ffed2f7835484de3a77f68f426021974170f37a690409fc0f59f4b32fc0655d0",
+    "src/modules/marketing/privacy-marketing-retention.ts": "0e7358c26788ba05be7fee48b89960455ab0fab6b41d0cba1da1b701164b4f9f",
+    "src/modules/marketing/privacy-theme-retention.ts": "f81377748d145c06a6d5c450405f99ba7f317f4b2ee550c93bf92541832e3378",
+    "src/modules/marketing/privacy-retention.ts": "e962e3dbc17d19d037537bbcb9bf98066d94c18c856d30ef0b6fe8b6e78cf5e6",
+    "scripts/worker.ts": "5916a458f7d37fc486d7be20fb539a3185835811af7989e1ce019d9075ac9166",
+    "scripts/worker-health.ts": "1f7cf881a4671ffca23a5d0b08f51ad8d4d0dc29f4f3a49a644717187fefe4ca",
+    "scripts/qa-worker-health.py": "2c41df511e2a1cafd74e546f8e213fc3d2040525fce5faaaf3400830e5222112",
+    "scripts/qa-container.py": "4a83735642efb87e200cfbb44367c456cc76658bd05de6bc420628af4ac3ad3f",
+    "scripts/check-integration.sh": "8a8c4108d9f6acea1ac466529d336aa160a2d8e64f9374a0393ac67c20de0b7f",
+    "tests/integration/privacy-retention-deadline.ts": "10b2775ed1b99b6f4f48732b05fbc33c89c0e9bc2a333007df1f36da1d3e6150",
+    "tests/integration/privacy-retention.ts": "b948791b4df74149e5de8764de275b19cc8a8eec5060329d6c1e7e888e106d63",
+    "tests/integration/privacy-marketing-retention.ts": "1750018e4c5ce117c9af2864f38b3aeb3566fbbd85389b6a7cb293195644f9c4",
+    "tests/unit/retention-policy.test.ts": "91e6dcab50fa6b6264badc54fdacc31b753c40d6e6695c04212544cc374c2ebd",
+    "package.json": "700b8c146ee7855b76525b0a219b37031e6b5bdbd58f696349e5eb02c0f43fda"
+  },
+  "schemaMigrations": 34,
+  "packagedCLISHA256": {
+    "worker": "f653685fe83dfc25f18366be57d1ed347e5809766600caafb3d8eb92439356e9",
+    "worker-health": "6c98875713ddfe2861aaf7e703111c45bd12efeab8aab03b4611a54a5cf1cddc",
+    "privacy-retention": "cdfab9b41ff947e87bdf64d90934819c8dacea3816237e7d752440b659d0acbd",
+    "privacy-recovery": "c4fa06c1e48cfbf6c6c9e310b371618a133c6ec3562434dd6a717eaee728b0c7"
+  },
+  "buildID": "xKRrrEuF5VUl4SDJEf3h6",
+  "imageRevalidated": false,
+  "physicalRestoreRevalidated": false,
+  "productionChanged": false,
+  "limitations": [
+    "Health e contagem de assinaturas nao certificam toda a retencao P07 nem cumprimento real de SLA.",
+    "Continuidade, duracao, monitoramento/alertas, excecoes e release final exigem homologacao.",
+    "Legado, contatos ativos, demais finalidades/compartilhamentos/provedor/ledger e guarda externa continuam pendentes."
+  ],
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourceSubscriptions": 0,
+    "sourceThemeWithdrawals": 0,
+    "sourcePrivacyAudits": 0,
+    "localDatabaseStopped": true
+  }
+}

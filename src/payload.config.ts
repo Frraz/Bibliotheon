@@ -1,3 +1,7 @@
+import {ReportEvidence} from './collections/ReportEvidence'
+import {financialLedgerCollections} from './collections/FinancialLedger'
+import {financialResolutionCollections} from './collections/FinancialResolutions'
+import {CatalogResolutions} from './collections/CatalogResolutions'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { buildConfig } from 'payload'
@@ -30,6 +34,7 @@ if (!process.env.DATABASE_URL) throw new Error('Configure DATABASE_URL.')
 const origin = process.env.PUBLIC_SITE_URL || 'http://localhost:3000'
 
 export default buildConfig({
+  telemetry: false,
   secret,
   serverURL: origin,
   csrf: [origin],
@@ -48,12 +53,17 @@ export default buildConfig({
       views: {
         dashboard: { Component: '/components/admin/Dashboard#Dashboard' },
         commercialInbox: { Component: '/components/admin/CommercialInboxView#CommercialInboxView', path: '/commercial-inbox', exact: true, meta: { title: 'Acompanhamento de eventos' } },
+        financialReport: { Component: '/components/admin/FinancialReportView#FinancialReportView', path: '/financial-ledger', exact: true, meta: { title: 'Prévia financeira' } },
+        financialResolutions: { Component: '/components/admin/FinancialResolutionsView#FinancialResolutionsView', path: '/financial-resolutions', exact: true, meta: { title: 'Resolver conflitos financeiros' } },
+        catalogResolutions: { Component: '/components/admin/CatalogResolutionsView#CatalogResolutionsView', path: '/catalog-resolutions', exact: true, meta: { title: 'Resolver identidades do catálogo' } },
+        financialRecords: { Component: '/components/admin/FinancialRecordsView#FinancialRecordsView', path: '/financial-records', exact: true, meta: { title: 'Liquidações e custos' } },
+        commercialImports: { Component: '/components/admin/CommercialImportsView#CommercialImportsView', path: '/commercial-imports', exact: true, meta: { title: 'Conferir e importar CSV' } },
         suppressions: { Component: '/components/admin/SuppressionView#SuppressionView', path: '/suppressions', exact: true, meta: { title: 'Suspender e-mails' } },
       },
     },
   },
   i18n: { supportedLanguages: { pt }, fallbackLanguage: 'pt' },
-  collections: presentCollections([AdminUsers, Themes, Ebooks, Articles, Media, LeadMagnets, Offers, Campaigns, Redirects, EmailSequences, ...relationshipCollections, ...analyticsCollections, ...commerceCollections, ...commercialImportCollections]),
+  collections: presentCollections([AdminUsers, Themes, Ebooks, Articles, Media, LeadMagnets, Offers, Campaigns, Redirects, EmailSequences, ...relationshipCollections, ...analyticsCollections, ...commerceCollections, ...commercialImportCollections, CatalogResolutions, ...financialResolutionCollections, ReportEvidence, ...financialLedgerCollections]),
   globals: [SiteSettings],
   jobs: {
     tasks: [deliverEmailTask],

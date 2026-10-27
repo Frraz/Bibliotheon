@@ -56,7 +56,7 @@ const transport:typeof fetch=async(input,options)=>{
  if(modes.get(String(row.body.name))==='hold-verify'){entered?.();await release}
  if(modes.get(String(row.body.name))==='withdraw-before-claim'){
   const email=peopleByBatch.get(String(row.body.name))![0]
-  await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due)
+  await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due, secret)
  }
  return Response.json(report(row))
 }
@@ -125,7 +125,7 @@ try{
  const withdrawn=await group('withdrawn'),beforeWithdraw=await usedAt(due);modes.set(withdrawn.name,'withdraw-before-claim')
  assert.equal((await run(withdrawn.id)).state,'canceled');assert.equal(sends.get(withdrawn.name),undefined);assert.equal(await usedAt(due),beforeWithdraw)
  const retryWithdrawn=await group('retry-withdrawn');modes.set(retryWithdrawn.name,'reject');assert.equal((await run(retryWithdrawn.id)).state,'rejected')
- await unsubscribe(payload,new URL(links.get(retryWithdrawn.people[0].email)!).searchParams.get('t'),due+1)
+ await unsubscribe(payload,new URL(links.get(retryWithdrawn.people[0].email)!).searchParams.get('t'),due+1, secret)
  const beforeRetryWithdraw=await usedAt(due);assert.equal((await run(retryWithdrawn.id,due+2,{retryRejected:true})).state,'canceled');assert.equal(sends.get(retryWithdrawn.name),1);assert.equal(await usedAt(due),beforeRetryWithdraw)
  checks.push('Descadastro antes da reserva impede disparo; retirada após recusa cancela etapas e torna retry inelegível sem reativar calendário ou consentimento.')
 
@@ -133,7 +133,7 @@ try{
  let unlock!:()=>void;const gate=new Promise<void>(resolve=>{entered=resolve});release=new Promise(resolve=>{unlock=resolve})
  const pending=run(inflight.id);await gate
  assert.equal((await jobFor(inflight.id)).state,'issuing')
- await unsubscribe(payload,new URL(links.get(inflight.people[0].email)!).searchParams.get('t'),due+1);unlock()
+ await unsubscribe(payload,new URL(links.get(inflight.people[0].email)!).searchParams.get('t'),due+1, secret);unlock()
  assert.equal((await pending).state,'submitted');assert.ok((await payload.findByID({collection:'contacts',id:inflight.people[0].id,overrideAccess:true})).globalSuppressedAt)
  checks.push('Retirada após intenção/POST em voo não promete recall: supressão permanece e aceitação tardia do pedido não é marcada como entrega individual.')
 

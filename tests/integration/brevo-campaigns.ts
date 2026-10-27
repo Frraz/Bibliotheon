@@ -110,7 +110,7 @@ try{
  const withdrawn=await group('withdrawn');modes.set(withdrawn.name,'withdraw')
  const gate=new Promise<void>(resolve=>{entered=resolve});let unlock!:()=>void;release=new Promise(resolve=>{unlock=resolve})
  const inflight=run(withdrawn.id);await gate
- await unsubscribe(payload,new URL(links.get(withdrawn.people[0].email)!).searchParams.get('t'),due);unlock()
+ await unsubscribe(payload,new URL(links.get(withdrawn.people[0].email)!).searchParams.get('t'),due, secret);unlock()
  assert.equal((await inflight).state,'canceled');const canceled=await jobFor(withdrawn.id);assert.equal(canceled.state,'canceled');assert.ok(canceled.providerCampaignId);assert.equal(canceled.verifiedAt,null)
  modes.delete(withdrawn.name)
  checks.push('Descadastro durante POST impede ready e conserva ID do rascunho órfão; nenhuma promoção é reservada/agendada/enviada.')

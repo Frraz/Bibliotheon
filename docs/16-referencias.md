@@ -4,6 +4,8 @@
 
 Consulta realizada em **20/10/2026**. Fontes externas podem mudar; revalidar no bootstrap, na homologação e antes de contratar. Não houve acesso a contas, credenciais ou painel da VPS. Fontes sustentam capacidades gerais; decisões de implementação próprias estão nos documentos, não são recomendações universais dos fornecedores.
 
+As observações da tabela pertencem à consulta de 20/10, incluindo previsões então futuras. Versões implementadas, contratos nativos posteriormente conferidos e limites locais vigentes estão no [estado atual](23-estado-atual.md) e nos documentos de cada integração. A revisão D80 atualizou a consistência local sem refazer a pesquisa externa; H01/H02/H06 mantêm sua revalidação própria antes de ativar ou contratar.
+
 | Fonte oficial | Uso | Resultado / limite |
 |---|---|---|
 | [Payload — Installation](https://payloadcms.com/docs/getting-started/installation) | CMS integrado, PostgreSQL e compatibilidade com Next | Página consultada; versões exatas serão fixadas em B01 |
@@ -17,6 +19,9 @@ Consulta realizada em **20/10/2026**. Fontes externas podem mudar; revalidar no 
 | [Hotmart — Eventos de compra v2](https://developers.hotmart.com/docs/es/2.0.0/webhook/purchase-webhook/) | Verificação e contrato comercial | Busca oficial expôs Hottok; página dinâmica não revelou esquema integral na leitura |
 | [Kiwify — Webhooks](https://ajuda.kiwify.com.br/pt-br/article/como-funcionam-os-webhooks-2ydtgl/) | Eventos, teste e reenvio | Confirmados conceitualmente; assinatura e payload atual ainda dependem de documentação técnica/conta |
 | [Cakto — Guia de webhooks](https://ajuda.cakto.com.br/pt-br/articles/1-como-funcionam-os-webhooks-na-cakto-guia-completo) | Eventos, segredo e reenvio | Não confirma sozinho transporte/algoritmo do segredo |
+| [Hotmart — Webhook V2](https://developers.hotmart.com/docs/en/2.0.0/webhook/purchase-webhook/) | Referência `purchase.origin.sck` | Suporta campo de origem no evento; retenção/caminhos reais precisam de H01 |
+| [Kiwify — parâmetros de rastreamento](https://ajuda.kiwify.com.br/pt-br/article/como-passar-parametros-de-rastreamento-na-url-do-checkout-src-utm-tags-entre-outros-1spiptc/) | `sck` no checkout | Central informa uso dos parâmetros na compra; contrato de evento direto inacessível nesta consulta |
+| [Cakto — parâmetros de rastreamento](https://ajuda.cakto.com.br/pt-br/articles/54-como-passar-parametros-de-rastreamento-na-url-do-checkout-src-utm-tags-entre-outros) | `sck` no checkout | Central informa persistência no pedido; entrega do campo no webhook real depende de H01 |
 | [Brevo — Planos](https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans) | Plano gratuito | Consulta informa 300 envios/dia; quota/aceitação real da conta devem ser confirmadas |
 | [Brevo — Envio transacional](https://developers.brevo.com/docs/send-a-transactional-email) | Transporte de mensagens | Integração e remetente ainda não homologados |
 | [Brevo — Campanhas por API](https://developers.brevo.com/reference/create-email-campaign) | Etapas promocionais | Contrato a homologar com supressões e quotas |
@@ -39,6 +44,10 @@ Regras de elegibilidade, taxas, reembolsos e exclusividade precisam ser verifica
 
 O [registro de skills e fontes](design/08-skills-referencias.md) identifica instruções aplicadas, limites e referências tipográficas/técnicas. As [referências editoriais comentadas](design/01-identidade.md) distinguem observação documental e interpretação. O arquivo [de inspiração](<../ideais para melhora o desing.md>) permanece íntegro; suas listas não são tratadas como ranking verificado.
 
+## Revalidação de rastreamento de vendas — 25/10/2026 (D87)
+
+Foram consultados o webhook V2/changelog/checkout da Hotmart, a central de rastreamento e o link técnico de Webhooks da Kiwify, e a central de parâmetros de checkout e o guia técnico de Webhooks da Cakto. Os três documentam `sck` em link de checkout; Hotmart documenta `purchase.origin.sck`. A página Kiwify de webhook não abriu nesta consulta, e o contrato Cakto enumera UTMs mas requer conferência do `sck` no evento efetivo. Por isso P06 fica parcialmente implementada: callbacks aceitam só UUID interna e o relatório ainda valida vínculo e contexto; transporte por conta/caminho e a entrega do campo Kiwify/Cakto não são homologados. Ver [auditoria com achados e limites](../artifacts/attribution/p06-audit-d87.json).
+
 
 ## Revalidação Hotmart — 24/10/2026 (D63)
 
@@ -53,3 +62,7 @@ Não usamos fontes técnicas de terceiros para preencher semântica ausente. Val
 ## Cakto — revalidação D65, 24/10/2026
 
 [Guia técnico](https://docs.cakto.com.br/conceitos/webhooks.md), [histórico](https://docs.cakto.com.br/api-reference/webhooks/event-history.md), [teste](https://docs.cakto.com.br/api-reference/webhooks/test-webhook.md), [reenvio](https://docs.cakto.com.br/api-reference/webhooks/resend-event.md) e [changelog](https://docs.cakto.com.br/mudancas.md) consultados publicamente, sem API autenticada. Assinatura/timestamp, versões de payload, datas/valores e política de falha consolidados no [contrato Cakto](integracoes/cakto.md). [Método/hashes](../artifacts/cakto/source-checks.json). Conta e homologação real continuam pendentes.
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+Consulta em 27/10/2026 UTC (26/10 America/Belem): [transações node-postgres](https://node-postgres.com/features/transactions) exigem o mesmo cliente por transação; [depreciações do driver](https://github.com/brianc/node-postgres/pull/3510) contextualizam a fila antiga. Conferidos o código instalado e as fontes oficiais de [delete Payload v3.91.0](https://github.com/payloadcms/payload/blob/v3.91.0/packages/payload/src/collections/operations/delete.ts) e [update](https://github.com/payloadcms/payload/blob/v3.91.0/packages/payload/src/collections/operations/update.ts). A reprodução local comprovou concorrência em lote e a correção sequencial foi testada. Consulta de código não é nova auditoria completa de dependências.

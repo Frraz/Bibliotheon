@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "PostgreSQL local sintético; sem serviço externo",
+  "checks": [
+    "owner obrigatório",
+    "origem exata",
+    "declaração operacional identityVerified obrigatória",
+    "retorno private no-store/no-referrer",
+    "exportação paginada por referências diretas",
+    "hashes e identificadores técnicos excluídos",
+    "auditoria HMAC sem email"
+  ],
+  "syntheticRecords": true,
+  "externalCalls": false,
+  "messagesSent": 0
+}

@@ -4,7 +4,7 @@ import {mkdir,mkdtemp,rm,writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import path from 'node:path'
 import type {PostgresAdapter} from '@payloadcms/db-postgres'
-import {seedCommerce,commercialCollections,commercialLedgerCollections} from '../fixtures/commerce'
+import {seedLegacyOffer,seedCommerce,commercialCollections,commercialLedgerCollections} from '../fixtures/commerce'
 import {up as importsUp,down as importsDown} from '../../migrations/20261024_190859_commercial_imports'
 import {commercialEventKey,type NormalizedCommercialEvent,type CommercialAdapter} from '../../src/modules/commerce/events'
 import {processCommercialInbox,processCommercialQueue,receiveCommercialWebhook,retryCommercialInbox} from '../../src/modules/commerce/inbox'
@@ -73,7 +73,7 @@ try{
  const ownerAudit=(await payload.find({collection:'commercial-audit',where:{and:[{inbox:{equals:unknownId}},{actorType:{equals:'owner'}}]},depth:0,overrideAccess:true})).docs;assert.equal(ownerAudit.length,1);assert.equal(ownerAudit[0].actor,seed.owner.id);assert.equal(ownerAudit[0].reason,'catalog_updated')
  checks.push('Produto desconhecido não vira venda; correção de catálogo permite retry autenticado, com origem exata, motivo fechado e ator derivado da sessão. Campos extras/forjados são recusados.')
 
- const ambiguous=event({externalProductId:'ambiguous'});for(const book of seed.books.slice(0,2))await payload.create({collection:'offers',...seed.auth,data:{name:'Ambiguidade sintética',provider:'hotmart',accountKey:'synthetic',externalProductId:'ambiguous',ebook:book.id,active:false,currency:'BRL'}})
+ const ambiguous=event({externalProductId:'ambiguous'});for(const book of seed.books.slice(0,2))await seedLegacyOffer(seed,{name:'Ambiguidade sintética',provider:'hotmart',accountKey:'synthetic',externalProductId:'ambiguous',ebook:book.id,active:false,currency:'BRL'})
  await receive(ambiguous);assert.equal((await run(ambiguous)).state,'needs_review');assert.equal((await rowFor(ambiguous)).errorCode,'ambiguous_product');assert.equal(await txFor(ambiguous.externalTransactionId),undefined)
  const explicitOffer=await payload.create({collection:'offers',...seed.auth,data:{name:'Oferta explícita sintética',provider:'cakto',accountKey:'synthetic',externalProductId:'synthetic-product',externalOfferId:'explicit-offer',ebook:seed.books[0].id,active:false,currency:'BRL'}})
  const explicit=event({provider:'cakto',externalOfferId:'explicit-offer'});await receive(explicit);assert.equal((await run(explicit)).state,'applied');assert.equal((await txFor(explicit.externalTransactionId)).offer,explicitOffer.id)

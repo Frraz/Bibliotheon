@@ -1,0 +1,57 @@
+{
+  "phase": "D108",
+  "date": "2026-10-26T15:20:34.676172+00:00",
+  "imageID": "sha256:d3dbf0b6cacfb292cf172c3bc6206a55d21c8dd83a5d1d17fe80ff4d0a38a8d3",
+  "imageCLIHash": "5ecf355f90f58f5be4ac8b301f5b5743b5678e7d05392eb1f8d9692b6eed0617",
+  "checks": {
+    "npm run check": {
+      "status": "passed",
+      "unitTests": 288,
+      "unitFiles": 35,
+      "operationalTests": 61,
+      "lintErrors": 0,
+      "historicalLintWarnings": 2
+    },
+    "physicalRestoreAndPrivacyReplayInD107Image": "passed",
+    "restoredHTTP": {
+      "health": 200,
+      "catalog": 200,
+      "contacts": 403,
+      "cover": 200,
+      "privateSample": 404
+    },
+    "runtimeCredentialSeparated": true,
+    "networkInternalWithoutPublishedPorts": true,
+    "git diff --check": "passed",
+    "documentation": {
+      "status": "passed",
+      "documents": 49,
+      "localLinks": 1270,
+      "updated": 14,
+      "retained": 35
+    }
+  },
+  "sourceSHA256": {
+    "scripts/qa-recovery.ts": "fa055db12e2ff144873acb995755227c31be70fc224295f0df4c5daa0b0deb36",
+    "ops/recovery.py": "5f9326d69f297dccc183fdf25ed30dcd3d24ae17dfbfe76c683f2df5e432d14b",
+    ".release/privacy-recovery.js": "5ecf355f90f58f5be4ac8b301f5b5743b5678e7d05392eb1f8d9692b6eed0617",
+    "migrations/index.ts": "a3ea52bfb7cb6f131cb2db6892d42e0b0bfb61765cf2f848484cbce9299fcafc",
+    "src/payload.config.ts": "f6e0fc8551448269c6a938ea96579287af808879b69c6d10dd75f196c776db84"
+  },
+  "limitations": [
+    "Backup e manifesto externos, RPO/RTO reais ainda nao homologados.",
+    "H03 exige bateria integral da revisao final; P07 exige retencao ampla e conciliacao efetiva.",
+    "Sem dado real, conta externa, VPS ou deploy.",
+    "Aviso pg/Drizzle e dois avisos historicos de lint seguem em H06."
+  ],
+  "productionChanged": false,
+  "cleanup": {
+    "sourceOwners": 0,
+    "sourceContacts": 0,
+    "sourcePrivacyAudits": 0,
+    "sourceSuppressionTombstones": 0,
+    "sourceDatabaseStopped": true,
+    "restoreContainersRemaining": 0,
+    "restoredAppContainersRemaining": 0
+  }
+}

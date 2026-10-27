@@ -2,7 +2,7 @@
 
 Catálogo e páginas de venda de e-books, com painel manual Payload. Checkout e entrega externos por **Hotmart, Kiwify e Cakto**; nenhuma IA integrada ao produto.
 
-**Estado em 24/10/2026:** aplicação e integrações possuem implementação e testes locais; o sistema completo ainda não está pronto para produção. A conciliação CSV tem confirmação limitada para inbox. Resolução de divergências, financeiro, retenção e homologação externa continuam pendentes. GitHub e deploy na VPS ficam com o proprietário.
+**Estado em 26/10/2026 (D114):** D114 reconstrói fatos temáticos legados somente com evento nativo coincidente, sem renovar prazo nem inventar consentimento. A exportação recusa lacunas sem cobertura verificável e preserva finalidades posteriores. Schema mantém 34 migrations; P07 e gates finais continuam abertos. Flags desligadas e produção não alterada. GitHub e deploy ficam com o proprietário. Veja [estado atual](docs/23-estado-atual.md) e [pendências](pendencias.md).
 
 Comece pelo [estado atual](docs/23-estado-atual.md), consulte [pendencias.md](pendencias.md) para prioridades e retome por [progresso](docs/14-progresso.md). Histórico e testes anteriores estão no [registro técnico](docs/19-desenvolvimento.md).
 
@@ -111,3 +111,23 @@ Primeiro título: “Crie Sistemas com IA e Ganhe Dinheiro”. Domínio: bibliot
 Design editorial, claro/escuro, três variantes de LP e movimento definidos no [DESIGN-BRIEF](DESIGN-BRIEF.md). Rodadas visuais existentes são recortes locais; a matriz integral permanece em aberto. Cadastro manual, catálogo amplo e divulgação segmentada; clique, aprovação, recebimento e lucro são medidas distintas. Nunca inventar vendas, avaliações, escassez ou resultados financeiros.
 
 [Instruções de trabalho](AGENTS.md) · [Qualidade](docs/15-qualidade.md) · [Backlog](docs/13-backlog.md)
+
+## D110 — Retenção de identidade e recuperação — 26/10/2026
+
+Retenção de identidades encerradas validada em 12 grupos PostgreSQL sintéticos e restore físico local com manifesto v3. [Testes](artifacts/privacy-retention/d110-results.json), [restore](artifacts/recovery/d110-results.json) e [revisão documental](artifacts/documentation/documentation-review-d110.json). Próximo: ampliar P07 para finalidades remanescentes/compartilhadas e concluir os gates do release em pendencias.md.
+
+## D111 — Operações em lote e diagnóstico PostgreSQL — 26/10/2026
+
+A atualização D111 trata o aviso pg/Drizzle e lint em H06; o produto completo continua em desenvolvimento. Retenção e restauração mantêm os contratos D110. [Suíte de lote](artifacts/database-bulk/d111-results.json) e [checks](artifacts/database-bulk/d111-checks.json).
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+O descadastro por assunto é preservado mesmo após retirar a assinatura local; uma confirmação antiga não recria marketing, enquanto amostras e novo opt-in explícito continuam independentes. [Testes](artifacts/privacy-retention/d112-results.json), [recuperação](artifacts/recovery/d112-results.json) e [checks](artifacts/privacy-retention/d112-checks.json).
+
+## D113 — Margem e acompanhamento do prazo — 26/10/2026
+
+A execução diária ganha margem antes dos 30 dias; vínculos pendentes continuam preservados e passam a aparecer no relatório de prazo/saúde. [Teste de prazo](artifacts/privacy-retention/d113-results.json), [CLIs de saúde](artifacts/worker-health/d113-results.json), [checks](artifacts/privacy-retention/d113-checks.json). Operação contínua e monitoramento externo ainda exigem homologação.
+
+## D114 — Legado temático verificável — 26/10/2026
+
+O legado verificável participa da retenção e do manifesto v4; histórico ausente/conflitante exige revisão. [Oito grupos PostgreSQL](artifacts/privacy-retention/d114-results.json), [restore físico](artifacts/recovery/d114-results.json) e [checks](artifacts/privacy-retention/d114-checks.json). A homologação da imagem, contas e ambiente final continua pendente.

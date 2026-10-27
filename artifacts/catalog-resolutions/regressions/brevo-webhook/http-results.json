@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25T01:11:50.561Z",
+  "timezone": "America/Belem",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "Rota autenticada real persiste envelope mínimo e supressão antes de ACK; credencial ausente não abre registro.",
+    "Retries HTTP concorrentes com IDs distintos deduplicam envelope e auditoria.",
+    "Corpo grande, batch não habilitado, data futura e método incorreto recusados; abertura ignorada sem métricas fictícias."
+  ],
+  "externalCalls": false,
+  "realMessagesSent": 0,
+  "limits": "Token e payloads sintéticos em QA loopback; sem homologação real."
+}

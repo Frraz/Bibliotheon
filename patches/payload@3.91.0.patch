@@ -1,5 +1,57 @@
+diff --git a/dist/collections/operations/delete.js b/dist/collections/operations/delete.js
+index 0fabf6defa404b3840c3bec31ea0aca0c99f927a..e0c1a829645112a4bbc6f73dbc475a8c3ac1a3b4 100644
+--- a/dist/collections/operations/delete.js
++++ b/dist/collections/operations/delete.js
+@@ -82,7 +82,7 @@ export const deleteOperation = async (incomingArgs)=>{
+             where: fullWhere
+         });
+         const errors = [];
+-        const promises = docs.map(async (doc)=>{
++        const processDocument = async (doc)=>{
+             let result;
+             const { id } = doc;
+             try {
+@@ -231,17 +231,17 @@ export const deleteOperation = async (incomingArgs)=>{
+                 });
+             }
+             return null;
+-        });
+-        // Process sequentially when using single transaction mode to avoid shared state issues
+-        // Process in parallel when using one transaction for better performance
++        };
++        // A shared transaction owns one database client. Start each document only after
++        // the previous one finishes; awaiting already-started promises is not sequential.
+         let awaitedDocs;
+-        if (req.payload.db.bulkOperationsSingleTransaction) {
++        if (req.transactionID || req.payload.db.bulkOperationsSingleTransaction) {
+             awaitedDocs = [];
+-            for (const promise of promises){
+-                awaitedDocs.push(await promise);
++            for (const doc of docs){
++                awaitedDocs.push(await processDocument(doc));
+             }
+         } else {
+-            awaitedDocs = await Promise.all(promises);
++            awaitedDocs = await Promise.all(docs.map(processDocument));
+         }
+         // /////////////////////////////////////
+         // Delete Preferences
+diff --git a/dist/collections/operations/update.js b/dist/collections/operations/update.js
+index bdf0857f18a6d8129f928b3e1b0b3fbe506779f7..25d8fe81ef60068c109ce277c031b3b000fd220d 100644
+--- a/dist/collections/operations/update.js
++++ b/dist/collections/operations/update.js
+@@ -313,7 +313,8 @@ export const updateOperation = async (incomingArgs)=>{
+         // before the next document starts. This only applies when an actual file is being written
+         // (`req.file`); metadata-only bulk updates use isolated per-document request state and can
+         // stay parallel. Other bulk updates retain their existing parallel behavior.
+-        const processSequentially = req.payload.db.bulkOperationsSingleTransaction || Boolean(collectionConfig.upload && !overrideAccess && req.file);
++        // A transaction shares one database client, including metadata-only updates.
++        const processSequentially = Boolean(req.transactionID) || req.payload.db.bulkOperationsSingleTransaction || Boolean(collectionConfig.upload && !overrideAccess && req.file);
+         let awaitedDocs;
+         if (processSequentially) {
+             awaitedDocs = [];
 diff --git a/dist/uploads/deleteAssociatedFiles.js b/dist/uploads/deleteAssociatedFiles.js
-index d6275954a1afdc855f404fcef2879ddd2952150c..676f2097954e84c63b6e532206044e26dd8afc65 100644
+index d6275954a1afdc855f404fcef2879ddd2952150c..affb95f99e0b3840d1c12ad88dd057456aef730d 100644
 --- a/dist/uploads/deleteAssociatedFiles.js
 +++ b/dist/uploads/deleteAssociatedFiles.js
 @@ -27,6 +27,11 @@ const deleteFile = async ({ filename, staticPath })=>{

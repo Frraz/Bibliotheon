@@ -1,0 +1,21 @@
+{
+  "environment": "PostgreSQL loopback sintético; censo psql independente após testes",
+  "date": "2026-10-25T02:48:22.569244+00:00",
+  "owners": 0,
+  "contacts": 0,
+  "offers": 0,
+  "transactions": 0,
+  "facts": 0,
+  "inbox": 0,
+  "conflicts": 0,
+  "commercialAudit": 0,
+  "catalogResolutions": 0,
+  "importBatches": 0,
+  "importRows": 0,
+  "importAudit": 0,
+  "migrations": 24,
+  "publicContactEmpty": true,
+  "legalReady": false,
+  "transactionLookupExists": true,
+  "variantLookupExists": true
+}

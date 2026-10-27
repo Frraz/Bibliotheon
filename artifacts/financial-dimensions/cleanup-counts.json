@@ -1,0 +1,20 @@
+{
+  "phase": "D85",
+  "date": "2026-10-25T17:23:17.578655+00:00",
+  "migrations": 28,
+  "counts": {
+    "admin_users": 0,
+    "contacts": 0,
+    "campaigns": 0,
+    "offers": 0,
+    "ebooks": 0,
+    "transactions": 0,
+    "transaction_events": 0,
+    "commercial_settlement_evidence": 0,
+    "financial_cost_entries": 0
+  },
+  "independentlyCheckedWith": "psql local apos QA final e cleanup dos livros extras",
+  "databaseStopped": true,
+  "volumePreserved": true,
+  "siteSettingsFixtureBackupsRemaining": 0
+}

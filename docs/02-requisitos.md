@@ -2,6 +2,8 @@
 
 [Índice](../README.md) · [Backlog](13-backlog.md) · [Testes](15-qualidade.md)
 
+Os aceites abaixo preservam o escopo completo aprovado. O [mapa vigente de implementação e evidências](23-estado-atual.md) distingue o que foi implementado/testado localmente do que ainda exige desenvolvimento ou homologação; a entrega parcial de uma interface não encerra seu requisito.
+
 ## Jornadas
 
 1. Visitante chega a artigo ou LP, lê conteúdo, examina amostra e escolhe uma oferta. O checkout externo recebe a navegação; apenas evento validado ou conciliação comprova compra.

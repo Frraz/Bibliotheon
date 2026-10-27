@@ -1,0 +1,56 @@
+{
+  "phase": "D110",
+  "date": "2026-10-27T00:39:09.709Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "preview sem escrita; contato ativo, supressão recente, amostra, pending, manifesto e identidade posterior preservados",
+    "provas encerradas expiram em 24 meses; identidades sem finalidade são expurgadas com fato HMAC próprio; supressão não renova",
+    "registro pseudônimo disponível na exportação do titular mesmo sem contato; API Local nega anônimo/escrita owner",
+    "referência só por HMAC e callback sem FK preservam a identidade; chave de callback ausente impede inferir ausência de vínculo",
+    "falha ao persistir fato HMAC reverte expurgo do contato e de suas provas na mesma transação",
+    "manifesto v3 reaplica fato automático sem pedido humano, com preview, importação e repetição sem renovar prazo",
+    "finalidade/amostra posterior ao expurgo é protegida; manifesto anterior a nova finalidade é recusado",
+    "cópia restaurada com relações antigas fica em quarentena, sem inventar entrega nem pedido owner concluído",
+    "propósito concorrente criado após a seleção impede o expurgo sob o lock compartilhado",
+    "100 provas recentes na primeira página não impedem expurgo sem finalidade no fim do backlog",
+    "cópia restaurada reconciliada é removida sem reiniciar prazo de expurgo nem recriar supressão vencida",
+    "registro expira após 24 meses; migration down recusa dados e faz roundtrip vazio transacional"
+  ],
+  "preview": {
+    "cutoff": "2024-10-27T00:39:00.296Z",
+    "suppressionCutoff": "2026-09-27T00:39:00.296Z",
+    "guardAvailable": true,
+    "candidates": 11,
+    "eligible": 3,
+    "processed": 0,
+    "removedConsentEvents": 0,
+    "removedContacts": 0,
+    "preservedForPurpose": 1,
+    "preservedForReconciliation": 7,
+    "expiredMarkers": 0
+  },
+  "applied": {
+    "cutoff": "2024-10-27T00:39:00.296Z",
+    "suppressionCutoff": "2026-09-27T00:39:00.296Z",
+    "guardAvailable": true,
+    "candidates": 11,
+    "eligible": 3,
+    "processed": 3,
+    "removedConsentEvents": 3,
+    "removedContacts": 2,
+    "preservedForPurpose": 1,
+    "preservedForReconciliation": 7,
+    "expiredMarkers": 0
+  },
+  "replay": {
+    "retiredContacts": 1,
+    "protectedNewerPurposes": 1,
+    "pendingRestoredCopies": 1
+  },
+  "manifestVersion": 3,
+  "migrations": 34,
+  "externalCalls": 0,
+  "humanDeletionRequestFabricated": false,
+  "physicalRestoreInThisSuite": false,
+  "productionChanged": false
+}

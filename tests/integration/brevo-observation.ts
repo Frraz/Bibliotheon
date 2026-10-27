@@ -56,7 +56,7 @@ const transport:typeof fetch=async(input,options)=>{
  if(modes.get(String(row.body.name))==='hold-verify'){entered?.();await release}
  if(modes.get(String(row.body.name))==='withdraw-before-claim'){
   const email=peopleByBatch.get(String(row.body.name))![0]
-  await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due)
+  await unsubscribe(payload,new URL(links.get(email)!).searchParams.get('t'),due, secret)
  }
  return Response.json(report(row))
 }
@@ -116,7 +116,7 @@ try{
  assert.deepEqual((await jobFor(rejected.id)).history,rejectedJob.history);assert.equal(await usedAt(due),rejectedQuota)
  checks.push('Rascunho não prova aceitação ou ausência de envio; lease de consulta impede retry concorrente e prova observada preserva recusa HTTP histórica.')
  const withdrawn=await group('withdrawn');await run(withdrawn.id)
- await unsubscribe(payload,new URL(links.get(withdrawn.people[0].email)!).searchParams.get('t'),due)
+ await unsubscribe(payload,new URL(links.get(withdrawn.people[0].email)!).searchParams.get('t'),due, secret)
  const contact=await payload.findByID({collection:'contacts',id:withdrawn.people[0].id,depth:0,overrideAccess:true})
  assert.equal((await observe(withdrawn.id)).state,'observed');assert.deepEqual(await payload.findByID({collection:'contacts',id:contact.id,depth:0,overrideAccess:true}),contact)
  checks.push('Retirada de consentimento permanece intacta após observação de campanha já emitida; rotina não reinscreve contatos.')

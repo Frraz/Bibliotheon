@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-25T16:53:02.396Z",
+  "status": "passed",
+  "checks": [
+    "Anônimo sem view/API; vazio nos dois temas não fabrica valores, coortes ou taxas.",
+    "POST real mantém owner/origem/MIME/período/privacidade; moeda, caixa independente, revisão, overflow, taxa e cobertura corretos no JSON.",
+    "UI mostra quarentena, denominadores, taxa desconhecida e zero conhecido; tabela rola por teclado dentro da região e filtros GET/erro não escrevem.",
+    "Dois temas/320–1920px, texto 200% com entrelinha proporcional, tabela/indicadores legíveis e leitura/filtro sem JS; sem escrita, runtime ou requisição externa."
+  ],
+  "captures": [
+    {
+      "name": "empty-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "currency-filter-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "invalid-period-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-360",
+      "theme": "light",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-768",
+      "theme": "light",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "text-200-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-report-390",
+      "theme": "light",
+      "width": 390,
+      "axe": false,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "QA recortada de cobertura financeira sintética; sem layout nativo, prazo de reversão homologado, atribuição, zoom nativo 400%, release da imagem/restore ou produção."
+}

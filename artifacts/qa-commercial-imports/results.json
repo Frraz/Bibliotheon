@@ -1,0 +1,212 @@
+{
+  "date": "2026-10-25T12:15:40.407Z",
+  "status": "passed",
+  "checks": [
+    "Acesso anônimo à view e à API recusado; a página usa autorização owner também no servidor.",
+    "Carregamento desabilita os campos/ações e mantém os dados até concluir a prévia; nenhum lote é gravado pela consulta.",
+    "Upload/prévia não persistem; mudança de entrada invalida a prévia. Stage e commit com resposta perdida são repetidos sem duplicar lote ou inbox. Retomada após reload funciona; queued não é transação aplicada.",
+    "Contrato complementar Kiwify: prévia, stage, confirmação e retomada registram uma prova sem criar transação/fato nativo; nova prévia reconhece duplicata.",
+    "O mesmo fluxo canônico atende Hotmart, Kiwify e Cakto, com um provedor/conta por lote; sem conta externa homologada.",
+    "Recebimento em snapshot fica bloqueado; divergência real criada entre stage/commit deixa o lote stale sem gravar novos fatos; a tela remove a confirmação e preserva o histórico.",
+    "Cabeçalho estranho é rejeitado sem armazenar dados; erro mantém os campos, mudança de contrato invalida a prévia e limite de tamanho é exibido antes do envio.",
+    "Lotes duráveis paginam 50 linhas com identidade em detalhe. Sem JavaScript, consulta permanece disponível e não confirma silenciosamente."
+  ],
+  "captures": [
+    {
+      "name": "empty-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "empty-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "loading-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "ready-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "blocked-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "error-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "nojs-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": false,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-320",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-360",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-768",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "confirmed-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "blocked-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    },
+    {
+      "name": "ready-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "axe": true,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Jornadas locais sintéticas de importação canônica. Sem layout nativo, decisão financeira visual, lançamento, conta externa ou aceite B20 integral."
+}

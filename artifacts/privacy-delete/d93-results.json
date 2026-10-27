@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25 America/Belem",
+  "environment": "PostgreSQL local sintético; sem dados pessoais reais",
+  "checks": [
+    "exclusão owner remove contato, pedido de amostra, consentimento e outbox elegíveis na mesma transação",
+    "tombstone HMAC de 24 meses impede nova captura do endereço pelos fluxos públicos",
+    "envio uncertain registra pending e preserva contato e outbox para conciliação",
+    "repetição do pedido completed não duplica auditoria nem repete exclusões",
+    "repetição do pedido pending reutiliza auditoria e mantém identidade para conciliação"
+  ],
+  "syntheticRecords": true,
+  "externalCalls": false,
+  "messagesSent": 0
+}

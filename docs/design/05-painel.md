@@ -42,3 +42,27 @@ Confirmação destrutiva descreve objeto e consequência; foco inicial em opçã
 ## Tema e motion
 
 Painel segue sistema/claro/escuro; conteúdo e permissões idênticos. Skeleton e overlay adaptados ao tema; gráficos opcionais também têm tabela equivalente e padrões/rótulos. No painel só transições funcionais de 120–200ms; não executar a coreografia editorial em cada abertura de formulário. Preview usa o tema selecionado sem alterar dados do livro.
+
+## Views operacionais implementadas localmente — D79–D81
+
+Prévia financeira usa `/admin/financial-ledger`; importação usa `/admin/commercial-imports`. Ambas preservam o template, navegação, autenticação e tema suportados do Payload. Importação coloca o lote selecionado antes do novo upload, com consequência da confirmação próxima à ação; dados completos por linha e auditoria ficam em disclosures. Os 20 lotes recentes e paginação de 50 linhas permitem retomar trabalho sem novo CMS. Registro/correção de liquidação/custos usa `/admin/financial-records` em D81: formulário → conferência → registro, com dados preservados em erro, referências estáveis e histórico vigente/substituído. Decisão/resolução permanece pendente; o QA atual é um recorte da matriz completa.
+
+## Resolução de identidades — D82
+
+`/admin/catalog-resolutions` reutiliza template, autenticação e tema do Payload, controles/tokens existentes e disclosure nativo. Fluxo: dados → prévia de escopo/destino/snapshot → atestação → decisão. Histórico por provedor em páginas de 20; detalhe mostra fonte/autoria/revisões. Bloqueio e associação têm rótulos distintos; associação não indica venda. IDs completos quebram linha, campos ficam preservados em erro, ação em curso bloqueia repetição simultânea, e o foco retorna ao feedback. Fonte/UUID idempotente não são persistidos no navegador. Resolução financeira visual permanece pendente.
+
+## Resolução financeira — D83
+
+`/admin/financial-resolutions` preserva template/tema e tokens existentes. Fluxo: identidade → fontes e variantes → escolhas/exclusões explícitas → prévia dos efeitos/bloqueios → atestação → decisão/aplicação. Paginação mantém escolhas e não omite fontes da exigência de cobertura. Foco segue título da seleção/prévia ou feedback de erro/sucesso; requisição em curso desabilita controles. Histórico/detalhe distingue resultado registrado de aplicações posteriores; originais ficam acessíveis, e a prova JSON dá leitura integral. Sem seleção automática, modal ou biblioteca nova. Cobertura visual integral permanece em B20.
+
+## Cobertura financeira — D84
+
+A view de prévia financeira acrescenta contagens de quarentena/data ausente, cobertura de estado/valor, taxa condicional, idade observada e aviso de limite aritmético. Tabela larga usa a região de scroll com rótulo/foco; o documento não deve ganhar scroll horizontal. Tema e controles seguem os tokens existentes, com entrelinha proporcional também em texto ampliado. Idade observada é acompanhada do limite de homologação da janela. Escopo financeiro integral segue pendente.
+
+## Detalhamentos financeiros — D85
+
+Detalhamentos ficam em disclosures nativos de livro/provedor/campanha, com grupos de 20 e links GET que preservam filtros/seção aberta. Rótulos de livro/campanha linkam o cadastro; revisão e alocação desconhecida têm texto próprio. Tabela larga conserva região de scroll, foco e entrelinha proporcional. Sucesso registrado tem cobertura e limite de população, distinto do horário da consulta; custo e receita não atribuída não se confundem. Sem modal, cor, biblioteca ou sistema visual novo.
+
+## Aceite operacional conjunto — D86
+
+As cinco views existentes foram percorridas na mesma jornada: upload/prévia/lote, catálogo bloqueado e associado, prévia dos sete estados, decisões, recusa de caixa pendente, caixa/custo, relatório e repetição. Confirmar fonte, confirmar decisão e confirmar recebimento continuam ações separadas com consequências visíveis. Temas/sem JS foram conferidos no resultado integrado; matrizes anteriores de cada view permanecem recortes. D86 não encerra B20 integral, zoom nativo 400% ou performance.

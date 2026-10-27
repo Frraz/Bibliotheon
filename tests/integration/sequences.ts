@@ -81,7 +81,7 @@ try {
 
   const preference = createOpaqueToken(), unsubAt = Date.now()
   await payload.create({ collection: 'preference-tokens', overrideAccess: true, data: { contact: person.contact.id, tokenHash: preference.hash, expiresAt: new Date(unsubAt + UNSUBSCRIBE_TTL).toISOString() } })
-  await unsubscribe(payload, preference.token, unsubAt)
+  await unsubscribe(payload, preference.token, unsubAt, secret)
   assert.ok((await getStages(person.contact.id)).every(stage => stage.state === 'canceled'))
   await applySuppression(payload, { email: newer.email, reason: 'complaint', source: 'manual', reference: `synthetic-sequence-block-${suffix}` }, secret)
   assert.ok((await getStages(newer.contact.id)).every(stage => stage.state === 'canceled'))

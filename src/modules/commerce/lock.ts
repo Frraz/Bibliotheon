@@ -27,3 +27,16 @@ export async function lockCommercialAccounts(req:PayloadRequest,identities:{prov
  const keys=identities.filter(item=>[item.provider,item.accountKey].every(value=>typeof value==='string'&&value.length>0)).map(item=>`commercial-account:${JSON.stringify([item.provider,item.accountKey])}`)
  for(const key of [...new Set(keys)].sort())await transaction.execute(sql`SELECT pg_advisory_xact_lock(hashtextextended(${key},0))`)
 }
+
+/** Called only after account/product locks; SQL keeps NULL and empty optional IDs equivalent. */
+export async function assertNewCatalogIdentity(req: PayloadRequest, identity: {provider: string; accountKey: string; externalProductId: string; externalOfferId?: string | null; ebook: string}, excludeId?: string) {
+ const transactionID = await req.transactionID
+ const transaction = transactionID && (req.payload.db as unknown as Pick<PostgresAdapter,'sessions'>).sessions[transactionID]?.db
+ if (!transaction) throw new APIError('Operação comercial exige transação.',503)
+ const conflicts = await transaction.execute(sql`SELECT id FROM offers
+  WHERE provider = ${identity.provider} AND account_key = ${identity.accountKey}
+  AND external_product_id = ${identity.externalProductId}
+  AND (${excludeId ?? null}::uuid IS NULL OR id <> ${excludeId ?? null}::uuid)
+  AND (ebook_id IS DISTINCT FROM ${identity.ebook}::uuid OR COALESCE(external_offer_id, '') = ${identity.externalOfferId || ''}) LIMIT 1`)
+ if (conflicts.rows.length) throw new APIError('Identidade externa já cadastrada ou produto associado a outro livro. Confira provedor, conta, produto e oferta; desativar não remove o histórico.',422)
+}

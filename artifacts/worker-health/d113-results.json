@@ -1,0 +1,54 @@
+{
+  "phase": "D113",
+  "date": "2026-10-27T00:42:51.094858+00:00",
+  "runtime": {
+    "checks": [
+      {
+        "scenario": "retention disabled",
+        "exitCode": 0
+      },
+      {
+        "scenario": "missing success",
+        "exitCode": 1
+      },
+      {
+        "scenario": "fresh complete cycle",
+        "exitCode": 0
+      },
+      {
+        "scenario": "overdue exceptions",
+        "exitCode": 1
+      },
+      {
+        "scenario": "stale success",
+        "exitCode": 1
+      },
+      {
+        "scenario": "future success",
+        "exitCode": 1
+      },
+      {
+        "scenario": "corrupt success",
+        "exitCode": 1
+      },
+      {
+        "scenario": "retention worker refuses invalid link key before database startup",
+        "exitCode": 1
+      }
+    ],
+    "nodeVersion": "v22.23.3"
+  },
+  "runtimeBaseImageID": "sha256:d3dbf0b6cacfb292cf172c3bc6206a55d21c8dd83a5d1d17fe80ff4d0a38a8d3",
+  "currentCLIsMountedReadOnly": true,
+  "networkDisabled": true,
+  "fullApplicationImageValidated": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "scripts/qa-worker-health.py": "2c41df511e2a1cafd74e546f8e213fc3d2040525fce5faaaf3400830e5222112",
+    "scripts/worker-health.ts": "1f7cf881a4671ffca23a5d0b08f51ad8d4d0dc29f4f3a49a644717187fefe4ca",
+    "scripts/worker.ts": "5916a458f7d37fc486d7be20fb539a3185835811af7989e1ce019d9075ac9166",
+    "src/modules/marketing/retention-policy.ts": "ffed2f7835484de3a77f68f426021974170f37a690409fc0f59f4b32fc0655d0",
+    ".release/worker-health.js": "6c98875713ddfe2861aaf7e703111c45bd12efeab8aab03b4611a54a5cf1cddc",
+    ".release/worker.js": "f653685fe83dfc25f18366be57d1ed347e5809766600caafb3d8eb92439356e9"
+  }
+}

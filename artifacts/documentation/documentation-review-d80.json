@@ -1,0 +1,387 @@
+{
+  "date": "2026-10-25T12:17:29.463026+00:00",
+  "phase": "D80",
+  "status": "passed",
+  "scope": "Consistência local dos 49 documentos controlados; não representa consulta externa ou homologação",
+  "documentsReviewed": 49,
+  "documentsUpdated": 33,
+  "documentsRetained": 16,
+  "repairs": [
+    {
+      "file": "docs/17-decisoes.md",
+      "beforeSHA256": "81dc02918a45b1fd9100fbfae7136fd059bf32d741f47b25dd3c630098d8060b",
+      "baseSHA256": "ff0741734977dc7dc1b3ea8027a47db896b084c2235d98ddc31a52af17e9a81f",
+      "retainedSection": "## Livro de liquidação, custos e prévia financeira — D78"
+    },
+    {
+      "file": "docs/24-conciliacao.md",
+      "beforeSHA256": "26d5ddc8139beab7e6884f6cc9024f7931a5ddc26bb62f3b283389f2f54d3c8d",
+      "baseSHA256": "59e77ef10a2d6c61be96685ef1c949ccdfcda5a2e78fe88f5ce297f689b0110e",
+      "retainedSection": "## D78 — Ledger de recebimento, custos e relatório provisório"
+    }
+  ],
+  "newGuard": "Validador recusa numeração do título incompatível com o arquivo principal docs/NN-*; controle negativo troca #17 por #09 sem alterar o disco.",
+  "documents": [
+    {
+      "path": "README.md",
+      "title": "# Bibliotheon",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "115d1dd4f089e134b2f6925795f432531792b2561e3b3f964b8d9d21dbd04d04"
+    },
+    {
+      "path": "AGENTS.md",
+      "title": "# Instruções de trabalho — Bibliotheon",
+      "action": "retained",
+      "basis": "Instruções vigentes preservadas; autorização posterior de desenvolvimento está registrada em docs/19.",
+      "sha256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed"
+    },
+    {
+      "path": "DESIGN-BRIEF.md",
+      "title": "# Bibliotheon — Design Brief",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "89b8ac56fbeb2eec1753bbe3f476801bfb154e56aafa3acc5482e80f69790e19"
+    },
+    {
+      "path": "deploy.md",
+      "title": "# Deploy do Bibliotheon na VPS",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "d760259340d0aedd711f38b5301a56a48554eae01071f125337cb49d3d63c15a"
+    },
+    {
+      "path": "pendencias.md",
+      "title": "# Pendências para colocar o Bibliotheon em produção",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "d15f89d63dcd52677cabf44afc8cec13c5f162c10e05c3aeb0f45898d79d463f"
+    },
+    {
+      "path": "docs/01-visao-estrategia.md",
+      "title": "# 01 — Visão e estratégia",
+      "action": "retained",
+      "basis": "Estratégia/aquisição/lançamento permanecem válidos; esta fase não altera decisões ou dados comerciais reais.",
+      "sha256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29"
+    },
+    {
+      "path": "docs/02-requisitos.md",
+      "title": "# 02 — Requisitos e jornadas",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "ca04893c7063f861fbd10babbb8c0a9f53bdd56d534015a372944c81df19b58c"
+    },
+    {
+      "path": "docs/03-experiencia.md",
+      "title": "# 03 — Experiência, páginas e painel",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "0167d39c39884367e4db4b4404a5b3d669bcef1d53d027775df86ac0489194c0"
+    },
+    {
+      "path": "docs/04-arquitetura.md",
+      "title": "# 04 — Arquitetura",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "a342f24fed487c91853bdd1d703f50d86bde8d47a7f221ffe7c04b24f3ffab41"
+    },
+    {
+      "path": "docs/05-dados.md",
+      "title": "# 05 — Modelo de dados e invariantes",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "071888ab8d77904822e71bf58bca61fbf128e4bcc071faffd860e8f030dc40dd"
+    },
+    {
+      "path": "docs/06-interfaces.md",
+      "title": "# 06 — Interfaces e contratos internos",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "ffa2b3ef8b466221fe4dc9e907762f772de8c686ecd9811507b908bff30d2a40"
+    },
+    {
+      "path": "docs/07-integracoes.md",
+      "title": "# 07 — Integrações comerciais",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "72853e3afeeffd7c8e626cdc84588a38bcb2090fcde73f9aaf09af56bf3e6de0"
+    },
+    {
+      "path": "docs/08-aquisicao.md",
+      "title": "# 08 — Aquisição, conteúdo e relacionamento",
+      "action": "retained",
+      "basis": "Estratégia/aquisição/lançamento permanecem válidos; esta fase não altera decisões ou dados comerciais reais.",
+      "sha256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f"
+    },
+    {
+      "path": "docs/09-metricas.md",
+      "title": "# 09 — Medição e decisões",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "03af989453ed7f5ed3e91c8aee656a2dbf4344b5f7ba7770820506b8a03b50c4"
+    },
+    {
+      "path": "docs/10-infraestrutura.md",
+      "title": "# 10 — Infraestrutura e implantação planejada",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "ddd57a5f27e6044d3c4ec094650a96d922023f2391ec4bc8aa522f1e417f3a6f"
+    },
+    {
+      "path": "docs/11-operacao.md",
+      "title": "# 11 — Runbooks de operação",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "8ed1d07033b38a442022b6c529c2684fb6d2c757f17d2cbe8ac5264a8c875212"
+    },
+    {
+      "path": "docs/12-seguranca-privacidade.md",
+      "title": "# 12 — Segurança e privacidade",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "981dee96462cf90493c82f724dc15e7a6fa7e5b628c3a270924080ed6e2ac857"
+    },
+    {
+      "path": "docs/13-backlog.md",
+      "title": "# 13 — Backlog de implementação",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "d85b31e79ac08dde005cd7402c819b9833db65cda3a6c0cabda4ee99337db350"
+    },
+    {
+      "path": "docs/14-progresso.md",
+      "title": "# 14 — Progresso e retomada",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "402f4b900cc76bccc0ed3d6fef114dd3c906d1c347a303c4406a0cfa8d6af6d8"
+    },
+    {
+      "path": "docs/15-qualidade.md",
+      "title": "# 15 — Qualidade e homologação",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "ce3ceb1645f1bfbc58f67d5ed92bc98caf5f3b87e4e28b08ff512ab1995e6df6"
+    },
+    {
+      "path": "docs/16-referencias.md",
+      "title": "# 16 — Referências e limites da pesquisa",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "1add3f91b1d29f717617570c0180d723de99cabfd4b7e48bbc810ed0d3f89539"
+    },
+    {
+      "path": "docs/17-decisoes.md",
+      "title": "# 17 — Registro de decisões",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "db2fc4871d05e0bc0f5ce41aa11ce6759acbd23abda8c772e104850e15b6e9af"
+    },
+    {
+      "path": "docs/18-validacao.md",
+      "title": "# 18 — Validação da entrega documental",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "334290afe3ae6bb0be932bf9d4e608d1775f0d7449486039c003e6cf6d5a4505"
+    },
+    {
+      "path": "docs/19-desenvolvimento.md",
+      "title": "# 19 — Implementação e evidências locais",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "cc495e84a4c52e400bf2c300866862fb94dc86ddf8d4b8430810a34c20be1801"
+    },
+    {
+      "path": "docs/20-execucao-local.md",
+      "title": "# 20 — Executar o Bibliotheon localmente",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "e9b789351f59769dc47326554a0f4895cb2d5833325a084003176c2fc6e86354"
+    },
+    {
+      "path": "docs/21-pacote-producao.md",
+      "title": "# 21 — Pacote de produção e validação local",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "108e7aa57e881e75befc72c92f18409e72a4d975c9c5a07ff5228a1234e5163a"
+    },
+    {
+      "path": "docs/22-lancamento.md",
+      "title": "# 22 — Preparação do primeiro lançamento",
+      "action": "retained",
+      "basis": "Estratégia/aquisição/lançamento permanecem válidos; esta fase não altera decisões ou dados comerciais reais.",
+      "sha256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831"
+    },
+    {
+      "path": "docs/23-estado-atual.md",
+      "title": "# 23 — Estado atual e mapa da implementação",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "2291c29d28695b59df17b5e9196072919986a61cf45acff67823c1d1d0e9b00c"
+    },
+    {
+      "path": "docs/24-conciliacao.md",
+      "title": "# 24 — Conciliação comercial e CSV",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "6d5572a3bcb669e91f1f8702f4ad8ab4ae048c8f000947d374d0ec00a6d85f0f"
+    },
+    {
+      "path": "docs/design/01-identidade.md",
+      "title": "# Identidade, imagem e referências",
+      "action": "retained",
+      "basis": "Identidade, tokens, componentes, páginas e comportamento permanecem válidos; paleta não mudou.",
+      "sha256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084"
+    },
+    {
+      "path": "docs/design/02-tokens.md",
+      "title": "# Tokens, cores e tipografia",
+      "action": "retained",
+      "basis": "Identidade, tokens, componentes, páginas e comportamento permanecem válidos; paleta não mudou.",
+      "sha256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc"
+    },
+    {
+      "path": "docs/design/03-componentes.md",
+      "title": "# Componentes e estados",
+      "action": "retained",
+      "basis": "Identidade, tokens, componentes, páginas e comportamento permanecem válidos; paleta não mudou.",
+      "sha256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be"
+    },
+    {
+      "path": "docs/design/04-paginas.md",
+      "title": "# Wireframes de páginas públicas",
+      "action": "retained",
+      "basis": "Identidade, tokens, componentes, páginas e comportamento permanecem válidos; paleta não mudou.",
+      "sha256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98"
+    },
+    {
+      "path": "docs/design/05-painel.md",
+      "title": "# Design do painel administrativo",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "eab27ce0cfece8cc29bd4a1b55bda47a4052ed4220aa293ba3ff07b9c2e95644"
+    },
+    {
+      "path": "docs/design/06-comportamento.md",
+      "title": "# Responsividade, tema e movimento",
+      "action": "retained",
+      "basis": "Identidade, tokens, componentes, páginas e comportamento permanecem válidos; paleta não mudou.",
+      "sha256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02"
+    },
+    {
+      "path": "docs/design/07-qualidade.md",
+      "title": "# Qualidade visual e aceite",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "ae62014c7b2cbb211611a4a28a9e933b0bc97cd281a44305efd3997d4a06970b"
+    },
+    {
+      "path": "docs/design/08-skills-referencias.md",
+      "title": "# Skills aplicadas e fontes",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "58710e7352ff09b3af4f308cf409f3c2b0d846ca1356e8438d041c841d14e781"
+    },
+    {
+      "path": "docs/design/09-contrastes.md",
+      "title": "# Contrastes calculados",
+      "action": "retained",
+      "basis": "Identidade, tokens, componentes, páginas e comportamento permanecem válidos; paleta não mudou.",
+      "sha256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea"
+    },
+    {
+      "path": "docs/integracoes/brevo.md",
+      "title": "# Brevo — calendário, campanhas e supressão",
+      "action": "retained",
+      "basis": "Contrato de relacionamento não mudou; consulta externa e homologação mantêm suas datas/pendências.",
+      "sha256": "8ff443b39d5bc611b5fa13c532815804f528b5ce17b3eee3e8828154e72adb19"
+    },
+    {
+      "path": "docs/integracoes/cakto.md",
+      "title": "# Cakto — contrato e operação",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "588e003e5605ec0b4299001ef3b966c1faeb4b7edef73de8072568e751dfa1d3"
+    },
+    {
+      "path": "docs/integracoes/hotmart.md",
+      "title": "# Conector Hotmart",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "7d77aa4470423844a8baf26e976e44b33700313216458ecb44392b312125441a"
+    },
+    {
+      "path": "docs/integracoes/kiwify.md",
+      "title": "# Kiwify — contrato e operação",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "79935b8fd097665af5655a1d4c33aafa5437d989dc37130e7bdb556373f8b843"
+    },
+    {
+      "path": "docs/templates/01-briefing-livro.md",
+      "title": "# Modelo — Briefing do livro",
+      "action": "retained",
+      "basis": "Modelo continua válido; nenhum produto, campanha, compra ou decisão comercial real foi inventado.",
+      "sha256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e"
+    },
+    {
+      "path": "docs/templates/02-copy-lp.md",
+      "title": "# Modelo — Copy e revisão da LP",
+      "action": "retained",
+      "basis": "Modelo continua válido; nenhum produto, campanha, compra ou decisão comercial real foi inventado.",
+      "sha256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44"
+    },
+    {
+      "path": "docs/templates/03-campanha.md",
+      "title": "# Modelo — Campanha inicial",
+      "action": "retained",
+      "basis": "Modelo continua válido; nenhum produto, campanha, compra ou decisão comercial real foi inventado.",
+      "sha256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4"
+    },
+    {
+      "path": "docs/templates/04-kit-afiliados.md",
+      "title": "# Modelo — Kit de afiliados",
+      "action": "retained",
+      "basis": "Modelo continua válido; nenhum produto, campanha, compra ou decisão comercial real foi inventado.",
+      "sha256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde"
+    },
+    {
+      "path": "docs/templates/05-revisao-semanal.md",
+      "title": "# Modelo — Revisão semanal",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39"
+    },
+    {
+      "path": "docs/templates/06-homologacao.md",
+      "title": "# Modelo — Homologação e release",
+      "action": "updated",
+      "basis": "Estado/contrato/roteiro/evidência alinhado ao código D80; históricos e limites preservados.",
+      "sha256": "025fcf8302f9e629d2fc29b3f5129ee5abc228027b25f29007d2246d7d3f0245"
+    },
+    {
+      "path": "docs/templates/README.md",
+      "title": "# Modelos operacionais",
+      "action": "retained",
+      "basis": "Modelo continua válido; nenhum produto, campanha, compra ou decisão comercial real foi inventado.",
+      "sha256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051"
+    }
+  ],
+  "preservedSources": {
+    "reflexoes.md": "e9be41f92ab65d33cfdc5e8f9447d7fb05cf84ad43cb920d7d4906d15d8a262c",
+    "ideais para melhora o desing.md": "a78685e178c4453a71f9abfcc30aac0c32a7f114b4081f41790c1a6f7561e122"
+  },
+  "externalSourcesRequeried": false,
+  "limitations": [
+    "P03/P04/P05 parciais e P06/P07/H01–H06 abertos",
+    "Históricos Dxx descrevem a etapa original; resumos atuais e pendencias.md governam a retomada",
+    "Versões/fontes de provedores mantêm a data da consulta original; homologação exige revalidação própria"
+  ],
+  "validation": {
+    "command": "python3 scripts/validar_documentacao.py",
+    "exitCode": 0,
+    "output": "OK: 76 pares autorizados aprovados, dois temas; relatório consistente.\nDocumentos: 49\nLinks locais: 910; URLs externas distintas: 102 (sem verificação de rede)\nRequisitos: 34; tarefas: 20; cenários: 29\nOK: estrutura, links locais, rastreabilidade, contrastes e hashes das fontes preservados.",
+    "documentationGuardTests": "2 passed; package and simulated swapped title",
+    "externalSourcesRequeried": false
+  },
+  "repairBaseCommit": "cba2edb934d66319ad3b26bd35c25266caed93f0"
+}

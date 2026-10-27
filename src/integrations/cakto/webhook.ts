@@ -1,5 +1,5 @@
 import {createHash,createHmac,timingSafeEqual} from 'node:crypto'
-import {opaqueID,type AccountScope,type CommercialAdapter,type CommercialKind,type IgnoredCommercialEvent,type NormalizedCommercialEvent} from '../../modules/commerce/events'
+import {checkoutClickReference,opaqueID,type AccountScope,type CommercialAdapter,type CommercialKind,type IgnoredCommercialEvent,type NormalizedCommercialEvent} from '../../modules/commerce/events'
 import {nativeJSON,record} from '../../modules/commerce/native-json'
 import {nativeCents,hundredthCurrency} from '../../modules/commerce/money'
 import {caktoDate} from './dates'
@@ -60,7 +60,7 @@ function normalizeOrder(data:unknown,type:string,scope:AccountScope):NormalizedC
  if(!supported)reviewReason='unsupported_currency_precision'
  if(row.status!==mapping.status)reviewReason=type==='chargeback'&&row.status==='MED'?'dispute_not_final':'unsupported_native_status' // MED/pre-chargeback is never silently a final chargeback.
  if(product.type!=='unique'||row.subscription!=null||row.subscription_period!=null||row.shipping!=null||!['main','orderbump','upsell','downsell'].includes(String(row.offer_type)))reviewReason='unsupported_purchase_shape'
- return{...scope,eventKey,externalTransactionId:row.id,externalProductId:product.id,externalOfferId:(offer?.id??null) as string|null,kind:mapping.kind,occurredAt:eventTime??createdAt,sourceCreatedAt:createdAt,sourceEvent:type,approvedAt,currency,grossCents,feesCents,producerNetCents:null,refundedCents:null,chargebackCents:null,refundBasis:null,externalRefundId:null,externalClickReference:null,...(reviewReason?{reviewReason}:{})}
+ return{...scope,eventKey,externalTransactionId:row.id,externalProductId:product.id,externalOfferId:(offer?.id??null) as string|null,kind:mapping.kind,occurredAt:eventTime??createdAt,sourceCreatedAt:createdAt,sourceEvent:type,approvedAt,currency,grossCents,feesCents,producerNetCents:null,refundedCents:null,chargebackCents:null,refundBasis:null,externalRefundId:null,externalClickReference:checkoutClickReference(row.sck),...(reviewReason?{reviewReason}:{})}
 }
 export function createCaktoAdapter(config:CaktoWebhookConfig,clock:()=>number=Date.now):CommercialAdapter {
  return{provider:'cakto',version:'cakto-orders-v1-v2:1',batch:true,verify:async(body,headers)=>authenticatedCakto(body,headers,config,clock()),normalize:(body,scope)=>{

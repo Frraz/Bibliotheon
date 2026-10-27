@@ -1,0 +1,216 @@
+{
+  "date": "2026-10-25T17:18:56.178Z",
+  "status": "passed",
+  "checks": [
+    "Owner obrigatório no POST; ausência de dados não vira processamento atual nem resultados fictícios.",
+    "POST real e UI distinguem livro efetivo, caixa fora da coorte, alocação em revisão, custos zero/estimados/sem campanha e receita não atribuída; sucesso histórico distinto da consulta.",
+    "21 grupos de livro em páginas 20+1 sem perda, navegação mantém disclosure aberto e filtros restringem também dimensões.",
+    "Dois temas/320–1920px, texto 200% com entrelinha proporcional, paginação/disclosure sem JS e ausência de escrita/runtime/requisições externas."
+  ],
+  "captures": [
+    {
+      "name": "empty-dimensions-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-initial-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "books-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "campaigns-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "books-page-2-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "currency-filter-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-360",
+      "theme": "light",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-768",
+      "theme": "light",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "book-text-200-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "campaign-text-200-light-320",
+      "theme": "light",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "book-text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "campaign-text-200-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "nojs-books-page-2-390",
+      "theme": "light",
+      "width": 390,
+      "axe": false,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Detalhamentos financeiros locais sintéticos; sem atribuição P06, janela externa homologada, zoom nativo 400%, imagem/restore, GitHub ou VPS."
+}

@@ -1,0 +1,13 @@
+{
+  "environment": "PostgreSQL/standalone loopback; owner sintético",
+  "origin": "http://127.0.0.1:3000",
+  "checks": [
+    "recuperação pública por e-mail/reset indisponível com resposta igual; unlock público negado; nenhum token criado",
+    "entrada curta/contato desconhecido recusados sem eco",
+    "senha trocada pela CLI privada, sem nova conta",
+    "sessões, reset token, cooldown e lockout anteriores removidos",
+    "JWT anterior sem acesso; senha antiga recusada; nova senha aceita"
+  ],
+  "externalCalls": false,
+  "limits": "Recuperação por operador local; não homologa recuperação por e-mail ou acesso real à VPS."
+}

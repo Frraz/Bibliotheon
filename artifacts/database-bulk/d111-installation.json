@@ -1,0 +1,16 @@
+{
+  "phase": "D111",
+  "command": "pnpm 10.34.7 install --frozen-lockfile --ignore-scripts",
+  "isolatedInstallation": true,
+  "result": "passed",
+  "lifecycleScriptsExecuted": false,
+  "versionsChanged": false,
+  "installedPayloadFiles": {
+    "dist/collections/operations/delete.js": "e7885eb71bf5f2455287fcf5f4fd60b54a14a1dfa57311e52b4d4f9206746d19",
+    "dist/collections/operations/update.js": "5d1c670bff98a5a79ea14367c7528668f6d6a6e68bfad58fbbd56767e76d1a52",
+    "dist/uploads/deleteAssociatedFiles.js": "a41f0956d5479eaccd54c551319b86a88936ddd554ff97aa016cfd5d3da11add"
+  },
+  "patchSHA256": "89feddb5dda6001a72282bfe1844c0ef6e6da9915fdd871b3a4e2b74f09f7f11",
+  "lockSHA256": "26a522dacb7fa7a948c949c33720a0bc6e89e21fd5f57aa12b5d949b82ce0e89",
+  "productionChanged": false
+}

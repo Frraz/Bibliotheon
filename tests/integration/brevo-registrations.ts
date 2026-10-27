@@ -57,7 +57,7 @@ async function confirmed(name: string) { const person = await pending(name); awa
 async function withdraw(contact: string, time = now) {
   const token = createOpaqueToken()
   await payload.create({ collection: 'preference-tokens', data: { contact, tokenHash: token.hash, expiresAt: new Date(time + UNSUBSCRIBE_TTL).toISOString() }, overrideAccess: true })
-  await unsubscribe(payload, token.token, time)
+  await unsubscribe(payload, token.token, time, secret)
 }
 function deferred<T>() { let resolve!: (value: T) => void; const promise = new Promise<T>(done => { resolve = done }); return { promise, resolve } }
 try {

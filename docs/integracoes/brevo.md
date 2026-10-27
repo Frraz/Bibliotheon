@@ -130,3 +130,11 @@ Cancelamento nativo é retirada global local; hard bounce/reclamação restringe
 BREVO_WEBHOOK_TOKEN e BREVO_WEBHOOK_PREVIOUS_TOKEN permitem rotação de autorização sem mudar a deduplicação. BREVO_WEBHOOK_EVENT_SECRET e a chave de links são estáveis, independentes e necessárias para verificar históricos; recuperar configuração privada junto do banco, sem substituir segredos indiscriminadamente. CLI npm run brevo:webhook-replay -- UUID_DO_EVENTO ou runtime node cli/replay-brevo-webhook.js UUID_DO_EVENTO. Não é replay de envio.
 
 [11 grupos locais](../../artifacts/brevo-webhook/local-results.json) com eventos/conta sintéticos, sem mensagens reais. [Teste HTTP](../../tests/integration/brevo-webhook-http.ts) exige QA isolado com tokens explicitamente sintéticos. Homologação de callback real, permissões da conta, resultados e recuperação continuam pendentes; B07 comercial permanece separado.
+
+## Guarda de identidade na retenção — D110
+
+A retenção local preserva contatos com registro/supressão/evento vinculado ao Brevo. Eventos sem FK são conferidos por recipientFingerprint usando BREVO_WEBHOOK_EVENT_SECRET; sem chave válida e havendo eventos órfãos, não se presume ausência de vínculo. Referências HMAC em manifestos compartilhados também impedem o expurgo. A rotina não chama o provedor nem conclui exclusão externa. [Política e prazos](../12-seguranca-privacidade.md); homologação por conta permanece pendente.
+
+## D112 — Descadastro e retenção por assunto — 26/10/2026
+
+O descadastro temático durável e replay v4 não chamam o Brevo nem concluem remoção de lista/campanha. Reaplicam só elegibilidade local por assunto; registro de provedor ou envio em andamento exige conciliação. Retenção temática preserva qualquer registro/supressão/callback ligado, referências HMAC/manifestos compartilhados e callback órfão reconhecível. Falta de chave quando há órfãos impede inferir ausência de vínculo.

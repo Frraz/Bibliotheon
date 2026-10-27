@@ -1,0 +1,48 @@
+{
+  "phase": "D114",
+  "date": "2026-10-27T01:09:42.227Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "prova nativa exata permite preview e manifesto v4 read-only antes de existir fato, sem inventar data",
+    "backfill mantém vencimento original; expurgo e replay preservam retirada e idempotência sem pedido owner",
+    "exportação recusa lacuna e cobertura automática anterior a nova finalidade, aceita bloqueio global real e encerra estado com prova vencida sem criar novo prazo",
+    "finalidade/prefixo/data divergentes, consentimento posterior, chave de assinatura divergente e chave ausente não geram fato; provedor preserva dados",
+    "chamada direta da retenção persiste fato e apaga estado atomicamente; falha reverte ambos",
+    "revalidação sob lock não cria retirada para assinatura reativada após seleção",
+    "página com 100 estados sem prova não impede derivação válida no fim do backlog",
+    "rotina incorpora derivação e retenção mantendo exceções visíveis, relatório sem PII e zero rede"
+  ],
+  "preview": {
+    "guardAvailable": true,
+    "candidates": 1,
+    "verified": 1,
+    "persisted": 0,
+    "existing": 0,
+    "expired": 0,
+    "unverified": 0
+  },
+  "applied": {
+    "guardAvailable": true,
+    "candidates": 1,
+    "verified": 1,
+    "persisted": 1,
+    "existing": 0,
+    "expired": 0,
+    "unverified": 0
+  },
+  "backlog": {
+    "guardAvailable": true,
+    "candidates": 111,
+    "verified": 1,
+    "persisted": 1,
+    "existing": 2,
+    "expired": 0,
+    "unverified": 108
+  },
+  "manifestVersion": 4,
+  "externalCalls": 0,
+  "syntheticReplayValidated": true,
+  "physicalRestoreValidated": false,
+  "humanDeletionRequestFabricated": false,
+  "productionChanged": false
+}

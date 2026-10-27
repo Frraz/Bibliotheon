@@ -1,6 +1,6 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
-export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_sequence_enrollments_state" AS ENUM('active', 'canceled', 'completed');
   CREATE TYPE "public"."enum_promotion_deliveries_stage" AS ENUM('2', '4', '7', '10');

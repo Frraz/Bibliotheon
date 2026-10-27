@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-25T15:30:13.094263+00:00",
+  "phase": "D81",
+  "status": "passed_local_phase",
+  "scope": "Registro/correção de liquidações/custos e persistência do relacionamento de campanha; P03/P04/P05 ainda parciais",
+  "checks": {
+    "isolatedBuild": "passed",
+    "buildDirectory": ".next-qa",
+    "buildID": "C5znu7LPlyk0JMOWytpeF",
+    "newValueDateUnitTests": 22,
+    "browserMainGroups": 6,
+    "browserMainCaptures": 40,
+    "browserZoomCaptures": 8,
+    "axeRuns": 47,
+    "fixturesCleaned": true,
+    "externalRequests": 0,
+    "runtimeErrors": [],
+    "localDatabaseStopped": true,
+    "consolidatedCheck": "passed",
+    "typecheck": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 2,
+    "unitTests": 247,
+    "unitFiles": 31,
+    "operationalTests": 61,
+    "documentation": "passed",
+    "documents": 49,
+    "localLinks": 936,
+    "externalURLsUnchecked": 102,
+    "contrastPairs": 76,
+    "diffCheck": "passed",
+    "qaShellSyntax": "passed"
+  },
+  "backendFix": "campaignId do contrato é mapeado ao campo campaign; relacionamento real verificado no banco após criação e correção; sem backfill",
+  "sourceSHA256": {
+    "src/components/admin/FinancialRecordForm.tsx": "befb2139bcd594975a8c2bbd137b56c776895ba62f9458d6f17c35950f3b0bae",
+    "src/components/admin/FinancialRecordsView.tsx": "94201419786e2e510392daa7fbc942b06f722242cfbf7b0e1694f3dc87a576fb",
+    "src/modules/commerce/ledger-entry.ts": "a5663cb6c0d373870c1f1fa22269b62e84629cc481efdedee5f83170c02a3187",
+    "src/modules/commerce/financial-ledger.ts": "cb5d5faa8e4b71d3fc24c34cbd2c0065a214627b0a47eab1c26e3952abc732f8",
+    "src/components/admin/FinancialReportView.tsx": "ea77a90baf2b039c8829120dc6552ddcd389bafd321013e5a16e1ebde2958c1f",
+    "src/components/admin/Dashboard.tsx": "73e4f4b814d6488811fb9b658372052722d1fe612b74c403c7bc0ee36324be7c",
+    "src/payload.config.ts": "c4ecdb98a24fa1d640cf14f26cb6326a4ad328bcd82cc74d58e2b26f2e0b4f31",
+    "src/app/(payload)/admin/importMap.js": "ee50ae3ab81f7d7df4fbb4fffd2deb3c553bec2f6dffcb4909ce573d3068791c",
+    "src/styles/admin.css": "c6d1954373fdbf0e66f51d3a95c95273bda0be8697bf0ec8880666188f9eb5f4",
+    "tests/unit/ledger-entry.test.ts": "6c0cbb1187d0de391a445c3bbc95999e48afc06c8737680b9779086276bfd2b6",
+    "scripts/qa-financial-records.ts": "5b5ded980ae76861017762f044ae415f6f0307fcf5aefafc00c8dfd686ce8b16",
+    "scripts/check-qa-admin.sh": "316357f775d0cba82efb37d48edaa25d0d1a72f88b7f5d4da5bdee6a30fc31a4",
+    "package.json": "4062cf3616ce43215f89a32163b8333a3e484156ccce2e0291dc720960bed680"
+  },
+  "knownWarnings": [
+    "Dois avisos de lint da migração de sequências",
+    "Aviso pg/Drizzle conhecido reapareceu no QA; H06 permanece aberto"
+  ],
+  "limits": [
+    "Somente fixtures/HTTP/browser locais sintéticos",
+    "Conferência inicial é local; validação da transação ocorre ao registrar no servidor",
+    "Sem UI de resolução auditada, cobertura final, zoom nativo 400%, imagem/restore ou homologação externa",
+    "28 migrations, sem segredo/flag/schema novo, GitHub, VPS ou operação real"
+  ],
+  "finalizedAt": "2026-10-25T15:34:11.996367+00:00",
+  "consolidatedCheckEvidence": {
+    "sha256": "2f7b07f52cac2dba92385fd49a545595222c678a33c3ce7e34e6b5b359bf3605",
+    "note": "Saída local de npm run check, exit 0; testes operacionais usam ambiente simulado."
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-25T06:46:14.656Z",
+  "checks": [
+    "Anônimo é redirecionado ao login; a consulta não expõe conteúdo financeiro.",
+    "Estado vazio renderiza nos dois temas e não fabrica totais ou coortes.",
+    "Período/moeda por formulário GET, tabela de coortes, valores parciais null, créditos/débitos, custos estimados/confirmados, margem incompleta e acesso por teclado foram conferidos. Tela não escreve fatos comerciais."
+  ],
+  "results": [
+    {
+      "name": "empty-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-320",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-360",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-390",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-768",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-1024",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-1440",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-light-1920",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-320",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-360",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-768",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-1024",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-1440",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "report-dark-1920",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "status": "passed",
+  "limits": "B20 recortado para a tela financeira; fixtures sintéticas, sem screenshots com compradores, sem fonte nativa ou conta homologada."
+}

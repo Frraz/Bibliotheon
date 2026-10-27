@@ -1,0 +1,59 @@
+{
+  "phase": "D82",
+  "status": "passed_local_phase",
+  "date": "2026-10-25T16:07:52.726901+00:00",
+  "scope": "Interface owner de associação/bloqueio auditados do catálogo; P05 continua parcial",
+  "checks": {
+    "isolatedBuild": "passed",
+    "buildDirectory": ".next-qa",
+    "buildID": "x4hHpFz2DUK1IWc0rP_0a",
+    "consolidatedCheck": "passed",
+    "typecheck": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 2,
+    "unitTests": 247,
+    "unitFiles": 31,
+    "operationalTests": 61,
+    "browserGroups": 6,
+    "captures": 29,
+    "axeRuns": 28,
+    "runtimeErrors": [],
+    "externalRequests": 0,
+    "fixturesCleaned": true,
+    "databaseStopped": true,
+    "documentation": "passed",
+    "documents": 49,
+    "localLinks": 950,
+    "externalURLsUnchecked": 102,
+    "contrastPairs": 76,
+    "diffCheck": "passed",
+    "qaShellSyntax": "passed"
+  },
+  "sourceSHA256": {
+    "src/components/admin/CatalogResolutionForm.tsx": "0b1c4bcebd1d9edc67f8e155b3b282ad58b82af4856d0b7bb36b22b717c931d9",
+    "src/components/admin/CatalogResolutionsView.tsx": "ea8a408be9740cdee46814ab04e952c4d16027f64392dc2860f5bcc3a83e6600",
+    "src/components/admin/Dashboard.tsx": "07050928b9c986dce8ca92bde304ff03e81abf48f71900ca0d59f333025fa2ab",
+    "src/styles/admin.css": "1ce2bf189dd0d363e445c5f9c6680583f58c4596e2e202580d4ea327cce84714",
+    "src/payload.config.ts": "806a1bda60759e4a1bda17bb30138b98c6dde20636475120357ac53caddf6b00",
+    "src/app/(payload)/admin/importMap.js": "5d33a4dd822b23c04713f49860e91ba75b8f6ff9cb0c7dbaa2656bf00af513e1",
+    "src/modules/commerce/catalog-resolutions.ts": "d2e735c6a92a3f156669d4d6d77930171d2594e30dca0c62880e061066e5c4c7",
+    "src/modules/commerce/catalog-resolution-http.ts": "70ce7a620dd034e8d2f9fa4a11bb039a211037a0a0ebd49b2030a5964418be96",
+    "scripts/qa-catalog-resolutions.ts": "2e89a59d0654c381b54b50cd136e475dfef4bd253882ee1c7fa6c5b27f268a7a",
+    "scripts/check-qa-admin.sh": "a599c12d4ea91e5cf04412b2e1a3a24f46c13c3ba3fccd845d7f14d1430db282",
+    "package.json": "6386fd51ddacc7c3e738a75600d8b35e9bdc74f5464512925bef47e116dc79d8"
+  },
+  "knownWarnings": [
+    "Dois avisos históricos na migration de sequências",
+    "pg/Drizzle: queries concorrentes; H06 continua aberto"
+  ],
+  "limits": [
+    "Somente fontes/contas/operacoes locais sinteticas",
+    "Sem UI de resolucao financeira, cobertura integral, zoom nativo 400%, imagem/restore final, GitHub, VPS ou homologacao externa",
+    "Sem schema, dependencia, segredo ou flag novos; 28 migrations"
+  ],
+  "consolidatedCheckEvidence": {
+    "sha256": "88efaaab49a870e4d4406239395cc6698c8f205ad106cfae058e42fefc541c2d",
+    "exitCode": 0,
+    "note": "npm run check local; testes de operação usam ambiente simulado."
+  }
+}

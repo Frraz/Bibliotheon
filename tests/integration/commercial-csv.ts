@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {mkdir,writeFile} from 'node:fs/promises'
-import {seedCommerce,commercialCollections} from '../fixtures/commerce'
+import {deleteLegacyOffer,seedLegacyOffer,seedCommerce,commercialCollections} from '../fixtures/commerce'
 import {canonicalCSV,csvFields} from '../fixtures/commercial-csv'
 import {receiveCommercialWebhook,processCommercialInbox} from '../../src/modules/commerce/inbox'
 import {commercialEventKey,type CommercialAdapter,type NormalizedCommercialEvent} from '../../src/modules/commerce/events'
@@ -32,14 +32,14 @@ try{
  checks.push('Repetição exata aponta o registro original; divergência com ledger ou dentro do CSV exige revisão sem criar novo fato ou alterar total.')
  const unknown=fields('hotmart');unknown[3]='unmapped-product';assert.equal((await previewCommercialCSV(payload,canonicalCSV([unknown]))).lines[0].reason,'unknown_product')
  const anotherAccount=fields('hotmart');anotherAccount[1]='other-account';assert.equal((await previewCommercialCSV(payload,canonicalCSV([anotherAccount]))).lines[0].classification,'unknown_catalog')
- const other=await payload.create({collection:'offers',...seed.auth,data:{name:'Ambiguidade sintética CSV',provider:'hotmart',accountKey:'synthetic',externalProductId:'synthetic-product',ebook:seed.books[1].id,active:false,currency:'BRL'}});extraOffers.push(other.id)
+ const other=await seedLegacyOffer(seed,{name:'Ambiguidade sintética CSV',provider:'hotmart',accountKey:'synthetic',externalProductId:'synthetic-product',ebook:seed.books[1].id,active:false,currency:'BRL'});extraOffers.push(other.id)
  assert.equal((await previewCommercialCSV(payload,canonicalCSV([fields('hotmart')]))).lines[0].reason,'ambiguous_product')
- await payload.delete({collection:'offers',id:other.id,overrideAccess:true});extraOffers.splice(extraOffers.indexOf(other.id),1)
+ await deleteLegacyOffer(seed,other.id);extraOffers.splice(extraOffers.indexOf(other.id),1)
  checks.push('Produto/conta desconhecidos e catálogo ambíguo não usam oferta primária, outro provedor ou outro livro como fallback. Leitura detecta ambiguidade legada sem reescrever identidades.')
  const settlement=fields('hotmart');settlement[12]='9000';assert.equal((await previewCommercialCSV(payload,canonicalCSV([settlement]))).lines[0].reason,'settlement_evidence_required')
  const incomplete=fields('hotmart');incomplete[10]='';assert.equal((await previewCommercialCSV(payload,canonicalCSV([incomplete]))).lines[0].reason,'incomplete_snapshot')
  await ingest({...source('hotmart'),grossCents:10000})
- const heldBefore=await snapshot();assert.equal((await previewCommercialCSV(payload,canonicalCSV([fields('hotmart')]))).lines[0].reason,'existing_review');assert.deepEqual(await snapshot(),heldBefore)
+ const heldBefore=await snapshot();assert.equal((await previewCommercialCSV(payload,canonicalCSV([fields('hotmart')]))).lines[0].reason,'transaction_conflicted');assert.deepEqual(await snapshot(),heldBefore)
  checks.push('Recebimento informado exige evidência própria; campos vazios não viram zero. Revisão/colisão existente continua bloqueada, e CSV não resolve ou reprocessa a transação.')
  const login=await payload.login({collection:'admin-users',data:{email:seed.owner.email,password:seed.password}});assert.ok(login.token)
  const origin=new URL(process.env.PUBLIC_SITE_URL||'http://127.0.0.1:3000').origin

@@ -1,0 +1,32 @@
+{
+  "phase": "D113",
+  "date": "2026-10-27T00:57:54.332Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "preview sem escrita, cutoff inclusivo de 28 dias e contagem agregada de quatro assinaturas além de 30 dias",
+    "retira estado elegível antes do prazo máximo, preservando identidade, fatos, registros recentes e vínculos de provedor",
+    "heartbeat recente não esconde duas exceções antigas; health exige revisão em vez de apagar vínculos",
+    "nova execução após fechamento sintético das dependências remove backlog e permite saúde positiva sem renovar fatos"
+  ],
+  "eligibilityDays": 28,
+  "deadlineDays": 30,
+  "successMaxAgeHours": 25,
+  "preview": {
+    "cutoff": "2026-09-27T00:57:52.706Z",
+    "overdueSubscriptions": 4,
+    "reviewRequired": true
+  },
+  "applied": {
+    "cutoff": "2026-09-27T00:57:52.706Z",
+    "overdueSubscriptions": 2,
+    "reviewRequired": true
+  },
+  "resolved": {
+    "cutoff": "2026-09-27T00:57:52.706Z",
+    "overdueSubscriptions": 0,
+    "reviewRequired": false
+  },
+  "externalCalls": 0,
+  "realProviderReconciliationPerformed": false,
+  "productionChanged": false
+}

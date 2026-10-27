@@ -24,7 +24,7 @@ async function processLocked(req: PayloadRequest, row: BrevoWebhookEvent, config
   const reason = row.event === 'spam' ? 'complaint' : row.event === 'hard_bounce' ? 'bounced' : row.event === 'unsubscribe' ? 'unsubscribed' : null
   if (reason && !suppressionApplied) {
     // Receipt time prevents an old pending confirmation from overriding this newly received withdrawal.
-    await suppressLockedContact(req, contact, reason, `brevo-webhook:${row.key}`, now)
+    await suppressLockedContact(req, contact, reason, `brevo-webhook:${row.key}`, now, config.linkSecret)
     suppressionApplied = true
   }
   if (!send || send.providerCampaignId !== row.providerCampaignId) return finish('unknown_campaign', suppressionApplied)

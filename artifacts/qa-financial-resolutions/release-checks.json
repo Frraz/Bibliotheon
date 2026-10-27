@@ -1,0 +1,65 @@
+{
+  "phase": "D83",
+  "status": "passed_local_phase",
+  "date": "2026-10-25T16:30:40.053557+00:00",
+  "scope": "UI de decisão/aplicação financeira e correção de exibição monetária assinada; P03/P04/P05 continuam parciais",
+  "checks": {
+    "isolatedBuild": "passed",
+    "buildDirectory": ".next-qa",
+    "buildID": "EsKG8fnyD_LNz8kcNLLdj",
+    "typecheck": "passed",
+    "consolidatedCheck": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 2,
+    "unitTests": 251,
+    "unitFiles": 31,
+    "newSignedDisplayTests": 4,
+    "operationalTests": 61,
+    "browserGroups": 7,
+    "captures": 34,
+    "axeRuns": 33,
+    "text200Leading": "passed",
+    "runtimeErrors": [],
+    "externalRequests": 0,
+    "fixturesCleaned": true,
+    "databaseStopped": true,
+    "diffCheck": "passed",
+    "qaShellSyntax": "passed",
+    "documentation": "passed",
+    "documents": 49,
+    "localLinks": 965,
+    "externalURLsUnchecked": 102,
+    "contrastPairs": 76
+  },
+  "consolidatedCheckEvidence": {
+    "exitCode": 0,
+    "sha256": "d60c93bc0acd872acbca6bd76c93e71a14d7856ddaa2175e938f73b4d8b09cb2",
+    "note": "npm run check local; testes operacionais usam ambiente simulado. Correção CSS final validada por build/QA; documentação final validada separadamente."
+  },
+  "sourceSHA256": {
+    "src/components/admin/FinancialResolutionForm.tsx": "df7e395d9c4d5ce7b7690b4fbc792aaee21959f3037d54f8853ca0fb07b08e7d",
+    "src/components/admin/FinancialResolutionsView.tsx": "ee75d3da3b8fb412f93e2667161715e89c817e7879ca1013b638414d9c1f6a10",
+    "src/components/admin/FinancialReviewData.tsx": "4da37ee5ce1e2012c42820b9f659b3254d1fa38568feeb137ca2c42ff4abe9e9",
+    "src/components/admin/Dashboard.tsx": "caee9442826c8728766d175cd36963f4f35f298d27b1f148f7eda9b02688fdc4",
+    "src/modules/commerce/ledger-entry.ts": "ea07f332cacf175cbe75aa7712a4fa10b34ffe3aedd2e291f5946a585e9f6eb0",
+    "tests/unit/ledger-entry.test.ts": "e3e419ebd6971bd421daff4c50e880c572a9945b308f59996cf408c1b6f77a2f",
+    "src/modules/commerce/transaction-review.ts": "cd9c24b9a709e6eae8cec1902c5adc156a1de1f625b6ed3008bcc80f8d6005bc",
+    "src/modules/commerce/financial-resolutions.ts": "595ef4fc4e0e77d8e2942c671d32633f2017c21e78ae8d361508941b30264316",
+    "src/modules/commerce/financial-resolution-http.ts": "a92f52afe7867fa769a0bcc7ecff8f592969d51ba245ed787f9bf09cb425ad5b",
+    "src/payload.config.ts": "5079f2a13c2a05d40f550e8c880642822bc3fb372fda56cf604a5aba6de5f54c",
+    "src/app/(payload)/admin/importMap.js": "1c9f69368b75884ab4910ef8da4f8ac63cd2c65c4b829be852eb8ad613208c2e",
+    "src/styles/admin.css": "1d8076cc3349a40231bd3b5d134ff1ecdaf773647eb84c652d657913b69bd43d",
+    "scripts/qa-financial-resolutions.ts": "33dceb37edd0df5aa3428cb0d28f84aebb8cdc70c4610c793467ae38b5a08c11",
+    "scripts/check-qa-admin.sh": "915dbf77254d79dea361f17f62509ae00866dee7cdb30ff035f2294fb4f19258",
+    "package.json": "6eb1343bd143eeb7ebe31fd05cdca1aebe08dec3ef9498abacb7e6c55abd36a3"
+  },
+  "knownWarnings": [
+    "Dois avisos históricos da migration de sequências",
+    "Aviso pg/Drizzle de consultas concorrentes; H06 continua aberto"
+  ],
+  "limits": [
+    "Somente fixtures/HTTP/browser locais sintéticos",
+    "Sem aceite integrado final P03/P04/P05, zoom nativo 400%, imagem/restore, fornecedor, GitHub ou VPS",
+    "Sem schema/dependência/segredo/flag novos; 28 migrations"
+  ]
+}

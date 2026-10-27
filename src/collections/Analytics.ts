@@ -18,4 +18,14 @@ export const CheckoutClicks=collection('checkout-clicks','Saída de checkout','S
 export const AnalyticsLimits=collection('analytics-limits','Limite de medição','Limites de medição',[
  {name:'key',type:'text',required:true,unique:true},{name:'count',type:'number',required:true,min:0},date('expiresAt',true),
 ])
-export const analyticsCollections=[AnalyticsGrants,Visits,PageViews,CheckoutClicks,AnalyticsLimits]
+export const AnalyticsDailyAggregates=collection('analytics-daily-aggregates','Agregado diário de medição','Agregados diários de medição',[
+ {name:'key',type:'text',required:true,unique:true,admin:{hidden:true}},
+ {name:'day',type:'date',required:true,index:true},
+ {name:'kind',type:'select',required:true,options:['page_view','checkout_click']},
+ rel('ebook','ebooks'),rel('campaign','campaigns'),
+ {name:'provider',type:'select',options:['hotmart','kiwify','cakto']},
+ {name:'pagePath',type:'text'},
+ {name:'count',type:'number',required:true,min:1},
+])
+AnalyticsDailyAggregates.admin={...AnalyticsDailyAggregates.admin,description:'Contagens diárias sem sessão, permissão, clique, token ou identificador de visitante. Contagens agregadas são mantidas após expirar os eventos-fonte.',defaultColumns:['day','kind','ebook','campaign','provider','count']}
+export const analyticsCollections=[AnalyticsGrants,Visits,PageViews,CheckoutClicks,AnalyticsLimits,AnalyticsDailyAggregates]

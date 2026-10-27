@@ -19,6 +19,19 @@ import * as migration_20261024_071409_brevo_send_recipients from './20261024_071
 import * as migration_20261024_073316_analytics from './20261024_073316_analytics';
 import * as migration_20261024_115633_commercial_inbox from './20261024_115633_commercial_inbox';
 import * as migration_20261024_190859_commercial_imports from './20261024_190859_commercial_imports';
+import * as migration_20261024_231500_offer_identity_guard from './20261024_231500_offer_identity_guard';
+import * as migration_20261025_003403_catalog_resolutions from './20261025_003403_catalog_resolutions';
+import * as migration_20261025_014000_commercial_review_lookup from './20261025_014000_commercial_review_lookup';
+import * as migration_20261025_031113_financial_resolutions from './20261025_031113_financial_resolutions';
+import * as migration_20261025_041432_financial_report_evidence from './20261025_041432_financial_report_evidence';
+import * as migration_20261025_051744_report_evidence_csv from './20261025_051744_report_evidence_csv';
+import * as migration_20261025_054113_financial_ledger from './20261025_054113_financial_ledger';
+import * as migration_20261025_185933_analytics_retention from './20261025_185933_analytics_retention';
+import * as migration_20261025_192350_privacy_request_audit from './20261025_192350_privacy_request_audit';
+import * as migration_20261025_213716_marketing_suppression_tombstones from './20261025_213716_marketing_suppression_tombstones';
+import * as migration_20261025_224500_commercial_inbox_envelope_retention from './20261025_224500_commercial_inbox_envelope_retention';
+import * as migration_20261026_231335_contact_retirements from './20261026_231335_contact_retirements';
+import * as migration_20261027_001515_theme_withdrawals from './20261027_001515_theme_withdrawals';
 
 export const migrations = [
   {
@@ -124,6 +137,71 @@ export const migrations = [
   {
     up: migration_20261024_190859_commercial_imports.up,
     down: migration_20261024_190859_commercial_imports.down,
-    name: '20261024_190859_commercial_imports'
+    name: '20261024_190859_commercial_imports',
+  },
+  {
+    up: migration_20261024_231500_offer_identity_guard.up,
+    down: migration_20261024_231500_offer_identity_guard.down,
+    name: '20261024_231500_offer_identity_guard',
+  },
+  {
+    up: migration_20261025_003403_catalog_resolutions.up,
+    down: migration_20261025_003403_catalog_resolutions.down,
+    name: '20261025_003403_catalog_resolutions',
+  },
+  {
+    up: migration_20261025_014000_commercial_review_lookup.up,
+    down: migration_20261025_014000_commercial_review_lookup.down,
+    name: '20261025_014000_commercial_review_lookup',
+  },
+  {
+    up: migration_20261025_031113_financial_resolutions.up,
+    down: migration_20261025_031113_financial_resolutions.down,
+    name: '20261025_031113_financial_resolutions',
+  },
+  {
+    up: migration_20261025_041432_financial_report_evidence.up,
+    down: migration_20261025_041432_financial_report_evidence.down,
+    name: '20261025_041432_financial_report_evidence',
+  },
+  {
+    up: migration_20261025_051744_report_evidence_csv.up,
+    down: migration_20261025_051744_report_evidence_csv.down,
+    name: '20261025_051744_report_evidence_csv',
+  },
+  {
+    up: migration_20261025_054113_financial_ledger.up,
+    down: migration_20261025_054113_financial_ledger.down,
+    name: '20261025_054113_financial_ledger',
+  },
+  {
+    up: migration_20261025_185933_analytics_retention.up,
+    down: migration_20261025_185933_analytics_retention.down,
+    name: '20261025_185933_analytics_retention',
+  },
+  {
+    up: migration_20261025_192350_privacy_request_audit.up,
+    down: migration_20261025_192350_privacy_request_audit.down,
+    name: '20261025_192350_privacy_request_audit',
+  },
+  {
+    up: migration_20261025_213716_marketing_suppression_tombstones.up,
+    down: migration_20261025_213716_marketing_suppression_tombstones.down,
+    name: '20261025_213716_marketing_suppression_tombstones',
+  },
+  {
+    up: migration_20261025_224500_commercial_inbox_envelope_retention.up,
+    down: migration_20261025_224500_commercial_inbox_envelope_retention.down,
+    name: '20261025_224500_commercial_inbox_envelope_retention',
+  },
+  {
+    up: migration_20261026_231335_contact_retirements.up,
+    down: migration_20261026_231335_contact_retirements.down,
+    name: '20261026_231335_contact_retirements',
+  },
+  {
+    up: migration_20261027_001515_theme_withdrawals.up,
+    down: migration_20261027_001515_theme_withdrawals.down,
+    name: '20261027_001515_theme_withdrawals'
   },
 ];

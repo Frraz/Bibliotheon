@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-25",
+  "revision": "D87",
+  "status": "partially_implemented_locally",
+  "sources": [
+    {
+      "provider": "hotmart",
+      "urls": [
+        "https://developers.hotmart.com/docs/en/2.0.0/webhook/purchase-webhook/",
+        "https://developers.hotmart.com/docs/en/changelog",
+        "https://developers.hotmart.com/docs/en/tutorials/checkout-elements/"
+      ],
+      "finding": "Purchase V2 documents purchase.origin.sck and customizable origin tracking codes; checkout documentation exposes sck.",
+      "limit": "Account delivery, affiliate path and real event field values are not homologated."
+    },
+    {
+      "provider": "kiwify",
+      "urls": [
+        "https://ajuda.kiwify.com.br/pt-br/article/como-passar-parametros-de-rastreamento-na-url-do-checkout-src-utm-tags-entre-outros-1spiptc/",
+        "https://kiwify.notion.site/Webhooks-pt-br-c77eb84be10c42e6bb97cd391bca9dce"
+      ],
+      "finding": "Official help lists sck as a checkout tracking parameter and says accepted parameters are stored in cookies and used for purchases.",
+      "limit": "The linked webhook schema could not be opened in this research. TrackingParameters.sck is tested against synthetic fixture only; callback account delivery is unverified."
+    },
+    {
+      "provider": "cakto",
+      "urls": [
+        "https://ajuda.cakto.com.br/pt-br/articles/54-como-passar-parametros-de-rastreamento-na-url-do-checkout-src-utm-tags-entre-outros",
+        "https://docs.cakto.com.br/conceitos/webhooks"
+      ],
+      "finding": "Official checkout help lists sck and describes tracking parameters retained for purchases; webhook contract documents order fields and tracking fields.",
+      "limit": "Presence and stability of data.sck in actual webhook deliveries, including affiliate and payment paths, requires account homologation."
+    }
+  ],
+  "implementation": {
+    "checkout": "Creates the checkout-click record before redirect and appends its UUID as sck only with a valid analytics grant, active campaign, and no existing sck. Existing provider parameter is preserved.",
+    "adapters": "Hotmart purchase.origin.sck, Kiwify TrackingParameters.sck, and Cakto data.sck are accepted only when they are canonical UUIDs. Free text is discarded before persistence.",
+    "report": "Matches the returned UUID to a stored consented click and checks provider, accountKey from the immutable offer identity, offer, book, approval time, 30-day inclusive window, and review status. Attributed revenue remains null without gross and reversal coverage.",
+    "schema": "No migration, endpoint, secret, flag, or provider account change. 28 migrations remain declared."
+  },
+  "local_validation": {
+    "unit_tests": "84 targeted tests passed across attribution, Hotmart, Kiwify, Cakto, and financial dimensions.",
+    "typecheck": "npm run typecheck passed.",
+    "full_local_check": "npm run check passed: 280 unit tests across 34 files, 61 operational tests, typecheck, lint with two historical warnings and documentation validation.",
+    "integration_postgres": "test:financial-dimensions passed; four groups verified including an approved UUID-linked campaign attribution; synthetic records cleaned; PostgreSQL stopped with volume preserved. See financial-dimensions-d87.json.",
+    "integration_http": "not_run",
+    "browser_visual_qa": "not_run",
+    "external_accounts_or_sales": "not_used"
+  },
+  "remaining": [
+    "Run a local HTTP integration covering a consented checkout, provider-returned UUID, absent/invalid reference, mismatch and replay.",
+    "Verify the returned sck field separately in authorized Hotmart, Kiwify and Cakto account deliveries before claiming provider homologation.",
+    "Complete P07 retention, withdrawal, deletion and restore behavior for linked analytics and commercial records."
+  ]
+}

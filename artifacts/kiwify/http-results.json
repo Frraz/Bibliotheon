@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T18:29:43.565Z",
+  "date": "2026-10-25T06:11:07.146Z",
   "origin": "http://127.0.0.1:3001",
   "checks": [
     "Rota real exige uma signature na query e HMAC dos bytes exatos; header/token, query duplicada, adulteração de espaço, MIME/encoding e JSON inválidos não persistem.",
