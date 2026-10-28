@@ -1,0 +1,56 @@
+{
+  "completedAt": "2026-10-28T23:52:43.199809+00:00",
+  "environment": "Local: Chromium, Next standalone .next-qa, PostgreSQL e mídia sintéticos descartáveis",
+  "buildID": "FbtF4-Fg_Y3KifRP223I2",
+  "screenshots": 342,
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "documentation": "passed",
+    "gitDiffCheck": "passed",
+    "ops": {
+      "passed": 62
+    },
+    "unit": {
+      "initialPassed": 314,
+      "initialTimeouts": 1,
+      "retryFile": "tests/unit/commercial-csv.test.ts",
+      "retryPassed": 16,
+      "note": "Timeout de 5s sob concorrência; arquivo completo passou na repetição isolada, sem alterar teste ou regra."
+    }
+  },
+  "browserSuites": {
+    "foundation": {
+      "status": "passed",
+      "buildID": "FbtF4-Fg_Y3KifRP223I2",
+      "configuredDatabasePreserved": true,
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    "public-site": {
+      "status": "passed",
+      "buildID": "FbtF4-Fg_Y3KifRP223I2",
+      "configuredDatabasePreserved": true,
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    "public-states": {
+      "status": "passed",
+      "buildID": "FbtF4-Fg_Y3KifRP223I2",
+      "configuredDatabasePreserved": true,
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    }
+  },
+  "sourceSHA256": {
+    "src/styles/site.css": "d0b03d2a7ed9f848a9fa8c08db078cdca66f8bea9a61d0d4cb209cd10744abad",
+    "src/components/Appearance.tsx": "279c5c7a6ea56cafa7d386e90c38896d8896193d77b4522b6022088b5cb7556f",
+    "src/components/SiteHeader.tsx": "5fc51eb26d8e0ee44f83f5fd283b037ff2aa5c31469b1daa054744ba0cb4d7b9",
+    "src/app/(site)/page.tsx": "97bd450566a440fe50e1f581b906e348e1ccb732b18ab196db8b0116ee21df5c"
+  },
+  "productionChanged": false,
+  "externalProvidersValidated": false,
+  "fieldPerformanceMeasured": false,
+  "localPostgresRestoredToStopped": true
+}

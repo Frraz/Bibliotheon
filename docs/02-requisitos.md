@@ -68,3 +68,10 @@ R33 aplica identidade às telas de fase 1 primeiro e completa os relatórios na 
 ## Aceite visual local D126 — 28/10/2026
 
 R31–R34/B19/B20/H05 têm [auditoria local por família](../artifacts/qa-release-layout/d126-h05-acceptance.json), combinando D121–D126. Nenhum requisito de negócio foi removido. Novas telas/estados ou falhas reabrem a cobertura afetada. Imagem/API atuais têm evidência D127; P07 e homologações do ambiente real continuam pendentes. Código posterior exige renovar apenas os gates afetados; campo será acompanhado após tráfego suficiente.
+
+
+## Redesign público editorial — 28/10/2026
+
+R03/R04/R20/R21/R27–R30: evolução editorial de todas as famílias públicas, temas e responsividade. Menu de aparência com Sistema/Claro/Escuro; conteúdo e contratos existentes preservados. O aceite desta alteração exige capturas, teclado, axe, reflow e regressões locais.
+
+Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).

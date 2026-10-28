@@ -1,0 +1,799 @@
+{
+  "results": [
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-error-light-320.png",
+      "sha256": "088eaaeb6d8bc9daa83d9bf056ed50d202ea1a0624ce6a5e63475f2a24cff884"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-error-light-1440.png",
+      "sha256": "999d415561b32108222b9086220966230591e89de86986b338988829476bec21"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-error-dark-320.png",
+      "sha256": "637709b80869d9e6496af1ebb77a44b533db2f45b7acb63bfcbbb8d77db05d1f"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-error-dark-1440.png",
+      "sha256": "d8a75ba3b35cf3c7d3f0e6367f6ac2e585755f501c2d7243660828bb634a333c"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-recovered-light-320.png",
+      "sha256": "0d2591ef5ed57d2d37cd764082aae374f93b82dfc4185cdeaa4dba1deb072a18"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-recovered-light-1440.png",
+      "sha256": "089d92b59354fe4d46c0d4b56d876f0cff0fa5d200c4239c571e281dcbf274f1"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-recovered-dark-320.png",
+      "sha256": "e6dd39deea3dbac0518043cb7a69cb29730acd3360a7ec62cf962b794b3a2dfb"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-recovered-dark-1440.png",
+      "sha256": "e0586337f612bf5380c35d17e6bd671f969447f8703b41f69c9fb43df17fbe0f"
+    },
+    {
+      "state": "home-long-missing-cover",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/home-long-missing-cover-light-320.png",
+      "sha256": "95fe86772c70b6573fa4eebf344afb2088534f3f0d7423c02fa3d6b6a0d1995c"
+    },
+    {
+      "state": "catalog-long-missing-cover",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-long-missing-cover-light-320.png",
+      "sha256": "4c05aabfa6c9427c63c27826cfb5f1a5c22d683621b02f0b39f042965f0010be"
+    },
+    {
+      "state": "theme-long",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/theme-long-light-320.png",
+      "sha256": "665a6cf9d5a3f29058792d0863cac87bf59ab5d63bcef18dd9e18c74492b8694"
+    },
+    {
+      "state": "lp-active-guide",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-guide-light-320.png",
+      "sha256": "2283b2f2325988fe9bd7cb7c5518f8141454fcdb1bd5b9095bede1c1eb3992d0"
+    },
+    {
+      "state": "lp-active-reading",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-reading-light-320.png",
+      "sha256": "dbe24a03780aac019b260a2c57ab252c062a1e0d95426ce71793881814aca017"
+    },
+    {
+      "state": "lp-active-workbook",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-workbook-light-320.png",
+      "sha256": "401df12c78a1bfad570e16d69535340563c51f27e9faf6cda2ad0240e810e9fb"
+    },
+    {
+      "state": "article-long-link-list",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/article-long-link-list-light-320.png",
+      "sha256": "541c78d12e071fe11a34f9a6402da1f232abd012bbd76281ec2cfa52623b0128"
+    },
+    {
+      "state": "about-long-link-list",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/about-long-link-list-light-320.png",
+      "sha256": "d4f1fc6b8c0484b1536def80c6af4fdbac9777692c3b02c748a57f89e2974ad7"
+    },
+    {
+      "state": "privacy-long-link-list",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/privacy-long-link-list-light-320.png",
+      "sha256": "181772e30dad54e75303e68c4578f467c22e071f8295fe4c083542372799cfff"
+    },
+    {
+      "state": "terms-long-link-list",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/terms-long-link-list-light-320.png",
+      "sha256": "1b2bd6b93a0d8805a96eb76a2220995075377ad311ee437d4d2b1b85c78b27f2"
+    },
+    {
+      "state": "home-long-missing-cover",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/home-long-missing-cover-light-1440.png",
+      "sha256": "2c77ec2ecf878516cc40fda9e7b5a94c403fe8c802e1d5a2089733dca7116881"
+    },
+    {
+      "state": "catalog-long-missing-cover",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-long-missing-cover-light-1440.png",
+      "sha256": "e28e7cf556c3dd1aef3578460c6ae88beee8a9c096339e088a7278ea81b62fc4"
+    },
+    {
+      "state": "theme-long",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/theme-long-light-1440.png",
+      "sha256": "ff98eabcf4b7f859aa1fded1b46031a5627f919edb6255f09d8f76bf6a5ea080"
+    },
+    {
+      "state": "lp-active-guide",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-guide-light-1440.png",
+      "sha256": "11191063e3c77d3a9521614d78f524162deada79268a01bdaa4e41ddb8bacb16"
+    },
+    {
+      "state": "lp-active-reading",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-reading-light-1440.png",
+      "sha256": "bbc3ca89a4b82b1ed7565ff06772b9c88a02db1297af7b9f60809fe966bd9e7a"
+    },
+    {
+      "state": "lp-active-workbook",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-workbook-light-1440.png",
+      "sha256": "76e06dba7af4752338f49029c2fe6f30c0215306143ed8ed2310055446c6806d"
+    },
+    {
+      "state": "article-long-link-list",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/article-long-link-list-light-1440.png",
+      "sha256": "cfab677c8da6fe75017c3a3b2c0944074cc13a7a73cdf773740a74e28ae86fc0"
+    },
+    {
+      "state": "about-long-link-list",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/about-long-link-list-light-1440.png",
+      "sha256": "ce2cc50ee0cbd2056595157183897ce792b1e01488809a244ea4ae57077ff57b"
+    },
+    {
+      "state": "privacy-long-link-list",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/privacy-long-link-list-light-1440.png",
+      "sha256": "046fd3b9550650c3c5f68317730370efc60d701bace2a20412ef61eaf7fd51e5"
+    },
+    {
+      "state": "terms-long-link-list",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/terms-long-link-list-light-1440.png",
+      "sha256": "54c9e1dd3e5e90b1bda813fe4c8bf49e4cc6f0d2413dd90346a337952da18c8f"
+    },
+    {
+      "state": "home-long-missing-cover",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/home-long-missing-cover-dark-320.png",
+      "sha256": "fb13955c7160780f434872b940f93914e581570d3dcfdd4d6bfc9fbd76ce06ac"
+    },
+    {
+      "state": "catalog-long-missing-cover",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-long-missing-cover-dark-320.png",
+      "sha256": "d6aa2cb32203eae1aa23b675e79891b4a35499e3e4f9003316625b03f9338755"
+    },
+    {
+      "state": "theme-long",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/theme-long-dark-320.png",
+      "sha256": "976cb3b407c867122dcdca856367b55a116ca96e9690ad1580862e5a4373d728"
+    },
+    {
+      "state": "lp-active-guide",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-guide-dark-320.png",
+      "sha256": "e2c266cd711cd63a4f516ab5a4ace27416a503cca7c1b194fd940a07cef10ca4"
+    },
+    {
+      "state": "lp-active-reading",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-reading-dark-320.png",
+      "sha256": "1e7df3fe6b786be0c984371fbd2b5a53be0dfd4e579405e4d8f3f7c9309e4983"
+    },
+    {
+      "state": "lp-active-workbook",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-workbook-dark-320.png",
+      "sha256": "3bce362ca18670c0f143da7d15eae9fd117091a4be12b84e045dd4c934c6e386"
+    },
+    {
+      "state": "article-long-link-list",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/article-long-link-list-dark-320.png",
+      "sha256": "c8b2c55c932e873c69b7dd5e75b0c9ba58b279f3313c05803aee67036ae5eebc"
+    },
+    {
+      "state": "about-long-link-list",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/about-long-link-list-dark-320.png",
+      "sha256": "600ca40b95c2204c25508f113e04f92749928b01c00d619baef40409a4d13715"
+    },
+    {
+      "state": "privacy-long-link-list",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/privacy-long-link-list-dark-320.png",
+      "sha256": "621727b8fbe4d9bba8c50098491f2e1757454070fd18bc1ffc4adf556816ce0c"
+    },
+    {
+      "state": "terms-long-link-list",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/terms-long-link-list-dark-320.png",
+      "sha256": "a2224e256ef13db2e5eaa483d88d54b9166466575461e7b7e51461253cd31744"
+    },
+    {
+      "state": "home-long-missing-cover",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/home-long-missing-cover-dark-1440.png",
+      "sha256": "7cd9c96fcf9bbee584ecd992a18917b3f8d29c70f3957074fd874ab0538b50a2"
+    },
+    {
+      "state": "catalog-long-missing-cover",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/catalog-long-missing-cover-dark-1440.png",
+      "sha256": "4487d3236ed888fcb8c1d8aeb2b9607af327e70880fac18431ce7d0db26d98b0"
+    },
+    {
+      "state": "theme-long",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/theme-long-dark-1440.png",
+      "sha256": "f1fa711c47ef0acec56abcc9b9d9ed2f157100361c03c4a8460456c1f30b248d"
+    },
+    {
+      "state": "lp-active-guide",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-guide-dark-1440.png",
+      "sha256": "572b4d425cbb64fc46f22881580020363e0860d53639f9b0b1e8927b8add3e31"
+    },
+    {
+      "state": "lp-active-reading",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-reading-dark-1440.png",
+      "sha256": "fcea0f28d1650cae5402d568a03eb13ba70cdbd91948ac39d6a8ee0f8888a64e"
+    },
+    {
+      "state": "lp-active-workbook",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-active-workbook-dark-1440.png",
+      "sha256": "f3b0226f5c92bb01b50aa5dafd388f67c30dce7516034c042082ffdd31e9b1e0"
+    },
+    {
+      "state": "article-long-link-list",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/article-long-link-list-dark-1440.png",
+      "sha256": "f356a6d425ac2a4a27f180a20ba0bd7cb6cf875c85a4f3bbedd05f924a11a91e"
+    },
+    {
+      "state": "about-long-link-list",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/about-long-link-list-dark-1440.png",
+      "sha256": "c69860c217ac0e218334994dce1b2f1db0d779d78c1c2e384e8e426529405584"
+    },
+    {
+      "state": "privacy-long-link-list",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/privacy-long-link-list-dark-1440.png",
+      "sha256": "05087479adf15da887a87c0a553d7d06d0e2793be962f95f177604408ad88dbe"
+    },
+    {
+      "state": "terms-long-link-list",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/terms-long-link-list-dark-1440.png",
+      "sha256": "f73df3c4fd0d7c77f8f4d71708c3594392e55c6c560d9516791546a6bf184365"
+    },
+    {
+      "state": "lp-inactive-guide",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-guide-light-320.png",
+      "sha256": "968d363cd47d54d136ff8e874ce509e0a147b2aab148891498b5e040e2b70426"
+    },
+    {
+      "state": "lp-inactive-reading",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-reading-light-320.png",
+      "sha256": "071c6a4f6edea7d71d82da3e3fdf98f57c65b00c22ed851cd2993c0a5c7e3fde"
+    },
+    {
+      "state": "lp-inactive-workbook",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-workbook-light-320.png",
+      "sha256": "05a327f646b24b6fcc9fa14edd19a6387f1f2251341e4bc8e63098a0a29fd255"
+    },
+    {
+      "state": "lp-inactive-guide",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-guide-light-1440.png",
+      "sha256": "5dc7b81a6f305856d57a98edfa570685f91fb653a03d6c8489c44cfe6babf6e8"
+    },
+    {
+      "state": "lp-inactive-reading",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-reading-light-1440.png",
+      "sha256": "fb6f8b600af841abdc211224f4b4aa5586fbd1879c4d286272b25b34065ba881"
+    },
+    {
+      "state": "lp-inactive-workbook",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-workbook-light-1440.png",
+      "sha256": "63e19be8368af59ebdfe1180e48bdd9b39ff0cf5302f7d1e6a0b2ca87bc56e40"
+    },
+    {
+      "state": "lp-inactive-guide",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-guide-dark-320.png",
+      "sha256": "de38153f5a6fe16eee150cdf5d03e4aca81efb808e6b4f6baf37df836644a7db"
+    },
+    {
+      "state": "lp-inactive-reading",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-reading-dark-320.png",
+      "sha256": "6acb48cf554f4d06bccaa3d201050e6fca3799c3b51f41ddeed697a53dac0a56"
+    },
+    {
+      "state": "lp-inactive-workbook",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-workbook-dark-320.png",
+      "sha256": "2ff0176bea30c8857b49c616be7171278cf8a35cf8edecef2999ca5dc254c7db"
+    },
+    {
+      "state": "lp-inactive-guide",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-guide-dark-1440.png",
+      "sha256": "d1504bd3f4e1327d8a1a7ca35335aaf690aab540cc3c3c6d5a7ac879ba947682"
+    },
+    {
+      "state": "lp-inactive-reading",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-reading-dark-1440.png",
+      "sha256": "536f7741e8f7b7232975bc6c4b1a52ee4cb7af79efa65a689ee5e6d87a169a16"
+    },
+    {
+      "state": "lp-inactive-workbook",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/lp-inactive-workbook-dark-1440.png",
+      "sha256": "eadd9b33e34bf84bee89b91abe82512efc44e7cad9d480152c017d0111811ab2"
+    },
+    {
+      "state": "font-fallback-normal-motion",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/font-fallback-normal-motion-light-390.png",
+      "sha256": "b63fe634d488ae66f650a1037d6ad2926aa08f997d6b760cb9868bc88c431f7f"
+    },
+    {
+      "state": "component-hover",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-hover-light-390.png",
+      "sha256": "37602969c5c24a05aa529413d9b7809705f8a869623cde16a832dbdaa88fc319"
+    },
+    {
+      "state": "component-focus",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-focus-light-390.png",
+      "sha256": "baf763cc916354f13023af8b804a45f19d80407c7929f9cd7f00bf752715e02e"
+    },
+    {
+      "state": "component-active",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-active-light-390.png",
+      "sha256": "baf763cc916354f13023af8b804a45f19d80407c7929f9cd7f00bf752715e02e"
+    },
+    {
+      "state": "component-expanded",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-expanded-light-390.png",
+      "sha256": "174972338bccff88b34eb25dd425a8676694e343d42217d61715e883117cf9f6"
+    },
+    {
+      "state": "font-fallback-normal-motion",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/font-fallback-normal-motion-light-1440.png",
+      "sha256": "60563f1cbe682eae6e84f5b478775110fb13cb944d733d4dad93bae2c0927057"
+    },
+    {
+      "state": "component-hover",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-hover-light-1440.png",
+      "sha256": "62373504390ac67afe1621278331c92bcedc6fe4f120e805c4bca587cc07668c"
+    },
+    {
+      "state": "component-focus",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-focus-light-1440.png",
+      "sha256": "ceb088ad70ab83b068f1db614084077e3ecd09840b0fce7a41b2d14def0ca205"
+    },
+    {
+      "state": "component-active",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-active-light-1440.png",
+      "sha256": "ceb088ad70ab83b068f1db614084077e3ecd09840b0fce7a41b2d14def0ca205"
+    },
+    {
+      "state": "component-expanded",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-expanded-light-1440.png",
+      "sha256": "ce2af2e3f80907206e128be534686d6b06969e489e38101112e7b4442299cec0"
+    },
+    {
+      "state": "font-fallback-normal-motion",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/font-fallback-normal-motion-dark-390.png",
+      "sha256": "a3349f06a1eb4b9d6bf66b47c50dbc434fe95e154a135f6d08a79f1aae800be1"
+    },
+    {
+      "state": "component-hover",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-hover-dark-390.png",
+      "sha256": "45378fc26ee4b35147eda3333283ed5e712232377a5b8717cc21288969560bbd"
+    },
+    {
+      "state": "component-focus",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-focus-dark-390.png",
+      "sha256": "66d5c18215005c2b8d5ecfaf3cd54be84aabf8f6a8811418e9fd88bcf05a045d"
+    },
+    {
+      "state": "component-active",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-active-dark-390.png",
+      "sha256": "66d5c18215005c2b8d5ecfaf3cd54be84aabf8f6a8811418e9fd88bcf05a045d"
+    },
+    {
+      "state": "component-expanded",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-expanded-dark-390.png",
+      "sha256": "041bc00734ac530d24852d68d42109bed3876106efa2f0227b3a393e5680aac2"
+    },
+    {
+      "state": "font-fallback-normal-motion",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/font-fallback-normal-motion-dark-1440.png",
+      "sha256": "1b3382841c4ed087f17d0da16901a48d8fbd0ba5a19053a26454c343bb79dbeb"
+    },
+    {
+      "state": "component-hover",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-hover-dark-1440.png",
+      "sha256": "43d5f007e45262037fdf711adc41087d70a19aca4bed4ac8b8b0852aef7bde71"
+    },
+    {
+      "state": "component-focus",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-focus-dark-1440.png",
+      "sha256": "7f43dff955a8676cb52300e75675b438ada8bd868fc3ef9eeb17e7739e9aadd2"
+    },
+    {
+      "state": "component-active",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-active-dark-1440.png",
+      "sha256": "7f43dff955a8676cb52300e75675b438ada8bd868fc3ef9eeb17e7739e9aadd2"
+    },
+    {
+      "state": "component-expanded",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/component-expanded-dark-1440.png",
+      "sha256": "10889fc65cf0d852add17e939c5af085cd0c5bd03dc8983ddb4f1b7330065b51"
+    },
+    {
+      "state": "javascript-delayed-normal-motion",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-delayed-normal-motion-light-390.png",
+      "sha256": "ff221ed09ea544ed1578dbd429b758842426d97bb90796761bd7f4e782a6cf69"
+    },
+    {
+      "state": "javascript-resumed-normal-motion",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-resumed-normal-motion-light-390.png",
+      "sha256": "bbfdc115a95bb5541fb064debf533458f1bdd58c1a8620cb91d8942fdff31cb8"
+    },
+    {
+      "state": "javascript-delayed-normal-motion",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-delayed-normal-motion-light-1440.png",
+      "sha256": "e6f21e32d82f665bd52a406b3a1c65514eb3d40a76216839bd6e6fdc2c61a2b9"
+    },
+    {
+      "state": "javascript-resumed-normal-motion",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-resumed-normal-motion-light-1440.png",
+      "sha256": "152793b1f541badee153c3bfe7f00bf2c4c86df73f4be383ab88b0d3d5f93689"
+    },
+    {
+      "state": "javascript-delayed-normal-motion",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-delayed-normal-motion-dark-390.png",
+      "sha256": "f12543f2389e0dfb69e8db7ec1b594008e2da02429e5e0998166818585f7c0d4"
+    },
+    {
+      "state": "javascript-resumed-normal-motion",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-resumed-normal-motion-dark-390.png",
+      "sha256": "f9aee11be4a2fa19433478fb5869624eb57c1eebcc94f450a2010bf6d3337898"
+    },
+    {
+      "state": "javascript-delayed-normal-motion",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-delayed-normal-motion-dark-1440.png",
+      "sha256": "a58a614166293c73dc78f8a78368303e88d5270b0052b38e73967f78e0592e07"
+    },
+    {
+      "state": "javascript-resumed-normal-motion",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-redesign/states/javascript-resumed-normal-motion-dark-1440.png",
+      "sha256": "4fc9ce6b20bc3a2780e6716ec19d70c05239562afcb9fec3abd8fb6d02c81b21"
+    }
+  ],
+  "runtimeErrors": [],
+  "expectedErrors": [],
+  "externalRequests": 0
+}

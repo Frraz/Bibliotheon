@@ -10,9 +10,9 @@ import { testOrigin as base } from '../tests/fixtures/origin'
 
 assert.equal(process.env.BIBLIOTHEON_SYNTHETIC_TESTS, 'true')
 assert.match(new URL(process.env.DATABASE_URL!).pathname, /^\/bibliotheon_qa_browser_[a-f0-9]+$/)
-const output = 'artifacts/qa-public-states'
+const output = process.env.BIBLIOTHEON_PUBLIC_STATES_MODE === 'redesign' ? 'artifacts/qa-public-redesign/states' : 'artifacts/qa-public-states'
 const mode = process.env.BIBLIOTHEON_PUBLIC_STATES_MODE || 'all'
-assert.ok(['all', 'extras'].includes(mode))
+assert.ok(['all', 'extras', 'redesign'].includes(mode))
 await mkdir(output, { recursive: true })
 const seed = await seedSite(), { payload } = seed, browser = await chromium.launch()
 const results: Array<Record<string, unknown>> = [], runtimeErrors: string[] = [], expectedErrors: string[] = []
@@ -61,11 +61,11 @@ async function capture(page: Page, state: string, theme: string, width: number) 
 }
 try {
   // Real PostgreSQL failure in this exclusive disposable database, with guaranteed restoration.
-  if (mode === 'all') {
+  if (mode !== 'extras') {
   const errors: Array<{ context: BrowserContext; page: Page; theme: 'light' | 'dark'; width: number }> = []
   await renameBooks()
   try {
-    if (mode === 'all') for (const theme of ['light', 'dark'] as const) for (const width of [360, 390, 768, 1024, 1440, 1920]) {
+    if (mode !== 'extras') for (const theme of ['light', 'dark'] as const) for (const width of (mode === 'redesign' ? [320, 1440] : [360, 390, 768, 1024, 1440, 1920])) {
       const ctx = await context(theme, width), page = await ctx.newPage(); observe(page)
       errors.push({ context: ctx, page, theme, width })
       await page.goto(base + '/ebooks', { waitUntil: 'networkidle' })
@@ -91,7 +91,7 @@ try {
   await payload.updateGlobal({ slug: 'site-settings', ...seed.auth, data: { about: body, privacyPolicy: body, terms: body } })
   for (const book of seed.books.slice(1)) seed.offers.push(await payload.create({ collection: 'offers', ...seed.auth, data: { name: `Oferta sintética ${book.presentationVariant}`, ebook: book.id, provider: 'hotmart', accountKey: 'synthetic', externalProductId: `public-states-${book.id}`, active: true, primary: true, currency: 'BRL', priceCents: 9900, checkoutUrl: 'https://pay.example.invalid/fixture', lastVerifiedAt: new Date().toISOString(), eligibilityNote: 'Somente QA.' } }))
   const routes = [['/', 'home-long-missing-cover'], ['/ebooks', 'catalog-long-missing-cover'], [`/temas/${seed.theme.slug}`, 'theme-long'], ...seed.books.map(book => [`/ebooks/${book.slug}`, `lp-active-${book.presentationVariant}`]), [`/artigos/${seed.article.slug}`, 'article-long-link-list'], ['/sobre', 'about-long-link-list'], ['/privacidade', 'privacy-long-link-list'], ['/termos', 'terms-long-link-list']]
-  if (mode === 'all') for (const theme of ['light', 'dark'] as const) for (const width of [360, 390, 768, 1024, 1440, 1920]) {
+  if (mode !== 'extras') for (const theme of ['light', 'dark'] as const) for (const width of (mode === 'redesign' ? [320, 1440] : [360, 390, 768, 1024, 1440, 1920])) {
     const ctx = await context(theme, width), page = await ctx.newPage(); observe(page)
     try {
       for (const [path, state] of routes) {
@@ -108,7 +108,7 @@ try {
     } finally { await ctx.close() }
   }
   for (const offer of seed.offers) await payload.update({ collection: 'offers', id: offer.id, ...seed.auth, data: { active: false } })
-  if (mode === 'all') for (const theme of ['light', 'dark'] as const) for (const width of [360, 390, 768, 1024, 1440, 1920]) {
+  if (mode !== 'extras') for (const theme of ['light', 'dark'] as const) for (const width of (mode === 'redesign' ? [320, 1440] : [360, 390, 768, 1024, 1440, 1920])) {
     const ctx = await context(theme, width), page = await ctx.newPage(); observe(page)
     try {
       for (const book of seed.books) {
@@ -169,7 +169,7 @@ try {
 } finally {
   if (fault) await renameBooks(true)
   await browser.close(); await seed.cleanup()
-  await writeFile(`${output}/${mode === 'extras' ? 'extras-results.json' : 'results.json'}`, JSON.stringify({ phase: 'D125', mode, completedAt: new Date().toISOString(), status: passed ? 'passed' : 'failed', results, faultRestored: restored, runtimeErrors, expectedServerErrors: expectedErrors, externalRequests, fontsBlocked, fixturesCleaned: true, fullH05Accepted: false, limits: 'Dados sintéticos em banco/mídia exclusivos; falha real de tabela somente nesse banco e restauração obrigatória. Sem checkout externo, conta real ou aceite de toda a fase 2.' }, null, 2) + '\n')
+  await writeFile(`${output}/${mode === 'extras' ? 'extras-results.json' : 'results.json'}`, JSON.stringify({ phase: mode === 'redesign' ? 'D130' : 'D125', mode, completedAt: new Date().toISOString(), status: passed ? 'passed' : 'failed', results, faultRestored: restored, runtimeErrors, expectedServerErrors: expectedErrors, externalRequests, fontsBlocked, fixturesCleaned: true, fullH05Accepted: false, limits: 'Dados sintéticos em banco/mídia exclusivos; falha real de tabela somente nesse banco e restauração obrigatória. Sem checkout externo, conta real ou aceite de toda a fase 2.' }, null, 2) + '\n')
 }
 console.log(`Estados públicos: ${results.length} capturas aprovadas, incluindo erro/recuperação e conteúdo adverso.`)
 process.exit(0)

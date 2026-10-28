@@ -2,7 +2,9 @@
 
 [Índice](../README.md) · [Backlog](13-backlog.md)
 
-**Revisão documental D129 (28/10/2026):** código e imagem permanecem na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
+**Redesign público local — 28/10/2026:** apresentação pública atualizada e aceita no recorte B17/B20 com 342 capturas no mesmo build. A imagem D127 não contém esta alteração; P07 e homologações externas continuam pendentes. [Evidências e limites](../artifacts/qa-public-redesign/README.md).
+
+**Registro histórico D129 (28/10/2026), anterior ao redesign público:** naquela revisão, código e imagem permaneciam na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
 
 Atualização: 28/10/2026, America/Belem (D129 documental; runtime D127). 35 migrations; sem mudança de schema. F01 e F03 têm aceite local; concluir F02/F04 e preparar F05 conforme [plano](25-fechamento-producao.md), sem novas funcionalidades.
 
@@ -715,3 +717,10 @@ P07-A–E e homologações/configurações reais continuam pendentes; o desenvol
 ## Ajuste do mínimo de senha administrativa — 28/10/2026
 
 Por solicitação do proprietário, criação, recuperação e alteração de senha passam a exigir pelo menos cinco caracteres. Sem alteração de schema. Mudança local; a imagem em execução na VPS ainda exige rebuild e atualização antes de aceitar a nova regra. Verificações desta alteração são registradas na entrega; não representam homologação da VPS. Próxima ação: publicar a alteração pelo proprietário e atualizar com `./atualizar.sh --sem-backup`.
+
+
+## Redesign público editorial — 28/10/2026
+
+Executado: composição editorial da home, arte abstrata CSS, controle de tema com opções nomeadas, navegação e acabamento compartilhado das páginas públicas. Skill UI UX Pro Max aplicada sem substituir identidade. Validação local concluída: 342 capturas no mesmo build, tipos/lint/build, 62 testes operacionais, documentação e contrastes aprovados; timeout unitário resolvido por repetição isolada do arquivo (16/16). Bancos/mídia sintéticos descartados e banco configurado preservado. Próxima ação: revisão com conteúdo real e publicação pelo proprietário, mantendo P07 e gates externos abertos. Nenhuma implantação.
+
+Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).

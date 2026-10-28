@@ -149,7 +149,7 @@ try {
       const response = await sample.goto(base + route, { waitUntil: 'networkidle' })
       assert.equal(response?.status(), 200)
       await sample.evaluate(() => document.fonts.ready)
-      await sample.getByLabel('Aparência').focus()
+      await sample.getByRole('button', { name: 'Aparência', exact: true }).click()
       await sample.keyboard.press('ArrowDown')
       await sample.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
       const metrics = await sample.evaluate(() => ({ ...(window as unknown as { qaMetrics: { lcp: number; cls: number; interactions: number[] } }).qaMetrics, keydownCount: (window.performance as Performance & { eventCounts: Map<string, number> }).eventCounts.get('keydown') || 0 }))

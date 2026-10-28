@@ -36,3 +36,10 @@ Loading inicial reserva espaço apenas quando dados realmente aguardam; evitar s
 Texto principal e legenda usam text/muted sobre canvas/surface/raised. Ação primária usa o par action/onAction. Acento editorial pode aparecer em título de seção, ícone decorativo ou linha, nunca substituir danger/success ou o botão comercial. Contorno border identifica campo; divider não basta. Todos esses pares são auditados em [contrastes](09-contrastes.md).
 
 No escuro, menus, modais, native inputs e autofill precisam seguir o tema; verificar também tooltips, erros e conteúdo rich text. Capas não recebem filtro. Foco é visível em controles claros e escuros por anel com offset da superfície, sem depender da sombra.
+
+
+## Redesign público editorial — 28/10/2026
+
+Aparência pública: botão circular de 46px com ícone SVG, nome acessível “Aparência” e estado expandido. Abre fieldset com rádios Sistema/Claro/Escuro e descrição. Teclado nativo entre rádios; Escape fecha e devolve foco, clique externo e saída de foco fecham. Controles do admin permanecem no Payload.
+
+Evidências e limites: [redesign público](../../artifacts/qa-public-redesign/README.md).

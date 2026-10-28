@@ -21,8 +21,8 @@ const suites = {
   'public-states': ['qa-public-states', 'results.json'],
   'commercial-load': ['qa-commercial-load', 'results.json'],
   'relationship-states': ['qa-relationship-states', 'results.json'],
-  foundation: ['qa-foundation', 'results.json'],
-  'public-site': ['qa-phase1', 'results.json'],
+  foundation: ['qa-public-redesign/foundation', 'results.json'],
+  'public-site': ['qa-public-redesign/site', 'results.json'],
   'catalog-states': ['qa-phase1', 'catalog-states-results.json'],
   relationship: ['qa-relationship', 'results.json'],
   preferences: ['qa-preferences', 'results.json'],
@@ -34,6 +34,7 @@ const suites = {
 const suite = process.argv[2]
 if (suite === 'public-states' && process.env.BIBLIOTHEON_PUBLIC_STATES_MODE === 'extras') suites[suite][1] = 'extras-results.json'
 if (suite === 'relationship-states' && process.env.BIBLIOTHEON_RELATIONSHIP_STATES_MODE === 'native') suites[suite][1] = 'native-results.json'
+if (suite === 'public-states' && process.env.BIBLIOTHEON_PUBLIC_STATES_MODE === 'redesign') suites[suite] = ['qa-public-redesign/states', 'results.json']
 const phase = process.env.BIBLIOTHEON_BROWSER_QA_PHASE || 'D122'
 assert.match(phase, /^D[1-9][0-9]{0,5}$/)
 if (['remaining', 'admin-final'].includes(suite) && process.argv.length === 3) {
@@ -68,7 +69,7 @@ const isolated = new URL(configured); isolated.pathname = `/${name}`
 const { Client } = createRequire(import.meta.resolve('@payloadcms/db-postgres'))('pg')
 const admin = new Client({ connectionString: maintenance.toString() })
 const startedAt = new Date().toISOString()
-const sourceFiles = ['scripts/qa-browser-isolated.mjs', 'scripts/qa-network-guard.mjs', 'scripts/check-qa-admin.sh', `scripts/qa-${suite}.ts`, ...(suite === 'relationship-states' ? ['src/components/SampleForms.tsx'] : suite === 'suppressions' ? ['src/components/admin/SuppressionForm.tsx'] : []), 'package.json', 'pnpm-lock.yaml', 'src/styles/admin.css', 'src/styles/site.css', 'patches/@payloadcms__ui@3.91.0.patch']
+const sourceFiles = ['scripts/qa-browser-isolated.mjs', 'scripts/qa-network-guard.mjs', 'scripts/check-qa-admin.sh', `scripts/qa-${suite}.ts`, ...(suite === 'relationship-states' ? ['src/components/SampleForms.tsx'] : suite === 'suppressions' ? ['src/components/admin/SuppressionForm.tsx'] : []), 'package.json', 'pnpm-lock.yaml', 'src/components/Appearance.tsx', 'src/components/SiteHeader.tsx', 'src/app/(site)/page.tsx', 'src/styles/admin.css', 'src/styles/site.css', 'patches/@payloadcms__ui@3.91.0.patch']
 const hashes = async () => Object.fromEntries(await Promise.all(sourceFiles.map(async file => [file, createHash('sha256').update(await readFile(file)).digest('hex')])))
 const before = await hashes()
 const buildID = (await readFile('.next-qa/BUILD_ID', 'utf8')).trim()

@@ -45,3 +45,10 @@ D85 (25/10/2026): reutilizados tokens, foco, scroll regional, disclosure progres
 D86 (25/10/2026): princípios já aplicados de disclosure, confirmação explícita, foco, feedback e linguagem financeira foram verificados na jornada conjunta. Sem alteração visual, instalação global, nova consulta externa ou IA integrada; build D85 foi reutilizado com hashes conferidas. Aceite operacional local não substitui matriz B20 integral.
 
 D121: referência UI Skills/a11y consultada para priorizar axe, teclado, semântica, foco e alvos. Uso adaptado ao harness sintético/isolado e às autorizações de correção já dadas pelo proprietário, sem nova etapa de aprovação genérica, instalação global ou certificação WCAG presumida. Capturas de zoom nativo usam CDP porque o helper fullPage recorta esse cenário.
+
+
+## Redesign público editorial — 28/10/2026
+
+UI UX Pro Max consultada na instalação local em `/home/ferraz/.claude/plugins/marketplaces/ui-ux-pro-max-skill/.claude/skills/ui-ux-pro-max/SKILL.md`. Consultas: `bookstore editorial artistic --design-system` e `responsive images fonts --stack nextjs`. Uma consulta específica `editorial magazine typography --domain style` confirmou o perfil Editorial Grid / Magazine, adequado a publicação: grid assimétrico, hierarquia editorial e espaço de leitura. Aplicados hierarquia, responsividade, foco, contraste e ícones SVG. Recomendações genéricas de Outfit/Work Sans, rosa e crop de imagens não substituem fontes, cores e capas íntegras aprovadas. Sem instalação global ou persistência de um segundo design system.
+
+Evidências e limites: [redesign público](../../artifacts/qa-public-redesign/README.md).

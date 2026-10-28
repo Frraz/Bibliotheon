@@ -46,3 +46,10 @@ Conteúdo principal nunca nasce opacity 0 aguardando JS. Só elementos secundár
 ## Performance
 
 Preservar R21. Dimensões de imagens explícitas, prioridade somente para imagem LCP real, lazy loading abaixo da dobra, fontes locais com fallback. Alvo inicial de mídia da primeira dobra ≤350 KiB por página, fontes ≤200 KiB; verificar em laboratório e negociar qualquer excesso com evidência. Nenhuma biblioteca de animação, fonte premium paga ou serviço de design obrigatório é introduzido.
+
+
+## Redesign público editorial — 28/10/2026
+
+O cabeçalho usa marca, navegação/menu e controle circular de tema. Reflow permite quebra quando texto ampliado exigir. O tema conserva chave/bootstrap e CSS de sistema existentes; eventos de storage são filtrados pela chave de aparência. Movimento é opcional, sem bloquear conteúdo. Matriz alvo: 320/390/768/1024/1440/1920px, orientação horizontal, texto 200% e zoom nativo 400%.
+
+Evidências e limites: [redesign público](../../artifacts/qa-public-redesign/README.md).

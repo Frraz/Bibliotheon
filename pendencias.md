@@ -2,7 +2,9 @@
 
 [README](README.md) · [Estado atual](docs/23-estado-atual.md) · [Backlog](docs/13-backlog.md) · [Progresso](docs/14-progresso.md) · [Deploy](deploy.md)
 
-**Revisão documental D129 (28/10/2026):** código e imagem permanecem na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](artifacts/container/d127-results.json) e [mitigação de deepmerge](artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
+**Redesign público local — 28/10/2026:** apresentação pública atualizada e aceita no recorte B17/B20 com 342 capturas no mesmo build. A imagem D127 não contém esta alteração; P07 e homologações externas continuam pendentes. [Evidências e limites](artifacts/qa-public-redesign/README.md).
+
+**Registro histórico D129 (28/10/2026), anterior ao redesign público:** naquela revisão, código e imagem permaneciam na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](artifacts/container/d127-results.json) e [mitigação de deepmerge](artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
 
 Atualizado em 28/10/2026, America/Belem. P01–P05 têm aceite local; P06 aguarda homologação por conta. P07 ainda exige política de guarda comercial, demais finalidades e conciliação de cópias externas/pending. Schema com 35 migrations; D127 aprovou a imagem atual em banco vazio/upgrade 32→35 e 16 suítes HTTP; H05 foi aceito localmente em D126. D123 corrigiu foco público, D125 a recuperação do catálogo e D126 o foco de supressões/paginação nativa, com os recortes afetados validados no build QA; D127 incorpora essas correções e a mitigação de deepmerge. Renovar somente os gates afetados se P07 alterar o código. Restore D114 é evidência histórica de 34 migrations; H04 permanece opcional para deploy com `--sem-backup`, incluindo guarda externa de recuperação. H05 tem aceite local D126 pela matriz combinada; segurança do host, contas e CI externo seguem pendentes. **O sistema completo ainda não está homologado para produção.** GitHub e deploy na VPS ficam com o proprietário.
 
@@ -294,3 +296,10 @@ P07-A–E e homologações/configurações reais continuam pendentes; o desenvol
 ## Ajuste do mínimo de senha administrativa — 28/10/2026
 
 Por solicitação do proprietário, criação, recuperação e alteração de senha passam a exigir pelo menos cinco caracteres. Sem alteração de schema. Mudança local; a imagem em execução na VPS ainda exige rebuild e atualização antes de aceitar a nova regra. Verificações desta alteração são registradas na entrega; não representam homologação da VPS. Próxima ação: publicar a alteração pelo proprietário e atualizar com `./atualizar.sh --sem-backup`.
+
+
+## Redesign público editorial — 28/10/2026
+
+Matriz local do redesign público concluída: 342 capturas no mesmo build; B17/B20 aceitos neste recorte. Revisar com conteúdo real antes de publicar; não considerar a imagem D127 atualizada. Implantação e validação da VPS permanecem ações separadas, assim como P07 e os gates externos.
+
+Evidências e limites: [redesign público](artifacts/qa-public-redesign/README.md).

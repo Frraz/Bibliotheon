@@ -1,0 +1,113 @@
+{
+  "phase": "D130",
+  "suite": "foundation",
+  "startedAt": "2026-10-28T23:51:16.340Z",
+  "completedAt": "2026-10-28T23:51:56.235Z",
+  "status": "passed",
+  "buildID": "FbtF4-Fg_Y3KifRP223I2",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "445e6a013a2d62fed5582d742696420dc7a550a68f69bb742c100395b1691545",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "793b3480ad3321b95e6e194a4eacdb752e782820fffe560e650b3596b65162fa",
+    "scripts/qa-foundation.ts": "6790ac7e2d2c3481d55f5ae1bfe26c969ba826f7e6d6c019d83b3a12966237ae",
+    "package.json": "2047783a433f3f4970a92044add5c7563ef09cf3cbe15e412e58945836cfa2db",
+    "pnpm-lock.yaml": "0ddafab0f336dafb64b054138dd6049bad576ef7944ce499606c9c3ae2792593",
+    "src/components/Appearance.tsx": "279c5c7a6ea56cafa7d386e90c38896d8896193d77b4522b6022088b5cb7556f",
+    "src/components/SiteHeader.tsx": "5fc51eb26d8e0ee44f83f5fd283b037ff2aa5c31469b1daa054744ba0cb4d7b9",
+    "src/app/(site)/page.tsx": "97bd450566a440fe50e1f581b906e348e1ccb732b18ab196db8b0116ee21df5c",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "d0b03d2a7ed9f848a9fa8c08db078cdca66f8bea9a61d0d4cb209cd10744abad",
+    "patches/@payloadcms__ui@3.91.0.patch": "9ea86bad5eb7dcaf903d9d69be7d63e5dd5b443be53b6df001d09e400228e85e"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-1024.png",
+      "bytes": 109086,
+      "sha256": "c2455e936ac0b348f77c918ea1167ff5d1ef5c3ab8973f633c5e617d34c3db11"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-1440.png",
+      "bytes": 135366,
+      "sha256": "c759ef372943b97a0d36d6dff11624dc61f2badd6d594d4f217e8f83bb99ada0"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-1920.png",
+      "bytes": 140654,
+      "sha256": "5b867aca46bff964d578acb549a78937a366c5d8b81e865c1486240108619131"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-320.png",
+      "bytes": 91789,
+      "sha256": "d51bcaae43fd27943aceab95410ebae8c4962b2080ee68ff65b2369c5d125f20"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-360.png",
+      "bytes": 91600,
+      "sha256": "8ed83009ec636f4ad06cd8ecf32ed2d09ff05af881adecb0039cf5ba398f2183"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-390.png",
+      "bytes": 94082,
+      "sha256": "ba9f683ac01945017b90673243d6191f11291d799d566a72c4b4597da4f8c471"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-dark-768.png",
+      "bytes": 92024,
+      "sha256": "b80ea7df86d6e79912f8fc971bbd577e9a16fb06d8b4d498bcc5a76d30b6a96f"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-1024.png",
+      "bytes": 108362,
+      "sha256": "e0b9f676859bacd1932f8dcc455bdc3ee122bf0b44e74ae9815f700ac443d093"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-1440.png",
+      "bytes": 135127,
+      "sha256": "111e298b772334470a3fc2dab01b944b0e1ba5362bc1b707a07a1b4b22afdcb5"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-1920.png",
+      "bytes": 140397,
+      "sha256": "207e50d2d7fad45faee403b791e44a61c041c38a1516d36648aa9cc14ce740ba"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-320.png",
+      "bytes": 90407,
+      "sha256": "9b36b21df816915817dc2639725d3d56a2ae480d3787826ae38a155555903bc1"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-360.png",
+      "bytes": 89714,
+      "sha256": "1c9e528ed3442c44befc36dd62bdf7054f24ee9c158c00296b53bde9d30ac612"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-390.png",
+      "bytes": 91923,
+      "sha256": "6e4a25c8072c2b134ec67c37aac4c7965de6143c9ce983e84df80b517ca8f846"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/home-light-768.png",
+      "bytes": 91021,
+      "sha256": "6139f92dfb1eb0153a68a9dacd3fe03ace3b4edaa26ef6a0495f7a8ee7464ccc"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/landscape.png",
+      "bytes": 97004,
+      "sha256": "b26dce9834709f34da157e8d5c8017e59765c6905a37eb6da3f3e9c6d9bdf795"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/results.json",
+      "bytes": 2368,
+      "sha256": "4314f27a45759fd533967a4fef035fa86121be774bca768f9ce272d81858c00c"
+    },
+    {
+      "path": "artifacts/qa-public-redesign/foundation/theme-menu-320.png",
+      "bytes": 93136,
+      "sha256": "82ee2e09b6068cbdc89330530a965e026a9041bdfebf179c00f5b17f7602594b"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

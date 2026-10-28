@@ -24,10 +24,10 @@ export PUBLIC_SITE_URL="http://127.0.0.1:$QA_PORT"
 export TEST_BASE_URL="$PUBLIC_SITE_URL"
 export CHECKOUT_ALLOWED_HOSTS_HOTMART=pay.example.invalid CHECKOUT_ALLOWED_HOSTS_KIWIFY=pay.example.invalid CHECKOUT_ALLOWED_HOSTS_CAKTO=pay.example.invalid
 export EMAIL_TRANSPORT_ENABLED=false LEADS_ENABLED=false COMMERCIAL_EVENTS_ENABLED=false
-case "$SUITE" in release-layout|relationship|relationship-states|preferences|sequences) export LEADS_ENABLED=true ;; esac
+case "$SUITE" in public-site|release-layout|relationship|relationship-states|preferences|sequences) export LEADS_ENABLED=true ;; esac
 # A captura exige transporte configurado; esta chave sintética nunca sai da QA.
 # O preload abaixo bloqueia e registra qualquer tentativa HTTP externa.
-if [[ "$SUITE" == relationship || "$SUITE" == relationship-states ]]; then
+if [[ "$SUITE" == public-site || "$SUITE" == relationship || "$SUITE" == relationship-states ]]; then
   export EMAIL_TRANSPORT_ENABLED=true BREVO_API_KEY=synthetic-no-provider-key
   export BREVO_SENDER_EMAIL=sender@example.invalid BREVO_SENDER_NAME='Synthetic QA'
 fi

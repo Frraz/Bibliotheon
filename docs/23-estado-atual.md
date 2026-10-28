@@ -2,7 +2,9 @@
 
 [Índice](../README.md) · [Retomada](14-progresso.md) · [Backlog](13-backlog.md) · [Histórico técnico](19-desenvolvimento.md)
 
-**Revisão documental D129 (28/10/2026):** código e imagem permanecem na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
+**Redesign público local — 28/10/2026:** apresentação pública atualizada e aceita no recorte B17/B20 com 342 capturas no mesmo build. A imagem D127 não contém esta alteração; P07 e homologações externas continuam pendentes. [Evidências e limites](../artifacts/qa-public-redesign/README.md).
+
+**Registro histórico D129 (28/10/2026), anterior ao redesign público:** naquela revisão, código e imagem permaneciam na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
 
 O caminho sem backup foi exercitado na suíte operacional de deploy: atualização sem `backup_env`, captura restic ou snapshot, mantendo pausa antes das migrations, healthcheck e registro `backup_skipped` no manifesto. A suíte passou 40 testes; o [caso de regressão](../tests/ops/test_deploy.py) cobre a atualização sem configuração de backup. A simulação local não é deploy nem homologação operacional em VPS. `--sem-backup` permite seguir sem ponto recente de recuperação, que permanece pendente/opcional.
 
@@ -773,3 +775,10 @@ P07-A–E e homologações/configurações reais continuam pendentes; o desenvol
 ## Ajuste do mínimo de senha administrativa — 28/10/2026
 
 Por solicitação do proprietário, criação, recuperação e alteração de senha passam a exigir pelo menos cinco caracteres. Sem alteração de schema. Mudança local; a imagem em execução na VPS ainda exige rebuild e atualização antes de aceitar a nova regra. Verificações desta alteração são registradas na entrega; não representam homologação da VPS. Próxima ação: publicar a alteração pelo proprietário e atualizar com `./atualizar.sh --sem-backup`.
+
+
+## Redesign público editorial — 28/10/2026
+
+A interface pública recebe uma evolução editorial local sobre o runtime existente: home assimétrica, botão de aparência com grupo de rádios, navegação e estilos compartilhados refinados. Aceite local do recorte público B17/B20: 342 capturas no mesmo build e checks registrados no relatório. Sem schema, API ou integração novos. A imagem D127 e os aceites D126 são históricos e não representam este novo frontend.
+
+Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).

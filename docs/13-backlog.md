@@ -2,7 +2,9 @@
 
 [Índice](../README.md) · [Progresso](14-progresso.md) · [Testes](15-qualidade.md)
 
-**Revisão documental D129 (28/10/2026):** código e imagem permanecem na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
+**Redesign público local — 28/10/2026:** apresentação pública atualizada e aceita no recorte B17/B20 com 342 capturas no mesmo build. A imagem D127 não contém esta alteração; P07 e homologações externas continuam pendentes. [Evidências e limites](../artifacts/qa-public-redesign/README.md).
+
+**Registro histórico D129 (28/10/2026), anterior ao redesign público:** naquela revisão, código e imagem permaneciam na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
 
 Prioridade P0 = base do lançamento; P1 = operação/campanha inicial; P2 = expansão condicionada. B01/B02 têm implementação/testes locais; B03/B04/B18 têm implementação inicial e refinamentos; B19/B20 têm aceite local D126; B17 também tem aceite local pelos critérios de fundação/tema registrados na matriz D126. D86 aceitou localmente P01–P05. D87–D88 implementaram/validaram atribuição consentida local, ainda sem confirmação por conta. D89–D119 avançam P07 com retenção analítica, exportação privada, auditoria, limpeza seletiva, exclusão/correção owner, inventário agregado e revisão de opt-in vencido que retém promoções. Estados incertos e identidades/manifestos externos bloqueiam alterações sem conciliação; nenhum fluxo remove cópia externa. Retenção abrangente de relacionamento/comércio continua parcial; D108 validou replay em restore físico na imagem D107 e D114 restaurou host local; guarda externa e recuperação de produção não foram homologadas. H04/backup pode ser dispensado no deploy pelo proprietário via `--sem-backup`. Homologações/release e B12–B16 seguem pendentes. O [plano para produção](../pendencias.md) separa desenvolvimento, homologação e ações do proprietário. Estado e limites em [desenvolvimento](19-desenvolvimento.md).
 
@@ -214,3 +216,10 @@ B12/R26 continuam parciais. A [auditoria por fonte](../artifacts/documentation/p
 ## Ajuste do mínimo de senha administrativa — 28/10/2026
 
 Por solicitação do proprietário, criação, recuperação e alteração de senha passam a exigir pelo menos cinco caracteres. Sem alteração de schema. Mudança local; a imagem em execução na VPS ainda exige rebuild e atualização antes de aceitar a nova regra. Verificações desta alteração são registradas na entrega; não representam homologação da VPS. Próxima ação: publicar a alteração pelo proprietário e atualizar com `./atualizar.sh --sem-backup`.
+
+
+## Redesign público editorial — 28/10/2026
+
+B03/B04/B17/B18: redesign público implementado localmente, mantendo tokens e contratos. B17/B20: recorte público afetado aceito localmente nesta rodada de 342 capturas; aceite D126 permanece histórico para os demais recortes. Próxima ação: revisão com conteúdo real e atualização do ambiente pelo proprietário.
+
+Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).

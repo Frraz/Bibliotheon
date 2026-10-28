@@ -47,3 +47,12 @@ Evitar card em torno de cada parágrafo, falsa lombada física para e-book, bril
 Ler este briefing antes de qualquer trabalho visual. Aplicar tokens e composição; testar estados e temas; revisar screenshots e teclado; corrigir; registrar evidências. Fontes de sistema são fallback, não a identidade tipográfica principal. Não instalar skills ou bibliotecas globalmente como consequência deste documento.
 
 [Índice do projeto](README.md) · [Conversa de inspiração preservada](<ideais para melhora o desing.md>)
+
+
+## Redesign público editorial — 28/10/2026
+
+Solicitação do proprietário: elevar toda a interface pública na direção **editora contemporânea**, com mais expressão artística e controle de aparência por **ícone com opções Sistema/Claro/Escuro**. Aplicada a skill UI UX Pro Max instalada localmente, com consultas `bookstore editorial artistic --design-system` e `responsive images fonts --stack nextjs`. As sugestões genéricas de substituir fontes/paleta não foram adotadas: o briefing e os tokens canônicos prevalecem.
+
+A implementação mantém Source Serif 4/Public Sans e cores existentes; trabalha abertura assimétrica, arte abstrata CSS sem representar produto à venda, capas íntegras, navegação compacta, filtros, páginas de leitura, ofertas, formulários e estados compartilhados. O controle usa botão com expansão e grupo de rádios nativos, foco, Escape e fechamento ao sair/clicar fora; preserva armazenamento e bootstrap anteriores. Sem mudança de schema, contratos comerciais, IA no produto ou publicação na VPS.
+
+A cobertura pública afetada de B17/B20 foi aceita localmente em 342 capturas no mesmo build; os aceites D126 permanecem históricos para os demais recortes. Evidências desta rodada e limitações: [redesign público](artifacts/qa-public-redesign/README.md).

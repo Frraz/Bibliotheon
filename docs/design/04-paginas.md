@@ -96,3 +96,10 @@ Preferências: `[Aparência sistema/claro/escuro, disponível sem login]` no sel
 Sobre: propósito, responsabilidade editorial e critérios de seleção, sem história inventada. Contato: meio real de atendimento e horário/prazo somente quando definido. Privacidade/termos: texto legível, sumário quando longo, data de revisão; sem acordeão que esconda cláusulas.
 
 404: identificar página ausente e oferecer catálogo/busca. 503: explicar indisponibilidade e tentar novamente, sem checkout desatualizado. Produto sem oferta mantém informações úteis e amostra se ativa. Estados de erro são completos nos dois temas.
+
+
+## Redesign público editorial — 28/10/2026
+
+Home com título “Ideias que abrem novos caminhos.”, abertura assimétrica e arte abstrata CSS decorativa. Catálogo real continua definindo se aparece vazio, destaque único ou grade. Catálogo, assuntos, LPs nas três variantes, artigos, institucionais e jornadas de amostra compartilham margens, superfícies e hierarquia refinadas. A arte não anuncia uma edição física ou conteúdo inexistente.
+
+Evidências e limites: [redesign público](../../artifacts/qa-public-redesign/README.md).

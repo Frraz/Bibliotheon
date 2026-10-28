@@ -336,3 +336,8 @@ A nova auditoria identificou GHSA-gcqx-w48m-w2h4 em deepmerge 4.3.1, low, sem ve
 Build QA e Docker com lockfile fixado passaram; `npm run check`: 314 unitários/37 arquivos e 62 operacionais, tipos/lint/documentação. [16 suítes HTTP](../artifacts/container/h03-http-d127-results.json) repetidas após o patch passaram e o banco exclusivo foi removido. A primeira bateria HTTP anterior à mitigação foi preservada separadamente, sem usá-la como prova do patch. [Fingerprint de fonte](../artifacts/container/d127-source-snapshot.json) conferido ao fim. H05 continua aceito localmente pela matriz D121–D126; nenhuma mudança de UI/estilo nesta etapa.
 
 H03 tem evidência da revisão atual; o encerramento integral segue condicionado a P07 e aos gates externos. Próxima ação: definir prazo/marco de guarda financeira, concluir tratamento das finalidades/cópias externas aplicáveis e renovar somente verificações afetadas por código posterior. Contas, contato/material reais, CI, proteção administrativa, alertas e VPS continuam com proprietário/operador. Backup/restore continuam opcionais com `--sem-backup`.
+
+
+## Redesign público editorial — 28/10/2026
+
+A rodada local usa `qa-foundation.ts` e `qa-public-site.ts` no harness `qa-browser-isolated.mjs`, com bancos/mídia descartáveis e bloqueio de rede externa. Capturas novas ficam em `artifacts/qa-public-redesign`, preservando as rodadas históricas. O controle de aparência é um botão com opções de rádio, substituindo os seletores de QA que dependiam do combobox público. Tipos/lint, unitários, build, contrastes e documentação acompanham a inspeção visual. [Resultados e limites](../artifacts/qa-public-redesign/README.md).

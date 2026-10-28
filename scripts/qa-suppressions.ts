@@ -70,10 +70,10 @@ try {
     assert.equal(await page.evaluate(() => document.activeElement === document.body), true, 'O envio desabilita o controle que estava focado.')
     if ([390, 1440].includes(width)) await assertScreen('loading')
     const preserveManualFocus = theme === 'dark' && width === 390
-    if (preserveManualFocus) await page.getByRole('combobox', { name: 'Aparência', exact: true }).focus()
+    if (preserveManualFocus) await page.getByRole('button', { name: 'Aparência', exact: true }).focus()
     releaseFailure()
     await page.getByRole('alert').filter({ hasText: 'Não foi possível confirmar o registro.' }).waitFor()
-    const focusedFeedback = preserveManualFocus ? page.getByRole('combobox', { name: 'Aparência', exact: true }) : page.getByRole('alert').filter({ hasText: 'Não foi possível confirmar o registro.' })
+    const focusedFeedback = preserveManualFocus ? page.getByRole('button', { name: 'Aparência', exact: true }) : page.getByRole('alert').filter({ hasText: 'Não foi possível confirmar o registro.' })
     await page.waitForFunction(() => document.activeElement !== document.body)
     assert.equal(await focusedFeedback.evaluate(element => element === document.activeElement), true, 'Recupera o foco perdido e preserva a escolha feita durante a espera.')
     await assertScreen('error')
