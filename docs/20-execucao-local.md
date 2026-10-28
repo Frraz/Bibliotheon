@@ -50,7 +50,7 @@ O runner HTTP usa porta 3000 por padrão; `CHECK_HTTP_PORT=3001` escolhe outra p
 
 ## Primeiro administrador
 
-O painel não aceita inscrição pública, inclusive no banco vazio. O comando `npm run admin:create` recebe um único JSON por stdin com `email` e `password` (mínimo 16 caracteres), cria somente o primeiro owner e recusa se já houver administrador. Use entrada privada ou um gerenciador de segredos; não coloque valores reais em argumentos de shell, arquivos versionados ou histórico. Nunca execute com credenciais de produção nos testes.
+O painel não aceita inscrição pública, inclusive no banco vazio. O comando `npm run admin:create` recebe um único JSON por stdin com `email` e `password` (mínimo 5 caracteres), cria somente o primeiro owner e recusa se já houver administrador. Use entrada privada ou um gerenciador de segredos; não coloque valores reais em argumentos de shell, arquivos versionados ou histórico. Nunca execute com credenciais de produção nos testes.
 
 Sem transporte configurado o envio de e-mail falha de forma explícita, sem imprimir mensagem/token no console. Recuperação por operador já existe e foi testada localmente; recuperação por e-mail permanece indisponível até fluxo/remetente homologados, mesmo que o transporte de amostras venha a ser habilitado.
 

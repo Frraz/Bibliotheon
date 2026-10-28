@@ -299,7 +299,7 @@ Se validação falhar, corrija antes de recarregar. Certificado/DNS/firewall sã
 
 ## 8. Criar o primeiro administrador
 
-Crie um JSON privado **fora do checkout** com email e password, senha aleatória de pelo menos 16 caracteres. Use seu gerenciador de senhas/editor privado; não coloque senha no comando, Git ou histórico. O e-mail de login administrativo não vira e-mail público do site. Inscrição pública é bloqueada mesmo com banco vazio.
+Crie um JSON privado **fora do checkout** com email e password, senha aleatória de pelo menos 5 caracteres. Use seu gerenciador de senhas/editor privado; não coloque senha no comando, Git ou histórico. O e-mail de login administrativo não vira e-mail público do site. Inscrição pública é bloqueada mesmo com banco vazio.
 
 Para ler o Compose da release atual sem imprimir seu ambiente:
 

@@ -7,6 +7,11 @@ describe('provisionamento privado', () => {
     catch (error) { expect((error as Error).message).not.toContain(sensitive); expect((error as Error).message).toContain('JSON válido') }
   })
   it('recusa senha com tipo inesperado antes de chamar o CMS', () => expect(() => parseProvisionInput('{"email":"teste@example.invalid","password":1234567890123456}')).toThrow('senha'))
+  it('aceita cinco caracteres e recusa quatro', () => {
+    const email = 'teste@example.invalid'
+    expect(parseProvisionInput(JSON.stringify({ email, password: 'abcde' })).password).toBe('abcde')
+    expect(() => parseProvisionInput(JSON.stringify({ email, password: 'abcd' }))).toThrow('5 caracteres')
+  })
   it('normaliza endereço sem alterar senha', () => expect(parseProvisionInput('{"email":"Teste@Example.invalid","password":"synthetic-password-123"}')).toEqual({ email: 'teste@example.invalid', password: 'synthetic-password-123' }))
   it('recusa campos extras, senha excessiva e controles sem revelar a entrada', () => {
     const base = { email: 'teste@example.invalid', password: 'synthetic-password-123' }

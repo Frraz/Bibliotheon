@@ -21,7 +21,7 @@ Não expor criação do primeiro admin na internet. Ambientes de teste protegido
 
 ## Recuperar acesso administrativo
 
-O operador com acesso autorizado ao host pode executar `npm run admin:recover < /caminho/privado/recuperacao.json` no ambiente de execução local. O JSON privado contém somente email do owner existente e password nova, com pelo menos 16 caracteres e até 1024 bytes. No runtime empacotado, a entrada equivalente é `node cli/recover-admin.js`, com o mesmo stdin privado e DATABASE_URL da aplicação. Usar imagem atual homologada; não passar senha em argumentos, Git, terminal gravado ou documentação.
+O operador com acesso autorizado ao host pode executar `npm run admin:recover < /caminho/privado/recuperacao.json` no ambiente de execução local. O JSON privado contém somente email do owner existente e password nova, com pelo menos 5 caracteres e até 1024 bytes. No runtime empacotado, a entrada equivalente é `node cli/recover-admin.js`, com o mesmo stdin privado e DATABASE_URL da aplicação. Usar imagem atual homologada; não passar senha em argumentos, Git, terminal gravado ou documentação.
 
 O procedimento recusa conta inexistente ou banco com configuração diferente do owner único. Troca senha, encerra sessões, invalida links de recuperação anteriores e limpa bloqueio/cooldown de login. Não apaga/recria conta. Registrar a intervenção sem credenciais, entrar com a nova senha e verificar o acesso anterior encerrado. Acesso ao host é requisito deste fallback; a recuperação por e-mail não está habilitada. Endpoints públicos de forgot/reset respondem 503 genérico sem procurar conta ou gerar token; unlock público é negado. Antes de oferecer recuperação por e-mail, homologar remetente, limites, tokens e fluxo correspondente.
 

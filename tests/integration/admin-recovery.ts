@@ -44,7 +44,7 @@ try {
   assert.equal(publicUnlock.status, 403)
   const unchanged = await payload.findByID({ collection: 'admin-users', id: owner.id, overrideAccess: true, showHiddenFields: true })
   assert.equal(unchanged.resetPasswordToken || null, null)
-  const short = await cli({ email, password: 'short' })
+  const short = await cli({ email, password: 'abcd' })
   assert.equal(short.code, 1); assert.equal(short.output.includes(email), false)
   const missing = await cli({ email: 'not-owner@example.invalid', password: replacement })
   assert.equal(missing.code, 1)

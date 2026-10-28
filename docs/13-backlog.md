@@ -210,3 +210,7 @@ H03 tem evidência da revisão atual; o encerramento integral segue condicionado
 ## D128 — Dependência de política no fechamento P07
 
 B12/R26 continuam parciais. A [auditoria por fonte](../artifacts/documentation/p07-closure-audit-d128.json) identifica 12 coleções comerciais sem retenção geral e limita a exportação atual ao relacionamento explicitamente selecionado. Encerrar P07-A–E conforme [plano](25-fechamento-producao.md), sem criar vínculo de comprador ou prazo presumido. Aplicação/imagem D127 preservadas; nenhuma funcionalidade, migration ou teste de código novo nesta revisão documental.
+
+## Ajuste do mínimo de senha administrativa — 28/10/2026
+
+Por solicitação do proprietário, criação, recuperação e alteração de senha passam a exigir pelo menos cinco caracteres. Sem alteração de schema. Mudança local; a imagem em execução na VPS ainda exige rebuild e atualização antes de aceitar a nova regra. Verificações desta alteração são registradas na entrega; não representam homologação da VPS. Próxima ação: publicar a alteração pelo proprietário e atualizar com `./atualizar.sh --sem-backup`.

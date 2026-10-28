@@ -18,7 +18,7 @@ export const AdminUsers: CollectionConfig = {
   ],
   hooks: { beforeChange: [({ operation, req, data }) => {
     if (operation === 'create' && req.context.provisionAdmin !== true) throw new Forbidden()
-    if (typeof data.password === 'string' && data.password.length < 16) throw new APIError('Use uma senha de pelo menos 16 caracteres.', 422)
+    if (typeof data.password === 'string' && data.password.length < 5) throw new APIError('Use uma senha de pelo menos 5 caracteres.', 422)
     return data
   }] },
   fields: [{ name: 'role', type: 'select', options: ['owner'], required: true, defaultValue: 'owner', access: { update: () => false } }],

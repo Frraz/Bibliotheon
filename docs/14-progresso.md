@@ -711,3 +711,7 @@ Esta rodada alterou somente documentação/evidência. Os 331 arquivos do finger
 Revisados os resumos e guias contra a evidência local D127 e a auditoria de P07 D128. Corrigidas contagens/lista de migrations, referências de imagem/QA, status de integração/atribuição/financeiro e a distinção entre backup opcional e controles obrigatórios de privacidade. Inventário ativo passa a listar as 35 migrations do código; evidências antigas não substituem os relatórios consolidados atuais. Requisitos e contratos de produto foram preservados; B17 recebe o aceite local de fundação/tema já coberto pela matriz D126.
 
 P07-A–E e homologações/configurações reais continuam pendentes; o desenvolvimento de retenção aguarda política financeira e revisão por finalidade. O código/imagem permanecem D127, sem build, expurgo, envio ou deploy nesta revisão. Históricos Dxx, modelos ainda não preenchidos e datas de consulta externa continuam identificados como tais; fontes históricas preservadas. [Relatório documental](../artifacts/documentation/documentation-review-d129.json).
+
+## Ajuste do mínimo de senha administrativa — 28/10/2026
+
+Por solicitação do proprietário, criação, recuperação e alteração de senha passam a exigir pelo menos cinco caracteres. Sem alteração de schema. Mudança local; a imagem em execução na VPS ainda exige rebuild e atualização antes de aceitar a nova regra. Verificações desta alteração são registradas na entrega; não representam homologação da VPS. Próxima ação: publicar a alteração pelo proprietário e atualizar com `./atualizar.sh --sem-backup`.
