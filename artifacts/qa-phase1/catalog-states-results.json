@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-21 America/Belem",
+  "date": "2026-10-28T00:40:11.386Z",
   "results": [
     {
       "total": 1,
@@ -256,5 +256,5 @@
   ],
   "pagination": "12+8 itens",
   "menu": "dialog, Escape e retorno de foco aprovados",
-  "zoom": "Texto 200% e reflow 320px em rodada separada; zoom nativo 400% ainda não homologado"
+  "zoom": "Texto 200% nesta suíte; reflow e zoom nativo possuem evidência separada em D121"
 }

@@ -1,6 +1,6 @@
 {
   "phase": "D113",
-  "date": "2026-10-27T00:57:54.332Z",
+  "date": "2026-10-27T04:25:41.989Z",
   "environment": "PostgreSQL sintético exclusivo",
   "checks": [
     "preview sem escrita, cutoff inclusivo de 28 dias e contagem agregada de quatro assinaturas além de 30 dias",
@@ -12,17 +12,17 @@
   "deadlineDays": 30,
   "successMaxAgeHours": 25,
   "preview": {
-    "cutoff": "2026-09-27T00:57:52.706Z",
+    "cutoff": "2026-09-27T04:25:40.739Z",
     "overdueSubscriptions": 4,
     "reviewRequired": true
   },
   "applied": {
-    "cutoff": "2026-09-27T00:57:52.706Z",
+    "cutoff": "2026-09-27T04:25:40.739Z",
     "overdueSubscriptions": 2,
     "reviewRequired": true
   },
   "resolved": {
-    "cutoff": "2026-09-27T00:57:52.706Z",
+    "cutoff": "2026-09-27T04:25:40.739Z",
     "overdueSubscriptions": 0,
     "reviewRequired": false
   },

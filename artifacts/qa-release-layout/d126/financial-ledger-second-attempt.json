@@ -1,0 +1,41 @@
+{
+  "phase": "D126",
+  "suite": "financial-ledger",
+  "startedAt": "2026-10-28T03:47:50.227Z",
+  "completedAt": "2026-10-28T03:48:36.491Z",
+  "status": "failed",
+  "buildID": "2coQl34ngSTYHMsbWMf4l",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+    "scripts/qa-financial-ledger.ts": "ae371ff4e8d2f7a3bc87d75836f3b99e1a192417cdcf411ab09d17fd4a81641b",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-financial-ledger/empty-dark-390.png",
+      "bytes": 89497,
+      "sha256": "c1213a1453d9571a2823a4cf95376becf2049f5dc749682bbe0af95fb0175161"
+    },
+    {
+      "path": "artifacts/qa-financial-ledger/empty-light-390.png",
+      "bytes": 84318,
+      "sha256": "b313f620acb96bf5568feda2d630065d6c406334d848c6bbe5e0dea7a76c98be"
+    },
+    {
+      "path": "artifacts/qa-financial-ledger/results.json",
+      "bytes": 735,
+      "sha256": "6c48e571408f6e1cdce457327e70f3c8175955f362da999af7f7d85098a1ed1d"
+    }
+  ],
+  "failure": "Processo de QA terminou com código 1.",
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

@@ -4,7 +4,7 @@
 
 Este documento atende ao desenvolvimento/QA local. Para clone na VPS, configuração privada e atualização automática, seguir [deploy.md](../deploy.md); não usar compose.local.yaml em produção. atualizar.sh e seus testes não dependem de Node instalado no host da VPS, mas exigem Python/Docker/Git e configuração inicial conforme o guia.
 
-Estado vigente e ordem de execução em [pendencias.md](../pendencias.md). Seções Dxx abaixo descrevem cada etapa histórica; contagens antigas não substituem as 32 migrations atuais nem comprovam imagem atual homologada.
+Estado vigente e ordem de execução em [pendencias.md](../pendencias.md). Seções Dxx abaixo descrevem cada etapa histórica; contagens antigas não substituem as 35 migrations atuais. Imagem/API têm evidência local D127, sem certificar produção ou recuperação externa.
 
 ## Pré-requisitos
 
@@ -239,7 +239,7 @@ Em homologação, ativar a flag no ambiente privado e atualizar; não exige Brev
 
 Sessões são medidas com 30 minutos inativas; first-touch e último não direto usam janela de 30 dias. Campo de campanha/UTMs deve conter códigos salvos e revisados, sem dados pessoais. Formulário Campaign gera link interno somente com livro/oferta/campanha disponíveis. D87/D88 acrescentam `sck` somente à saída com consentimento vigente e quando ainda ausente na URL. O painel de sete dias separa sessões/páginas consentidas, saídas totais e saídas consentidas. Não ler contagens como pessoas únicas, vendas ou conversão. Falha de medição não interrompe checkout validado.
 
-QA local: npm run test:analytics, npm run test:analytics-http, npm run test:analytics-retention e scripts/qa-analytics.ts, com base sintética/loopback e testes sequenciais. `npm run analytics:retention` é prévia; `--apply` agrega/expira analytics. A rotina diária do worker exige `DATA_RETENTION_ENABLED=true`, falso por padrão. Nunca persistir query completa, referer, IP, credenciais ou payloads reais em logs; conferir também política do proxy existente, sem alterar os outros serviços da VPS. D89 cobre retenção analítica, D90 exportação de titular, D98 tombstones HMAC, D99 tokens expirados, D100 auditoria comercial resolvida e D101 envelope expirado com ledger preservado e D102 amostras confirmadas antigas. Retenção ampla, correção/exclusão completa e reaplicação pós-restore seguem pendentes. Há 32 migrations atuais, ainda sem imagem/restore final homologado. Ver [estado atual](23-estado-atual.md).
+QA local: npm run test:analytics, npm run test:analytics-http, npm run test:analytics-retention e scripts/qa-analytics.ts, com base sintética/loopback e testes sequenciais. `npm run analytics:retention` é prévia; `--apply` agrega/expira analytics. A rotina diária do worker exige `DATA_RETENTION_ENABLED=true`, falso por padrão. Nunca persistir query completa, referer, IP, credenciais ou payloads reais em logs; conferir também política do proxy existente, sem alterar os outros serviços da VPS. D89 cobre retenção analítica, D90 exportação de titular, D98 tombstones HMAC, D99 tokens expirados, D100 auditoria comercial resolvida e D101 envelope expirado com ledger preservado e D102 amostras confirmadas antigas. P07-A–E continuam abertos para retenção ampla, finalidades/pedidos e conciliação externa. Há rotinas locais de reaplicação com ensaios históricos de restore; a capacidade externa continua opcional. O schema atual tem 35 migrations e a imagem/API têm evidência local D127. Ver [estado atual](23-estado-atual.md).
 
 
 ## Inbox comercial comum (D61)
@@ -388,7 +388,7 @@ Com o PostgreSQL local configurado, `npm run privacy:inventory` lê somente cont
 
 ## D102 — Amostras confirmadas antigas
 
-O preview de `npm run privacy:retention` inclui `confirmedSamples`; `-- --apply` aplica o cutoff de 24 meses a pedidos confirmados sem atividade recente e sem dependências/prova vigente a preservar. Mantém contatos, assinaturas atuais e supressões. Para validar em banco sintético exclusivo: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-samples-retention`. [Cinco grupos locais](../artifacts/privacy-retention/d102-results.json). Não habilita flags ou transporte; as 32 migrations continuam atuais.
+O preview de `npm run privacy:retention` inclui `confirmedSamples`; `-- --apply` aplica o cutoff de 24 meses a pedidos confirmados sem atividade recente e sem dependências/prova vigente a preservar. Mantém contatos, assinaturas atuais e supressões. Para validar em banco sintético exclusivo: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-samples-retention`. [Cinco grupos locais](../artifacts/privacy-retention/d102-results.json). Não habilita flags ou transporte. O ensaio D102 tinha 32 migrations; o schema vigente tem 35, com imagem validada localmente em D127.
 
 ## D103 — Paginação da retenção
 
@@ -439,3 +439,103 @@ Executar `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-retention-deadli
 ## D114 — Legado temático verificável — 26/10/2026
 
 Com PostgreSQL exclusivo e 34 migrations, executar `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-theme-legacy`, sequencialmente com as demais suítes. `npm run check:recovery` com a mesma flag grava D114 por padrão e simula fonte legada retirando apenas o marcador sintético, mantendo evento nativo. A exportação precisa continuar sem escrever. BIBLIOTHEON_RECOVERY_PHASE permite outra fase; QA de imagem usa D114/tag local-d114 por padrão, mas exige construir a imagem. Não rodar fixtures em banco real.
+
+## D116 — Imagem com revisão de contatos ativos — 27/10/2026
+
+Depois do build de runtime, construir `docker build -t bibliotheon:local-d116 .`. Executar banco vazio e upgrade a partir da imagem histórica D107 com:
+
+```bash
+env BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_QA_PHASE=D116 BIBLIOTHEON_QA_IMAGE=bibliotheon:local-d116 BIBLIOTHEON_UPGRADE_IMAGE=bibliotheon:local-d107 python3 scripts/qa-container.py
+```
+
+O harness cria projetos/volumes sintéticos separados em rede internal, aplica as 35 migrations, verifica ACL/HTTP, runtime limitado, CLIs de privacidade, replay, worker com retenção habilitada e transporte desligado; remove os próprios recursos. Evidência D116 passou em banco vazio e upgrade de 32 para 35 migrations: [resultado](../artifacts/container/d116-results.json). Não homologa a bateria funcional completa, restore físico na imagem, VPS ou produção.
+
+## H03 — Bateria HTTP em banco isolado
+
+Depois de gerar o build QA (`NEXT_DIST_DIR=.next-qa npm run build`), rode `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:http-isolated`. O runner exige `DATABASE_URL` em loopback e permissão local para criar bancos; cria um PostgreSQL descartável com nome aleatório, aplica migrations, executa toda a bateria HTTP e o remove ao final, inclusive em falha. O banco configurado não recebe fixtures. Não execute em servidor compartilhado nem contra produção. Isso é QA local, não homologação da VPS.
+
+## D117 — Imagem com mídia persistente
+
+O aceite local D117 executou banco vazio e upgrade 32→35 migrations, incluindo upload owner pela API, conversão para WebP, rejeição de arquivo inválido sem sobrescrever a mídia válida e persistência do volume após restart. Worker e CLIs permaneceram restritos, com transporte externo desligado e zero entregas. Evidências: [container](../artifacts/container/d117-results.json) e [HTTP isolado](../artifacts/container/h03-http-d117-results.json). H03 aceito localmente; não é publicação nem homologação em VPS.
+
+## D118 — Pedidos de dados e referências compartilhadas
+
+Em banco sintético exclusivo com as 35 migrations, executar `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-shared-reference`; em seguida `test:privacy-delete`, `test:privacy-correct`, `test:privacy-recovery` e `test:privacy-recovery-pending`. A suíte nova intercepta chamadas externas e gera [evidência D118](../artifacts/privacy-retention/d118-results.json). As fixtures exigem banco vazio; usar banco descartável, nunca o banco real. Remoção de referências no teste é cleanup sintético e não uma ferramenta de conciliação em produção.
+
+## D119 — Pedidos owner com lotes estritamente locais
+
+Em PostgreSQL sintético exclusivo com 35 migrations: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-local-batches`. A suíte usa dois titulares por lote e intercepta fetch; gera [evidência D119](../artifacts/privacy-retention/d119-results.json). Regressões: shared-reference, delete, correct, recovery, recovery-pending e retenção marketing/theme/identity. Para preservar a evidência histórica ao rodar `test:privacy-shared-reference`, definir `BIBLIOTHEON_PRIVACY_REFERENCE_PHASE=D119`; a saída será `d119-shared-reference-results.json`. Nunca rodar fixtures contra dados reais.
+
+## D120 — Dependências e verificação final HTTP
+
+Usar o lockfile atualizado: `corepack pnpm install --frozen-lockfile`. `corepack pnpm audit --json` consulta a árvore completa no registro e requer rede; `--prod` restringe o escopo à produção. Não usar `npm audit` neste repositório, que possui lockfile pnpm. A consulta é temporal, não prova segurança integral.
+
+`npm run check:dependency-compatibility` precisa do Chromium Playwright instalado e executa quatro sondagens sem requisições externas, gerando `artifacts/security/d120-compatibility.json`. `BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_HTTP_QA_PHASE=D120 npm run check:http-isolated` usa o build QA e banco temporário; gera [evidência D120](../artifacts/container/h03-http-d120-results.json), preservando D117. Confirmar `NEXT_DIST_DIR` do build antes de executar.
+
+## D121 — Zoom nativo e laboratório
+
+Depois do build QA atual, em banco descartável vazio com as 35 migrations: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:qa-release-layout`. O wrapper preserva processos existentes, inicia servidor QA próprio e o encerra ao final. O browser usa perfil/extension temporários só para `tabs.setZoom`; screenshot físico por CDP. Não conecta ao navegador pessoal nem publica extensão.
+
+Default `BIBLIOTHEON_RELEASE_LAYOUT_MODE=all` executa zoom e laboratório. `lab` pode retomar somente as medições se o checkpoint `d121-native-results.json`, o Build ID, hashes da interface/lockfile e todas as capturas forem idênticos. Alteração nesses arquivos exige nova rodada `all`. O banco descartável continua obrigatório; nunca usar fixtures em produção. Resultados não homologam capacidade da VPS nem INP de campo.
+
+## QA browser descartável — D122
+
+O runner versionado `scripts/qa-browser-isolated.mjs` cria um banco PostgreSQL exclusivo por suíte, aplica as migrations e reserva uma porta livre para o build `.next-qa`. Exige `BIBLIOTHEON_SYNTHETIC_TESTS=true` e banco configurado em loopback. Preserva o banco configurado e encerra somente o servidor criado pelo wrapper. Registra início/fim, Build ID, hashes, relatórios e capturas novos em `artifacts/qa-release-layout/d122`. Um erro mantém o resultado como falhou; não transforma relatório anterior em aceite.
+
+```bash
+BIBLIOTHEON_SYNTHETIC_TESTS=true node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs public-site
+BIBLIOTHEON_SYNTHETIC_TESTS=true node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs admin-editorial
+# Sete suítes restantes, no máximo dois navegadores em paralelo:
+BIBLIOTHEON_SYNTHETIC_TESTS=true node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs remaining
+```
+
+Usar a suíte pertinente após mudanças, sem repetir o laboratório de desempenho sob carga de outros navegadores. A rodada pública D122 renovou as 170 capturas; o estado das demais suítes deve ser conferido no relatório próprio, sem inferir aprovação pela existência de PNGs.
+
+O modo `remaining` executa fundação/aparência, estados do catálogo, amostras, preferências, sequências, login/dashboard e operação comercial integrada. Cada suíte usa seu próprio diretório temporário de mídia, removido ao terminar. O wrapper carrega `qa-network-guard.mjs` exclusivamente na QA: bloqueia `fetch` e HTTP/HTTPS externos e exige log vazio para aceitar a suíte. A captura recebe transporte configurado com credenciais sintéticas; a entrega é exercitada em memória, sem worker de envio ou chamada Brevo. Flags reais não são alteradas.
+
+As primeiras rodadas pública/editorial D122 precedem esse isolamento adicional de mídia e preload. Seus manifestos mantêm os hashes efetivamente medidos; não atribuir os guards posteriores retroativamente. Em todos os casos, o banco é descartável e a produção permanece inalterada.
+
+## Recorte de formulários — D123
+
+```bash
+BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_BROWSER_QA_PHASE=D123 node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs relationship-states
+```
+
+Modo `BIBLIOTHEON_RELATIONSHIP_STATES_MODE=native` executa apenas zoom nativo e fallback sem JS e grava `native-results.json`. Não conclui a parte regular sozinho. Reuso requer auditar grupos completos, hashes dos PNGs e dos arquivos de runtime, Build ID e protocolo realmente executado; manter relatório failed da etapa original e explicar o limite/falha na consolidação. A fase do manifesto aceita `BIBLIOTHEON_BROWSER_QA_PHASE`; default D122 preserva comandos existentes.
+
+## Carga comercial isolada — D124
+
+```bash
+BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_BROWSER_QA_PHASE=D124 node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs commercial-load
+```
+
+Usa build `.next-qa`, banco e mídia descartáveis, autenticação owner sintética e guard de HTTP externo. Preflight de identidade, relatório e inbox ocorre antes do seed. Mil transações são preparadas pelos serviços internos; a carga HTTP mede 45 jornadas/180 requests, com cinco/dez clientes da mesma sessão e quatro endpoints por jornada. Não executar sob outra carga quando a intenção for comparar latências. O relatório conserva falhas e detalhes de limpeza sem gravar credenciais. Resultados em `artifacts/qa-commercial-load/results.json`, manifesto/hashes em `artifacts/qa-release-layout/d124/commercial-load.json`.
+
+## QA pública adversa D125
+
+Com `.next-qa` construído e PostgreSQL local disponível, o runner cria e remove seu próprio banco/mídia e preserva a instância de desenvolvimento:
+
+```bash
+BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_BROWSER_QA_PHASE=D125 node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs public-states
+```
+
+O modo opcional `BIBLIOTHEON_PUBLIC_STATES_MODE=extras` executa somente os 28 estados de fonte/disclosure/JS lento; seu relatório é `extras-results.json` e sozinho não aprova os 180 estados restantes. D125 consolidou 180 resultados anteriores e 28 recapturados com Build ID, protocolo, dependências, estilos e hashes de PNG conferidos; a auditoria está no [resultado consolidado](../artifacts/qa-release-layout/d125-results.json). Nunca executar a falha de tabela fora do banco descartável restrito pelo protocolo.
+
+## Rodada administrativa final D126
+
+```bash
+BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_BROWSER_QA_PHASE=D126 node --env-file-if-exists=.env.local scripts/qa-browser-isolated.mjs admin-final
+```
+
+Executa dez suítes, no máximo duas por vez, com banco/mídia exclusivos e descarte obrigatório. Para retestar somente um recorte, substituir `admin-final` pelo nome da suíte (por exemplo, `suppressions` ou `financial-ledger`). Exige `.next-qa` construído da revisão pretendida; mudanças durante a medição invalidam o manifesto. [Resultado D126](../artifacts/qa-release-layout/d126-results.json) registra os builds e a preservação auditada das suítes não afetadas.
+
+## Imagem D127 e regressão da dependência
+
+```bash
+npx vitest run tests/unit/deepmerge-security.test.ts
+node scripts/build-runtime.mjs
+docker build --tag bibliotheon:local-d127-secured .
+BIBLIOTHEON_SYNTHETIC_TESTS=true BIBLIOTHEON_QA_PHASE=D127 BIBLIOTHEON_QA_IMAGE=bibliotheon:local-d127-secured BIBLIOTHEON_UPGRADE_IMAGE=bibliotheon:local-d107 python3 scripts/qa-container.py
+```
+
+Exige a imagem anterior D107 disponível para comprovar upgrade real 32→35. O runner usa projetos/volumes aleatórios, rede interna e dados sintéticos, encerrados ao fim. A prova de deepmerge executa os entrypoints da imagem com rede desabilitada antes dos cenários de banco. O resultado D127 não comprova restore físico ou publicação. Instalação do lockfile deve aplicar o patch transitivo; a regressão resolve deepmerge a partir do Payload, não de uma cópia de teste.

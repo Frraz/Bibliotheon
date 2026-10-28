@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-25T18:49:19.042Z",
-  "origin": "http://127.0.0.1:3011",
+  "date": "2026-10-28T04:40:41.511Z",
+  "origin": "http://127.0.0.1:35503",
   "checks": [
     "Rota real exige uma signature na query e HMAC dos bytes exatos; header/token, query duplicada, adulteração de espaço, MIME/encoding e JSON inválidos não persistem.",
     "ACK 200 depois do commit da inbox; recepção com worker desligado não cria venda. Processamento explícito conserva 29 centavos, sem multiplicar por cem ou inferir líquido.",

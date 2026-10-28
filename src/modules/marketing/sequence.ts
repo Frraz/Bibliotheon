@@ -6,6 +6,7 @@ import { copyHash, dueAt, enrollmentKey, idOf, sequenceCopy, sequenceDays, readS
 import { cancelPromotions } from './sequence-state'
 import { CheckoutError, resolveCheckout } from '../commerce/resolve'
 import { privacySubjectBlocked } from './privacy-block'
+import { activeMarketingReviewRequired } from './retention-policy'
 
 export { readSequenceSnapshot } from './sequence-copy'
 export type { SequenceSnapshot } from './sequence-copy'
@@ -53,6 +54,10 @@ export async function reviewPromotion(req: PayloadRequest, delivery: import('../
   const contact = await payload.findByID({ collection: 'contacts', id: idOf(enrollment.contact), depth: 0, overrideAccess: true, req })
   const subscription = (await payload.find({ collection: 'subscriptions', where: { and: [{ contact: { equals: contact.id } }, { theme: { equals: idOf(enrollment.theme) } }, { state: { equals: 'subscribed' } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]
   if (enrollment.state !== 'active' || !contact.confirmedAt || contact.globalSuppressedAt || contact.deliveryState !== 'ok' || !subscription || await privacySubjectBlocked(payload,contact.email,secret,req)) return fail('recipient_suppressed')
+  if (activeMarketingReviewRequired(subscription.subscribedAt, now)) {
+    await payload.update({ collection: 'promotion-deliveries', id: delivery.id, data: { state: 'scheduled', errorCode: 'marketing_review_due', nextCheckAt: new Date(now + 86_400_000).toISOString() }, overrideAccess: true, req })
+    return { state: 'held' as const }
+  }
   const templateKey = enrollmentKey('sequence', idOf(enrollment.magnet), enrollment.magnetVersion)
   await serial(req, `sequence:${templateKey}`)
   const template = (await payload.find({ collection: 'email-sequences', where: { and: [{ id: { equals: idOf(enrollment.sequence) } }, { active: { equals: true } }] }, limit: 1, depth: 0, overrideAccess: true, req })).docs[0]

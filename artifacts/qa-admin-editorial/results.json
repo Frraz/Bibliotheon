@@ -1,10 +1,50 @@
 {
-  "date": "2026-10-21 America/Belem",
-  "origin": "http://127.0.0.1:3001",
+  "date": "2026-10-27T23:41:04.164Z",
+  "origin": "http://127.0.0.1:42901",
   "results": [
     {
       "route": "books-list",
       "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "light",
       "width": 390,
       "overflow": false,
       "jsErrors": 0,
@@ -38,6 +78,86 @@
       "route": "institutional-edit",
       "theme": "light",
       "width": 390,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "light",
+      "width": 1024,
       "overflow": false,
       "jsErrors": 0,
       "violations": []
@@ -84,6 +204,86 @@
     },
     {
       "route": "books-list",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
       "theme": "dark",
       "width": 390,
       "overflow": false,
@@ -125,6 +325,86 @@
     {
       "route": "books-list",
       "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "dark",
       "width": 1440,
       "overflow": false,
       "jsErrors": 0,
@@ -158,6 +438,46 @@
       "route": "institutional-edit",
       "theme": "dark",
       "width": 1440,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "books-list",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "book-edit",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "offer-edit",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "campaign-edit",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "jsErrors": 0,
+      "violations": []
+    },
+    {
+      "route": "institutional-edit",
+      "theme": "dark",
+      "width": 1920,
       "overflow": false,
       "jsErrors": 0,
       "violations": []

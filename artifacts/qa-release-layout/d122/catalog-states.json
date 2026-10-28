@@ -1,0 +1,220 @@
+{
+  "phase": "D122",
+  "suite": "catalog-states",
+  "startedAt": "2026-10-28T00:37:59.441Z",
+  "completedAt": "2026-10-28T00:40:22.984Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-catalog-states.ts": "7219bcad84bec9cfca0bd7add2e5c61536899ef11f51e8e4306b00dea212679e",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-phase1/catalog-page2-light-390.png",
+      "bytes": 197659,
+      "sha256": "ac30425cd3f7e4a5cad60a87bf1710409f954703b9cdc6db358cad0ab58107ff"
+    },
+    {
+      "path": "artifacts/qa-phase1/catalog-states-results.json",
+      "bytes": 4752,
+      "sha256": "c92e8f3fcb6f9cfb48cccd3f3bd73ae2ef39e771675d37197aa43b0f26e94ad4"
+    },
+    {
+      "path": "artifacts/qa-phase1/catalog-text200-light-1280.png",
+      "bytes": 313301,
+      "sha256": "33bbe9e88752aa3b8c3b28997364cd14a091a7b9ffc8c3d45326ed0dd2fe416d"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-dark-1024.png",
+      "bytes": 110501,
+      "sha256": "ea920326b60601749ddf5e4811c6bf300e7ee7ff06f9671080c1c6d3d0da474d"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-dark-1440.png",
+      "bytes": 116818,
+      "sha256": "c0355a152d7bf2e60e8c958213aa9a3113e2e146c9f84fa3fd24cc72354990d6"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-dark-1920.png",
+      "bytes": 121231,
+      "sha256": "fb9938f3e27cd2d8940d8c0163f632781f7dfa3f2e05b6d0b4e0c238712f623e"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-dark-360.png",
+      "bytes": 100830,
+      "sha256": "7d4fbb46cad25118f0e9ce3095c05444f4109355a0608ce235c0427828022e3d"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-dark-390.png",
+      "bytes": 103103,
+      "sha256": "2e673d8c621145ecb6b5ab1dab800fb727750ecb96df6b4298dea7e710ccb381"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-dark-768.png",
+      "bytes": 105269,
+      "sha256": "8edb3f74ed1b1abe197ea397ab28268a52975657d38371ddbbd85dbe095765fa"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-light-1024.png",
+      "bytes": 108430,
+      "sha256": "dbe9d1f4b7f70dac2bbd9197cab9b52dbe195fa7fda8b935b1799fd52d9877cb"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-light-1440.png",
+      "bytes": 114801,
+      "sha256": "8464e74f8557a17bf58b371f04cc1389256350c6301dbd792ce7f34a5aeb631c"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-light-1920.png",
+      "bytes": 119303,
+      "sha256": "428ec8866b6c250c402e5648ea3b4e6ca025be6b08f01aaad9053e595f448aff"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-light-360.png",
+      "bytes": 97819,
+      "sha256": "4298500c2e11e77e6b2065c598910e2c147b403a8ba2a0a691dbb3717c334c27"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-light-390.png",
+      "bytes": 100496,
+      "sha256": "87644e07ac4a85bb30ce948e1923a973377912bbe8d57a2767dc8ea4d2dda22b"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-0-light-768.png",
+      "bytes": 103168,
+      "sha256": "bca0ada59641bc2d4f835ac2ad583eceaaa57ac271a747df2486fdc931f7774e"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-dark-1024.png",
+      "bytes": 135691,
+      "sha256": "a4c8a2ba71687c73e177ce248b3f19d10a506915df14b7ced19bda9ce19c25c6"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-dark-1440.png",
+      "bytes": 148630,
+      "sha256": "6d0f3f8071bd221bf702974bd91828834c7f81c433a662963d6872d2f137fab1"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-dark-1920.png",
+      "bytes": 153869,
+      "sha256": "a3a45d8307d89cf3fe7b57350e6e4e33b5c8e87c7de297333787c812d615c89a"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-dark-360.png",
+      "bytes": 119652,
+      "sha256": "cda8f7e7cf5873241c683b0f57b9d3d336b70dea9c1bc40e2ea7b4962625a0c4"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-dark-390.png",
+      "bytes": 124439,
+      "sha256": "b8e903dc100cd0e45b12f9aa37ff6f621bd812270bf76e34e3889d67726c3f9c"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-dark-768.png",
+      "bytes": 123573,
+      "sha256": "def2b3d872cf68f440a7b28548158e685bef092613b0a5681ff670c3d7fa318f"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-light-1024.png",
+      "bytes": 133133,
+      "sha256": "6577718beef9e3f6c53f20523d69fb778b9bee8ad042978d9980031dbe5d467c"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-light-1440.png",
+      "bytes": 146242,
+      "sha256": "33ac9416d5d16cda8d13bf347a85d4906196fdacad83b4fdca5af85a0c26fdf5"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-light-1920.png",
+      "bytes": 151682,
+      "sha256": "720cd1183109e59ce1329e062b4f76c1a1c4d11cac6fa1b92aed3fc0ab2524f6"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-light-360.png",
+      "bytes": 116803,
+      "sha256": "a049479ec2448d6afc835ab53d70ef0563c7b78c9b4a77fb9ad75b1b6e737c90"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-light-390.png",
+      "bytes": 121721,
+      "sha256": "43c169a5bfa1fd95b6df6746805be6361d410d0b9239136e6ba681759bb3b1d1"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-1-light-768.png",
+      "bytes": 121088,
+      "sha256": "f1b5622c2b090af12d9283e3204e96fc0161150b99649ffc7cd461c880931d6e"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-dark-1024.png",
+      "bytes": 168955,
+      "sha256": "d257dbfefd24a4601000827207cb18512bdec255d66612e6fe950ea8697365f4"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-dark-1440.png",
+      "bytes": 178308,
+      "sha256": "dbd89d758a6468fee0065c8c22c22ec4b091358be895f977c57fdb5ffcecb287"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-dark-1920.png",
+      "bytes": 185902,
+      "sha256": "da696ca32eb6e39e7d2d998be2a7944c03b7af317e2d4a85a9fea050a0ba102f"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-dark-360.png",
+      "bytes": 179689,
+      "sha256": "beb3bcf88127211d6419629f077426aab3cc9e627dbd7c19b83fe135ac5a6326"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-dark-390.png",
+      "bytes": 187262,
+      "sha256": "69f5c4af05b851d7531a4e6a87230434440d3d506119bb71d97c3ebad3c607fa"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-dark-768.png",
+      "bytes": 199375,
+      "sha256": "a326620a11e34923948913ffeba838f20d8cdb2c1b0786af010427bfda615c75"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-light-1024.png",
+      "bytes": 166092,
+      "sha256": "de0971adff415cbcc8a89bf6639182957cf2d553186769885084097fa46fa8f6"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-light-1440.png",
+      "bytes": 175676,
+      "sha256": "be0cca878dd0a71ca789233ab337cb5d4d77bfc532ccafd245fee1a91984710c"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-light-1920.png",
+      "bytes": 183234,
+      "sha256": "7cf7b72e84a1726f16e78e55c3cb45930e9f7dbd87e2a5e8f446bbcabbcf2ed1"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-light-360.png",
+      "bytes": 174129,
+      "sha256": "6ff954595ddbce1227f09fefcc5fa35b4bfa358ca795a45bd46ef22dee1da530"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-light-390.png",
+      "bytes": 182264,
+      "sha256": "6e437a66f1e6fff774108cbf420c9dfcf3fb7986e09c04665609373d60c37d4c"
+    },
+    {
+      "path": "artifacts/qa-phase1/home-20-light-768.png",
+      "bytes": 196633,
+      "sha256": "aef0b58797bd3126dde67f7e2341587e8d64e8109b21decd3f541ec29c702878"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

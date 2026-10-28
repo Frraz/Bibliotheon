@@ -149,7 +149,7 @@ try {
   const currencies = (await report()).currencies; assert.equal(currencies.find(row => row.currency === 'BRL')!.receivedCents, 8300); assert.equal(currencies.find(row => row.currency === 'USD')!.receivedCents, 1234)
   assert.equal(await count('transactions'), 3); assert.equal(await count('transaction-events'), 0)
   await page.goto(base + '/admin/financial-ledger?from=2026-10-20&through=2026-10-25&currency=BRL', {waitUntil: 'networkidle'})
-  await page.getByText('83,00 BRL', {exact: false}).waitFor(); await page.getByText('11,50 BRL', {exact: true}).waitFor()
+  await page.locator('section[aria-labelledby="financial-BRL"] dl').getByText('83,00 BRL', {exact: false}).waitFor(); await page.locator('section[aria-labelledby="financial-BRL"] dl').getByText('11,50 BRL', {exact: true}).waitFor()
   await fill(page, 'cost', {currency: 'GBP', amount: '0', category: 'other', classification: 'confirmed', source: 'qa-explicit-zero', line: 'qa-zero-line'}); await review(page); await confirm(page); await saved(page)
   assert.equal((await report()).currencies.find(row => row.currency === 'GBP')!.confirmedCostsCents, 0)
   checks.push('Hotmart/Kiwify/Cakto registram movimentos na moeda da aprovação; BRL/USD continuam separados e a prévia existente reflete o ledger sem nova transação/evento nativo.')

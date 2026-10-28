@@ -1,0 +1,421 @@
+{
+  "phase": "D126",
+  "suite": "suppressions",
+  "startedAt": "2026-10-28T04:17:09.718Z",
+  "completedAt": "2026-10-28T04:21:05.105Z",
+  "status": "passed",
+  "buildID": "1hJ8pn_TTqg0ZwxSUSb21",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "d78615b1a7ebed6d617f4c192c626d26419265b05929b78a802e2d3e25de52d8",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+    "scripts/qa-suppressions.ts": "904840a44e72f1e92e93cbf027d800db4a0a037cd53cbbcb3f990b93a798627e",
+    "src/components/admin/SuppressionForm.tsx": "3f6ef6c7d0b0b35c68b9feda06b07f5c23975fd7c4dbebb4c55417159aa7d683",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "714a8e6487cddc2b3c59968c0fdad24f567104a2c80af6ee3fb845f971331e7e",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "9ea86bad5eb7dcaf903d9d69be7d63e5dd5b443be53b6df001d09e400228e85e"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-suppressions/dark-1024-contact-detail.png",
+      "bytes": 48401,
+      "sha256": "e2e26c84a676c2cc393945a4778b48ab15e8fa4bd421557fe4f0519cd708e658"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1024-contacts-list.png",
+      "bytes": 97523,
+      "sha256": "45ce59d793fb80b948eb9f8afcde042831aebbf7833465e83e847a967f80dd93"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1024-error.png",
+      "bytes": 68809,
+      "sha256": "144f4e7697b5c575328cfcb108a535986a1aba31bc35ae52cdad193f73cf3132"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1024-initial.png",
+      "bytes": 48888,
+      "sha256": "3ed41e01d4c19bb827f6d06877126affe2d482fe28694a29a1a2e41fede39745"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1024-integration-suppressions.png",
+      "bytes": 100144,
+      "sha256": "866d71bc46dd73784fe5d2b2e46e6f80cb01d9e1f9d8a62a3937323e8018b372"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1024-success.png",
+      "bytes": 60694,
+      "sha256": "20063b13233ac77948682a0ce39940572e2bb8104bcf56024a7a0399863476d5"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-contact-detail.png",
+      "bytes": 49999,
+      "sha256": "a4435d43e7d10d440248dd22c2556a007aad92fbc9e4924e505b4b7fa91059a8"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-contacts-list.png",
+      "bytes": 95090,
+      "sha256": "1c1d2345ddfa347fc2771a21824507c39fc16b6756d99b134560cdf176ed5f55"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-contacts-page-two.png",
+      "bytes": 38344,
+      "sha256": "d37da492d08a38adaf8ebec7fb677cab0eb9505fd304db7700001f5fccbff3fa"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-error.png",
+      "bytes": 74302,
+      "sha256": "83647c52a5d1e45edd7efb01f4f4f8d1096075b0fef7a819b79776ed7cfdcbce"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-initial.png",
+      "bytes": 54054,
+      "sha256": "e4c1cedea18842a4002d92399fcd56a0bdb702af1edecabf254ffcf9429feddb"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-integration-suppressions.png",
+      "bytes": 100006,
+      "sha256": "6226736196037f31e3799ded6120c0ff9030d4d91e062077cad0d71935c9b4ef"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-loading.png",
+      "bytes": 70495,
+      "sha256": "61697bec09b5eb86a7cc3d47912d9f7baf8dcc4505b39c28cd7a3a959b4fba8c"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1440-success.png",
+      "bytes": 66495,
+      "sha256": "dbf7e3d77c1e92f2bb6c78c4dbaa65925981ec179ebfd57f55b6d3eebfb056f9"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-contact-detail.png",
+      "bytes": 108115,
+      "sha256": "fe931b8d85ed67c76cba2ea93f0830675b96285a642e0abfc2daa1fa9677386d"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-contacts-list.png",
+      "bytes": 151666,
+      "sha256": "bf63e2ef82b3268d49559a9c27d9fc9f619fc5a747afeb96b6ae3cd30be90c9d"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-contacts-page-two.png",
+      "bytes": 100973,
+      "sha256": "3766693c2254d3a2df7121a3a8ecc392396f203a34fc9c2e0626c8fa2f2a404b"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-error.png",
+      "bytes": 131911,
+      "sha256": "2d2342beca33cda0561dc0221fd4d91c8fb017622d54c2a0121dea6af6564607"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-initial.png",
+      "bytes": 110809,
+      "sha256": "5f8b09a484a558e2169b653cdefd81e6b65d1a50b0fb0570c3508d7d3f3f21c6"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-integration-suppressions.png",
+      "bytes": 156922,
+      "sha256": "4e34fb61f98109101befd093a159c4085ea463be318b3455e990a50db9451bfe"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-1920-success.png",
+      "bytes": 123399,
+      "sha256": "7ec896a60c4bd4b025df4b310a24392afd130b446cfafa9f83d2e90bd9963e60"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-360-contact-detail.png",
+      "bytes": 39646,
+      "sha256": "d5888c4dc7186a4cee75de34f59fcd1e2d2cbd7fce3f59fef21318b14ea8d364"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-360-contacts-list.png",
+      "bytes": 52672,
+      "sha256": "bcbd334e8ec321d61c26b183f5b6fa4b9b8c9918354214074c16ec103568ffb8"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-360-error.png",
+      "bytes": 57899,
+      "sha256": "2bab4ad57dbcf3e4ba72e720558d54ad9e7d0a272d174635be7ab69e552a09ea"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-360-initial.png",
+      "bytes": 41088,
+      "sha256": "8172aa7b4d24d4e4dacec039d3c4bced5ec03be9a5c30098c4bcfd31cb1bd6f7"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-360-integration-suppressions.png",
+      "bytes": 62137,
+      "sha256": "ae194eac0ba43643a4f0499559ae52427eb4a2f9629a1cbf12602d21437037c7"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-360-success.png",
+      "bytes": 50810,
+      "sha256": "8b65dd613876bcb7a8cc8a6da8be16ab7adf3014bbdaa80db68e283d3bb47b20"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-contact-detail.png",
+      "bytes": 40114,
+      "sha256": "98002362a6377a6f691a4d3b62272aee2d32bcca741b67d15d19d696bd31e83e"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-contacts-list.png",
+      "bytes": 56816,
+      "sha256": "374f685abe89e3ebd55717ea8427e12a7faed833ef89007d987d3fe100d42f15"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-error.png",
+      "bytes": 58883,
+      "sha256": "6c8048eaf635552b8f98a98c83104625d704d2492b504b8136901368a492a56b"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-initial.png",
+      "bytes": 41206,
+      "sha256": "06fd44b9e70d6b1960fba89204a215a6910d310ef2f3a3f8021ba3f2a92e87ef"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-integration-suppressions.png",
+      "bytes": 67284,
+      "sha256": "ec451122d7472f267af3b3a56ec6ecd8abdfc3a19e7afeac573fc4bdc48384c0"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-loading.png",
+      "bytes": 54702,
+      "sha256": "ce4e6b8047f7caed699c72949bd291c40af6e18ddca99e75c27504a6cfc97cf5"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-390-success.png",
+      "bytes": 50673,
+      "sha256": "a706718638aa741f504b3342f36b7eefeb7548713be84eb07d3a69c01283ae7c"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-768-contact-detail.png",
+      "bytes": 45033,
+      "sha256": "3f12b7d9b7c723ad79237b6082fc9c2b3659b443fbdf742ea7285d1508e1f0f7"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-768-contacts-list.png",
+      "bytes": 78515,
+      "sha256": "54e478d2d2dee1ca2f9f3c9fdc98105928d2c0a15ebd7feb0b22f8ae42c4ba47"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-768-error.png",
+      "bytes": 66094,
+      "sha256": "86296bf2f9acc1511254efb116a67e5c657613e592763d4e9b51194d69b86d6f"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-768-initial.png",
+      "bytes": 46634,
+      "sha256": "21b1de360c77b2c2dfb428f95a62d1d08676109428c233309d203d8f48ac04fc"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-768-integration-suppressions.png",
+      "bytes": 91221,
+      "sha256": "7229742b05400e8fbafbabda599088d26f4d1c3397b7e05e096f46364d4c8f8a"
+    },
+    {
+      "path": "artifacts/qa-suppressions/dark-768-success.png",
+      "bytes": 58042,
+      "sha256": "bbad41f60026bf1d89b4a7c5ac558ab1015348f0c1973619355c8390e505a6ac"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1024-contact-detail.png",
+      "bytes": 48365,
+      "sha256": "44f13be081444306e3f102cd89f7f4254a11730d22a2deafccb212cf8c5c4128"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1024-contacts-list.png",
+      "bytes": 53643,
+      "sha256": "f0db547a5ec728fcd4b75db34f90d2a6c4b8df14a766757a0a306393de0c75e4"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1024-error.png",
+      "bytes": 66602,
+      "sha256": "added655e333dfb96ac6f8cfa169981e4d81f94e981ca7b3b50e8c370bb0f4d9"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1024-initial.png",
+      "bytes": 47015,
+      "sha256": "f866c4f9feb511f3ffe46b313a6766299ee4c9afd15b07cec58fd49b171a6b14"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1024-integration-suppressions.png",
+      "bytes": 59209,
+      "sha256": "59e059883563ed86569b6727c5cd76fdb08b1c810ba8602a2a4a34ffd3f23b9b"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1024-success.png",
+      "bytes": 58539,
+      "sha256": "8782c3d1bec61f80aa57367e88f096024ac25c1c1abfdc1bb5aa9e9eb6ff7914"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-contact-detail.png",
+      "bytes": 50071,
+      "sha256": "ca04242ec49f3fcf829b609f66398c0b689718e8cc21b7848f5e21e2559ba7db"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-contacts-list.png",
+      "bytes": 62452,
+      "sha256": "31f64923407396a7a6e7924fe5536b607a836f6c1bcc0f301896b1fff53b0ae8"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-error.png",
+      "bytes": 72129,
+      "sha256": "8ac3cfd9f9d9c1b3eeb856cb24cda6387fac4de4bc8c17cc8d473d4b85517cd8"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-initial.png",
+      "bytes": 52305,
+      "sha256": "07401bc70f10c3585ab68bc89325098dbf4b79be474173b4a3300f113cf608c0"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-integration-suppressions.png",
+      "bytes": 68172,
+      "sha256": "5ed131142143aef20efe6f3c9fdc1bc0ef4f05aa57a59dee53697a3b48c9ef0e"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-loading.png",
+      "bytes": 68305,
+      "sha256": "9cb665f64283f2aa5db9869132c51928630752fe5c527c62426d19a6eebfdcd8"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1440-success.png",
+      "bytes": 64215,
+      "sha256": "96945914c95784426d9ed094c1b6721ef7b5eae9792a832ce70e114f174a01b8"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1920-contact-detail.png",
+      "bytes": 107875,
+      "sha256": "b123bbf97c33d7e023540d02f40fbfbae49953785208190fd3d6e23e077fd5ff"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1920-contacts-list.png",
+      "bytes": 123914,
+      "sha256": "c16c095d56abf64261d3c716abf06446939649e95d471806c52b9b6ce4d9c926"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1920-error.png",
+      "bytes": 129348,
+      "sha256": "3c551fa184a829c397886fae2af5f35f80a61078c035f1f8af0db863c19490a0"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1920-initial.png",
+      "bytes": 108685,
+      "sha256": "418faa963d9887c9b5a4bf0e7feff7a5bc6e3843db15fc2b1f56abf7cb531b6d"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1920-integration-suppressions.png",
+      "bytes": 129512,
+      "sha256": "01f7a6822cb1cc302c113cfd1df6f8e9771f62d48053473c36f87bc906443413"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-1920-success.png",
+      "bytes": 120762,
+      "sha256": "f246cf78f7e51274847018f7cea129332cda3f2a2e230c10e0a83679ec54c4ac"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-360-contact-detail.png",
+      "bytes": 38459,
+      "sha256": "636e51599a7cc8ed39cab18a952ee9b9c6f0959003ee6afcaf1d73cf3165e428"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-360-contacts-list.png",
+      "bytes": 25613,
+      "sha256": "a0f78ac763fb6128a3c816d28ce8cd391ee90e2879116048f495aadb3aeff2c3"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-360-error.png",
+      "bytes": 55950,
+      "sha256": "e168d3e62eca1df75396b816346460fe3cb69aeff474fa6d61bae259b2a20d5a"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-360-initial.png",
+      "bytes": 39355,
+      "sha256": "c0e4110a8cbe05fbca0d0a72bd6544654334388b8d0a9dd7a0fdefd8072c39b6"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-360-integration-suppressions.png",
+      "bytes": 32263,
+      "sha256": "3ed455ee1020e5ad1be3549a80c2b3e727ddc310371af1c6ecd320b74f58bf97"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-360-success.png",
+      "bytes": 48566,
+      "sha256": "5e64ce7549e732e1d72dd800aa8ba045e1d37a6ca75a3a7560aab9dc1d982d90"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-contact-detail.png",
+      "bytes": 39285,
+      "sha256": "780c3b7295c0775ea8450464b6f5be4c056b2356f534515a0bb96b0f63596b56"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-contacts-list.png",
+      "bytes": 30134,
+      "sha256": "27d6b1ed56143a26c20a23ac1edf39ed9a63d60bca438810d75cb621c2eb8513"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-error.png",
+      "bytes": 56201,
+      "sha256": "59c002396ab0ad27e8803ab7b081892c3aa76fb06bb1173ca95d16bc7e1d1ef5"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-initial.png",
+      "bytes": 39503,
+      "sha256": "119c902720b5b95b35eecaec2dde71263a6a5dd98e866dcd69cdcad31cf2c7aa"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-integration-suppressions.png",
+      "bytes": 37236,
+      "sha256": "378506c48be7e0c8e6f263455a24bed7d36c9c651d06f7ebb5db22cd7555cff9"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-loading.png",
+      "bytes": 52586,
+      "sha256": "3deefccc30456afa420051fd246f55a6b3b7acd7993dc7d33c30ebf4b95fc99b"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-success.png",
+      "bytes": 48683,
+      "sha256": "addfc6c9e3f233f85c8189dd9cf624c45c40f43077047bc8c54c7878ee84444d"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-768-contact-detail.png",
+      "bytes": 44397,
+      "sha256": "f7c9c9ced0f0f70729190eda3d01948d349f2d6835518217886c4c8815ac71ca"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-768-contacts-list.png",
+      "bytes": 42405,
+      "sha256": "851f9c68e9e3995e7246971d36ea859e085ace106d0d55ddcf832621e63ab10d"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-768-error.png",
+      "bytes": 63974,
+      "sha256": "8ec2ad0e2891859d1a7fa662bb1037a569668f4ac2520ff0925ea2df8a05b705"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-768-initial.png",
+      "bytes": 45061,
+      "sha256": "dcb414c4ac26a49e638f435cdc834e50b9e69b3482f5ea27759502e65565197b"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-768-integration-suppressions.png",
+      "bytes": 50586,
+      "sha256": "2e26ae6009137de75924df356869a7df68569dce413c709ed13d264dea3d6282"
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-768-success.png",
+      "bytes": 55928,
+      "sha256": "5f224fba28b337a06c92c18c1e51accc507473e099551924709add84aa1d95a1"
+    },
+    {
+      "path": "artifacts/qa-suppressions/results.json",
+      "bytes": 12763,
+      "sha256": "96e36f6612c8be440fa0f1b14868e677b89fe4df86ce11af794b3e8cbc8879b2"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

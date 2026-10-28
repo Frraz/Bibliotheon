@@ -83,7 +83,7 @@ try {
   assert.equal((await fetch(`${base}/api/contacts`)).status, 403)
   console.log(`Relacionamento no navegador: ${results.length} screenshots; confirmação por POST, PDF privado, descadastro e erros aprovados; transporte em memória.`)
 } finally {
-  await writeFile(`${output}/results.json`, JSON.stringify({ date: '2026-10-21 America/Belem', environment: 'Chromium local; fixtures e transporte em memória', results, limits: 'Não homologa entrega real, campanhas de marketing ou conta Brevo.' }, null, 2))
+  await writeFile(`${output}/results.json`, JSON.stringify({ date: new Date().toISOString(), environment: 'Chromium local; fixtures e transporte em memória', results, limits: 'Não homologa entrega real, campanhas de marketing ou conta Brevo.' }, null, 2))
   await browser.close(); await seed.cleanup()
 }
 process.exit(0)

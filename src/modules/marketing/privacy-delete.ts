@@ -2,16 +2,15 @@ import type { Payload, PayloadRequest } from 'payload'
 import { contactFingerprint } from './contact'
 import { atomic, serial } from './transaction'
 import { LeadFlowError } from './service'
+import { hasContactSharedMarketingReference } from './privacy-shared-reference'
+import { planLocalPrivacyBatches, dissolveLocalPrivacyBatches } from './privacy-local-batches'
+import { isLocalRegistrationIntent, isLocalSuppressionIntent } from './privacy-local-intents'
 
 const relationId = (value: string | { id: string }) => typeof value === 'string' ? value : value.id
-type Row = { id: string; state?: string; batch?: string | { id: string } | null }
+type Row = { id: string; state?: string; attempts?: number; providerId?: number | null; startedAt?: string | null; syncedAt?: string | null; outcome?: string | null; batch?: string | { id: string } | null }
 const linked = async (payload: Payload, collection: string, field: string, id: string, req: PayloadRequest) => {
   const result = await payload.find({ collection: collection as never, where: { [field]: { equals: id } } as never, pagination: false, depth: 0, overrideAccess: true, req })
   return result.docs as unknown as Row[]
-}
-const sendIncludesContact = (value: unknown, id: string) => {
-  if (!value || typeof value !== 'object' || !('recipients' in value) || !Array.isArray(value.recipients)) return false
-  return value.recipients.some(item => !!item && typeof item === 'object' && 'contact' in item && item.contact === id)
 }
 
 /** Owner request. Shared provider manifests and uncertain sends are retained for reconciliation. */
@@ -36,7 +35,9 @@ export async function deleteContactData(payload: Payload, emailInput: string, ac
       await record('not_found', counts)
       return { outcome: 'not_found' as const, counts, blockers: [] as string[] }
     }
-    await serial(req, `contact:${contact.id}`)
+    await serial(req, 'promotion-batches')
+    const localPlans = await planLocalPrivacyBatches(req, contact.id)
+    const localBatchIds = new Set(localPlans.map(plan => plan.id))
     const requests = await linked(payload, 'magnet-requests', 'contact', contact.id, req)
     const deliveries = await linked(payload, 'email-deliveries', 'contact', contact.id, req)
     const enrollments = await linked(payload, 'sequence-enrollments', 'contact', contact.id, req)
@@ -44,18 +45,18 @@ export async function deleteContactData(payload: Payload, emailInput: string, ac
     const blockers: string[] = []
     if (deliveries.some(row => row.state && ['sending', 'uncertain'].includes(row.state))) blockers.push('delivery_in_flight_or_uncertain')
     if (promotions.some(row => row.state && ['sending', 'uncertain', 'accepted'].includes(row.state))) blockers.push('promotion_requires_reconciliation')
-    if ((await linked(payload, 'brevo-registrations', 'contact', contact.id, req)).length) blockers.push('provider_registration_requires_reconciliation')
-    if ((await linked(payload, 'brevo-suppressions', 'contact', contact.id, req)).length) blockers.push('provider_suppression_requires_reconciliation')
+    if ((await linked(payload, 'brevo-registrations', 'contact', contact.id, req)).some(row => !isLocalRegistrationIntent(row))) blockers.push('provider_registration_requires_reconciliation')
+    if ((await linked(payload, 'brevo-suppressions', 'contact', contact.id, req)).some(row => !isLocalSuppressionIntent(row))) blockers.push('provider_suppression_requires_reconciliation')
     if ((await linked(payload, 'brevo-webhook-events', 'contact', contact.id, req)).some(row => row.state === 'pending' || row.state === 'processing')) blockers.push('provider_webhook_pending')
     const batchIds = [...new Set(promotions.map(row => row.batch && relationId(row.batch)).filter(Boolean))]
-    if (batchIds.length) blockers.push('shared_campaign_manifest_requires_reconciliation')
-    const sends = await payload.find({ collection: 'brevo-campaign-sends', pagination: false, depth: 0, overrideAccess: true, req })
-    if (sends.docs.some(send => sendIncludesContact(send.recipientIdentities, contact.id))) blockers.push('provider_send_manifest_requires_reconciliation')
+    if (batchIds.some(id => !localBatchIds.has(id!))) blockers.push('shared_campaign_manifest_requires_reconciliation')
+    if (await hasContactSharedMarketingReference(req, contact, secret, localBatchIds)) blockers.push('shared_campaign_manifest_requires_reconciliation')
     if (blockers.length) {
       counts.contacts = 1
       await record('pending', counts)
-      return { outcome: 'pending' as const, counts, blockers }
+      return { outcome: 'pending' as const, counts, blockers: [...new Set(blockers)] }
     }
+    Object.assign(counts, await dissolveLocalPrivacyBatches(req, localPlans))
     const subscriptions = await linked(payload, 'subscriptions', 'contact', contact.id, req)
     const consentEvents = await linked(payload, 'consent-events', 'contact', contact.id, req)
     const tokens = await linked(payload, 'preference-tokens', 'contact', contact.id, req)

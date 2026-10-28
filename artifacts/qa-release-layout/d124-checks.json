@@ -1,0 +1,33 @@
+{
+  "phase": "D124",
+  "completedAt": "2026-10-28T02:23:43.518292+00:00",
+  "status": "passed",
+  "typecheck": "passed",
+  "targetedLint": "passed",
+  "shellAndNodeSyntax": "passed",
+  "diffCheck": "passed",
+  "documentation": {
+    "status": "passed",
+    "documents": 50,
+    "localLinks": 1548,
+    "contrastPairs": 76
+  },
+  "measuredRequests": 180,
+  "measuredJourneys": 45,
+  "allThreeDisposableAttemptsRemoved": true,
+  "unitTestsRerun": false,
+  "unitEvidenceUnchangedProductSource": "artifacts/qa-release-layout/d123-checks.json",
+  "sourceSHA256": {
+    "scripts/qa-commercial-load.ts": "321bd04d6425b4ae81eecef35ab81e8a9b365d3eed654b4039da3eb1db06cec8",
+    "scripts/qa-browser-isolated.mjs": "ff5ba7a9d77e8dc373c849d1497fd31e5e4a59dcd8b39d198b37832a0fce0729",
+    "scripts/check-qa-admin.sh": "cc822adcfac70bc7e74fb663ea8e71460d8e5089e7500d52177eb37df27f41c1",
+    "src/modules/commerce/inbox.ts": "c76a53d4c7efb6a88ee7cc0ec06d1bf0d134fa731d811a1d86afe4919603db6c",
+    "src/modules/commerce/financial-ledger.ts": "3b896776a1fb716f223afd5c952cf42776d9b6cf91d3439df1e1a8233c8c31d8",
+    "src/components/admin/CommercialInboxView.tsx": "8f38439bd6a7dd6d00fe3b93e703bd11f500d8cd5c140bacadfb811aa000c0ce",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb"
+  },
+  "runtimeChangedThisPhase": false,
+  "productionChanged": false,
+  "goalComplete": false
+}

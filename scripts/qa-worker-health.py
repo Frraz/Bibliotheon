@@ -25,10 +25,11 @@ function health(label,enabled,record,expected){
 }
 health('retention disabled',false,undefined,0);
 health('missing success',true,undefined,1);
-health('fresh complete cycle',true,{version:1,completedAt:Date.now(),overdueSubscriptions:0},0);
-health('overdue exceptions',true,{version:1,completedAt:Date.now(),overdueSubscriptions:1},1);
-health('stale success',true,{version:1,completedAt:Date.now()-25*3600000-1000,overdueSubscriptions:0},1);
-health('future success',true,{version:1,completedAt:Date.now()+60000,overdueSubscriptions:0},1);
+health('fresh complete cycle',true,{version:2,completedAt:Date.now(),overdueSubscriptions:0,activeMarketingReviews:0},0);
+health('overdue exceptions',true,{version:2,completedAt:Date.now(),overdueSubscriptions:1,activeMarketingReviews:0},1);
+health('active marketing review due',true,{version:2,completedAt:Date.now(),overdueSubscriptions:0,activeMarketingReviews:1},1);
+health('stale success',true,{version:2,completedAt:Date.now()-25*3600000-1000,overdueSubscriptions:0,activeMarketingReviews:0},1);
+health('future success',true,{version:2,completedAt:Date.now()+60000,overdueSubscriptions:0,activeMarketingReviews:0},1);
 health('corrupt success',true,'{',1);
 const worker=spawnSync(process.execPath,['/app/cli/worker.js','--once'],{env:{...process.env,PAYLOAD_SECRET:'synthetic-health-only-'.padEnd(48,'x'),DATABASE_URL:'postgresql://synthetic:synthetic@127.0.0.1:5432/synthetic',LEAD_TOKEN_SECRET:'short',DATA_RETENTION_ENABLED:'true'},encoding:'utf8',timeout:15000});
 if(worker.status===0||!worker.stderr.includes('Retenção automática exige'))throw Error('Chave ausente não foi recusada antes de abrir o banco.');

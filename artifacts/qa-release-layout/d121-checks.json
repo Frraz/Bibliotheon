@@ -1,0 +1,46 @@
+{
+  "phase": "D121",
+  "completedAt": "2026-10-27T22:31:10.807905+00:00",
+  "quality": {
+    "command": "npm run check",
+    "passed": true,
+    "unitTests": 298,
+    "unitFiles": 36,
+    "operationalTests": 62,
+    "typecheck": true,
+    "lint": true
+  },
+  "buildPassed": true,
+  "cleanBuildResolvedObservedListError": true,
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "nativeChecksPassed": 60,
+  "pngHashesVerified": 120,
+  "labSamplesPassed": 12,
+  "publicLoadRequestsPassed": 75,
+  "nativeExternalRequests": 0,
+  "labExternalRequests": 0,
+  "runtimeErrors": [],
+  "configuredDatabasePreserved": true,
+  "temporaryDatabasesRemoved": true,
+  "fullH05Accepted": false,
+  "productionChanged": false,
+  "newImageValidation": false,
+  "measurementProtocolSHA256": {
+    "scripts/qa-release-layout.ts": "707ed196071ca4f970ba0e238f730c79a81b1741c8e2bbb312031a1a78309e95",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "currentSourceSHA256": {
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033",
+    "scripts/qa-release-layout.ts": "e47d1000e369fa23ceae6024d072126f249da1c72e3e2575c855ffb2a29a9eee",
+    "scripts/check-qa-admin.sh": "768ee7bd3d170e7047c4909b5629435fc3c3d3ae5ee8fbb77fd33945286aea83"
+  },
+  "postMeasurementHarnessChange": "Guard adicional exige zero erros runtime e zero requisições externas ao aceitar/reutilizar checkpoint; os dados medidos satisfazem ambos. Tipos/lint/check geral passaram após a mudança."
+}

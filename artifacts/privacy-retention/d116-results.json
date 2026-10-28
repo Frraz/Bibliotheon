@@ -1,0 +1,22 @@
+{
+  "phase": "D116",
+  "date": "2026-10-27T04:25:54.480Z",
+  "environment": "PostgreSQL sintético exclusivo",
+  "checks": [
+    "opt-in com 12 meses fica em revisão; a etapa promocional é retida sem alterar consentimento, identidade ou inscrição",
+    "pedido de amostra confirmado sem opt-in não renova interesse de marketing nem libera a etapa",
+    "novo opt-in confirmado pelo titular renova a data e libera novamente o calendário elegível"
+  ],
+  "reviewMonths": 12,
+  "reviewCutoff": "2026-11-23T04:25:52.753Z",
+  "preview": {
+    "cutoff": "2026-11-23T04:25:52.753Z",
+    "staleSubscriptions": 1,
+    "undatedSubscriptions": 0,
+    "futureDatedSubscriptions": 0,
+    "reviewRequired": true
+  },
+  "externalCalls": 0,
+  "realRecipientContacted": false,
+  "productionChanged": false
+}

@@ -1,6 +1,6 @@
 # Bibliotheon — Design Brief
 
-**Estado em 21/10/2026: direção aprovada, fundação/variantes implementadas e rodadas locais renderizadas; homologação visual integral ainda parcial.** Este documento governa identidade e apresentação; regras comerciais continuam nos documentos de produto. O [estado atual](docs/23-estado-atual.md) identifica screenshots, recortes aprovados e pendências de B19/B20. A especificação não certifica automaticamente a implementação.
+**Estado em 28/10/2026: direção aprovada e H05/B19/B20 aceitos localmente pela matriz D121–D126.** Este documento governa identidade e apresentação; regras comerciais continuam nos documentos de produto. O [estado atual](docs/23-estado-atual.md) identifica capturas, auditoria do aceite local e gates de produção ainda abertos. A especificação não certifica automaticamente a implementação.
 
 ## Conceito: conhecimento em edição
 
@@ -22,7 +22,7 @@ O visitante precisa reconhecer o livro, entender o que recebe, avaliar uma amost
 | Imagem | Capas e páginas reais, sem alteração de cor pelo tema |
 | Tema | Sistema por padrão; escolhas claro/escuro persistidas localmente |
 | Painel | Extensões suportadas pelo Payload, sem reconstruir o CMS |
-| Estado atual | Direção documentada e implementação local autorizada no site/painel; QA renderizado por recortes, homologação integral ainda pendente |
+| Estado atual | Site/painel implementados e QA local de lançamento aceito em D126; novas telas/estados reabrem somente a cobertura afetada, sem certificar ambiente real |
 
 ## Fontes de verdade
 

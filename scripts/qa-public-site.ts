@@ -54,7 +54,7 @@ try {
   await page.keyboard.press('Tab')
   assert.equal(await page.locator(':focus').innerText(), 'Ir para o conteúdo')
   await context.close()
-  await writeFile(`${output}/results.json`, JSON.stringify({ date: '2026-10-21 America/Belem', environment: 'Chromium, standalone local, dados sintéticos', results, limits: 'Não comprova conversão, desempenho de campo ou homologação externa. Painel e amostras possuem rodadas separadas.' }, null, 2))
+  await writeFile(`${output}/results.json`, JSON.stringify({ date: new Date().toISOString(), environment: 'Chromium, standalone local, dados sintéticos', results, limits: 'Não comprova conversão, desempenho de campo ou homologação externa. Painel e amostras possuem rodadas separadas.' }, null, 2))
   console.log(`Fase 1 pública: ${results.length} screenshots; rotas, axe, overflow, título longo, capa ausente e teclado aprovados.`)
 } finally {
   await browser.close()

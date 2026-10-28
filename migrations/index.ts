@@ -32,6 +32,7 @@ import * as migration_20261025_213716_marketing_suppression_tombstones from './2
 import * as migration_20261025_224500_commercial_inbox_envelope_retention from './20261025_224500_commercial_inbox_envelope_retention';
 import * as migration_20261026_231335_contact_retirements from './20261026_231335_contact_retirements';
 import * as migration_20261027_001515_theme_withdrawals from './20261027_001515_theme_withdrawals';
+import * as migration_20261027_033952_active_marketing_review from './20261027_033952_active_marketing_review';
 
 export const migrations = [
   {
@@ -202,6 +203,11 @@ export const migrations = [
   {
     up: migration_20261027_001515_theme_withdrawals.up,
     down: migration_20261027_001515_theme_withdrawals.down,
-    name: '20261027_001515_theme_withdrawals'
+    name: '20261027_001515_theme_withdrawals',
+  },
+  {
+    up: migration_20261027_033952_active_marketing_review.up,
+    down: migration_20261027_033952_active_marketing_review.down,
+    name: '20261027_033952_active_marketing_review'
   },
 ];

@@ -1,0 +1,23 @@
+{
+  "phase": "D126",
+  "date": "2026-10-28",
+  "status": "reviewed-sample",
+  "files": [
+    {
+      "path": "artifacts/qa-suppressions/light-390-error.png",
+      "sha256": "59c002396ab0ad27e8803ab7b081892c3aa76fb06bb1173ca95d16bc7e1d1ef5",
+      "finding": "Erro mantém dados e referência; feedback legível recebe foco após envio por teclado."
+    },
+    {
+      "path": "artifacts/qa-suppressions/light-390-contact-detail.png",
+      "sha256": "780c3b7295c0775ea8450464b6f5be4c056b2356f534515a0bb96b0f63596b56",
+      "finding": "Contato sintético com campos privados somente leitura, estado de entrega e cancelamento global distintos."
+    },
+    {
+      "path": "artifacts/qa-financial-coverage/report-dark-1440.png",
+      "sha256": "040feb893aef5b20c0c7356ce38e7bdaa4e0af2c0bf91c9276a21b2d0a3d7499",
+      "finding": "Moedas e valores desconhecidos permanecem separados; tabelas amplas dentro de região rolável, sem overflow da página."
+    }
+  ],
+  "limits": "Inspeção manual amostral; não representa leitura manual de cada captura nem certificação WCAG. Home com um livro e LP completa nos dois temas têm inspeção D122 preservada."
+}

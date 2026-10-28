@@ -1,0 +1,210 @@
+{
+  "phase": "D122",
+  "suite": "preferences",
+  "startedAt": "2026-10-28T00:40:23.132Z",
+  "completedAt": "2026-10-28T00:42:12.556Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-preferences.ts": "f6334ccb1b4de24d40e0157306c9306bcff81c6408d7defc373a4997580be062",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-preferences/global-canceled-dark-1024.png",
+      "bytes": 85221,
+      "sha256": "d9524f88e5aada82372e205505e8e6aa02cd5db931ab5f42924dc14b4c6b0206"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-dark-1440.png",
+      "bytes": 89558,
+      "sha256": "5340ded5be8514fb74be38e7f70fb4efa8332e00687f3eb08fcf88d6f7d8d424"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-dark-1920.png",
+      "bytes": 92749,
+      "sha256": "ef22a1c71fc20f1592c7f8654f0f267e439e3c956d689293154a53282145fd13"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-dark-360.png",
+      "bytes": 80133,
+      "sha256": "cf1b58b04436cac00c5ce1d3cdca6a1c316086b0d2cbe69cfcddcdef85e64a11"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-dark-390.png",
+      "bytes": 78346,
+      "sha256": "c0fac08dbfebd5d9b56c77a44d5579988ec5c32c81bbe22839ae38bf2b0ef4a4"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-dark-768.png",
+      "bytes": 81395,
+      "sha256": "bd38b410b69b2857788c4f2028d1d265a12be55e402466afe03143b060cd3a1d"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-light-1024.png",
+      "bytes": 83051,
+      "sha256": "6c86537bb30eeba33cb1834a9cc088603c113780b2088163ada71f253c804943"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-light-1440.png",
+      "bytes": 87256,
+      "sha256": "3d2b7cd302496c048cb96d9140563b4107754d681fde83ce22fa418921dc4d0f"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-light-1920.png",
+      "bytes": 90509,
+      "sha256": "1c26795ef3699ee5cc3b5617a7fea12f3aa650d2e7d980f1d39314aed77c89e0"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-light-360.png",
+      "bytes": 76828,
+      "sha256": "2c2ac526a8b5205560e2fe85c0f59724c26511177fa75933933765d698ef976f"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-light-390.png",
+      "bytes": 75309,
+      "sha256": "d2cfc0aba64c46f3a83e7284e3c148246ae91b5684cbc75caa12c9fd10461c4e"
+    },
+    {
+      "path": "artifacts/qa-preferences/global-canceled-light-768.png",
+      "bytes": 79133,
+      "sha256": "1ffaaf13fc824d9902a5e1bfa13f5b86cfd4f141dbaad43c198fe207385e4a10"
+    },
+    {
+      "path": "artifacts/qa-preferences/results.json",
+      "bytes": 5268,
+      "sha256": "575c8cb69eaaf2487d4b0ef53c3653cf3b7e0e4ac3bf4539a3aec669368dec67"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-dark-1024.png",
+      "bytes": 103500,
+      "sha256": "2369cc343a18ed53c57e56213d28a0954faad1c6ec934c03e8a228363844b4d4"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-dark-1440.png",
+      "bytes": 109509,
+      "sha256": "fd1b700b29e34b4d5db514d78b05e555473258cba9ad68f88dee37a2001940b8"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-dark-1920.png",
+      "bytes": 112650,
+      "sha256": "05827df391f5eddac0819d91e3b85e58970a647fc33fcca5dae422f566719633"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-dark-360.png",
+      "bytes": 95339,
+      "sha256": "1f3a80887191cae38b5882947850fc2102254161ac7124b7c44b830e5cba4c7a"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-dark-390.png",
+      "bytes": 94116,
+      "sha256": "4606216169db48e791ae5d91846700cebdd67cd45d3bbd443d7573ca0057d92d"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-dark-768.png",
+      "bytes": 99103,
+      "sha256": "b3a61f4cab1fd7d66a6b68997299f7de91093a6b76f62e4cf424a7f2abc805b9"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-light-1024.png",
+      "bytes": 100874,
+      "sha256": "7035f23c0e507f8417ea93e6e3b7b399177cfed47aab594a501bef0b9833d2f9"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-light-1440.png",
+      "bytes": 107127,
+      "sha256": "4af8c4b2e64343100baf801578ea590bda2219c4cb1606d8ac99681b2d5931c3"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-light-1920.png",
+      "bytes": 110112,
+      "sha256": "a448020a6c03399ff1c337ffb1040022831f64ed5a7255dd1a3dd32a6c95f35e"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-light-360.png",
+      "bytes": 91649,
+      "sha256": "85e8a0002f04466a7a0f034a532f419246ca699987a4997135d297c4b5bd7be3"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-light-390.png",
+      "bytes": 90687,
+      "sha256": "683322450cd284c589c610133ab11cfc59e1e4862c70c177df82ef038c4a4b20"
+    },
+    {
+      "path": "artifacts/qa-preferences/subscribed-light-768.png",
+      "bytes": 96232,
+      "sha256": "45f36fba1a7a688c02b68fe0b2c04e33092f02c05e5353313ca250c8907c664b"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-dark-1024.png",
+      "bytes": 105046,
+      "sha256": "52a03fa85584877e5149a09eb47bfd06d3da61fd3db674e0de162aafbc4bbeee"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-dark-1440.png",
+      "bytes": 110972,
+      "sha256": "154f61a25407cecab90e5a873ca4465099fca900a504e5a695ec07fbb9aee328"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-dark-1920.png",
+      "bytes": 113977,
+      "sha256": "9f0914a99aa017cd4fca4ee65cdbbc101c397ceb376a602a5b418ce3713c4c88"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-dark-360.png",
+      "bytes": 97787,
+      "sha256": "5762ad2a7f6b03711705290f61c9a5b2cde079530f6c5421cc88c2e1964165a5"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-dark-390.png",
+      "bytes": 95929,
+      "sha256": "73b4ae3a4f4258f11317129833a3b494537af496bdfccffacf888adc5e9ef559"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-dark-768.png",
+      "bytes": 100499,
+      "sha256": "462493fd1365213ed64b3eaf64611266ca62e40f1ca64e31a6e5452de9a77ce0"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-light-1024.png",
+      "bytes": 102271,
+      "sha256": "8ed1af8a133eb82148da2c65d9079ca32f54e4872c6c85ff283a0bd59479fa61"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-light-1440.png",
+      "bytes": 108366,
+      "sha256": "32de7a9399774806ecb456fab0d69b65c03a8e6fe81e2f386b93b1dafaa19ac7"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-light-1920.png",
+      "bytes": 111196,
+      "sha256": "73978746478b0eb237512c2b6b5a0f97e5914cae1772612afbf373d38fa5e8ba"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-light-360.png",
+      "bytes": 93701,
+      "sha256": "04face3cee7ed119e3b5ff30c95fa5cbe91817e2282e7f37edb71abced5a99fa"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-light-390.png",
+      "bytes": 92171,
+      "sha256": "f88eec3de0956e3ca2af2e878e6c4dd1a837033eefd319b78ad381147d3eef22"
+    },
+    {
+      "path": "artifacts/qa-preferences/theme-canceled-light-768.png",
+      "bytes": 97320,
+      "sha256": "f9cfd85989a12951ece10d0cd85bd13e440f1d815442ea175492a7fb676cf627"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

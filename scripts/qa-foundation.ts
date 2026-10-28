@@ -64,6 +64,6 @@ try {
   await unhydrated.goto(testOrigin + '/', { waitUntil: 'domcontentloaded' })
   assert.equal(await unhydrated.locator('html').getAttribute('data-theme'), 'light', 'Preferência aplicada antes da hidratação React')
   await beforeHydration.close()
-  await writeFile(`${output}/results.json`, JSON.stringify({ environment: 'local Chromium, standalone; catálogo vazio', date: '2026-10-21 America/Belem', results, appearance: 'persistência, system, storage negado, sem JS, skip link aprovados', limits: 'Não é B20 completo. Painel e demais estados possuem rodadas separadas.' }, null, 2))
+  await writeFile(`${output}/results.json`, JSON.stringify({ environment: 'local Chromium, standalone; catálogo vazio', date: new Date().toISOString(), results, appearance: 'persistência, system, storage negado, sem JS, skip link aprovados', limits: 'Não é B20 completo. Painel e demais estados possuem rodadas separadas.' }, null, 2))
   console.log(`Fundação: ${results.length} screenshots, axe e overflow aprovados; temas, teclado e fallbacks aprovados.`)
 } finally { await browser.close() }

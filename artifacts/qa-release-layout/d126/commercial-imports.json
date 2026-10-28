@@ -1,0 +1,150 @@
+{
+  "phase": "D126",
+  "suite": "commercial-imports",
+  "startedAt": "2026-10-28T03:35:21.342Z",
+  "completedAt": "2026-10-28T03:37:54.040Z",
+  "status": "passed",
+  "buildID": "2coQl34ngSTYHMsbWMf4l",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+    "scripts/qa-commercial-imports.ts": "f4c8d71d562a41710ae56a8d5ef54ff5b407f7d86c60025d1d9fef5f5c3839f6",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-commercial-imports/blocked-dark-390.png",
+      "bytes": 157320,
+      "sha256": "1736d1a4fc7ed24bdd21cb5bd12dcc76063172a305f214f51bec9cbced340ed1"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/blocked-light-390.png",
+      "bytes": 158430,
+      "sha256": "319372bce940f059fadf6f0c4c48d6a8d270ca64bbf12dd88765a1487b1f62be"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-1024.png",
+      "bytes": 174854,
+      "sha256": "b60f1b2fe620901613979b5fdeeb93fabdcebd3e5292a6e73c13df6192ff3622"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-1440.png",
+      "bytes": 193754,
+      "sha256": "e5a2338dce73baa3c10d1b2cd88b1864942fa5d551bd6254a32cfd1ac5c1685c"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-1920.png",
+      "bytes": 257696,
+      "sha256": "38df447e75a85842c9b4d402174986415ff09c005775991f28e389fa6f20350f"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-320.png",
+      "bytes": 155730,
+      "sha256": "6f0b583b353503fc98c12bd645d909788229e6d35485466f7411aafb24176b86"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-360.png",
+      "bytes": 153022,
+      "sha256": "c9492f4f55befdc3c5800e75dde9368f2b53225b3f58732072ede7be7806467a"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-390.png",
+      "bytes": 152273,
+      "sha256": "29dbf1a183b627c1f9fdd68d839290e9661107d6c6b157475c674bbdf34c36fa"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-dark-768.png",
+      "bytes": 165714,
+      "sha256": "ee9213ec1208b3b43513521381a9fb7c2389fc989f2a21de00c169a9a6ec7c96"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-1024.png",
+      "bytes": 168529,
+      "sha256": "bbb8791be01eea3bce2d9245743f294e4103478903b9bff840b9c164c3595893"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-1440.png",
+      "bytes": 186903,
+      "sha256": "8a40a41531ec1e042f7e739d5ca41e23da546badc5b655aa62fb5422c3232fd1"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-1920.png",
+      "bytes": 250896,
+      "sha256": "b7c1ee42612aa4001ca3849f9d3f4ed275151795052096fb05036116582d4106"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-320.png",
+      "bytes": 148683,
+      "sha256": "c1742fd352244d0ff0785fb45ca6b9ddc0423fb3db66206bfe8b41295d57233b"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-360.png",
+      "bytes": 146732,
+      "sha256": "71fc66ad9417c3871cebc2b01ab2c877cf83c789daf848f45754f826c4720529"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-390.png",
+      "bytes": 146457,
+      "sha256": "f255979bab52949027d14119eb5728fe9146efbe45ac62a780ade8d67d470659"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/confirmed-light-768.png",
+      "bytes": 159810,
+      "sha256": "f9ad9252187f17bf75e19c18dfbe390459b5caac27554c83a96cc5d3c737a458"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/empty-dark-390.png",
+      "bytes": 74755,
+      "sha256": "4df2976062cd82d402ee1d14eae67c90660c9bcbaa3a39d0d2a4aaa7b4c91626"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/empty-light-390.png",
+      "bytes": 71828,
+      "sha256": "90544748685b4d769e4f74bba91822e7feb80bb970d9bdf18972a4aeb07d9448"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/error-light-390.png",
+      "bytes": 106068,
+      "sha256": "b3ce8fb96679e91bb6257684e58d917f52dd505d37c39dbb9e239f075280fd1c"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/loading-light-390.png",
+      "bytes": 72111,
+      "sha256": "910b9925c310b81147990efc19e54a0b4ce066df9b18d34128beb493a337f0bf"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/nojs-light-390.png",
+      "bytes": 166405,
+      "sha256": "44ff928efb13a594919c28c0049e4ae5ee917b17fbc1584b2b3939b9a956c95e"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/ready-dark-390.png",
+      "bytes": 465844,
+      "sha256": "362121bbaa989c68b2a870d349696f82afa304f8404f17d8961b66928871a560"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/ready-light-390.png",
+      "bytes": 156512,
+      "sha256": "4802109ec62de8460a6cf07202cec06a4dc02044a99ba2037d07b92365d66a53"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/results.json",
+      "bytes": 5430,
+      "sha256": "7cfd429362fe36503726d285a2ef6dfff7223c9aa01e66425af14bbd3316bc54"
+    },
+    {
+      "path": "artifacts/qa-commercial-imports/text-200-dark-320.png",
+      "bytes": 814895,
+      "sha256": "ce03ae2ac6c5ecc68302844e570443b948c9d0dae093625657dcc1118870ec83"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

@@ -18,7 +18,7 @@ const admin = await payload.create({ collection: 'admin-users', data: { email, p
 const browser = await chromium.launch()
 const results: unknown[] = []
 try {
-  for (const width of [390, 1440]) for (const theme of ['light', 'dark'] as const) {
+  for (const width of [360, 390, 768, 1024, 1440, 1920]) for (const theme of ['light', 'dark'] as const) {
     const context = await browser.newContext({ viewport: { width, height: 1000 }, colorScheme: theme, reducedMotion: 'reduce' })
     await context.addCookies([{ name: 'payload-theme', value: theme, domain: '127.0.0.1', path: '/' }])
     await context.addInitScript(t => localStorage.setItem('bibliotheon:appearance:v1', t), theme)
@@ -42,7 +42,7 @@ try {
     await page.waitForFunction(t => document.documentElement.dataset.theme === t, theme === 'dark' ? 'light' : 'dark')
     await context.close()
   }
-  console.log('Admin: login/dashboard em dois temas e duas larguras, axe/overflow e provider system aprovados.')
+  console.log('Admin: login/dashboard em dois temas e seis larguras, axe/overflow e provider system aprovados.')
 } finally {
   await writeFile(`${output}/admin-results.json`, JSON.stringify({ origin: testOrigin, results, limits: 'Rodada de login/dashboard; formulários editoriais e demais telas possuem rodadas próprias.' }, null, 2))
   await browser.close()

@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-28T03:36:02.896Z",
+  "status": "failed",
+  "checks": [
+    "View e endpoints negam anônimo; operações usam sessão/origem owner e não escrevem por GET.",
+    "Conferência não grava. Crédito com resposta perdida repete sem duplicar; correção preserva original/data milissegundos, bloqueia identidade e soma apenas a linha vigente menos o débito.",
+    "Custo estimado é substituído explicitamente por confirmado; campanha é gravada no relacionamento real e preservada na correção. Substituídos não são somados, ausência permanece null e margem não vira lucro."
+  ],
+  "captures": [
+    {
+      "name": "empty-settlement-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-cost-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-settlement-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "empty-cost-dark-390",
+      "theme": "dark",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "review-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "loading-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "correction-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Ledger owner local sintético. Sem homologação de fonte/conta, decisão financeira visual, zoom nativo 400%, imagem/restore final ou produção."
+}

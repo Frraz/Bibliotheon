@@ -1,6 +1,6 @@
 {
   "phase": "D114",
-  "date": "2026-10-27T01:09:42.227Z",
+  "date": "2026-10-27T04:26:52.049Z",
   "environment": "PostgreSQL sintético exclusivo",
   "checks": [
     "prova nativa exata permite preview e manifesto v4 read-only antes de existir fato, sem inventar data",

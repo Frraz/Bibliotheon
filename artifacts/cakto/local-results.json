@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:29:16.650Z",
+  "date": "2026-10-27T04:30:03.878Z",
   "checks": [
     "Assinatura inválida não persiste. V1 concorrente gera um recibo e ACK após commit; recepção independe do worker. Aplicação explícita conserva ids, total decimal exato, taxa e aprovação original, sem segredo/PII/líquido inferido.",
     "Reembolso/chargeback usam suas datas sem deduzir quantia/recebimento; aprovação recebida depois da devolução não regride o estado financeiro.",

@@ -1,0 +1,12 @@
+{
+  "phase": "D125",
+  "status": "reviewed-sample",
+  "files": [
+    {
+      "path": "artifacts/qa-public-states/component-expanded-light-1440.png",
+      "sha256": "4f6cdcda95b0a6e1b211663da16831b33648c32411e5de9ac3d5d659d4fa0286",
+      "finding": "Disclosure expandido, resposta legível, foco visível e sem seleção de texto residual."
+    }
+  ],
+  "limits": "Inspeção manual amostral; não significa revisão manual das 208 capturas ou aceite integral de H05."
+}

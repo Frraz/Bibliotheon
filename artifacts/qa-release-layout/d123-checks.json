@@ -1,0 +1,33 @@
+{
+  "phase": "D123",
+  "completedAt": "2026-10-28T01:49:46.489910+00:00",
+  "quality": {
+    "buildQA": "passed",
+    "check": "passed",
+    "unitTests": 298,
+    "unitFiles": 36,
+    "operationalTests": 62,
+    "typecheck": "passed",
+    "lint": "passed",
+    "postResumeProtocolLint": "passed",
+    "documentation": "passed",
+    "documents": 50,
+    "localLinks": 1535,
+    "contrastPairs": 76,
+    "diffCheck": "passed"
+  },
+  "browserEvidence": "artifacts/qa-release-layout/d123-results.json",
+  "sourceSHA256": {
+    "src/components/SampleForms.tsx": "eee64aa70ad8ad486bfdf6397138fb505118417fa443bad90905872e1c8d8101",
+    "scripts/qa-relationship-states.ts": "b39941f5aa32604fea4e54fc28373fb1ded74934b9a27893af49f7c8d5068caf",
+    "scripts/qa-browser-isolated.mjs": "bfce8a57bc457ba177ccd7773d31da3b8212a56641b161b8ea3659a2faebc714",
+    "scripts/check-qa-admin.sh": "0d58aad687c641d0ba29f6414236c571fa8e25e558b19b7da10d8f2f95f5f320",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb"
+  },
+  "allThreeDisposableRunsCleaned": true,
+  "buildSandboxFailure": "spawnSync do TypeScript retornou EPERM; build executado com a permissão exigida.",
+  "newImageValidated": false,
+  "productionChanged": false,
+  "goalComplete": false
+}

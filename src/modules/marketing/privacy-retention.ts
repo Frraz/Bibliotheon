@@ -1,5 +1,5 @@
 import { backfillThemeWithdrawals, type LegacyWithdrawalReport } from './legacy-theme-withdrawal'
-import { MARKETING_RETENTION_DEADLINE_MS } from './retention-policy'
+import { MARKETING_RETENTION_DEADLINE_MS, activeMarketingReviewCutoff } from './retention-policy'
 import { expireWithdrawnThemes, type ThemeRetentionReport } from './privacy-theme-retention'
 import { expireClosedIdentities, type ClosedIdentityRetentionReport } from './privacy-identity-retention'
 import { expireSuppressedMarketing, type SuppressedMarketingRetentionReport } from './privacy-marketing-retention'
@@ -30,6 +30,7 @@ export type PrivacyRetentionReport = {
   withdrawnThemes: ThemeRetentionReport
   legacyThemeWithdrawals: LegacyWithdrawalReport
   marketingDeadline: { cutoff: string; overdueSubscriptions: number; reviewRequired: boolean }
+  activeMarketingReview: { cutoff: string; staleSubscriptions: number; undatedSubscriptions: number; futureDatedSubscriptions: number; reviewRequired: boolean }
 }
 
 type Relation = string | { id: string } | null | undefined
@@ -137,7 +138,17 @@ export async function runPrivacyRequestAuditRetention(payload: Payload, options:
   const deadlineCutoff = new Date((options.now ?? Date.now()) - MARKETING_RETENTION_DEADLINE_MS).toISOString()
   const overdueSubscriptions = (await payload.count({ collection: 'subscriptions', where: { and: [{ state: { equals: 'unsubscribed' } }, { unsubscribedAt: { less_than_equal: deadlineCutoff } }] }, overrideAccess: true })).totalDocs
   const marketingDeadline = { cutoff: deadlineCutoff, overdueSubscriptions, reviewRequired: overdueSubscriptions > 0 }
-  return { mode: apply ? 'applied' : 'preview', cutoff, candidates, processed, unconfirmedRequests: unconfirmed, expiredSuppressionTombstones, expiredPreferenceTokens, commercialInboxEnvelopes, commercialAudit, confirmedSamples, suppressedMarketing, closedIdentities, withdrawnThemes, marketingDeadline, legacyThemeWithdrawals }
+  const activeReviewCutoff = activeMarketingReviewCutoff(options.now ?? Date.now())
+  const activeReviewNow = new Date(options.now ?? Date.now()).toISOString()
+  const activeMarketingReview = {
+    cutoff: activeReviewCutoff,
+    staleSubscriptions: (await payload.count({ collection: 'subscriptions', where: { and: [{ state: { equals: 'subscribed' } }, { subscribedAt: { less_than_equal: activeReviewCutoff } }] }, overrideAccess: true })).totalDocs,
+    undatedSubscriptions: (await payload.count({ collection: 'subscriptions', where: { and: [{ state: { equals: 'subscribed' } }, { subscribedAt: { exists: false } }] }, overrideAccess: true })).totalDocs,
+    futureDatedSubscriptions: (await payload.count({ collection: 'subscriptions', where: { and: [{ state: { equals: 'subscribed' } }, { subscribedAt: { greater_than: activeReviewNow } }] }, overrideAccess: true })).totalDocs,
+    reviewRequired: false,
+  }
+  activeMarketingReview.reviewRequired = activeMarketingReview.staleSubscriptions + activeMarketingReview.undatedSubscriptions + activeMarketingReview.futureDatedSubscriptions > 0
+  return { mode: apply ? 'applied' : 'preview', cutoff, candidates, processed, unconfirmedRequests: unconfirmed, expiredSuppressionTombstones, expiredPreferenceTokens, commercialInboxEnvelopes, commercialAudit, confirmedSamples, suppressedMarketing, closedIdentities, withdrawnThemes, marketingDeadline, activeMarketingReview, legacyThemeWithdrawals }
 }
 
 async function expireSuppressionTombstones(payload: Payload, now: Date, apply: boolean) {

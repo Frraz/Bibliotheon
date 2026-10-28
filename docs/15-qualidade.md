@@ -49,7 +49,7 @@ P07 D95–D96: `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-correct` v
 
 ## Critérios de release
 
-Sem falha crítica de autenticação, exposição de dados, duplicação financeira ou perda de eventos conhecida. Fluxo ponta a ponta do conteúdo ao checkout testado. Cada provedor tem evidência externa própria; teste sintético não a substitui. Backup restaurado, monitoramento e rollback documentados.
+Sem falha crítica de autenticação, exposição de dados, duplicação financeira ou perda de eventos conhecida. Fluxo ponta a ponta do conteúdo ao checkout testado. Cada provedor tem evidência externa própria; teste sintético não a substitui. Monitoramento e procedimento de falha documentados. Backup/restauração são opcionais conforme decisão do proprietário: homologar recuperação se escolhida; `--sem-backup` permite deploy sem ponto recente de restauração.
 
 Metas de desempenho dos requisitos são objetivos. Medir com dataset inicial de 30 livros/3 temas, 30 artigos e volume sintético de eventos suficiente para identificar queries lentas; não interpretar isso como capacidade de produção. Fazer teste de carga somente em ambiente isolado, começando com 5 usuários simultâneos e incrementando com medição, sem pressionar outros sistemas da VPS.
 
@@ -294,3 +294,45 @@ Quatro unitários em retention-policy verificam margem 28 dias + 25h <30 dias, f
 ## D114 — Legado temático verificável — 26/10/2026
 
 `BIBLIOTHEON_SYNTHETIC_TESTS=true npm run test:privacy-theme-legacy` verifica oito grupos no PostgreSQL exclusivo. Inclui exportação sem escrita, prova expirada sem renovação, snapshot anterior à retirada vencida recusado, omissão não permitida, cobertura global legítima, expurgo anterior a finalidade nova, chave divergente, tema/data/finalidade/prefixo errados, conflito temporal, rollback de fato+expurgo, reativação concorrente e paginação. [Resultado](../artifacts/privacy-retention/d114-results.json). O harness físico D114 remove só o fato sintético após descadastro nativo e prova que exportação/replay usam o evento preservado; não chama conta/provedor.
+
+Verificação de laboratório D121: quatro rotas × três amostras, viewport móvel 390×844, CPU 4×, latência 150ms e download 200.000 bytes/s, cache do browser desabilitado e servidor aquecido. Dataset: 30 livros publicados, três temas e 30 artigos. P75 observado de LCP: home 1.160ms, catálogo 600ms, LP guia 640ms e artigo 592ms; CLS agregado conservador abaixo de 0,002. Limite superior do p75 da interação de teclado amostrada ficou em até 192ms; isso não é INP de campo. Todos passaram nos orçamentos amostrados.
+
+Carga local pública: 25 requests com concorrência 5 e 50 com concorrência 10, sem erros; p95 de 599ms/838ms, respectivamente. Não são usuários reais, teste completo de operação comercial ou capacidade da VPS. [Resultados medidos](../artifacts/qa-release-layout/d121-results.json) e [inspeção visual representativa](../artifacts/qa-release-layout/d121-visual-review.json). A primeira tentativa do laboratório parou por localizador exato da aparência; foi corrigido e a retomada validou identidade de build/interface e os 120 PNGs antes de reutilizar a parte de zoom.
+
+Banco descartável removido e banco configurado preservado em todas as tentativas encerradas. H05 continua parcial para o restante da matriz/estados e carga comercial; não foi marcada como concluída. Sem nova imagem, publicação, conta externa ou deploy. Próxima ação: consolidar os recortes de QA existentes e executar os cenários faltantes da matriz, depois fechar a imagem da revisão final. P07 continua aguardando definição da guarda comercial e conciliação das dependências externas.
+
+## D122 — Evidência atual de navegador — 27/10/2026
+
+[Nove suítes/496 capturas](../artifacts/qa-release-layout/d122-results.json) passaram: público/catálogo/aparência, editorial/login, amostras/preferências/sequências e jornada comercial integrada. Bancos descartáveis removidos; hashes dos artefatos conferidos. Sete suítes finais com mídia temporária e bloqueio de HTTP externo, sem tentativa registrada. [Inspeção representativa](../artifacts/qa-release-layout/d122/visual-review.json), sem afirmar leitura manual de todas as capturas. `npm run check` passou com 298 unitários/36 arquivos, 62 operacionais, tipos/lint e documentação. Sem migration ou alteração funcional do produto; H05 ainda parcial conforme a [matriz](design/07-qualidade.md). Sem conta externa, mensagem real, GitHub ou VPS.
+
+D122 — imagem atual aprovada em banco vazio e upgrade 32→35, incluindo mídia/ACL/CLIs/worker em rede Docker interna. [Evidência da imagem](../artifacts/container/d122-results.json). [16 suítes HTTP](../artifacts/container/h03-http-d122-results.json) passaram no standalone QA atual com banco descartável removido; não foram executadas integralmente dentro do container. [Checks e limites](../artifacts/qa-release-layout/d122-checks.json). Sem publicação, conta externa, GitHub ou VPS. H05/P07 e gates externos continuam conforme pendências. Restore desta imagem/guarda externa só são exigidos se a capacidade opcional de recuperação for adotada; `--sem-backup` segue disponível.
+
+## D123 — Foco e estados ativos dos formulários — 27/10/2026
+
+Corrigida perda de foco após resposta de amostra/confirmação/preferências/cancelamento, com recuperação somente quando caiu no corpo da página. [250 verificações/284 capturas](../artifacts/qa-release-layout/d123-results.json), incluindo seis larguras/dois temas, zoom nativo 400% ativo e loading/erro/retentativa. 238 axe sem violações; 12 fallbacks sem JS têm validação própria de aviso/HTML/overflow/ausência de POST. [Crítica visual amostral](../artifacts/qa-release-layout/d123-visual-review.json). Reuso dos 204 estados regulares auditado; relatório original failed preservado após falha numérica do protocolo de zoom, sem esconder a falha inicial de foco corrigida.
+
+Build QA e `npm run check` passaram (298 unitários, 62 operacionais, tipos/lint). Banco/mídia temporários removidos; transporte em memória, sem conta externa. Sem migration. H05 parcial para demais estados/componentes e carga comercial; P07 e homologações ainda abertos. Imagem D122 antecede a correção e precisa ser renovada no fechamento. Backup opcional; produção inalterada.
+
+## D124 — Resultado de carga comercial — 27/10/2026
+
+[Ensaio local](../artifacts/qa-release-layout/d124-results.json) com 30 livros/três temas/30 artigos e mil transações aprovadas sintéticas: cinco/dez clientes HTTP da mesma sessão owner, 45 jornadas/180 requests sem erro. Catálogo, relatório financeiro, inbox com todos os estados e replay de callback tiveram latências registradas; totais e null de recebimento preservados, replay/processamento repetido sem duplicação. p95 relatório/inbox com dez clientes: 2.852ms/3.090ms. Banco e mídia temporários removidos; banco configurado preservado, sem conta externa ou mensagem real.
+
+Medição finita em servidor local aquecido, sem SLA novo, Web Vitals de campo ou capacidade da VPS. H05 permanece parcial para conteúdo adverso/componentes/views, conforme [matriz](design/07-qualidade.md). Produto e schema não mudaram nesta rodada; a imagem de fechamento ainda deve incorporar a correção de foco D123 depois de consolidar o código. Backup opcional, produção inalterada.
+
+## D125 — Evidência pública atual
+
+[208 verificações públicas](../artifacts/qa-release-layout/d125-results.json) passaram: erro/recuperação real em banco descartável, títulos/textos/links/listas extensos, capa indisponível, ofertas inativas, ausência de amostra, fonte bloqueada e JS lento. Cobertura detalhada na [matriz](design/07-qualidade.md). H05 continua parcial para operação administrativa de fase 2; imagem final posterior às correções D123/D125. Carga comercial local permanece comprovada por D124, sem inferir capacidade da VPS.
+
+## Aceite visual local D126 — 28/10/2026
+
+R31–R34/B19/B20/H05 têm [auditoria local por família](../artifacts/qa-release-layout/d126-h05-acceptance.json), combinando D121–D126. Nenhum requisito de negócio foi removido. Novas telas/estados ou falhas reabrem a cobertura afetada. Imagem/API atuais têm evidência D127; P07 e homologações do ambiente real continuam pendentes. Código posterior exige renovar apenas os gates afetados; campo será acompanhado após tráfego suficiente.
+
+## D127 — Imagem atual e mitigação de dependência — 28/10/2026
+
+A [imagem local](../artifacts/container/d127-results.json) passou em banco vazio e upgrade real 32→35, com contato/owner preservados, migrations idempotentes, DDL negado ao runtime, permissões privadas, mídia WebP/substituição inválida/persistência após restart, CLIs e worker saudável inclusive ocioso. Rede interna, transportes desligados e zero envios; projetos/volumes descartáveis removidos. Sem restore físico, registry, conta real ou VPS.
+
+A nova auditoria identificou GHSA-gcqx-w48m-w2h4 em deepmerge 4.3.1, low, sem versão corrigida publicada. A reprodução confirmou protótipo controlado no objeto retornado; não demonstra exploração de endpoint do produto. Patch local bloqueia chaves reservadas na cópia de alvo/origem e grava propriedades próprias nos três entrypoints. [Auditoria bruta e mitigação](../artifacts/security/d127-deepmerge-mitigation.json): aviso mantido, 16 regressões CJS/UMD e oito casos dentro da imagem. O npm audit por versão não reconhece o patch; não declarar zero advisories. Reavaliar quando houver correção upstream.
+
+Build QA e Docker com lockfile fixado passaram; `npm run check`: 314 unitários/37 arquivos e 62 operacionais, tipos/lint/documentação. [16 suítes HTTP](../artifacts/container/h03-http-d127-results.json) repetidas após o patch passaram e o banco exclusivo foi removido. A primeira bateria HTTP anterior à mitigação foi preservada separadamente, sem usá-la como prova do patch. [Fingerprint de fonte](../artifacts/container/d127-source-snapshot.json) conferido ao fim. H05 continua aceito localmente pela matriz D121–D126; nenhuma mudança de UI/estilo nesta etapa.
+
+H03 tem evidência da revisão atual; o encerramento integral segue condicionado a P07 e aos gates externos. Próxima ação: definir prazo/marco de guarda financeira, concluir tratamento das finalidades/cópias externas aplicáveis e renovar somente verificações afetadas por código posterior. Contas, contato/material reais, CI, proteção administrativa, alertas e VPS continuam com proprietário/operador. Backup/restore continuam opcionais com `--sem-backup`.

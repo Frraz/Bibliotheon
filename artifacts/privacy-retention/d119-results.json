@@ -1,0 +1,29 @@
+{
+  "phase": "D119",
+  "completedAt": "2026-10-27T05:43:37.624Z",
+  "environment": "PostgreSQL sintético descartável",
+  "checks": [
+    "exclusão dissolve lote local compartilhado, remove intenções nunca emitidas, preserva outro titular e não altera quota; repetição idempotente",
+    "correção preserva consentimento e ambos os titulares; reagrupamento usa lote novo sem reativar estados",
+    "outro bloqueio mantém todo o lote e seus vínculos; pending não executa limpeza parcial",
+    "provider-list: evidência externa, reserva prévia ou estrutura desconhecida impede dissolução e mantém pending",
+    "claimed: evidência externa, reserva prévia ou estrutura desconhecida impede dissolução e mantém pending",
+    "provider-check: evidência externa, reserva prévia ou estrutura desconhecida impede dissolução e mantém pending",
+    "invalid-copy: evidência externa, reserva prévia ou estrutura desconhecida impede dissolução e mantém pending",
+    "legacy-provider-id: evidência externa, reserva prévia ou estrutura desconhecida impede dissolução e mantém pending",
+    "falha na exclusão reverte dissolução, vínculos e intenção de cadastro de todos os titulares",
+    "reserva concorrente ganha lock do lote; privacidade relê estado e preserva pending sem deadlock"
+  ],
+  "externalCalls": 0,
+  "externalReconciliationPerformed": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-local-batches.ts": "8102dffde8a2627bb5cf2d93bad50cc8597dbc0121d38b4d7776a4fc1d0c689a",
+    "src/modules/marketing/privacy-local-intents.ts": "cb8dd498ced38813733ba62acbe9c2d0241f1e55bbfbd3f8f6a0e6740c866fae",
+    "src/modules/marketing/privacy-delete.ts": "94f53957a96563d9cca38ffbd55f10a37983b2603e43a9c43c70c67957fac9f1",
+    "src/modules/marketing/privacy-correct.ts": "22176467f93c723279514cdc29610702359d49d177c71b11f6e3c3d4a5c8407d",
+    "src/modules/marketing/privacy-shared-reference.ts": "ee66a90aa93a00ca296dc7fb5cc8ad13504208f956521813beef175267b51a48",
+    "src/modules/marketing/privacy-marketing-retention.ts": "2bf2888ddc23fc162308ca46065b3186595287df8cbeb8eeea7c301765edfd34",
+    "tests/integration/privacy-local-batches.ts": "688517a0b0ed3c999d750c53803ef0395942eba5a62d43b645c3c468e0a969e2"
+  }
+}

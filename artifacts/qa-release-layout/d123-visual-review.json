@@ -1,0 +1,20 @@
+{
+  "phase": "D123",
+  "reviewedAt": "2026-10-28T01:49:20.696989+00:00",
+  "screenshotsViewed": [
+    "artifacts/qa-relationship-states/capture-error-dark-native400-action.png",
+    "artifacts/qa-relationship-states/confirmation-retry-success-light-native400-action.png",
+    "artifacts/qa-relationship-states/preferences-retry-success-dark-1440.png"
+  ],
+  "SHA256": {
+    "artifacts/qa-relationship-states/capture-error-dark-native400-action.png": "7dce5a33ce9bcce5d9da789ac71a931afe0ce0f318e891ddb9e47fee11965a07",
+    "artifacts/qa-relationship-states/confirmation-retry-success-light-native400-action.png": "ea5cba8fb1554218f39b5d85f5242e89444abeb491907298ac0e4545a5d3cbda",
+    "artifacts/qa-relationship-states/preferences-retry-success-dark-1440.png": "6c7e57ce293af22cb3fd5114fbd49e301ebff7dd500e0e48b70babbb8c249f59"
+  },
+  "findings": [
+    "Erro em zoom nativo escuro: feedback completo e foco visível, sem corte horizontal.",
+    "Confirmação em zoom nativo claro: download com foco e texto/ação legíveis.",
+    "Preferências desktop escuras: foco no título da seção após consulta, ações e hierarquia preservadas."
+  ],
+  "scope": "Inspeção amostral de três capturas; não equivale a inspeção de todos os PNGs ou aceite integral H05."
+}

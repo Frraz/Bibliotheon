@@ -1,0 +1,32 @@
+{
+  "phase": "D124",
+  "completedAt": "2026-10-28T02:05:19.089Z",
+  "status": "failed",
+  "dataset": {
+    "publishedBooks": 30,
+    "themes": 3,
+    "articles": 30,
+    "approvedTransactions": 1000,
+    "providers": 3,
+    "baselineReady": true
+  },
+  "phases": [
+    {
+      "stage": "seed",
+      "durationMs": 165205.025151,
+      "counts": {
+        "inbox": 1001,
+        "transactions": 1000,
+        "events": 1000,
+        "conflicts": 0
+      }
+    }
+  ],
+  "externalRequests": 0,
+  "realMessagesSent": 0,
+  "fixturesCleaned": true,
+  "failure": "The expression evaluated to a falsy value:\n\n  assert.ok(inbox.includes(Buffer.from('synthetic-load-event')))\n",
+  "fieldMetricsClaimed": false,
+  "VPSCapacityClaimed": false,
+  "limits": "Servidor/banco locais, cache aquecido, dataset e duração finitos. Clientes compartilham um owner; não são contas humanas distintas. 30s é timeout do ensaio, não SLA. Eventos de seed usam adaptador canônico sintético, sem homologar formato de provedor; replay HTTP Hotmart usa fixture nativa já existente. Sem LCP/INP/CLS de campo."
+}

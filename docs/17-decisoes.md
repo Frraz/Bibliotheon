@@ -77,6 +77,7 @@ Direção visual especificada não implica aparência validada nem melhoria de c
 | D44 | Teclado usa a política de rolagem CSS | Sensor nativo permanece; opção scrollBehavior:auto no patch UI evita smooth forçado mesmo com reduced-motion. Diagnóstico descartável confirmou troca real de ordem com rolagem imediata. QA aguarda dois frames após ativação (listener é instalado na próxima task), mantém transformação/ordem/draft e acrescenta estabilidade da rolagem reduzida. Sem sleep fixo ou override de protótipo no produto |
 | D45 | Quota compartilhada com reserva transacional conservadora | Uma contabilidade por dia UTC e destinatário; teto inicial até 250, reserva padrão 50. Promoções futuras respeitam total menos reserva, mesmo após consumo transacional. Lote indivisível e claim na mesma transação da reserva; resultado incerto não devolve capacidade. Não presume créditos/reset da conta Brevo nem implementa disparo promocional |
 | D46 | Deploy por clone e atualizador solicitado em 22/10/2026 | Acrescenta build na própria VPS ao fluxo externo anterior, sujeito a inventário/capacidade. atualizar.sh executa pull fast-forward, imagem de tag exclusiva/ID verificado, backup externo, migrations e saúde; altualizar.sh é alias. Lock/checkpoint, configurações privadas fora do Git e banco/volumes preservados. Falha após iniciar migration não retorna código/schema cegamente; retomada explícita. Testes simulados/configuração local não são homologação na VPS |
+| D47 | Backup pré-deploy opcional por escolha explícita — 27/10/2026 | O fluxo padrão continua exigindo backup externo confirmado antes de atualização. O proprietário pode usar `--sem-backup`, inclusive no primeiro deploy, sem configurar `backup_env`; o manifesto registra a opção e o atualizador avisa que não há ponto de restauração recente. Isso não altera a capacidade de restauração nem os demais gates. `--retomar` continua exigindo o fluxo padrão com backup. |
 
 | D47 | Exclusão física de mídia diferida e coleta com carência | Reprodução local confirmou perda por ENOENT antes de rollback. Patch opt-in em Payload 3.91.0 preserva bytes em Media; uploads usam UUID novo. Coleta compartilha lock transacional, consulta referências e só exclui órfãos regulares após 24h da primeira observação persistida. Backup diário confirmado precede coleta; não confundir com retenção de dados pessoais. Revalidar patch a cada atualização do CMS |
 
@@ -400,3 +401,41 @@ Manter a meta aprovada de retirar marketing em até 30 dias, antecipando elegibi
 ## D114 — Legado temático verificável — 26/10/2026
 
 A fonte para preencher legado é o histórico nativo consistente, não apenas sub.state ou uma data isolada. Exigir chave canônica, contato/assunto/finalidade/ação/data exatos e ausência de conflito. Manter 24 meses desde a retirada original, sem reiniciar prazo na derivação. Prova vencida pode permitir retirar estado local sob os mesmos guards sem criar novo HMAC, pois nenhum snapshot aceito (até três meses) pode anteceder essa retirada de mais de 24 meses. Exportação deve falhar diante de lacuna não coberta; uma decisão automática anterior a nova finalidade não é cobertura válida. Nenhuma prova de provedor ou solicitação humana é inferida.
+
+## D116 — Revisão de contatos ativos — 27/10/2026
+
+Usar o último opt-in de marketing explicitamente confirmado como marco verificável de interesse. Aos 12 meses, e também quando a data é ausente, inválida ou futura, reter todas as promoções até novo opt-in confirmado. Não tratar pedido de amostra, abertura, clique ou entrega como renovação; não alterar consentimento, excluir contato ou forjar descadastro automaticamente. Expor contagens agregadas e falhar o healthcheck v2 enquanto houver revisão pendente. A migração do enum registra `marketing_review_due`; nenhum campo novo ou mudança de política de provedor.
+
+## D119 — Dissolução de lotes estritamente locais em pedidos owner
+
+Decisão de implementação: um lote apenas preparatório não deve impedir indefinidamente a exclusão/correção autorizada. É permitido dissolvê-lo atomicamente quando estrutura/hashes/vínculos são válidos e não existe evidência de reserva, tentativa ou dependência externa. Etapas dos demais titulares mantêm estado e podem ser reagrupadas; quota não é alterada. Dados externos, legados ou incertos permanecem em `pending`; não se presume conciliação. Auditoria existente registra as contagens, sem novo prazo de retenção ou mudança de arquitetura. [Contrato e evidência](12-seguranca-privacidade.md).
+
+## D120 — Fechar lançamento e reservar melhorias para atualizações
+
+Direção explícita do proprietário: concluir o desenvolvimento o quanto antes, documentando lacunas/estado e deixando melhorias evolutivas para depois. Escopo de fechamento fixado em [F01–F05](25-fechamento-producao.md), sem retirar provedores ou requisitos essenciais. Recursos adicionais e refinamentos sem falha funcional ficam para atualização. Segurança conhecida, privacidade, integridade dos dados e acessibilidade bloqueante continuam no aceite. Backup é opcional conforme D115; R24 passa a descrever uma capacidade opcional, não condição absoluta do deploy.
+
+Dependências de segurança fixadas por overrides e lockfile; Happy DOM 21.0.4 tem compatibilidade local testada com Lexical. Mantidos Payload, Next e os patches existentes. Vitest recebeu patch de segurança 4.1.12; não se migrou para outra major de framework. Homologação externa e operação real continuam separadas das evidências locais.
+
+## D121 — Acessibilidade nativa e prova de laboratório
+
+A barra de ações do Payload mantém seu comportamento de scroll no mobile e passa a ser região focável/nomeada por patch versionado, com outline interno; o link do arquivo recebe altura mínima de 44px. O scroll e a paleta canônica foram preservados. O pacote continua em 3.91.0 com lockfile atualizado.
+
+Zoom é conferido por `tabs.setZoom/getZoom` e por geometria (1280 físico → 320 CSS/DPR4). Capturas usam CDP sem clip, com largura física/hash verificados. Laboratório pode retomar separadamente somente sob identidade de build/interface e capturas; callbacks de erro ou requisições externas impedem aceitar o checkpoint. Métricas locais e carga pública não são métricas de campo ou homologação de VPS.
+
+D123 — foco após respostas assíncronas: recuperar o foco em feedback/download/seção quando a desabilitação ou remoção do controle deixou body como elemento ativo. Não alterar um foco válido escolhido durante a espera. A falha foi reproduzida no navegador e corrigida em SampleForms; a política de consentimento e a arquitetura permanecem as aprovadas. [Evidência](../artifacts/qa-release-layout/d123-results.json).
+
+## D125 — Retentativa de Server Components — 28/10/2026
+
+A fronteira pública de erro usa `retry` do Next 16.4.2 instalado para atualizar a consulta do servidor e remontar o conteúdo. O teste com falha real de tabela descartável reproduziu a insuficiência de `reset` e comprovou 12 recuperações com `retry`. Sem mudança de dependência/arquitetura. [Referência oficial](https://nextjs.org/docs/app/api-reference/file-conventions/error), [revisão das fontes locais](../artifacts/qa-public-states/source-review.json) e [evidência consolidada](../artifacts/qa-release-layout/d125-results.json).
+
+## D126 — Correções de acessibilidade e aceite combinado — 28/10/2026
+
+Foco de supressão é restaurado no feedback somente quando caiu no corpo da página; a escolha manual durante a espera é preservada. As setas nativas do Payload recebem “Página anterior”/“Próxima página” no patch versionado, tanto no módulo quanto no bundle. Versões e estilos não mudam; lockfile muda apenas o hash do patch e os 14 hunks prévios são preservados exatamente. Duas suítes afetadas renovadas; oito anteriores conservadas por escopo. A [auditoria H05](../artifacts/qa-release-layout/d126-h05-acceptance.json) encerra QA local pela matriz combinada, sem transformar evidência local em produção.
+
+## D127 — Mitigação local de deepmerge — 28/10/2026
+
+A nova consulta ao registro encontrou GHSA-gcqx-w48m-w2h4 em deepmerge 4.3.1, transitivo do Payload, sem versão corrigida publicada. Fontes: [advisory revisado](https://github.com/advisories/GHSA-gcqx-w48m-w2h4) e [issue upstream](https://github.com/TehShrike/deepmerge/issues/273). A reprodução local confirmou herança de propriedade injetada no objeto retornado; não alterou Object.prototype e não demonstra exploração de endpoint da aplicação.
+
+Aplicado patch versionado nos entrypoints fonte/CJS/UMD: rejeitar __proto__/constructor/prototype tanto na cópia do alvo quanto na origem e escrever propriedades próprias por Object.defineProperty. Não houve downgrade ou atualização de arquitetura. Dezesseis regressões verificam os dois entrypoints distribuídos, alvos sem protótipo/null/primitivos, cópia do alvo e compatibilidade com merges válidos, arrays, símbolos e datas. O lockfile fixa o patch e a instalação offline confirmou a resolução efetiva pelo Payload.
+
+A auditoria bruta continua preservada com um aviso low; a mitigação local não transforma a versão publicada em versão corrigida nem autoriza ocultar o aviso. [Tratamento e evidências](../artifacts/security/d127-deepmerge-mitigation.json). Reavaliar quando houver correção upstream; a imagem recebe prova própria contra os entrypoints realmente empacotados antes do aceite.

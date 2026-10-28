@@ -4,10 +4,12 @@ import { atomic, serial } from './transaction'
 import { LeadFlowError } from './service'
 import { normalizeEmail } from './validation'
 import { enqueueBrevoRegistration } from './brevo-registration-queue'
+import { hasContactSharedMarketingReference } from './privacy-shared-reference'
+import { planLocalPrivacyBatches, dissolveLocalPrivacyBatches } from './privacy-local-batches'
+import { isLocalRegistrationIntent, isLocalSuppressionIntent } from './privacy-local-intents'
 
-type ContactRow = { id: string; state?: string; kind?: string; attempts?: number; batch?: string | { id: string } | null; recipientIdentities?: unknown }
+type ContactRow = { id: string; state?: string; kind?: string; attempts?: number; providerId?: number | null; startedAt?: string | null; syncedAt?: string | null; outcome?: string | null; batch?: string | { id: string } | null; recipientIdentities?: unknown }
 const linked = async (payload: Payload, collection: string, id: string, req: import('payload').PayloadRequest) => (await payload.find({ collection: collection as never, where: { contact: { equals: id } } as never, pagination: false, depth: 0, overrideAccess: true, req })).docs as unknown as ContactRow[]
-const sendIncludesContact = (value: unknown, id: string) => !!value && typeof value === 'object' && 'recipients' in value && Array.isArray(value.recipients) && value.recipients.some(item => !!item && typeof item === 'object' && 'contact' in item && item.contact === id)
 
 /** Updates local contact identity while preserving consent; external/uncertain identities require reconciliation. */
 export async function correctContactEmail(payload: Payload, previousInput: string, correctedInput: string, actorId: string, secret: string, now = Date.now()) {
@@ -29,7 +31,9 @@ export async function correctContactEmail(payload: Payload, previousInput: strin
       else await payload.create({ collection: 'privacy-request-audit', data: { ...data, subjectFingerprint: previousFingerprint, action: 'correct' }, overrideAccess: true, req })
     }
     if (!contact) { await record('not_found', {}); return { outcome: 'not_found' as const, counts: {}, blockers: [] as string[] } }
-    await serial(req, `contact:${contact.id}`)
+    await serial(req, 'promotion-batches')
+    const localPlans = await planLocalPrivacyBatches(req, contact.id)
+    const localBatchIds = new Set(localPlans.map(plan => plan.id))
     const blockers: string[] = []
     if (target.docs[0]) blockers.push('corrected_address_already_in_use')
     const deleted = await payload.count({ collection: 'privacy-request-audit', where: { and: [{ subjectFingerprint: { equals: correctedFingerprint } }, { action: { in: ['delete', 'correct'] } }, { outcome: { in: ['pending','completed'] } }] }, overrideAccess: true, req })
@@ -38,19 +42,19 @@ export async function correctContactEmail(payload: Payload, previousInput: strin
     const deliveries = await linked(payload, 'email-deliveries', contact.id, req)
     const promotions = await linked(payload, 'promotion-deliveries', contact.id, req)
     if (deliveries.some(row => row.state === 'sending' || row.state === 'uncertain')) blockers.push('delivery_in_flight_or_uncertain')
-    if (promotions.some(row => ['sending', 'accepted', 'observed', 'uncertain'].includes(row.state ?? '') || !!row.batch)) blockers.push('promotion_requires_reconciliation')
+    if (promotions.some(row => ['sending', 'accepted', 'observed', 'uncertain'].includes(row.state ?? '') || !!row.batch && !localBatchIds.has(typeof row.batch === 'string' ? row.batch : row.batch.id))) blockers.push('promotion_requires_reconciliation')
     const registrations = await linked(payload, 'brevo-registrations', contact.id, req)
-    if (registrations.some(row => !(row.attempts === 0 && ['pending', 'canceled'].includes(row.state ?? '')))) blockers.push('provider_registration_requires_reconciliation')
+    if (registrations.some(row => !isLocalRegistrationIntent(row))) blockers.push('provider_registration_requires_reconciliation')
     const suppressions = await linked(payload, 'brevo-suppressions', contact.id, req)
-    if (suppressions.some(row => !(row.attempts === 0 && row.state === 'pending'))) blockers.push('provider_suppression_requires_reconciliation')
+    if (suppressions.some(row => !isLocalSuppressionIntent(row))) blockers.push('provider_suppression_requires_reconciliation')
     if ((await linked(payload, 'brevo-webhook-events', contact.id, req)).length) blockers.push('provider_webhook_requires_reconciliation')
-    const sends = await payload.find({ collection: 'brevo-campaign-sends', pagination: false, depth: 0, overrideAccess: true, req })
-    if (sends.docs.some(send => sendIncludesContact(send.recipientIdentities, contact.id))) blockers.push('provider_send_manifest_requires_reconciliation')
+    if (await hasContactSharedMarketingReference(req, contact, secret, localBatchIds)) blockers.push('shared_campaign_manifest_requires_reconciliation')
     if (blockers.length) {
       const counts = { contacts: 1 }
       await record('pending', counts)
       return { outcome: 'pending' as const, counts, blockers: [...new Set(blockers)] }
     }
+    const localBatchCounts = await dissolveLocalPrivacyBatches(req, localPlans)
     let invalidatedRequests = 0, canceledConfirmations = 0
     for (const row of requests) {
       const current = await payload.findByID({ collection: 'magnet-requests', id: row.id, depth: 0, overrideAccess: true, req })
@@ -69,7 +73,7 @@ export async function correctContactEmail(payload: Payload, previousInput: strin
     if (activeSubscriptions && !contact.globalSuppressedAt && contact.deliveryState === 'ok') await enqueueBrevoRegistration(req, contact.id, now)
     const limits = await payload.find({ collection: 'request-limits', where: { key: { like: `%:${previousFingerprint}` } }, pagination: false, depth: 0, overrideAccess: true, req })
     for (const row of limits.docs) await payload.delete({ collection: 'request-limits', id: row.id, overrideAccess: true, req })
-    const counts = { contacts: 1, requestLimits: limits.docs.length, invalidatedRequests, canceledConfirmations, invalidatedPreferenceTokens: tokens.length }
+    const counts = { contacts: 1, requestLimits: limits.docs.length, invalidatedRequests, canceledConfirmations, invalidatedPreferenceTokens: tokens.length, ...localBatchCounts }
     await record('completed', counts)
     return { outcome: 'completed' as const, counts, blockers: [] as string[] }
   })

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { randomBytes } from 'node:crypto'
 import { getPayload } from 'payload'
 import config from '../../src/payload.config'
+import { suppressionFingerprint } from '../../src/modules/marketing/suppression-tombstone'
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:3000'
 if (!['localhost', '127.0.0.1'].includes(new URL(base).hostname)) throw new Error('Teste permitido apenas em loopback.')
@@ -11,6 +12,7 @@ const email = `owner-${randomBytes(8).toString('hex')}@example.invalid`
 const password = randomBytes(32).toString('hex')
 let id: string | undefined
 const suppressionEmail = `access-suppression-${randomBytes(8).toString('hex')}@example.invalid`
+const suppressionKey = suppressionFingerprint(suppressionEmail, process.env.LEAD_TOKEN_SECRET || '')
 const post = (path: string, body: unknown) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
 try {
   assert.equal((await payload.count({ collection: 'admin-users', overrideAccess: true })).totalDocs, 0, 'Use banco de teste sem owner.')
@@ -67,11 +69,13 @@ try {
   console.log('T01 aprovado: first-register bloqueado antes/depois, criação pública e Local API negadas, owner autorizado, GraphQL ausente, saúde OK.')
 } finally {
   const synthetic = await payload.find({ collection: 'contacts', where: { email: { equals: suppressionEmail } }, depth: 0, overrideAccess: true })
+  await payload.delete({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: suppressionKey } }, overrideAccess: true })
   for (const contact of synthetic.docs) {
     for (const collection of ['brevo-suppressions', 'consent-events'] as const) await payload.delete({ collection, where: { contact: { equals: contact.id } }, overrideAccess: true })
     await payload.delete({ collection: 'contacts', id: contact.id, overrideAccess: true })
   }
   if (id) await payload.delete({ collection: 'admin-users', id, overrideAccess: true })
+  assert.equal((await payload.count({ collection: 'marketing-suppression-tombstones', where: { fingerprint: { equals: suppressionKey } }, overrideAccess: true })).totalDocs, 0, 'Fixture de acesso deve remover somente a supressão HMAC que criou.')
   await payload.destroy()
 }
 // Payload CLI also exits explicitly; ancillary framework handles may remain open.

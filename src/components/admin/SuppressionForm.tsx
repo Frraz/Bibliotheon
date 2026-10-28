@@ -1,10 +1,15 @@
 'use client'
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 
 export function SuppressionForm() {
   const [email, setEmail] = useState(''), [reason, setReason] = useState('unsubscribed'), [source, setSource] = useState('manual')
   const [reference, setReference] = useState(''), [reviewed, setReviewed] = useState(false), [busy, setBusy] = useState(false)
   const [status, setStatus] = useState(''), [error, setError] = useState('')
+  const feedback = useRef<HTMLParagraphElement>(null)
+  useEffect(() => {
+    const active = document.activeElement
+    if (!busy && (error || status) && (!active || active === document.body || active === document.documentElement)) feedback.current?.focus()
+  }, [busy, error, status])
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (busy || !reviewed) return
@@ -29,7 +34,7 @@ export function SuppressionForm() {
       <label className="bibliotheon-review"><input name="reviewed" type="checkbox" required checked={reviewed} onChange={event => setReviewed(event.target.checked)} />Conferi o endereço e o motivo do bloqueio.</label>
       <button type="submit" disabled={!reviewed || busy}>{busy ? 'Registrando…' : 'Registrar bloqueio'}</button>
     </fieldset>
-    <p role="status">{status}</p>{error && <p role="alert">{error}</p>}
+    <p ref={feedback} tabIndex={-1} role={error ? 'alert' : 'status'}>{error || status}</p>
     <noscript>Ative JavaScript para registrar a conferência neste formulário.</noscript>
   </form>
 }

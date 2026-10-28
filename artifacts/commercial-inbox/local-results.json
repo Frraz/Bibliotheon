@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:28:49.280Z",
+  "date": "2026-10-27T04:29:08.676Z",
   "environment": "PostgreSQL loopback; adaptadores internos sintéticos; CLI/worker empacotados",
   "checks": [
     "Migração vazia down/up revertida; autenticação antes do banco; ACK após commit/auditoria; rollback e concorrência deduplicam sem guardar corpo original/PII.",

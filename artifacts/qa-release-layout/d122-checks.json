@@ -1,0 +1,84 @@
+{
+  "phase": "D122",
+  "completedAt": "2026-10-28T01:02:16.932183+00:00",
+  "check": {
+    "command": "npm run check",
+    "status": "passed",
+    "exitCode": 0,
+    "unitTests": 298,
+    "unitFiles": 36,
+    "operationalTests": 62,
+    "typecheck": "passed",
+    "lint": "passed",
+    "documentation": "passed",
+    "firstInvocationExitCode": 143,
+    "repeatReason": "A primeira execução emitiu todas as etapas, mas encerrou com 143; a repetição integral concluiu com zero."
+  },
+  "browser": {
+    "status": "passed",
+    "suites": 9,
+    "screenshots": 496,
+    "artifact": "artifacts/qa-release-layout/d122-results.json"
+  },
+  "networkGuardSmoke": {
+    "fetch": "blocked-before-network",
+    "http": "blocked-before-network",
+    "https": "blocked-before-network"
+  },
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-public-site.ts": "4d74df71f5236f02af80c18ca080a51a00c779ae6d318aa86dd1c46d3d99c21b",
+    "scripts/qa-catalog-states.ts": "7219bcad84bec9cfca0bd7add2e5c61536899ef11f51e8e4306b00dea212679e",
+    "scripts/qa-foundation.ts": "c5d864d826d9e17eb1f622cae5b65451162c066e835aeea18b32fbbf73a622ea",
+    "scripts/qa-admin-editorial.ts": "27db9f2aee8a10ed012b1e9eb996c596a4ea0604a7d6eb75c258b1ee255e74ea",
+    "scripts/qa-admin-foundation.ts": "cf545609dfdd33ebb69118c3851ffcba066b189438e38b7689d50766c689cdb7",
+    "scripts/qa-relationship.ts": "3d114a5acdbb0dde260670f8fc6bdf4f051aed357dca804d8fd8b2321da4da45",
+    "scripts/qa-preferences.ts": "f6334ccb1b4de24d40e0157306c9306bcff81c6408d7defc373a4997580be062",
+    "scripts/qa-release-layout.ts": "e47d1000e369fa23ceae6024d072126f249da1c72e3e2575c855ffb2a29a9eee",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033",
+    "scripts/qa-container.py": "7e6b445c36bea66b6026eb10e5764c90cd6a954cba4883dde809f8edfba2c299",
+    "scripts/qa-http-isolated.mjs": "66d4a2aa72ea4fa2aeab4c9389cc3afe90b2d247aa25dbe75926092fafd1760e"
+  },
+  "productionChanged": false,
+  "goalComplete": false,
+  "http": {
+    "status": "passed",
+    "suites": 16,
+    "artifact": "artifacts/container/h03-http-d122-results.json",
+    "buildID": "UtLrVkwCqxa5zJQc-16SW",
+    "temporaryDatabaseRemoved": true
+  },
+  "container": {
+    "status": "passed",
+    "imageID": "sha256:d4d006fe794c07ded0e718d9f766d4846a036aee670b19510edcce388b269f8f",
+    "artifact": "artifacts/container/d122-results.json",
+    "scenarios": [
+      "empty",
+      "upgrade"
+    ],
+    "migrationCount": 35,
+    "previousMigrationCount": 32,
+    "physicalRestoreValidated": false
+  },
+  "artifactSHA256": {
+    "artifacts/container/d122-results.json": "4971f692f3ca49369ee796305d678545be5fd5db979615bb3f4d1a7877146948",
+    "artifacts/container/h03-http-d122-results.json": "610876cfc45f35c17bab9498752284663638577d89bbe758211c0d34cf144743",
+    "artifacts/qa-release-layout/d122-results.json": "73a64294017f68adb8da7d304948e76517fa13cba35bdb5eb548066e5ba90f15"
+  },
+  "documentation": {
+    "status": "passed",
+    "documents": 50,
+    "localLinks": 1525,
+    "requirements": 34,
+    "tasks": 20,
+    "scenarios": 29,
+    "contrastPairs": 76
+  },
+  "diffCheck": "passed"
+}

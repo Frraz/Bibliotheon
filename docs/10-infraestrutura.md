@@ -2,9 +2,11 @@
 
 [Índice](../README.md) · [Operação](11-operacao.md)
 
-**Revisão D114:** D114 reconstrói fatos temáticos legados somente com evento nativo coincidente, sem renovar prazo nem inventar consentimento. A exportação recusa lacunas sem cobertura verificável e preserva finalidades posteriores. Schema mantém 34 migrations; P07 e gates finais continuam abertos. Flags desligadas e produção não alterada.
+**Estado em 28/10/2026 (D129 documental):** imagem/API atuais aprovadas localmente em D127, com 35 migrations, banco vazio e upgrade real 32→35, ACL/runtime, mídia, CLIs e worker. [Imagem](../artifacts/container/d127-results.json) e [16 suítes HTTP](../artifacts/container/h03-http-d127-results.json). H05 foi aceito localmente em D126. O novo aviso low de deepmerge foi mitigado por [patch testado](../artifacts/security/d127-deepmerge-mitigation.json); a auditoria bruta permanece registrada com um aviso, sem alegar zero advisories.
 
-Dockerfile, Compose e recuperação já possuem implementação/ensaios locais, detalhados no [pacote de produção](21-pacote-producao.md). D107 verificou localmente a imagem com as 32 migrations e CLIs atuais; D108 comprovou restore físico/replay nessa imagem e retomada HTTP limitada. Ainda exige bateria integral de retenção, inbox/conectores/conciliação/ledger e interfaces presentes; os limites abaixo são plano de implantação, não recursos livres comprovados. Nenhuma VPS foi acessada.
+P07-A–E, contas, proteção administrativa, alertas, CI e ambiente real continuam pendentes. Nenhuma VPS foi acessada ou publicada. Restore D114 é histórico de 34 migrations; não comprova recuperação da imagem atual. Backup/manifesto externo/restore são opcionais para deploy com `--sem-backup`. Os limites abaixo são orçamento de implantação, não recursos livres comprovados. [Plano de fechamento](25-fechamento-producao.md).
+
+Seções identificadas por Dxx abaixo são registros históricos; contagens e imagens dessas etapas não substituem a revisão D129/runtime D127. Os resumos D117/D120 anteriores foram sucedidos pela evidência D127, sem invalidar seus relatórios de época.
 
 ## Inventário obrigatório da VPS compartilhada
 
@@ -16,7 +18,7 @@ Sem proxy existente, instalar Caddy em etapa própria do deploy, após confirmar
 
 ## Topologia Docker Compose
 
-Projeto Compose `bibliotheon`, redes e volumes com nomes exclusivos. Serviços: `app`, `worker`, `db`; proxy opcional. App/worker usam mesma imagem imutável. `db` sem `ports`, volume próprio e usuário de privilégio mínimo; app não usa superusuário. Migrations usam credencial segregada quando possível.
+Projeto Compose `bibliotheon`, redes e volumes com nomes exclusivos. Serviços: `app`, `worker`, `db`; proxy opcional. App/worker usam mesma imagem imutável. `db` sem `ports`, volume próprio e usuário de privilégio mínimo; app não usa superusuário. Migrations usam papel owner e `DATABASE_MIGRATION_URL` separados da credencial limitada do runtime.
 
 | Serviço | Limite inicial planejado | Observação |
 |---|---|---|
@@ -56,7 +58,7 @@ Alvo inicial: RPO ≤24h, RTO ≤4h, a comprovar em restauração. Diariamente g
 
 Retenção inicial: 7 diários, 4 semanais, 3 mensais; aplicar ciclo de exclusão conforme privacidade. Guardar chave de recuperação separada, fora da VPS e do repositório. Confirmar sucesso remoto e integridade; restauração mensal em ambiente isolado. Objetos versionados de mídia evitam troca durante backup; suspender alterações de uploads durante a captura caso necessário.
 
-O destino externo real é dependência de implantação, não placeholder a ignorar. Falta de backup testado impede marcar produção pronta. Operação permanece local até existir capacidade, domínio e recuperação validados.
+O destino externo é necessário para homologar recuperação, mas o backup não é pré-requisito absoluto de deploy. O proprietário pode escolher `--sem-backup` e operar sem ponto recente de restauração; nesse caso, registrar essa limitação/aceite e manter o item de recuperação pendente. Capacidade/VPS, domínio, segurança e demais gates continuam sujeitos à validação.
 
 ## D106 — Restore físico local e privacidade — 26/10/2026
 
@@ -80,7 +82,7 @@ Instalar com pnpm 10.34.7 e lockfile congelado aplica o patch ampliado do Payloa
 
 ## D112 — Descadastro e retenção por assunto — 26/10/2026
 
-Schema vigente tem 34 migrations; imagem final deve incluir o novo fato temático, confirmação protegida e CLI v4. A imagem D107/restore D108 são anteriores. O ensaio host usa banco isolado e não certifica runtime/upgrade/HTTP da imagem final; backup externo e metas reais continuam pendentes.
+Schema vigente tem 35 migrations; imagem final deve incluir retenção D116, confirmação protegida e CLI v4. A imagem D107/restore D108 são anteriores. O ensaio host usa banco isolado e não certifica runtime/upgrade/HTTP da imagem final; backup externo e metas reais continuam pendentes. Backup de produção é opcional se o proprietário usar `--sem-backup`; a ausência de ponto recente de recuperação deve ser aceita conscientemente.
 
 ## D113 — Margem e acompanhamento do prazo — 26/10/2026
 
@@ -89,3 +91,13 @@ O healthcheck existente do worker usa as CLIs novas: heartbeat ≤90 segundos e,
 ## D114 — Legado temático verificável — 26/10/2026
 
 D114 mantém 34 migrations e não altera versões/flags. O restore físico host passa a representar a revisão anterior aos fatos temáticos: preserva evento nativo e remove só o marcador sintético antes de exportar; a CLI gera v4 sem escrita e reaplica no destino. Isso não valida imagem final, guarda externa ou RPO/RTO reais. QA de container usa fase/tag D114 por padrão, ainda sem rebuild nesta etapa.
+
+## D116 — Revisão de contatos ativos — 27/10/2026
+
+A imagem local D116 inclui migration 35, o novo enum de erro e o healthcheck do worker versão 2. Passou em banco vazio e upgrade de 32 para 35 migrations, ACL/HTTP, CLIs de retenção/recuperação, runtime sem root/read-only/DDL e worker com a flag de retenção ligada em rede internal; o marcador v2 exige zero promoções aguardando revisão. [Evidência](../artifacts/container/d116-results.json). A imagem não foi publicada; H03 mantém a bateria funcional integral aberta, e restore/continuidade da mesma imagem dependem de H04 se adotado. Flags continuam falsas no ambiente padrão, nenhuma VPS acessada e produção inalterada.
+
+## D117 — Aceite local da imagem e HTTP — 27/10/2026
+
+A mesma imagem atual (digest registrado no resultado) passou em banco vazio e upgrade 32→35. Além de ACL/HTTP, runtime read-only/sem root/DDL, CLIs e worker por modo/flag, o harness criou mídia pela API owner, converteu imagem a WebP, rejeitou arquivo inválido preservando bytes originais e confirmou persistência no volume após reiniciar o app. A rede do laboratório era interna, entregas externas zero e projeto/volumes foram removidos. [Resultado](../artifacts/container/d117-results.json). A build standalone também passou 16 suítes HTTP em DB descartável, incluindo acesso, catálogo, três webhooks comerciais, Brevo, analytics, ledger e privacidade; banco configurado preservado e DB de teste removido ([evidência](../artifacts/container/h03-http-d117-results.json)). H03 aceito localmente; sem publicação, contas, VPS, continuidade externa ou produção.
+
+D122 — imagem atual aprovada em banco vazio e upgrade 32→35, incluindo mídia/ACL/CLIs/worker em rede Docker interna. [Evidência da imagem](../artifacts/container/d122-results.json). [16 suítes HTTP](../artifacts/container/h03-http-d122-results.json) passaram no standalone QA atual com banco descartável removido; não foram executadas integralmente dentro do container. [Checks e limites](../artifacts/qa-release-layout/d122-checks.json). Sem publicação, conta externa, GitHub ou VPS. H05/P07 e gates externos continuam conforme pendências. Restore desta imagem/guarda externa só são exigidos se a capacidade opcional de recuperação for adotada; `--sem-backup` segue disponível.

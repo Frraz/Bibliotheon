@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T01:24:41.863Z",
+  "date": "2026-10-27T04:15:09.255Z",
   "checks": [
     "Migração vazia/down-up revertida; coleção nega leitura anônima/escritas owner. Prévia não escreve; prova/alvo/escopo inválidos são recusados. Confirmação concorrente upper/lower UUID é idempotente e conserva transação, fatos e inbox originais.",
     "CSV expõe associação efetiva e decisão sem reescrever livro/oferta originais. Novo evento aplica ao mesmo histórico, sem segunda transação, e referencia a decisão usada; fatos antigos intactos. Outros provedores/contas não herdam a decisão.",

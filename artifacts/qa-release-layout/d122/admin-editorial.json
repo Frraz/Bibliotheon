@@ -1,0 +1,328 @@
+{
+  "phase": "D122",
+  "suite": "admin-editorial",
+  "startedAt": "2026-10-27T23:37:02.450Z",
+  "completedAt": "2026-10-27T23:41:14.995Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "b2b8a93c8bafe7c959a264cc1f66dd1d36b4d73de60a6016e97920bd98c32fe6",
+    "scripts/check-qa-admin.sh": "4dd3e0e39077bbd4c9aefeaf791a140b2df6e3adb43a6f1ecc02b4363deff70e",
+    "scripts/qa-admin-editorial.ts": "27db9f2aee8a10ed012b1e9eb996c596a4ea0604a7d6eb75c258b1ee255e74ea",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-dark-1024.png",
+      "bytes": 164966,
+      "sha256": "4aa9980d96d95cc2e32e35c4dad4cc954295c3e95ca6325560f8c2e8f2b4641a"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-dark-1440.png",
+      "bytes": 173959,
+      "sha256": "075e86f757e35bbbd41720b188921554f6a62dd571ee7c37f74b650aee25e665"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-dark-1920.png",
+      "bytes": 234086,
+      "sha256": "1b8d84fcf45f432a12a6b410e6738932271a4a9b35d00d8a5a96a63f49c8cfeb"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-dark-360.png",
+      "bytes": 142649,
+      "sha256": "88e6c5bf5c3ce7d4756b841e7a8430c28a998aa3e03460fd306318b96891a456"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-dark-390.png",
+      "bytes": 143508,
+      "sha256": "0d5ceee1912b516379bf71fae841bc188310bbbeb2e98abcdaeb8793b420846c"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-dark-768.png",
+      "bytes": 152500,
+      "sha256": "3da9b977eb42f74fa94446e90cf91dcbe7655cff95e9ad66aeda5d183a845908"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-light-1024.png",
+      "bytes": 160502,
+      "sha256": "1415938db74908319410dc0c5df97f24a827fd87efddcc478c30f8a727e383dc"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-light-1440.png",
+      "bytes": 170125,
+      "sha256": "98883a110988288557e4017280b5424022a096f872a62694c7ceb10d2a156a03"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-light-1920.png",
+      "bytes": 229708,
+      "sha256": "1de45479a1426f652e4db8f34add5e15bdd644141762fce3d8ddcf3932566ea2"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-light-360.png",
+      "bytes": 138817,
+      "sha256": "17c6b6f5808f50ccd829ee2c3ec84f1400e3787fa5268a78d42c5983e08c35cd"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-light-390.png",
+      "bytes": 139536,
+      "sha256": "62ce4a3c727fece91b71ec35136c5f3d18c1fc3135c54558ae523302d1b671cf"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/book-edit-light-768.png",
+      "bytes": 148245,
+      "sha256": "7f0c57df8030909e85a68c302850a4b40adb2c5e8d70c3eb93653dd153e70a5f"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-dark-1024.png",
+      "bytes": 40256,
+      "sha256": "c49cf327b6f8bc5565ef189c06fae62f84e7e5e8a8ae589cfb609a132f120d23"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-dark-1440.png",
+      "bytes": 44538,
+      "sha256": "53bd726ca58c10e465652deb334bcf930477f90ac283fdab6d9d38422c8abaa9"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-dark-1920.png",
+      "bytes": 100900,
+      "sha256": "34914bf4df5e8b0b3aefe6b8227274ff03f955b949fae79cbd552b1cfd6dce8b"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-dark-360.png",
+      "bytes": 29143,
+      "sha256": "1d4ff03c714ea6c2fce176383413a58e0faac9d13f7b4e6542e7a307684e9076"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-dark-390.png",
+      "bytes": 29459,
+      "sha256": "e0a1ea00f877ac81766815f01d7c71bec7fdd1a9744d339116a623830a9b6f62"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-dark-768.png",
+      "bytes": 39831,
+      "sha256": "b3e50220acd6106f16f27357e42e9adf3841ced75a96a3d865cc48f18dda8eeb"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-light-1024.png",
+      "bytes": 39385,
+      "sha256": "beb72df22a2714c7e002ab06047227983157d889f238e1a424c0e125f1c80feb"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-light-1440.png",
+      "bytes": 43447,
+      "sha256": "08349e2eed0405aa2992f166ef4e2130e08f4b4eb63803ae674aab5604fa918c"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-light-1920.png",
+      "bytes": 99250,
+      "sha256": "79522391765bbc199e9e9e1aaaa31bf7835790db2702fb4e8346c2f1e3be144b"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-light-360.png",
+      "bytes": 28383,
+      "sha256": "9be10f99bbab5ae136d3f341fe44db390a5caf66affb7376304614acbfae26f8"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-light-390.png",
+      "bytes": 28680,
+      "sha256": "4ba9decc03ca82ea25e26ccc4278cd1268fb588a42b0bcced42c5b3e826fc106"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/books-list-light-768.png",
+      "bytes": 38826,
+      "sha256": "5d39c8080d219a926946a8ccbd352fe4b0f4d2465f342625f561015a49c60633"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-dark-1024.png",
+      "bytes": 91852,
+      "sha256": "bb6a1555d9dc73d14d700a486964cb5e42b1004cbb7bf5ef289db73f692a5e2a"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-dark-1440.png",
+      "bytes": 96809,
+      "sha256": "189e2efaf1216ebef6549f0c7c8b4eb80ec0d2027e48095ddb15029a024a2ada"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-dark-1920.png",
+      "bytes": 154710,
+      "sha256": "ef01673ddbcda23af7960eaaa93bc746378d4b93ac761d898ea49edde5a81d19"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-dark-360.png",
+      "bytes": 75491,
+      "sha256": "264e7fc0fba89f4ec20792a2067d3de620dbdd89a006b829beb84ed4fcc423db"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-dark-390.png",
+      "bytes": 76099,
+      "sha256": "ec0eba7303c663443d90aa34f5d3e44c5e94cce0e01d66d6705cf57143df4560"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-dark-768.png",
+      "bytes": 84916,
+      "sha256": "4944c1493dc9ee0fa53189c77de6f7b6a21afc1392310139edf8536a5a40e801"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-light-1024.png",
+      "bytes": 89800,
+      "sha256": "17b0d3a8b114b393972672e5b79896c7aefbc45531499f5475913070a25d4e6e"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-light-1440.png",
+      "bytes": 94687,
+      "sha256": "3c99e38980627578b080f52ffe87f7ab5e493c7bd1c36d30547e44392f06f5a0"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-light-1920.png",
+      "bytes": 152152,
+      "sha256": "3eaf74a7bc7073c75406c0878f7c0c581fd40007a4ad427b254e5ed1cd156615"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-light-360.png",
+      "bytes": 73622,
+      "sha256": "2f624672da5b23c41f86cdff49fbd042acb41a3562009dcaa8262db873e0367b"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-light-390.png",
+      "bytes": 74317,
+      "sha256": "6c836a956479ccb02e5625515df3909bc53667400c928b7b221e50178193f339"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/campaign-edit-light-768.png",
+      "bytes": 83031,
+      "sha256": "e960e9eb04f7452f1fd8056deaf1c54d7b13c5105b68cbbdd96d6ecb29cad715"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-dark-1024.png",
+      "bytes": 42926,
+      "sha256": "d0cc683754f9c6291aff8e0d056f2f32730059fa8beb8f18cc3fbd84d1438f59"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-dark-1440.png",
+      "bytes": 44547,
+      "sha256": "c893992b9e693a9f40d530279fde66d8e8bffae57e3226cb777ba16b4d0c0eb3"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-dark-1920.png",
+      "bytes": 100707,
+      "sha256": "6f78f0bc651641e397fc932ff1f863ebb647bdad5f2c970d537aa636dc2c730c"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-dark-360.png",
+      "bytes": 38418,
+      "sha256": "2bcb9751d828e4a28c9bf715d9c67d2180ee6c961e138ee9200948524c9c28ff"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-dark-390.png",
+      "bytes": 38712,
+      "sha256": "b5cb6766ffab9b55027ad73a315a5aedb385b18f0cfd612fb729cf35491d9375"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-dark-768.png",
+      "bytes": 41177,
+      "sha256": "bc8d344550e0c863e40cc2e143eeb012afa38e86c699760c02c6a9c396b44b45"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-light-1024.png",
+      "bytes": 41695,
+      "sha256": "f7af69e992fe76b5c631739c94215bc55ef46fba0ce200c7f51f52f7aad89063"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-light-1440.png",
+      "bytes": 43328,
+      "sha256": "388bba82487068c8561b61aff42392d73fe79c38432c850e830fd1d49743dad0"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-light-1920.png",
+      "bytes": 99328,
+      "sha256": "2d61d326d1bd8f61501174d1beae026c02382ce692bdf6d2b714416dcbfc959a"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-light-360.png",
+      "bytes": 37074,
+      "sha256": "97e869cc1496bc8f11b37d10406446d00a135c723dc72c865a03d4fde3e48ad0"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-light-390.png",
+      "bytes": 37395,
+      "sha256": "92f743f33e8649a361a8860dee3e9251c083ad75dd6c4da0ee417920c2bfde3e"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/institutional-edit-light-768.png",
+      "bytes": 39752,
+      "sha256": "d04889f23a83637b04d529057a7f9eca2bf72f5430f247d01c85d5fc1effb918"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-dark-1024.png",
+      "bytes": 74776,
+      "sha256": "47efab2fecfc90216d7fd68b224929cc6b6c46e763facfa495e2513fed2e17d0"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-dark-1440.png",
+      "bytes": 79541,
+      "sha256": "6f7ccbcef0c13d4b7aed1dc5a488868f4cd0591d942d06caceab28514d3b7a18"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-dark-1920.png",
+      "bytes": 136532,
+      "sha256": "154cc9c8a3c91f58e5b1065139b992159e3a07e83f2348094eeac03d16aaf334"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-dark-360.png",
+      "bytes": 66980,
+      "sha256": "a281523260a503d9a0f1584b604e958ffcf095119d391bacbb7744acc208ef4a"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-dark-390.png",
+      "bytes": 67705,
+      "sha256": "17363e47a9ab2d2164a23b79390db390e1933b05fd2f55de0dd2d500c5674e96"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-dark-768.png",
+      "bytes": 70559,
+      "sha256": "fd3dc71c50c188ef7b19a83b520ad92ae93fae8c59c38b3fe5f478f943ea01c1"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-light-1024.png",
+      "bytes": 73242,
+      "sha256": "b71a4ea6a4e4cfd6719f88ead458287739e212ec9e69d897065028919be5bfed"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-light-1440.png",
+      "bytes": 78286,
+      "sha256": "245c66b447aecb07a43a7557306187e6b3225f6a9534b60fbd60d896f0485b0f"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-light-1920.png",
+      "bytes": 134649,
+      "sha256": "e0d70d43578ba00463a2eb6c38c6279489a619ad40c26680783761018461c6f2"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-light-360.png",
+      "bytes": 65229,
+      "sha256": "9c95f89fa67ef28a392b83914145fc8d5e9e7fe2f8a51ef0b42db18d01911317"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-light-390.png",
+      "bytes": 65977,
+      "sha256": "a458b82e370674b46ca9b8576331aebc52d4443becb39848421511393ca80b4a"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/offer-edit-light-768.png",
+      "bytes": 68907,
+      "sha256": "b2df95d4af96a172533b70837b625d03758b83de5a545e816fe17dce2137cb81"
+    },
+    {
+      "path": "artifacts/qa-admin-editorial/results.json",
+      "bytes": 9695,
+      "sha256": "3cbb2419519e9e78a591e12c94c7e2e4b3bc10ec4de6b7aea2d9116eefd5f5ce"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

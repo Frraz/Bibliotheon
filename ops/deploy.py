@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deploy local por Git/Compose. Configuração privada fora do checkout; sem shell/eval."""
+"""Deploy Git/Compose; backup exigido por padrão e opcional com --sem-backup."""
 
 import argparse
 import fcntl
@@ -36,7 +36,7 @@ def private_file(path):
     return path
 
 
-def read_config(path):
+def read_config(path, require_backup=True):
     config = json.loads(private_file(path).read_text())
     allowed = {
         "env_file",
@@ -51,9 +51,11 @@ def read_config(path):
     }
     if not isinstance(config, dict) or set(config) - allowed:
         raise DeployError("Configuração de deploy inválida; confira deploy.md.")
-    paths = {'env_file', 'state_dir', 'backup_env'}
+    paths = {'env_file', 'state_dir'}
     if not paths.issubset(config) or any(not isinstance(config[key], str) or not Path(config[key]).is_absolute() for key in paths):
-        raise DeployError('Informe env_file, state_dir e backup_env como caminhos absolutos privados.')
+        raise DeployError('Informe env_file e state_dir como caminhos absolutos privados.')
+    if require_backup and ('backup_env' not in config or not isinstance(config['backup_env'], str) or not Path(config['backup_env']).is_absolute()):
+        raise DeployError('Informe backup_env como caminho absoluto privado ou use --sem-backup explicitamente.')
     config.setdefault("branch", "main")
     config.setdefault("worker", False)
     config.setdefault("health_timeout", 180)
@@ -71,6 +73,10 @@ def read_config(path):
         if type(config[key]) is not int or config[key] < 1:
             raise DeployError("Limite operacional inválido.")
     config["env_file"] = str(private_file(config["env_file"]))
+    if require_backup and 'backup_env' in config:
+        if not isinstance(config['backup_env'], str) or not Path(config['backup_env']).is_absolute():
+            raise DeployError('backup_env deve ser caminho absoluto privado.')
+        config['backup_env'] = str(private_file(config['backup_env']))
     state = Path(config["state_dir"]).resolve()
     if state.is_relative_to(ROOT):
         raise DeployError("Diretório de releases precisa ficar fora do checkout.")
@@ -390,7 +396,7 @@ def backup_current(config, state):
     print('Backup externo confirmado; serviços da versão atual retomados.')
 
 
-def apply(config, state, initial=False, rebuild=False, resume=False):
+def apply(config, state, initial=False, rebuild=False, resume=False, backup_enabled=True):
     current_path, pending_path = state / "current.json", state / "in-progress.json"
     interrupted = (
         json.loads(pending_path.read_text()) if pending_path.exists() else None
@@ -479,11 +485,15 @@ def apply(config, state, initial=False, rebuild=False, resume=False):
         raise DeployError(
             "RAM/disco livres abaixo do mínimo configurado; build não iniciado."
         )
-    backup_env = backup_environment(config["backup_env"])
-    command(
-        [backup_env.get("RESTIC_BINARY", "restic"), "snapshots", "--json"],
-        env=backup_env,
-    )
+    backup_env = None
+    if backup_enabled:
+        backup_env = backup_environment(config["backup_env"])
+        command(
+            [backup_env.get("RESTIC_BINARY", "restic"), "snapshots", "--json"],
+            env=backup_env,
+        )
+    else:
+        print('ATENÇÃO: deploy explicitamente sem backup; não haverá ponto de restauração recente.', flush=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     release = state / "releases" / f"{stamp}-{commit[:12]}-{os.urandom(3).hex()}"
     release.mkdir(parents=True, mode=0o700)
@@ -565,17 +575,19 @@ def apply(config, state, initial=False, rebuild=False, resume=False):
         "release": str(release),
         "status": "built",
     }
+    if not backup_enabled:
+        record["backup_skipped"] = True
     if current:
         save(release / "previous.json", current)
     if interrupted:
         save(release / "interrupted.json", interrupted)
     save(release / "release.json", record)
-    save(pending_path, {"release": str(release), "phase": "before-backup"})
+    save(pending_path, {"release": str(release), "phase": "before-backup" if backup_enabled else "before-migration-no-backup"})
     stopped, migration_started = False, resume
     try:
         if current:
             print(
-                "Pausando somente app/worker do Bibliotheon para backup consistente.",
+                "Pausando somente app/worker do Bibliotheon para " + ("backup consistente." if backup_enabled else "atualização sem backup."),
                 flush=True,
             )
             stopped = True
@@ -603,10 +615,11 @@ def apply(config, state, initial=False, rebuild=False, resume=False):
                         env=env,
                         log=log,
                     )
-            backup = capture_backup(old_file, Path(current['release']) / 'production.env', backup_env, log)
-            save(release / 'backup.json', backup)
-            record['backup_snapshot'] = backup['snapshot']
-            save(release / 'release.json', record)
+            if backup_enabled:
+                backup = capture_backup(old_file, Path(current['release']) / 'production.env', backup_env, log)
+                save(release / 'backup.json', backup)
+                record['backup_snapshot'] = backup['snapshot']
+                save(release / 'release.json', record)
         else:
             command(
                 compose(
@@ -713,6 +726,7 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--inicial", action="store_true")
     modes.add_argument('--backup', action='store_true', help='Backup externo da versão atual, sem pull/build/migração.')
+    parser.add_argument('--sem-backup', action='store_true', help='Pular explicitamente o backup pré-deploy; não haverá ponto de restauração recente.')
     parser.add_argument("--reconstruir", action="store_true")
     modes.add_argument(
         "--retomar",
@@ -721,7 +735,11 @@ def main():
     )
     parser.add_argument("--config", default="/etc/bibliotheon/deploy.json")
     args = parser.parse_args()
-    config, state = read_config(args.config)
+    if args.sem_backup and args.backup:
+        raise DeployError('--sem-backup não pode ser combinado com --backup.')
+    if args.sem_backup and args.retomar:
+        raise DeployError('--sem-backup não pode ser combinado com --retomar.')
+    config, state = read_config(args.config, require_backup=not args.sem_backup)
     with (state / "deploy.lock").open("a") as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -761,7 +779,7 @@ def main():
             os.execv(
                 sys.executable, [sys.executable, str(Path(__file__)), *sys.argv[1:]]
             )
-        apply(config, state, args.inicial, args.reconstruir, args.retomar)
+        apply(config, state, args.inicial, args.reconstruir, args.retomar, backup_enabled=not args.sem_backup)
 
 
 if __name__ == "__main__":

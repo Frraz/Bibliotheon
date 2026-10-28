@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T16:06:14.914Z",
+  "date": "2026-10-28T03:38:04.383Z",
   "status": "passed",
   "checks": [
     "Anônimo sem view/API; coleções nativas negam escrita owner; GET inicial sem decisão.",

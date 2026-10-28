@@ -52,7 +52,7 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, 'Zoom de texto 200%')
   await page.screenshot({ path: `${output}/catalog-text200-light-1280.png`, fullPage: true })
   await context.close()
-  await writeFile(`${output}/catalog-states-results.json`, JSON.stringify({ date: '2026-10-21 America/Belem', results, pagination: '12+8 itens', menu: 'dialog, Escape e retorno de foco aprovados', zoom: 'Texto 200% e reflow 320px em rodada separada; zoom nativo 400% ainda não homologado' }, null, 2))
+  await writeFile(`${output}/catalog-states-results.json`, JSON.stringify({ date: new Date().toISOString(), results, pagination: '12+8 itens', menu: 'dialog, Escape e retorno de foco aprovados', zoom: 'Texto 200% nesta suíte; reflow e zoom nativo possuem evidência separada em D121' }, null, 2))
   console.log('Catálogo: estados 0/1/20, 36 screenshots, paginação, diálogo móvel e zoom de texto aprovados.')
 } finally { await browser.close(); await seed.cleanup() }
 process.exit(0)

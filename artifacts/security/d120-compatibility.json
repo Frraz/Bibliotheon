@@ -1,0 +1,23 @@
+{
+  "phase": "D120",
+  "completedAt": "2026-10-27T06:15:14.936Z",
+  "versions": {
+    "dompurify": "3.4.17",
+    "undici": "7.30.1",
+    "happy-dom": "21.0.4"
+  },
+  "checks": [
+    "resolução a partir dos consumidores Payload/Lexical/Monaco",
+    "HTML para Lexical e HTML com texto/negrito preservados",
+    "Undici fetch data URL sem rede",
+    "DOMPurify no Chromium preserva conteúdo e remove atributos/código inseguros"
+  ],
+  "externalRequests": 0,
+  "advisoryExploitCoverage": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "package.json": "3b07547dbd047f17889a0760b3e1902a5f7783fddf3d771b17634974a3eadafa",
+    "pnpm-lock.yaml": "f152715e3dabb938f565cfdc96f1b8efb84895248ac127fc4a1f9de1210c0d22",
+    "scripts/qa-dependency-compatibility.mjs": "a1ac6c319798111c706585071034a9b548f1d2bc0c32a1c216313f15256bc784"
+  }
+}

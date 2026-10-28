@@ -1,0 +1,59 @@
+{
+  "phase": "D127",
+  "completedAt": "2026-10-28T04:54:32.856700+00:00",
+  "status": "passed",
+  "unitTests": 314,
+  "unitTestFiles": 37,
+  "operationTests": 62,
+  "newSecurityRegressionTests": 16,
+  "deepmergeImageCases": 8,
+  "buildQA": "passed",
+  "dockerBuild": "passed",
+  "httpSuites": 16,
+  "emptyDatabaseMigrations": 35,
+  "upgradeFrom": 32,
+  "upgradeTo": 35,
+  "containerProjectsAndVolumesRemoved": true,
+  "temporaryHTTPDatabaseRemoved": true,
+  "imageID": "sha256:2239f2200be691eb71b9d7bd42569daabb157c98f32d54a620957860e57de86e",
+  "imageTags": [
+    "bibliotheon:local-d127-secured",
+    "bibliotheon:local-d127"
+  ],
+  "initialImageBeforeMitigation": {
+    "imageID": "sha256:94505c8cca11918849aa23560500bbd9edc19340799dcd4231edb6bb6824bb65",
+    "releaseAccepted": false,
+    "defaultTagReplacedBySecuredImage": true
+  },
+  "dependencyAudit": {
+    "rawLowAdvisories": 1,
+    "advisory": "GHSA-gcqx-w48m-w2h4",
+    "localPatchMitigation": "passed",
+    "upstreamPatchedVersion": null,
+    "suppressed": false
+  },
+  "documentation": {
+    "status": "passed",
+    "documents": 50,
+    "localLinks": 1632,
+    "contrastPairs": 76
+  },
+  "diffCheck": "passed",
+  "newMigrations": 0,
+  "H05Reopened": false,
+  "H05Reason": "Patch restrito às chaves reservadas de merge, sem mudança de UI/estilos; compatibilidade normal e HTTP integral renovados.",
+  "physicalRestoreValidated": false,
+  "productionReady": false,
+  "productionChanged": false,
+  "remaining": [
+    "P07: prazo/marco financeiro e finalidades/cópias externas aplicáveis",
+    "H01/H02: contas reais",
+    "H06: proteção administrativa, alertas, rotação e CI real",
+    "O01–O04: material/contato/VPS/deploy do proprietário"
+  ],
+  "finalDockerVerification": {
+    "bothTagsMatchAcceptedImageID": true,
+    "remainingTestContainers": 0,
+    "remainingTestVolumes": 0
+  }
+}

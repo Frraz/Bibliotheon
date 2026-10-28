@@ -1,0 +1,89 @@
+{
+  "phase": "D123",
+  "completedAt": "2026-10-28T01:05:51.955Z",
+  "status": "failed",
+  "results": [
+    {
+      "state": "capture-active",
+      "theme": "light",
+      "width": 360,
+      "nativeZoom": 1,
+      "metrics": {
+        "width": 360,
+        "outerWidth": 360,
+        "dpr": 1,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-active-light-360.png",
+          "sha256": "ea5ce16519b468f5fd1e53af93aa96ad2417bb76ca4a079b3bf586f9ecc93310"
+        }
+      ]
+    },
+    {
+      "state": "capture-invalid-email",
+      "theme": "light",
+      "width": 360,
+      "nativeZoom": 1,
+      "metrics": {
+        "width": 360,
+        "outerWidth": 360,
+        "dpr": 1,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-invalid-email-light-360.png",
+          "sha256": "aacfd65482049ecc5f7c0fa294226dd10aed026b1c0d20ded5769d650a543b42"
+        }
+      ]
+    },
+    {
+      "state": "capture-loading",
+      "theme": "light",
+      "width": 360,
+      "nativeZoom": 1,
+      "metrics": {
+        "width": 360,
+        "outerWidth": 360,
+        "dpr": 1,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-loading-light-360.png",
+          "sha256": "abc4ad89d124e54a95ae293d790ad83715f0bf6fee2f7771987d1627b1a68038"
+        }
+      ]
+    },
+    {
+      "state": "capture-error",
+      "theme": "light",
+      "width": 360,
+      "nativeZoom": 1,
+      "metrics": {
+        "width": 360,
+        "outerWidth": 360,
+        "dpr": 1,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-error-light-360.png",
+          "sha256": "4b334b3620f1c1fb86ede7ecdc3efe0ed475ec90dbc21a0fcadd195ad4c27eae"
+        }
+      ]
+    }
+  ],
+  "externalRequests": 0,
+  "runtimeErrors": [],
+  "realMessagesSent": 0,
+  "fixturesCleaned": true,
+  "fullH05Accepted": false,
+  "limits": "Dados sintéticos; respostas temporárias interceptadas e entrega em memória. Sem homologação de conta ou carga de produção."
+}

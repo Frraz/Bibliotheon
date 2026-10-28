@@ -2,7 +2,9 @@
 
 [Índice](../README.md) · [Progresso](14-progresso.md) · [Testes](15-qualidade.md)
 
-Prioridade P0 = base do lançamento; P1 = operação/campanha inicial; P2 = expansão condicionada. B01/B02 têm implementação/testes locais; B03/B04/B18 têm implementação inicial e refinamentos; B17/B19/B20 seguem em execução. D86 aceitou localmente P01–P05. D87–D88 implementaram/validaram atribuição consentida local, ainda sem confirmação por conta. D89–D114 avançam P07 com retenção analítica, exportação privada, auditoria, limpeza de solicitações/tokens expirados, expurgo de auditoria comercial resolvida, envelopes antigos de inbox com ledger íntegro e amostras confirmadas antigas sem dependências, exclusão/correção owner e inventário agregado sem PII. Estados incertos e identidades/manifestos externos bloqueiam alterações sem conciliação. Nenhum fluxo remove cópia externa. Retenção abrangente de relacionamento/comércio continua em desenvolvimento; D108 validou reaplicação v2 em restore físico local com a imagem D107; guarda externa e recuperação de produção ainda não homologadas. Homologações/release e B12–B16 seguem pendentes. O [plano para produção](../pendencias.md) separa desenvolvimento, homologação e ações do proprietário. Estado e limites em [desenvolvimento](19-desenvolvimento.md).
+**Revisão documental D129 (28/10/2026):** código e imagem permanecem na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](../artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](../artifacts/container/d127-results.json) e [mitigação de deepmerge](../artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
+
+Prioridade P0 = base do lançamento; P1 = operação/campanha inicial; P2 = expansão condicionada. B01/B02 têm implementação/testes locais; B03/B04/B18 têm implementação inicial e refinamentos; B19/B20 têm aceite local D126; B17 também tem aceite local pelos critérios de fundação/tema registrados na matriz D126. D86 aceitou localmente P01–P05. D87–D88 implementaram/validaram atribuição consentida local, ainda sem confirmação por conta. D89–D119 avançam P07 com retenção analítica, exportação privada, auditoria, limpeza seletiva, exclusão/correção owner, inventário agregado e revisão de opt-in vencido que retém promoções. Estados incertos e identidades/manifestos externos bloqueiam alterações sem conciliação; nenhum fluxo remove cópia externa. Retenção abrangente de relacionamento/comércio continua parcial; D108 validou replay em restore físico na imagem D107 e D114 restaurou host local; guarda externa e recuperação de produção não foram homologadas. H04/backup pode ser dispensado no deploy pelo proprietário via `--sem-backup`. Homologações/release e B12–B16 seguem pendentes. O [plano para produção](../pendencias.md) separa desenvolvimento, homologação e ações do proprietário. Estado e limites em [desenvolvimento](19-desenvolvimento.md).
 
 ## Fase 0 — Preparar
 
@@ -10,27 +12,27 @@ Documentação e aplicação local presentes. Título, domínio e responsável j
 
 ## Fase 1 — Publicar
 
-| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (26/10/2026) |
+| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (28/10/2026) |
 |---|---|---|---|---|
 | B01 | P0: bootstrap Next/Payload/Postgres; versões fixadas, CI, auth e permissões | Documentação | Build local, migrations e bloqueio de anônimo; R01 | Base/testes locais; CI reorganizado D69 com runners sequenciais e checks sem banco, não executado no GitHub |
-| B02 | P0: coleções editoriais, ofertas e uploads | B01, B17 | Validação e drafts, dados sintéticos das três plataformas; R02, R05, R22 | Parcial: domínio e preservação/limpeza de mídia testados localmente; homologação do release pendente |
-| B03 | P0: site, LP, catálogo e preview | B02, B17, B18 | Rotas, busca, estados vazios, teclado/mobile e orçamento de desempenho; R03, R04, R20, R21 | Parcial: páginas/QA locais; desempenho e oferta real pendentes |
+| B02 | P0: coleções editoriais, ofertas e uploads | B01, B17 | Validação/drafts das três plataformas; R02, R05, R22 | Implementado/testado localmente; mídia, ACL e restart confirmados na imagem D127. Conteúdo/ofertas e ambiente reais permanecem com proprietário |
+| B03 | P0: site, LP, catálogo e preview | B02, B17, B18 | Rotas, busca, estados vazios, teclado/mobile e orçamento; R03, R04, R20, R21 | Aceite local: QA D121–D126, laboratório público D121 e carga comercial D124; oferta/material reais e desempenho de campo ainda não homologados |
 | B04 | P0: artigos, SEO, redirecionamento e campanha afiliada | B03 | URLs seguras, parâmetros preservados, cache invalidado, sitemap; R06, R07 | Local: SEO, slugs e afiliado testados com fixtures |
-| B05 | P0: imagem, Compose, inventário, proxy e backup | B01; VPS/domínio/destino backup para deploy | Isolamento, recuperação comprovada, baseline preservado; R23, R24 | Parcial: guia/atualizador, restore na imagem atual D108 e imagem em vazio/upgrade D107; bateria integral, VPS, destino externo e RPO/RTO reais pendentes |
+| B05 | P0: imagem, Compose, inventário e proxy; recuperação opcional | B01; VPS/domínio; destino de backup somente se adotado | Isolamento e baseline preservado; R23, R24 conforme opção de recuperação | Imagem D127 aprovada localmente em vazio/upgrade 32→35. Restore D114 histórico de 34 migrations; VPS/proxy/segurança reais pendentes. Backup/restore/RPO/RTO externos somente se recuperação for adotada |
 
 Saída: vitrine e painel homologados, incluindo a rodada de fase 1 de B20; produto real só publicado quando pronto e oferta conferida. Não declarar medição completa.
 
 ## Fase 2 — Captar e medir
 
-| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (26/10/2026) |
+| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (28/10/2026) |
 |---|---|---|---|---|
-| B06 | P0: amostra, consentimento, Brevo e supressão | B02, conta/remetente para homologar | Confirmação, entrega independente de marketing, fila e quota; R08, R09, R10 | Parcial: amostras/calendário/quota, lotes/claim, bloqueios outbound e preflight/cadastro consentido/listas exclusivas e cancelamento por assunto, links individuais e rascunhos e transporte locais; worker opcional com flag false; observação GET local (D57), worker com flag independente false; callback autenticado/resultados individuais locais (D58); homologação externa e recuperação do release pendentes |
+| B06 | P0: amostra, consentimento, Brevo e supressão | B02, conta/remetente para homologar | Confirmação, entrega independente de marketing, fila e quota; R08, R09, R10 | Parcial: amostras/calendário/quota, lotes/claim, bloqueios outbound e preflight/cadastro consentido/listas exclusivas e cancelamento por assunto, links individuais e rascunhos e transporte locais; worker opcional com flag false; observação GET local (D57), worker com flag independente false; callback autenticado/resultados individuais locais (D58); homologação externa e P07 pendentes; recuperação somente se adotada |
 | B07 | P0: eventos, campanhas, atribuição e inbox comum | B04 | Privacidade, eventos duráveis, dashboard operacional, replay; R11, R25 | Parcial: base local D59–D62; D87 usa UUID de `checkout-clicks` em `sck` com consentimento e só atribui após retorno/contexto conferidos. Fluxo HTTP sintético integrado D88 validado nos três provedores; retorno real Kiwify/Cakto e homologação por conta ainda pendentes; sem correlação por UTM livre, pessoa ou tempo |
 | B08 | P0: adaptador Hotmart | B07; contrato e conta | Autenticação e fixtures, replay/reversão, homologação individual; R12 | Parcial: adaptador/endpoint Hotmart v2 locais D63, inbox e HTTP testados; desligado por padrão, conta/atribuição/conciliação/homologação pendentes |
 | B09 | P0: adaptador Kiwify | B07; descoberta de autenticação atual e conta | Contrato verificado antes de ativar; bateria completa; R13 | Parcial: adaptador/endpoint local D64, HMAC-SHA1/corpo bruto e centavos confirmados em fontes oficiais; conta, conciliação temporal, atribuição e homologação pendentes |
 | B10 | P0: adaptador Cakto | B07; autenticação técnica e conta | Semântica verificada, replay manual e financeiro; R14 | Parcial: adaptador/endpoint Cakto V1/V2 locais D65, assinatura/janela e lote atômico testados; conta, MED/tempos especiais, atribuição, conciliação e homologação pendentes |
 | B11 | P0: CSV e dashboard financeiro | B08, B09, B10 | Preview/commit auditado, conflitos, desconhecidos e coortes; R15, R16 | Parcial: snapshot/inbox D66–D67, associação D72, decisão D74, evidências D75–D77, ledger D78, painel financeiro D79, importação D80 e registro/correção de liquidações/custos D81 e resolução de identidades D82 e resolução financeira D83 e cobertura/coortes D84 e detalhamentos/processamento D85 locais; P01–P05 aceitos localmente D86; atribuição HTTP sintética D88 validada; retorno real por conta e homologação pendentes |
-| B12 | P0: retenção, exclusão e homologação integral | B05, B06, B11, B20 | Privacidade, recuperação e casos de falha completos; R26 | Parcial D89–D109: rotinas analíticas/de privacidade, expurgo de auditorias, envelopes da inbox e amostras confirmadas, exportação, exclusão/correção owner, inventário agregado, tombstones e links expirados; paginação D103 e manifesto/replay isolado D104 e pending v2/bloqueio preventivo D105; restore físico/replay v2 D108 aprovado para a revisão anterior; D109 expira estado promocional local antigo após descadastro global; falta retenção geral, guarda externa atual do manifesto, reconciliação externa, RPO/RTO reais e aceite integral |
+| B12 | P0: retenção, pedidos de dados e homologação integral | B05, B06, B11, B20 | Privacidade e falhas completas; R26; recuperação se adotada | Parcial conforme auditoria D128: políticas P07-A, retenção/minimização comercial P07-B, finalidades/pedidos P07-C, cópias externas/pending P07-D e rotina real P07-E. Imagem/API D127 aceitas localmente; backup/manifesto externo/restore são opcionais para deploy |
 
 B08/B09/B10 já possuem adaptadores e endpoints nativos locais, com fixtures próprias D63–D65. Homologar cada conta separadamente e concluir B11; não reiniciar os adaptadores como se estivessem ausentes. A falta de conta pode impedir homologação externa, mas não elimina o provedor do backlog. Conciliação manual informa limites enquanto o conector estiver pendente. A fase só está completa quando os três forem homologados.
 
@@ -42,14 +44,14 @@ Evidências D88: [`analytics-http`](../artifacts/attribution/analytics-http-d88.
 
 ## Fase 3 — Campanha inicial
 
-| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (26/10/2026) |
+| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (28/10/2026) |
 |---|---|---|---|---|
 | B13 | P1: tarefas e kit por campanha | B04, B11 | Conteúdo autorizado, hipótese e prazo registráveis; R17 | Pendente; campanha cadastrável, tarefas/kit inexistentes |
 | B14 | P1: ativação da primeira campanha | B06, B12, B13; livro pronto | LP, amostra, três conteúdos, um canal e registro de distribuição; R18 | Pendente; título escolhido, sem lançamento real |
 
 ## Fase 4 — Otimizar
 
-| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (26/10/2026) |
+| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (28/10/2026) |
 |---|---|---|---|---|
 | B15 | P1: revisão semanal e melhoria | B14 | Relatório conciliado, custos, hipótese e próxima ação; R19 | Pendente; sem revisão operacional conciliada |
 | B16 | P2: expansão por resultado | B15 e justificativa | Novo livro/canal ou ferramenta com problema definido, orçamento e métrica; sem requisito MVP adicional | Condicionado a resultado futuro |
@@ -62,14 +64,14 @@ Não há prazo garantido de oito semanas. A ordem é compromisso técnico; dura�
 
 ## Fundação visual e integração nas fases
 
-IDs B17–B20 preservam B01–B16; ordem numérica não é ordem de execução. Fundação e variantes já foram implementadas localmente; polimento e homologação integral continuam parciais, conforme estado abaixo. A documentação de design está especificada no [briefing](../DESIGN-BRIEF.md).
+IDs B17–B20 preservam B01–B16; ordem numérica não é ordem de execução. Fundação, variantes e matriz visual de lançamento têm aceite local; produto/ambiente real continuam sujeitos aos gates externos e P07. A documentação de design está especificada no [briefing](../DESIGN-BRIEF.md).
 
-| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (26/10/2026) |
+| ID | Prioridade / entrega | Dependências | Aceite / requisitos | Estado atual (28/10/2026) |
 |---|---|---|---|---|
-| B17 | P0, fase 1: tokens/fontes/tema, componentes base e adaptação Payload | B01 | Contrastes, fallback, preferência local sem flash e adapter suportado; R27, R28, R29 | Base local aplicada; matriz integral de estados aberta |
+| B17 | P0, fase 1: tokens/fontes/tema, componentes base e adaptação Payload | B01 | Contrastes, fallback, preferência local sem flash e adapter suportado; R27, R28, R29 | Concluído localmente: fundação/temas/storage/fallback D122 e matriz combinada aceita D126; novas telas/estados exigem reteste do recorte afetado |
 | B18 | P0, fase 1: variantes editoriais, acentos e apresentação de mídia | B02 | Enums validados, três narrativas e imagens íntegras; R30 | Local: variantes/acento testados; conteúdo real não publicado |
-| B19 | P0, fases 1–2: polimento responsivo, motion e painel | B03 para rodada 1; B06/B11 para rodada 2 | Zoom, seis larguras, reduced-motion e fluxos admin completos; R31, R32, R33 | Parcial: refinamentos locais; fase 2/zoom/performance pendentes |
-| B20 | P0, fases 1–2: QA visual renderizado e correções | B19 e telas da fase avaliada | Paridade de tema, teclado, screenshots, estados adversos; R34 | Parcial: D79 cobre prévia financeira; D80 cobre importação, loading/erro/bloqueio, dois temas, 320–1920 px, texto 200% e fallback sem JS; D81 cobre registros/correções financeiros em 48 capturas; D82 cobre resolução de identidades em 29 capturas/28 análises axe; D83 cobre decisão financeira em 34 capturas/33 análises axe; matriz/release final pendentes |
+| B19 | P0, fases 1–2: polimento responsivo, motion e painel | B03 para rodada 1; B06/B11 para rodada 2 | Zoom, seis larguras, reduced-motion e fluxos admin completos; R31, R32, R33 | Concluído localmente D126: matriz combinada D121–D126, correções de foco/paginação e laboratório/carga aprovados; ambiente real separado |
+| B20 | P0, fases 1–2: QA visual renderizado e correções | B19 e telas da fase avaliada | Paridade de tema, teclado, screenshots, estados adversos; R34 | Concluído localmente D126: [auditoria por família](../artifacts/qa-release-layout/d126-h05-acceptance.json), capturas e inspeção amostral; não equivale a certificação WCAG, imagem final ou homologação de produção |
 
 Sequência: B01 → B17 → B02 → B18 → B03/B04 → B19/B20 (rodada fase 1). Depois B06–B11 → B19/B20 (rodada fase 2) → B12. B05 mantém sua dependência de infraestrutura e pode ser preparado independentemente. B20 concluído exige as duas rodadas; a primeira recebe evidência parcial, não “concluído”.
 
@@ -194,3 +196,17 @@ P07 avança na meta de prazo: margem de 28 dias para estado promocional/temátic
 ## D114 — Legado temático verificável — 26/10/2026
 
 P07 inclui agora reconstrução local do legado verificável, exportação sem escrita e retenção/replay com prazo original. Legado não verificável continua bloqueado e exige conciliação, sem inferir consentimento ou data. Contatos ativos, demais finalidades/compartilhamentos/provedor/ledger, exceções e guarda externa continuam abertos. Próximo: revisar contatos ativos e ampliar retenção restante; depois imagem/restore do release final e homologações H01–H06.
+
+## D127 — Imagem atual e mitigação de dependência — 28/10/2026
+
+A [imagem local](../artifacts/container/d127-results.json) passou em banco vazio e upgrade real 32→35, com contato/owner preservados, migrations idempotentes, DDL negado ao runtime, permissões privadas, mídia WebP/substituição inválida/persistência após restart, CLIs e worker saudável inclusive ocioso. Rede interna, transportes desligados e zero envios; projetos/volumes descartáveis removidos. Sem restore físico, registry, conta real ou VPS.
+
+A nova auditoria identificou GHSA-gcqx-w48m-w2h4 em deepmerge 4.3.1, low, sem versão corrigida publicada. A reprodução confirmou protótipo controlado no objeto retornado; não demonstra exploração de endpoint do produto. Patch local bloqueia chaves reservadas na cópia de alvo/origem e grava propriedades próprias nos três entrypoints. [Auditoria bruta e mitigação](../artifacts/security/d127-deepmerge-mitigation.json): aviso mantido, 16 regressões CJS/UMD e oito casos dentro da imagem. O npm audit por versão não reconhece o patch; não declarar zero advisories. Reavaliar quando houver correção upstream.
+
+Build QA e Docker com lockfile fixado passaram; `npm run check`: 314 unitários/37 arquivos e 62 operacionais, tipos/lint/documentação. [16 suítes HTTP](../artifacts/container/h03-http-d127-results.json) repetidas após o patch passaram e o banco exclusivo foi removido. A primeira bateria HTTP anterior à mitigação foi preservada separadamente, sem usá-la como prova do patch. [Fingerprint de fonte](../artifacts/container/d127-source-snapshot.json) conferido ao fim. H05 continua aceito localmente pela matriz D121–D126; nenhuma mudança de UI/estilo nesta etapa.
+
+H03 tem evidência da revisão atual; o encerramento integral segue condicionado a P07 e aos gates externos. Próxima ação: definir prazo/marco de guarda financeira, concluir tratamento das finalidades/cópias externas aplicáveis e renovar somente verificações afetadas por código posterior. Contas, contato/material reais, CI, proteção administrativa, alertas e VPS continuam com proprietário/operador. Backup/restore continuam opcionais com `--sem-backup`.
+
+## D128 — Dependência de política no fechamento P07
+
+B12/R26 continuam parciais. A [auditoria por fonte](../artifacts/documentation/p07-closure-audit-d128.json) identifica 12 coleções comerciais sem retenção geral e limita a exportação atual ao relacionamento explicitamente selecionado. Encerrar P07-A–E conforme [plano](25-fechamento-producao.md), sem criar vínculo de comprador ou prazo presumido. Aplicação/imagem D127 preservadas; nenhuma funcionalidade, migration ou teste de código novo nesta revisão documental.

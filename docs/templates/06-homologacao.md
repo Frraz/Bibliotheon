@@ -45,7 +45,7 @@ Provedor/contrato/versão, quando aplicável:
 
 - [ ] Baseline dos serviços existentes registrado e preservado.
 - [ ] HTTPS, DNS, portas e acesso administrativo verificados.
-- [ ] Backup remoto e restauração com duração registrada.
+- [ ] Se backup for escolhido: destino remoto e restauração com duração registrada. Se dispensado: uso explícito de `--sem-backup`, sem declarar capacidade de recuperação homologada.
 - [ ] Rollback e recuperação de eventos definidos.
 
 Conclusão: passou / falhou / bloqueado.
@@ -104,11 +104,11 @@ Separar teste local, evento oficial de teste, compra controlada e operação rea
 
 ### Retenção e restore de identidade (D110)
 
-- [ ] Revisar 33 migrations e imagem da revisão final, sem usar D107 como aceite do schema novo.
+- [ ] Revisar 35 migrations e imagem da revisão final, sem usar D107 como aceite do schema novo.
 - [ ] Conferir manifesto v3 quando houver fato automático; compatibilidade v1/v2, pending, nova finalidade e quarentena.
 - [ ] Verificar supressão com vencimento original e fato automático de 24 meses; não fabricar pedido humano.
 - [ ] Provar guarda externa atual, replay isolado e conciliação dos vínculos do provedor antes de liberar transportes.
 
 ## D112 — Descadastro e retenção por assunto — 26/10/2026
 
-No release final, conferir 34 migrations, coleção temática privada, retirada idempotente, confirmação antiga após retirar assinatura e novo opt-in explícito. Ensaiar manifesto v4 com tema ausente do snapshot e outro assunto/amostra preservados; nova prova posterior deve impedir revogação indevida. Legado sem fato, envio incerto e provedor devem permanecer para conciliação. Atualizar manifesto privado fora do snapshot e comprovar guarda/chaves antes de liberar transportes.
+No release final, conferir 35 migrations, coleção temática privada, retirada idempotente, confirmação antiga após retirar assinatura e novo opt-in explícito. Confirmar também hold das promoções quando opt-in ativo tem 12 meses/está sem data, marcador de saúde v2 e liberação apenas após novo opt-in confirmado. Ensaiar manifesto v4 com tema ausente do snapshot e outro assunto/amostra preservados; nova prova posterior deve impedir revogação indevida. Legado sem fato, envio incerto e provedor devem permanecer para conciliação. Atualizar manifesto privado fora do snapshot e comprovar guarda/chaves antes de liberar transportes.

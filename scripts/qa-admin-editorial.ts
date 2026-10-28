@@ -15,7 +15,7 @@ let nativeDraftSaved = false
 let keyboardSorted = false
 let reducedMotionScrollStable = false
 try {
-  for (const theme of ['light', 'dark'] as const) for (const width of [390, 1440]) {
+  for (const theme of ['light', 'dark'] as const) for (const width of [360, 390, 768, 1024, 1440, 1920]) {
     const context = await browser.newContext({ viewport: { width, height: 1000 }, colorScheme: theme, reducedMotion: 'reduce' })
     await context.addCookies([{ name: 'payload-theme', value: theme, domain: '127.0.0.1', path: '/' }])
     await context.addInitScript(t => localStorage.setItem('bibliotheon:appearance:v1', t), theme)
@@ -74,7 +74,7 @@ try {
   await context.close()
   console.log('Painel editorial: listagem/edição de livro, oferta, campanha e institucional, temas e draft nativo aprovados.')
 } finally {
-  await writeFile(`${output}/results.json`, JSON.stringify({ date: '2026-10-21 America/Belem', origin: testOrigin, results, keyboardSorted, nativeDraftSaved, reducedMotionScrollStable, limits: 'Fase 1; relacionamento, integrações e relatórios dependem da fase 2.' }, null, 2))
+  await writeFile(`${output}/results.json`, JSON.stringify({ date: new Date().toISOString(), origin: testOrigin, results, keyboardSorted, nativeDraftSaved, reducedMotionScrollStable, limits: 'Fase 1; relacionamento, integrações e relatórios dependem da fase 2.' }, null, 2))
   await browser.close()
   await seed.cleanup()
 }

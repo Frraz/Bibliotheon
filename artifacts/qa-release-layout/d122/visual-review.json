@@ -1,0 +1,30 @@
+{
+  "phase": "D122",
+  "reviewedAt": "2026-10-28T00:43:14.369431+00:00",
+  "screenshotsViewed": [
+    "artifacts/qa-phase1/lp-guide-dark-390.png",
+    "artifacts/qa-phase1/home-3-light-1440.png",
+    "artifacts/qa-admin-editorial/book-edit-dark-360.png",
+    "artifacts/qa-relationship/capture-dark-390.png",
+    "artifacts/qa-phase1/home-1-dark-390.png",
+    "artifacts/qa-phase1/home-1-light-1440.png",
+    "artifacts/qa-phase1/lp-guide-light-1440.png"
+  ],
+  "findings": [
+    "LP móvel escura: título, preço, CTA, condições, capa, FAQ e footer legíveis, sem corte de página visível.",
+    "Home clara desktop: hierarquia editorial, três capas e aviso de medição preservados.",
+    "Editor escuro 360px: seções, campos e ações preservados; toolbar com rolagem regional prevista, sem corte do corpo.",
+    "Captura escura móvel com formulário ativo: opt-in desmarcado por padrão, entrega de amostra e marketing descritos separadamente.",
+    "Home com um livro e LP completa revisadas nos dois temas: destaque do título/capa, CTA e condições preservados; sem defeito bloqueante visual identificado nas capturas amostradas."
+  ],
+  "scope": "Inspeção representativa de sete capturas; não certifica todas as telas nem encerra H05.",
+  "screenshotSHA256": {
+    "artifacts/qa-phase1/lp-guide-dark-390.png": "cd9ff4b78ba95c7ae0792ee9acfe513ffb2c48c19dc9748641d7ca603c71ca8f",
+    "artifacts/qa-phase1/home-3-light-1440.png": "cf25ee3adfa12b47e75916f101efb3fc450bee2d46adad3759b6f0080772e717",
+    "artifacts/qa-admin-editorial/book-edit-dark-360.png": "88e6c5bf5c3ce7d4756b841e7a8430c28a998aa3e03460fd306318b96891a456",
+    "artifacts/qa-relationship/capture-dark-390.png": "82d8cb5c9b8cb82f9e7029347acb04b4852d9c2928f29437ee65e9dbdb7724f7",
+    "artifacts/qa-phase1/home-1-dark-390.png": "b8e903dc100cd0e45b12f9aa37ff6f621bd812270bf76e34e3889d67726c3f9c",
+    "artifacts/qa-phase1/home-1-light-1440.png": "33ac9416d5d16cda8d13bf347a85d4906196fdacad83b4fdca5af85a0c26fdf5",
+    "artifacts/qa-phase1/lp-guide-light-1440.png": "b7f5687ee829e021f77eb8197894963ff88039ffbb84a232c35d6499fedb927b"
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "phase": "D126",
+  "suite": "financial-records",
+  "startedAt": "2026-10-28T03:42:56.458Z",
+  "completedAt": "2026-10-28T03:47:03.461Z",
+  "status": "passed",
+  "buildID": "2coQl34ngSTYHMsbWMf4l",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+    "scripts/qa-financial-records.ts": "81a01442fdfc4272ce7324db8fb17cb4659c147dfdee88f29102ca70b5aa37ca",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-financial-records/correction-dark-390.png",
+      "bytes": 196412,
+      "sha256": "4ffd7a80288b9e1ad0c8587f269c7f69027c45f4fc4e40c69aae33893f08091c"
+    },
+    {
+      "path": "artifacts/qa-financial-records/correction-light-390.png",
+      "bytes": 136767,
+      "sha256": "8cf13e783c539d542b0e14dfdb2b9791ec132bbe6fb4b625e90da17f61b62ef7"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-1024.png",
+      "bytes": 167109,
+      "sha256": "485dadc5bcf9f6b3ab2aed58fd375f3db9aed96bd8fc33c1bfd68dafa3c5cbde"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-1440.png",
+      "bytes": 185849,
+      "sha256": "2b316540b0d183112dfdefb7a2ba5fd3f50289046fc1a6999b07fd4fb3779d41"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-1920.png",
+      "bytes": 251504,
+      "sha256": "56ce257c96c98def134c55570412fc219e21fd0ecf7a363da44806c4e8ae05c8"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-320.png",
+      "bytes": 148388,
+      "sha256": "fda5898b565f0a04e6e6bd886db4d8e59f4c0de720acd0ea07d68f59a4c30d5d"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-360.png",
+      "bytes": 148673,
+      "sha256": "233c1664d860562edfe2647cfa657e54867e7a9bea8a0b6f41e34ceb118f65d1"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-390.png",
+      "bytes": 147647,
+      "sha256": "dcdd669e3ca8943a2cf1e60df2bb27a02c23fbb0204f9968e4a849f9c8fd2592"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-dark-768.png",
+      "bytes": 156482,
+      "sha256": "3257119311004fc4ae21af0a412faab832a3a8fec83f802a8933428934040a13"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-1024.png",
+      "bytes": 161986,
+      "sha256": "0befa5a0d17fd424c53cf9596fa350465c172a5a6afa80f912deacdc26d0785e"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-1440.png",
+      "bytes": 179223,
+      "sha256": "3c20578cf86e1509c3a821d7e4d5a4bd22f2cd8a6b1d4ac267d145b84a9c14b1"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-1920.png",
+      "bytes": 244304,
+      "sha256": "53721e6073694ed900344c21b12560f0e876f5a3cda2f3dd28221cb41a1f67dc"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-320.png",
+      "bytes": 142444,
+      "sha256": "cec634919657fb207c99f33e8b0b1f8de4c2a5057bdb8578a32e0a81107c0816"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-360.png",
+      "bytes": 142994,
+      "sha256": "c41edfe62f5d9133c72589baad944abbac5b02358a22f89861b501c56896b7ac"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-390.png",
+      "bytes": 142414,
+      "sha256": "9d69df86e55d45a7e46207fd618573cb26e8d773f5af6a8003347c20d93d3bf9"
+    },
+    {
+      "path": "artifacts/qa-financial-records/cost-light-768.png",
+      "bytes": 151433,
+      "sha256": "ba323907d1135022cf405b8636cf0cd6909acedbeccbcf7d60a907a2770e5001"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-cost-dark-390.png",
+      "bytes": 94434,
+      "sha256": "8c920495916dbccbb9e266b50d17ba7dec9dcb5d299a94ad384e971e4ef96b89"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-cost-light-390.png",
+      "bytes": 89965,
+      "sha256": "af232f7326c2b59e90deed1b112aa5dc6be7de32c74c0b5905d2b155d36e70a6"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-settlement-dark-390.png",
+      "bytes": 94330,
+      "sha256": "c3afaf8d551778bf79f3509ac65c497773a5ff021237670618060435fa6df9ca"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-settlement-light-390.png",
+      "bytes": 90503,
+      "sha256": "a797b57f065aeee0eade7f83203a542e4ba961e65469361083bb738a81cc6d1c"
+    },
+    {
+      "path": "artifacts/qa-financial-records/loading-light-390.png",
+      "bytes": 72993,
+      "sha256": "3ab2e546e6cb848fb628b90e72a40687e0d5bdbde91ba4d5df47165345f0f1c9"
+    },
+    {
+      "path": "artifacts/qa-financial-records/nojs-light-390.png",
+      "bytes": 127157,
+      "sha256": "54762cb419ef901ad032614bedeb830db93f2e283d3369cef42ba54be359d226"
+    },
+    {
+      "path": "artifacts/qa-financial-records/results.json",
+      "bytes": 7839,
+      "sha256": "9e08ba4852e06b054ba7d3119b07db9eee8554570eb028a41acd5a7af261f340"
+    },
+    {
+      "path": "artifacts/qa-financial-records/review-dark-390.png",
+      "bytes": 125807,
+      "sha256": "8dbd17b5cd13c0c0ff9fd086188b022f102a4d9a177a6cf8ba9c7654afbbe1ff"
+    },
+    {
+      "path": "artifacts/qa-financial-records/review-light-390.png",
+      "bytes": 73894,
+      "sha256": "9e0f5d67f9dee4e2a7fd9923676705c745a449061453154ce2d78949c69123df"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-1024.png",
+      "bytes": 122363,
+      "sha256": "69eeb263e4e821e1880d60930884eb7b4e008eaf1a120f7ce253bb64a5cc42cf"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-1440.png",
+      "bytes": 135131,
+      "sha256": "99952aff10a34815b4d8de6b654f782b8a2f5b3b30b0654de01476f06b07f859"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-1920.png",
+      "bytes": 198753,
+      "sha256": "bc7660eadb53d8431c85bb793432de94da43d4e2cf50796772ac7fd1687b23b9"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-320.png",
+      "bytes": 109175,
+      "sha256": "93bca600641a795d31a8ab07f73b9d149a64807eee671fa8aaa5377a2871268f"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-360.png",
+      "bytes": 109330,
+      "sha256": "41084a708be196484327302b28dd37174ce3775bf12789be8f23e0128bb5d079"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-390.png",
+      "bytes": 108366,
+      "sha256": "8192a3c04c64e8cb8e75c08ee92156d8122c90b91bc764a3297579180afffab0"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-dark-768.png",
+      "bytes": 112363,
+      "sha256": "0c843b8d3cd4aaab2a6b5acae4fa5293354307af75deb24f4a5b2f3186b2d7ad"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-1024.png",
+      "bytes": 118483,
+      "sha256": "61099a567318cc3ea52c645c08f097d16a5737474b822731e40ee807f4957248"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-1440.png",
+      "bytes": 130595,
+      "sha256": "452f3fcd102a84518f8c34586bcd0562a849b00da4bc03cbe84d9b55617af03f"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-1920.png",
+      "bytes": 193751,
+      "sha256": "94cfe944b66bb57046cbd60af18d1ff7509d94e5f13f1092f89499e03c2a2425"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-320.png",
+      "bytes": 104929,
+      "sha256": "648d8afcf3967d21288e9c5073a558bc2ae2fb4ae6b9d8f483ca03457daec7c1"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-360.png",
+      "bytes": 105245,
+      "sha256": "5e8e6104fdd4dc0a8ca9e6af789d74c93822444ffabd9c29c5e0e32a22032afb"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-390.png",
+      "bytes": 104487,
+      "sha256": "1517411812003d1c86e3247f04e15af8e5c78b32777d88fb848d5b00f095472f"
+    },
+    {
+      "path": "artifacts/qa-financial-records/settlement-light-768.png",
+      "bytes": 108544,
+      "sha256": "32d90ced513490e2594f99c16b107b6f7e8fa06bdd855b458a07476ee2faf370"
+    },
+    {
+      "path": "artifacts/qa-financial-records/text-200-dark-320.png",
+      "bytes": 263799,
+      "sha256": "c496da6624fa2bc027a4be1dc5ec7124a4167a1d05645978fc151577ae6b92f4"
+    },
+    {
+      "path": "artifacts/qa-financial-records/unverified-light-390.png",
+      "bytes": 92684,
+      "sha256": "46a3fab6e5c18e35328b381c03fceb3006b421f7161398661bb27830e9c5e250"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

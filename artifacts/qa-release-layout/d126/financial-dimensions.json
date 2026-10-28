@@ -1,0 +1,155 @@
+{
+  "phase": "D126",
+  "suite": "financial-dimensions",
+  "startedAt": "2026-10-28T03:42:10.962Z",
+  "completedAt": "2026-10-28T03:44:14.343Z",
+  "status": "passed",
+  "buildID": "2coQl34ngSTYHMsbWMf4l",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+    "scripts/qa-financial-dimensions.ts": "4d1fa0cedbf141091e7b4733dcc8186b285096add587a38586c3db4631b42a2e",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-financial-dimensions/book-text-200-dark-320.png",
+      "bytes": 1227484,
+      "sha256": "05b32bb8e566e5f870f00b56f501fa984cad809e5003f9798c5f970ce6dee173"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/book-text-200-light-320.png",
+      "bytes": 1216371,
+      "sha256": "45bfc95edc22b961619c85bb4fab08f0832b9edc33a3753361dc4ce665d81bb5"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/books-light-390.png",
+      "bytes": 242026,
+      "sha256": "7289dcaf82bbab05c98671ec2760b0c6163b087f6eecb70a8a01fe6747c51a91"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/books-page-2-light-390.png",
+      "bytes": 236211,
+      "sha256": "fa2011a7b846f23d6dfc0c6b1a056c65db0cc30834ada1d88f3f02de8763914d"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/campaign-text-200-dark-320.png",
+      "bytes": 1191510,
+      "sha256": "0bb1595e6d853a2adffcd733aac97cbf7ef7a39cfb73771a795554cf00fe3799"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/campaign-text-200-light-320.png",
+      "bytes": 1178342,
+      "sha256": "59c4b65d315e0b42964ecacfbb153b9134bb9edab127e9a2b805f99cdcfd6d8e"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/campaigns-light-390.png",
+      "bytes": 249781,
+      "sha256": "805c7f73712a163fbd76de95b10d5e56c9c129dcf3383a216ffb58f64b7ae479"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/currency-filter-light-390.png",
+      "bytes": 171221,
+      "sha256": "2a155ce9aa3a272fa9200b46b132f9bb6fc593d9ede3c5917801e29849e2e25f"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/empty-dimensions-light-390.png",
+      "bytes": 85070,
+      "sha256": "c1094c94b9ebd591b9e33e1eefd698995b0be51fa5b7f066b53361dc2f65b42c"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/nojs-books-page-2-390.png",
+      "bytes": 236855,
+      "sha256": "7c9c9bd931483a3734fa1e9c03b858639dae2547468ec84c16b5888dc294788e"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-1024.png",
+      "bytes": 266221,
+      "sha256": "2fedab962e7541ee7ed58e9b69f6deade6dc6e64e428c5500c162fcf2c315eed"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-1440.png",
+      "bytes": 286011,
+      "sha256": "da4c9c0740acb52082a3c101874a5a4a68ec599390bd5be50d65b394b7466ac6"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-1920.png",
+      "bytes": 358653,
+      "sha256": "2d6ca35655aedfe0ac6d05ec3c10f1d32524c78ec462b6eb7dc63346f83ef9b8"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-320.png",
+      "bytes": 244845,
+      "sha256": "82f90e3f1d33a8970d54d28141da24ae70de6deda835c94c4301a870432df21b"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-360.png",
+      "bytes": 238212,
+      "sha256": "d02fa9cd27d358fba6545969bcce4b871a2806bfd480b2c93d2c0f77c57b1297"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-390.png",
+      "bytes": 242922,
+      "sha256": "dbe62ce3e60ff10b766cc843600f56ad65ac919c3133d2c0519a4edb1f95ebd6"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-dark-768.png",
+      "bytes": 254244,
+      "sha256": "8dafa26fc1e4e14f5e47f00ee2fa80477eb88c3431f0ae1f4636cd2ed80e9b9e"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-initial-light-390.png",
+      "bytes": 234077,
+      "sha256": "df208ff09f8caf869a529a2f7825e3ee561869fbdf01351471ebb01936787b6a"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-1024.png",
+      "bytes": 258646,
+      "sha256": "c11eb78b1c6f4771b0619abff3ef996c1c05b524f342e0e70f635b470b0e5b64"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-1440.png",
+      "bytes": 278167,
+      "sha256": "da6bb5af47744f4b0062960d327a3e5078f67df927ad920762ceef8bb4316da7"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-1920.png",
+      "bytes": 350369,
+      "sha256": "624666f575610aa0bc41d3bf599b752d12bb371311e9b1df6bcdbf175237cbd8"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-320.png",
+      "bytes": 236809,
+      "sha256": "34909ffab778783a435328f6501264e2376902b12a4d93590d8136c4b6deaa0e"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-360.png",
+      "bytes": 232550,
+      "sha256": "b644e08acb5cb0e39ec24c418313aedd4fc90d720bbc92954f7b457a01612296"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-390.png",
+      "bytes": 236203,
+      "sha256": "614436b8137e7b13943d7df0617d761474cb465cc70ff871c78a54a7eeca3778"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/providers-light-768.png",
+      "bytes": 247848,
+      "sha256": "563239b73f43ada119932bab3edbcffd743ea8f0de8fe386efeffcc576401496"
+    },
+    {
+      "path": "artifacts/qa-financial-dimensions/results.json",
+      "bytes": 4999,
+      "sha256": "69993e01799562e054625be5064fcedacb910057b203b92069866b9a531c1a17"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

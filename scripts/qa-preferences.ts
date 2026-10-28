@@ -48,7 +48,7 @@ try {
     await screenshot('global-canceled')
     await context.close()
   }
-  await writeFile(`${output}/results.json`, JSON.stringify({ date: '2026-10-22 America/Belem', environment: 'Build .next-qa local; dados sintéticos; nenhum envio ou API externa', checks: ['GET sem consulta privada/mutação', 'consulta explícita por teclado', 'cancelamento temático com estado persistido', 'cancelamento global oculta escolhas antigas'], screenshots: results.length, results }, null, 2)+'\n')
+  await writeFile(`${output}/results.json`, JSON.stringify({ date: new Date().toISOString(), environment: 'Build .next-qa local; dados sintéticos; nenhum envio ou API externa', checks: ['GET sem consulta privada/mutação', 'consulta explícita por teclado', 'cancelamento temático com estado persistido', 'cancelamento global oculta escolhas antigas'], screenshots: results.length, results }, null, 2)+'\n')
   console.log(`Preferências no navegador: ${results.length} telas, dois temas/seis larguras; axe/overflow aprovados.`)
 } finally { await browser.close(); await seed.cleanup() }
 process.exit(0)

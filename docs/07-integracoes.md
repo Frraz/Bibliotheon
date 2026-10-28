@@ -2,7 +2,7 @@
 
 [Índice](../README.md) · [Hotmart](integracoes/hotmart.md) · [Kiwify](integracoes/kiwify.md) · [Cakto](integracoes/cakto.md)
 
-**Estado em 25/10/2026, D81:** ofertas/campanhas, redirects e medição consentida possuem testes locais. Relacionamento Brevo tem fluxos locais D48–D58; inbox/processador/histórico/auditoria comerciais existem em D60–D61. Hotmart v2 D63, Kiwify D64 e Cakto V1/V2 D65 têm adaptadores/endpoints locais, desligados e sem conta homologada. Conciliação inclui associação/decisão auditadas, CSVs canônicos de snapshot/evidência, ledger de liquidação/custos, prévia financeira, importação e registro/correção de liquidações/custos pelo painel. P03/P04/P05 continuam parciais; atribuição, cobertura/rotina integral e homologação das contas permanecem pendentes. Ver [estado atual](23-estado-atual.md), [contrato canônico](24-conciliacao.md) e [Brevo](integracoes/brevo.md).
+**Estado em 28/10/2026 (revisão documental D129):** fluxos locais Brevo, inbox/adaptadores Hotmart/Kiwify/Cakto, CSVs, ledger e interfaces de resolução/conciliação possuem testes sintéticos. P01–P05 têm aceite local D86; atribuição HTTP integrada D88 foi renovada na bateria de 16 suítes D127. H05 tem aceite local D126. P06 aguarda prova por conta, P07-A–E continuam abertos e nenhuma integração foi homologada ou habilitada em conta real. Ver [estado atual](23-estado-atual.md), [contrato canônico](24-conciliacao.md) e [Brevo](integracoes/brevo.md).
 
 ## Separar oferta de integração
 

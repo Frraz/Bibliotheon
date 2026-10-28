@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:29:33.366Z",
+  "date": "2026-10-27T04:29:21.217Z",
   "checks": [
     "Owner obrigatório antes de consulta; vazio preserva os três provedores, ausência de sucesso e contagens zero sem inventar atividade.",
     "Resumo separa fila/processamento/atenção; colisão em aplicado e lease vencido contam na atenção; ignorado não fabrica sucesso de aplicação. Datas vêm de registros, incluindo pendência mais antiga.",

@@ -43,3 +43,5 @@ D84 (25/10/2026): reusados os princípios locais de tokens, hierarquia, cobertur
 D85 (25/10/2026): reutilizados tokens, foco, scroll regional, disclosure progressivo e paginação server para detalhamentos. Desconhecidos e limite de prova ficam junto ao indicador. Sem instalação global, nova consulta externa ou IA no produto; customização segue extensão suportada do Payload.
 
 D86 (25/10/2026): princípios já aplicados de disclosure, confirmação explícita, foco, feedback e linguagem financeira foram verificados na jornada conjunta. Sem alteração visual, instalação global, nova consulta externa ou IA integrada; build D85 foi reutilizado com hashes conferidas. Aceite operacional local não substitui matriz B20 integral.
+
+D121: referência UI Skills/a11y consultada para priorizar axe, teclado, semântica, foco e alvos. Uso adaptado ao harness sintético/isolado e às autorizações de correção já dadas pelo proprietário, sem nova etapa de aprovação genérica, instalação global ou certificação WCAG presumida. Capturas de zoom nativo usam CDP porque o helper fullPage recorta esse cenário.

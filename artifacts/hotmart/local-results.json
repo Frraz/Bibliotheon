@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:28:58.078Z",
+  "date": "2026-10-27T04:29:34.201Z",
   "checks": [
     "Autenticação antes da persistência; duplicatas simultâneas recebem ACK após um commit. Recepção independe do worker desligado; aplicação posterior usa ucode/oferta, total pago e data original, sem PII/comissão/liquidação inferida.",
     "Reembolso parcial sem quantia fica desconhecido; COMPLETE tardio reforça aprovação original sem apagar reversão. Chargeback permanece separado, com sobreposição explícita e sem duplicar devolução.",

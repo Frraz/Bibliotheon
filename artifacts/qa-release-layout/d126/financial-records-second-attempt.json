@@ -1,0 +1,66 @@
+{
+  "phase": "D126",
+  "suite": "financial-records",
+  "startedAt": "2026-10-28T03:40:55.573Z",
+  "completedAt": "2026-10-28T03:42:08.371Z",
+  "status": "failed",
+  "buildID": "2coQl34ngSTYHMsbWMf4l",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+    "scripts/qa-financial-records.ts": "5b5ded980ae76861017762f044ae415f6f0307fcf5aefafc00c8dfd686ce8b16",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-financial-records/correction-light-390.png",
+      "bytes": 135827,
+      "sha256": "45805a6231176b7cfc31c38b265d52ba9b0ab24135c8b6f07a047877d56028f6"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-cost-dark-390.png",
+      "bytes": 94434,
+      "sha256": "8c920495916dbccbb9e266b50d17ba7dec9dcb5d299a94ad384e971e4ef96b89"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-cost-light-390.png",
+      "bytes": 89965,
+      "sha256": "af232f7326c2b59e90deed1b112aa5dc6be7de32c74c0b5905d2b155d36e70a6"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-settlement-dark-390.png",
+      "bytes": 94330,
+      "sha256": "c3afaf8d551778bf79f3509ac65c497773a5ff021237670618060435fa6df9ca"
+    },
+    {
+      "path": "artifacts/qa-financial-records/empty-settlement-light-390.png",
+      "bytes": 90503,
+      "sha256": "a797b57f065aeee0eade7f83203a542e4ba961e65469361083bb738a81cc6d1c"
+    },
+    {
+      "path": "artifacts/qa-financial-records/loading-light-390.png",
+      "bytes": 72993,
+      "sha256": "3ab2e546e6cb848fb628b90e72a40687e0d5bdbde91ba4d5df47165345f0f1c9"
+    },
+    {
+      "path": "artifacts/qa-financial-records/results.json",
+      "bytes": 1999,
+      "sha256": "8b009f0f1e03b1d092057e8fb133457205250e4f55a5a21cf3d011a041b04062"
+    },
+    {
+      "path": "artifacts/qa-financial-records/review-light-390.png",
+      "bytes": 73894,
+      "sha256": "9e0f5d67f9dee4e2a7fd9923676705c745a449061453154ce2d78949c69123df"
+    }
+  ],
+  "failure": "Processo de QA terminou com código 1.",
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

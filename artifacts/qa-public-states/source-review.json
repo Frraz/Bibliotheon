@@ -1,0 +1,21 @@
+{
+  "phase": "D125",
+  "reviewedAt": "2026-10-28T02:39:08.377607+00:00",
+  "sources": [
+    {
+      "url": "https://nextjs.org/docs/app/api-reference/file-conventions/error",
+      "finding": "retry refaz a consulta e a renderização do segmento; reset limpa o erro local."
+    },
+    {
+      "url": "https://nextjs.org/docs/app/api-reference/functions/use-router",
+      "finding": "router.refresh solicita novamente os Server Components preservando estado não afetado."
+    }
+  ],
+  "localPrimaryEvidence": {
+    "version": "Next.js 16.4.2",
+    "file": "node_modules/next/dist/client/components/error-boundary.js",
+    "sha256": "579eef61438b0f29e4b9009bd01d51ebbd52baa22026be318a5721c9ddad0db3",
+    "finding": "retry já fornecido ao errorComponent executa startTransition, context.refresh e reset."
+  },
+  "dependencyUpgradeRequired": false
+}

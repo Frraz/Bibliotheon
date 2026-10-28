@@ -1,0 +1,37 @@
+{
+  "phase": "D121",
+  "initialFailures": [
+    {
+      "run": "first",
+      "route": "/admin/collections/ebooks/[id]",
+      "rules": [
+        "scrollable-region-focusable",
+        "target-size"
+      ],
+      "correctiveChange": "Região focável/nomeada no patch Payload; preview com alvo de 44px."
+    },
+    {
+      "run": "second",
+      "route": "/admin/collections/ebooks",
+      "status": 500,
+      "error": "TypeError: Cannot destructure property sort of l as it is undefined.",
+      "correctiveAction": "Build anterior preservado; reconstrução QA limpa para isolar reutilização de módulos."
+    }
+  ],
+  "captureProbe": {
+    "nativeZoom": 4,
+    "outerWidth": 1280,
+    "layoutWidth": 320,
+    "DPR": 4,
+    "playwrightViewportPNGWidth": 320,
+    "cdpViewportPNGWidth": 1280,
+    "finalCaptureMethod": "CDP Page.captureScreenshot sem clip nem override de viewport"
+  },
+  "productionChanged": false,
+  "cleanBuildObservation": {
+    "listRouteStatus": 200,
+    "scrollableRegionViolationCleared": true,
+    "remainingRule": "target-size",
+    "remainingControl": "upload-relationship-details filename link"
+  }
+}

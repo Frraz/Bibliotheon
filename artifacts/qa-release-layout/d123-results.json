@@ -1,0 +1,49 @@
+{
+  "phase": "D123",
+  "completedAt": "2026-10-28T01:48:24.537574+00:00",
+  "status": "passed",
+  "buildID": "t7Gx_SH1bi5VbbwvBjvMu",
+  "checks": 250,
+  "axeChecks": 238,
+  "noJavaScriptChecks": 12,
+  "screenshots": 284,
+  "regularChecks": 204,
+  "native400Checks": 34,
+  "nativeMechanism": "chrome.tabs.setZoom/getZoom com tolerância 1e-8; janela física 1280px, layout 320px, DPR4; CDP captura PNG físico",
+  "artifactHashesVerified": true,
+  "regularReuseAudit": {
+    "source": "artifacts/qa-relationship-states/failed-native-precision/results.json",
+    "originalRunStatus": "failed",
+    "failureObserved": {
+      "stage": "native zoom before first native scenario",
+      "actual": 3.9999999999999996,
+      "expected": 4,
+      "comparison": "strict equality"
+    },
+    "basis": "O protocolo executado e arquivado só entra na etapa nativa após concluir os 12 cenários normais, cada qual com 17 estados e verificações de foco. A falha observada foi na primeira comparação de zoom. Os 204 estados e seus PNGs foram conferidos; runtime, estilos, pacote e Build ID coincidem com a retomada. O relatório original permanece failed.",
+    "executedProtocolSHA256": "8fde350e89046806d2bfd97ae23b15a15e3a12a7c381649729e4c6afc52e9e01"
+  },
+  "nativeEvidence": "artifacts/qa-relationship-states/native-results.json",
+  "runnerEvidence": "artifacts/qa-release-layout/d123/relationship-states.json",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "bfce8a57bc457ba177ccd7773d31da3b8212a56641b161b8ea3659a2faebc714",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "0d58aad687c641d0ba29f6414236c571fa8e25e558b19b7da10d8f2f95f5f320",
+    "scripts/qa-relationship-states.ts": "b39941f5aa32604fea4e54fc28373fb1ded74934b9a27893af49f7c8d5068caf",
+    "src/components/SampleForms.tsx": "eee64aa70ad8ad486bfdf6397138fb505118417fa443bad90905872e1c8d8101",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "externalRequests": 0,
+  "runtimeErrors": [],
+  "realMessagesSent": 0,
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "H05Complete": false,
+  "productionChanged": false,
+  "limits": "Entrega em memória, respostas 503 interceptadas; fallback sem JS verifica aviso/HTML/overflow/ausência de POST ao abrir, sem axe. Não comprova conta externa, carga comercial ou aceite integral H05."
+}

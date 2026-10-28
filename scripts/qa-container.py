@@ -38,17 +38,37 @@ def run(command, *, data=None, expected=0, timeout=180):
     return result.stdout.decode()
 
 
-def request(compose, route, body=None, token=None):
+def request(compose, route, body=None, token=None, method=None):
     # Docker's internal bridge may not publish host ports. Probe the real HTTP
     # server from its container, keeping provider egress physically blocked.
     script = """let input='';for await(const chunk of process.stdin)input+=chunk;
-const {route,body,token}=JSON.parse(input);const headers={'Content-Type':'application/json'};
+const {route,body,token,method}=JSON.parse(input);const headers={'Content-Type':'application/json'};
 if(token)headers.Authorization='JWT '+token;
-const response=await fetch('http://127.0.0.1:3000'+route,{method:body===null?'GET':'POST',headers,...(body===null?{}:{body:JSON.stringify(body)})});
+const response=await fetch('http://127.0.0.1:3000'+route,{method:method||(body===null?'GET':'POST'),headers,...(body===null?{}:{body:JSON.stringify(body)})});
 console.log(JSON.stringify({status:response.status,body:await response.text()}));"""
-    output = run(compose + ['exec','-T','app','node','--input-type=module','-e',script], data=json.dumps({'route':route,'body':body,'token':token}).encode(), timeout=45)
+    output = run(compose + ['exec','-T','app','node','--input-type=module','-e',script], data=json.dumps({'route':route,'body':body,'token':token,'method':method}).encode(), timeout=45)
     result = json.loads(output)
     return result['status'], result['body']
+
+
+def upload_media(compose, token, invalid=False):
+    script = """import sharp from 'sharp';
+let input='';for await(const chunk of process.stdin)input+=chunk;
+const {token,invalid}=JSON.parse(input);const image=invalid?Buffer.from('not-a-png'):await sharp({create:{width:8,height:8,channels:4,background:{r:24,g:58,b:82,alpha:1}}}).png().toBuffer();
+const form=new FormData();form.set('_payload',JSON.stringify({alt:'Capa sintética de validação do container',visibility:'private',presentationRole:'cover'}));form.set('file',new Blob([image],{type:'image/png'}),invalid?'invalid.png':'container-qa.png');
+const response=await fetch('http://127.0.0.1:3000/api/media',{method:'POST',headers:{Authorization:'JWT '+token},body:form});
+const payload=await response.json().catch(()=>({}));const doc=payload.doc??payload;console.log(JSON.stringify({status:response.status,id:doc.id??null,filename:doc.filename??null,mimeType:doc.mimeType??null,hash:doc.hash??null,visibility:doc.visibility??null,message:payload.errors?.[0]?.message??payload.message??null}));"""
+    output = run(compose + ['exec','-T','app','node','--input-type=module','-e',script], data=json.dumps({'token':token,'invalid':invalid}).encode(), timeout=45)
+    return json.loads(output)
+
+
+def media_file_state(compose, filename):
+    script = """import {readFile,stat} from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';
+let input='';for await(const chunk of process.stdin)input+=chunk;
+const {filename}=JSON.parse(input);if(typeof filename!=='string'||!/^[a-f0-9-]+\\.webp$/.test(filename))process.exit(2);
+const file=path.join('/app/uploads',filename),bytes=await readFile(file),info=await stat(file);
+console.log(JSON.stringify({exists:info.isFile(),size:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')}));"""
+    return json.loads(run(compose + ['exec','-T','app','node','--input-type=module','-e',script], data=json.dumps({'filename':filename}).encode(), timeout=45))
 
 
 def json_report(output):
@@ -57,6 +77,33 @@ def json_report(output):
 
 image_id = run(['docker', 'image', 'inspect', IMAGE, '--format', '{{.Id}}']).strip()
 previous_id = run(['docker', 'image', 'inspect', PREVIOUS, '--format', '{{.Id}}']).strip() if PREVIOUS else None
+
+# Probe the actual packaged entrypoints, not the host's node_modules.
+deepmerge_probe = r"""
+const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
+const fromPayload = require('node:module').createRequire(require.resolve('payload'));
+const entry = fromPayload.resolve('deepmerge'), entries = [entry, path.join(path.dirname(entry), 'umd.js')];
+let cases = 0;
+for (const file of entries) {
+  const merge = fromPayload(file);
+  for (const [target, source, nested] of [
+    [Object.create(null), JSON.parse('{"__proto__":{"admin":true}}'), false],
+    [{session:null}, JSON.parse('{"session":{"__proto__":{"admin":true}}}'), true],
+    [JSON.parse('{"__proto__":{"admin":true}}'), {safe:true}, false],
+  ]) {
+    const result = merge(target, source), value = nested ? result.session : result;
+    assert.equal(Object.getPrototypeOf(value), Object.prototype);
+    assert.equal(value.admin, undefined);
+    assert.equal({}.admin, undefined);
+    cases++;
+  }
+  assert.deepEqual(merge({fields:['title'],config:{enabled:true}}, {fields:['price'],config:{quota:50}}), {fields:['title','price'],config:{enabled:true,quota:50}});
+  cases++;
+}
+console.log(JSON.stringify({status:'passed',cases,entrySHA256:entries.map(file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex'))}));
+"""
+deepmerge_guard = json.loads(run(['docker', 'run', '--rm', '--network', 'none', '--entrypoint', 'node', image_id, '-e', deepmerge_probe]))
+assert deepmerge_guard['status'] == 'passed' and deepmerge_guard['cases'] == 8
 expected_migrations = re.findall(r"name: '([^']+)'", (ROOT / 'migrations/index.ts').read_text())
 migration_count = len(expected_migrations)
 assert migration_count and len(set(expected_migrations)) == migration_count
@@ -139,6 +186,22 @@ def scenario(label, previous=None):
             assert status == 200
             token = json.loads(logged)['token']
             private_values.add(token)
+            uploaded = upload_media(compose, token)
+            assert uploaded['status'] in [200, 201] and uploaded['id'] and uploaded['filename'] and uploaded['filename'].endswith('.webp'), f"Upload sintético recusado: HTTP {uploaded['status']} ({uploaded['message']})."
+            assert uploaded['mimeType'] == 'image/webp' and uploaded['visibility'] == 'private' and re.fullmatch(r'[a-f0-9]{64}', uploaded['hash'])
+            original_media = media_file_state(compose, uploaded['filename'])
+            assert original_media['exists'] and original_media['size'] > 0
+            invalid_upload = upload_media(compose, token, invalid=True)
+            assert invalid_upload['status'] == 422
+            unchanged_media = media_file_state(compose, uploaded['filename'])
+            assert unchanged_media == original_media
+            status, media_json = request(compose, '/api/media/' + uploaded['id'], token=token)
+            assert status == 200 and json.loads(media_json)['hash'] == uploaded['hash']
+            run(compose + ['restart', 'app'], timeout=90)
+            run(compose + ['up', '-d', '--wait', '--wait-timeout', '90', 'app'], timeout=110)
+            assert media_file_state(compose, uploaded['filename']) == original_media
+            status, media_json = request(compose, '/api/media/' + uploaded['id'], token=token)
+            assert status == 200 and json.loads(media_json)['filename'] == uploaded['filename']
             for collection in ['contacts','privacy-request-audit','marketing-suppression-tombstones','contact-retirements','theme-withdrawals','commercial-settlement-evidence','financial-cost-entries']:
                 assert request(compose, '/api/' + collection, token=token)[0] == 200, collection
                 assert request(compose, '/api/' + collection, {}, token=token)[0] == 403, collection
@@ -181,7 +244,7 @@ def scenario(label, previous=None):
             run(compose + ['exec','-T','worker','node','-e',"process.exit(Intl.DateTimeFormat().resolvedOptions().timeZone==='America/Belem'?0:1)"])
             assert sql('SELECT (SELECT count(*) FROM email_deliveries)+(SELECT count(*) FROM payload_jobs)') == '0'
             assert run(['docker','network','inspect',project+'_private','--format','{{.Internal}}']).strip() == 'true'
-            report = {'scenario':label,'imageID':image_id,'previousImageID':previous,'previousMigrations':len(old_migrations),'currentMigrations':migration_count,'exactMigrationNamesMatched':True,'migrationReplayUnchanged':True,'upgradeSyntheticContactAndOwnerPreserved':bool(previous),'health':200,'httpProbeLocation':'container loopback on internal network','nonRoot':True,'readOnly':True,'runtimeDDLRejected':True,'ownerCLIAndLogin':True,'privateAnonymousCollections':len(private),'ownerReadAndImmutableAPICollections':7,'threeWebhookFlagsDisabled':True,'captureDisabled':True,'runtimeSecretsAbsentFromImageEnv':True,'fixturesAndEnvFilesAbsentFromImage':True,'cliSeconds':cli_seconds,'privacyInventoryCLI':True,'privacyRetentionPreviewCLI':True,'analyticsRetentionPreviewCLI':True,'privacyRecoveryV2CLI':True,'privacyRecoveryEntries':replay['entries'],'workerRefusesAllFlagsDisabled':True,'retentionOnlyWorkerHealthy':True,'idleHeartbeatAdvances':True,'idleObservationSeconds':35,'providerTransportsDisabled':True,'networkInternal':True,'outboundDeliveries':0,'durationSeconds':round(time.monotonic()-started,2)}
+            report = {'scenario':label,'imageID':image_id,'previousImageID':previous,'previousMigrations':len(old_migrations),'currentMigrations':migration_count,'exactMigrationNamesMatched':True,'migrationReplayUnchanged':True,'upgradeSyntheticContactAndOwnerPreserved':bool(previous),'health':200,'httpProbeLocation':'container loopback on internal network','nonRoot':True,'readOnly':True,'runtimeDDLRejected':True,'ownerCLIAndLogin':True,'privateAnonymousCollections':len(private),'ownerReadAndImmutableAPICollections':7,'ownerMediaUploadAPI':True,'imageUploadProcessedToWebp':True,'invalidReplacementPreservedOriginal':True,'uploadedFilePersistsAfterAppRestart':True,'mediaVolumeWritableOnReadOnlyContainer':True,'threeWebhookFlagsDisabled':True,'captureDisabled':True,'runtimeSecretsAbsentFromImageEnv':True,'fixturesAndEnvFilesAbsentFromImage':True,'cliSeconds':cli_seconds,'privacyInventoryCLI':True,'privacyRetentionPreviewCLI':True,'analyticsRetentionPreviewCLI':True,'privacyRecoveryV2CLI':True,'privacyRecoveryEntries':replay['entries'],'workerRefusesAllFlagsDisabled':True,'retentionOnlyWorkerHealthy':True,'idleHeartbeatAdvances':True,'idleObservationSeconds':35,'providerTransportsDisabled':True,'networkInternal':True,'outboundDeliveries':0,'durationSeconds':round(time.monotonic()-started,2)}
             print(f'Imagem {label}: aprovada em ambiente local isolado.', flush=True)
             return report
         except Exception:
@@ -203,7 +266,7 @@ if previous_id:
 binary_hashes = json.loads(run(['docker','run','--rm','--network','none','--entrypoint','node',image_id,'-e',"const fs=require('fs'),c=require('crypto');console.log(JSON.stringify(Object.fromEntries(['privacy-inventory','privacy-retention','analytics-retention','privacy-recovery','worker'].map(n=>[n,c.createHash('sha256').update(fs.readFileSync('/app/cli/'+n+'.js')).digest('hex')]))))"]))
 for name, digest in binary_hashes.items():
     assert hashlib.sha256((ROOT / '.release' / (name + '.js')).read_bytes()).hexdigest() == digest, name
-report = {'phase':PHASE,'packagedCLISHA256':binary_hashes,'date':datetime.now(timezone.utc).isoformat(),'environment':'Docker local descartável com rede internal; sem VPS ou serviços externos','imageID':image_id,'scenarios':results,'upgradeValidated':bool(previous_id),'physicalRestoreInThisImageValidated':False,'productionReady':False,'sourceSHA256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['Dockerfile','compose.production.yaml','scripts/qa-container.py','scripts/build-runtime.mjs','migrations/index.ts','src/payload.config.ts','pnpm-lock.yaml','scripts/privacy-inventory.ts','scripts/privacy-retention.ts','scripts/analytics-retention.ts','scripts/worker.ts']}}
+report = {'phase':PHASE,'deepmergePrototypeGuard':deepmerge_guard,'packagedCLISHA256':binary_hashes,'date':datetime.now(timezone.utc).isoformat(),'environment':'Docker local descartável com rede internal; sem VPS ou serviços externos','imageID':image_id,'scenarios':results,'upgradeValidated':bool(previous_id),'physicalRestoreInThisImageValidated':False,'productionReady':False,'sourceSHA256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['Dockerfile','compose.production.yaml','scripts/qa-container.py','scripts/build-runtime.mjs','migrations/index.ts','src/payload.config.ts','pnpm-lock.yaml','scripts/privacy-inventory.ts','scripts/privacy-retention.ts','scripts/analytics-retention.ts','scripts/worker.ts']}}
 destination = ROOT / ('artifacts/container/' + PHASE.lower() + '-results.json')
 destination.parent.mkdir(parents=True, exist_ok=True)
 destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')

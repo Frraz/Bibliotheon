@@ -746,6 +746,7 @@ export interface PromotionDelivery {
         | 'offer_unavailable'
         | 'provider_rejected'
         | 'uncertain_delivery'
+        | 'marketing_review_due'
       )
     | null;
   updatedAt: string;

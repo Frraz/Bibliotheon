@@ -1,0 +1,231 @@
+{
+  "phase": "D125",
+  "completedAt": "2026-10-28T02:51:24.292Z",
+  "status": "failed",
+  "results": [
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-light-360.png",
+      "sha256": "b3649337aac854e4a0998c31b7a0ed6262e64761f80f85547b2d444b2ae26a14"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-light-390.png",
+      "sha256": "ed6a5457f20845e0708d846c5fb5ef0ca23b2fe223ff96b87b19ba9c0c55428b"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-light-768.png",
+      "sha256": "7618101beebb4ee1bd15b464c5319a01e5d5a14a560a22a089befdaafee403bc"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-light-1024.png",
+      "sha256": "65ea9ae636b9b85cd2a9634ed7af65b0fc424f8ed99d6e5dd707f36727dbf748"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-light-1440.png",
+      "sha256": "371e092a3b859225334f8585df948b860d6e6ad3dde46eda8b108c2fde3a4a16"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-light-1920.png",
+      "sha256": "0a5eb60d4fd2cfc5af11713886e1c3a46a6a0f1817fadc9c9e73e58447c307d4"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-dark-360.png",
+      "sha256": "ba6b6015eba3cb1b6682aba2a34e7b1937f26a03eb6fce269eeb6022e36a17f3"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-dark-390.png",
+      "sha256": "49533b87f29e2b1d73f3b5e2782305cac8cd810f7d079192100c8bf8bb9c6616"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-dark-768.png",
+      "sha256": "9b4d38acd57e056e18b366733aa10d30c3a5c1aec8ef75d8f9dd5a2faa97ad2f"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-dark-1024.png",
+      "sha256": "bda9ae55b039af2907897fe53bacb270dc0d11e8bc4f09a7af62469a221399a3"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-dark-1440.png",
+      "sha256": "e841ac734146f9bfdf5a07a297a8181970d56351608da8417a0adc8cef476515"
+    },
+    {
+      "state": "catalog-error",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-error-dark-1920.png",
+      "sha256": "2881d415969988b59b8893d78ec54b3baed1c4877ca8606f5faec08a3b6fe6dd"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-light-360.png",
+      "sha256": "b6b979ef410b692dec20ca6a6000af71a9414f173ff894b793af02cff251dd33"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-light-390.png",
+      "sha256": "51c858adbd8262028923e0b1f9ab9aaea7dea3e237b84c1d53ce2a48de314ca6"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-light-768.png",
+      "sha256": "67155a1e13f21ee8c434548fe492132dc4d118d0ed5336a428bd4231c711200a"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-light-1024.png",
+      "sha256": "ddfb41a36992031406915028eb11b6a37d15c3eeff3cbd27520824e52d95b6a3"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-light-1440.png",
+      "sha256": "a51fc26971a90c1865ce4bfc69472807d7907b985aaf4bc3eb44aa4dd76b2f49"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-light-1920.png",
+      "sha256": "6a3ae6cf8b072a12555cf2e40028d2a43dd375c2a4e95e7f41c409cfdfbd0667"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-dark-360.png",
+      "sha256": "e7f42121a4a322b3acf8394e541475ea71d7edbff87dd9c084f09bbe74e09b1b"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-dark-390.png",
+      "sha256": "731a4109a2b43fd584566e94b937f87a1d1c1a0b921b4f590e0f5aaa16f5b1d4"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-dark-768.png",
+      "sha256": "2322b23d0a7c3c3559736ba7503ec8580ed25e3cf0831c2f4ef663431c15694f"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-dark-1024.png",
+      "sha256": "d5fe1c2dfdadb47ada418a96ed1ad41dcea468886e36b2f00e192843f5dfd45e"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-dark-1440.png",
+      "sha256": "e20c729e94951024053c509731534b7fb9da1ba865d397795e813d03c831dfd0"
+    },
+    {
+      "state": "catalog-recovered",
+      "theme": "dark",
+      "width": 1920,
+      "overflow": false,
+      "violations": [],
+      "path": "artifacts/qa-public-states/catalog-recovered-dark-1920.png",
+      "sha256": "ff3b173505e21988c9bb470e87ad4c17a4d5d6fbbdd33b6a5376d3027878c6c4"
+    }
+  ],
+  "faultRestored": true,
+  "runtimeErrors": [],
+  "expectedServerErrors": [],
+  "externalRequests": 0,
+  "fontsBlocked": 0,
+  "fixturesCleaned": true,
+  "fullH05Accepted": false,
+  "limits": "Dados sintéticos em banco/mídia exclusivos; falha real de tabela somente nesse banco e restauração obrigatória. Sem checkout externo, conta real ou aceite de toda a fase 2."
+}

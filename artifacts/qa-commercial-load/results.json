@@ -1,0 +1,123 @@
+{
+  "phase": "D124",
+  "completedAt": "2026-10-28T02:21:27.578Z",
+  "status": "passed",
+  "dataset": {
+    "publishedBooks": 30,
+    "themes": 3,
+    "articles": 30,
+    "approvedTransactions": 1000,
+    "providers": 3,
+    "baselineReady": true
+  },
+  "phases": [
+    {
+      "stage": "seed",
+      "durationMs": 166198.813351,
+      "counts": {
+        "inbox": 1001,
+        "transactions": 1000,
+        "events": 1000,
+        "conflicts": 0
+      }
+    },
+    {
+      "stage": "load",
+      "concurrency": 5,
+      "authentication": "Clientes HTTP independentes compartilham a sessão sintética do único owner.",
+      "journeys": 15,
+      "requests": 60,
+      "durationMs": 8206.923509999993,
+      "journeyP95Ms": 3195.39730099999,
+      "endpoints": [
+        {
+          "endpoint": "catalog-filter",
+          "requests": 15,
+          "p50Ms": 707.8297089999833,
+          "p95Ms": 1265.1604869999865,
+          "maxMs": 1265.1604869999865
+        },
+        {
+          "endpoint": "financial-report",
+          "requests": 15,
+          "p50Ms": 917.884888999979,
+          "p95Ms": 1714.969688000012,
+          "maxMs": 1714.969688000012
+        },
+        {
+          "endpoint": "commercial-inbox",
+          "requests": 15,
+          "p50Ms": 1037.1125429999956,
+          "p95Ms": 1648.3588440000021,
+          "maxMs": 1648.3588440000021
+        },
+        {
+          "endpoint": "native-callback-replay",
+          "requests": 15,
+          "p50Ms": 65.45815999998013,
+          "p95Ms": 148.8153009999951,
+          "maxMs": 148.8153009999951
+        }
+      ],
+      "errors": 0,
+      "counts": {
+        "inbox": 1001,
+        "transactions": 1000,
+        "events": 1000,
+        "conflicts": 0
+      }
+    },
+    {
+      "stage": "load",
+      "concurrency": 10,
+      "authentication": "Clientes HTTP independentes compartilham a sessão sintética do único owner.",
+      "journeys": 30,
+      "requests": 120,
+      "durationMs": 14721.04673999999,
+      "journeyP95Ms": 5035.466546000011,
+      "endpoints": [
+        {
+          "endpoint": "catalog-filter",
+          "requests": 30,
+          "p50Ms": 947.1799739999988,
+          "p95Ms": 2058.6575059999886,
+          "maxMs": 2290.8674920000194
+        },
+        {
+          "endpoint": "financial-report",
+          "requests": 30,
+          "p50Ms": 1687.249409000011,
+          "p95Ms": 2851.661293000012,
+          "maxMs": 2917.125965000014
+        },
+        {
+          "endpoint": "commercial-inbox",
+          "requests": 30,
+          "p50Ms": 2110.97047499998,
+          "p95Ms": 3090.1949689999747,
+          "maxMs": 3391.9052239999874
+        },
+        {
+          "endpoint": "native-callback-replay",
+          "requests": 30,
+          "p50Ms": 95.04980599999544,
+          "p95Ms": 237.76374799999758,
+          "maxMs": 532.8128560000041
+        }
+      ],
+      "errors": 0,
+      "counts": {
+        "inbox": 1001,
+        "transactions": 1000,
+        "events": 1000,
+        "conflicts": 0
+      }
+    }
+  ],
+  "externalRequests": 0,
+  "realMessagesSent": 0,
+  "fixturesCleaned": true,
+  "fieldMetricsClaimed": false,
+  "VPSCapacityClaimed": false,
+  "limits": "Servidor/banco locais, cache aquecido, dataset e duração finitos. Clientes compartilham um owner; não são contas humanas distintas. 30s é timeout do ensaio, não SLA. Eventos de seed usam adaptador canônico sintético, sem homologar formato de provedor; replay HTTP Hotmart usa fixture nativa já existente. Sem LCP/INP/CLS de campo."
+}

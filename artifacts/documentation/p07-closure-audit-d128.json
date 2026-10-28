@@ -1,0 +1,158 @@
+{
+  "phase": "D128",
+  "date": "2026-10-28T04:57:12.849766+00:00",
+  "status": "incomplete-awaiting-policy-and-external-evidence",
+  "scope": "P07 / F02; auditoria de fonte, sem execução de expurgo ou alteração de aplicação",
+  "inventory": {
+    "collectionCount": 43,
+    "groups": {
+      "marketing": [
+        "contacts",
+        "subscriptions",
+        "consent-events",
+        "magnet-requests",
+        "email-deliveries",
+        "preference-tokens",
+        "marketing-suppression-tombstones",
+        "request-limits",
+        "mail-quota",
+        "sequence-enrollments",
+        "promotion-deliveries",
+        "email-campaign-batches",
+        "brevo-registrations",
+        "brevo-suppressions",
+        "brevo-batch-lists",
+        "brevo-campaign-drafts",
+        "brevo-campaign-sends",
+        "brevo-campaign-observations",
+        "brevo-webhook-events",
+        "brevo-delivery-receipts",
+        "privacy-request-audit",
+        "contact-retirements",
+        "theme-withdrawals"
+      ],
+      "analytics": [
+        "analytics-grants",
+        "visits",
+        "page-views",
+        "checkout-clicks",
+        "analytics-limits",
+        "analytics-daily-aggregates"
+      ],
+      "commerce": [
+        "commercial-inbox",
+        "commercial-conflicts",
+        "commercial-audit",
+        "transactions",
+        "transaction-events",
+        "commercial-import-batches",
+        "commercial-import-rows",
+        "commercial-import-audit",
+        "commercial-report-evidence",
+        "catalog-resolutions",
+        "financial-resolutions",
+        "financial-resolution-applications",
+        "commercial-settlement-evidence",
+        "financial-cost-entries"
+      ]
+    }
+  },
+  "contactExport": {
+    "explicitLinkedCollections": [
+      "subscriptions",
+      "consent-events",
+      "magnet-requests",
+      "email-deliveries",
+      "sequence-enrollments",
+      "promotion-deliveries",
+      "brevo-registrations",
+      "brevo-suppressions",
+      "brevo-webhook-events"
+    ],
+    "additionalPurposes": [
+      "contact base fields",
+      "promotion delivery receipts",
+      "contact retirements",
+      "theme withdrawals"
+    ],
+    "commercialSelectionImplemented": false,
+    "note": "Não existe associação de titular financeiro por e-mail neste fluxo. Não inferir por UTM, coincidência temporal ou identidade aproximada."
+  },
+  "commercialRetention": {
+    "partialImplemented": {
+      "commercial-inbox": "Somente envelope terminal elegível; chave/hash/fatos permanecem para idempotência e revisão.",
+      "commercial-audit": "Somente auditoria antiga resolvida e sem conflito/revisão."
+    },
+    "generalRetentionNotImplemented": [
+      "commercial-conflicts",
+      "transactions",
+      "transaction-events",
+      "commercial-import-batches",
+      "commercial-import-rows",
+      "commercial-import-audit",
+      "commercial-report-evidence",
+      "catalog-resolutions",
+      "financial-resolutions",
+      "financial-resolution-applications",
+      "commercial-settlement-evidence",
+      "financial-cost-entries"
+    ],
+    "policyDurationDefined": false,
+    "policyStartMilestoneDefined": false,
+    "deletingOnAnAssumedPeriodAllowed": false
+  },
+  "remaining": [
+    {
+      "id": "P07-A",
+      "work": "Política financeira: duração, marco inicial, minimização e exceções de disputa/conciliação",
+      "dependency": "Definição do proprietário/responsável; pergunta já enviada",
+      "closureEvidence": "Decisão explícita registrada com finalidade, duração/marco e tratamento das exceções; não presumir prazo legal universal."
+    },
+    {
+      "id": "P07-B",
+      "work": "Implementar retenção/minimização de transações, fatos, lotes/linhas/auditorias, conflitos, decisões/aplicações e evidências de liquidação/custos",
+      "dependency": "P07-A e política por finalidade; não basta trocar uma constante",
+      "closureEvidence": "Preview não mutante; apply revalidado, transacional e paginado; preservação de revisão/conciliação, trilha mínima e idempotência; regressão de duplicatas, falhas/rollback e relatórios."
+    },
+    {
+      "id": "P07-C",
+      "work": "Revisar finalidades de relacionamento ativo, manifestos/campanhas e prazos já existentes; fechar pedidos de dados dentro do escopo comprovado",
+      "dependency": "Revisão do responsável e identificação efetivamente comprovada; coordenação com cópias externas quando houver",
+      "closureEvidence": "Não tratar inventário ou exportação por e-mail como cobertura financeira; aplicar minimização apenas ao conjunto comprovado e registrar limites."
+    },
+    {
+      "id": "P07-D",
+      "work": "Conciliar identidades/cópias do provedor e pedidos pending",
+      "dependency": "Conta e prova externa do proprietário/operador",
+      "closureEvidence": "Resolução individual auditada; sem concluir pending, reenviar ou apagar incerteza por confirmação genérica."
+    },
+    {
+      "id": "P07-E",
+      "work": "Homologar rotina, saúde, exceções e alertas no ambiente real",
+      "dependency": "Operador/VPS; flags continuam controladas",
+      "closureEvidence": "Ciclos observados e marca de sucesso válida; heartbeat sozinho não prova retenção. Backup/manifesto externo/restore somente se recuperação for adotada."
+    }
+  ],
+  "currentLocalRelease": {
+    "evidence": "artifacts/container/d127-checks.json",
+    "runtimeChangedSinceD127": false,
+    "imageRebuildNecessaryForThisAudit": false
+  },
+  "backupOptional": true,
+  "externalCallsMade": 0,
+  "dataMutated": false,
+  "productionReady": false,
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-inventory.ts": "30aec2b48601fe9f82a1466f606a14e94e146a615dc4067231faac20dec2200d",
+    "src/modules/marketing/privacy-export.ts": "a9383fd0d4a0314cb33b9dc856d52917e0d219cea7fade0e00b58235d46bfffc",
+    "src/modules/marketing/privacy-retention.ts": "daebfd88b42b54f4af3400c96970ecac1a1275b5d6fd53bee03819c7be0b3f39",
+    "src/modules/marketing/retention-policy.ts": "3921c238c4817342ef0360d3405e92d560399783d3a677f128c8efa5a4e093cf",
+    "src/modules/marketing/privacy-delete.ts": "94f53957a96563d9cca38ffbd55f10a37983b2603e43a9c43c70c67957fac9f1",
+    "src/modules/marketing/privacy-correct.ts": "22176467f93c723279514cdc29610702359d49d177c71b11f6e3c3d4a5c8407d",
+    "src/modules/marketing/privacy-local-batches.ts": "8102dffde8a2627bb5cf2d93bad50cc8597dbc0121d38b4d7776a4fc1d0c689a",
+    "src/modules/analytics/retention.ts": "0285c92388f34e82d42ff300b2adebdfaa31972c3388c2f7fc2856b80a3b5b43",
+    "src/collections/FinancialLedger.ts": "4093ff65e727b1092cab06859c6408a135adb134ff2690a02f9f9fc06f383a3b",
+    "src/collections/Commerce.ts": "6493c060320885f4a4b993fa09abf961e63f93775b5369f5cbd0abab04faa5a0",
+    "src/collections/ReportEvidence.ts": "3eb10cc2d491df444173db0dc1a71a140c50f20995586cbb85552bc9e44b07b7"
+  }
+}

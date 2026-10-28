@@ -1,6 +1,6 @@
 {
   "phase": "D110",
-  "date": "2026-10-27T00:39:09.709Z",
+  "date": "2026-10-27T05:45:57.843Z",
   "environment": "PostgreSQL sintético exclusivo",
   "checks": [
     "preview sem escrita; contato ativo, supressão recente, amostra, pending, manifesto e identidade posterior preservados",
@@ -17,8 +17,8 @@
     "registro expira após 24 meses; migration down recusa dados e faz roundtrip vazio transacional"
   ],
   "preview": {
-    "cutoff": "2024-10-27T00:39:00.296Z",
-    "suppressionCutoff": "2026-09-27T00:39:00.296Z",
+    "cutoff": "2024-10-27T05:45:47.839Z",
+    "suppressionCutoff": "2026-09-27T05:45:47.839Z",
     "guardAvailable": true,
     "candidates": 11,
     "eligible": 3,
@@ -30,8 +30,8 @@
     "expiredMarkers": 0
   },
   "applied": {
-    "cutoff": "2024-10-27T00:39:00.296Z",
-    "suppressionCutoff": "2026-09-27T00:39:00.296Z",
+    "cutoff": "2024-10-27T05:45:47.839Z",
+    "suppressionCutoff": "2026-09-27T05:45:47.839Z",
     "guardAvailable": true,
     "candidates": 11,
     "eligible": 3,
@@ -48,7 +48,7 @@
     "pendingRestoredCopies": 1
   },
   "manifestVersion": 3,
-  "migrations": 34,
+  "migrations": 35,
   "externalCalls": 0,
   "humanDeletionRequestFabricated": false,
   "physicalRestoreInThisSuite": false,

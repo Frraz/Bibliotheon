@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-27T00:06:26.620Z",
+  "date": "2026-10-27T04:15:38.359Z",
   "checks": [
     "Migração 25 desce/sobe vazia atomicamente e restaura esquema no rollback.",
     "Falha após escrever aplicação reverte decisão e todas as mudanças financeiras do componente.",

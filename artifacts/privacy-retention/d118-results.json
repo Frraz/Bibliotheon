@@ -1,0 +1,24 @@
+{
+  "phase": "D118",
+  "completedAt": "2026-10-27T05:33:20.081Z",
+  "environment": "PostgreSQL sintético descartável",
+  "checks": [
+    "contact: referência sem FK bloqueia exclusão/correção, preserva relações e reutiliza auditorias pending",
+    "delivery: referência sem FK bloqueia exclusão/correção, preserva relações e reutiliza auditorias pending",
+    "email: referência sem FK bloqueia exclusão/correção, preserva relações e reutiliza auditorias pending",
+    "contactFingerprint: referência sem FK bloqueia exclusão/correção, preserva relações e reutiliza auditorias pending",
+    "suppressionFingerprint: referência sem FK bloqueia exclusão/correção, preserva relações e reutiliza auditorias pending",
+    "sendFingerprint: referência sem FK bloqueia exclusão/correção, preserva relações e reutiliza auditorias pending",
+    "remoção da referência apenas na fixture permite retomar pending; manifestos sem vínculo não bloqueiam outro titular"
+  ],
+  "externalCalls": 0,
+  "externalReconciliationPerformed": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-shared-reference.ts": "d3bc85c6c2f443d8f48fa3c3fce9e6c68506bdf3298228b9a63137ffd3cb4d9b",
+    "src/modules/marketing/privacy-delete.ts": "c2bfd8fb6316c84757fe4c5b235703f0b49c800c3c2734f7b55eda4d93f89da3",
+    "src/modules/marketing/privacy-correct.ts": "55b06a0b72bcd21d9e68cfdb56e151fcb879bc672cba5003ccc0ce2cdcc2c0b8",
+    "src/modules/marketing/privacy-marketing-retention.ts": "0e7358c26788ba05be7fee48b89960455ab0fab6b41d0cba1da1b701164b4f9f",
+    "tests/integration/privacy-shared-reference.ts": "504c258c1d4f612ed387e9e323cd8ad09cb360842e3316340b3790f44fd128d5"
+  }
+}

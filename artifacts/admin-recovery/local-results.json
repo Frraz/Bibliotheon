@@ -1,6 +1,6 @@
 {
   "environment": "PostgreSQL/standalone loopback; owner sintético",
-  "origin": "http://127.0.0.1:3001",
+  "origin": "http://127.0.0.1:35503",
   "checks": [
     "recuperação pública por e-mail/reset indisponível com resposta igual; unlock público negado; nenhum token criado",
     "entrada curta/contato desconhecido recusados sem eco",

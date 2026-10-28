@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:29:25.016Z",
+  "date": "2026-10-27T04:30:16.040Z",
   "checks": [
     "Mesmo produto em três provedores resolve namespaces separados e três snapshots compatíveis. Prévia não modifica histórico, projeções, recibos, conflitos ou auditoria; nunca habilita commit.",
     "Repetição exata aponta o registro original; divergência com ledger ou dentro do CSV exige revisão sem criar novo fato ou alterar total.",

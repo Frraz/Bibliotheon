@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T17:10:36.076Z",
+  "date": "2026-10-27T04:16:30.787Z",
   "status": "passed",
   "checks": [
     "Cobertura de liquidação pertence à moeda/coorte correta; caixa de aprovação fora da janela continua independente. Revisões unknown e datas ausentes permanecem visíveis, sem contaminar valores/coortes.",

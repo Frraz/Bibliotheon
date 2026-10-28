@@ -1,0 +1,518 @@
+{
+  "checks": [
+    {
+      "name": "home",
+      "status": 200,
+      "route": "/",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/home-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/home-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "ff9b31baa0522f7fb4e259705604e517d522f13b3709768b10ed873c90c752ca"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog",
+      "status": 200,
+      "route": "/ebooks",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/catalog-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/catalog-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "eb40517d11a7c32e5792a45548565e386b855d8235ff84f34c7d21a6c891c8cc"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog-empty",
+      "status": 200,
+      "route": "/ebooks?q=nenhumzzzz",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/catalog-empty-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/catalog-empty-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "eb40517d11a7c32e5792a45548565e386b855d8235ff84f34c7d21a6c891c8cc"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-guide",
+      "status": 200,
+      "route": "/ebooks/[book]",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-guide-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-guide-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "5c67f4b2f092eb1022d3611e76eb4c9a7a9be0d309db259fff643fe0d2acfee7"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-reading",
+      "status": 200,
+      "route": "/ebooks/reading-f34e86e78f",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-reading-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-reading-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d7d692d1d8339d82c33536b4dc26797f2cf38934844a2fd4e46af6566597ee72"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-workbook",
+      "status": 200,
+      "route": "/ebooks/workbook-f34e86e78f",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-workbook-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-workbook-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7c8f58168ef5abcfe0c22db04da8120de7f113449a1f940ad1427ffcb9ea2e15"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "article",
+      "status": 200,
+      "route": "/artigos/artigo-f34e86e78f",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/article-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/article-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4bf7b102cac124f87fe35b353a56e599216404b768707394fc036e4048b86413"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme",
+      "status": 200,
+      "route": "/temas/tema-f34e86e78f",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/theme-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/theme-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d42c3a60b75fe079fee9e4e427961f138028b97ff83f5cfb4980537c66242868"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "about",
+      "status": 200,
+      "route": "/sobre",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/about-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/about-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "73fc7977dbcd1bb336e8b53cf435dd571218c0cfea5f73f6048eb1247fb3956a"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "contact",
+      "status": 200,
+      "route": "/contato",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/contact-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/contact-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "da75a813f1676978cd06f1c4283464ac8de4f6d2acb069139961593466fb496b"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "privacy",
+      "status": 200,
+      "route": "/privacidade",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/privacy-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/privacy-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "6677c5b6ae65e837cf6071da761b2c8e4d82064bbfe9b617efa1bcf1c58c74a5"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "terms",
+      "status": 200,
+      "route": "/termos",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/terms-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/terms-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "54fc15aee55e93a7cee19f4991c216e44d8f4a36a957db02935ca37125c7cd57"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "sample",
+      "status": 200,
+      "route": "/amostras/amostra-[book]",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/sample-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "cc9bd04b10776afacb220a9d585d620d2930a3a806ebfb36503c8f0fcb2f68a8"
+        },
+        {
+          "path": "artifacts/qa-release-layout/sample-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation-invalid-token",
+      "status": 200,
+      "route": "/amostras/confirmar?t=expired",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/confirmation-invalid-token-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "6b1cf5fbc7d506f8e54e83c5d9b730936a708159e1d1b7cfb057f6e27ea2bf3a"
+        },
+        {
+          "path": "artifacts/qa-release-layout/confirmation-invalid-token-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4976f3b968b9c33139e60116e9ece9abf761246101e2100cf87eceef99cb334d"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences-invalid-token",
+      "status": 200,
+      "route": "/preferencias?t=expired",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/preferences-invalid-token-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "44344a707761996fd6a4a6422e3ff4c20dda8b54aba9fe57d660f9d3b1d2c76c"
+        },
+        {
+          "path": "artifacts/qa-release-layout/preferences-invalid-token-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-dashboard",
+      "status": 200,
+      "route": "/admin",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-dashboard-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1327ab3ae8f0a5d0c4a927ee0ab9cdd6b4358de482ed06f4c41cfc0381079a02"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-dashboard-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1327ab3ae8f0a5d0c4a927ee0ab9cdd6b4358de482ed06f4c41cfc0381079a02"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "externalRequests": 0,
+  "runtimeErrors": []
+}

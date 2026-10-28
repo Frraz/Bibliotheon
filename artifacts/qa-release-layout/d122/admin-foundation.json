@@ -1,0 +1,150 @@
+{
+  "phase": "D122",
+  "suite": "admin-foundation",
+  "startedAt": "2026-10-28T00:42:25.059Z",
+  "completedAt": "2026-10-28T00:44:36.082Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-admin-foundation.ts": "cf545609dfdd33ebb69118c3851ffcba066b189438e38b7689d50766c689cdb7",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-dark-1024.png",
+      "bytes": 121023,
+      "sha256": "5937f7d61a0fd0fc3d732b1dc53ed0e42521ea55b4fdf649eb510bd8fa836b2f"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-dark-1440.png",
+      "bytes": 128106,
+      "sha256": "e5b1ca1c806897d9fe868fe241599843c7179a4fced5caf1f71cc17e571a39e0"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-dark-1920.png",
+      "bytes": 187074,
+      "sha256": "2fe7b36859ec83300a9bd641cc5f7caf1aaddc064e8acccda1b67f4c9d952257"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-dark-360.png",
+      "bytes": 110936,
+      "sha256": "da058b3ce316ff1c30d517a647b550201b9cddcd563fc73c40784650fdd5359c"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-dark-390.png",
+      "bytes": 110466,
+      "sha256": "a791a9bdc73f4ee09b27e17a5041a8db1cb0ca9726cb544f4b111622f74825f5"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-dark-768.png",
+      "bytes": 110325,
+      "sha256": "412f1edb290fdd4a8ee9aa1b8e0eabc82f1f59c3c4a12184b8974b5e7732e92d"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-light-1024.png",
+      "bytes": 116157,
+      "sha256": "79db9b0065c2002d386a67efaa567b01e4bbeb20a3afc6d1242cc57c4f3c4139"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-light-1440.png",
+      "bytes": 123443,
+      "sha256": "ea11b483e5ab6bb2d214e83c734c486c7929c0d502c4f8e933b0a9f2b531fdd2"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-light-1920.png",
+      "bytes": 181969,
+      "sha256": "8b066e486e8ce73619868c2c866acb025b6eb1112d34718b91f7458d06f0ea6e"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-light-360.png",
+      "bytes": 105887,
+      "sha256": "97809abbe271a98b68d0c37e185b464e34fb80749ab08fb15660b9af01a0fb45"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-light-390.png",
+      "bytes": 105264,
+      "sha256": "fea62a9e3ef7e9817390fcbb9a3e9e05e3d75c75486b2a93932bdcf79e128f22"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-dashboard-light-768.png",
+      "bytes": 105710,
+      "sha256": "300a07267e3b814e3f5758383363f1e3c8cd0f03acc128831d1da5feb22f85e7"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-dark-1024.png",
+      "bytes": 5117,
+      "sha256": "f26189c38e371859665f39e0f937ada8c8ed8212934c7aee0ad09b852b639c4d"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-dark-1440.png",
+      "bytes": 6493,
+      "sha256": "a224028716a3491f0fa6cc9887618098d75f3e17761287cc1ab4aeb9d8fa0016"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-dark-1920.png",
+      "bytes": 15055,
+      "sha256": "d433686d11d3b3d1ff55da60bc4a63e7f8b936e950b83e3f71c30ec0422070d9"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-dark-360.png",
+      "bytes": 12907,
+      "sha256": "0a271e58aa3870cb59b218aa254abd105e21adaa45dbdcac03dbc2deb6ecde29"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-dark-390.png",
+      "bytes": 13141,
+      "sha256": "a72068461b445ca5911821703c122d5154641714662c9ee7d1c4786042fbb52f"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-dark-768.png",
+      "bytes": 4367,
+      "sha256": "7cb840a4d72668ec496d53400332ef4545a4149b0ea9cb39853617245cb224e0"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-light-1024.png",
+      "bytes": 5115,
+      "sha256": "4c00b04825655b68bac058766f5a933c321fd264c43377a2ef94978f56b4f956"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-light-1440.png",
+      "bytes": 13694,
+      "sha256": "7ed0e2eb512bd65a717c0a4f71cc558b7cc5bea4adebbd67abc83bb4267fde9e"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-light-1920.png",
+      "bytes": 7883,
+      "sha256": "463c7b910c19994ca1dc213806156e220aebb423fad376d3696129ea7d97d692"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-light-360.png",
+      "bytes": 10210,
+      "sha256": "def857e49a559fec5002f3bac52e8a0d81587a24ff2b2bf83d396c781336c1e3"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-light-390.png",
+      "bytes": 3230,
+      "sha256": "59f823c723da4706d6ece691334a5b2f6cf1d35f5e27e1b43271e95632f3fc85"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-login-light-768.png",
+      "bytes": 11056,
+      "sha256": "00dfd7679181e0bb1cb2b2e63f3ee543d1bb2275a949395ed4a599f00c4e2f3b"
+    },
+    {
+      "path": "artifacts/qa-foundation/admin-results.json",
+      "bytes": 1427,
+      "sha256": "887ea29821dadaae52c7f854f4a50929ac76038ada6d96021b1c2d48640c4039"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-24T19:29:07.070Z",
+  "date": "2026-10-27T04:29:48.782Z",
   "checks": [
     "HMAC inválido não persiste. Reenvio concorrente gera um recibo e ACK durável; worker desligado não aplica venda. Aplicação explícita usa produto/oferta, centavos e aprovação original, sem PII ou líquido inferido.",
     "Reembolso com refunded_at conserva quantia desconhecida; replay de aprovação e chegada invertida não apagam reversão nem confundem pagamento com recebimento.",

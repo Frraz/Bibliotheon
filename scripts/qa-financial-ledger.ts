@@ -39,7 +39,7 @@ try{
  for(const theme of ['light','dark'] as const)for(const width of [320,360,390,768,1024,1440,1920]){
   const ctx=await makeContext({viewport:{width,height:1050},colorScheme:theme,reducedMotion:'reduce'}),page=await ctx.newPage();await page.goto(base+'/admin/financial-ledger?from=2026-10-20&through=2026-10-25',{waitUntil:'networkidle'})
   await page.getByRole('heading',{name:'Coortes por mês de aprovação'}).waitFor();await page.getByLabel('Moeda (opcional)').fill('BRL');await page.getByLabel('De (UTC)').fill('2026-10-20');await page.getByLabel('Até (UTC)').fill('2026-10-25');await page.getByRole('button',{name:'Atualizar prévia'}).focus();await page.keyboard.press('Enter');await page.waitForLoadState('networkidle')
-  await page.getByText('1/2',{exact:true}).waitFor();await page.getByText('70,00 BRL').waitFor();await page.getByText('10,00 BRL').waitFor();await page.getByText('3,00 BRL').waitFor();await page.getByText('Margem completa: não. Esta prévia não declara lucro.').waitFor()
+  await page.getByRole('row').filter({has:page.getByRole('cell',{name:'2026-10',exact:true})}).getByText('1/2',{exact:true}).first().waitFor();await page.locator('section[aria-labelledby="financial-BRL"] dl').getByText('70,00 BRL').waitFor();await page.locator('section[aria-labelledby="financial-BRL"] dl').getByText('10,00 BRL').waitFor();await page.locator('section[aria-labelledby="financial-BRL"] dl').getByText('3,00 BRL').waitFor();await page.getByText('Margem completa: não. Esta prévia não declara lucro.').waitFor()
   await capture(page,`report-${theme}-${width}`,theme,width);await ctx.close()
  }
  assert.equal((await payload.count({collection:'transaction-events',overrideAccess:true})).totalDocs,0)

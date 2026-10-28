@@ -1,0 +1,96 @@
+{
+  "phase": "D125",
+  "suite": "public-states",
+  "startedAt": "2026-10-28T02:35:01.916Z",
+  "completedAt": "2026-10-28T02:36:09.874Z",
+  "status": "failed",
+  "buildID": "t7Gx_SH1bi5VbbwvBjvMu",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "bd1a1e628c2814dfa4ae93212fe1ba666ce04ce002d7f123bd7a9957f322dedc",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "ab871e03b9b4c7ae9ce26f27c406d49f85e04e3593802ac3eca6f877623bf952",
+    "scripts/qa-public-states.ts": "d08e3a3e34cd4e4603a92c126969546020693052c9c495f71b767a2f6867b2e5",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-public-states/catalog-error-dark-1024.png",
+      "bytes": 71797,
+      "sha256": "bda9ae55b039af2907897fe53bacb270dc0d11e8bc4f09a7af62469a221399a3"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-dark-1440.png",
+      "bytes": 76096,
+      "sha256": "e841ac734146f9bfdf5a07a297a8181970d56351608da8417a0adc8cef476515"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-dark-1920.png",
+      "bytes": 79029,
+      "sha256": "2881d415969988b59b8893d78ec54b3baed1c4877ca8606f5faec08a3b6fe6dd"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-dark-360.png",
+      "bytes": 67258,
+      "sha256": "5ed81ed882fdb3d89613c2d0688cbcb58b41127fdcc2610a6f4173e557523c5a"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-dark-390.png",
+      "bytes": 66166,
+      "sha256": "6e5db5fc58de31c709d4a27ca494bda82dfab3e48085709ef1a845826ce7e091"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-dark-768.png",
+      "bytes": 70855,
+      "sha256": "9b4d38acd57e056e18b366733aa10d30c3a5c1aec8ef75d8f9dd5a2faa97ad2f"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-light-1024.png",
+      "bytes": 70339,
+      "sha256": "65ea9ae636b9b85cd2a9634ed7af65b0fc424f8ed99d6e5dd707f36727dbf748"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-light-1440.png",
+      "bytes": 74936,
+      "sha256": "371e092a3b859225334f8585df948b860d6e6ad3dde46eda8b108c2fde3a4a16"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-light-1920.png",
+      "bytes": 77528,
+      "sha256": "0a5eb60d4fd2cfc5af11713886e1c3a46a6a0f1817fadc9c9e73e58447c307d4"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-light-360.png",
+      "bytes": 65084,
+      "sha256": "b3649337aac854e4a0998c31b7a0ed6262e64761f80f85547b2d444b2ae26a14"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-light-390.png",
+      "bytes": 64264,
+      "sha256": "ed6a5457f20845e0708d846c5fb5ef0ca23b2fe223ff96b87b19ba9c0c55428b"
+    },
+    {
+      "path": "artifacts/qa-public-states/catalog-error-light-768.png",
+      "bytes": 69058,
+      "sha256": "7618101beebb4ee1bd15b464c5319a01e5d5a14a560a22a089befdaafee403bc"
+    },
+    {
+      "path": "artifacts/qa-public-states/progress.json",
+      "bytes": 3610,
+      "sha256": "ceec6315fe95f8e414c977dd77e864b57fe42df16960f5a3b780e69c2498f1d6"
+    },
+    {
+      "path": "artifacts/qa-public-states/results.json",
+      "bytes": 3996,
+      "sha256": "ebba1ee1410ab3952217e380821eb0c0b6bebb9d8d7aca191a5aa2b42ac51013"
+    }
+  ],
+  "failure": "Processo de QA terminou com código 1.",
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

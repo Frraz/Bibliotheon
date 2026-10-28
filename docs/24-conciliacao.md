@@ -2,9 +2,9 @@
 
 [Índice](../README.md) · [Estado atual](23-estado-atual.md) · [Backlog](13-backlog.md)
 
-## Estado vigente D102 — 25/10/2026
+## Estado vigente — revisão documental D129, 28/10/2026
 
-Há implementação local de snapshot CSV, evidência complementar individual/JSON/CSV, associação de catálogo, decisão/aplicação financeira, ledger de liquidação/custos, prévia financeira, importação canônica e registro/correção de liquidações/custos pelo painel. P01–P05 possuem aceite local D86, incluindo as interfaces de resolução auditada. P06 continua parcial até confirmação da atribuição por conta; P07 segue em desenvolvimento. D100–D101 implementaram expurgo seletivo da auditoria comercial e da cópia de envelope da inbox, preservando o ledger normalizado e a revisão financeira posterior. Os contratos D66/D67 abaixo continuam válidos para snapshots; as seções seguintes registram a evolução e as limitações de cada etapa histórica. Nenhum formato nativo ou conta externa foi homologado. Ver [estado atual](23-estado-atual.md) e [pendências](../pendencias.md).
+Há implementação local de snapshot CSV, evidência complementar individual/JSON/CSV, associação de catálogo, decisão/aplicação financeira, ledger de liquidação/custos, prévia financeira, importação canônica e registro/correção de liquidações/custos pelo painel. P01–P05 possuem aceite local D86, incluindo as interfaces de resolução auditada. P06 continua parcial até confirmação da atribuição por conta; P07-A–E seguem abertos e a implementação restante aguarda política financeira/revisão por finalidade. A imagem e 16 HTTP atuais têm evidência local D127; H05 foi aceito localmente D126. A auditoria D128 registra 12 coleções comerciais sem retenção geral e os limites da seleção/exportação financeira. D100–D101 implementaram expurgo seletivo da auditoria comercial e da cópia de envelope da inbox, preservando o ledger normalizado e a revisão financeira posterior. Os contratos D66/D67 abaixo continuam válidos para snapshots; as seções seguintes registram a evolução e as limitações de cada etapa histórica. Nenhum formato nativo ou conta externa foi homologado. Ver [estado atual](23-estado-atual.md) e [pendências](../pendencias.md).
 
 ## Estado registrado na D67 — 24/10/2026
 

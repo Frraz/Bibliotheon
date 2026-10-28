@@ -60,21 +60,52 @@ try {
     await page.getByLabel('Identificador', { exact: true }).fill(input.reference)
     assert.equal(await page.getByLabel('Identificador', { exact: true }).evaluate((element: HTMLInputElement) => element.checkValidity()), true)
     await page.getByLabel('Conferi o endereço e o motivo do bloqueio.').check()
-    await page.route(endpoint, route => route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }))
-    await page.getByRole('button', { name: 'Registrar bloqueio' }).click()
-    await page.getByRole('alert').waitFor()
+    let releaseFailure!: () => void
+    const failureGate = new Promise<void>(resolve => { releaseFailure = resolve })
+    await page.route(endpoint, async route => { await failureGate; await route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }) })
+    await page.getByRole('button', { name: 'Registrar bloqueio' }).focus()
+    await page.keyboard.press('Enter')
+    await page.waitForFunction(() => document.querySelector('form.bibliotheon-operational-form')?.getAttribute('aria-busy') === 'true')
+    assert.equal(await page.getByRole('button', { name: 'Registrando…' }).isDisabled(), true)
+    assert.equal(await page.evaluate(() => document.activeElement === document.body), true, 'O envio desabilita o controle que estava focado.')
+    if ([390, 1440].includes(width)) await assertScreen('loading')
+    const preserveManualFocus = theme === 'dark' && width === 390
+    if (preserveManualFocus) await page.getByRole('combobox', { name: 'Aparência', exact: true }).focus()
+    releaseFailure()
+    await page.getByRole('alert').filter({ hasText: 'Não foi possível confirmar o registro.' }).waitFor()
+    const focusedFeedback = preserveManualFocus ? page.getByRole('combobox', { name: 'Aparência', exact: true }) : page.getByRole('alert').filter({ hasText: 'Não foi possível confirmar o registro.' })
+    await page.waitForFunction(() => document.activeElement !== document.body)
+    assert.equal(await focusedFeedback.evaluate(element => element === document.activeElement), true, 'Recupera o foco perdido e preserva a escolha feita durante a espera.')
     await assertScreen('error')
     await page.unroute(endpoint)
     assert.equal(await page.getByLabel('Identificador', { exact: true }).inputValue(), input.reference)
     await page.getByRole('button', { name: 'Registrar bloqueio' }).focus()
     await page.keyboard.press('Enter')
     await page.getByRole('status').filter({ hasText: 'Bloqueio registrado.' }).waitFor()
+    await page.waitForFunction(() => document.activeElement?.getAttribute('role') === 'status')
+    assert.equal(await page.getByRole('status').filter({ hasText: 'Bloqueio registrado.' }).evaluate(element => element === document.activeElement), true, 'O sucesso precisa receber o foco perdido.')
     assert.equal(await page.getByLabel('E-mail do contato', { exact: true }).inputValue(), '')
     assert.equal(new URL(page.url()).search, '')
     const contact = (await payload.find({ collection: 'contacts', where: { email: { equals: input.email } }, overrideAccess: true })).docs[0]
     assert.equal(contact.deliveryState, 'bounced')
     contacts.push(contact.id)
     await assertScreen('success')
+    for (const [route, state] of [
+      ['/admin/collections/contacts', 'contacts-list'],
+      [`/admin/collections/contacts/${contact.id}`, 'contact-detail'],
+      ['/admin/collections/brevo-suppressions', 'integration-suppressions'],
+    ]) {
+      assert.equal((await page.goto(testOrigin + route, { waitUntil: 'networkidle' }))?.status(), 200)
+      await page.getByRole('heading', { level: 1 }).waitFor()
+      await assertScreen(state)
+      if (state === 'contacts-list' && contacts.length > 10) {
+        await page.getByRole('button', { name: 'Próxima página', exact: true }).focus()
+        await page.keyboard.press('Enter')
+        await page.getByRole('link', { name: firstInput!.email, exact: true }).waitFor()
+        assert.equal(await page.getByRole('button', { name: 'Página anterior', exact: true }).isEnabled(), true)
+        await assertScreen('contacts-page-two')
+      }
+    }
     assert.deepEqual(errors, [])
     await context.close()
 
@@ -83,6 +114,7 @@ try {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)
       await page.screenshot({ path: `${output}/${theme}-${width}-${state}.png`, fullPage: true })
       screens.push({ theme, width, state, overflow, violations: result.violations.map(v => v.id), jsErrors: errors.length })
+      if (result.violations.length) await writeFile(`${output}/failure-details.json`, JSON.stringify({theme, width, state, violations: result.violations}, null, 2))
       assert.deepEqual(result.violations.map(v => v.id), [])
       assert.equal(overflow, false)
     }

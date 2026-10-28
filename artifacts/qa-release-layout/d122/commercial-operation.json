@@ -1,0 +1,140 @@
+{
+  "phase": "D122",
+  "suite": "commercial-operation",
+  "startedAt": "2026-10-28T00:44:36.232Z",
+  "completedAt": "2026-10-28T00:47:25.479Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-commercial-operation.ts": "9310717964c9320fc0befa846cdb81317811ac5c0748b4554f08d10b3b675280",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-commercial-operation/catalog-blocked-light-390.png",
+      "bytes": 88394,
+      "sha256": "168b73a6135a1dabf0836afa17ef2af2a8ee2162011b63f45f2fcc129bf54e16"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/catalog-review-light-390.png",
+      "bytes": 82827,
+      "sha256": "e3043fb9101da9f1badcade639e283d80338ae93bdcbd89582dc01567f983adb"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/cost-review-light-390.png",
+      "bytes": 71341,
+      "sha256": "e935fefd298d03309092fe7b852a2b8a7289be521f4283abd33372518e96baf5"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-approved-light-390.png",
+      "bytes": 111362,
+      "sha256": "3f65263b45bb500019daafff178f3642000de7edad1f01ccccd13269f48472b4"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-canceled-light-390.png",
+      "bytes": 118041,
+      "sha256": "48a7a843996e7987036c9f60fb39d71c1c53601e9fc118af1122802b9f3bdfe9"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-chargeback-light-390.png",
+      "bytes": 127199,
+      "sha256": "dd6a5966b33d0f90d4dadb54a5ec255d622e6eea9fb02e29f9c0b135c72b0ed6"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-decision-dark-390.png",
+      "bytes": 158453,
+      "sha256": "c848f4b2e03a8581a4aab78e1551514a3cd674966fe5a9f4edbee8f25cf7f0ca"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-partially_refunded-light-390.png",
+      "bytes": 122557,
+      "sha256": "b68a1221c2b5e79157d8febc93459a7e91639485c79964915b0ecd13530f68a5"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-pending-light-390.png",
+      "bytes": 110557,
+      "sha256": "29dc125421fd54d7c63c50f3069457d729e07f121497c19089f85bbbeaad4125"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-refunded-light-390.png",
+      "bytes": 123760,
+      "sha256": "3594f7dfca09308a59f849378311f49e94fd91dcc71f5b7c6f2f71fa9fb0a416"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/financial-refused-light-390.png",
+      "bytes": 115220,
+      "sha256": "7e071b84c577238f80ef8c4a184346fb16709e283431061de964470884013218"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/import-batch-dark-390.png",
+      "bytes": 169686,
+      "sha256": "72be62a67344fe676504ab2f2113fa80385d7db8fc45f019f295133273d56d5c"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/nojs-integrated-report-390.png",
+      "bytes": 176990,
+      "sha256": "248546f280cad4529ce775d91aae82ae5e36b23b3c77e0cc581e1eab89155157"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/replayed-batch-light-390.png",
+      "bytes": 207654,
+      "sha256": "1cabd096f1cf755f8223e759fce7d4d99c0c13d228a58f08cb1c7e0117cbd373"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/report-book-dark-390.png",
+      "bytes": 182600,
+      "sha256": "d1377ad35ab06812fde6113dd81958dd2aa2cb19bbef8eebe6cd9e00a45adebb"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/report-book-light-390.png",
+      "bytes": 176788,
+      "sha256": "4fa8e824d6d362e4104d6b7fa08619494ba58f045ba907ddf322bf9fe5e7c225"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/report-campaign-light-390.png",
+      "bytes": 190913,
+      "sha256": "1e907e09b366f3ef77d7ce2a0ee8d32728bd73ed5e99e33b081a94a0020cb772"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/report-confirmed-light-390.png",
+      "bytes": 197551,
+      "sha256": "ba221e13c67e6612bca0769dddcdb5b47e185d5bbfc0b90cf96fbca523ca2140"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/report-preview-light-390.png",
+      "bytes": 108940,
+      "sha256": "58513260b5905d806e643885e428fc2c23dfc70aaeb265aaa84ee7a125e05b54"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/report-stage-light-390.png",
+      "bytes": 204369,
+      "sha256": "cc4b878cbb9d65ca82396521b3dad379a92468ccd64b330721d8030c90831b30"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/results.json",
+      "bytes": 4960,
+      "sha256": "bb7d5c1630e8afa192b14e7ffa462cecde99fe1d8c3c4cb33c24f067c5ffc354"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/settlement-review-light-390.png",
+      "bytes": 74979,
+      "sha256": "deb389f42ba35cccbd8616cc31e2ac9ffb4b73151e9bc28f423f70a96a17b415"
+    },
+    {
+      "path": "artifacts/qa-commercial-operation/unapproved-cash-rejected-light-390.png",
+      "bytes": 79214,
+      "sha256": "a432f39624424bf9d0736a1a72255707a25127f36c450d6e2d3e48881e921190"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

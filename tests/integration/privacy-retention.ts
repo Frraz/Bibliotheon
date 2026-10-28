@@ -72,7 +72,7 @@ try {
   assert.ok(await payload.findByID({ collection: 'magnet-requests', id: abandoned.row.id, overrideAccess: true }))
   const applied = await runPrivacyRequestAuditRetention(payload, { now: cleanupNow, secret, apply: true })
   assert.equal(applied.mode, 'applied'); assert.equal(applied.candidates, 1); assert.equal(applied.processed, 1)
-  assert.deepEqual(Object.keys(applied), ['mode', 'cutoff', 'candidates', 'processed', 'unconfirmedRequests', 'expiredSuppressionTombstones', 'expiredPreferenceTokens', 'commercialInboxEnvelopes', 'commercialAudit', 'confirmedSamples', 'suppressedMarketing', 'closedIdentities', 'withdrawnThemes', 'marketingDeadline', 'legacyThemeWithdrawals'])
+  assert.deepEqual(Object.keys(applied), ['mode', 'cutoff', 'candidates', 'processed', 'unconfirmedRequests', 'expiredSuppressionTombstones', 'expiredPreferenceTokens', 'commercialInboxEnvelopes', 'commercialAudit', 'confirmedSamples', 'suppressedMarketing', 'closedIdentities', 'withdrawnThemes', 'marketingDeadline', 'activeMarketingReview', 'legacyThemeWithdrawals'])
   assert.deepEqual(Object.keys(applied.unconfirmedRequests), ['candidates', 'processed', 'removedDeliveries', 'canceledPendingDeliveries', 'removedContacts', 'skippedInFlight'])
   assert.deepEqual(applied.expiredSuppressionTombstones, { candidates: 1, processed: 1 })
   assert.deepEqual(applied.expiredPreferenceTokens, { candidates: 1, processed: 1 })

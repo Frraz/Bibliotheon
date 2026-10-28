@@ -1,0 +1,270 @@
+{
+  "phase": "D122",
+  "suite": "sequences",
+  "startedAt": "2026-10-28T00:42:12.738Z",
+  "completedAt": "2026-10-28T00:47:05.973Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-sequences.ts": "be8b4aaa0c11815aa99d530bdbb4096a63d68d41becf384cf588872a247e71d5",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-sequences/calendar-dark-1024.png",
+      "bytes": 41589,
+      "sha256": "52d3b1a6a24bd684ebc0a47f9ffda10b661dd89cdad0dc896982c5a5f55f09ff"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-dark-1440.png",
+      "bytes": 45739,
+      "sha256": "f0dc80e3a3b44b30073071c57dadc4a786e45f2cb3d3905d0868041372565a92"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-dark-1920.png",
+      "bytes": 102261,
+      "sha256": "cc5ff3feb6fd84aba561d428a7da55dd9733d298b552b416aed1fbda6b7c14c5"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-dark-360.png",
+      "bytes": 29433,
+      "sha256": "0775c08c92359bb3ea73072f88c0ae1d1f57028eba976bbc7bc93064775d3a35"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-dark-390.png",
+      "bytes": 31189,
+      "sha256": "8f5e73676ea385c4706a51ed345166d1288045b3f2e19b62eeb7eb691f9c47f6"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-dark-768.png",
+      "bytes": 39939,
+      "sha256": "91d8f19f00696af3284eb0471f992f0b0415d22a67db3cb81de87d6e146f5fcb"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-light-1024.png",
+      "bytes": 40608,
+      "sha256": "1f510158491b265d503fa0b23e72584524f7bb5563efc61ce393e0422b2a890b"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-light-1440.png",
+      "bytes": 44651,
+      "sha256": "427cd195633388e793063fe558d58aebe71f5690b7500f58f19c0089230935ad"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-light-1920.png",
+      "bytes": 100576,
+      "sha256": "2ee6bdae1b3c2ad918219c120ff783e47467e90982b8b0ac97e9d37c54188c63"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-light-360.png",
+      "bytes": 28545,
+      "sha256": "6e54085e06ff833002415aabc40230479cb1650e01884ad6a3717a1402a19787"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-light-390.png",
+      "bytes": 30230,
+      "sha256": "eebe7cce53b324b918cfdc67a1ba120a42b95867a17916468fdeda052033cf9e"
+    },
+    {
+      "path": "artifacts/qa-sequences/calendar-light-768.png",
+      "bytes": 38873,
+      "sha256": "97e580aabe87c9c7b123fb822e4d417828a1b1ca76fee1df7cf1b866443017be"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-dark-1024.png",
+      "bytes": 121084,
+      "sha256": "d44d141c45c88dab33ddabf51c9d43f5e5de9bf6b78321794db1c7df0e4a20c8"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-dark-1440.png",
+      "bytes": 128261,
+      "sha256": "d5c397ca7cdb71ccdc144d67ceef163945cf0cc64f4987c1ff7e510bfeba0e8a"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-dark-1920.png",
+      "bytes": 187313,
+      "sha256": "21bb994c0375e1d7802e263fa52700c3a202f66a2781ac7e6c01ae3be0ec37c0"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-dark-360.png",
+      "bytes": 110468,
+      "sha256": "dfeab8beec4e01c01cb810157d4a5bd0e1541d48c0932a59f76411417bc420a2"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-dark-390.png",
+      "bytes": 109964,
+      "sha256": "efda4d16184d87d5fcd91d45256ff399c5e329ed52bfae39882161e4ac5e847f"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-dark-768.png",
+      "bytes": 110396,
+      "sha256": "6ad15252d002af6efcb8019f78b6268d30dea261168e318c570fa9ab233c6d19"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-light-1024.png",
+      "bytes": 116294,
+      "sha256": "562fd09509d1f29655bf38623bc5d88d4d0dd4c1c6b3d2bf836d61025d1453e9"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-light-1440.png",
+      "bytes": 123449,
+      "sha256": "797a77b68e7dad12d4990cc3684cbdb3faa5d94ad1318940184a987728d98890"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-light-1920.png",
+      "bytes": 182138,
+      "sha256": "5ebd1c0fa61f7487ce3223729af7d1692423bbf288ec698ee281c63f14655eb8"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-light-360.png",
+      "bytes": 105543,
+      "sha256": "7d151ead6272cfe7aea8b99062eefa27afb31f3cdfb633c99c6cae8180c3d87c"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-light-390.png",
+      "bytes": 104937,
+      "sha256": "ed6f4fa761ac7889312b4933641ef41e92f36ebf940f154ad1541f4418323533"
+    },
+    {
+      "path": "artifacts/qa-sequences/dashboard-light-768.png",
+      "bytes": 105849,
+      "sha256": "5cca2a6ea9490b4962cb70106102306f9283a32b16b6533c76ec29daee728693"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-dark-1024.png",
+      "bytes": 84985,
+      "sha256": "593176d9f2cb1dac09d4aa90b063e62c7162ccee8111baae0ed01b3460c27166"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-dark-1440.png",
+      "bytes": 91458,
+      "sha256": "bb98dec0dbce27b4225df9a4b2a829d190e89022b66ba9b31b3e0bb98a3935c0"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-dark-1920.png",
+      "bytes": 148682,
+      "sha256": "8c5676a91150df485f0b94590bf4633698c370723fddb3bcf174f764ba131850"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-dark-360.png",
+      "bytes": 75351,
+      "sha256": "602b4bf96c74e8a532ab39cbce6e4c7aa00d1bad780526899363ab91c62f8061"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-dark-390.png",
+      "bytes": 75962,
+      "sha256": "a0fd495c6237c66949e4e5251461d1406e194d4163a41d6c379634a78e020814"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-dark-768.png",
+      "bytes": 79914,
+      "sha256": "32dbcac6908e70fd6ce5c4333c3548ca48e3330a2bdee5a5620755fe6d6107c2"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-light-1024.png",
+      "bytes": 83207,
+      "sha256": "9fd4d4cb1094f6e8009c35c5a41d7862f88dc1d7d3f668d1a7b5efcc46bb8d2c"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-light-1440.png",
+      "bytes": 89531,
+      "sha256": "a89ff1764c82cf739ab0c6cfac45f06e7a9276e314dbc3063aaedf2d4dfd1dcc"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-light-1920.png",
+      "bytes": 146318,
+      "sha256": "b44cbc980ffc0c9a75c3d2d5d87274dd9be35835a5bb79ed263a51ef2fe6200f"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-light-360.png",
+      "bytes": 73548,
+      "sha256": "e9a0727317c716c7f291f8a92993c41e6bc9e24196d4c35fff11c204baf40172"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-light-390.png",
+      "bytes": 74100,
+      "sha256": "80349fce04408546a6e5feb1e9808a8340b0d0c61e75fa429a59d02459c07488"
+    },
+    {
+      "path": "artifacts/qa-sequences/enrollment-light-768.png",
+      "bytes": 78279,
+      "sha256": "48d14f6b3f8e4f0f3a662167aa67dc33b4272f598a03864fdffb41a2cdd83379"
+    },
+    {
+      "path": "artifacts/qa-sequences/results.json",
+      "bytes": 7631,
+      "sha256": "24979ad34f9e27990a9b553c3644ad91dbe74a5c47558670ed2e5ecb94943213"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-dark-1024.png",
+      "bytes": 125410,
+      "sha256": "7d32caa43bd3a5056112309ce444a314687e5c2c57addc64c68e0020ca8463f4"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-dark-1440.png",
+      "bytes": 135218,
+      "sha256": "90136f56a294cc2568bff713a83cd92e660b5b1bdb1702bc9cd86484f27cde04"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-dark-1920.png",
+      "bytes": 193762,
+      "sha256": "3405a59e297cdf684464f32c5872a3712dfa9b8df95bce5d35af615ab452d176"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-dark-360.png",
+      "bytes": 115465,
+      "sha256": "6ed57d4b14257c6955821be844395f6d16b7190a1d25c0da9ece882dba52d632"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-dark-390.png",
+      "bytes": 115908,
+      "sha256": "6bf9a23cbdbe7c36ac27207808338ab48413e8005656b1c68b2ed64552edf5c1"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-dark-768.png",
+      "bytes": 117765,
+      "sha256": "7bc975a2911f38582afb823f81e7dd8d75b67b060778b08cdfa2af49c4e417a9"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-light-1024.png",
+      "bytes": 123143,
+      "sha256": "665c62f84ba9432a44569610b16216d366aeaa8bc2f340a9cc990cea27dfd664"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-light-1440.png",
+      "bytes": 133152,
+      "sha256": "2e1f72c54248dd33c3a0eadb79188ce81105303f0104b2c803fc076a8c90f09e"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-light-1920.png",
+      "bytes": 191662,
+      "sha256": "efcd4838269628727929e3232de80d8090596e8b129bbeba3667b7dc1bec536a"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-light-360.png",
+      "bytes": 113153,
+      "sha256": "53a4504d164ae276db25f5a8e6bf0c82309f54e1ba76c21a7fedde38a3f8851b"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-light-390.png",
+      "bytes": 112877,
+      "sha256": "e84ef5e274af61394af461dd4f81b43616f1ae9f1ac22614756cc9d8db6bb1b7"
+    },
+    {
+      "path": "artifacts/qa-sequences/sequence-light-768.png",
+      "bytes": 115411,
+      "sha256": "27a5ec419e29cb2e450c76124fb438b1fef6becfe77f92df951ef6a1c35413bb"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

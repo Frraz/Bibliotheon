@@ -1,0 +1,55 @@
+{
+  "phase": "D125",
+  "completedAt": "2026-10-28T03:20:46.228988+00:00",
+  "status": "passed",
+  "buildQA": "passed",
+  "check": {
+    "status": "passed",
+    "unitTests": 298,
+    "operationTests": 62,
+    "note": "Executado após a correção de aplicação; evidência de execução preservada na continuidade da sessão."
+  },
+  "postProtocolTypecheck": "passed",
+  "postProtocolTargetedLint": "passed",
+  "documentation": {
+    "status": "passed",
+    "documents": 50,
+    "localLinks": 1567,
+    "contrastPairs": 76
+  },
+  "diffCheck": "passed",
+  "disposableAttempts": [
+    {
+      "manifest": "artifacts/qa-public-states/failed-before-retry/runner.json",
+      "status": "failed",
+      "databaseRemoved": true,
+      "mediaRemoved": true
+    },
+    {
+      "manifest": "artifacts/qa-public-states/before-selection-clear/runner.json",
+      "status": "passed",
+      "databaseRemoved": true,
+      "mediaRemoved": true
+    },
+    {
+      "manifest": "artifacts/qa-public-states/failed-metadata-transition/runner.json",
+      "status": "failed",
+      "databaseRemoved": true,
+      "mediaRemoved": true
+    },
+    {
+      "manifest": "artifacts/qa-public-states/failed-cover-fixture/runner.json",
+      "status": "failed",
+      "databaseRemoved": true,
+      "mediaRemoved": true
+    },
+    {
+      "manifest": "artifacts/qa-release-layout/d125/public-states.json",
+      "status": "passed",
+      "databaseRemoved": true,
+      "mediaRemoved": true
+    }
+  ],
+  "productionChanged": false,
+  "fullH05Accepted": false
+}

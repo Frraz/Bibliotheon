@@ -1,0 +1,56 @@
+{
+  "phase": "D123",
+  "suite": "relationship-states",
+  "startedAt": "2026-10-28T01:05:23.926Z",
+  "completedAt": "2026-10-28T01:06:02.145Z",
+  "status": "failed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "52423eedd06764ea57240aa73eb41b68a0a96c490b4ec629c20c3a371f77744d",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "0d58aad687c641d0ba29f6414236c571fa8e25e558b19b7da10d8f2f95f5f320",
+    "scripts/qa-relationship-states.ts": "5577fc52bd07ff1e62121cf0127cb7dc5a1a173f4c9becbb5ce9ca1779a99864",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-relationship-states/capture-active-light-360.png",
+      "bytes": 89130,
+      "sha256": "ea5ce16519b468f5fd1e53af93aa96ad2417bb76ca4a079b3bf586f9ecc93310"
+    },
+    {
+      "path": "artifacts/qa-relationship-states/capture-error-light-360.png",
+      "bytes": 96870,
+      "sha256": "4b334b3620f1c1fb86ede7ecdc3efe0ed475ec90dbc21a0fcadd195ad4c27eae"
+    },
+    {
+      "path": "artifacts/qa-relationship-states/capture-invalid-email-light-360.png",
+      "bytes": 96005,
+      "sha256": "aacfd65482049ecc5f7c0fa294226dd10aed026b1c0d20ded5769d650a543b42"
+    },
+    {
+      "path": "artifacts/qa-relationship-states/capture-loading-light-360.png",
+      "bytes": 93596,
+      "sha256": "abc4ad89d124e54a95ae293d790ad83715f0bf6fee2f7771987d1627b1a68038"
+    },
+    {
+      "path": "artifacts/qa-relationship-states/progress.json",
+      "bytes": 1976,
+      "sha256": "79f62a03cd83aa3fa97b2cc47eecaf5920b17a3f067ae77064dea398ca43e2be"
+    },
+    {
+      "path": "artifacts/qa-relationship-states/results.json",
+      "bytes": 2287,
+      "sha256": "3e2ddb07f80ea0496bf099205b86a8d2733c0e9000521007e23cad5363ba8c8f"
+    }
+  ],
+  "failure": "Processo de QA terminou com código 1.",
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

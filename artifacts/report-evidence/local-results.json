@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T22:22:38.476Z",
+  "date": "2026-10-27T04:15:51.824Z",
   "checks": [
     "Lote canônico reverte integralmente a primeira linha se a gravação seguinte falhar; não deixa evidência nem revisão parcial.",
     "Cadastro canônico concorrente deduplica por provedor/conta/fonte/linha e não aplica valores. Correção do ID conecta a fonte antiga; aprovação ausente mantém bloqueio e não gera venda.",

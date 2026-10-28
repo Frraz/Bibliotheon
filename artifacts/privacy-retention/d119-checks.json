@@ -1,0 +1,72 @@
+{
+  "phase": "D119",
+  "completedAt": "2026-10-27T05:46:44.516908+00:00",
+  "environment": "PostgreSQL sintético descartável em loopback",
+  "migrationCount": 35,
+  "quality": {
+    "command": "npm run check",
+    "passed": true,
+    "typecheck": true,
+    "lint": true,
+    "unitTests": 298,
+    "unitFiles": 36,
+    "operationalTests": 62
+  },
+  "integrationSuites": [
+    {
+      "name": "privacy-local-batches",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-shared-reference",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-delete",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-correct",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-recovery",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-recovery-pending",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-marketing-retention",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-theme-retention",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-identity-retention",
+      "status": "passed"
+    }
+  ],
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "fullIntegrationRerun": false,
+  "newStandaloneBuild": false,
+  "newImageValidation": false,
+  "externalReconciliationPerformed": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "src/modules/marketing/privacy-local-batches.ts": "8102dffde8a2627bb5cf2d93bad50cc8597dbc0121d38b4d7776a4fc1d0c689a",
+    "src/modules/marketing/privacy-local-intents.ts": "cb8dd498ced38813733ba62acbe9c2d0241f1e55bbfbd3f8f6a0e6740c866fae",
+    "src/modules/marketing/privacy-delete.ts": "94f53957a96563d9cca38ffbd55f10a37983b2603e43a9c43c70c67957fac9f1",
+    "src/modules/marketing/privacy-correct.ts": "22176467f93c723279514cdc29610702359d49d177c71b11f6e3c3d4a5c8407d",
+    "src/modules/marketing/privacy-shared-reference.ts": "ee66a90aa93a00ca296dc7fb5cc8ad13504208f956521813beef175267b51a48",
+    "src/modules/marketing/privacy-marketing-retention.ts": "2bf2888ddc23fc162308ca46065b3186595287df8cbeb8eeea7c301765edfd34",
+    "tests/integration/privacy-local-batches.ts": "688517a0b0ed3c999d750c53803ef0395942eba5a62d43b645c3c468e0a969e2",
+    "tests/integration/privacy-shared-reference.ts": "299da77e82192f1e70d2f0f67898ef8cda5e69a34066d5029676e51bc8a56cbc",
+    "scripts/check-integration.sh": "7ff0d9b226ccdc6962a34bde732f2023a630cfb1b11a3dfbdd1daefa01328e89",
+    "package.json": "aefa34f9698815237d293d846a649209347cbe72be5dacf039b0e95a930d1b02"
+  }
+}

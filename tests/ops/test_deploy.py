@@ -143,6 +143,22 @@ class DeploymentTests(unittest.TestCase):
         self.assertFalse(self.contains('run', 'migrate'))
         self.assertFalse((self.state / 'in-progress.json').exists())
 
+    def test_update_can_skip_backup_without_backup_config(self):
+        self.update()
+        config = dict(self.config)
+        config.pop('backup_env')
+        deploy.apply(config, self.state, backup_enabled=False)
+        self.assertFalse(any('backup' in argv for argv in self.calls))
+        self.assertTrue(self.contains('stop', 'app'))
+        self.assertTrue(self.contains('run', 'migrate'))
+        stopped = next(i for i, argv in enumerate(self.calls) if 'stop' in argv and 'app' in argv)
+        migration = next(i for i, argv in enumerate(self.calls) if 'run' in argv and 'migrate' in argv)
+        self.assertLess(stopped, migration)
+        current = json.loads((self.state / 'current.json').read_text())
+        self.assertTrue(current['backup_skipped'])
+        self.assertNotIn('backup_snapshot', current)
+        self.assertFalse((Path(current['release']) / 'backup.json').exists())
+
     def test_migration_failure_stops_app_preserves_pending_and_blocks_repeat(self):
         self.update()
         self.fail = lambda argv: 'run' in argv and 'migrate' in argv

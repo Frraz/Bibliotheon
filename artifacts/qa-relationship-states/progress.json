@@ -1,0 +1,924 @@
+{
+  "results": [
+    {
+      "state": "capture-active",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-active-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-active-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1ada4b9fdf1f89da6e23eac13617cc53526c4abd94a25f41e053315d85366e7e"
+        }
+      ]
+    },
+    {
+      "state": "capture-invalid-email",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-invalid-email-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3fa72f7551be8a57348bd6a17992b83c6fe8e9b2e343c415db11cba350c10ae3"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-invalid-email-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "78fafd82ca712dcee3ea808af4854db5a2fa74f44250e9d686727e0700cf3b79"
+        }
+      ]
+    },
+    {
+      "state": "capture-loading",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-loading-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-loading-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "2c62f415541120d3c85e9bd26d21199ea9f77c0131f9438a0a8b382af8174a9b"
+        }
+      ]
+    },
+    {
+      "state": "capture-error",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-error-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-error-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "a66d395044a8e208b4ba622d532100014ce4d0014c32a0cd21e42c7e6775d253"
+        }
+      ]
+    },
+    {
+      "state": "capture-retry-success",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-retry-success-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-retry-success-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "ac5fb969afed43baacc80306c0cea342712092d1caf3b1fb151a70c65f9907fe"
+        }
+      ]
+    },
+    {
+      "state": "confirmation-loading",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-loading-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4976f3b968b9c33139e60116e9ece9abf761246101e2100cf87eceef99cb334d"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-loading-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "ea882382b6a2b42a5b70fd514d5ea14569a7d2f08c6fbbb2f9dc86d545ccfcf8"
+        }
+      ]
+    },
+    {
+      "state": "confirmation-error",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-error-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4976f3b968b9c33139e60116e9ece9abf761246101e2100cf87eceef99cb334d"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-error-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "b17b2c36944cc3f2c700372537913a13245d0ccdb9bfbe085db2048b2367dfc4"
+        }
+      ]
+    },
+    {
+      "state": "confirmation-retry-success",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-retry-success-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4976f3b968b9c33139e60116e9ece9abf761246101e2100cf87eceef99cb334d"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-retry-success-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "ea5cba8fb1554218f39b5d85f5242e89444abeb491907298ac0e4545a5d3cbda"
+        }
+      ]
+    },
+    {
+      "state": "preferences-loading",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/preferences-loading-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/preferences-loading-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "2e17b478341866a23c0af21b4db41d11fa898012cad402b3e0b1c5e4251f84f7"
+        }
+      ]
+    },
+    {
+      "state": "preferences-error",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/preferences-error-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/preferences-error-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f19fed15a8c4c711ed7a38d19892eb3597c9d625afea0bbd9a035058a17f180d"
+        }
+      ]
+    },
+    {
+      "state": "preferences-retry-success",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/preferences-retry-success-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/preferences-retry-success-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7009efc6e73f4c5a4506a7985f25a1a0d72481732bbcea3ad98afb0a00f07448"
+        }
+      ]
+    },
+    {
+      "state": "theme-unsubscribe-loading",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-loading-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-loading-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f19d8895188f4409a3f794a845d6da292730f75cc131d2248b16dc25081139a2"
+        }
+      ]
+    },
+    {
+      "state": "theme-unsubscribe-error",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-error-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-error-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d9b09c2fdbfdf33ac3ed8791aedca18f3c2a098d3658167455abd34b9aa5f194"
+        }
+      ]
+    },
+    {
+      "state": "theme-unsubscribe-retry-success",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-retry-success-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-retry-success-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1d693169c168f1c08288d7b7ce6842a51d42349ad6377d59678f4aa531713f99"
+        }
+      ]
+    },
+    {
+      "state": "unsubscribe-loading",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-loading-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-loading-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9b55b64773ccf4e09c85e1f8be19652add03b1b4443c90d99b48850b060c8e7c"
+        }
+      ]
+    },
+    {
+      "state": "unsubscribe-error",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-error-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-error-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1ec531f6d0344c040646c4b4d1863b16946c5c36111a4e3222126ad763f3f2e3"
+        }
+      ]
+    },
+    {
+      "state": "unsubscribe-retry-success",
+      "theme": "light",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-retry-success-light-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-retry-success-light-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "22517c23423c06f41cb0401afe5b1b595547b719110eb628f96c9d6fd5319ac5"
+        }
+      ]
+    },
+    {
+      "state": "capture-active",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-active-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e1aaa96052c8f1fe7ca0df64876ffa32787d93e7c5c7350af5119c9f568f4786"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-active-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "dbd9405e72ab11b15a2e038a9e8bfd5eeace581cd20ffa5ef9b4338f90f55242"
+        }
+      ]
+    },
+    {
+      "state": "capture-invalid-email",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-invalid-email-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "fad2d2263da7ab643befbfa5b1657e8cf232db92e53d5d39f08e8b14e390d14d"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-invalid-email-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d49a27380887e0aa3048bfcffd408f3bbff81823deba07bfbed6dc5148558e83"
+        }
+      ]
+    },
+    {
+      "state": "capture-loading",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-loading-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e1aaa96052c8f1fe7ca0df64876ffa32787d93e7c5c7350af5119c9f568f4786"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-loading-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4586856f0fa6690fa32480705ea8273996dacbb5ac6d3b5dcbbf0fd77e590905"
+        }
+      ]
+    },
+    {
+      "state": "capture-error",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-error-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e1aaa96052c8f1fe7ca0df64876ffa32787d93e7c5c7350af5119c9f568f4786"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-error-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7dce5a33ce9bcce5d9da789ac71a931afe0ce0f318e891ddb9e47fee11965a07"
+        }
+      ]
+    },
+    {
+      "state": "capture-retry-success",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/capture-retry-success-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e1aaa96052c8f1fe7ca0df64876ffa32787d93e7c5c7350af5119c9f568f4786"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/capture-retry-success-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "16c6cc71ee4a1d2b0544549f849265501805a6d0e807180cafff3e76cec9fa0d"
+        }
+      ]
+    },
+    {
+      "state": "confirmation-loading",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-loading-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "45a214d2b56b57c309a9e8462c3c57976f65bd6da3e295fcdb808f1cc4d2e082"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-loading-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1757d44a00cd9596f6a938ca76140579793e6d67e0de3ea14ab48d896961fd94"
+        }
+      ]
+    },
+    {
+      "state": "confirmation-error",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-error-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "45a214d2b56b57c309a9e8462c3c57976f65bd6da3e295fcdb808f1cc4d2e082"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-error-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "717302e0eff529e9b89d3a00eff59d513d2d8d0857737a2c4812b2c61d12a5df"
+        }
+      ]
+    },
+    {
+      "state": "confirmation-retry-success",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-retry-success-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "45a214d2b56b57c309a9e8462c3c57976f65bd6da3e295fcdb808f1cc4d2e082"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/confirmation-retry-success-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "2cb5b8c03a61a77c48b20afb2505526b29e85fea2fdb45c7dd3610a794e78ac8"
+        }
+      ]
+    },
+    {
+      "state": "preferences-loading",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/preferences-loading-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/preferences-loading-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e99078751696984078ebba5c443b6fc9f9f331e53eed71f9f57a2bf6db29f8e1"
+        }
+      ]
+    },
+    {
+      "state": "preferences-error",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/preferences-error-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/preferences-error-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9d34e2c26c1b4a1356efdb1fb590809d859f6c29afff005b5ceae1e159065c59"
+        }
+      ]
+    },
+    {
+      "state": "preferences-retry-success",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/preferences-retry-success-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/preferences-retry-success-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "de256e5c938352c39baa5feaaa9e0e620cfc17846c721003d8d2035655900909"
+        }
+      ]
+    },
+    {
+      "state": "theme-unsubscribe-loading",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-loading-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-loading-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "502dc6d7458fa3fa8c44aa9682dfe075d42dbaa123a11b2c59485f61c7ea5a3f"
+        }
+      ]
+    },
+    {
+      "state": "theme-unsubscribe-error",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-error-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-error-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "746dda7ffa518a22281d1214159ab7c88d63cb0ef69d8248027d966cfc28941e"
+        }
+      ]
+    },
+    {
+      "state": "theme-unsubscribe-retry-success",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-retry-success-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/theme-unsubscribe-retry-success-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d5da044d3539c7f2fb3e45a10fe23d2cee017bee105128fa632eec3a7d362beb"
+        }
+      ]
+    },
+    {
+      "state": "unsubscribe-loading",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-loading-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-loading-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "84fe6008f22ff4db4fd92929795c93594d1b895bee891f78552fbcc97ca32301"
+        }
+      ]
+    },
+    {
+      "state": "unsubscribe-error",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-error-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-error-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9fa5ed4d4b0af70c8293d631515c3014a134410dacba1da7f2ff749b04c07a37"
+        }
+      ]
+    },
+    {
+      "state": "unsubscribe-retry-success",
+      "theme": "dark",
+      "width": 320,
+      "nativeZoom": 4,
+      "metrics": {
+        "width": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "overflow": false
+      },
+      "violations": [],
+      "files": [
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-retry-success-dark-native400-heading.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        },
+        {
+          "path": "artifacts/qa-relationship-states/unsubscribe-retry-success-dark-native400-action.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "488d0229fa3cc724ec2e290a2dadd9b277a6838cf8304fe00c89f88017947020"
+        }
+      ]
+    }
+  ],
+  "externalRequests": 0,
+  "runtimeErrors": []
+}

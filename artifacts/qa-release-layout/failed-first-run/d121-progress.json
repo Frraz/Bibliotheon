@@ -1,0 +1,313 @@
+{
+  "checks": [
+    {
+      "name": "home",
+      "route": "/",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog",
+      "route": "/ebooks",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog-empty",
+      "route": "/ebooks?q=nenhumzzzz",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-guide",
+      "route": "/ebooks/[book]",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-reading",
+      "route": "/ebooks/reading-34fe1626c2",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-workbook",
+      "route": "/ebooks/workbook-34fe1626c2",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "article",
+      "route": "/artigos/artigo-34fe1626c2",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme",
+      "route": "/temas/tema-34fe1626c2",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "about",
+      "route": "/sobre",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "contact",
+      "route": "/contato",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "privacy",
+      "route": "/privacidade",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "terms",
+      "route": "/termos",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "sample",
+      "route": "/amostras/amostra-[book]",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation-expired",
+      "route": "/amostras/confirmar?t=expired",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences-expired",
+      "route": "/preferencias?t=expired",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-dashboard",
+      "route": "/admin",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-books",
+      "route": "/admin/collections/ebooks",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-book-edit",
+      "route": "/admin/collections/ebooks/fd3e2c0f-9447-40be-9f6a-246e584cd2f0",
+      "theme": "light",
+      "nativeZoom": 4,
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": [
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "targets": [
+            [
+              ".doc-controls__controls"
+            ]
+          ]
+        },
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "targets": [
+            [
+              "a[target=\"_blank\"]"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "externalRequests": 0,
+  "runtimeErrors": []
+}

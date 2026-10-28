@@ -1,0 +1,30 @@
+{
+  "phase": "D124",
+  "suite": "commercial-load",
+  "startedAt": "2026-10-28T02:16:53.437Z",
+  "completedAt": "2026-10-28T02:21:37.823Z",
+  "status": "passed",
+  "buildID": "t7Gx_SH1bi5VbbwvBjvMu",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ff5ba7a9d77e8dc373c849d1497fd31e5e4a59dcd8b39d198b37832a0fce0729",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "cc822adcfac70bc7e74fb663ea8e71460d8e5089e7500d52177eb37df27f41c1",
+    "scripts/qa-commercial-load.ts": "321bd04d6425b4ae81eecef35ab81e8a9b365d3eed654b4039da3eb1db06cec8",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-commercial-load/results.json",
+      "bytes": 3523,
+      "sha256": "49004a691db53cff83b1cbcee0ea88c3b8ce7006da8ecb0a011d2fb5373036e7"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

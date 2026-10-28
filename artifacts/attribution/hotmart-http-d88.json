@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-25T18:45:55.914Z",
-  "origin": "http://127.0.0.1:3011",
+  "date": "2026-10-28T04:40:25.731Z",
+  "origin": "http://127.0.0.1:35503",
   "checks": [
     "Endpoint real exige Hottok no cabeçalho, rejeita query/cookie/MIME/encoding/JSON/versão incorretos antes de persistência.",
     "ACK 200 real após inbox durável; worker desligado não aplica aprovação. Processamento posterior explícito aplica 29 centavos exatos e data original, sem deduzir líquido.",

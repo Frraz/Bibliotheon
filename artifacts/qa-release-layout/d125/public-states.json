@@ -1,0 +1,175 @@
+{
+  "phase": "D125",
+  "suite": "public-states",
+  "startedAt": "2026-10-28T03:14:49.674Z",
+  "completedAt": "2026-10-28T03:16:21.342Z",
+  "status": "passed",
+  "buildID": "2coQl34ngSTYHMsbWMf4l",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "d6bb68b5a3a8642bb218bc7221ce60808d30c310350b7f7de0921b81a590876e",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "ab871e03b9b4c7ae9ce26f27c406d49f85e04e3593802ac3eca6f877623bf952",
+    "scripts/qa-public-states.ts": "3cfdb8e27ae565d19bc8268e2af6735be502d1a93ea201aa5143aa172bd6c034",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-public-states/component-active-dark-1440.png",
+      "bytes": 461304,
+      "sha256": "6f0aa481a8a1fb697906ddf55d3773a8585442da435f2d2a63da24e7e7908bed"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-active-dark-390.png",
+      "bytes": 481574,
+      "sha256": "dfde6434b7ce0b1942414970c56af644cd129d05fdfb81867b260ae5ade36aab"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-active-light-1440.png",
+      "bytes": 449489,
+      "sha256": "94b9c4819c3e50e41ec72b35f138cae46693e52903c3b0aa2eca4d69b8c2e889"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-active-light-390.png",
+      "bytes": 465987,
+      "sha256": "aeb143b03a7cdba5f38683f0fb8d0fe28f4233372ad3555e949fea0277817b6e"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-expanded-dark-1440.png",
+      "bytes": 466077,
+      "sha256": "68102982974af1e028b368ac2f22581a19f818e602a19d8de638e2093a1ef0a7"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-expanded-dark-390.png",
+      "bytes": 486425,
+      "sha256": "8acc948c69c1b72e72228c2b50155c139d47e15ccac2288d3aa463067511b69e"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-expanded-light-1440.png",
+      "bytes": 454196,
+      "sha256": "4f6cdcda95b0a6e1b211663da16831b33648c32411e5de9ac3d5d659d4fa0286"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-expanded-light-390.png",
+      "bytes": 470837,
+      "sha256": "65d46df42091d6cadd059b56f15ffdbe0b661da220e735dfa419537c3a931797"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-focus-dark-1440.png",
+      "bytes": 461304,
+      "sha256": "6f0aa481a8a1fb697906ddf55d3773a8585442da435f2d2a63da24e7e7908bed"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-focus-dark-390.png",
+      "bytes": 481574,
+      "sha256": "dfde6434b7ce0b1942414970c56af644cd129d05fdfb81867b260ae5ade36aab"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-focus-light-1440.png",
+      "bytes": 449489,
+      "sha256": "94b9c4819c3e50e41ec72b35f138cae46693e52903c3b0aa2eca4d69b8c2e889"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-focus-light-390.png",
+      "bytes": 465987,
+      "sha256": "aeb143b03a7cdba5f38683f0fb8d0fe28f4233372ad3555e949fea0277817b6e"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-hover-dark-1440.png",
+      "bytes": 461251,
+      "sha256": "5461847df974e1ea7355777a1b5b4dc6019ed2a9fba540147741a37718f34388"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-hover-dark-390.png",
+      "bytes": 481517,
+      "sha256": "6b5edcd1a8baffda55a5ec9de115023249ffd20243260aedadd11d9d5def0059"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-hover-light-1440.png",
+      "bytes": 449440,
+      "sha256": "91c5c312f6ba455a3da7e10af52e01971461b0fc1b8d06cf7d916392be2b2b70"
+    },
+    {
+      "path": "artifacts/qa-public-states/component-hover-light-390.png",
+      "bytes": 465930,
+      "sha256": "0d970ab55abca37587b509cbc92ebd508d203e0774b8aaa5e6c1f061746654ad"
+    },
+    {
+      "path": "artifacts/qa-public-states/extras-results.json",
+      "bytes": 9218,
+      "sha256": "e38da60a91293fe29702660643cf0fe218e5900001e5c91e2bd0149b1039cf28"
+    },
+    {
+      "path": "artifacts/qa-public-states/font-fallback-normal-motion-dark-1440.png",
+      "bytes": 311919,
+      "sha256": "d8757c08671c5706b1eea724b93465fc6034fb5c242944f057e0a59fbe4ec7cf"
+    },
+    {
+      "path": "artifacts/qa-public-states/font-fallback-normal-motion-dark-390.png",
+      "bytes": 345001,
+      "sha256": "f44f5023e5c30f59e6e6acb8d81b4457e81c27c84f0fad508238fd0a60923d9b"
+    },
+    {
+      "path": "artifacts/qa-public-states/font-fallback-normal-motion-light-1440.png",
+      "bytes": 303988,
+      "sha256": "620c32527441bf7f587c7f769510a450501343f71c26a997beabf00a4b51e8fe"
+    },
+    {
+      "path": "artifacts/qa-public-states/font-fallback-normal-motion-light-390.png",
+      "bytes": 332341,
+      "sha256": "15e50992dab50289bc50403ce2be2cf229388a8110a3dbaacaa911d05e21e30a"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-delayed-normal-motion-dark-1440.png",
+      "bytes": 445048,
+      "sha256": "9006d688a3072c957a08af432068accf37cf9970e307157c93bbf9b79a6266da"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-delayed-normal-motion-dark-390.png",
+      "bytes": 463494,
+      "sha256": "0c22dcff810abb74364243faf380068fbc1dcd1e892904a3ca477d0cf2e867b9"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-delayed-normal-motion-light-1440.png",
+      "bytes": 433240,
+      "sha256": "0e3024c8f943467140464a310fc42997f33be1f78c530453b67b76f9ae153a87"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-delayed-normal-motion-light-390.png",
+      "bytes": 449290,
+      "sha256": "390aa6fa5f2101fa1edb1f879da2b5128b1009c3b2642f871e378d00fb8f0ac3"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-resumed-normal-motion-dark-1440.png",
+      "bytes": 475975,
+      "sha256": "02350e4ac40ca29a51fba2cd33a46fd52e26057695a4c3d3acf61d5864264c13"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-resumed-normal-motion-dark-390.png",
+      "bytes": 494210,
+      "sha256": "f6f34f324b649a524e1bbff230730911789809029e0ecec4b5e130df91ca2087"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-resumed-normal-motion-light-1440.png",
+      "bytes": 463451,
+      "sha256": "cdba3f8e195f3cf0db922574f40454045975998f4a832777ec216e41e911f37b"
+    },
+    {
+      "path": "artifacts/qa-public-states/javascript-resumed-normal-motion-light-390.png",
+      "bytes": 478682,
+      "sha256": "00c0a62466ba3946d75cf21bfeee9c9c3147b5d6ac58b0787b8b1ee6c81bf159"
+    },
+    {
+      "path": "artifacts/qa-public-states/progress.json",
+      "bytes": 8810,
+      "sha256": "fa46d3853c84bbea38297e2e63847145fac5648b91a36e740c6a60a9c5cffa2e"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

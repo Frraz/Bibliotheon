@@ -2,7 +2,7 @@
 
 Catálogo e páginas de venda de e-books, com painel manual Payload. Checkout e entrega externos por **Hotmart, Kiwify e Cakto**; nenhuma IA integrada ao produto.
 
-**Estado em 26/10/2026 (D114):** D114 reconstrói fatos temáticos legados somente com evento nativo coincidente, sem renovar prazo nem inventar consentimento. A exportação recusa lacunas sem cobertura verificável e preserva finalidades posteriores. Schema mantém 34 migrations; P07 e gates finais continuam abertos. Flags desligadas e produção não alterada. GitHub e deploy ficam com o proprietário. Veja [estado atual](docs/23-estado-atual.md) e [pendências](pendencias.md).
+**Revisão documental D129 (28/10/2026):** código e imagem permanecem na revisão D127: 35 migrations, 314 unitários, 62 operacionais e 16 suítes HTTP aprovados localmente. H05/B19/B20 aceitos localmente em D126. P07 continua aberto: [auditoria D128](artifacts/documentation/p07-closure-audit-d128.json) identificou 12 coleções comerciais sem retenção geral e limites na exportação financeira. Desenvolvimento de retenção aguarda política de guarda e revisão por finalidade; contas, CI e segurança/VPS reais continuam pendentes. Backup opcional; nenhuma publicação ou alteração de produção. [Imagem D127](artifacts/container/d127-results.json) e [mitigação de deepmerge](artifacts/security/d127-deepmerge-mitigation.json) preservadas; esta revisão não reexecutou testes da aplicação.
 
 Comece pelo [estado atual](docs/23-estado-atual.md), consulte [pendencias.md](pendencias.md) para prioridades e retome por [progresso](docs/14-progresso.md). Histórico e testes anteriores estão no [registro técnico](docs/19-desenvolvimento.md).
 
@@ -35,7 +35,7 @@ Os scripts funcionam a partir de outro diretório, identificam o processo por PI
 | `npm run build` | Build da aplicação; CLIs via `node scripts/build-runtime.mjs`; não equivale a deploy |
 | `npm run check:http` | Inicia build na porta 3000, confirma saúde, testa HTTP sequencialmente e encerra seu grupo de processos |
 | `npm start` | Runtime standalone já construído; não faz pull, backup ou migrations |
-| `./atualizar.sh --help` | Opções do atualizador de produção |
+| `./atualizar.sh --help` | Opções do atualizador de produção, incluindo `--sem-backup` |
 | `python3 scripts/validar_documentacao.py` | Links, rastreabilidade, contrastes e fontes históricas |
 
 `check:integration` e `check:http` exigem confirmação explícita `BIBLIOTHEON_SYNTHETIC_TESTS=true`, ambiente descartável e configuração de teste. **Não executar em produção.** O roteiro completo está em [execução local](docs/20-execucao-local.md). QA pode usar `.next-qa`/outra porta em rodadas específicas; o harness HTTP do CI reserva 3000 e recusa porta ocupada.
@@ -44,11 +44,15 @@ O [workflow de qualidade](.github/workflows/quality.yml) separa checks sem banco
 
 ## Produção na VPS
 
-Siga [deploy.md](deploy.md) para inventário da VPS compartilhada, configuração privada, backup externo e primeiro deploy. Depois dessa preparação:
+Siga [deploy.md](deploy.md) para inventário da VPS compartilhada, configuração privada e primeiro deploy. Backup é opcional: por padrão o atualizador exige e confirma um backup externo; para seguir sem ele, use `./atualizar.sh --inicial --sem-backup` no primeiro deploy ou `./atualizar.sh --sem-backup` nas atualizações. Essa escolha não cria ponto de restauração recente.
 
 ```bash
-./atualizar.sh --inicial  # primeira implantação
+./atualizar.sh --inicial  # primeira implantação; backup externo exigido por padrão
 ./atualizar.sh           # próximas versões: pull/build/backup/migrations/saúde
+# opção explícita sem backup:
+./atualizar.sh --inicial --sem-backup
+# ou, nas atualizações:
+./atualizar.sh --sem-backup
 ```
 
 Existe apenas **atualizar.sh**; o alias com grafia incorreta foi removido. `start.sh` e `stop.sh` controlam desenvolvimento local. Homologue a versão e as contas antes de ativar flags reais; o script não conclui as [pendências de produção](pendencias.md).
@@ -103,6 +107,7 @@ Configurações exigidas pelas ferramentas continuam na raiz. Preserve [reflexoe
 | [Modelos operacionais](docs/templates/README.md) | Briefings, LP, campanha e revisão |
 
 | [24 — Conciliação](docs/24-conciliacao.md) | CSV, lotes duráveis, confirmação e limites |
+| [25 — Fechamento para produção](docs/25-fechamento-producao.md) | Lacunas de lançamento, critérios de conclusão e melhorias posteriores |
 
 ## Produto e design
 

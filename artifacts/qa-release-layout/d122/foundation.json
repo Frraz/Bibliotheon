@@ -1,0 +1,100 @@
+{
+  "phase": "D122",
+  "suite": "foundation",
+  "startedAt": "2026-10-28T00:37:59.439Z",
+  "completedAt": "2026-10-28T00:38:57.356Z",
+  "status": "passed",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "sourceSHA256": {
+    "scripts/qa-browser-isolated.mjs": "ebd2196ed6c80a43860c99b3bbce540b3a8a6d28f16e1d9b6d08fdc1716cb012",
+    "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+    "scripts/check-qa-admin.sh": "afa1603e8ae73ba7467d226c646e4df55d5fe526cb159f7e812c783c692fe99f",
+    "scripts/qa-foundation.ts": "c5d864d826d9e17eb1f622cae5b65451162c066e835aeea18b32fbbf73a622ea",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  },
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "temporaryMediaRemoved": true,
+  "artifacts": [
+    {
+      "path": "artifacts/qa-foundation/home-dark-1024.png",
+      "bytes": 52997,
+      "sha256": "d5ad98c86b14f6d84ad60f94b3465420cfb9f0426e091cd66593839baa1970fb"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-dark-1440.png",
+      "bytes": 56537,
+      "sha256": "2cc00d8f6119871da5f70ba6b41e3de233e3cf7dcd5b6e54e935b973cb68664c"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-dark-1920.png",
+      "bytes": 58441,
+      "sha256": "cd47e2f93fb60c7616854435e05b2c266dd9a64ee29420e64e088395ab632b0b"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-dark-320.png",
+      "bytes": 45128,
+      "sha256": "4120e77167236ee77e34815539ece2c3931d9c6525966ff09bff69ed0561aa7d"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-dark-360.png",
+      "bytes": 44752,
+      "sha256": "66fef66fe730b07f944d153727f166bf5b10744071f2a1d5fba5a5207345b9da"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-dark-390.png",
+      "bytes": 46696,
+      "sha256": "4c52693b10775b98ca2df49f066ddd543a828a58f8e623a96268c114f3929686"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-dark-768.png",
+      "bytes": 48664,
+      "sha256": "800c90f2d7eb27edbc044d77c46c4a280f7cd4ea15a7bef3c038f9248be3a561"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-1024.png",
+      "bytes": 52525,
+      "sha256": "36c43f66d9d26dc88f47ed184b9c9d8e3ded3933c95127e40179aee29c10f30b"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-1440.png",
+      "bytes": 56176,
+      "sha256": "468c20c429997c32794bfea35638b729e6834bdfcc6f5355e1af99fc746e1021"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-1920.png",
+      "bytes": 58054,
+      "sha256": "a01949c3d8abe74c167e147e9e8947a108bdba88431983e77c8809b374452b3c"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-320.png",
+      "bytes": 44204,
+      "sha256": "e922e668a2256a9a2d8606ed293ad68ee98793a8cc7ecdc34d3223e5870de8ad"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-360.png",
+      "bytes": 43870,
+      "sha256": "b99e4592cb78c8d3bd433dcad4e3b4ca9d917d174fd19ca1552739f38fbcd2a5"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-390.png",
+      "bytes": 46115,
+      "sha256": "672cc3e339f4aca7bfb900d6d3d7934583a0c86274011599c1ee1f8dbda55254"
+    },
+    {
+      "path": "artifacts/qa-foundation/home-light-768.png",
+      "bytes": 48186,
+      "sha256": "ea6faf8fdcba43f58650a286ccaabf49a08fd93b1c0e28190e5f309b78474b36"
+    },
+    {
+      "path": "artifacts/qa-foundation/results.json",
+      "bytes": 2368,
+      "sha256": "444eece7a2d0cb5adf6a43443a7b0c1eaba829505164f55e1bd42d553ba66a4b"
+    }
+  ],
+  "limits": "QA local sintética; não equivale a conta externa, revisão visual manual integral, capacidade da VPS ou deploy."
+}

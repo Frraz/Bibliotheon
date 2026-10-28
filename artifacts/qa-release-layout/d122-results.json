@@ -1,0 +1,120 @@
+{
+  "phase": "D122",
+  "completedAt": "2026-10-28T00:48:28.590687+00:00",
+  "status": "passed",
+  "suites": [
+    {
+      "name": "public-site",
+      "status": "passed",
+      "screenshots": 170,
+      "manifest": "artifacts/qa-release-layout/d122/public-site.json",
+      "manifestSHA256": "20e87a9b963581a5942a00d9c86a736c000133e1eedd48514d0a714f054aee7a",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": null
+    },
+    {
+      "name": "catalog-states",
+      "status": "passed",
+      "screenshots": 38,
+      "manifest": "artifacts/qa-release-layout/d122/catalog-states.json",
+      "manifestSHA256": "7b207fcd423b33c990c75325345eeabfc193c928c31de8033b5c9a7027062294",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    {
+      "name": "foundation",
+      "status": "passed",
+      "screenshots": 14,
+      "manifest": "artifacts/qa-release-layout/d122/foundation.json",
+      "manifestSHA256": "fc2b6e8df4f8501b9bb47b7c442b1ff2b34974250be5f8721d17b0e72ec0eb0c",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    {
+      "name": "admin-editorial",
+      "status": "passed",
+      "screenshots": 60,
+      "manifest": "artifacts/qa-release-layout/d122/admin-editorial.json",
+      "manifestSHA256": "4dced7709514b39a392418c01def9b45728df622969cbc386be55e264f8eff9e",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": null
+    },
+    {
+      "name": "admin-foundation",
+      "status": "passed",
+      "screenshots": 24,
+      "manifest": "artifacts/qa-release-layout/d122/admin-foundation.json",
+      "manifestSHA256": "0a6c3f2a468d6a1a18f69db9e1ccfc3a8c5bcc5423a0e3fec0fb30415985b55e",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    {
+      "name": "relationship",
+      "status": "passed",
+      "screenshots": 84,
+      "manifest": "artifacts/qa-release-layout/d122/relationship.json",
+      "manifestSHA256": "219a0030abd1a37a04f43ecb71f4cc4ad292e5213af0c175a1282d743f02effc",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    {
+      "name": "preferences",
+      "status": "passed",
+      "screenshots": 36,
+      "manifest": "artifacts/qa-release-layout/d122/preferences.json",
+      "manifestSHA256": "823e66de6794f056832277cadd751e623de55169f0c14e16b15f4b3e617f60cf",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    {
+      "name": "sequences",
+      "status": "passed",
+      "screenshots": 48,
+      "manifest": "artifacts/qa-release-layout/d122/sequences.json",
+      "manifestSHA256": "db150980fe2ca7ce5e7a56812dfbb98c3359ef4af9fefd10ed90d481189130a7",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    },
+    {
+      "name": "commercial-operation",
+      "status": "passed",
+      "screenshots": 22,
+      "manifest": "artifacts/qa-release-layout/d122/commercial-operation.json",
+      "manifestSHA256": "426e681c6b0d326c6511b2fc2a269cee1b89601f053cf73ef11c37e457d53f47",
+      "buildID": "UtLrVkwCqxa5zJQc-16SW",
+      "temporaryDatabaseRemoved": true,
+      "temporaryMediaRemoved": true
+    }
+  ],
+  "screenshots": 496,
+  "artifactHashesVerified": true,
+  "configuredDatabasePreserved": true,
+  "networkGuardedSuites": [
+    "foundation",
+    "catalog-states",
+    "relationship",
+    "preferences",
+    "sequences",
+    "admin-foundation",
+    "commercial-operation"
+  ],
+  "blockedExternalHTTPAttemptsInGuardedSuites": 0,
+  "realEmailsSent": 0,
+  "productionChanged": false,
+  "H05Complete": false,
+  "remaining": [
+    "Estados adversos e componentes da matriz integral ainda não possuem aceite nesta rodada.",
+    "Carga comercial representativa ainda não medida."
+  ],
+  "limits": "Rodadas pública/editorial anteriores ao preload mantêm seus próprios hashes e limites. Inspeção visual manual é amostral, registrada em visual-review.json. Sem contas externas, GitHub ou VPS.",
+  "containerEvidence": "artifacts/container/d122-results.json",
+  "httpEvidence": "artifacts/container/h03-http-d122-results.json"
+}

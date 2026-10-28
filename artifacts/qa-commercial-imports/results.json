@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T12:15:40.407Z",
+  "date": "2026-10-28T03:37:43.621Z",
   "status": "passed",
   "checks": [
     "Acesso anônimo à view e à API recusado; a página usa autorização owner também no servidor.",

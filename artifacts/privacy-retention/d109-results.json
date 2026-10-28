@@ -1,6 +1,6 @@
 {
   "phase": "D109",
-  "date": "2026-10-27T00:38:27.443Z",
+  "date": "2026-10-27T05:45:13.229Z",
   "environment": "PostgreSQL sintético exclusivo",
   "checks": [
     "preview agregado sem escrita; cutoff inclusivo de 28 dias, estado recente e contato ativo preservados",
@@ -13,7 +13,7 @@
     "rotina de privacidade incorpora o relatório sem PII; nenhuma chamada externa"
   ],
   "preview": {
-    "cutoff": "2026-09-29T00:38:19.382Z",
+    "cutoff": "2026-09-29T05:45:04.320Z",
     "guardAvailable": true,
     "candidates": 8,
     "eligible": 2,
@@ -25,7 +25,7 @@
     "withoutExpiredMarketing": 1
   },
   "applied": {
-    "cutoff": "2026-09-29T00:38:19.382Z",
+    "cutoff": "2026-09-29T05:45:04.320Z",
     "guardAvailable": true,
     "candidates": 8,
     "eligible": 2,

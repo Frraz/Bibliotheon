@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T06:12:29.113Z",
+  "date": "2026-10-28T04:42:13.342Z",
   "checks": [
     "Lote exige owner/origem, persiste atomicamente, deduplica repetição integral, rejeita conflito sem adicionar linhas e limita o lote a vinte registros.",
     "Rota real exige owner/origem/MIME e contrato exato; retorna registro privado e idempotente, sem aplicação. Snapshot pago sem prova de aprovação não confirma nem cria transação.",

@@ -1,0 +1,74 @@
+{
+  "phase": "D126",
+  "date": "2026-10-28",
+  "status": "accepted-locally",
+  "H05LocalAccepted": true,
+  "B19B20LocalAccepted": true,
+  "productionReady": false,
+  "coverage": [
+    {
+      "family": "Home 0/1/3/20, catálogo/filtro/vazio e três LPs/afiliado",
+      "evidence": "artifacts/qa-release-layout/d122-results.json"
+    },
+    {
+      "family": "Títulos 160 caracteres, capa indisponível, erro/recuperação, ofertas inativas, texto/link/lista extensos e amostra ausente",
+      "evidence": "artifacts/qa-release-layout/d125-results.json"
+    },
+    {
+      "family": "Captura/confirmar/preferências: campos, loading/erro/sucesso, token, descadastro e sem JS",
+      "evidence": "artifacts/qa-release-layout/d123-results.json"
+    },
+    {
+      "family": "Painel: listas/edição/campanhas/configuração nos dois temas/seis larguras",
+      "evidence": "artifacts/qa-release-layout/d122/admin-editorial.json"
+    },
+    {
+      "family": "Contatos/detalhe/integração/supressões, inbox, importações, identidade e financeiro; dados/estados e APIs",
+      "evidence": "artifacts/qa-release-layout/d126-results.json"
+    },
+    {
+      "family": "Componentes hover/focus/active/expandido, fontes e JS lento/motion padrão",
+      "evidence": "artifacts/qa-release-layout/d125-results.json"
+    },
+    {
+      "family": "Disabled/loading/erro/sucesso, foco recuperado e escolha manual preservada; supressão nos dois temas/390 e 1440, paginação nativa por teclado",
+      "evidence": "artifacts/qa-suppressions/results.json"
+    },
+    {
+      "family": "Zoom nativo 400%, 30 rotas/dois temas; reflow 320 e correções de alvos/foco",
+      "evidence": "artifacts/qa-release-layout/d121-native-results.json"
+    },
+    {
+      "family": "Amostra ativa também em zoom 400%; teclado e feedback",
+      "evidence": "artifacts/qa-release-layout/d123-results.json"
+    },
+    {
+      "family": "Tema sistema/manual/reload/storage negado e reduced-motion; fundação",
+      "evidence": "artifacts/qa-release-layout/d122/foundation.json"
+    },
+    {
+      "family": "Laboratório público com catálogo 30 livros/três temas/30 artigos",
+      "evidence": "artifacts/qa-release-layout/d121-results.json"
+    },
+    {
+      "family": "Carga comercial 45 jornadas/180 requests, mil transações, 5/10 clientes",
+      "evidence": "artifacts/qa-release-layout/d124-results.json"
+    },
+    {
+      "family": "Crítica visual: home de um livro e LP nos dois temas; formulários, conteúdo adverso e administração",
+      "evidence": [
+        "artifacts/qa-release-layout/d122/visual-review.json",
+        "artifacts/qa-release-layout/d123-visual-review.json",
+        "artifacts/qa-release-layout/d125-visual-review.json",
+        "artifacts/qa-release-layout/d126-visual-review.json"
+      ]
+    }
+  ],
+  "reuse": "Matriz combinada de estados por família; não repetir todas as combinações a cada correção. D126 alterou apenas foco da supressão e nomes acessíveis das setas. Estilos/versões preservados; os 14 hunks anteriores e o lockfile anterior são reconstruídos exatamente ao retirar a adição. Duas suítes afetadas renovadas no novo build; oito anteriores preservadas com hashes conferidos.",
+  "limits": [
+    "Aceite local dos critérios de lançamento; não certificação WCAG ou inspeção manual de cada PNG.",
+    "Sem SLA, INP/p75 de campo ou capacidade comprovada da VPS.",
+    "Novas telas/dados/estados ou falhas reabrem somente a cobertura afetada.",
+    "P07, imagem final, contas e segurança/operação do host continuam separados."
+  ]
+}

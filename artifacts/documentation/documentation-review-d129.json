@@ -1,0 +1,355 @@
+{
+  "phase": "D129",
+  "date": "2026-10-28T05:11:02.250997+00:00",
+  "scope": "documentation-only",
+  "status": "passed",
+  "markdownFilesReviewed": 52,
+  "changedMarkdownFiles": 22,
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "changed": false,
+      "beforeSHA256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed",
+      "afterSHA256": "9826932d9b94828703d759e14cc0254f9567019ab3bb444e30374ee80dcaa0ed"
+    },
+    {
+      "path": "DESIGN-BRIEF.md",
+      "changed": true,
+      "beforeSHA256": "89b8ac56fbeb2eec1753bbe3f476801bfb154e56aafa3acc5482e80f69790e19",
+      "afterSHA256": "8047cd044ed8515a59c2f7002b944e7899734e7f256704e72c093dc896f034bd"
+    },
+    {
+      "path": "README.md",
+      "changed": true,
+      "beforeSHA256": "c2ef4222a78662d7817d7ae8741eafa72cd8a86dfbbc3f90506ef9692e835c0a",
+      "afterSHA256": "af2dd436d96f2421e275927c1b805ba2912158123f1cdcecf00df68433ad22a9"
+    },
+    {
+      "path": "deploy.md",
+      "changed": true,
+      "beforeSHA256": "ee1b3ee23b16ec225b319979f7d08f6a8e462ac04ac963c5b6ee9f3674e73f30",
+      "afterSHA256": "d51458e3cf055c2924a687613717af8a100f83df63da04a8309138c5866ed390"
+    },
+    {
+      "path": "docs/01-visao-estrategia.md",
+      "changed": false,
+      "beforeSHA256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29",
+      "afterSHA256": "1f96e787fddfeca88b5765b1fa5102642b0c3561f30a741ff42f5a4dd508ab29"
+    },
+    {
+      "path": "docs/02-requisitos.md",
+      "changed": true,
+      "beforeSHA256": "a3ad5b236d206a4fbec33391793b3c19261732e80b7b37bea4e6cc7263e6a77a",
+      "afterSHA256": "629da9d3b66cf3869e827091e97f1244285ce82b62f06b80378f378138c6f83f"
+    },
+    {
+      "path": "docs/03-experiencia.md",
+      "changed": false,
+      "beforeSHA256": "dc0792a00592db67104055ea495a701937ed9a27401b13529e7da108bd6afb5a",
+      "afterSHA256": "dc0792a00592db67104055ea495a701937ed9a27401b13529e7da108bd6afb5a"
+    },
+    {
+      "path": "docs/04-arquitetura.md",
+      "changed": true,
+      "beforeSHA256": "eced8ad8f2cca832a4a091e648fef5e96fab1997d04b4cc5ca8b8ccc779f4700",
+      "afterSHA256": "d779eace1642b533c4f772bb8969ed1493d9952ceb3f455621f43953a533860e"
+    },
+    {
+      "path": "docs/05-dados.md",
+      "changed": true,
+      "beforeSHA256": "6c2f14869171eef923a7a5591d0a89bc589d20f5e07cb1976146b9a5b0138cc5",
+      "afterSHA256": "8e2707e0ab829c2254cf1eed8cb46ab9e380a60a469d0763d51236bc8a466176"
+    },
+    {
+      "path": "docs/06-interfaces.md",
+      "changed": false,
+      "beforeSHA256": "46e34eaa83d66e94a28ca09e738ca4a44d6f8efe3de19efbf44d880ecae31b00",
+      "afterSHA256": "46e34eaa83d66e94a28ca09e738ca4a44d6f8efe3de19efbf44d880ecae31b00"
+    },
+    {
+      "path": "docs/07-integracoes.md",
+      "changed": true,
+      "beforeSHA256": "91439bb295d579ffd7441b267d36335fa793428078c60a8fbdb78fb4e1eddb37",
+      "afterSHA256": "8525a32be062de60544e64e48e660b83262a7a6e1b4561e790bbbcda5c725a2f"
+    },
+    {
+      "path": "docs/08-aquisicao.md",
+      "changed": false,
+      "beforeSHA256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f",
+      "afterSHA256": "0619de32722071954f25598568964f5c18b848f914378eb65ecedbf475626c8f"
+    },
+    {
+      "path": "docs/09-metricas.md",
+      "changed": true,
+      "beforeSHA256": "a272da5722de49b7b8da56d814e3f870b62fbfc650dfced1f7a08104f13a89cd",
+      "afterSHA256": "95a8193f8821c685dfec383e8c10699a61c306ab494c657b154bd7bedd7b6da0"
+    },
+    {
+      "path": "docs/10-infraestrutura.md",
+      "changed": true,
+      "beforeSHA256": "89ee0117665d55254d9d8e5ebc2f2b1aa50cb563a0970f795749d5e2b5d04364",
+      "afterSHA256": "d4f6b24cf93852c585c868d80878630cb38caf365bd6eb0c93ec6c75b62b67bd"
+    },
+    {
+      "path": "docs/11-operacao.md",
+      "changed": true,
+      "beforeSHA256": "ef64de725005c238d060b5317a58db6cc1929b3ace03e8725493bfbebfaa1275",
+      "afterSHA256": "2f10c2b89cce45e3689560c3272397cc2631eb86c02e90eee4d0a1e895c2fcd8"
+    },
+    {
+      "path": "docs/12-seguranca-privacidade.md",
+      "changed": true,
+      "beforeSHA256": "e88cd9cb42e3608aa5565712a54cd9fb32ad9f6c0a3d6880b2e17ddfd068c0de",
+      "afterSHA256": "1c2e0e15211d814e3c2e72801878d6648e20c539fce066f23829c6a12fc3f9b6"
+    },
+    {
+      "path": "docs/13-backlog.md",
+      "changed": true,
+      "beforeSHA256": "8918de77192ea7b0c93cc8370dd50cea10bb79eb5b20b53b07d8e91105d72d6c",
+      "afterSHA256": "514e51c93d7959fa88c8dbc0d56d3b2bc96a53961d615797a75e1d981997adcf"
+    },
+    {
+      "path": "docs/14-progresso.md",
+      "changed": true,
+      "beforeSHA256": "131f288473f23d97ba69aaa9b8d1cb7fd8ee8be48ef4189e51e7efd9cda50984",
+      "afterSHA256": "90011e857eecd2ecd770bfb082de321a36f85030d40e66591a18ae066f2dec7a"
+    },
+    {
+      "path": "docs/15-qualidade.md",
+      "changed": true,
+      "beforeSHA256": "cbf7a94a69e947dae56ea335dcfb7b1d2c45a1d49a8f844062960ff35b08d9d1",
+      "afterSHA256": "72cddc859bbc4cd33704106b60a58cd6536cea727e87bc7f85989dcc9f1922f6"
+    },
+    {
+      "path": "docs/16-referencias.md",
+      "changed": false,
+      "beforeSHA256": "f9513367a919e21012b8fe17e620e3bb21e7a157dee032683652cfe8a3223b32",
+      "afterSHA256": "f9513367a919e21012b8fe17e620e3bb21e7a157dee032683652cfe8a3223b32"
+    },
+    {
+      "path": "docs/17-decisoes.md",
+      "changed": false,
+      "beforeSHA256": "10ed305c611b6164bccf4bef4f30cea4924453f6f3c706ddaf44a18e5701a337",
+      "afterSHA256": "10ed305c611b6164bccf4bef4f30cea4924453f6f3c706ddaf44a18e5701a337"
+    },
+    {
+      "path": "docs/18-validacao.md",
+      "changed": true,
+      "beforeSHA256": "89b927bb4c7a099105c9073c50786ef99e7d5fe93d26018a976622fbdc023cc6",
+      "afterSHA256": "98d0dce06c338b2ced3159d6510cb263eb3d7663dde19300f844d1643ac3ba2a"
+    },
+    {
+      "path": "docs/19-desenvolvimento.md",
+      "changed": true,
+      "beforeSHA256": "51dbc864f3e4c477f5d3c8e03aead906f85bce399dc83963965ac1a74b0de615",
+      "afterSHA256": "c61f32231d67bb49487b8ba59686fe5ae53c1acf6a8de0bc1b04661ef11ec0c0"
+    },
+    {
+      "path": "docs/20-execucao-local.md",
+      "changed": true,
+      "beforeSHA256": "7c6a8372e82cf23189134c41ce297726342f6d2c8170b4b101e6b8846d3299da",
+      "afterSHA256": "30bf502d4ac885e12699b8f124c7e79eb2756a9f4038ed1097fc92ef0e93b8fe"
+    },
+    {
+      "path": "docs/21-pacote-producao.md",
+      "changed": true,
+      "beforeSHA256": "7ef642066a99586948a30760e6c6014553295d86eada3a51cea1323c461f4973",
+      "afterSHA256": "429b651c0aa05b24c45012301bb26f1c8434fcc20fe178eb9305124ae6a45db8"
+    },
+    {
+      "path": "docs/22-lancamento.md",
+      "changed": false,
+      "beforeSHA256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831",
+      "afterSHA256": "1311b2c1305750aa48cc300dd6c10ff570050d3a87c65e79d062f95c9ac1b831"
+    },
+    {
+      "path": "docs/23-estado-atual.md",
+      "changed": true,
+      "beforeSHA256": "ddd4d1c53ed2f90b1f9f149bc2253c6031e8cb5afa0fb48486e76483d6407385",
+      "afterSHA256": "a2452a971fcbc12546d871bbf57c10bc4b609ec71c429d08bdf7aaf3b5368e0f"
+    },
+    {
+      "path": "docs/24-conciliacao.md",
+      "changed": true,
+      "beforeSHA256": "857378c903d892a5230139c3513f20dde7d2944ef1b17617f87a5d5667b83d8b",
+      "afterSHA256": "5bf3cc196f0682e84c4ce3884ff06c6f08a68b6d0ff99e90c7666da93066aea1"
+    },
+    {
+      "path": "docs/25-fechamento-producao.md",
+      "changed": false,
+      "beforeSHA256": "0c67b258895eba078a2e3a5685c6606b3b10808fc52e204e12a6b954d0b7b69d",
+      "afterSHA256": "0c67b258895eba078a2e3a5685c6606b3b10808fc52e204e12a6b954d0b7b69d"
+    },
+    {
+      "path": "docs/design/01-identidade.md",
+      "changed": false,
+      "beforeSHA256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084",
+      "afterSHA256": "225eacd9293bb495d9d55cb3c8219a5a4f9c69082c1ca8d15b4de5aab9d5b084"
+    },
+    {
+      "path": "docs/design/02-tokens.md",
+      "changed": false,
+      "beforeSHA256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc",
+      "afterSHA256": "1df31443e769687ce4ab9d865db3bf2c8f7756c859d278e1d011de621a9f5afc"
+    },
+    {
+      "path": "docs/design/03-componentes.md",
+      "changed": false,
+      "beforeSHA256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be",
+      "afterSHA256": "9fe6e1d2e8e80a743ee513b0e744018d0a7e4dc60aa8064b523ed9498f92f3be"
+    },
+    {
+      "path": "docs/design/04-paginas.md",
+      "changed": false,
+      "beforeSHA256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98",
+      "afterSHA256": "17259943e1c77ae6c102cc9cb5a99730e5c94d1124c02610862853018829fb98"
+    },
+    {
+      "path": "docs/design/05-painel.md",
+      "changed": false,
+      "beforeSHA256": "9e3f36fdf968ace9ee8787ff9de69a130864a54278e2dbb7f7a160f3480d22ee",
+      "afterSHA256": "9e3f36fdf968ace9ee8787ff9de69a130864a54278e2dbb7f7a160f3480d22ee"
+    },
+    {
+      "path": "docs/design/06-comportamento.md",
+      "changed": false,
+      "beforeSHA256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02",
+      "afterSHA256": "bf228a0e54bf0110b10584bbdaa731f6ed5b16c639a76ea0aff4ed11a6772e02"
+    },
+    {
+      "path": "docs/design/07-qualidade.md",
+      "changed": true,
+      "beforeSHA256": "f32878ae42954bbe4107084936c007658690f8196a679291a354042e1dd2b6bd",
+      "afterSHA256": "1671d1cb4eb41fdc4d2ff1976e5c98162d82e89286dc8398301be5301a61ec6e"
+    },
+    {
+      "path": "docs/design/08-skills-referencias.md",
+      "changed": false,
+      "beforeSHA256": "25cb27071b8589e16c056cbb7da0cb87a0cdb580112d27c723fdde04edeee16f",
+      "afterSHA256": "25cb27071b8589e16c056cbb7da0cb87a0cdb580112d27c723fdde04edeee16f"
+    },
+    {
+      "path": "docs/design/09-contrastes.md",
+      "changed": false,
+      "beforeSHA256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea",
+      "afterSHA256": "7f1cf530f5efb60011e4ff483aa299b11de2858d787814ce4f06ad1eea31dcea"
+    },
+    {
+      "path": "docs/integracoes/brevo.md",
+      "changed": false,
+      "beforeSHA256": "89e699c0d422bcb4e17826d7a3a0a5841d2fb42d3a000fd44578cdb9b94e6d1b",
+      "afterSHA256": "89e699c0d422bcb4e17826d7a3a0a5841d2fb42d3a000fd44578cdb9b94e6d1b"
+    },
+    {
+      "path": "docs/integracoes/cakto.md",
+      "changed": false,
+      "beforeSHA256": "8ccfc7dfb8d0bd82257f9b8d4e772de2c5dc00a19db0227ee7ab7fe4915cf6b0",
+      "afterSHA256": "8ccfc7dfb8d0bd82257f9b8d4e772de2c5dc00a19db0227ee7ab7fe4915cf6b0"
+    },
+    {
+      "path": "docs/integracoes/hotmart.md",
+      "changed": false,
+      "beforeSHA256": "688db5c2ff8be6353b10bfa332da4d99c7f11182c5ccfa45c96b8b924339e026",
+      "afterSHA256": "688db5c2ff8be6353b10bfa332da4d99c7f11182c5ccfa45c96b8b924339e026"
+    },
+    {
+      "path": "docs/integracoes/kiwify.md",
+      "changed": false,
+      "beforeSHA256": "c58e2efd22fc649666b6ae142398cdcf23d49d4187d74b95d18080e5c0b94e20",
+      "afterSHA256": "c58e2efd22fc649666b6ae142398cdcf23d49d4187d74b95d18080e5c0b94e20"
+    },
+    {
+      "path": "docs/templates/01-briefing-livro.md",
+      "changed": false,
+      "beforeSHA256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e",
+      "afterSHA256": "a49226a43bd4920c70c532b09cdfe957e759c46850fb78ea22a0962ca38b272e"
+    },
+    {
+      "path": "docs/templates/02-copy-lp.md",
+      "changed": false,
+      "beforeSHA256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44",
+      "afterSHA256": "89e68ea5965d389e4db34b12b006bdea1b0b76a9bb5d80f9f5ca40c143f86c44"
+    },
+    {
+      "path": "docs/templates/03-campanha.md",
+      "changed": false,
+      "beforeSHA256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4",
+      "afterSHA256": "5cebb02504940bc42a4bd578ef15ebc57f6115e2f17170a323c48beb6059f4c4"
+    },
+    {
+      "path": "docs/templates/04-kit-afiliados.md",
+      "changed": false,
+      "beforeSHA256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde",
+      "afterSHA256": "af9cb9be8f1f1194ddbd1a84e3d8f1cd8018e54023ede2a21720a48b0b47cdde"
+    },
+    {
+      "path": "docs/templates/05-revisao-semanal.md",
+      "changed": false,
+      "beforeSHA256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39",
+      "afterSHA256": "76408affbd3971e64226929bb07a4cad991eca86cf7df46cc9515327bd823b39"
+    },
+    {
+      "path": "docs/templates/06-homologacao.md",
+      "changed": false,
+      "beforeSHA256": "9cf1213cb9d9251f8f2180fc0660e378732c9a474e3a9ffa8e01d4eb0b5023a2",
+      "afterSHA256": "9cf1213cb9d9251f8f2180fc0660e378732c9a474e3a9ffa8e01d4eb0b5023a2"
+    },
+    {
+      "path": "docs/templates/README.md",
+      "changed": false,
+      "beforeSHA256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051",
+      "afterSHA256": "93927b5981ed76cf8b11e49c9fb32528d729cca468421ede25681c55e2987051"
+    },
+    {
+      "path": "ideais para melhora o desing.md",
+      "changed": false,
+      "beforeSHA256": "a78685e178c4453a71f9abfcc30aac0c32a7f114b4081f41790c1a6f7561e122",
+      "afterSHA256": "a78685e178c4453a71f9abfcc30aac0c32a7f114b4081f41790c1a6f7561e122"
+    },
+    {
+      "path": "pendencias.md",
+      "changed": true,
+      "beforeSHA256": "e951c9258a77c0a4605c13c4ac0ebef1e8beaf4e71c0a913eeae8ef0dc736724",
+      "afterSHA256": "67d65eee379cdd50b655a92a432b41396ae2eeb4bf99241682ac5f86b8e83e55"
+    },
+    {
+      "path": "reflexoes.md",
+      "changed": false,
+      "beforeSHA256": "e9be41f92ab65d33cfdc5e8f9447d7fb05cf84ad43cb920d7d4906d15d8a262c",
+      "afterSHA256": "e9be41f92ab65d33cfdc5e8f9447d7fb05cf84ad43cb920d7d4906d15d8a262c"
+    }
+  ],
+  "protectedHistoricalSourcesUnchanged": [
+    "reflexoes.md",
+    "ideais para melhora o desing.md"
+  ],
+  "runtimeFilesUnchanged": 331,
+  "migrationsDocumentedExactly": 35,
+  "codeTestsRerun": false,
+  "codeEvidence": "artifacts/container/d127-checks.json",
+  "QAacceptance": "artifacts/qa-release-layout/d126-h05-acceptance.json",
+  "P07audit": "artifacts/documentation/p07-closure-audit-d128.json",
+  "externalSourcesRevalidated": false,
+  "externalConsultationDatesPreserved": true,
+  "templatesNotFilledWithInventedData": true,
+  "P07Accepted": false,
+  "backupOptional": true,
+  "productionChanged": false,
+  "observations": [
+    "Resumos atuais alinhados a D127 (runtime), D126 (QA) e D128 (lacunas P07).",
+    "Removidas afirmações vigentes de 32 migrations; lista atual contém as 35 entradas do código.",
+    "Referências antigas de imagem, QA, atribuição e aceites locais corrigidas nos guias de operação, design e integrações.",
+    "Registro antigo de auditoria sem avisos contextualizado: D127 mantém aviso low com mitigação local, sem ocultação.",
+    "Homologações de contas/CI/VPS, material/contato e P07 permanecem abertos.",
+    "Fontes históricas, registros cronológicos e modelos preservam seu contexto; não são apresentados como aceite atual."
+  ],
+  "validation": {
+    "command": "python3 scripts/validar_documentacao.py",
+    "status": "passed",
+    "documents": 50,
+    "localLinks": 1655,
+    "authorizedContrastPairs": 76,
+    "historicalSourceHashes": "preserved"
+  },
+  "diffCheck": "passed"
+}

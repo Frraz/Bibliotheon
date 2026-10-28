@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-28T03:40:43.411Z",
+  "status": "failed",
+  "checks": [
+    "Owner obrigatório no POST; ausência de dados não vira processamento atual nem resultados fictícios."
+  ],
+  "captures": [
+    {
+      "name": "empty-dimensions-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "providers-initial-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "books-light-390",
+      "theme": "light",
+      "width": 390,
+      "axe": true,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": 0,
+  "fixturesCleaned": true,
+  "limits": "Detalhamentos financeiros locais sintéticos; sem atribuição P06, janela externa homologada, zoom nativo 400%, imagem/restore, GitHub ou VPS."
+}

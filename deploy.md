@@ -2,22 +2,22 @@
 
 [README](README.md) · [Estado do produto](docs/23-estado-atual.md) · [Operação e recuperação](docs/21-pacote-producao.md)
 
-Guia iniciado em 22/10/2026 e revisado documentalmente em 26/10/2026 até D114. As seções Dxx registram a evolução; o inventário vigente exige as 34 migrations e os [gates de produção](pendencias.md). As views D79–D81 não acrescentam migration, segredo, flag ou serviço. Depois da preparação inicial, a atualização normal será:
+Guia iniciado em 22/10/2026 e revisado documentalmente em 28/10/2026 (D129; imagem local D127). As seções Dxx registram a evolução; o inventário vigente exige 35 migrations e os [gates de produção](pendencias.md). Backup pré-deploy é opcional por decisão explícita: sem a opção `--sem-backup`, a configuração e a confirmação externa continuam obrigatórias. Depois da preparação inicial, a atualização normal será:
 
 ```bash
 cd /srv/bibliotheon
 ./atualizar.sh
 ```
 
-O script faz pull com fast-forward, constrói uma imagem nova, pausa somente app/worker do Bibliotheon, confirma backup externo, aplica migrations e sobe/verifica os serviços. Banco e mídia ficam em volumes persistentes. Há uma janela de indisponibilidade entre a pausa para backup e o término da verificação. Não é deploy sem downtime.
+O script faz pull com fast-forward e constrói uma imagem nova. Por padrão, pausa somente app/worker, confirma backup externo, aplica migrations e sobe/verifica os serviços. Com `--sem-backup`, pula a captura e segue para migration sem ponto recente de restauração; ainda pausa app/worker e executa as proteções e verificações restantes. Banco e mídia ficam em volumes persistentes. Há uma janela de indisponibilidade. Não é deploy sem downtime.
 
 O comando único é **atualizar.sh**. O alias antigo com grafia incorreta foi removido em D69; atualize seus atalhos para usar o nome correto.
 
 ## 1. Antes do primeiro deploy
 
-Este guia prepara a infraestrutura; não conclui funcionalidades ainda pendentes. O produto tem [lacunas conhecidas](docs/23-estado-atual.md), incluindo homologação da imagem atual e das contas, cobertura integral de conciliação/financeiro, interface de resolução auditada, cobertura operacional integral e retenção. Conectores, decisões auditadas, CSVs canônicos, ledger e interfaces de importação/prévia financeira já possuem código local; veja [pendencias.md](pendencias.md). Homologue a versão antes de abrir operação real. Captura/e-mail/worker ficam desligados inicialmente. O contato público será preenchido por você antes da produção, conforme a decisão já registrada.
+Este guia prepara a infraestrutura; não conclui funcionalidades ainda pendentes. O produto tem [lacunas conhecidas](docs/23-estado-atual.md), incluindo P07-A–E, homologação das contas e segurança/configuração do ambiente real. A imagem atual tem aceite local D127; P01–P05 e as interfaces de resolução auditada têm aceite local, e H05 foi encerrado localmente em D126. Conectores, decisões auditadas, CSVs canônicos, ledger e interfaces de importação/prévia financeira já possuem código local; veja [pendencias.md](pendencias.md). Homologue a versão antes de abrir operação real. Captura/e-mail/worker ficam desligados inicialmente. O contato público será preenchido por você antes da produção, conforme a decisão já registrada.
 
-Procedimento de referência: Ubuntu 24.04 LTS de 64 bits, Bash, Python **3.11+**, Git, Docker Engine com Buildx e Compose v2 recente (referência local: 2.40.3), restic 0.19.1. Node/pnpm ficam dentro da imagem; não precisam ser instalados no host. Se a VPS já possui serviços, use o sistema/proxy existentes; não reinstale o servidor nem remova pacotes em uso.
+Procedimento de referência: Ubuntu 24.04 LTS de 64 bits, Bash, Python **3.11+**, Git, Docker Engine com Buildx e Compose v2 recente (referência local: 2.40.3); restic 0.19.1 somente se backup/recuperação forem adotados. Node/pnpm ficam dentro da imagem; não precisam ser instalados no host. Se a VPS já possui serviços, use o sistema/proxy existentes; não reinstale o servidor nem remova pacotes em uso.
 
 Use o mesmo usuário operacional em clone, configuração, Docker, backup e futuras atualizações. Os exemplos de instalação/configuração usam uma sessão administrativa (`sudo -i`, quando necessário); isso não exige habilitar login remoto de root. Não misture clone feito por um usuário com atualizações feitas por outro sem ajustar propriedade e acesso SSH.
 
@@ -118,8 +118,8 @@ Configurações e releases ficam **fora do Git e do contexto de build**:
 |---|---|
 | /etc/bibliotheon/production.env | Segredos e ambiente da aplicação/banco |
 | /etc/bibliotheon/deploy.json | Branch, caminhos, limites e ativação do worker |
-| /etc/bibliotheon/backup.json | Configuração privada do destino restic |
-| /etc/bibliotheon/restic-password | Chave do backup; guarde outra cópia segura fora da VPS |
+| /etc/bibliotheon/backup.json | Configuração privada do destino restic, necessária somente no fluxo padrão com backup |
+| /etc/bibliotheon/restic-password | Chave do backup; necessária somente no fluxo padrão e guardada fora da VPS |
 | /var/lib/bibliotheon | Lock, manifests e configurações privadas por release |
 
 ```bash
@@ -178,9 +178,9 @@ chmod 600 /etc/bibliotheon/production.env /etc/bibliotheon/deploy.json
 
 O projeto Compose é fixo: bibliotheon. O primeiro deploy recusa containers/volumes desse projeto já existentes sem manifest gerenciado. Não confunde com bibliotheon-local. Se já houver uma instalação manual, planeje sua migração de controle; não apague volumes para passar pela checagem.
 
-## 5. Preparar backup externo obrigatório
+## 5. Backup externo (opcional)
 
-Antes de qualquer deploy, prepare um repositório restic **fora da VPS**, acessível sem prompts. O primeiro deploy verifica acesso ao repositório, mas não captura um banco inexistente; os seguintes exigem snapshot externo confirmado antes de migrar. Um arquivo de dump no mesmo disco não atende a essa proteção.
+O fluxo padrão exige repositório restic **fora da VPS**, acessível sem prompts. O primeiro deploy verifica o repositório, embora ainda não exista banco para capturar; atualizações exigem snapshot externo confirmado antes de migrar. Se quiser prosseguir sem backup, omita `backup_env` do deploy.json e use a opção explícita `--sem-backup` no comando de deploy. Isso pula a captura e o preflight do restic; não cria ponto recente de restauração nem torna reversíveis migrations/dados. A imagem anterior só pode ser reutilizada quando compatível com o schema. A decisão é do proprietário.
 
 Use restic 0.19.1, versão dos ensaios locais, obtido da distribuição oficial. Alternativa com a imagem oficial fixada já usada no projeto:
 
@@ -236,10 +236,12 @@ Guarde a chave e as credenciais de acesso em outro local seguro; perder a chave 
 
 ## 6. Executar o primeiro deploy
 
-Na raiz do clone, com configurações privadas prontas e backup acessível:
+Na raiz do clone, com configurações privadas prontas. Com backup, configure `backup_env` e prepare o repositório. Para optar por não configurar backup:
 
 ```bash
 ./atualizar.sh --inicial
+# Ou, por escolha explícita, sem backup:
+./atualizar.sh --inicial --sem-backup
 ```
 
 O script verifica branch/checkout, faz git pull --ff-only origin main (ou sua branch), valida ambiente/recursos, constrói imagem, inicia apenas o banco, migra e sobe o app. O primeiro deploy verifica saúde **local**; o proxy/HTTPS vem na seção seguinte. Worker só inicia se explicitamente configurado. Não instala Docker, não configura DNS/proxy, não cria usuário do painel e não publica livro automaticamente.
@@ -422,13 +424,13 @@ docker compose -p bibliotheon -f "$COMPOSE_ATUAL" --profile relationship ps -a
 
 Se a falha foi no primeiro deploy, não haverá current.json: obtenha o caminho de release em in-progress.json e use seu compose.json. Confira também containers de migration ainda executando antes de tentar novamente; não rode duas migrations juntas. Erro de TLS pode ser DNS, certificado, IP/CDN, porta de proxy ou origem; erro de banco pode ser credencial, disco ou migration. Diagnostique sem imprimir docker inspect completo ou docker compose config com segredos.
 
-Depois de corrigir a causa e conferir o backup/schema e que não há migration antiga em execução:
+Depois de corrigir a causa e conferir o backup/schema (quando backup foi usado) e que não há migration antiga em execução:
 
 ```bash
 ./atualizar.sh --retomar
 ```
 
-É uma ação explícita de recuperação: faz pull/build da versão atual, preserva a referência da interrupção, exige backup e reaplica somente migrations pendentes. Pode recuperar também primeiro deploy interrompido. Não significa que uma migration parcialmente aplicada ou incompatível possa ser resolvida sem análise. Não apague in-progress.json para burlar a proteção.
+É uma ação explícita de recuperação: faz pull/build da versão atual, preserva a referência da interrupção, exige a configuração/etapa padrão de backup e reaplica somente migrations pendentes. Não aceita `--sem-backup`. Pode recuperar também primeiro deploy interrompido. Não significa que uma migration parcialmente aplicada ou incompatível possa ser resolvida sem análise. Não apague in-progress.json para burlar a proteção.
 
 **Rollback:** nunca faz down automático do schema ou restaura banco por cima da produção. Só retorne código se a imagem anterior for compatível com o schema atual, após análise; manifests anteriores são preservados. Se não for, mantenha escrita parada, prefira correção progressiva e restaure numa cópia isolada para avaliar recuperação/perda de eventos. Procedimento detalhado no documento 21; reaplique exclusões/supressões posteriores antes de voltar a enviar e-mail.
 
@@ -661,3 +663,7 @@ Worker de retenção exige chave válida e health atual verifica conclusão diá
 ## D114 — Legado temático verificável — 26/10/2026
 
 O exportador vigente recusa descadastro temático sem prova/fato ou cobertura global aplicável. Antes de produção/retorno, conciliar lacunas e guardar manifesto atual completo; não reutilizar silenciosamente arquivo antigo quando a exportação falhar. D114 prova derivação nativa e replay em restore host, mantendo 34 migrations, mas não reconstrói/homologa imagem/VPS. Nenhuma implantação ou ativação ocorreu.
+
+D122: a imagem local atual passou em banco vazio/upgrade 32→35 e as 16 suítes HTTP passaram no standalone QA. [Evidência](artifacts/container/d122-results.json). Isso prepara o pacote técnico; conta, inventário/proteção do host, configuração privada, CI e execução do deploy continuam com o proprietário. [Lacunas atuais](pendencias.md). Backup/guarda externa de recuperação/restore são opcionais quando a opção escolhida é `--sem-backup`.
+
+D123: correção de foco no cliente validada no build QA. A imagem D122 citada acima é anterior a essa correção; gerar/homologar a imagem de fechamento depois de consolidar o código. [Estado vigente](docs/23-estado-atual.md). Backup segue opcional.

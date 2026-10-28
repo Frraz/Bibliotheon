@@ -14,7 +14,7 @@ export type SuppressedMarketingRetentionReport = {
 }
 
 /** Scan JSON references too: missing relational links do not make a shared manifest disposable. */
-export async function hasSharedMarketingReference(payload: Payload, ids: Set<string>, req: PayloadRequest, identities: readonly string[] = []) {
+export async function hasSharedMarketingReference(payload: Payload, ids: Set<string>, req: PayloadRequest, identities: readonly string[] = [], localBatchPlan: ReadonlySet<string> = new Set()) {
   const collections: Array<[CollectionSlug, string[]]> = [
     ['email-campaign-batches',['members','providerCheck','preferenceCheck','copy']],
     ['brevo-campaign-sends',['recipientIdentities','history']],
@@ -35,7 +35,7 @@ export async function hasSharedMarketingReference(payload: Payload, ids: Set<str
       scanned += rows.docs.length
       if (scanned > LIMIT) throw new Error('Inventário de manifestos excede o limite de retenção.')
       for (const row of rows.docs as unknown as Array<{ id: string } & Record<string, unknown>>) {
-        if (touches(row)) return true
+        if (!(collection === 'email-campaign-batches' && localBatchPlan.has(row.id)) && touches(row)) return true
         afterId = row.id
       }
       if (rows.docs.length < BATCH) break

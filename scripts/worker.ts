@@ -69,7 +69,7 @@ try {
         console.log('Provas temáticas legadas ' + JSON.stringify(privacyReport.legacyThemeWithdrawals))
         console.log('Prazo de marketing ' + JSON.stringify(privacyReport.marketingDeadline))
         const retentionHealthFile = `/tmp/bibliotheon-retention-health-${process.pid}.tmp`
-        await writeFile(retentionHealthFile, JSON.stringify({ version: 1, completedAt: Date.now(), overdueSubscriptions: privacyReport.marketingDeadline.overdueSubscriptions }), { mode: 0o600 })
+        await writeFile(retentionHealthFile, JSON.stringify({ version: 2, completedAt: Date.now(), overdueSubscriptions: privacyReport.marketingDeadline.overdueSubscriptions, activeMarketingReviews: privacyReport.activeMarketingReview.staleSubscriptions + privacyReport.activeMarketingReview.undatedSubscriptions + privacyReport.activeMarketingReview.futureDatedSubscriptions }), { mode: 0o600 })
         await rename(retentionHealthFile, '/tmp/bibliotheon-retention-health')
         retentionDay = utcDay
         await heartbeat()

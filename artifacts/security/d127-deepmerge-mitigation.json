@@ -1,0 +1,69 @@
+{
+  "phase": "D127",
+  "date": "2026-10-28T04:36:06.720967+00:00",
+  "advisory": "GHSA-gcqx-w48m-w2h4",
+  "version": "deepmerge 4.3.1",
+  "rawAudit": {
+    "info": 0,
+    "low": 1,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "rawAuditStatus": "one low advisory retained; no published patched version",
+  "upstreamSources": [
+    "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+    "https://github.com/TehShrike/deepmerge/issues/273"
+  ],
+  "reproductionBeforePatch": {
+    "returnedObjectInheritsInjectedValue": true,
+    "ownAdmin": false,
+    "globalPrototypeUnchanged": true,
+    "actualApplicationEndpointExploitDemonstrated": false
+  },
+  "localMitigation": {
+    "patch": "patches/deepmerge@4.3.1.patch",
+    "entrypoints": [
+      "index.js",
+      "dist/cjs.js",
+      "dist/umd.js"
+    ],
+    "rejects": [
+      "__proto__",
+      "constructor",
+      "prototype"
+    ],
+    "checksSourceAndTarget": true,
+    "writesOwnDataProperties": true,
+    "dependencyResolutionReinstalledOffline": true
+  },
+  "regression": {
+    "tests": 16,
+    "entrypoints": [
+      "CJS resolved from payload",
+      "UMD"
+    ],
+    "status": "passed",
+    "includesNullPrototypeAndPrimitiveTargets": true,
+    "preservesValidMergesArraysSymbolsDates": true
+  },
+  "runtimeImageProbe": {
+    "status": "passed",
+    "cases": 8,
+    "imageID": "sha256:2239f2200be691eb71b9d7bd42569daabb157c98f32d54a620957860e57de86e",
+    "entrySHA256": [
+      "3035f412d5f386b94bc8c062a7d45e73ce5d5905d05cb189fdbc15654076aa03",
+      "ca6a939af41fb88a2baf87cf68592ab6537e218c5510867b8697a7b54af2b5f6"
+    ],
+    "sameEntrypointsAsUnitRegression": true
+  },
+  "dependencyVersionUpgraded": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "patches/deepmerge@4.3.1.patch": "420006928099502278bd0ffd36aa2b8c8f77ec1c8dda1f721813aa91a46ac173",
+    "tests/unit/deepmerge-security.test.ts": "25732cf22a63fabf0aa131e5988cc19e2f9af522d91d01358553ddccac918df9",
+    "package.json": "2047783a433f3f4970a92044add5c7563ef09cf3cbe15e412e58945836cfa2db",
+    "pnpm-lock.yaml": "0ddafab0f336dafb64b054138dd6049bad576ef7944ce499606c9c3ae2792593"
+  },
+  "limits": "Mitigação local reproduzível; o serviço de auditoria identifica a versão publicada e continua listando o aviso. Não ocultar ou declarar zero advisories. Reavaliar quando houver correção upstream."
+}

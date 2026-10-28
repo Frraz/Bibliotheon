@@ -1,0 +1,124 @@
+{
+  "phase": "H03-HTTP-D122",
+  "startedAt": "2026-10-28T00:56:03.140Z",
+  "completedAt": "2026-10-28T01:00:04.286Z",
+  "command": "NEXT_DIST_DIR=.next-qa BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:http-isolated",
+  "environment": "PostgreSQL local descartável em loopback; banco configurado preservado",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "migrationCount": 35,
+  "migrationNames": [
+    "20261021_012104_initial.ts",
+    "20261021_013444_catalog.ts",
+    "20261021_104729_public_site.ts",
+    "20261021_121334_relationship.ts",
+    "20261021_155133_relationship_jobs.ts",
+    "20261021_155500_relationship_invariants.ts",
+    "20261021_233105_sequences.ts",
+    "20261022_051922_promotion_batches.ts",
+    "20261022_053258_brevo_suppressions.ts",
+    "20261022_054929_provider_preflight.ts",
+    "20261022_060415_brevo_registrations.ts",
+    "20261022_110941_brevo_batch_lists.ts",
+    "20261022_115043_brevo_preferences.ts",
+    "20261022_120651_brevo_campaign_drafts.ts",
+    "20261022_123536_brevo_campaign_sends.ts",
+    "20261024_064354_brevo_campaign_observations.ts",
+    "20261024_070440_brevo_webhook_events.ts",
+    "20261024_071409_brevo_send_recipients.ts",
+    "20261024_073316_analytics.ts",
+    "20261024_115633_commercial_inbox.ts",
+    "20261024_190859_commercial_imports.ts",
+    "20261024_231500_offer_identity_guard.ts",
+    "20261025_003403_catalog_resolutions.ts",
+    "20261025_014000_commercial_review_lookup.ts",
+    "20261025_031113_financial_resolutions.ts",
+    "20261025_041432_financial_report_evidence.ts",
+    "20261025_051744_report_evidence_csv.ts",
+    "20261025_054113_financial_ledger.ts",
+    "20261025_185933_analytics_retention.ts",
+    "20261025_192350_privacy_request_audit.ts",
+    "20261025_213716_marketing_suppression_tombstones.ts",
+    "20261025_224500_commercial_inbox_envelope_retention.ts",
+    "20261026_231335_contact_retirements.ts",
+    "20261027_001515_theme_withdrawals.ts",
+    "20261027_033952_active_marketing_review.ts"
+  ],
+  "httpSuites": [
+    {
+      "name": "integration",
+      "status": "passed"
+    },
+    {
+      "name": "site",
+      "status": "passed"
+    },
+    {
+      "name": "hotmart-http",
+      "status": "passed"
+    },
+    {
+      "name": "kiwify-http",
+      "status": "passed"
+    },
+    {
+      "name": "cakto-http",
+      "status": "passed"
+    },
+    {
+      "name": "commercial-csv-http",
+      "status": "passed"
+    },
+    {
+      "name": "commercial-imports-http",
+      "status": "passed"
+    },
+    {
+      "name": "catalog-resolutions-http",
+      "status": "passed"
+    },
+    {
+      "name": "transaction-review-http",
+      "status": "passed"
+    },
+    {
+      "name": "financial-resolutions-http",
+      "status": "passed"
+    },
+    {
+      "name": "report-evidence-http",
+      "status": "passed"
+    },
+    {
+      "name": "financial-ledger-http",
+      "status": "passed"
+    },
+    {
+      "name": "brevo-webhook-http",
+      "status": "passed"
+    },
+    {
+      "name": "analytics-http",
+      "status": "passed"
+    },
+    {
+      "name": "privacy-delete-http",
+      "status": "passed"
+    },
+    {
+      "name": "admin-recovery",
+      "status": "passed"
+    }
+  ],
+  "externalProviderCalls": 0,
+  "realMessagesSent": 0,
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "imagePublished": false,
+  "productionReady": false,
+  "sourceSHA256": {
+    "scripts/qa-http-isolated.mjs": "66d4a2aa72ea4fa2aeab4c9389cc3afe90b2d247aa25dbe75926092fafd1760e",
+    "scripts/check-http.sh": "3ec9a6f5451a8f3b790177670dba049c3ce4d5266a5f9e816d45e999d859c285",
+    "tests/integration/access.ts": "c2edc4a9f528cf3b49610e8f3d5b96aa6718f5f129a9176862c78460c7d3adb8",
+    "migrations/index.ts": "87402148f1329a0505cc7fda2e697f930fd3e4100eee200be700321949252544"
+  }
+}

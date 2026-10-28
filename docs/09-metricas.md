@@ -2,7 +2,7 @@
 
 [Índice](../README.md) · [Integrações](07-integracoes.md)
 
-Especificação da medição completa, estado revisto em 25/10/2026, D87. Dashboard, visitas/cliques consentidos, inbox/adaptadores, conciliação, ledger, relatório e interfaces têm validação local registrada até D86. D87 acrescenta passagem e conferência de referência de clique; P06 está parcialmente implementada, aguardando confirmação do campo do webhook Kiwify/Cakto e QA integrado. P07, homologação, release e alertas completos permanecem pendentes. Registro de pedido/consentimento, fato enfileirado e evidência complementar não equivalem a dinheiro recebido. Ver [estado atual](23-estado-atual.md).
+Especificação da medição completa, revisada documentalmente em 28/10/2026 (D129). P01–P05 têm aceite local D86; a atribuição por UUID de clique consentido foi validada em HTTP sintético integrado D88 e renovada em D127. P06 ainda exige confirmação nas contas reais; não está pendente a implementação desse fluxo HTTP local. Laboratório público D121 e carga comercial D124 têm evidência local; p75/INP de campo e capacidade da VPS não foram comprovados. P07, contas e operação/alertas reais continuam pendentes. Consentimento, clique, fato enfileirado e aprovação não equivalem a recebimento ou lucro. Ver [estado atual](23-estado-atual.md).
 
 ## Dicionário de eventos
 

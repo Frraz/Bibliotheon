@@ -25,7 +25,7 @@ flowchart LR
 
 ## Versões e dependências
 
-Usar Node LTS suportado simultaneamente por Payload/Next, pnpm, releases estáveis compatíveis e PostgreSQL 17 como baseline planejada. No B01, consultar matriz oficial, escolher patches corrigidos, registrar versões exatas, gerar lockfile e fixar imagens por digest. Não tratar “mais recente” como prova de compatibilidade. A documentação consultada do Payload explicita faixas de Next suportadas; validar novamente antes de instalar ([fonte](https://payloadcms.com/docs/getting-started/installation)).
+A base já fixa Node 22.23.3 na imagem/CI, pnpm 10.34.7, Next 16.4.2, Payload 3.91.0 e PostgreSQL 17.9 por digest. O lockfile e os patches locais fazem parte da revisão validada D127. Em atualizações, consultar a matriz oficial, avaliar advisories e renovar os gates afetados. Não tratar “mais recente” como prova de compatibilidade. A documentação consultada do Payload explicita faixas de Next suportadas; validar novamente antes de instalar ([fonte](https://payloadcms.com/docs/getting-started/installation)).
 
 ## Organização do código
 

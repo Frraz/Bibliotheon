@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T06:21:31.977Z",
+  "date": "2026-10-28T04:42:25.035Z",
   "checks": [
     "HTTP owner/origem/MIME e coleções nativas protegem liquidação/custos; repetição idempotente, conflito e vínculo transacional não verificado são tratados sem escrita indevida.",
     "Prévia responde privada, limita datas, mantém recebido/custos separados e não afirma margem completa; cadastro não cria evento comercial."

@@ -44,7 +44,7 @@ Os aceites abaixo preservam o escopo completo aprovado. O [mapa vigente de imple
 | R21 | Metas de campo p75: LCP ≤2,5s, INP ≤200ms e CLS ≤0,1; antes de volume real registrar somente teste de laboratório | 1 | R04 |
 | R22 | Uploads limitados e sanitizados; tokens e PII ausentes de logs; proteção de formulário e login | 1 | R01 |
 | R23 | Deploy isolado preserva outros serviços; banco sem porta pública; imagens fixadas | 1 | Inventário VPS |
-| R24 | Backup externo criptografado restaurado em ambiente isolado, com RPO/RTO medidos | 1 | R23 |
+| R24 | Capacidade opcional: backup externo criptografado restaurado em ambiente isolado, com RPO/RTO medidos; deploy pode dispensar backup explicitamente com `--sem-backup` | 1 | R23 |
 | R25 | Eventos duráveis antes de ACK; replay não duplica venda; saúde e falhas observáveis | 2 | R12, R13, R14 |
 | R26 | Retenção, exclusão e consentimento executáveis e documentados; cookies opcionais respeitam escolha | 2 | R09, R11 |
 
@@ -64,3 +64,7 @@ As fases 1 e 2 são necessárias para considerar a operação comercial inicial 
 | R34 | Revisão visual tem screenshots por tela/tema/viewport, cenários adversos e correções; documentação não conta como renderização | 1 e 2 | R27, R28, R29, R30, R31, R32, R33 |
 
 R33 aplica identidade às telas de fase 1 primeiro e completa os relatórios na fase 2, quando R16 existir. R28–R34 são verificados em cada entrega visual, não somente após lançar campanha.
+
+## Aceite visual local D126 — 28/10/2026
+
+R31–R34/B19/B20/H05 têm [auditoria local por família](../artifacts/qa-release-layout/d126-h05-acceptance.json), combinando D121–D126. Nenhum requisito de negócio foi removido. Novas telas/estados ou falhas reabrem a cobertura afetada. Imagem/API atuais têm evidência D127; P07 e homologações do ambiente real continuam pendentes. Código posterior exige renovar apenas os gates afetados; campo será acompanhado após tráfego suficiente.

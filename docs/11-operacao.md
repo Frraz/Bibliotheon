@@ -4,15 +4,17 @@
 
 Procedimentos de produção para o proprietário; nenhum deploy foi executado. Provisionamento, recuperação administrativa, supressão e backup/restore têm ferramentas e testes locais. Inbox/histórico, conciliação auditada/CSV, ledger/prévia financeira e interfaces operacionais possuem aceite local P01–P05 D86; atribuição por conta, retenção integral, homologações e operação real permanecem pendentes. Estado e limites no [mapa vigente](23-estado-atual.md).
 
+Estado documental D129 (28/10/2026): imagem/API D127 e QA local H05 estão aprovados; P07-A–E, contas e ambiente real permanecem pendentes. Recuperação externa é opcional para `--sem-backup`; se adotada, cumprir os controles abaixo. Evidência local não autoriza ativar flags reais sem homologação.
+
 ## Primeiro lançamento
 
 1. Inventariar VPS e registrar baseline de serviços/URLs existentes, RAM, disco e latência.
 2. Confirmar domínio, DNS e configuração do proxy; preparar somente vhost/rede do Bibliotheon.
-3. Criar segredos, conta administrativa por procedimento privado e destino de backup externo.
-4. Subir banco isolado, aplicar migrations e subir app/worker com imagem homologada.
+3. Criar segredos e conta administrativa por procedimento privado. Backup externo é opcional: o atualizador exige por padrão, mas o proprietário pode optar por não fazê-lo com `--sem-backup`.
+4. Subir banco isolado, aplicar migrations e iniciar app com imagem homologada; worker somente no perfil e flags do fluxo homologado.
 5. Testar readiness, login, upload, preview, publicação, catálogo e redirecionamento.
 6. Testar HTTPS, cabeçalhos, DNS, SPF/DKIM/DMARC conforme provedor de e-mail; não sobrescrever registros compartilhados sem verificar.
-7. Restaurar backup num ambiente isolado, registrar duração e perdas possíveis.
+7. Se houver backup, restaurá-lo num ambiente isolado e registrar duração/perdas possíveis. Sem backup, reconhecer que não há ponto de restauração recente e que falha de migration pode exigir recuperação manual ou reconstrução.
 8. Conferir baseline dos sistemas existentes; só então abrir tráfego e ativar campanha.
 
 Não expor criação do primeiro admin na internet. Ambientes de teste protegidos por autenticação e noindex, com e-mail bloqueado por padrão.
@@ -25,9 +27,9 @@ O procedimento recusa conta inexistente ou banco com configuração diferente do
 
 ## Atualização
 
-Registrar release/digest/schema; verificar capacidade; concluir backup; pausar jobs que escrevam durante migration incompatível; aplicar migration única; atualizar app/worker; executar smoke e comparar sistemas vizinhos. Manter imagem anterior disponível. Falha de readiness, erro crescente, corrupção de conteúdo ou degradação dos serviços existentes interrompe rollout.
+Registrar release/digest/schema; verificar capacidade; decidir se fará backup (o padrão é fazer e confirmar); pausar jobs que escrevam durante migration incompatível; aplicar migration única; atualizar app/worker; executar smoke e comparar sistemas vizinhos. `--sem-backup` pula a captura, não as migrations, verificações ou proteções do atualizador, e não oferece ponto de restauração recente. Manter imagem anterior disponível. Falha de readiness, erro crescente, corrupção de conteúdo ou degradação dos serviços existentes interrompe rollout.
 
-Se schema continua compatível, retornar imagem anterior e revalidar. Se incompatível, não restaurar banco automaticamente: pausar escrita, avaliar perda desde backup, preferir correção progressiva e recuperar em cópia isolada. Registrar intervalo de eventos potencialmente perdidos para reenvio/conciliação. Não apagar volumes na recuperação.
+Se schema continua compatível, retornar imagem anterior e revalidar. Se incompatível, não restaurar banco automaticamente: pausar escrita, avaliar perda desde backup quando existir, preferir correção progressiva e recuperar em cópia isolada. Sem backup recente, a imagem anterior não reverte mudanças de schema nem dados. Registrar intervalo de eventos potencialmente perdidos para reenvio/conciliação. Não apagar volumes na recuperação.
 
 ## Falhas de integração
 
@@ -72,7 +74,7 @@ Após restaurar backup antigo, reaplicar exclusões e supressões ocorridas depo
 
 ## Rotina
 
-Diária: saúde, fila, falhas de envio, backup e espaço. Semanal: conciliação, revisão comercial, pendências e atualizações de segurança. Mensal: restauração, revisão de retenção, custos e capacidade. Não instalar uma pilha pesada de observabilidade no início; usar healthchecks, métricas do host e alerta externo por canal do proprietário.
+Diária: saúde, fila, falhas de envio e espaço; backup se adotado. Semanal: conciliação, revisão comercial, pendências e atualizações de segurança. Mensal: revisão de retenção, custos e capacidade; restauração se a capacidade de recuperação for adotada. Não instalar uma pilha pesada de observabilidade no início; usar healthchecks, métricas do host e alerta externo por canal do proprietário.
 
 Logs estruturados: requestId, tipo, resultado, duração, código de erro e ID interno não pessoal. Sem corpo completo, e-mail, tokens, URLs de preferência ou headers sensíveis. Alertas identificam problema e ação, não compradores.
 
@@ -181,7 +183,7 @@ Cakto documenta reenvio automático de falha de rede/timeout, mas não de respos
 
 Estagiar uma conta/provedor por lote com referência operacional/razão controladas; conferir fonte e linhas privadas antes do commit. Não usar hash da prévia D66 como autorização. queued significa submissão durável; consultar inbox vinculada e processamento comercial, que permanece false por padrão. stale/blocked exige corrigir a causa e novo estágio/conferência; não editar manifesto/linhas ou repetir cegamente conflito.
 
-Migração 21 preserva evidência e recusa downgrade com registros. Não remover lotes/linhas/auditoria para forçar rollback; procedimento de backup/restore e release da imagem atual continua obrigatório. Barreira por conta cobre operação DB, sem espera humana; medir impacto em callbacks sob carga antes de produção. [Contrato e limites](24-conciliacao.md).
+Migração 21 preserva evidência e recusa downgrade com registros. Não remover lotes/linhas/auditoria para forçar rollback; backup/restore permanece disponível e recomendado, mas pode ser dispensado para o deploy com `--sem-backup`, aceitando a ausência de ponto recente de recuperação. Barreira por conta cobre operação DB, sem espera humana; medir impacto em callbacks sob carga antes de produção. [Contrato e limites](24-conciliacao.md).
 
 ## Conciliação pelo painel — D80–D81
 
@@ -346,8 +348,14 @@ Descadastro temático exige LEAD_TOKEN_SECRET válido para registrar o fato na m
 
 ## D113 — Margem e acompanhamento do prazo — 26/10/2026
 
-DATA_RETENTION_ENABLED continua false. Ao habilitar, worker exige LEAD_TOKEN_SECRET válido/estável antes de abrir o banco. Preview/apply incluem marketingDeadline; reviewRequired=true exige revisar dependências, sem remover incerteza ou dado externo arbitrariamente. A checagem de saúde falha por heartbeat ausente/antigo, sucesso ausente/corrompido/futuro/>25h ou assinaturas retiradas há ≥30 dias ainda presentes. Correlacionar com os contadores dos logs/CLI e estado privado; o heartbeat isolado não libera o gate. Após resolver exceções, executar novo ciclo controlado/reiniciar o worker autorizado para atualizar o registro; mero reinício sem resolução não apaga o problema. CLI de retenção não publica a marca do worker. Garantia operacional ainda exige continuidade, tempo de execução, alertas e recuperação do ambiente.
+DATA_RETENTION_ENABLED continua false. Ao habilitar, worker exige LEAD_TOKEN_SECRET válido/estável antes de abrir o banco. Preview/apply incluem marketingDeadline; reviewRequired=true exige revisar dependências, sem remover incerteza ou dado externo arbitrariamente. A checagem de saúde falha por heartbeat ausente/antigo, sucesso ausente/corrompido/futuro/>25h, assinatura retirada há ≥30 dias ainda presente ou revisão ativa de opt-in pendente no marcador v2. Correlacionar com os contadores dos logs/CLI e estado privado; o heartbeat isolado não libera o gate. Após resolver exceções, executar novo ciclo controlado/reiniciar o worker autorizado para atualizar o registro; mero reinício sem resolução não apaga o problema. CLI de retenção não publica a marca do worker. Garantia operacional ainda exige continuidade, tempo de execução, alertas e recuperação do ambiente.
 
 ## D114 — Legado temático verificável — 26/10/2026
 
 Rodar preview antes de apply e conferir legacyThemeWithdrawals.unverified/expired. Sem prova exata, não preencher data nem aplicar bloqueio global apenas para fazer o exportador passar. Erro de descadastro sem prova verificável exige conciliar histórico ou cobertura real existente; não liberar retorno/transportes com manifesto incompleto. Um fato automático antigo não cobre contato com nova finalidade. Exportação é read-only; backfill aplica data/vencimento originais. Provas nativas vencidas não renovam HMAC: backups aceitos têm até três meses, muito posteriores à retirada já encerrada há 24 meses. Vínculos de provedor/envio incerto e pedidos de dados continuam protegidos.
+
+## D116 — Revisão de contatos ativos — 27/10/2026
+
+Promoções com opt-in de marketing vencido (12 meses ou mais), ausente, inválido ou futuro ficam agendadas e retidas com `marketing_review_due`. O fluxo de envio reavalia o opt-in; não libera por entrega de amostra, abertura ou clique. Apenas novo opt-in explicitamente confirmado pelo titular atualiza a data e pode liberar etapas. Relatório privado apresenta apenas contagens agregadas de vencidos/sem data/futuros. O marcador de saúde v2 exige zero revisões pendentes e ciclo válido. `DATA_RETENTION_ENABLED` segue falso; antes de habilitar em produção, revisar a política e homologar imagem/alertas. Isso não exclui contato nem altera consentimento automaticamente.
+
+D122 — imagem atual aprovada em banco vazio e upgrade 32→35, incluindo mídia/ACL/CLIs/worker em rede Docker interna. [Evidência da imagem](../artifacts/container/d122-results.json). [16 suítes HTTP](../artifacts/container/h03-http-d122-results.json) passaram no standalone QA atual com banco descartável removido; não foram executadas integralmente dentro do container. [Checks e limites](../artifacts/qa-release-layout/d122-checks.json). Sem publicação, conta externa, GitHub ou VPS. H05/P07 e gates externos continuam conforme pendências. Restore desta imagem/guarda externa só são exigidos se a capacidade opcional de recuperação for adotada; `--sem-backup` segue disponível.

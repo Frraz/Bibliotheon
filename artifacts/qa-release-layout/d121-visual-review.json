@@ -1,0 +1,49 @@
+{
+  "phase": "D121",
+  "reviewedAt": "2026-10-27T22:29:20.411361+00:00",
+  "scope": "Inspeção visual representativa do viewport nativo; não revisão integral de todo campo/estado fora do viewport.",
+  "files": [
+    {
+      "path": "artifacts/qa-release-layout/home-light-native400.png",
+      "sha256": "ff9b31baa0522f7fb4e259705604e517d522f13b3709768b10ed873c90c752ca"
+    },
+    {
+      "path": "artifacts/qa-release-layout/lp-guide-light-native400.png",
+      "sha256": "5c67f4b2f092eb1022d3611e76eb4c9a7a9be0d309db259fff643fe0d2acfee7"
+    },
+    {
+      "path": "artifacts/qa-release-layout/sample-light-native400.png",
+      "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+    },
+    {
+      "path": "artifacts/qa-release-layout/preferences-invalid-token-light-native400.png",
+      "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+    },
+    {
+      "path": "artifacts/qa-release-layout/home-dark-native400.png",
+      "sha256": "cacbadebe7d8bb1b87a3dee16e5d1206a86ec0d3b975f9dab5e27e6a797d574f"
+    },
+    {
+      "path": "artifacts/qa-release-layout/admin-book-edit-light-native400.png",
+      "sha256": "9e3bed02d9748dc0b9f68a88e50d0f759130ccdc1982b7d70c0ae48d48cf7f2a"
+    },
+    {
+      "path": "artifacts/qa-release-layout/admin-book-edit-dark-native400.png",
+      "sha256": "9fdad4c9fd55474d23728c699258c841ddc5005e6255adbcb1d5735e076cd09f"
+    },
+    {
+      "path": "artifacts/qa-release-layout/admin-records-dark-native400.png",
+      "sha256": "4ab6f42e631b2796bc4247141d1c435da94b5ba0eb1472148e2ff121a60f479c"
+    },
+    {
+      "path": "artifacts/qa-release-layout/admin-imports-dark-native400.png",
+      "sha256": "68d49ab1734e93da12c2200cdd1454ba03770a9e999b5c575d0ace7ee9cd1332"
+    }
+  ],
+  "observations": [
+    "Título/conteúdo reflui sem corte horizontal no viewport observado.",
+    "Temas claro/escuro preservam a hierarquia e leitura nas amostras inspecionadas.",
+    "Foco da região de ações permanece visível e dentro da barra.",
+    "A inspeção não certifica WCAG integral nem toda a matriz H05."
+  ]
+}

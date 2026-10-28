@@ -1,8 +1,20 @@
 {
-  "origin": "http://127.0.0.1:3001",
+  "origin": "http://127.0.0.1:42559",
   "results": [
     {
       "theme": "light",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "light",
       "width": 390,
       "overflow": false,
       "violations": []
@@ -15,6 +27,30 @@
     },
     {
       "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "light",
       "width": 1440,
       "overflow": false,
       "violations": []
@@ -22,6 +58,18 @@
     {
       "theme": "dark",
       "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "light",
+      "width": 1920,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 1920,
       "overflow": false,
       "violations": []
     }

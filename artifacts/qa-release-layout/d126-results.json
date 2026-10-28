@@ -1,0 +1,235 @@
+{
+  "phase": "D126",
+  "date": "2026-10-28",
+  "status": "passed",
+  "screenshots": 354,
+  "axeAnalyses": 346,
+  "noJavaScriptScreenshots": 8,
+  "suites": [
+    {
+      "suite": "analytics",
+      "report": "artifacts/qa-analytics/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/analytics.json",
+      "screenshots": 41,
+      "axeAnalyses": 40,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-analytics.ts": "eeb727c1ccfd5800ac3f440d5c320318a2c86b2d3676acfef2bd6fce9c12437f",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "suppressions",
+      "report": "artifacts/qa-suppressions/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/suppressions.json",
+      "screenshots": 78,
+      "axeAnalyses": 78,
+      "buildID": "1hJ8pn_TTqg0ZwxSUSb21",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "d78615b1a7ebed6d617f4c192c626d26419265b05929b78a802e2d3e25de52d8",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-suppressions.ts": "904840a44e72f1e92e93cbf027d800db4a0a037cd53cbbcb3f990b93a798627e",
+        "src/components/admin/SuppressionForm.tsx": "3f6ef6c7d0b0b35c68b9feda06b07f5c23975fd7c4dbebb4c55417159aa7d683",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "714a8e6487cddc2b3c59968c0fdad24f567104a2c80af6ee3fb845f971331e7e",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "9ea86bad5eb7dcaf903d9d69be7d63e5dd5b443be53b6df001d09e400228e85e"
+      }
+    },
+    {
+      "suite": "commercial-admin",
+      "report": "artifacts/qa-commercial-admin/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/commercial-admin.json",
+      "screenshots": 46,
+      "axeAnalyses": 45,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-commercial-admin.ts": "27c31d25b7e272cf87bc0637c005b2eb386820e13989206c7db98abe22c40a46",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "financial-ledger",
+      "report": "artifacts/qa-financial-ledger/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/financial-ledger.json",
+      "screenshots": 16,
+      "axeAnalyses": 16,
+      "buildID": "1hJ8pn_TTqg0ZwxSUSb21",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "d78615b1a7ebed6d617f4c192c626d26419265b05929b78a802e2d3e25de52d8",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-financial-ledger.ts": "99ac332777949736306c0cc7b4265cbf7b7fa5856020bbbcafeda4a81f83fdb5",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "714a8e6487cddc2b3c59968c0fdad24f567104a2c80af6ee3fb845f971331e7e",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "9ea86bad5eb7dcaf903d9d69be7d63e5dd5b443be53b6df001d09e400228e85e"
+      }
+    },
+    {
+      "suite": "financial-records",
+      "report": "artifacts/qa-financial-records/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/financial-records.json",
+      "screenshots": 40,
+      "axeAnalyses": 39,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-financial-records.ts": "81a01442fdfc4272ce7324db8fb17cb4659c147dfdee88f29102ca70b5aa37ca",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "commercial-imports",
+      "report": "artifacts/qa-commercial-imports/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/commercial-imports.json",
+      "screenshots": 24,
+      "axeAnalyses": 23,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-commercial-imports.ts": "f4c8d71d562a41710ae56a8d5ef54ff5b407f7d86c60025d1d9fef5f5c3839f6",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "catalog-resolutions",
+      "report": "artifacts/qa-catalog-resolutions/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/catalog-resolutions.json",
+      "screenshots": 29,
+      "axeAnalyses": 28,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-catalog-resolutions.ts": "2e89a59d0654c381b54b50cd136e475dfef4bd253882ee1c7fa6c5b27f268a7a",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "financial-resolutions",
+      "report": "artifacts/qa-financial-resolutions/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/financial-resolutions.json",
+      "screenshots": 34,
+      "axeAnalyses": 33,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-financial-resolutions.ts": "33dceb37edd0df5aa3428cb0d28f84aebb8cdc70c4610c793467ae38b5a08c11",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "financial-coverage",
+      "report": "artifacts/qa-financial-coverage/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/financial-coverage.json",
+      "screenshots": 21,
+      "axeAnalyses": 20,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-financial-coverage.ts": "08143180529a27a94b9f583b9309fe21c405c852f7c4c95a29092fa0b68f8e9a",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    },
+    {
+      "suite": "financial-dimensions",
+      "report": "artifacts/qa-financial-dimensions/results.json",
+      "manifest": "artifacts/qa-release-layout/d126/financial-dimensions.json",
+      "screenshots": 25,
+      "axeAnalyses": 24,
+      "buildID": "2coQl34ngSTYHMsbWMf4l",
+      "sourceSHA256": {
+        "scripts/qa-browser-isolated.mjs": "39aa60249c79ccc56d1675a392fa350268cfbfd63bf569351ad19a8ece6bef96",
+        "scripts/qa-network-guard.mjs": "9d4fd1e2902dd0ce6a7cca07bd3fef4a0461b3e8f370d1d0af48082e1ad397a4",
+        "scripts/check-qa-admin.sh": "1ebfb6f5a5de3aee287287701190022749c82e7c87d86096d5421d7b624542a1",
+        "scripts/qa-financial-dimensions.ts": "4d1fa0cedbf141091e7b4733dcc8186b285096add587a38586c3db4631b42a2e",
+        "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+        "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+        "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+        "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+        "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+      }
+    }
+  ],
+  "productionChanged": false,
+  "fullH05Accepted": true,
+  "currentBuildID": "1hJ8pn_TTqg0ZwxSUSb21",
+  "reuseAudit": {
+    "unchangedDependencyVersions": true,
+    "lockfileOnlyPatchHashChanged": true,
+    "previous14PatchHunksExactlyPreserved": true,
+    "stylesUnchanged": true,
+    "targetedRetest": [
+      "suppressions",
+      "financial-ledger"
+    ],
+    "note": "Oito suítes no build D125; duas no build com foco de supressão e nomes das setas. Sem mudança das demais views ou estilos. A reconstrução reversa do patch e lockfile reproduz os hashes D125."
+  },
+  "failedAttemptsPreserved": [
+    "artifacts/qa-release-layout/d126/financial-records-second-attempt.json",
+    "artifacts/qa-release-layout/d126/suppressions-first-attempt.json",
+    "artifacts/qa-release-layout/d126/financial-records-first-attempt.json",
+    "artifacts/qa-release-layout/d126/financial-dimensions-first-attempt.json",
+    "artifacts/qa-release-layout/d126/suppressions-second-attempt.json",
+    "artifacts/qa-release-layout/d126/financial-ledger-first-attempt.json",
+    "artifacts/qa-release-layout/d126/suppressions-focus-before-fix.json",
+    "artifacts/qa-release-layout/d126/financial-ledger-second-attempt.json"
+  ],
+  "sourceSHA256": {
+    "src/components/admin/SuppressionForm.tsx": "3f6ef6c7d0b0b35c68b9feda06b07f5c23975fd7c4dbebb4c55417159aa7d683",
+    "patches/@payloadcms__ui@3.91.0.patch": "9ea86bad5eb7dcaf903d9d69be7d63e5dd5b443be53b6df001d09e400228e85e",
+    "pnpm-lock.yaml": "714a8e6487cddc2b3c59968c0fdad24f567104a2c80af6ee3fb845f971331e7e",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2"
+  },
+  "limits": "Aceite local H05 pela matriz combinada auditada; não certificação WCAG, conta real, CI remoto, VPS, imagem final ou deploy.",
+  "acceptanceAudit": "artifacts/qa-release-layout/d126-h05-acceptance.json"
+}

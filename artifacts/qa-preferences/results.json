@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-22 America/Belem",
+  "date": "2026-10-28T00:42:00.189Z",
   "environment": "Build .next-qa local; dados sintéticos; nenhum envio ou API externa",
   "checks": [
     "GET sem consulta privada/mutação",

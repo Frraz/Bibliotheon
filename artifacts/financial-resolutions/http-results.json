@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T06:12:17.061Z",
+  "date": "2026-10-28T04:42:00.179Z",
   "checks": [
     "HTTP real exige owner/origem/MIME/idempotência e evidência atestada; ator forjado, confirmação ausente e plano stale não escrevem decisões.",
     "Confirmação aplica a variante selecionada, responde 201 privado e repetição responde 200; chave reutilizada com outra prova é conflito e não duplica aplicações.",

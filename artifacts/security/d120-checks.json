@@ -1,0 +1,37 @@
+{
+  "phase": "D120",
+  "completedAt": "2026-10-27T06:18:09.557822+00:00",
+  "quality": {
+    "command": "npm run check",
+    "passed": true,
+    "vitest": "4.1.12",
+    "unitTests": 298,
+    "unitFiles": 36,
+    "operationalTests": 62,
+    "typecheck": true,
+    "lint": true
+  },
+  "runtimeBuildPassed": true,
+  "vitestDevOnlyUpdateOccurredAfterRuntimeBuild": true,
+  "dependencyCompatibilityGroupsPassed": 4,
+  "httpSuitesPassed": 16,
+  "auditProductionAdvisoriesAfter": 0,
+  "auditFullTreeAdvisoriesAfter": 0,
+  "migrationCount": 35,
+  "configuredDatabasePreserved": true,
+  "temporaryDatabaseRemoved": true,
+  "newImageValidation": false,
+  "visualFinalAcceptance": false,
+  "externalHomologation": false,
+  "productionChanged": false,
+  "sourceSHA256": {
+    "package.json": "3b07547dbd047f17889a0760b3e1902a5f7783fddf3d771b17634974a3eadafa",
+    "pnpm-lock.yaml": "f152715e3dabb938f565cfdc96f1b8efb84895248ac127fc4a1f9de1210c0d22",
+    "scripts/qa-dependency-compatibility.mjs": "a1ac6c319798111c706585071034a9b548f1d2bc0c32a1c216313f15256bc784",
+    "scripts/qa-http-isolated.mjs": "66d4a2aa72ea4fa2aeab4c9389cc3afe90b2d247aa25dbe75926092fafd1760e",
+    "next.config.mjs": "6b6dce0506fb3dad9c42fe2cc9635b17f5252a1326cfc45473932e192dbb5131",
+    "src/modules/marketing/privacy-delete.ts": "94f53957a96563d9cca38ffbd55f10a37983b2603e43a9c43c70c67957fac9f1",
+    "src/modules/marketing/privacy-correct.ts": "22176467f93c723279514cdc29610702359d49d177c71b11f6e3c3d4a5c8407d",
+    "src/modules/marketing/privacy-local-batches.ts": "8102dffde8a2627bb5cf2d93bad50cc8597dbc0121d38b4d7776a4fc1d0c689a"
+  }
+}

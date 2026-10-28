@@ -1,0 +1,2145 @@
+{
+  "phase": "D121",
+  "mode": "lab",
+  "nativeEvidence": "d121-native-results.json",
+  "completedAt": "2026-10-27T22:24:50.701Z",
+  "buildID": "UtLrVkwCqxa5zJQc-16SW",
+  "browser": "156.0.8078.4",
+  "nativeZoomMechanism": "chrome.tabs.setZoom/getZoom; janela 1280; layout 320; DPR4",
+  "checks": [
+    {
+      "name": "home",
+      "status": 200,
+      "route": "/",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/home-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/home-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "ff9b31baa0522f7fb4e259705604e517d522f13b3709768b10ed873c90c752ca"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog",
+      "status": 200,
+      "route": "/ebooks",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/catalog-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/catalog-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "eb40517d11a7c32e5792a45548565e386b855d8235ff84f34c7d21a6c891c8cc"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog-empty",
+      "status": 200,
+      "route": "/ebooks?q=nenhumzzzz",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/catalog-empty-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/catalog-empty-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "eb40517d11a7c32e5792a45548565e386b855d8235ff84f34c7d21a6c891c8cc"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-guide",
+      "status": 200,
+      "route": "/ebooks/[book]",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-guide-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-guide-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "5c67f4b2f092eb1022d3611e76eb4c9a7a9be0d309db259fff643fe0d2acfee7"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-reading",
+      "status": 200,
+      "route": "/ebooks/reading-2be9432aa6",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-reading-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-reading-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d7d692d1d8339d82c33536b4dc26797f2cf38934844a2fd4e46af6566597ee72"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-workbook",
+      "status": 200,
+      "route": "/ebooks/workbook-2be9432aa6",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-workbook-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-workbook-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7c8f58168ef5abcfe0c22db04da8120de7f113449a1f940ad1427ffcb9ea2e15"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "article",
+      "status": 200,
+      "route": "/artigos/artigo-2be9432aa6",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/article-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/article-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4bf7b102cac124f87fe35b353a56e599216404b768707394fc036e4048b86413"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme",
+      "status": 200,
+      "route": "/temas/tema-2be9432aa6",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/theme-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/theme-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d42c3a60b75fe079fee9e4e427961f138028b97ff83f5cfb4980537c66242868"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "about",
+      "status": 200,
+      "route": "/sobre",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/about-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/about-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "73fc7977dbcd1bb336e8b53cf435dd571218c0cfea5f73f6048eb1247fb3956a"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "contact",
+      "status": 200,
+      "route": "/contato",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/contact-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/contact-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "da75a813f1676978cd06f1c4283464ac8de4f6d2acb069139961593466fb496b"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "privacy",
+      "status": 200,
+      "route": "/privacidade",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/privacy-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/privacy-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "6677c5b6ae65e837cf6071da761b2c8e4d82064bbfe9b617efa1bcf1c58c74a5"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "terms",
+      "status": 200,
+      "route": "/termos",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/terms-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3740896d55ad0a9a6b3db03de34d2cc14048cbd9c9fbe473713db1b8db98a4a6"
+        },
+        {
+          "path": "artifacts/qa-release-layout/terms-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "54fc15aee55e93a7cee19f4991c216e44d8f4a36a957db02935ca37125c7cd57"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "sample",
+      "status": 200,
+      "route": "/amostras/amostra-[book]",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/sample-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "cc9bd04b10776afacb220a9d585d620d2930a3a806ebfb36503c8f0fcb2f68a8"
+        },
+        {
+          "path": "artifacts/qa-release-layout/sample-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e84ce4add6dcf8638a7595716c65a1d13bbc7a82d46ae8832b34f7dfd27d4044"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation-invalid-token",
+      "status": 200,
+      "route": "/amostras/confirmar?t=expired",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/confirmation-invalid-token-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "6b1cf5fbc7d506f8e54e83c5d9b730936a708159e1d1b7cfb057f6e27ea2bf3a"
+        },
+        {
+          "path": "artifacts/qa-release-layout/confirmation-invalid-token-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4976f3b968b9c33139e60116e9ece9abf761246101e2100cf87eceef99cb334d"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences-invalid-token",
+      "status": 200,
+      "route": "/preferencias?t=expired",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/preferences-invalid-token-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "44344a707761996fd6a4a6422e3ff4c20dda8b54aba9fe57d660f9d3b1d2c76c"
+        },
+        {
+          "path": "artifacts/qa-release-layout/preferences-invalid-token-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4760b5f3e4529aa23dcf01cac42749d3093642c83f39fe3f7b8944ebaaac50a1"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-dashboard",
+      "status": 200,
+      "route": "/admin",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-dashboard-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1327ab3ae8f0a5d0c4a927ee0ab9cdd6b4358de482ed06f4c41cfc0381079a02"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-dashboard-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1327ab3ae8f0a5d0c4a927ee0ab9cdd6b4358de482ed06f4c41cfc0381079a02"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-books",
+      "status": 200,
+      "route": "/admin/collections/ebooks",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-books-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "0876c03c06ea3693461e8c2b25f89f4f5bdf6e72ee97e290fc896f063fbe527a"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-books-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "0876c03c06ea3693461e8c2b25f89f4f5bdf6e72ee97e290fc896f063fbe527a"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-book-edit",
+      "status": 200,
+      "route": "/admin/collections/ebooks/b003dfe5-e264-482c-8b7c-2e1a416426b1",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-book-edit-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9e3bed02d9748dc0b9f68a88e50d0f759130ccdc1982b7d70c0ae48d48cf7f2a"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-book-edit-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9e3bed02d9748dc0b9f68a88e50d0f759130ccdc1982b7d70c0ae48d48cf7f2a"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-articles",
+      "status": 200,
+      "route": "/admin/collections/articles",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-articles-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "6ac33aafdf2370738cd4664f5589436724f84a45656d1394029a48e2fb958fd2"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-articles-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "6ac33aafdf2370738cd4664f5589436724f84a45656d1394029a48e2fb958fd2"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-campaigns",
+      "status": 200,
+      "route": "/admin/collections/campaigns",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-campaigns-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f61a0125cb180b6e2b9f4fce119a47efefcf6d03a05ab075de2671bde16c2ace"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-campaigns-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f61a0125cb180b6e2b9f4fce119a47efefcf6d03a05ab075de2671bde16c2ace"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-contacts",
+      "status": 200,
+      "route": "/admin/collections/contacts",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-contacts-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "c5f2a8fbf4e106cb076bf1fb889c10495d2e91fc4700b919e0a2315f65b9d35c"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-contacts-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "c5f2a8fbf4e106cb076bf1fb889c10495d2e91fc4700b919e0a2315f65b9d35c"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-sequences",
+      "status": 200,
+      "route": "/admin/collections/email-sequences",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-sequences-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e81ce69137989796a017c2d540c41e2eabb794133592e2dd7720fa908db356b1"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-sequences-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e81ce69137989796a017c2d540c41e2eabb794133592e2dd7720fa908db356b1"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-inbox",
+      "status": 200,
+      "route": "/admin/commercial-inbox",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-inbox-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d98837519f7c053ac19626d69321957103a4b323923b33061049f5c58d1e470a"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-inbox-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d98837519f7c053ac19626d69321957103a4b323923b33061049f5c58d1e470a"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-ledger",
+      "status": 200,
+      "route": "/admin/financial-ledger",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-ledger-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3a768767d499f5ad31af8f7061c1ea2123cbe1c19c5d376eb8f8c0e9bc448516"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-ledger-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3a768767d499f5ad31af8f7061c1ea2123cbe1c19c5d376eb8f8c0e9bc448516"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-records",
+      "status": 200,
+      "route": "/admin/financial-records",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-records-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7bed35a09e3b38c4777af4a64940054c0e5ae3a31e8bc3143d365f7d99eb42e7"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-records-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7bed35a09e3b38c4777af4a64940054c0e5ae3a31e8bc3143d365f7d99eb42e7"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-imports",
+      "status": 200,
+      "route": "/admin/commercial-imports",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-imports-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "19279f59df6fc730857d8cf4fb2b4c2dbee6ab7352beff48c2f0bab857e0fe99"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-imports-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "19279f59df6fc730857d8cf4fb2b4c2dbee6ab7352beff48c2f0bab857e0fe99"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-catalog-resolutions",
+      "status": 200,
+      "route": "/admin/catalog-resolutions",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-catalog-resolutions-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "25ef8a9b5c4d1aac0d3fa19b2dd73a09a828147b02f8c258902b462bfadcb370"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-catalog-resolutions-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "25ef8a9b5c4d1aac0d3fa19b2dd73a09a828147b02f8c258902b462bfadcb370"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-financial-resolutions",
+      "status": 200,
+      "route": "/admin/financial-resolutions",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-financial-resolutions-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "dfda4b2900b2b39ad10949f678e8c8fd416a5c2deaaf1c4c9c7abe19abb58733"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-financial-resolutions-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "dfda4b2900b2b39ad10949f678e8c8fd416a5c2deaaf1c4c9c7abe19abb58733"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-suppressions",
+      "status": 200,
+      "route": "/admin/suppressions",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-suppressions-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f76db4f0a8746f7a3d5e8c23c3f98573d9ae323908ff9c8b09c93b16e12ede12"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-suppressions-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f76db4f0a8746f7a3d5e8c23c3f98573d9ae323908ff9c8b09c93b16e12ede12"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-settings",
+      "status": 200,
+      "route": "/admin/globals/site-settings",
+      "theme": "light",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-settings-light-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e8ee0a49d96be5498680294f9fdbebdb2a98d9ad695883f5e2530fa0dffe372e"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-settings-light-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e8ee0a49d96be5498680294f9fdbebdb2a98d9ad695883f5e2530fa0dffe372e"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "light"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "home",
+      "status": 200,
+      "route": "/",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/home-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/home-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "cacbadebe7d8bb1b87a3dee16e5d1206a86ec0d3b975f9dab5e27e6a797d574f"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog",
+      "status": 200,
+      "route": "/ebooks",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/catalog-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/catalog-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1797980ed2c558df896a81b7b12cb386afaa592a191769324ef5ea7019676792"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "catalog-empty",
+      "status": 200,
+      "route": "/ebooks?q=nenhumzzzz",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/catalog-empty-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/catalog-empty-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "1797980ed2c558df896a81b7b12cb386afaa592a191769324ef5ea7019676792"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-guide",
+      "status": 200,
+      "route": "/ebooks/[book]",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-guide-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-guide-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "de552b878fac65806cc40156956d0a0bd26efadee591d2ba3398fd1043dd44fc"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-reading",
+      "status": 200,
+      "route": "/ebooks/reading-2be9432aa6",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-reading-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-reading-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e4a95ef25dfcfe9b612773ec7238c5759eb64260ac845209c96b036f87cc7ed1"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "lp-workbook",
+      "status": 200,
+      "route": "/ebooks/workbook-2be9432aa6",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/lp-workbook-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/lp-workbook-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "ee9d22eed79dee74d292970832b56ac4ed11be3db181ec7f35d1e005c0ac8ab1"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "article",
+      "status": 200,
+      "route": "/artigos/artigo-2be9432aa6",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/article-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/article-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "662248c4c47ca1a5c241fc76f7bac0f526d286665dc220ba9760fc7b7fb25089"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "theme",
+      "status": 200,
+      "route": "/temas/tema-2be9432aa6",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/theme-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/theme-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "33881d872bf1640d01a17002c8295686c6459e85af339a5991473121c8334b61"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "about",
+      "status": 200,
+      "route": "/sobre",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/about-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/about-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "774c648bd35354fbbea0e24c222c0fb0820652456ef22593a5ccb575412b93aa"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "contact",
+      "status": 200,
+      "route": "/contato",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/contact-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/contact-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "47b907fe47aa5c934f6e38887386ef9fe449a5602d7500e3895f51c306cab5f3"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "privacy",
+      "status": 200,
+      "route": "/privacidade",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/privacy-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/privacy-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "7c3e53c35baf723a2f8c6df04a44ff412450146950dbda38eb703452eb3e47cf"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "terms",
+      "status": 200,
+      "route": "/termos",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/terms-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68aca2cda40d465513898eca164ba89342280723b5df3859f64936fec1a86fcd"
+        },
+        {
+          "path": "artifacts/qa-release-layout/terms-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e1eb0129f321bc005822cc579c791f37b2e5d9e3f7ff46def8f208188b7aab51"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "sample",
+      "status": 200,
+      "route": "/amostras/amostra-[book]",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/sample-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "d75febc69c98458187401b1ec49c7e1fe5434f055bbb93ebeada1f7cbf7f0a86"
+        },
+        {
+          "path": "artifacts/qa-release-layout/sample-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e1aaa96052c8f1fe7ca0df64876ffa32787d93e7c5c7350af5119c9f568f4786"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "confirmation-invalid-token",
+      "status": 200,
+      "route": "/amostras/confirmar?t=expired",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/confirmation-invalid-token-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "f144919a267433df7cac1f6315a12e696fc338e67e092a4f12933a3144222e80"
+        },
+        {
+          "path": "artifacts/qa-release-layout/confirmation-invalid-token-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "45a214d2b56b57c309a9e8462c3c57976f65bd6da3e295fcdb808f1cc4d2e082"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "preferences-invalid-token",
+      "status": 200,
+      "route": "/preferencias?t=expired",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/preferences-invalid-token-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4c8deef7baccbfe2aa57d5539434c83f9be637068117a26dae21ace09ac74799"
+        },
+        {
+          "path": "artifacts/qa-release-layout/preferences-invalid-token-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "962c0350c378ba183be1d2917336f6f64fec0cb8cecf803fa350f57d6f095297"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-dashboard",
+      "status": 200,
+      "route": "/admin",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-dashboard-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "fc659afcb42e299535aaad583bd73aa699a4eee6daa0f8e7e7015141f67f1cd4"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-dashboard-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "fc659afcb42e299535aaad583bd73aa699a4eee6daa0f8e7e7015141f67f1cd4"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-books",
+      "status": 200,
+      "route": "/admin/collections/ebooks",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-books-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "dc52b8744ae615fb57dabd84f68edd877cf22e479416e149c117094b509ebc7e"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-books-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "dc52b8744ae615fb57dabd84f68edd877cf22e479416e149c117094b509ebc7e"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-book-edit",
+      "status": 200,
+      "route": "/admin/collections/ebooks/b003dfe5-e264-482c-8b7c-2e1a416426b1",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-book-edit-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9fdad4c9fd55474d23728c699258c841ddc5005e6255adbcb1d5735e076cd09f"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-book-edit-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "9fdad4c9fd55474d23728c699258c841ddc5005e6255adbcb1d5735e076cd09f"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-articles",
+      "status": 200,
+      "route": "/admin/collections/articles",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-articles-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "cae1fe0681ef6b1eb51ae496c5adbe7a076e93b280dacc94e6f843cc7eaa14ed"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-articles-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "cae1fe0681ef6b1eb51ae496c5adbe7a076e93b280dacc94e6f843cc7eaa14ed"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-campaigns",
+      "status": 200,
+      "route": "/admin/collections/campaigns",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-campaigns-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "43e06a52dfc1d006bdcfc4cfe8a5ef2782c48896df8488a5bcc366a68f386ab1"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-campaigns-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "43e06a52dfc1d006bdcfc4cfe8a5ef2782c48896df8488a5bcc366a68f386ab1"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-contacts",
+      "status": 200,
+      "route": "/admin/collections/contacts",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-contacts-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4a15603a27021906c65d954c54b1667ab17eb94b13afd6d5004a803431f73b6b"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-contacts-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4a15603a27021906c65d954c54b1667ab17eb94b13afd6d5004a803431f73b6b"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-sequences",
+      "status": 200,
+      "route": "/admin/collections/email-sequences",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-sequences-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "fad506d58c5335e516413f7bd67e6164fdf5805dd5dfa6092ae75e8775ab38a0"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-sequences-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "fad506d58c5335e516413f7bd67e6164fdf5805dd5dfa6092ae75e8775ab38a0"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-inbox",
+      "status": 200,
+      "route": "/admin/commercial-inbox",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-inbox-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3f302b7070881c6476a46dcf39bb07051b7928299ac9722aaf7c6b7aad1c684a"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-inbox-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3f302b7070881c6476a46dcf39bb07051b7928299ac9722aaf7c6b7aad1c684a"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-ledger",
+      "status": 200,
+      "route": "/admin/financial-ledger",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-ledger-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3c0041c5038062a0e21e92065ad0502bf42b6b282ebc72e5bbcf205cb55bec8d"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-ledger-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "3c0041c5038062a0e21e92065ad0502bf42b6b282ebc72e5bbcf205cb55bec8d"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-records",
+      "status": 200,
+      "route": "/admin/financial-records",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-records-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4ab6f42e631b2796bc4247141d1c435da94b5ba0eb1472148e2ff121a60f479c"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-records-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4ab6f42e631b2796bc4247141d1c435da94b5ba0eb1472148e2ff121a60f479c"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-imports",
+      "status": 200,
+      "route": "/admin/commercial-imports",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-imports-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68d49ab1734e93da12c2200cdd1454ba03770a9e999b5c575d0ace7ee9cd1332"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-imports-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "68d49ab1734e93da12c2200cdd1454ba03770a9e999b5c575d0ace7ee9cd1332"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-catalog-resolutions",
+      "status": 200,
+      "route": "/admin/catalog-resolutions",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-catalog-resolutions-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "c148965071b01f578a110fecd3a1511fa9a936f40003cacd418d79a4a5969316"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-catalog-resolutions-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "c148965071b01f578a110fecd3a1511fa9a936f40003cacd418d79a4a5969316"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-financial-resolutions",
+      "status": 200,
+      "route": "/admin/financial-resolutions",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-financial-resolutions-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "57f9850ef30c642441d9fe5a418d8f0f6a298df59b87a3a274d4aeb3985456bf"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-financial-resolutions-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "57f9850ef30c642441d9fe5a418d8f0f6a298df59b87a3a274d4aeb3985456bf"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-suppressions",
+      "status": 200,
+      "route": "/admin/suppressions",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-suppressions-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4af33d5cf621059158aa17877f598e7ba108f3ee538f77be752e0777ae368859"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-suppressions-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "4af33d5cf621059158aa17877f598e7ba108f3ee538f77be752e0777ae368859"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "admin-settings",
+      "status": 200,
+      "route": "/admin/globals/site-settings",
+      "theme": "dark",
+      "nativeZoom": 4,
+      "capture": "CDP Page.captureScreenshot do viewport físico; helper Playwright recorta em zoom nativo",
+      "screenshots": [
+        {
+          "path": "artifacts/qa-release-layout/admin-settings-dark-native400-top.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e10c0f2bc7428472c4cece2a11c1a0d140af08a0083feea4d1b1e39ca2cb7aea"
+        },
+        {
+          "path": "artifacts/qa-release-layout/admin-settings-dark-native400.png",
+          "width": 1280,
+          "height": 873,
+          "sha256": "e10c0f2bc7428472c4cece2a11c1a0d140af08a0083feea4d1b1e39ca2cb7aea"
+        }
+      ],
+      "metrics": {
+        "innerWidth": 320,
+        "outerWidth": 1280,
+        "dpr": 4,
+        "scrollWidth": 320,
+        "h1": true,
+        "activeTheme": "dark"
+      },
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "dataset": {
+    "books": 30,
+    "themes": 3,
+    "articles": 30
+  },
+  "lab": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 200000,
+    "coldBrowserCache": true,
+    "warmServer": true,
+    "performance": [
+      {
+        "name": "home",
+        "run": 1,
+        "lcp": 1160,
+        "cls": 0.0008756311484237632,
+        "interactions": [
+          192
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 192
+      },
+      {
+        "name": "home",
+        "run": 2,
+        "lcp": 604,
+        "cls": 0.0008756311484237632,
+        "interactions": [
+          160
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 160
+      },
+      {
+        "name": "home",
+        "run": 3,
+        "lcp": 592,
+        "cls": 0.0008756311484237632,
+        "interactions": [
+          176
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 176
+      },
+      {
+        "name": "catalog",
+        "run": 1,
+        "lcp": 548,
+        "cls": 0.0005082447407417647,
+        "interactions": [
+          168
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 168
+      },
+      {
+        "name": "catalog",
+        "run": 2,
+        "lcp": 588,
+        "cls": 0.0005082447407417647,
+        "interactions": [
+          152
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 152
+      },
+      {
+        "name": "catalog",
+        "run": 3,
+        "lcp": 600,
+        "cls": 0.0005082447407417647,
+        "interactions": [
+          168
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 168
+      },
+      {
+        "name": "lp-guide",
+        "run": 1,
+        "lcp": 624,
+        "cls": 0.0008479288656059169,
+        "interactions": [
+          160
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 160
+      },
+      {
+        "name": "lp-guide",
+        "run": 2,
+        "lcp": 612,
+        "cls": 0.0008479288656059169,
+        "interactions": [
+          168
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 168
+      },
+      {
+        "name": "lp-guide",
+        "run": 3,
+        "lcp": 640,
+        "cls": 0.0008479288656059169,
+        "interactions": [
+          152
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 152
+      },
+      {
+        "name": "article",
+        "run": 1,
+        "lcp": 568,
+        "cls": 0.0013028207950267203,
+        "interactions": [
+          128
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 128
+      },
+      {
+        "name": "article",
+        "run": 2,
+        "lcp": 560,
+        "cls": 0.0013028207950267203,
+        "interactions": [
+          128
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 128
+      },
+      {
+        "name": "article",
+        "run": 3,
+        "lcp": 592,
+        "cls": 0.0013028207950267203,
+        "interactions": [
+          144
+        ],
+        "keydownCount": 1,
+        "sampleInteractionUpperBoundMs": 144
+      }
+    ],
+    "budgets": [
+      {
+        "name": "home",
+        "samples": 3,
+        "lcpP75Ms": 1160,
+        "clsP75": 0.0008756311484237632,
+        "interactionP75UpperBoundMs": 192,
+        "passed": true
+      },
+      {
+        "name": "catalog",
+        "samples": 3,
+        "lcpP75Ms": 600,
+        "clsP75": 0.0005082447407417647,
+        "interactionP75UpperBoundMs": 168,
+        "passed": true
+      },
+      {
+        "name": "lp-guide",
+        "samples": 3,
+        "lcpP75Ms": 640,
+        "clsP75": 0.0008479288656059169,
+        "interactionP75UpperBoundMs": 168,
+        "passed": true
+      },
+      {
+        "name": "article",
+        "samples": 3,
+        "lcpP75Ms": 592,
+        "clsP75": 0.0013028207950267203,
+        "interactionP75UpperBoundMs": 144,
+        "passed": true
+      }
+    ],
+    "load": [
+      {
+        "concurrency": 5,
+        "requests": 25,
+        "errors": [],
+        "medianMs": 405.353286000005,
+        "p95Ms": 598.8148729999957
+      },
+      {
+        "concurrency": 10,
+        "requests": 50,
+        "errors": [],
+        "medianMs": 695.6846700000024,
+        "p95Ms": 837.4974700000021
+      }
+    ],
+    "fieldMetricsClaimed": false,
+    "note": "Amostras locais; duração das interações não é INP de campo. CLS agregado conservador, sem janela de sessão."
+  },
+  "externalRequests": 0,
+  "runtimeErrors": [],
+  "productionChanged": false,
+  "fullH05Accepted": false,
+  "sourceSHA256": {
+    "scripts/qa-release-layout.ts": "707ed196071ca4f970ba0e238f730c79a81b1741c8e2bbb312031a1a78309e95",
+    "package.json": "9020db13c6367a6afc70587e193dea5994e7849f311330b1d69e6f49628ee1f9",
+    "pnpm-lock.yaml": "2a6e437cb0236322574caa4229659cf0f9a72a2b5e53057d50cbbe27393da3eb",
+    "src/styles/admin.css": "1bdb921368f6b6b749d20796fe0226eacd9c26562ae67b827a00a65ae40d8d77",
+    "src/styles/site.css": "c1be5f77497d786820634aeb9014dbc65483cbd56f02f87a57f21718aac7b8e2",
+    "patches/@payloadcms__ui@3.91.0.patch": "286b9d6199488364eee67b11042cea4a49c9f9023ddb39d7305a790d00c50033"
+  }
+}

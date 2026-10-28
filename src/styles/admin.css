@@ -68,6 +68,9 @@ body { overflow-x: clip; overflow-y: visible; }
 .bibliotheon-sequence-copy p { white-space: pre-wrap; overflow-wrap: anywhere; }
 .bibliotheon-sequence-copy dd { margin-left: 0; overflow-wrap: anywhere; }
 :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+/* D121: document actions remain reachable in the native toolbar at 400% zoom. */
+.doc-controls__controls:focus-visible { outline-offset: -3px; }
+.upload-relationship-details__filename a, .file-meta__url a { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 
 /* Commercial operations retain editorial spacing and semantic color tokens. */

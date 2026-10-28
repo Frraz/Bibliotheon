@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-26T23:34:50.051Z",
+  "date": "2026-10-27T04:27:29.768Z",
   "environment": "PostgreSQL local sintético exclusivo",
   "checks": [
     "preview integrado sem escrita/PII; cutoff de 24 meses e limite exato preservados",

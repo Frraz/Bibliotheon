@@ -72,7 +72,7 @@ export const PromotionDeliveries = operational('promotion-deliveries', 'Etapa pr
   date('dueAt', true), date('nextCheckAt', true),
   { name: 'batch', label: 'Lote promocional', type: 'relationship', relationTo: 'email-campaign-batches', index: true },
   { name: 'state', type: 'select', required: true, options: ['scheduled', 'ready', 'sending', 'accepted', 'observed', 'uncertain', 'rejected', 'canceled'], defaultValue: 'scheduled' },
-  { name: 'errorCode', type: 'select', options: ['recipient_suppressed', 'material_unavailable', 'sequence_paused', 'offer_unavailable', 'provider_rejected', 'uncertain_delivery'] },
+  { name: 'errorCode', type: 'select', options: ['recipient_suppressed', 'material_unavailable', 'sequence_paused', 'offer_unavailable', 'provider_rejected', 'uncertain_delivery', 'marketing_review_due'] },
 ])
 export const EmailCampaignBatches = operational('email-campaign-batches', 'Lote promocional', 'Lotes promocionais', [
   text('key', true, true, true), text('groupKey', true), reference('theme', 'themes'),

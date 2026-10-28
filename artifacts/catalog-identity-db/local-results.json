@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T00:25:21.834Z",
+  "date": "2026-10-27T04:14:54.561Z",
   "checks": [
     "Migração up/down em banco sem ofertas e rollback transacional preservam a proteção; sem reescrever dados.",
     "Papel runtime sem ownership/DDL não desativa trigger. SQL direto bloqueia duplicatas null/vazio, update conflitante, livro nulo e duplicação no mesmo INSERT com rollback integral; permite ofertas distintas e namespaces de Hotmart/Kiwify/Cakto/contas. Isolamento de snapshot fixo recusado explicitamente.",
