@@ -439,3 +439,7 @@ A nova consulta ao registro encontrou GHSA-gcqx-w48m-w2h4 em deepmerge 4.3.1, tr
 Aplicado patch versionado nos entrypoints fonte/CJS/UMD: rejeitar __proto__/constructor/prototype tanto na cópia do alvo quanto na origem e escrever propriedades próprias por Object.defineProperty. Não houve downgrade ou atualização de arquitetura. Dezesseis regressões verificam os dois entrypoints distribuídos, alvos sem protótipo/null/primitivos, cópia do alvo e compatibilidade com merges válidos, arrays, símbolos e datas. O lockfile fixa o patch e a instalação offline confirmou a resolução efetiva pelo Payload.
 
 A auditoria bruta continua preservada com um aviso low; a mitigação local não transforma a versão publicada em versão corrigida nem autoriza ocultar o aviso. [Tratamento e evidências](../artifacts/security/d127-deepmerge-mitigation.json). Reavaliar quando houver correção upstream; a imagem recebe prova própria contra os entrypoints realmente empacotados antes do aceite.
+
+## Importação editorial revisada — 28/10/2026
+
+Autorizado integrar o projeto ebooks ao catálogo remoto com prévia e comando final, incluindo ofertas confirmadas e preservando alterações do painel. Cadastro exclusivamente manual passa a admitir importação revisada. IA permanece somente no processo editorial externo; nenhuma IA no produto. Cliente e regras residem no Bibliotheon; projeto ebooks contém pacote e lançador mínimo. Sem publicação de arquivos pagos, serviços novos ou deploy automático. [Contrato](integracoes/editorial.md).

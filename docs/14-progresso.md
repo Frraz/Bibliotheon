@@ -724,3 +724,11 @@ Por solicitação do proprietário, criação, recuperação e alteração de se
 Executado: composição editorial da home, arte abstrata CSS, controle de tema com opções nomeadas, navegação e acabamento compartilhado das páginas públicas. Skill UI UX Pro Max aplicada sem substituir identidade. Validação local concluída: 342 capturas no mesmo build, tipos/lint/build, 62 testes operacionais, documentação e contrastes aprovados; timeout unitário resolvido por repetição isolada do arquivo (16/16). Bancos/mídia sintéticos descartados e banco configurado preservado. Próxima ação: revisão com conteúdo real e publicação pelo proprietário, mantendo P07 e gates externos abertos. Nenhuma implantação.
 
 Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).
+
+## Integração editorial ebooks → Bibliotheon — 28/10/2026
+
+Implementação local autorizada pelo proprietário: pacote v1, lançador editorial, CLI de validação/prévia/publicação/consulta, endpoints owner, comparação com edições do painel, migration e recibos idempotentes. Testes sintéticos em banco/mídia descartáveis; [evidências](../artifacts/editorial/local-results.json) e [operação](integracoes/editorial.md). Nenhum deploy, login remoto, publicação, envio de arquivos pagos ou acesso a plataformas. Próxima ação: implantação pelo proprietário e primeira prévia com dados reais confirmados.
+
+Conferência final da ponte editorial em 29/10/2026: 11 grupos sintéticos aprovados, incluindo cliente HTTP/PTY, senha oculta, preservação de tema/capa do painel e recuperação de recibo. [Evidências e limites](../artifacts/editorial/README.md). Primeiro pacote mantém três pendências; implantação/primeiro uso remoto continuam com o proprietário.
+
+Verificações finais: typecheck/lint, 320 unitários (dois workers), 62 operacionais, 11 grupos editoriais, build Next/CLIs e documentação aprovados. O teste CSV antigo excede o timeout no paralelismo padrão deste ambiente; passou isolado e com dois workers. [Registro](../artifacts/editorial/verification.json).

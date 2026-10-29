@@ -278,3 +278,7 @@ privacy-retention acrescenta marketingDeadline: cutoff de 30 dias, overdueSubscr
 ## D114 — Legado temático verificável — 26/10/2026
 
 privacy-retention acrescenta legacyThemeWithdrawals: guardAvailable, candidates, verified, persisted, existing, expired e unverified. withdrawnThemes acrescenta backfilledMarkers (chamada direta com prova vigente) e expiredProofClosures (estado encerrado com prova vencida, sem marcador novo). Preview pode reconhecer elegibilidade legada sem escrever. Exportação mantém v4, mas agora rejeita assinatura encerrada sem fato/prova nem cobertura global aplicável; não gera manifesto aparentemente completo omitindo a retirada. Cobertura de expurgo automático exige ausência de finalidade posterior. Campos/limites/assinaturas v1–v4 permanecem.
+
+## API editorial v1
+
+POST /api/v1/admin/editorial/preview, /publish e /receipt: owner e Origin exata; JSON limitado, pacote versionado, prova assinada e confirmação idempotente. 409 para revisão desatualizada, 422 para bloqueio de cadastro, 503 para resultado não confirmado. [Entradas, saídas e recuperação](integracoes/editorial.md).

@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-29T14:50:05.610590+00:00",
+  "scope": "local synthetic only",
+  "typecheck": "passed",
+  "lint": "passed",
+  "unit": {
+    "passed": 320,
+    "files": 38,
+    "command": "npm test -- --maxWorkers=2",
+    "defaultParallelism": "commercial-csv existing stress test exceeded 5000ms; isolated and bounded full suite passed"
+  },
+  "operationalTests": 62,
+  "editorialGroups": 11,
+  "build": {
+    "command": "NEXT_DIST_DIR=.next-editorial-qa npm run build",
+    "passed": true,
+    "note": "build required execution outside sandbox; generated config paths restored afterwards"
+  },
+  "runtimeCLIbuild": "passed",
+  "documentation": "passed",
+  "gitDiffCheck": "passed",
+  "remoteWrites": false,
+  "sourceSHA256": {
+    "migrations/20261029_010000_editorial_imports.ts": "5ba9ce007484ec5396e189f32d6b4953babe289c988d9f27011235533ef29c73",
+    "migrations/index.ts": "d7c60508e73dedc5010c5eab313580c55b9ae3eb8e60261b261f692c690a85db",
+    "scripts/editorial.ts": "e1e8f2e05c1152401c8ce1eb99a8d8c00c1cbc1d42632c69bb901f3e12ed6b0d",
+    "scripts/qa-editorial-isolated.mjs": "7c67571ee9d9da35009b236192112d047a1836c38b66d9246f1f299bd6b8199c",
+    "src/app/(site)/api/v1/admin/editorial/preview/route.ts": "c75028d8881954114d6ed119328f8ab07c5c668e699d6ca237920957921a7a62",
+    "src/app/(site)/api/v1/admin/editorial/publish/route.ts": "d754771a72ec974bcaf2baa368814339907c3a8eda8a695c265424c8a925d788",
+    "src/app/(site)/api/v1/admin/editorial/receipt/route.ts": "b98ed922ecbe81b3531bc6c3315e3317fc91a122c42490ac5a30f1a2c81a311e",
+    "src/modules/editorial/contract.ts": "b09205d05ecd1b9c6de9cb00cca083746fb17208a4db06701d2f3986c611046d",
+    "src/modules/editorial/http.ts": "7921256d93b85d29d9e7eb020b9b13c463d268a95bb212c8b47d4470dd43ecaf",
+    "src/modules/editorial/service.ts": "3eeea1871ca21e4ab8110b827740ccf1856a21ae0df6951ccafab03aa147641f",
+    "tests/helpers/editorial_cli.py": "da28d6ec0b0882fe93a32e9f9102e3a7a5e05bcffbddf55a5d3bae76a2a14205",
+    "tests/integration/editorial.ts": "e98d3a77728b513cb6eb264c43588babac173ca5b7718e0f6ca09ef988bb6ac7"
+  }
+}

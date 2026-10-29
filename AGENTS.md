@@ -8,7 +8,7 @@ O pedido que originou esta entrega autoriza documentação, não implementação
 
 ## Invariantes
 
-- Nenhuma IA integrada ao produto; cadastro manual no Payload.
+- Nenhuma IA integrada ao produto; cadastro manual ou importação editorial revisada no Payload.
 - Checkout e entrega externos: Hotmart, Kiwify e Cakto. Não remover um provedor do escopo por conveniência.
 - Catálogo amplo, divulgação segmentada; começar com um livro prioritário.
 - Não inventar avaliações, escassez, resultados financeiros ou vendas.

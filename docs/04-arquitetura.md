@@ -127,3 +127,7 @@ retention-policy centraliza elegibilidade de 28 dias, meta máxima de 30 dias e 
 ## D114 — Legado temático verificável — 26/10/2026
 
 legacy-theme-withdrawal deriva somente de assinatura canônica e evento interno consistente; não busca provedor nem usa aparência do estado como data. Backfill é transacional por contato, com lock contact → theme-withdrawal. Retenção direta também consegue persistir o fato no mesmo commit que retira a assinatura. Exportação usa snapshot REPEATABLE READ READ ONLY e pode compor o fato assinado sem persistir nada no banco. O formato permanece v4, sem tabela/serviço novo.
+
+## Ponte editorial local → remoto
+
+Cliente no Bibliotheon, lançador mínimo no projeto ebooks e pacote portátil por título. API autenticada reutiliza Payload/owner e PostgreSQL; sem novo serviço, dependência paga ou IA no produto. Duas tabelas SQL internas controladas por migration guardam vínculo/base e recibos. [Contrato](integracoes/editorial.md).

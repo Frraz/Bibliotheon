@@ -319,3 +319,7 @@ Migration 34 `20261027_001515_theme_withdrawals` cria theme-withdrawals: key ún
 ## D114 — Legado temático verificável — 26/10/2026
 
 Fato legado usa a estrutura theme-withdrawals existente. Exige assinatura state=unsubscribed, key=contactUUID:themeUUID, unsubscribedAt canônico e evento consent-events com mesmo contato/assunto, purpose=marketing, action=unsubscribed, occurredAt igual e key=theme-unsubscribe:subscriptionUUID:dataISO. Conflito de consentimento/retirada posterior ou estado ativo impede derivação. expiresAt é sempre data original +24 meses; não parte da data de preenchimento. Prova nativa vencida não gera fato renovado. Não é prova de autenticação externa: a fonte é o histórico privado controlado pela aplicação.
+
+## Importações editoriais
+
+A migration 20261029_010000_editorial_imports acrescenta editorial_links e editorial_operations, com unicidade de origem/idioma e livro, baseline JSON, vínculos de ofertas/capa e recibo mínimo. Tabelas privadas fora do REST e do schema de coleções; preservar em migrations futuras. Down bloqueado com histórico. [Contrato](integracoes/editorial.md).

@@ -223,3 +223,7 @@ Por solicitação do proprietário, criação, recuperação e alteração de se
 B03/B04/B17/B18: redesign público implementado localmente, mantendo tokens e contratos. B17/B20: recorte público afetado aceito localmente nesta rodada de 342 capturas; aceite D126 permanece histórico para os demais recortes. Próxima ação: revisão com conteúdo real e atualização do ambiente pelo proprietário.
 
 Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).
+
+## Integração editorial — extensão autorizada em 28/10/2026
+
+Implementados localmente contrato/pacote, cliente, API owner, comparação de três estados, migration interna e recibos. Validar por check:editorial. Próxima ação externa: implantar versão/migration e conferir primeira prévia real, resolver tema/ofertas e publicar pelo comando final. Não equivale a homologação dos provedores. [Detalhes](integracoes/editorial.md).

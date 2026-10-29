@@ -1,5 +1,7 @@
 # Pendências para colocar o Bibliotheon em produção
 
+**Integração editorial local (28/10/2026):** pacote do projeto `ebooks`, prévia sem escrita e confirmação autenticada de livro/capa/ofertas implementados. Uma migration interna adicional; deploy e primeiro uso remoto pendentes. [Contrato e operação](docs/integracoes/editorial.md).
+
 [README](README.md) · [Estado atual](docs/23-estado-atual.md) · [Backlog](docs/13-backlog.md) · [Progresso](docs/14-progresso.md) · [Deploy](deploy.md)
 
 **Redesign público local — 28/10/2026:** apresentação pública atualizada e aceita no recorte B17/B20 com 342 capturas no mesmo build. A imagem D127 não contém esta alteração; P07 e homologações externas continuam pendentes. [Evidências e limites](artifacts/qa-public-redesign/README.md).

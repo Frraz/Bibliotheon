@@ -89,3 +89,7 @@ No relatório, referência só vale se apontar para saída consentida e coincidi
 ## Jornada HTTP local dos callbacks — D88
 
 Os testes loopback ligaram `sck` da saída consentida às rotas Hotmart, Kiwify e Cakto, à projeção financeira e ao relatório. Hotmart incluiu replay, UUID de outro contexto, texto livre e referência ausente; só a referência/contexto correspondente gera atribuição. Kiwify `TrackingParameters.sck` e Cakto `data.sck` passaram em payloads sintéticos construídos a partir dos adaptadores; isso não verifica o payload que as contas reais entregam. Reversões sem cobertura mantêm receita null. [Auditoria e resultados](../artifacts/attribution/p06-audit-d88.json). H01 por provedor segue obrigatório; nenhuma integração foi habilitada em conta.
+
+## Origem editorial ebooks
+
+Ponte de conteúdo sem integração de IA: manifesto e capa alimentam catálogo/ofertas após prévia e confirmação. Não cadastra produtos nem envia livros pagos às plataformas. Hotmart/Kiwify/Cakto continuam externos e independentes. [Operação](integracoes/editorial.md).

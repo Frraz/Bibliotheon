@@ -1,0 +1,17 @@
+{
+  "synthetic": true,
+  "remoteWrites": false,
+  "checks": [
+    "migration up/down on empty tables",
+    "HTTP owner authentication, origin and forged proof",
+    "preview has no catalogue/file writes; missing theme and invalid cover blocked",
+    "stale package/state rejected; concurrent confirmation and lost-response receipt are idempotent",
+    "rollback refuses existing import history",
+    "manual draft preserved, conflict blocked and explicit package resolution applied",
+    "three providers imported; invalid checkout/identity changes blocked; omitted offers preserved",
+    "failure after file upload rolls back DB/receipt; retry safely succeeds",
+    "manual cover alt preserved without repeated media uploads",
+    "manually selected theme participates in preview validity and stale-state checks",
+    "real HTTP/PTY client validate, preview HTML, publish, repeat and receipt; password hidden"
+  ]
+}

@@ -1,3 +1,4 @@
+import * as migration_editorial from './20261029_010000_editorial_imports';
 import * as migration_20261021_012104_initial from './20261021_012104_initial';
 import * as migration_20261021_013444_catalog from './20261021_013444_catalog';
 import * as migration_20261021_104729_public_site from './20261021_104729_public_site';
@@ -210,4 +211,5 @@ export const migrations = [
     down: migration_20261027_033952_active_marketing_review.down,
     name: '20261027_033952_active_marketing_review'
   },
+  { up: migration_editorial.up, down: migration_editorial.down, name: '20261029_010000_editorial_imports' },
 ];

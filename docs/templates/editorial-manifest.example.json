@@ -1,0 +1,36 @@
+{
+  "contract": "bibliotheon-editorial/v1",
+  "sourceId": "identidade-estavel-do-livro",
+  "language": "pt-BR",
+  "edition": "1",
+  "book": {
+    "title": "Título real do livro",
+    "slug": "titulo-real-do-livro",
+    "theme": "tema-publicado",
+    "summary": "Resumo conferido",
+    "audience": "Público",
+    "problem": "Problema abordado",
+    "promise": "O que o livro entrega",
+    "requirements": "Requisitos reais",
+    "limits": "Limites reais",
+    "body": "Apresentação em texto simples.",
+    "benefits": [
+      "Aprendizagem verificável"
+    ],
+    "contents": [
+      "Capítulo existente"
+    ],
+    "materialState": "ready",
+    "presentationVariant": "guide",
+    "accentPreset": "mineral"
+  },
+  "cover": {
+    "file": "capa.jpg",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "alt": "Descrição acessível da capa"
+  },
+  "offers": [],
+  "pending": [
+    "Substituir exemplo pelos dados reais e hash da capa; conferir tema e ofertas."
+  ]
+}

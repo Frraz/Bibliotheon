@@ -667,3 +667,7 @@ O exportador vigente recusa descadastro temático sem prova/fato ou cobertura gl
 D122: a imagem local atual passou em banco vazio/upgrade 32→35 e as 16 suítes HTTP passaram no standalone QA. [Evidência](artifacts/container/d122-results.json). Isso prepara o pacote técnico; conta, inventário/proteção do host, configuração privada, CI e execução do deploy continuam com o proprietário. [Lacunas atuais](pendencias.md). Backup/guarda externa de recuperação/restore são opcionais quando a opção escolhida é `--sem-backup`.
 
 D123: correção de foco no cliente validada no build QA. A imagem D122 citada acima é anterior a essa correção; gerar/homologar a imagem de fechamento depois de consolidar o código. [Estado vigente](docs/23-estado-atual.md). Backup segue opcional.
+
+## Release da ponte editorial
+
+A integração exige implantar as três rotas e aplicar a migration 20261029_010000_editorial_imports. Preservar tabelas internas editorial_links/editorial_operations. Ajustar o limite de corpo do proxy somente nas rotas editoriais para permitir até 8 MiB, inventariando a configuração existente. Primeiro conferir prévia autenticada sem escrita e depois publicar pela confirmação. [Operação e recuperação](docs/integracoes/editorial.md).

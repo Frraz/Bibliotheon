@@ -75,3 +75,7 @@ R31–R34/B19/B20/H05 têm [auditoria local por família](../artifacts/qa-releas
 R03/R04/R20/R21/R27–R30: evolução editorial de todas as famílias públicas, temas e responsividade. Menu de aparência com Sistema/Claro/Escuro; conteúdo e contratos existentes preservados. O aceite desta alteração exige capturas, teclado, axe, reflow e regressões locais.
 
 Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).
+
+## Importação editorial autorizada — 28/10/2026
+
+Complemento ao cadastro editorial: receber pacote versionado do projeto ebooks, prévia sem escrita, confirmação owner, ofertas confirmadas dos três provedores, preservação de edições do painel e recibo idempotente. IA permanece fora do produto e entrega paga externa. [Contrato e critérios](integracoes/editorial.md).

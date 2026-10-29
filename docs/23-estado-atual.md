@@ -1,5 +1,7 @@
 # 23 — Estado atual e mapa da implementação
 
+**Integração editorial local (28/10/2026):** pacote do projeto `ebooks`, prévia sem escrita e confirmação autenticada de livro/capa/ofertas implementados. Uma migration interna adicional; deploy e primeiro uso remoto pendentes. [Contrato e operação](integracoes/editorial.md).
+
 [Índice](../README.md) · [Retomada](14-progresso.md) · [Backlog](13-backlog.md) · [Histórico técnico](19-desenvolvimento.md)
 
 **Redesign público local — 28/10/2026:** apresentação pública atualizada e aceita no recorte B17/B20 com 342 capturas no mesmo build. A imagem D127 não contém esta alteração; P07 e homologações externas continuam pendentes. [Evidências e limites](../artifacts/qa-public-redesign/README.md).
@@ -18,7 +20,7 @@ O proprietário autorizou implementação e testes locais; GitHub e deploy na VP
 
 Primeiro título: **Crie Sistemas com IA e Ganhe Dinheiro**. Domínio informado: **bibliotheon.com.br**; responsável: **Warley Ferraz Almeida**. E-mail público fica vazio por decisão do proprietário, que o acrescentará antes da produção. Público específico, arquivos, preço, checkout e elegibilidade ainda precisam ser conferidos. Subdomínios não foram definidos. Ver [lançamento](22-lancamento.md).
 
-Invariantes vigentes: nenhuma IA no produto; cadastro manual no Payload; checkout/entrega externos; Hotmart, Kiwify e Cakto mantidos separadamente; nenhuma avaliação, escassez ou renda inventada; clique, aprovação, recebimento e lucro são conceitos distintos. As duas conversas históricas são preservadas por hash.
+Invariantes vigentes: nenhuma IA no produto; cadastro manual ou importação editorial revisada no Payload; checkout/entrega externos; Hotmart, Kiwify e Cakto mantidos separadamente; nenhuma avaliação, escassez ou renda inventada; clique, aprovação, recebimento e lucro são conceitos distintos. As duas conversas históricas são preservadas por hash.
 
 ## O que existe no código
 
@@ -782,3 +784,5 @@ Por solicitação do proprietário, criação, recuperação e alteração de se
 A interface pública recebe uma evolução editorial local sobre o runtime existente: home assimétrica, botão de aparência com grupo de rádios, navegação e estilos compartilhados refinados. Aceite local do recorte público B17/B20: 342 capturas no mesmo build e checks registrados no relatório. Sem schema, API ou integração novos. A imagem D127 e os aceites D126 são históricos e não representam este novo frontend.
 
 Evidências e limites: [redesign público](../artifacts/qa-public-redesign/README.md).
+
+Conferência final da ponte editorial em 29/10/2026: 11 grupos sintéticos aprovados, incluindo cliente HTTP/PTY, senha oculta, preservação de tema/capa do painel e recuperação de recibo. [Evidências e limites](../artifacts/editorial/README.md). Primeiro pacote mantém três pendências; implantação/primeiro uso remoto continuam com o proprietário.

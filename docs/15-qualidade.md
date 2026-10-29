@@ -341,3 +341,7 @@ H03 tem evidência da revisão atual; o encerramento integral segue condicionado
 ## Redesign público editorial — 28/10/2026
 
 A rodada local usa `qa-foundation.ts` e `qa-public-site.ts` no harness `qa-browser-isolated.mjs`, com bancos/mídia descartáveis e bloqueio de rede externa. Capturas novas ficam em `artifacts/qa-public-redesign`, preservando as rodadas históricas. O controle de aparência é um botão com opções de rádio, substituindo os seletores de QA que dependiam do combobox público. Tipos/lint, unitários, build, contrastes e documentação acompanham a inspeção visual. [Resultados e limites](../artifacts/qa-public-redesign/README.md).
+
+## Integração editorial
+
+Executar check:editorial em loopback com BIBLIOTHEON_SYNTHETIC_TESTS=true: cria banco/mídia descartáveis, migrations, autenticação HTTP, prévia sem escrita, stale/conflicts, concorrência, três provedores, rollback e recibo. Unitários cobrem contrato/comparação. [Limites e operação](integracoes/editorial.md).

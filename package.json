@@ -118,7 +118,9 @@
     "test:privacy-retention-deadline": "node --env-file-if-exists=.env.local --import tsx tests/integration/privacy-retention-deadline.ts",
     "test:privacy-active-review": "node --env-file-if-exists=.env.local --import tsx tests/integration/privacy-active-review.ts",
     "check:worker-health": "python3 scripts/qa-worker-health.py",
-    "test:privacy-theme-legacy": "node --env-file-if-exists=.env.local --import tsx tests/integration/privacy-theme-legacy.ts"
+    "test:privacy-theme-legacy": "node --env-file-if-exists=.env.local --import tsx tests/integration/privacy-theme-legacy.ts",
+    "editorial": "node --import tsx scripts/editorial.ts",
+    "check:editorial": "node --env-file-if-exists=.env.local scripts/qa-editorial-isolated.mjs"
   },
   "dependencies": {
     "@fontsource/public-sans": "5.3.0",

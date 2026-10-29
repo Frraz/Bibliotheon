@@ -1,0 +1,10 @@
+{
+  "scope": "001-sistemas-com-ia: entrega/exportacoes/producao",
+  "files": 420,
+  "beforeSha256": "d1e002c3615bc3008774c6ac0f0bf1e3af5e135f05557ddf524fb43de63a96b6",
+  "afterSha256": "d1e002c3615bc3008774c6ac0f0bf1e3af5e135f05557ddf524fb43de63a96b6",
+  "unchanged": true,
+  "newPackage": "ebooks/001-sistemas-com-ia/publicacao/bibliotheon",
+  "remotePublication": false,
+  "relativeLinksCheckedInChangedMarkdown": 63
+}

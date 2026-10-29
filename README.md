@@ -1,5 +1,7 @@
 # Bibliotheon
 
+**Integração editorial local (28/10/2026):** pacote do projeto `ebooks`, prévia sem escrita e confirmação autenticada de livro/capa/ofertas implementados. Uma migration interna adicional; deploy e primeiro uso remoto pendentes. [Contrato e operação](docs/integracoes/editorial.md).
+
 Catálogo e páginas de venda de e-books, com painel manual Payload. Checkout e entrega externos por **Hotmart, Kiwify e Cakto**; nenhuma IA integrada ao produto.
 
 **Redesign público editorial (28/10/2026):** evolução local da home, navegação, controle de tema e apresentação das páginas públicas. [Evidências e limites](artifacts/qa-public-redesign/README.md). A imagem D127 e os aceites D126 abaixo são históricos; esta alteração não foi publicada na VPS.
@@ -115,7 +117,7 @@ Configurações exigidas pelas ferramentas continuam na raiz. Preserve [reflexoe
 
 Primeiro título: “Crie Sistemas com IA e Ganhe Dinheiro”. Domínio: bibliotheon.com.br; responsável: Warley Ferraz Almeida. E-mail público fica vazio até você adicioná-lo antes da produção. Público, material e ofertas reais ainda exigem conferência no [lançamento](docs/22-lancamento.md).
 
-Design editorial, claro/escuro, três variantes de LP e movimento definidos no [DESIGN-BRIEF](DESIGN-BRIEF.md). Rodadas visuais existentes são recortes locais; a matriz integral permanece em aberto. Cadastro manual, catálogo amplo e divulgação segmentada; clique, aprovação, recebimento e lucro são medidas distintas. Nunca inventar vendas, avaliações, escassez ou resultados financeiros.
+Design editorial, claro/escuro, três variantes de LP e movimento definidos no [DESIGN-BRIEF](DESIGN-BRIEF.md). Rodadas visuais existentes são recortes locais; a matriz integral permanece em aberto. Cadastro manual ou importação editorial revisada, catálogo amplo e divulgação segmentada; clique, aprovação, recebimento e lucro são medidas distintas. Nunca inventar vendas, avaliações, escassez ou resultados financeiros.
 
 [Instruções de trabalho](AGENTS.md) · [Qualidade](docs/15-qualidade.md) · [Backlog](docs/13-backlog.md)
 
