@@ -1,13 +1,16 @@
 import { readFile, writeFile, mkdir, realpath, stat, rename } from 'node:fs/promises'
 import path from 'node:path'
+import { editorialHTTPError } from '../src/modules/editorial/client-errors'
 import { createInterface } from 'node:readline/promises'
 import { Writable } from 'node:stream'
+import { previewHTML } from '../src/modules/editorial/preview-html'
+import { publicationWizard } from '../src/modules/editorial/wizard'
 import { CONTRACT, digest, fileDigest, parseManifest } from '../src/modules/editorial/contract'
 
-const usage = 'Uso: bibliotheon validar|preparar|publicar|consultar <pasta-do-titulo>\nBIBLIOTHEON_URL: destino (padrão https://bibliotheon.com.br). Credenciais somente no terminal privado.'
+const usage = 'Uso: bibliotheon assistir|validar|preparar|publicar|consultar <pasta-do-titulo>\nBIBLIOTHEON_URL: destino (padrão https://bibliotheon.com.br). Credenciais somente no terminal privado.'
 const [action, title, ...extra] = process.argv.slice(2)
 if (!action || action === '--help') { console.log(usage); process.exit(0) }
-if (!title || extra.length || !['validar', 'preparar', 'publicar', 'consultar'].includes(action)) { console.error(usage); process.exit(2) }
+if (!title || extra.length || !['assistir', 'validar', 'preparar', 'publicar', 'consultar'].includes(action)) { console.error(usage); process.exit(2) }
 const origin = new URL(process.env.BIBLIOTHEON_URL || 'https://bibliotheon.com.br').origin
 const target = new URL(origin)
 if (target.protocol !== 'https:' && !(target.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(target.hostname))) throw new Error('Destino exige HTTPS, exceto loopback local.')
@@ -18,14 +21,19 @@ async function privateJSON(file: string, value: unknown) {
   await writeFile(temp, JSON.stringify(value, null, 2) + '\n', { mode: 0o600 }); await rename(temp, file)
 }
 async function loadState() { try { return JSON.parse(await readFile(statePath, 'utf8')) } catch (e) { if ((e as NodeJS.ErrnoException).code === 'ENOENT') return null; throw new Error('Prévia local inválida; preserve o arquivo e confira a operação.') } }
-async function http(route: string, data: unknown, token?: string) {
-  const response = await fetch(`${origin}${route}`, { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(60000), headers: { 'Content-Type': 'application/json', Origin: origin, ...(token ? { Authorization: `JWT ${token}` } : {}) }, body: JSON.stringify(data) })
-  if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('Destino não retornou JSON. Confira URL, implantação da integração e configuração do proxy.')
+async function http(route: string, data: unknown, token?: string, method: 'GET' | 'POST' = 'POST') {
+  const response = await fetch(`${origin}${route}`, { method, redirect: 'error', signal: AbortSignal.timeout(60000), headers: { 'Content-Type': 'application/json', Origin: origin, ...(token ? { Authorization: `JWT ${token}` } : {}) }, body: method === 'GET' ? undefined : JSON.stringify(data) })
+  if (!response.headers.get('content-type')?.includes('application/json')) {
+    if (!response.ok) throw new Error(editorialHTTPError(response.status, route))
+    throw new Error('Destino não retornou JSON. Confira URL, implantação da integração e configuração do proxy.')
+  }
   const result = await response.json()
-  if (!response.ok) throw new Error(`HTTP ${response.status}: ${result.code || 'request_failed'}${result.message ? ` — ${result.message}` : ''}`)
+  if (!response.ok) throw new Error(editorialHTTPError(response.status, route, result.code, result.message))
   return result
 }
+let sessionToken: string | undefined
 async function login() {
+  if (sessionToken) return sessionToken
   if (!process.stdin.isTTY || !process.stdout.isTTY) throw new Error('Login exige terminal privado interativo. Não envie senhas por argumentos ou pelo chat.')
   let muted = false
   const output = new Writable({ write(chunk, _encoding, done) { if (!muted) process.stdout.write(chunk); done() } })
@@ -36,14 +44,40 @@ async function login() {
     const password = await reader.question(''); muted = false; process.stdout.write('\n')
     const result = await http('/api/admin-users/login', { email, password })
     if (!result.token) throw new Error('Login sem token; confira a versão do destino.')
-    return result.token as string
+    sessionToken = result.token as string
+    return sessionToken
   } finally { reader.close(); output.end() }
 }
-const escape = (v: unknown) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
-async function main() {
+async function main(command = action) {
   const old = await loadState()
-  if (action === 'preparar' && old?.pending) throw new Error('Há uma confirmação sem resultado conhecido. Use consultar ou repita publicar com a mesma prévia.')
-  if (action === 'consultar') {
+  if (command === 'assistir') {
+    const manifestPath = path.join(root, 'manifest.json')
+    let original = await readFile(manifestPath, 'utf8')
+    const manifest = parseManifest(JSON.parse(original))
+    if (old?.pending) throw new Error('Há uma confirmação incerta. Use consultar antes de alterar o pacote.')
+    console.log(`Destino: ${origin}. O login será mantido somente na memória até este assistente encerrar.`)
+    const token = await login()
+    const ask = async (prompt: string) => {
+      const reader = createInterface({ input: process.stdin, output: process.stdout })
+      try { return await reader.question(prompt) } finally { reader.close() }
+    }
+    await publicationWizard(manifest, old?.origin === origin ? old : null, {
+      ask, say: value => console.log(value),
+      request: (route, data, method) => http(route, data, token, method),
+      save: async value => {
+        if (await readFile(manifestPath, 'utf8') !== original) throw new Error('O pacote foi alterado por outro processo. Inicie uma nova revisão.')
+        if (await loadState().then(state => state?.pending)) throw new Error('Há uma confirmação incerta; preserve o pacote.')
+        await mkdir(stateDir, { recursive: true, mode: 0o700 })
+        await writeFile(path.join(stateDir, `manifest-antes-${Date.now()}.json`), original, { flag: 'wx', mode: 0o600 })
+        await privateJSON(manifestPath, value)
+        original = await readFile(manifestPath, 'utf8')
+      },
+      prepare: () => main('preparar'), readPreview: loadState, publish: () => main('publicar'),
+    })
+    return
+  }
+  if (command === 'preparar' && old?.pending) throw new Error('Há uma confirmação sem resultado conhecido. Use consultar ou repita publicar com a mesma prévia.')
+  if (command === 'consultar') {
     if (!old || old.origin !== origin) throw new Error('Não há prévia deste destino.')
     const token = await login(), result = await http('/api/v1/admin/editorial/receipt', { token: old.token }, token)
     if (result.contract !== CONTRACT) throw new Error('Contrato remoto incompatível.')
@@ -59,15 +93,14 @@ async function main() {
   if ((await stat(coverPath)).size > 5 * 1024 * 1024) throw new Error('Capa maior que 5 MiB.')
   const cover = await readFile(coverPath)
   if (fileDigest(cover) !== manifest.cover.sha256) throw new Error('Hash da capa diverge do manifesto.')
-  if (action === 'validar') { console.log(`Contrato/hash válidos. ${manifest.pending.length} pendência(s). Validações do catálogo requerem preparar.`); return }
-  if (action === 'publicar' && (!old || old.origin !== origin || old.packageHash !== digest(manifest))) throw new Error('Prepare uma prévia deste pacote e destino antes de publicar.')
+  if (command === 'validar') { console.log(`Contrato/hash válidos. ${manifest.pending.length} pendência(s). Validações do catálogo requerem preparar.`); return }
+  if (command === 'publicar' && (!old || old.origin !== origin || old.packageHash !== digest(manifest))) throw new Error('Prepare uma prévia deste pacote e destino antes de publicar.')
   const token = await login(), data = { manifest, cover: cover.toString('base64') }
-  if (action === 'preparar') {
+  if (command === 'preparar') {
     const result = await http('/api/v1/admin/editorial/preview', data, token)
     if (result.contract !== CONTRACT || result.packageHash !== digest(manifest)) throw new Error('Contrato ou hash remoto incompatível.')
     await privateJSON(statePath, { ...result, origin, pending: false })
-    const ext = manifest.cover.file.split('.').at(-1), mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : `image/${ext}`
-    const html = `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'"><title>Prévia editorial</title><style>body{max-width:900px;margin:40px auto;padding:20px;font:18px system-ui}img{max-width:220px}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><h1>${escape(manifest.book.title)}</h1><p>Destino: ${escape(origin)} · prévia de conteúdo, não captura da página final.</p><img alt="${escape(manifest.cover.alt)}" src="data:${mime};base64,${data.cover}"><h2>Pendências e conflitos</h2><pre>${escape(JSON.stringify({ blockers: result.blockers, conflicts: result.conflicts }, null, 2))}</pre><h2>Conteúdo resultante</h2><pre>${escape(JSON.stringify({ book: result.book, offers: result.offers }, null, 2))}</pre><h2>Diferenças</h2><pre>${escape(JSON.stringify(result.changes, null, 2))}</pre></html>`
+    const html = previewHTML(manifest, result, origin, data.cover)
     await writeFile(path.join(stateDir, 'preview.html'), html, { mode: 0o600 })
     console.log(`Prévia: ${path.join(stateDir, 'preview.html')}\n${result.canPublish ? 'Pronto para revisar e executar publicar.' : 'Publicação bloqueada. Confira pendências/conflitos na prévia.'}`)
     return

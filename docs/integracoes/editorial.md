@@ -58,3 +58,17 @@ BIBLIOTHEON_SYNTHETIC_TESTS=true npm run check:editorial
 Depois do release local, o proprietário implanta conforme [deploy](../../deploy.md), com a migration nova e as rotas. Proxy precisa aceitar JSON de até 8 MiB para as três rotas, mantendo demais limites e serviços. Primeiro testar preparar, conferir contrato, pendências e diferença contra o cadastro real; publicar somente pela confirmação explícita. Nunca repetir cadastro porque a consulta pública falhou após um recibo confirmado.
 
 Autenticação reutiliza a implementação fixada do Payload. Referências oficiais consultadas durante implementação: [Local API](https://payloadcms.com/docs/local-api/overview), [autenticação/token](https://payloadcms.com/docs/authentication/token-data). Não há integração nova com APIs dos provedores nesta etapa.
+
+## Acesso pelo menu do projeto editorial
+
+Na pasta ebooks, ./iniciar abre o menu numérico para escolher livro, consultar estado e executar o cliente. O nome evita conflito com o diretório ebooks dos títulos. As funções locais não dependem do cliente nem de rede. As ações remotas mostram livro/destino e continuam usando os mesmos comandos e validações. HTTP 401 orienta conferir login/sessão; HTTP 404 editorial orienta conferir destino e implantar esta API; 503 durante confirmação pede preservar a prévia e consultar recibo.
+
+## Assistente local de publicação
+
+Use ./iniciar no projeto ebooks e escolha Publicar com ajuda, ou ./bibliotheon assistir seguido da pasta do título. O login é reutilizado só na memória durante tema/cadastro/prévia/confirmação. O assistente usa REST nativo do Payload e as rotas editoriais já existentes, sem nova implantação de API ou migration para esta melhoria do cliente.
+
+Temas são listados por nome; criar e publicar um novo exige CRIAR. Cadastros de livro com mesmo título/endereço são apresentados para associação explícita; o vínculo existente é preservado. A página pode ser enviada sem novas ofertas, preservando as existentes. Uma nova oferta exige dados e declaração de conferência efetivos do proprietário; preços propostos e impedimentos de plataformas não são aprovados automaticamente.
+
+As três pendências do pacote inicial são reconhecidas por texto exato e resolvidas somente após essas etapas e confirmação de salvar. Outras pendências permanecem. Cópia anterior do manifesto é salva em .local com acesso privado; alteração concorrente do arquivo bloqueia a gravação. Diferenças com o painel exigem escolha por campo e nova prévia. O HTML mostra conteúdo legível e recolhe JSON técnico; capa preservada do site é identificada para não apresentar outra imagem como se fosse a escolhida. Publicação final exige PUBLICAR. Tema criado permanece no site se etapas posteriores forem canceladas; criação com resultado desconhecido deve ser conferida no painel antes de repetição.
+
+Confirmação incerta impede alteração do pacote e é encaminhada para consulta/repetição da mesma operação. Os testes de decisões e HTTP/PTY usam fixtures e servidor local. Nenhuma publicação real foi realizada nesta entrega.

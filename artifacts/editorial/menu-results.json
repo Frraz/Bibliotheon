@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-29",
+  "launcher": "./iniciar",
+  "ebookTests": 17,
+  "clientMessageTests": 3,
+  "realMenuSmoke": "list/details/back passed from another working directory",
+  "protectedTitleFiles": 1252,
+  "protectedTitleUnchanged": true,
+  "relativeLinks": 62,
+  "remoteCalls": false,
+  "guiOpened": false
+}

@@ -30,6 +30,8 @@ jobs:
         run: npm exec --yes --package=pnpm@10.34.7 -- pnpm install --frozen-lockfile
       - name: Verificações sem banco
         run: bash scripts/check-local.sh
+      - name: Assistente editorial com HTTP e terminal sintéticos
+        run: npm run test:editorial-wizard-client
   integration:
     name: Migrações, integrações sequenciais e build HTTP
     needs: checks

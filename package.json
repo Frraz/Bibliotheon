@@ -120,7 +120,8 @@
     "check:worker-health": "python3 scripts/qa-worker-health.py",
     "test:privacy-theme-legacy": "node --env-file-if-exists=.env.local --import tsx tests/integration/privacy-theme-legacy.ts",
     "editorial": "node --import tsx scripts/editorial.ts",
-    "check:editorial": "node --env-file-if-exists=.env.local scripts/qa-editorial-isolated.mjs"
+    "check:editorial": "node --env-file-if-exists=.env.local scripts/qa-editorial-isolated.mjs",
+    "test:editorial-wizard-client": "node --import tsx tests/integration/editorial-wizard-client.ts"
   },
   "dependencies": {
     "@fontsource/public-sans": "5.3.0",
