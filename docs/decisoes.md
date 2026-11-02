@@ -38,14 +38,20 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | `npm ci --ignore-scripts` na imagem Docker | `better-sqlite3` já traz o binário; sem compilador na imagem `slim` o `node-gyp` falhava | Sim |
 | 2026-11-02 | `content-visibility: auto` nas seções abaixo da dobra | Atraso de renderização da capa 1.150 ms → ~140 ms | Sim |
 | 2026-11-02 | Meta de Performance: **mediana** ≥ 93 (não "≥ 95 sempre"); CLS < 0,1 | O Lighthouse mobile oscila ±10 e a base do Next pesa 143 KB | Sim |
-| 2026-11-02 | O seed real deixa o 001 como "Em breve"; `--demo` só no banco local | Preço e checkout reais ainda não existem; não publico preço inventado | Sim |
-| 2026-11-02 | E-book 001: plataforma principal Kiwify/Cakto (não Hotmart) até revisão | Impedimento sobre texto gerado por IA registrado em `../ebooks` | Sim |
+| 2026-11-02 | E-book 001 sai à venda por **R$ 64,99**, só na **Hotmart** (`pay.hotmart.com/X108114152R`), sem preço "de" nem timer | Preço e link informados pelo titular; sem prazo real não há urgência. Kiwify/Cakto entram como ofertas extras quando existirem | Sim |
+| 2026-11-02 | Risco aceito pelo titular: Hotmart tem impedimento sobre texto gerado por IA (`../ebooks`); o produto pode ser barrado | Manter Kiwify/Cakto prontos para virar oferta principal em um minuto | Sim |
+| 2026-11-02 | Sem script/widget da Hotmart no site; o botão vai por `/ir` ao link de checkout | JS de terceiros piora o desempenho e quebraria o rastreio de UTM | Sim |
+| 2026-11-02 | Headline "Crie seu primeiro sistema com IA, mesmo sem saber programar" e endereço `/criar-sistemas-com-ia` aprovados | Decisão do titular | Sim |
+| 2026-11-02 | Sem e-mail de contato no lançamento; a Privacidade remete ao suporte da plataforma de compra | Titular preferiu deixar para depois; o site não coleta nome nem e-mail. Rever antes de anunciar | Sim |
+| 2026-11-02 | Sem Meta Pixel/GA4 no lançamento | Sem anúncios ainda; os contadores próprios já medem visitas e cliques por origem | Sim |
+| 2026-11-02 | "O que você recebe" é o que o checkout entrega; padrão de novos títulos: livro PDF + EPUB + 1 complemento leve (ficha/caderno) | O 001 já tem PDF, EPUB, caderno e ZIP. Ver `../ebooks/templates/14-pacote-de-entrega.md` | Sim |
+| 2026-11-02 | Só `bibliotheon.com.br` (sem `www`, não há DNS); porta 8020 e nginx do v1 reaproveitados | Descoberto no VPS | Sim |
+| 2026-11-02 | v1 descartado **sem dump** a pedido do titular: containers parados (não removidos), volumes mantidos por 2 semanas | O código já foi apagado; reversível enquanto os volumes existirem | Parcial |
 
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |
 |---|---|
-| 2 | Porta loopback e diretório (reaproveitar os do v1): descobrir ao acessar o VPS |
 | 3 | Edição de parceiro em e-book já publicado: manter a versão publicada no ar até aprovar, ou parceiro só edita rascunhos |
 | 3 | Mudança de slug de e-book publicado: redirect 301 automático? |
 | 2 | Destino do backup fora do VPS |

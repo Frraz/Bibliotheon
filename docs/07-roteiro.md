@@ -21,14 +21,14 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 ## Etapa 2 — Site público 🟡 pronto para o ar; falta a implantação no VPS
 
-**Estado (02/11/2026):** todo o código, a imagem Docker e os scripts estão prontos e **testados localmente**. Falta a parte que só você pode autorizar e informar: mexer no VPS (substituir o v1) e fornecer dados reais (ver "Pendências para ir ao ar").
+**Estado (02/11/2026):** código, imagem Docker e scripts prontos e **testados localmente** com os dados reais do 001. Falta o deploy no VPS (ver "Pendências para ir ao ar").
 
 1. ✅ Banco (SQLite + Drizzle) + migrações aplicadas ao iniciar.
 2. ✅ `scripts/seed.ts` importa o título a partir do `../ebooks` (manifest v1 sem alteração + `seeds/001-sistemas-com-ia/extras.json`).
 3. ✅ Landing, Home e Tema lendo do banco; `/ir` com UTMs; beacon de visitas.
 4. ✅ SEO (metadata, JSON-LD, sitemap, robots, OG); Termos, Privacidade e consentimento Pixel/GA4.
 5. ✅ Dockerfile + compose + nginx + scripts de atualizar, backup e aquecer.
-6. ⏳ Deploy substituindo o v1 ([06](06-deploy.md)).
+6. ⏳ Deploy substituindo o v1 ([06](06-deploy.md)). Dados reais já no seed (R$ 64,99, Hotmart).
 
 **Critérios de aceite:**
 
@@ -41,17 +41,18 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Testes:** 29 unitários (preço, UTM, manifesto, mídia, JSON-LD) e 12 E2E (`npm test`, `npm run test:e2e`), mais a imagem Docker construída, executada e com backup restaurado.
 
-### Pendências para ir ao ar (precisam de você)
+### Pendências para ir ao ar
 
-| # | O que | Por que bloqueia |
+| # | O que | Estado |
 |---|---|---|
-| 1 | **Autorizar o acesso ao VPS** para descobrir e substituir o v1 (começa só com leitura) | É produção; o plano exige backup antes |
-| 2 | **E-mail de contato** (`NEXT_PUBLIC_CONTATO_EMAIL`) | Termos e Privacidade (LGPD) saem sem canal de contato |
-| 3 | **Preço aprovado e link de checkout** do 001 (Kiwify/Cakto) | Sem isso a página fica "Em breve" (sem botão de compra) |
-| 4 | **Aprovar a headline** "Crie seu primeiro sistema com IA, mesmo sem saber programar" e o endereço `/criar-sistemas-com-ia` | São sugestões minhas; a headline do `extras.json` e o slug mudam a página inteira |
-| 5 | **Confirmar "O que você recebe"** (PDF + EPUB + caderno + ZIP) | O kit diz que a entrega muda por canal (pacote nos checkouts, só EPUB nas lojas) |
-| 6 | **Meta Pixel / GA4** (opcional) | Sem IDs, nada de terceiros carrega |
-| 7 | Revisar os textos de **Termos e Privacidade** | São um ponto de partida; não substituem parecer jurídico |
+| 1 | Acesso ao VPS | ✅ Autorizado (usuário `deploy`, sem `sudo`). Descoberta feita: v1 em `127.0.0.1:8020`, nginx e certificado já existem ([06](06-deploy.md)) |
+| 2 | E-mail de contato | Adiado pelo titular. Privacidade e Termos funcionam sem ele; **rever antes de anunciar** |
+| 3 | Preço e checkout | ✅ R$ 64,99 · Hotmart `pay.hotmart.com/X108114152R` |
+| 4 | Headline e endereço | ✅ Aprovados |
+| 5 | "O que você recebe" | ✅ 4 itens do kit (PDF + EPUB, caderno, ZIP, guias de SO). **Conferir na Hotmart que o produto entrega os 4** |
+| 6 | Meta Pixel / GA4 | Fora do lançamento |
+| 7 | Revisar Termos e Privacidade | Pendente (ponto de partida, não é parecer jurídico) |
+| 8 | Fazer `git push` e executar o deploy | Aguarda confirmação do titular |
 
 **Portão:** site real no ar, você navega no seu celular e aprova.
 
@@ -109,4 +110,4 @@ Ordem atual (reavaliar a cada 2 semanas com os dados da [rotina semanal](04-vend
 
 | Data | Ideia | Motivo / origem | Decisão |
 |---|---|---|---|
-| | | | |
+| 02/11/2026 | Página/botão "Seja afiliado" com o link de recrutamento da Hotmart (`affiliate.hotmart.com/affiliate-recruiting/view/1092C108114173`) | Titular, ao passar os links | Backlog: só depois da primeira venda |

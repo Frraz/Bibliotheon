@@ -37,10 +37,11 @@ const arquivoExtras = arg("--extras");
 const extras = arquivoExtras ? JSON.parse(readFileSync(resolve(arquivoExtras), "utf8")) : {};
 const dirExtras = arquivoExtras ? dirname(resolve(arquivoExtras)) : dirname(arquivoManifesto); // arquivos ficam ao lado do manifesto
 
-// Extras entram por cima do manifesto, no nível de `book` e no topo (samples).
+// Extras entram por cima do manifesto, no nível de `book` e no topo (samples, offers).
 const lido = manifesto.safeParse({
   ...bruto,
   samples: extras.samples ?? bruto.samples,
+  offers: extras.offers ?? bruto.offers,
   book: { ...bruto.book, ...(extras.book ?? {}) },
 });
 if (!lido.success) falhar(`Manifesto inválido:\n${lido.error.issues.map((i) => `  - ${i.path.join(".")}: ${i.message}`).join("\n")}`);

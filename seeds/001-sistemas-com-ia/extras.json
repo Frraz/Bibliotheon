@@ -1,6 +1,9 @@
 {
-  "_comentario": "Campos de venda do e-book 001 que o manifest.json v1 ainda não traz. Na Etapa 4 eles passam a viver no manifest do projeto ../ebooks. Textos tirados de oferta/pt-BR/kit-comercial.md e status.md. A headline é uma sugestão a aprovar.",
-  "tema": { "nome": "Desenvolvimento de software", "descricao": "Guias práticos para quem quer criar, publicar e vender sistemas com ajuda de inteligência artificial, mesmo começando do zero." },
+  "_comentario": "Campos de venda do e-book 001 que o manifest.json v1 ainda não traz. Na Etapa 4 eles passam a viver no manifest do projeto ../ebooks. Textos tirados de oferta/pt-BR/kit-comercial.md e status.md. Headline, endereço e preço aprovados em 02/11/2026.",
+  "tema": {
+    "nome": "Desenvolvimento de software",
+    "descricao": "Guias práticos para quem quer criar, publicar e vender sistemas com ajuda de inteligência artificial, mesmo começando do zero."
+  },
   "book": {
     "slug": "criar-sistemas-com-ia",
     "subtitle": "Do zero ao sistema no ar: aprenda a resolver problemas reais e vender soluções, mesmo começando sem saber programar.",
@@ -17,7 +20,11 @@
       "Quem espera mentoria, implantação individual ou suporte de programação.",
       "Quem quer um sistema crítico (cobrança, 2FA, offline) sem desenvolvimento adicional."
     ],
-    "formats": ["PDF", "EPUB", "Caderno de prática"],
+    "formats": [
+      "PDF",
+      "EPUB",
+      "Caderno de prática"
+    ],
     "included": [
       "Livro completo em PDF e EPUB, com 168 páginas",
       "Caderno de prática em PDF",
@@ -25,7 +32,11 @@
       "Instruções para Windows 11/WSL, Ubuntu e macOS"
     ],
     "guaranteeDays": 7,
-    "figure": { "file": "percurso.png", "alt": "Cinco etapas: ideia, documentação, construção local, demonstração e produção.", "caption": "Uma página do livro: o caminho que você percorre da ideia ao uso." },
+    "figure": {
+      "file": "percurso.png",
+      "alt": "Cinco etapas: ideia, documentação, construção local, demonstração e produção.",
+      "caption": "Uma página do livro: o caminho que você percorre da ideia ao uso."
+    },
     "toc": [
       "Antes de começar: você não precisa saber os nomes",
       "Preparar Windows 11, Ubuntu ou macOS",
@@ -51,23 +62,73 @@
       "Seu próximo sistema: aplicar o método a outro problema"
     ],
     "faq": [
-      { "q": "Preciso saber programar?", "a": "Não para começar. O livro ensina o básico durante as práticas. Você precisará executar os exercícios e aprender a conferir as respostas da IA." },
-      { "q": "O que vou construir?", "a": "Uma aplicação fictícia de ordens de serviço, a Oficina Clara, com gerente, técnicos, acesso por papel e histórico. Depois há uma atividade para adaptar o método a outro problema pequeno." },
-      { "q": "Vou ganhar dinheiro?", "a": "O livro ensina a construir e a organizar uma oferta de serviço. Contratação, receita e lucro dependem da aplicação, do mercado, dos custos e da entrega; não são garantidos." },
-      { "q": "O que preciso contratar?", "a": "O estudo local não exige VPS. IA, domínio, servidor, e-mail e armazenamento podem ter custos próprios quando você os usar. Confira os fornecedores antes de contratar." },
-      { "q": "O sistema serve para qualquer empresa?", "a": "A referência tem escopo pequeno e limites explícitos. Upload, offline, 2FA, cobranças, integrações e cenários críticos exigem desenvolvimento e testes adicionais." },
-      { "q": "Inclui suporte ou atualização?", "a": "Atendimento de compra, acesso e integridade dos arquivos pela plataforma. Sem programação individual, sem mentoria e sem compromisso de novas edições." },
-      { "q": "Como recebo o livro?", "a": "Pela área de entrega da plataforma em que você comprar, logo após a confirmação do pagamento." },
-      { "q": "Como peço reembolso?", "a": "Pelo fluxo da própria plataforma de compra, dentro do prazo de 7 dias, respeitando também os direitos previstos em lei." }
+      {
+        "q": "Preciso saber programar?",
+        "a": "Não para começar. O livro ensina o básico durante as práticas. Você precisará executar os exercícios e aprender a conferir as respostas da IA."
+      },
+      {
+        "q": "O que vou construir?",
+        "a": "Uma aplicação fictícia de ordens de serviço, a Oficina Clara, com gerente, técnicos, acesso por papel e histórico. Depois há uma atividade para adaptar o método a outro problema pequeno."
+      },
+      {
+        "q": "Vou ganhar dinheiro?",
+        "a": "O livro ensina a construir e a organizar uma oferta de serviço. Contratação, receita e lucro dependem da aplicação, do mercado, dos custos e da entrega; não são garantidos."
+      },
+      {
+        "q": "O que preciso contratar?",
+        "a": "O estudo local não exige VPS. IA, domínio, servidor, e-mail e armazenamento podem ter custos próprios quando você os usar. Confira os fornecedores antes de contratar."
+      },
+      {
+        "q": "O sistema serve para qualquer empresa?",
+        "a": "A referência tem escopo pequeno e limites explícitos. Upload, offline, 2FA, cobranças, integrações e cenários críticos exigem desenvolvimento e testes adicionais."
+      },
+      {
+        "q": "Inclui suporte ou atualização?",
+        "a": "Atendimento de compra, acesso e integridade dos arquivos pela plataforma. Sem programação individual, sem mentoria e sem compromisso de novas edições."
+      },
+      {
+        "q": "Como recebo o livro?",
+        "a": "Pela área de entrega da plataforma em que você comprar, logo após a confirmação do pagamento."
+      },
+      {
+        "q": "Como peço reembolso?",
+        "a": "Pelo fluxo da própria plataforma de compra, dentro do prazo de 7 dias, respeitando também os direitos previstos em lei."
+      }
     ],
-    "comingSoon": true
+    "comingSoon": false,
+    "price": 64.99
   },
   "samples": [
-    { "file": "amostra-03.webp", "alt": "Página de abertura do livro" },
-    { "file": "amostra-06.webp", "alt": "Capítulo 1: você não precisa saber os nomes" },
-    { "file": "amostra-11.webp", "alt": "Capítulo 2: preparar o ambiente, com comandos" },
-    { "file": "amostra-24.webp", "alt": "Tabela de verificação" },
-    { "file": "amostra-25.webp", "alt": "Capítulo 4: o que você realmente entrega" },
-    { "file": "amostra-27.webp", "alt": "Planejamento com IA e caminho da ideia ao uso" }
+    {
+      "file": "amostra-03.webp",
+      "alt": "Página de abertura do livro"
+    },
+    {
+      "file": "amostra-06.webp",
+      "alt": "Capítulo 1: você não precisa saber os nomes"
+    },
+    {
+      "file": "amostra-11.webp",
+      "alt": "Capítulo 2: preparar o ambiente, com comandos"
+    },
+    {
+      "file": "amostra-24.webp",
+      "alt": "Tabela de verificação"
+    },
+    {
+      "file": "amostra-25.webp",
+      "alt": "Capítulo 4: o que você realmente entrega"
+    },
+    {
+      "file": "amostra-27.webp",
+      "alt": "Planejamento com IA e caminho da ideia ao uso"
+    }
+  ],
+  "offers": [
+    {
+      "platform": "hotmart",
+      "url": "https://pay.hotmart.com/X108114152R",
+      "primary": true
+    }
   ]
 }

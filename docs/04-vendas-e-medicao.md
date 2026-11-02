@@ -74,7 +74,7 @@ O `/ir` repassa `utm_*`, `src`, `sck`, `fbclid` e `gclid` para a URL do checkout
 
 > Os nomes e locais exatos mudam com o tempo. **Antes do primeiro anúncio de cada plataforma**, fazer o teste: clicar na landing com UTMs de teste, chegar ao checkout, conferir que os parâmetros estão na URL e, após uma venda de teste ou real, conferir onde a origem aparece no relatório. Registrar o resultado nesta tabela.
 
-**Hotmart e IA:** o e-book 001 tem impedimento registrado em `../ebooks` sobre texto gerado por IA na Hotmart. Para esse título, usar Kiwify/Cakto como plataforma principal até revisão.
+**Hotmart e IA:** o e-book 001 tem impedimento registrado em `../ebooks` sobre texto gerado por IA na Hotmart. O titular decidiu lançar **só na Hotmart** (02/11/2026) e aceitou o risco. Se a Hotmart barrar o produto, cadastre Kiwify/Cakto como oferta principal (a página troca o botão sozinha). Não usar o script/widget da Hotmart: o botão passa pelo `/ir`.
 
 ## 5. Pixel e eventos
 
@@ -85,6 +85,8 @@ O `/ir` repassa `utm_*`, `src`, `sck`, `fbclid` e `gclid` para a URL do checkout
   - `ViewContent` na landing (`content_name`, `value`, `currency=BRL`);
   - `InitiateCheckout` no clique em qualquer oferta.
 - **GA4:** `page_view`, `view_item` e `begin_checkout` com os mesmos dados.
+
+**Quando ligar (decisão de 02/11/2026: lançar sem nenhum).** GA4: ao começar a divulgar de forma orgânica (é gratuito e mostra visitas e origens além dos contadores próprios). Meta Pixel: só ao anunciar na Meta, para o anúncio aprender quem compra e permitir remarketing. Ao ligar um deles o banner de cookies passa a aparecer.
 
 **Configuração:** `NEXT_PUBLIC_META_PIXEL_ID` e `NEXT_PUBLIC_GA4_ID` são fixados **no build** (mudar exige novo build; o `atualizar.sh` já reconstrói). Sem eles, nada de terceiros carrega e o banner de cookies nem aparece.
 

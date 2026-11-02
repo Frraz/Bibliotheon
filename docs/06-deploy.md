@@ -1,6 +1,8 @@
 # 06 — Deploy (VPS)
 
-O VPS é o mesmo dos outros sistemas: `warley.dev.ferzion.com.br` (147.93.15.214). `bibliotheon.com.br` já aponta para ele, e o **v1 (Next.js) está no ar** lá.
+O VPS é o mesmo dos outros sistemas: `warley.dev.ferzion.com.br` (147.93.15.214). `bibliotheon.com.br` (sem `www`, que não tem DNS) já aponta para ele, e o **v1 (Next.js + Postgres) está no ar** lá, em `127.0.0.1:8020`.
+
+Acesso: usuário `deploy`, no grupo `docker`, **sem `sudo` sem senha**. Tudo abaixo roda como `deploy`; só a troca do `.conf` do nginx exige `sudo` (e é opcional, ver adiante).
 
 Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byakugan/DEPLOY.md`):
 
@@ -33,30 +35,36 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 
 ## Antes do primeiro deploy: substituir o v1
 
-Fazer **nesta ordem**, e só leitura até o passo 3:
+Descoberto em 02/11/2026 (somente leitura):
 
-1. Descobrir o v1: diretório, `docker ps | grep -i biblio`, porta loopback usada, `.conf` do nginx (`grep -rl bibliotheon /etc/nginx/sites-enabled/`) e volumes.
-2. Registrar abaixo (seção "Reserva") a porta e os caminhos encontrados. **Reutilizar a mesma porta e o mesmo `.conf`** é o caminho mais simples.
-3. Backup completo do v1: `tar czf ~/backups/bibliotheon-v1-AAAAMMDD.tgz <diretório>` + dump do banco/volumes. Conferir com `tar tzf` que o arquivo abre.
-4. Parar o v1 (`docker compose down`, **sem `-v`**). Os volumes só são apagados depois de o v2 estar estável por 2 semanas.
-5. Subir o v2 (abaixo).
+- Containers `bibliotheon-app-1` (`127.0.0.1:8020`) e `bibliotheon-db-1` (Postgres), volumes `bibliotheon_database`, `bibliotheon_media`, `bibliotheon_cache`.
+- nginx: `/etc/nginx/sites-available/bibliotheon` (link em `sites-enabled/`), `proxy_pass` para `127.0.0.1:8020`, certificado Let's Encrypt do `bibliotheon.com.br` já emitido.
+- O código do v1 foi apagado pelo titular, que optou por **descartar os dados sem dump**.
+
+Ordem:
+
+1. **Construir** a imagem do v2 com o v1 ainda no ar (`docker compose -f docker-compose.prod.yml build`).
+2. **Parar** o v1 pelos nomes exatos: `docker stop bibliotheon-app-1 bibliotheon-db-1`. **Não** usar `rm`, `down -v` nem apagar volumes: parados, o v1 volta com `docker start`. Os volumes só saem depois de o v2 estar estável por 2 semanas.
+3. Subir o v2 na **mesma porta 8020** (o nginx atual já aponta para ela, então o site entra no ar sem mexer em `/etc/nginx`).
+4. Se algo falhar: `docker compose -f docker-compose.prod.yml down` e `docker start bibliotheon-db-1 bibliotheon-app-1`.
 
 ## Reserva
 
 | Recurso | Valor |
 |---|---|
-| Domínio | `bibliotheon.com.br` (+ `www` → redirect 301) |
-| Porta loopback | _preencher após o passo 1_ |
-| Diretório | `/var/www/docker-instances/Bibliotheon` (conferir) |
+| Domínio | `bibliotheon.com.br` (sem `www`) |
+| Porta loopback | **8020** (a do v1). Atenção: **8013 é do rebanho360** |
+| Diretório | `/var/www/docker-instances/Bibliotheon` |
 | Dados | `<diretório>/data/` → `bibliotheon.db` + `media/` (bind mount, dono uid 1000) |
 | Compose | `docker-compose.prod.yml` |
+| nginx | `/etc/nginx/sites-available/bibliotheon` (já existe) |
 
 ## Primeiro deploy
 
 ```bash
 cd /var/www/docker-instances && git clone <repo> Bibliotheon && cd Bibliotheon
 cp .env.example .env && nano .env          # SITE_URL, PORTA, contato
-mkdir -p data && sudo chown -R 1000:1000 data   # o container roda como "node" (uid 1000)
+mkdir -p data && docker run --rm -v "$PWD/data:/d" alpine chown -R 1000:1000 /d   # o container roda como "node" (uid 1000); sem sudo
 docker compose -f docker-compose.prod.yml up -d --build
 curl -fsS http://127.0.0.1:$PORTA/api/saude     # {"ok":true}
 ```
@@ -68,21 +76,14 @@ Colocar o e-book 001 no ar: a imagem de produção **não inclui `tsx`**, então
 DATABASE_PATH=/tmp/envio/bibliotheon.db MEDIA_DIR=/tmp/envio/media \
   npm run seed -- ../ebooks/ebooks/001-sistemas-com-ia --extras seeds/001-sistemas-com-ia/extras.json --publicar
 rsync -av /tmp/envio/ usuario@servidor:/var/www/docker-instances/Bibliotheon/data/
-# no servidor: sudo chown -R 1000:1000 data && docker compose -f docker-compose.prod.yml restart web
+# no servidor: docker run --rm -v "$PWD/data:/d" alpine chown -R 1000:1000 /d && docker compose -f docker-compose.prod.yml restart web
 ```
 
-Sem `--demo`: o e-book entra como **"Em breve"** (sem preço nem checkout), porque preço aprovado e links reais ainda não existem. Para vender, cadastre preço e ofertas (painel, Etapa 3, ou o manifesto com `price` e `offers`, Etapa 4).
+Sem `--demo`. O `extras.json` do 001 já traz o preço (R$ 64,99) e a oferta Hotmart, então ele entra à venda. Se faltassem preço ou oferta, a página ficaria "Em breve".
 
 > ⚠️ **Só no primeiro deploy.** Depois que houver dados reais em produção (e-books criados pelo painel, métricas), **nunca** envie `data/` por cima: apagaria o que foi feito lá. Depois da Etapa 4 a CLI/API passa a ser o único meio de publicar e este passo some.
 
-nginx e certificado:
-
-```bash
-sudo cp deploy/nginx/bibliotheon.com.br.conf /etc/nginx/sites-available/bibliotheon.com.br   # trocar 8013 pela PORTA
-sudo ln -sf /etc/nginx/sites-available/bibliotheon.com.br /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
-sudo certbot --nginx -d bibliotheon.com.br -d www.bibliotheon.com.br   # ou reaproveitar o certificado do v1
-```
+nginx: o `.conf` atual (só proxy para 8020) já serve o v2. Para ganhar o limite de taxa em `/ir/` e o HSTS, **o titular** (precisa de `sudo`) troca o conteúdo pelo de `deploy/nginx/bibliotheon.com.br.conf` (guarda uma cópia `.v1.bak`) e roda `sudo nginx -t && sudo systemctl reload nginx`. Não é preciso certbot: o certificado existe.
 
 Depois: abrir `https://bibliotheon.com.br`, conferir OG colando o link no WhatsApp, cadastrar o domínio no Search Console e enviar o `sitemap.xml`.
 
