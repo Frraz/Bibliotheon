@@ -155,3 +155,7 @@ Uma Home com cartão de largura fixa passou de 360 px (Android comum) e o navega
 - **Texto longo recolhido no celular** (`TextoRecolhivel`: 2 parágrafos + "Continuar lendo"; completo no desktop; o HTML tem tudo, então segue indexável).
 - **Sem `line-clamp` em frase de venda** (cortou "sabe…" no meio). Texto pequeno: mínimo 14 px.
 - Espaço reservado de `<Suspense>` com altura da tela inteira (`min-h-svh`), para o rodapé não pular.
+
+### Medição do padrão de venda (02/11/2026, build standalone, dados reais)
+
+Comparação alternada, 5 rodadas cada, nas mesmas condições (máquina com carga 3–4, o que reduz as notas): versão anterior **mediana 85**, nova **mediana 90**, 3 KB a mais. Acessibilidade, Boas práticas e SEO 100, também com a campanha ligada. CLS 0 em 360, 375, 390 e 1280 px. **A meta de 93 ainda precisa ser conferida com a máquina livre.** Auditoria impeccable: detector sem achados.

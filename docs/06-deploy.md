@@ -68,6 +68,8 @@ docker compose -f docker-compose.prod.yml up -d --build
 curl -fsS http://127.0.0.1:$PORTA/api/saude     # {"ok":true}
 ```
 
+**Depois do primeiro deploy, nunca reenviar o banco:** o `rsync` abaixo apaga as métricas e os leads. Para preço, campanha, textos e amostra, use `deploy/venda.sh` ([03](03-tecnico.md#api-de-operação-etapa-vender)), que exige `API_TOKEN` no `.env` do servidor (`openssl rand -hex 32`, e `./atualizar.sh --forcar` depois de criar).
+
 Colocar o e-book 001 no ar: a imagem de produção **não inclui `tsx`**, então o seed não roda dentro do container. Para o primeiro deploy, rode o seed **na sua máquina** e envie o resultado:
 
 ```bash

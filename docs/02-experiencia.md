@@ -20,23 +20,22 @@ Slugs reservados (não podem ser slug de e-book): `tema`, `ir`, `painel`, `api`,
 
 ## Landing page do e-book (`/[slug]`)
 
-É a página mais importante do projeto. Mobile-first. Ordem pensada para conversão: promessa → confiança → prova → objeções → compra.
+É a página mais importante do projeto. Mobile-first. Ordem do [padrão de venda](04-vendas-e-medicao.md#6-padrão-de-venda): promessa → necessidade → resultado → por que este caminho → risco → compra. Sem seção de autor.
 
 | # | Seção | Conteúdo | Campos |
 |---|---|---|---|
-| 1 | **Hero** | Capa em mockup 3D (livro com sombra e leve inclinação), headline, subtítulo, preço, CTA principal e linha de confiança: "Acesso imediato · PDF e EPUB · Garantia de 7 dias" | `capa`, `headline` (cai para `titulo`), `subtitulo`, `preco`, `precoDe`, oferta principal, `formatos`, `garantiaDias` |
-| 2 | **Faixa de urgência** | "Preço de lançamento até 15/11 — faltam 2d 14h 03m". Some sozinha no fim do prazo, quando o preço passa a `precoDe` | `ofertaAte`, `preco`, `precoDe` |
-| 3 | **Sobre o livro** | Abre com o problema do leitor em destaque (1 frase) e segue com 2 a 4 parágrafos curtos de descrição | `problema`, `descricao` |
-| 4 | **O que você vai aprender** | 3 a 6 benefícios em cards com ícone | `beneficios[]` |
-| 5 | **Para quem é / não é** | Duas colunas: ✓ e ✕ | `paraQuem[]`, `naoEPara[]` |
-| 6 | **Folheie o livro** | Carrossel de páginas de amostra; toque abre em tela cheia. Botão "Baixar amostra grátis" se houver PDF | `amostras[]`, `amostraPdf` |
-| 7 | **Sumário** | Capítulos em acordeão (fechado mostra só os títulos) | `sumario[]` |
-| 8 | **O que está incluído** | Lista do que o comprador recebe (formatos, caderno, modelos). Só itens reais | `incluido[]` |
-| 9 | **Sobre o autor** | Foto opcional, nome, 2 a 4 linhas | `autorExibido`, `sobreAutor`, `autorFoto` |
-| 10 | **Garantia** | Selo + texto curto sobre os 7 dias e o reembolso pela plataforma | `garantiaDias` |
-| 11 | **FAQ** | Perguntas em acordeão (vira schema `FAQPage`) | `faq[]` |
-| 12 | **Bloco de compra** (`#comprar`) | Preço grande + **um botão principal** ("Comprar na Kiwify") + linha "Prefere outra plataforma?" com botões secundários (logo + preço). Abaixo, pagamento seguro, garantia e, em letra menor, "Antes de comprar" (requisitos e limites honestos, o que reduz reembolso) | `ofertas[]` (ativas, ordenadas, uma `principal`), `observacoes` |
-| 13 | **Mais do tema** | Até 3 outros e-books publicados do mesmo tema | relação por `temaId` |
+| 1 | **Faixa de urgência** | "Black Friday até 30/11 · faltam 2 d 14 h 03 min". Só em campanha; some sozinha no fim do prazo | `ofertaAte`, `ofertaNome`, `preco`, `precoDe` |
+| 2 | **Hero** | Capa em mockup 3D, headline, subtítulo, preço, CTA e linha de confiança: "Acesso imediato · PDF e EPUB · Garantia de 7 dias". Em campanha: "Até 30/11 às 23h59. Depois, R$ 64,99." | `capa`, `headline` (cai para `titulo`), `subtitulo`, `preco`, `precoDe`, `parcelamento`, oferta principal, `formatos`, `garantiaDias` |
+| 3 | **Necessidade** | O problema do leitor em destaque (1 frase), as situações que ele reconhece e a descrição, recolhida | `problema`, `dores[]`, `descricao` |
+| 4 | **O que você vai saber fazer** | 3 a 6 benefícios + nova chance de comprar | `beneficios[]` |
+| 5 | **Por que este caminho** | Diferenças reais frente às alternativas, sem citar marcas | `diferenciais[]` |
+| 6 | **Para quem é / não é** | Duas colunas, incluindo o esforço exigido | `paraQuem[]`, `naoEPara[]` |
+| 7 | **Folheie o livro** | Carrossel de páginas de amostra + nova chance de comprar + amostra em PDF em troca do e-mail | `amostras[]`, `amostraPdf` |
+| 8 | **Sumário** | Lista de capítulos | `sumario[]` |
+| 9 | **O que está incluído + garantia** | O que o comprador recebe (só itens reais) e como pedir reembolso | `incluido[]`, `garantiaDias` |
+| 10 | **FAQ** | Perguntas em acordeão (vira schema `FAQPage`) | `faq[]` |
+| 11 | **Bloco de compra** (`#comprar`) | Headline de novo, preço grande, consequência do prazo, **um botão principal** + "Prefere outra plataforma?". Abaixo, "Antes de comprar" (requisitos e limites honestos, o que reduz reembolso) | `ofertas[]`, `observacoes` |
+| 12 | **Mais do tema** | Até 4 outros e-books publicados do mesmo tema | relação por `temaId` |
 | — | **Barra fixa no mobile** | Aparece depois do hero: preço + "Comprar". Some quando o bloco de compra está visível | — |
 | — | **Compartilhar** | Botão "Enviar para um amigo" (WhatsApp com link + título) no rodapé da landing | — |
 

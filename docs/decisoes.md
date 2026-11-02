@@ -52,6 +52,20 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | v1 **apagado por completo, sem dump nem registros** (containers, volumes, imagem e rede), a pedido do titular: "foi um desastre" | Código já apagado; decisão do titular. Irreversível | Não |
 | 2026-11-02 | `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` do servidor; backup em `~/backups/bibliotheon` | Nome de projeto igual ao do v1 trataria containers dele como órfãos; `data/` pertence ao uid 1000 e o cron roda como `deploy` | Sim |
 | 2026-11-02 | Ajuste mobile: cartão da Home empilhado, botão de compra em largura total, descrição recolhida ("Continuar lendo"), `grid-cols-1` em todo grid, fallback da Home `min-h-svh`, teste e2e de largura em 360/390/430 px | Titular viu a Home "esticada" no celular; achado: estouro de 3 px em 360 px. Landing 7.424 px em vez de 8.374 px | Sim |
+| 2026-11-02 | **Padrão de venda** obrigatório em toda landing de todo e-book (`CLAUDE.md`, regra 8; [04](04-vendas-e-medicao.md#6-padrão-de-venda)) | Pedido do titular: o objetivo é um só, vender | Sim |
+| 2026-11-02 | Meta: R$ 1.500/mês de **faturamento bruto**; R$ 0 em anúncios; marcos em 30/11, 31/12 e 28/02/2027 | Titular. Os marcos são critério do projeto, não previsão | Sim |
+| 2026-11-02 | **Black Friday do 001:** R$ 47 de 27 a 30/11, voltando a R$ 64,99; escassez só pelo prazo do preço; sem anunciar antes | Titular. R$ 64,99 é cobrado desde 02/11, então o "de" é verdadeiro | Sim |
+| 2026-11-02 | Etapa "Vender" entra antes das Etapas 3 e 4; painel pausado | Pedido do titular; o painel não ajuda a vender agora | Sim |
+| 2026-11-02 | Seção de autor e nome no topo saem da landing; `autorExibido` fica no banco e no JSON-LD | Titular: desnecessária por enquanto | Sim |
+| 2026-11-02 | **Substitui a linha anterior sobre Hotmart e IA:** o artigo atualizado em 30/10/2026 aceita produto feito com IA e avalia o conteúdo final; o risco agora é qualidade e reembolso. Conferido na fonte; confirmar com o suporte por escrito | O impedimento registrado em 19/10 está defasado | Sim |
+| 2026-11-02 | Cronômetro não é regra por si só: prazo só com consequência real, e necessidade antes de urgência | Meta-análise de Barton et al. (2022): escassez de tempo perto de zero em produto utilitário | Sim |
+| 2026-11-02 | `oferta.urlPromo`: o `/ir` troca o checkout junto com o prazo; a API recusa campanha que muda o preço sem esse link | Não há preço programado nas plataformas; página e checkout não podem divergir | Sim |
+| 2026-11-02 | API de operação com `API_TOKEN` em variável (`deploy/venda.sh`), adiantando só o ajuste de venda da Etapa 4 | O fluxo por `rsync` apagaria métricas e leads. Tokens por usuário ficam para a Etapa 4 | Sim |
+| 2026-11-02 | Pedido de amostra por rota (`POST /api/v1/leads`), não Server Action como no plano; tabela `lead` | A landing fica em cache, e uma Server Action antiga quebraria depois de um deploy | Sim |
+| 2026-11-02 | Sem serviço de e-mail no código: o aviso de 27/11 sai por ferramenta externa gratuita a partir do CSV | Mantém a proibição de `docs/03`; ferramenta a escolher pelo titular | Sim |
+| 2026-11-02 | A página do 001 diz que os passos de VPS foram revisados, mas não executados em servidor real | O capítulo 11 do livro afirma isso; o diferencial "sistema no ar" não pode prometer mais que o livro | Sim |
+| 2026-11-02 | Pelo menos 30 dias a preço cheio entre promoções | Critério do projeto, para o "de" continuar verdadeiro | Sim |
+| 2026-11-02 | Pendências legais (identificação do fornecedor no site, revisão de Termos e Privacidade) ficam para o fim do projeto, a pedido do titular | MVP, ainda não é projeto oficial. Sabido e adiado | Sim |
 
 ## Em aberto (decidir na etapa indicada)
 
@@ -60,3 +74,7 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 3 | Edição de parceiro em e-book já publicado: manter a versão publicada no ar até aprovar, ou parceiro só edita rascunhos |
 | 3 | Mudança de slug de e-book publicado: redirect 301 automático? |
 | 2 | Destino do backup fora do VPS |
+| Vender | Ferramenta gratuita para o aviso aos leads em 27/11 |
+| Vender | Afiliação: comissão (40–50% sugeridos) e como o link de afiliado da Hotmart convive com a landing (testar antes de convidar) |
+| Vender | Testar os passos de VPS em servidor real, para o livro sustentar o diferencial sem ressalva |
+| Fim do projeto | Pendências legais adiadas pelo titular |

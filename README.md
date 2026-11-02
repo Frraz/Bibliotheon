@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado (02/11/2026):** Etapas 0 e 1 concluídas. **Etapa 2 pronta para o ar:** site público completo (Home, landing, tema, Termos, Privacidade, `/ir`, SEO), imagem Docker e scripts de deploy testados localmente. **Falta implantar no VPS** (precisa da sua autorização e de alguns dados reais). Ver [roteiro](docs/07-roteiro.md#pendências-para-ir-ao-ar-precisam-de-você).
+> **Estado (02/11/2026):** site no ar, 001 à venda por R$ 64,99 na Hotmart. **Etapa atual: "Vender"**, antes do painel: meta de R$ 1.500/mês de faturamento. Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 
@@ -13,7 +13,7 @@ Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados 
 | [01 — Produto](docs/01-produto.md) | Visão, princípios, decisões e escopo do MVP |
 | [02 — Experiência](docs/02-experiencia.md) | Páginas, landing seção a seção, painel tela a tela |
 | [03 — Técnico](docs/03-tecnico.md) | Stack, dados, rotas, API, manifesto, CLI, segurança |
-| [04 — Vendas e medição](docs/04-vendas-e-medicao.md) | SEO, UTM, pixels, copy, lançamento, rotina semanal |
+| [04 — Vendas e medição](docs/04-vendas-e-medicao.md) | **Estratégia e padrão de venda**, SEO, UTM, pixels, campanha, rotina semanal |
 | [05 — Design](docs/05-design.md) | Direção visual, regras anti-amador, movimento, metas |
 | [06 — Deploy](docs/06-deploy.md) | VPS, substituição do v1, backup, rollback |
 | [07 — Roteiro](docs/07-roteiro.md) | Etapas com portões, critérios de aceite, backlog |
@@ -35,10 +35,11 @@ Sem `--demo`, o 001 entra como **"Em breve"** (é o que vai ao ar, enquanto não
 
 | Comando | O que faz |
 |---|---|
-| `npm test` | 29 testes unitários (preço, UTM, manifesto, mídia, JSON-LD) |
-| `npm run test:e2e` | 12 testes E2E: builda, sobe o pacote standalone com banco temporário e exercita os fluxos de venda |
+| `npm test` | 41 testes unitários (preço, campanha, UTM, manifesto, mídia, leads, JSON-LD) |
+| `npm run test:e2e` | 20 testes E2E: builda, sobe o pacote standalone com banco temporário e exercita os fluxos de venda |
 | `npm run lint` · `npm run build` | Conferências antes de qualquer deploy |
 | `npm run db:generate` | Gera migração após mudar `src/db/schema.ts` |
+| `deploy/venda.sh` | Em produção: preço, campanha, textos, amostra, relatório e leads, sem perder métricas |
 
 Deploy e backup: [06 — Deploy](docs/06-deploy.md).
 

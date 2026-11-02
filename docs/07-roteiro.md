@@ -56,7 +56,23 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** site real no ar, você navega no seu celular e aprova.
 
-## Etapa 3 — Painel (1–2 sessões)
+## Etapa "Vender" 🟡 atual (decisão de 02/11/2026: vem antes das Etapas 3 e 4)
+
+**Por quê:** o projeto acaba se não faturar R$ 1.500/mês. O painel não ajuda a vender agora. Estratégia, conta e marcos: [04](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia).
+
+1. ✅ Padrão de venda registrado como regra ([04](04-vendas-e-medicao.md#6-padrão-de-venda), `CLAUDE.md`, `../ebooks`).
+2. ✅ Landing nova: necessidade, por que este caminho, CTAs repetidos, consequência do prazo, sem autor. **Falta sua aprovação visual.**
+3. ✅ Campanha sincronizada com o checkout (`oferta.urlPromo`, `/ir`), API de operação, relatório e amostra por e-mail, testados no pacote standalone.
+4. ✅ Material em `../ebooks/ebooks/001-sistemas-com-ia/oferta/pt-BR/`: kit de parceiros, 10 roteiros de vídeo e e-mail da Black Friday. **Nada foi enviado.**
+5. ⬜ Aplicar em produção: `API_TOKEN` no servidor, `git push`, `./atualizar.sh --forcar`, `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/extras.json` e `deploy/venda.sh amostra criar-sistemas-com-ia seeds/001-sistemas-com-ia/amostra.pdf`.
+6. ⬜ Conferências na Hotmart: taxa, parcelamento, afiliação ativa, situação do produto, entrega do ZIP e confirmação escrita sobre IA.
+7. ⬜ Enviar convites e gravar vídeos (titular; ~5 h/semana assumidas).
+8. ⬜ **Black Friday, 27 a 30/11:** manter R$ 64,99 sem alteração até lá, com captura datada; em 26/11 criar o link de R$ 47 e testar a compra; em 27/11 aplicar `seeds/001-sistemas-com-ia/black-friday.json` e avisar os leads; em 01/12 conferir a volta e aplicar `fim-da-campanha.json`.
+9. ⬜ Janeiro, se houver vendas: order bump com produto real acima de R$ 10 e prova real na landing. Novo título só depois do primeiro sinal de demanda.
+
+**Portão:** os marcos da [estratégia](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia). Em 28/02/2027 o titular decide com dados.
+
+## Etapa 3 — Painel (1–2 sessões; pausada até a Etapa "Vender" dar resultado)
 
 1. Better Auth + papéis; script `criar-owner`.
 2. Lista de e-books com métricas; editor numa página ([02](02-experiencia.md#editor-do-e-book-painelebooksid)) com upload/recorte de capa e amostras.
@@ -72,7 +88,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** você usa o painel e diz "isso é simples".
 
-## Etapa 4 — Ponte com `../ebooks` (meia sessão)
+## Etapa 4 — Ponte com `../ebooks` (meia sessão; pausada, a parte de ajuste em produção já existe)
 
 1. API `POST/GET /api/v1/ebooks` + tokens.
 2. `ferramentas/publicar.py` (stdlib).
@@ -96,13 +112,13 @@ Regra: **uma melhoria = uma mudança pequena que vai ao ar no mesmo dia.** Ideia
 
 Ordem atual (reavaliar a cada 2 semanas com os dados da [rotina semanal](04-vendas-e-medicao.md#8-rotina-semanal-15-minutos)):
 
-1. **Artigos por tema (blog SEO)**: tráfego orgânico cumulativo.
-2. **Captura de lead**: "Receba o capítulo 1 grátis" (e-mail) + lista exportável; base para remarketing barato.
-3. **Webhooks de venda** (Kiwify/Hotmart/Cakto): vendas e receita por e-book e origem no painel.
-4. **A/B de headline** por e-book.
-5. **Recuperação de senha por e-mail** (SMTP).
-6. **Pacotes/combos** (vários e-books de um tema com desconto, se as plataformas suportarem).
-7. **Depoimentos reais** com autorização.
+1. **Depoimentos reais e nº de compradores** com autorização: a escassez de demanda é a que funciona em produto utilitário. Assim que existirem.
+2. **Order bump** com produto real (ex.: kit de proposta e contrato), depois das primeiras vendas.
+3. **Webhooks de venda** (Kiwify/Hotmart/Cakto): vendas e receita por e-book e origem.
+4. **Artigos por tema (blog SEO)**: tráfego orgânico cumulativo, mas lento.
+5. **Teste de promessa**: "Coloque no ar um sistema real com IA, sem depender de plataforma" contra a headline atual. Com pouco tráfego, em sequência, não em A/B.
+6. **Recuperação de senha por e-mail** (SMTP).
+7. **Pacotes/combos** (vários e-books de um tema com desconto, se as plataformas suportarem).
 8. **Busca** no catálogo (quando houver mais de ~20 e-books).
 9. **Multi-idioma** (quando houver um título traduzido).
 
@@ -110,4 +126,4 @@ Ordem atual (reavaliar a cada 2 semanas com os dados da [rotina semanal](04-vend
 
 | Data | Ideia | Motivo / origem | Decisão |
 |---|---|---|---|
-| 02/11/2026 | Página/botão "Seja afiliado" com o link de recrutamento da Hotmart (`affiliate.hotmart.com/affiliate-recruiting/view/1092C108114173`) | Titular, ao passar os links | Backlog: só depois da primeira venda |
+| 02/11/2026 | Página/botão "Seja afiliado" com o link de recrutamento da Hotmart (`affiliate.hotmart.com/affiliate-recruiting/view/1092C108114173`) | Titular, ao passar os links | O link já entra nos convites do kit de parceiros. Página própria só depois da primeira venda |

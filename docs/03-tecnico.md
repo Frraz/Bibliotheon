@@ -93,9 +93,9 @@ Convenções:
 |---|---|
 | Identidade | `id`, `ownerId` → user, `temaId` → tema, `sourceId` (único com `idioma`, nulo se criado no painel), `idioma` (padrão pt-BR), `edicao`, `slug` (único), `status: rascunho \| revisao \| publicado`, `destaque: boolean`, `publicadoEm`, `criadoEm`, `atualizadoEm` |
 | Essencial | `titulo`, `subtitulo`, `autorExibido`, `formatos: string[]`, `capa` (chave da mídia), `capaHash`, `capaAlt`, `accent` (hex) |
-| Venda | `headline`, `resumo` (1–2 frases), `problema` (1 frase), `descricao` (texto longo, parágrafos), `beneficios: string[]`, `paraQuem: string[]`, `naoEPara: string[]`, `incluido: string[]`, `observacoes` (antes de comprar), `sobreAutor`, `autorFoto` |
+| Venda | `headline`, `resumo` (1–2 frases), `problema` (1 frase), `descricao` (texto longo, parágrafos), `dores: string[]`, `beneficios: string[]`, `diferenciais: string[]`, `paraQuem: string[]`, `naoEPara: string[]`, `incluido: string[]`, `observacoes` (antes de comprar), `sobreAutor`, `autorFoto` |
 | Conteúdo | `sumario: string[]`, `faq: {p, r}[]`, `amostraPdf` (opcional) |
-| Preço | `preco`, `precoDe` (opcional), `ofertaAte` (opcional), `garantiaDias` (padrão 7), `emBreve: boolean` |
+| Preço | `preco`, `precoDe` (opcional), `ofertaAte` (opcional), `ofertaNome` (opcional; "Black Friday"), `parcelamento` (opcional), `garantiaDias` (padrão 7), `emBreve: boolean` |
 | SEO/medição | `seoTitle`, `seoDescription` (opcionais; fallback headline/resumo), `metaPixelId` (opcional) |
 
 **amostra**: `id`, `ebookId`, `imagem`, `ordem`.
@@ -150,6 +150,21 @@ Next 16 com **Cache Components**. O que foi implementado e testado na Etapa 2:
 
 A landing propaga os parâmetros da sua própria URL para os links `/ir/...` (componente `LinkOferta`, um `<a>` comum, sem prefetch). Os nomes aceitos por cada plataforma estão em [04](04-vendas-e-medicao.md#4-parâmetros-por-plataforma).
 
+## API de operação (Etapa "Vender")
+
+Autenticação: `Authorization: Bearer <API_TOKEN>` (variável do servidor; sem ela, tudo responde 401). Uso: `deploy/venda.sh`.
+
+| Rota | O que faz |
+|---|---|
+| `PATCH /api/v1/ebooks/[slug]` | Textos, preço, campanha e ofertas, com os nomes do manifesto (`book`, `offers`). Ausente não muda; `null` limpa a campanha. Ofertas são atualizadas por plataforma, nunca recriadas, para os links `/ir` e os contadores continuarem valendo. **Recusa (422) campanha que muda o preço sem `promoUrl` em toda oferta ativa.** Grava em transação e invalida o cache |
+| `PUT /api/v1/ebooks/[slug]/amostra` | Corpo = o PDF de amostra (até 15 MB, assinatura `%PDF-`) |
+| `GET /api/v1/metricas?dias=&vendas=&afiliadas=` | Relatório em texto: visitas, cliques e taxa por origem; conta da meta |
+| `GET /api/v1/leads` | CSV dos pedidos de amostra |
+
+`POST /api/v1/leads` é público: guarda o e-mail com aceite (`pedidoDeAmostra`), com limite por IP e campo isca, e devolve o link do PDF. É rota, e não Server Action, porque a landing fica em cache e uma Server Action antiga quebraria depois de um deploy.
+
+**`/ir` e campanha:** enquanto `precoVigente().emOferta`, o `/ir` usa `oferta.urlPromo`; depois do prazo, `oferta.url`. Assim a página e o checkout mudam juntos.
+
 ## API para a CLI
 
 Autenticação: `Authorization: Bearer <token>`. Token gerado em Painel → Conta, guardado só como hash.
@@ -203,12 +218,12 @@ Aceita **o `bibliotheon-editorial/v1` existente sem mudanças** (ex.: `../ebooks
 | `pending` | — | não vazio bloqueia |
 | `offers[]` | `oferta` | ver formato abaixo |
 
-Campos opcionais novos em `book`: `subtitle`, `headline`, `author`, `authorBio`, `formats[]`, `notFor[]`, `included[]`, `toc[]`, `faq[{q,a}]`, `price` (número em reais, ex.: `29.9`), `priceFrom`, `offerEndsAt` (ISO 8601 com fuso), `guaranteeDays`, `comingSoon`. Topo: `samples[]` (arquivos na mesma pasta, em ordem), `samplePdf`.
+Campos opcionais novos em `book`: `pains[]` (`dores`), `differentiators[]` (`diferenciais`), `offerName`, `installments`, `subtitle`, `headline`, `author`, `authorBio`, `formats[]`, `notFor[]`, `included[]`, `toc[]`, `faq[{q,a}]`, `price` (número em reais, ex.: `29.9`), `priceFrom`, `offerEndsAt` (ISO 8601 com fuso), `guaranteeDays`, `comingSoon`. Topo: `samples[]` (arquivos na mesma pasta, em ordem), `samplePdf`.
 
 Formato de oferta:
 
 ```json
-{ "platform": "kiwify", "url": "https://pay.kiwify.com.br/xxxx", "price": 29.9, "primary": true, "label": "Comprar na Kiwify" }
+{ "platform": "kiwify", "url": "https://pay.kiwify.com.br/xxxx", "promoUrl": "https://pay.kiwify.com.br/xxxx?coupon=BF", "price": 29.9, "primary": true, "label": "Comprar na Kiwify" }
 ```
 
 Campos desconhecidos geram aviso, nunca erro. Um exemplo canônico completo fica em `docs/exemplos/manifest.example.json` (criar na Etapa 4).

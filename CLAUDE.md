@@ -12,10 +12,11 @@ Objetivo único: **vender e-books.** Antes de qualquer trabalho, ler `README.md`
    - sistema e UX: ui-ux-pro-max;
    - movimento: emilkowalski, gsap;
    - auditoria: impeccable, **antes de todo deploy com mudança visual**.
-5. **Honestidade comercial.** Sem timer falso, preço "de" inventado, depoimento inventado ou promessa de renda/cura (ver `docs/04-vendas-e-medicao.md#6-guia-de-copy-da-landing`).
+5. **Honestidade comercial.** Sem timer falso, preço "de" inventado, depoimento inventado ou promessa de renda/cura (ver `docs/04-vendas-e-medicao.md#6-padrão-de-venda`).
 6. **Painel simples.** No máximo 4 itens de menu, uma ação principal por tela, linguagem do usuário (`docs/02-experiencia.md`).
 7. **Registrar decisões** novas ou alteradas em `docs/decisoes.md` (uma linha). Ideias que surgirem vão para "Ideias recebidas" em `docs/07-roteiro.md`.
-8. **Docs curtos.** Atualizar o doc certo quando o comportamento mudar; não criar documento novo sem necessidade.
+8. **Padrão de venda em toda landing, de todo e-book** (`docs/04-vendas-e-medicao.md#6-padrão-de-venda`). O objetivo é um só: vender. Toda página mostra necessidade, resultado, por que este caminho e redução de risco, e toda campanha tem prazo real, com data e preço depois do prazo, valendo na página e no checkout. Sem seção de autor por padrão. Nenhuma tática que exija mentir (regra 5).
+9. **Docs curtos.** Atualizar o doc certo quando o comportamento mudar; não criar documento novo sem necessidade.
 
 ## Código
 
@@ -52,6 +53,6 @@ Subir o build de produção (`npm run build && npm start -- -p 3100`) e capturar
 
 ## Fora daqui
 
-- **Projeto `../ebooks`:** só alterar o que a Etapa 4 indica (launcher `bibliotheon`, `docs/19-integracao-bibliotheon.md` e o trecho do `AGENTS.md` sobre publicação).
+- **Projeto `../ebooks`:** só alterar o que a Etapa 4 indica (launcher `bibliotheon`, `docs/19-integracao-bibliotheon.md` e o trecho do `AGENTS.md` sobre publicação) ou o que o titular pedir. Não é repositório git: guardar cópia antes de editar.
 - **VPS:** outros sistemas convivem no mesmo servidor. Nunca publicar 80/443 nem mexer em containers, portas ou `.conf` de outros projetos. Fazer backup antes de substituir o v1 (`docs/06-deploy.md`).
 - **Publicação externa, anúncios, gastos e mensagens a terceiros:** só com pedido explícito do usuário.
