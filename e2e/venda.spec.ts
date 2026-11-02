@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+const AUT = { authorization: "Bearer token-de-teste" };
+
 test.describe("landing do e-book", () => {
   test("mostra o conteúdo do banco e os dados estruturados", async ({ page, request }) => {
     await page.goto("/livro-de-teste");
@@ -83,6 +85,117 @@ test.describe("landing do e-book", () => {
     await page.goto("/livro-de-teste");
     await expect(page.getByRole("dialog", { name: /cookies/i })).toHaveCount(0);
     expect(externos).toEqual([]);
+  });
+});
+
+test.describe("padrão de venda", () => {
+  test("mostra necessidade e diferenciais, sem seção de autor", async ({ page }) => {
+    await page.goto("/livro-de-teste");
+    await expect(page.getByText("Uma dor do leitor")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Por que este caminho" })).toBeVisible();
+    await expect(page.getByText("Um diferencial real")).toBeVisible();
+    await expect(page.getByText("Quem escreveu")).toHaveCount(0);
+    await expect(page.getByText("Autora de Teste")).toHaveCount(0);
+    await expect(page.getByText("Biografia que não deve aparecer.")).toHaveCount(0);
+    await expect(page.getByText("Até 01/01 às 12h. Depois, R$ 99,00.").first()).toBeVisible();
+  });
+
+  test("descrição recolhida pode ser aberta também no desktop", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/livro-de-teste");
+    await expect(page.getByText("Primeiro paragrafo.")).toBeVisible();
+    await expect(page.getByText("Segundo paragrafo.")).toBeHidden();
+    await page.getByRole("button", { name: "Continuar lendo" }).click();
+    await expect(page.getByText("Segundo paragrafo.")).toBeVisible();
+  });
+
+  test("amostra: pede e-mail e aceite, entrega o PDF e entra na exportação", async ({ page, request }) => {
+    await page.goto("/livro-de-teste?utm_source=instagram");
+    const email = `leitor-${Date.now()}@exemplo.com`;
+    await page.getByLabel("Seu e-mail").fill(email);
+    await page.getByRole("checkbox").check();
+    await page.getByRole("button", { name: "Quero a amostra" }).click();
+    const link = page.getByRole("link", { name: "Baixar amostra (PDF)" });
+    await expect(link).toBeVisible();
+    const pdf = await request.get((await link.getAttribute("href"))!);
+    expect(pdf.headers()["content-type"]).toBe("application/pdf");
+
+    expect((await request.get("/api/v1/leads")).status()).toBe(401);
+    const csv = await (await request.get("/api/v1/leads", { headers: AUT })).text();
+    expect(csv).toContain(`"${email}","livro-de-teste","instagram"`);
+
+    const semAceite = await request.post("/api/v1/leads", { data: { slug: "livro-de-teste", email, aceite: false } });
+    expect(semAceite.status()).toBe(422);
+  });
+
+  test("API: sem token não entra e campanha sem link promocional é recusada", async ({ request }) => {
+    expect((await request.patch("/api/v1/ebooks/livro-de-teste", { data: {} })).status()).toBe(401);
+    expect((await request.get("/api/v1/metricas")).status()).toBe(401);
+    const invalido = await request.patch("/api/v1/ebooks/livro-de-teste", { headers: AUT, data: { book: { price: -1 } } });
+    expect(invalido.status()).toBe(422);
+    expect((await request.patch("/api/v1/ebooks/nao-existe", { headers: AUT, data: {} })).status()).toBe(404);
+    const sem = await request.patch("/api/v1/ebooks/livro-de-teste", { headers: AUT, data: { book: { price: 47, priceFrom: 64.99, offerEndsAt: "2030-01-01T00:00:00-03:00" } } });
+    expect(sem.status()).toBe(422);
+    expect((await sem.json()).erro).toMatch(/link promocional/);
+  });
+
+  test("campanha pela API: página e checkout mudam juntos, e voltam quando o prazo vence, sem perder as métricas", async ({ page, request }) => {
+    const irPara = async () => {
+      await page.goto("/livro-de-teste");
+      const href = (await page.getByRole("link", { name: /Comprar na Kiwify/ }).first().getAttribute("href"))!.split("?")[0];
+      return new URL((await request.get(href, { maxRedirects: 0 })).headers()["location"]);
+    };
+    const cliquesNoRelatorio = async () => {
+      const texto = await (await request.get("/api/v1/metricas?vendas=10&afiliadas=2", { headers: AUT })).text();
+      return { texto, cliques: Number(/total\s+\d+\s+(\d+)/.exec(texto)![1]) };
+    };
+    expect((await irPara()).pathname).toBe("/kiwify");
+    const inicio = await cliquesNoRelatorio();
+    expect(inicio.cliques).toBeGreaterThan(0);
+
+    const ligar = await request.patch("/api/v1/ebooks/livro-de-teste", {
+      headers: AUT,
+      data: {
+        book: { price: 47, priceFrom: 64.99, offerEndsAt: "2030-01-01T23:59:00-03:00", offerName: "Black Friday" },
+        offers: [
+          { platform: "kiwify", promoUrl: "https://pay.example.com/kiwify-promo" },
+          { platform: "cakto", promoUrl: "https://pay.example.com/cakto-promo" },
+        ],
+      },
+    });
+    expect(ligar.status()).toBe(200);
+    expect((await irPara()).pathname).toBe("/kiwify-promo");
+    await expect(page.getByText("Até 01/01 às 23h59. Depois, R$ 64,99.").first()).toBeVisible();
+    await expect(page.getByText(/Black Friday até 01\/01/).first()).toBeVisible();
+
+    // Prazo vencido: o checkout normal volta sem nenhuma outra ação
+    await request.patch("/api/v1/ebooks/livro-de-teste", { headers: AUT, data: { book: { offerEndsAt: "2026-01-01T00:00:00-03:00" } } });
+    expect((await irPara()).pathname).toBe("/kiwify");
+    await expect(page.getByText("R$ 64,99").first()).toBeVisible();
+
+    const fim = await cliquesNoRelatorio();
+    expect(fim.texto).toMatch(/10 vendas ao preço atual/);
+    expect(fim.cliques).toBe(inicio.cliques + 2); // os ajustes não apagaram nada: só somaram os dois cliques seguintes
+
+    // Restaura o título de teste para os demais testes
+    const restaurar = await request.patch("/api/v1/ebooks/livro-de-teste", {
+      headers: AUT,
+      data: {
+        book: { price: 79, priceFrom: 99, offerEndsAt: "2027-01-01T12:00:00-03:00", offerName: "Preço de lançamento" },
+        offers: [{ platform: "kiwify", promoUrl: null }, { platform: "cakto", promoUrl: null }],
+      },
+    });
+    expect(restaurar.status()).toBe(422); // com preço diferente, o prazo exige o link: a regra vale para o teste também
+    await request.patch("/api/v1/ebooks/livro-de-teste", {
+      headers: AUT,
+      data: {
+        book: { price: 79, priceFrom: 99, offerEndsAt: "2027-01-01T12:00:00-03:00", offerName: "Preço de lançamento" },
+        offers: [
+          { platform: "kiwify", promoUrl: "https://pay.example.com/kiwify?off=abc" },
+          { platform: "cakto", promoUrl: "https://pay.example.com/cakto" },
+        ],
+      },
+    });
   });
 });
 

@@ -1,0 +1,15 @@
+{
+  "_comentario": "Limpeza depois de 30/11. A página e o botão voltam sozinhos a R$ 64,99 quando o prazo vence; isto só apaga os dados da campanha.",
+  "book": {
+    "price": 64.99,
+    "priceFrom": null,
+    "offerEndsAt": null,
+    "offerName": null
+  },
+  "offers": [
+    {
+      "platform": "hotmart",
+      "promoUrl": null
+    }
+  ]
+}

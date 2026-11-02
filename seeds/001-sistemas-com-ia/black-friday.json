@@ -1,0 +1,15 @@
+{
+  "_comentario": "Ligar em 27/11 com: deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/black-friday.json. Antes, troque promoUrl pelo link real da Hotmart com R$ 47: sem isso, a API recusa.",
+  "book": {
+    "price": 47,
+    "priceFrom": 64.99,
+    "offerEndsAt": "2026-11-30T23:59:00-03:00",
+    "offerName": "Black Friday"
+  },
+  "offers": [
+    {
+      "platform": "hotmart",
+      "promoUrl": "PREENCHER-COM-O-LINK-PROMOCIONAL-DA-HOTMART"
+    }
+  ]
+}

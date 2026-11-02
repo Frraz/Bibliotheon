@@ -7,6 +7,7 @@ PORTA=3101
 E2E=".e2e"
 
 export SITE_URL="http://127.0.0.1:$PORTA"
+export API_TOKEN="token-de-teste"
 DATABASE_PATH=:memory: npm run build >/dev/null
 
 rm -rf "$E2E" && mkdir -p "$E2E/app/.next" "$E2E/data"

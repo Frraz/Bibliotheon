@@ -31,7 +31,16 @@
     "price": 79,
     "priceFrom": 99,
     "offerEndsAt": "2027-01-01T12:00:00-03:00",
-    "guaranteeDays": 7
+    "guaranteeDays": 7,
+    "pains": [
+      "Uma dor do leitor",
+      "Outra dor do leitor"
+    ],
+    "differentiators": [
+      "Um diferencial real"
+    ],
+    "offerName": "Preço de lançamento",
+    "authorBio": "Biografia que não deve aparecer."
   },
   "cover": {
     "file": "capa.jpg",
@@ -59,5 +68,6 @@
       "url": "https://pay.example.com/cakto"
     }
   ],
-  "pending": []
+  "pending": [],
+  "samplePdf": "amostra.pdf"
 }
