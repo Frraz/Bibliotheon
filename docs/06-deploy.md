@@ -82,7 +82,7 @@ Sem `--demo`. O `extras.json` do 001 já traz o preço (R$ 64,99) e a oferta Hot
 
 > ⚠️ **Só no primeiro deploy.** Depois que houver dados reais em produção (e-books criados pelo painel, métricas), **nunca** envie `data/` por cima: apagaria o que foi feito lá. Depois da Etapa 4 a CLI/API passa a ser o único meio de publicar e este passo some.
 
-nginx: o `.conf` atual (só proxy para 8020) já serve o v2. Para ganhar o limite de taxa em `/ir/` e o HSTS, **o titular** (precisa de `sudo`) troca o conteúdo pelo de `deploy/nginx/bibliotheon.com.br.conf` (guarda uma cópia `.v1.bak`) e roda `sudo nginx -t && sudo systemctl reload nginx`. Não é preciso certbot: o certificado existe.
+nginx: **aplicado em 02/11/2026** (`deploy/nginx/bibliotheon.com.br.conf` em `/etc/nginx/sites-available/bibliotheon`). Conferido: HSTS presente e, numa rajada de 80 pedidos a `/ir/`, 35 receberam 503 (limite de taxa ativo) e a página seguiu em 200. Para mudar o conf: copiar com `sudo cp` e rodar **`sudo nginx -t && sudo systemctl reload nginx`** (o `nginx -t` também precisa de `sudo`, para ler os certificados). Os avisos `protocol options redefined` vêm de outros sites do servidor e são inofensivos. Não é preciso certbot: o certificado existe.
 
 Depois: abrir `https://bibliotheon.com.br`, conferir OG colando o link no WhatsApp, cadastrar o domínio no Search Console e enviar o `sitemap.xml`.
 

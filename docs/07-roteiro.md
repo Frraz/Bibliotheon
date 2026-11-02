@@ -52,7 +52,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 | 5 | "O que você recebe" | ✅ 4 itens do kit (PDF + EPUB, caderno, ZIP, guias de SO). **Conferir na Hotmart que o produto entrega os 4** |
 | 6 | Meta Pixel / GA4 | Fora do lançamento |
 | 7 | Revisar Termos e Privacidade | Pendente (ponto de partida, não é parecer jurídico) |
-| 8 | Deploy | ✅ No ar em 02/11/2026 (commit `f8a7044` + correção do backup). **Falta o `git push` do titular** (esta máquina não tem credencial do GitHub; o servidor recebeu os commits por `git bundle`) |
+| 8 | Deploy | ✅ No ar em 02/11/2026 (commit `f8a7044` + correção do backup). nginx com limite de taxa aplicado. Esta máquina não tem credencial do GitHub: o `git push` é feito pelo titular |
 
 **Portão:** site real no ar, você navega no seu celular e aprova.
 
