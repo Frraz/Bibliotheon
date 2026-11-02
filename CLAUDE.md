@@ -41,11 +41,11 @@ Objetivo único: **vender e-books.** Antes de qualquer trabalho, ler `README.md`
 
 ## Como ver o resultado (obrigatório em mudança visual)
 
-Subir o build de produção (`npm run build && npm start -- -p 3100`) e capturar com Playwright (já instalado, usa o Chromium em `~/.cache/ms-playwright`): celular 390×844 e desktop 1280×800, primeira tela e página inteira. Conferir também: sem rolagem horizontal, sem erro de console, LCP e CLS. Para parar o servidor use `kill $(pgrep -f '[n]ext-server')` (um `pkill -f "next dev"` direto derruba o próprio shell).
+Subir o build de produção (`npm run build && npm start -- -p 3100`) e capturar com Playwright (já instalado, usa o Chromium em `~/.cache/ms-playwright`): celular 360×740, 390×844 e desktop 1280×800, primeira tela e **rolando a página** (captura de página inteira não renderiza as seções abaixo da dobra). Conferir também: sem rolagem horizontal, sem erro de console, LCP e CLS. Para parar o servidor use `kill $(pgrep -f '[n]ext-server')` (um `pkill -f "next dev"` direto derruba o próprio shell).
 
 ## Definição de pronto (qualquer tarefa)
 
-- Funciona no celular (375 px) e no desktop.
+- Funciona no celular em **360, 390 e 430 px** (sem rolagem horizontal; ver "Regras de celular" em `docs/05-design.md`) e no desktop.
 - `npm run build`, `npm run lint` e `npm test` passam.
 - Mudança visual: Lighthouse da landing ≥ 95 e auditoria impeccable feita.
 - Doc correspondente atualizado.

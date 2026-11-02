@@ -15,8 +15,8 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         <Marca />
         <p className="mx-auto mt-3 max-w-md text-pretty">Biblioteca de e-books práticos. Pagamento, entrega e reembolso são feitos pela plataforma onde você comprar.</p>
         <p className="mt-3">
-          <Link href="/termos" className="underline-offset-4 hover:underline">Termos</Link> · <Link href="/privacidade" className="underline-offset-4 hover:underline">Privacidade</Link>
-          {CONTATO_EMAIL && <> · <a href={`mailto:${CONTATO_EMAIL}`} className="underline-offset-4 hover:underline">{CONTATO_EMAIL}</a></>}
+          <Link href="/termos" className="inline-block px-1 py-2 underline-offset-4 hover:underline">Termos</Link> · <Link href="/privacidade" className="inline-block px-1 py-2 underline-offset-4 hover:underline">Privacidade</Link>
+          {CONTATO_EMAIL && <> · <a href={`mailto:${CONTATO_EMAIL}`} className="inline-block px-1 py-2 underline-offset-4 hover:underline">{CONTATO_EMAIL}</a></>}
         </p>
       </footer>
       <Consentimento />

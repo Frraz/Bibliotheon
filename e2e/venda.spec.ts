@@ -97,6 +97,20 @@ test.describe("site", () => {
     expect((await request.get("/nao-existe")).status()).toBe(404);
   });
 
+  // Regressão: em 360 px (Android comum) o cartão da Home alargava a página e o navegador a encolhia.
+  for (const largura of [360, 390, 430]) {
+    test(`celular ${largura} px: nenhuma página passa da largura da tela`, async ({ browser }) => {
+      const ctx = await browser.newContext({ viewport: { width: largura, height: 780 }, isMobile: true, hasTouch: true });
+      const page = await ctx.newPage();
+      for (const rota of ["/", "/livro-de-teste", "/tema/tema-de-teste", "/termos"]) {
+        await page.goto(rota);
+        const larguraDaPagina = await page.evaluate(() => document.documentElement.scrollWidth);
+        expect(larguraDaPagina, `${rota} em ${largura}px`).toBeLessThanOrEqual(largura);
+      }
+      await ctx.close();
+    });
+  }
+
   test("sitemap e robots", async ({ request }) => {
     const sm = await (await request.get("/sitemap.xml")).text();
     expect(sm).toContain("/livro-de-teste");

@@ -51,6 +51,7 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | Só `bibliotheon.com.br` (sem `www`, não há DNS); porta 8020 e nginx do v1 reaproveitados | Descoberto no VPS | Sim |
 | 2026-11-02 | v1 **apagado por completo, sem dump nem registros** (containers, volumes, imagem e rede), a pedido do titular: "foi um desastre" | Código já apagado; decisão do titular. Irreversível | Não |
 | 2026-11-02 | `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` do servidor; backup em `~/backups/bibliotheon` | Nome de projeto igual ao do v1 trataria containers dele como órfãos; `data/` pertence ao uid 1000 e o cron roda como `deploy` | Sim |
+| 2026-11-02 | Ajuste mobile: cartão da Home empilhado, botão de compra em largura total, descrição recolhida ("Continuar lendo"), `grid-cols-1` em todo grid, fallback da Home `min-h-svh`, teste e2e de largura em 360/390/430 px | Titular viu a Home "esticada" no celular; achado: estouro de 3 px em 360 px. Landing 7.424 px em vez de 8.374 px | Sim |
 
 ## Em aberto (decidir na etapa indicada)
 

@@ -74,15 +74,19 @@ Cor de destaque **por e-book** (`accent`): ainda não implementada; entra na Eta
 |---|---|---|---|---|---|---|
 | Landing `/criar-sistemas-com-ia` | **94–97** (rodadas: 97, 93, 81\*, 94, 96) | 100 | 100 | 100 | 2,5 s | 0 |
 | Home `/` | 81–89 | 100 | 96 | 100 | 3,0 s | 0,065 |
+| Landing, depois do ajuste mobile (02/11, 3 rodadas) | **90–99** (mediana 97) | 100 | 100 | 100 | ~1 s | 0 |
+| Home, depois do ajuste mobile (02/11, 4 rodadas) | **89–99** (mediana ~94) | 100 | 100 | 100 | 0,8–2,9 s\*\* | **0** |
 
 \* rodadas ruins coincidiram com o PC ocupado ou com o cache de imagens frio (ver abaixo).
+\*\* bimodal: ~0,8 s com o cache de imagens quente e ~2,8 s com ele frio. Em produção o `aquecer.sh` mantém quente.
 
 O que **moveu** os números (e o que não):
 
 - **`content-visibility: auto` nas seções abaixo da dobra:** o atraso de renderização da capa caiu de 1.150 ms para ~140 ms (o navegador deixou de calcular estilo e layout da página inteira de uma vez). É a mudança de maior efeito.
 - **`fetchPriority="high"` na capa** e o `<link rel=preload>` do Next.
 - **Cache de imagens frio:** a primeira imagem otimizada após reiniciar custa ~150 ms (mais num VPS fraco). O `deploy/aquecer.sh` (chamado pelo `atualizar.sh`) gera todas as variantes antes do primeiro visitante.
-- **Home abaixo da meta de Performance e com CLS 0,065:** o CLS vem do `h1` crescendo uma linha (+39 px) quando a fonte Fraunces substitui a fonte reserva (o mesmo efeito dá 0,026 na landing). Como a Home lê o banco no pedido (`<Suspense>`), o LCP também sai mais tarde. Opções, se virar prioridade: `font-display: optional` só no Fraunces, ou tornar a Home estática com aquecimento no deploy.
+- **Home: o CLS foi para 0** (02/11) ao trocar o espaço reservado do `<Suspense>` de `min-h-[70vh]` para `min-h-svh`: antes o rodapé aparecia na primeira tela e pulava para baixo quando o catálogo chegava. O texto abaixo é o diagnóstico anterior, mantido para o caso de a Performance voltar a cair.
+- **Home abaixo da meta de Performance e com CLS 0,065 (antes do ajuste):** o CLS vem do `h1` crescendo uma linha (+39 px) quando a fonte Fraunces substitui a fonte reserva (o mesmo efeito dá 0,026 na landing). Como a Home lê o banco no pedido (`<Suspense>`), o LCP também sai mais tarde. Opções, se virar prioridade: `font-display: optional` só no Fraunces, ou tornar a Home estática com aquecimento no deploy.
 
 ## Processo com as skills
 
@@ -128,7 +132,7 @@ Detector rodado nas 4 telas, em 1280×800 e 390×844, depois das correções:
 | `first-viewport-column-overflow` (editor) | **Falso positivo.** É a coluna lateral fixa (sticky) ao lado de um formulário longo, por desenho |
 | `oversized-h1`, `dark-glow`, `low-contrast`, `straggler` | **Corrigidos** (título menor, sombra neutra no CTA, `--salvia` mais escuro, `text-wrap: pretty` global) |
 
-Antes de cada deploy: repetir `.claude/skills/impeccable/scripts/impeccable detect --viewport 390x844 <url>` (e 1280x800) e conferir que só restam os dois achados acima.
+Antes de cada deploy: repetir `.claude/skills/impeccable/scripts/impeccable detect --viewport 360x740 <url>` (e 1280x800) e conferir que só restam os dois achados acima.
 
 ### Medições (build de produção, 4G lento + CPU 4× mais lenta, celular 390 px)
 
@@ -139,3 +143,15 @@ Antes de cada deploy: repetir `.claude/skills/impeccable/scripts/impeccable dete
 | Painel / Editor | 0,80 s | 0,000 | idem |
 
 O CLS da landing (0,026, dentro da meta) vem da troca da fonte do título (o Fraunces muda de largura com o tamanho óptico). Se subir, reservar altura do `h1` ou usar `font-display: optional` só nele.
+
+## Regras de celular (aprendidas em 02/11/2026)
+
+Uma Home com cartão de largura fixa passou de 360 px (Android comum) e o navegador encolheu a página: eu só tinha testado 375/390. Por isso:
+
+- **Testar sempre em 360, 390 e 430 px**, rolando a página (as seções abaixo da dobra só renderizam quando entram na tela, então captura de página inteira engana). O e2e `celular N px` falha se `scrollWidth` passar da largura.
+- **Todo `grid` com colunas só em `lg:` precisa de `grid-cols-1`** na base. Sem isso a coluna cresce com o conteúdo e alarga a página.
+- **Cartão lado a lado só a partir de `sm`.** No celular, empilhar (capa, título, preço, botão).
+- **Botão de compra em largura total no celular**; texto de confiança sem quebrar no meio de uma expressão (`whitespace-nowrap` por item).
+- **Texto longo recolhido no celular** (`TextoRecolhivel`: 2 parágrafos + "Continuar lendo"; completo no desktop; o HTML tem tudo, então segue indexável).
+- **Sem `line-clamp` em frase de venda** (cortou "sabe…" no meio). Texto pequeno: mínimo 14 px.
+- Espaço reservado de `<Suspense>` com altura da tela inteira (`min-h-svh`), para o rodapé não pular.

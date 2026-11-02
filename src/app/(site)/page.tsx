@@ -15,7 +15,7 @@ async function Conteudo() {
   return (
     <>
       <section>
-        <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-5 py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-24">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-10 px-5 py-10 sm:py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-24">
           <div>
             <h1 className="font-(family-name:--font-display) text-[clamp(2.4rem,6.6vw,4.4rem)] leading-[1.02] font-medium tracking-[-0.02em] text-balance">
               E-books práticos para resolver problemas reais
@@ -31,18 +31,19 @@ async function Conteudo() {
           </div>
 
           {destaque && (
-            <Link href={`/${destaque.slug}`} className="group relative block bg-(--papel-2) p-8 transition-colors hover:bg-[#e4d9c2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota) lg:p-10">
-              <p className="mb-6 text-sm font-medium text-(--salvia)">Em destaque</p>
-              <div className="flex gap-6">
+            <Link href={`/${destaque.slug}`} className="group relative block bg-(--papel-2) p-5 transition-colors hover:bg-[#e4d9c2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota) sm:p-8 lg:p-10">
+              <p className="mb-5 text-center text-sm font-medium text-(--salvia) sm:mb-6 sm:text-left">Em destaque</p>
+              <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-stretch sm:text-left">
                 {destaque.capa && (
-                  <Image src={destaque.capa} alt={destaque.capaAlt || `Capa de ${destaque.titulo}`} width={1600} height={2560} priority sizes="160px" className="h-auto w-32 shrink-0 shadow-[0_2px_3px_rgb(0_0_0/.12),0_18px_36px_-12px_rgb(31_42_41/.45)] transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:w-40" />
+                  <Image src={destaque.capa} alt={destaque.capaAlt || `Capa de ${destaque.titulo}`} width={1600} height={2560} priority sizes="160px" className="h-auto w-36 shrink-0 shadow-[0_2px_3px_rgb(0_0_0/.12),0_18px_36px_-12px_rgb(31_42_41/.45)] transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:w-40" />
                 )}
-                <div className="flex min-w-0 flex-col">
+                <div className="flex w-full min-w-0 flex-col">
                   <h2 className="font-(family-name:--font-display) text-[1.375rem] leading-[1.15] font-medium text-balance">{destaque.titulo}</h2>
                   {destaque.subtitulo && <p className="mt-2 text-[0.9375rem] text-(--tinta-2) text-pretty">{destaque.subtitulo}</p>}
-                  <p className="mt-auto pt-4 font-(family-name:--font-display) text-3xl leading-none font-medium">
+                  <p className="mt-4 font-(family-name:--font-display) text-3xl leading-none font-medium sm:mt-auto sm:pt-4">
                     {destaque.vigente.valor != null ? brl(destaque.vigente.valor) : <span className="text-xl text-(--tinta-2)">Em breve</span>}
                   </p>
+                  <span className="mt-5 inline-flex min-h-12 items-center justify-center bg-(--tinta) px-6 font-semibold text-(--papel) transition-colors group-hover:bg-(--terracota) sm:mt-4 sm:self-start">Conhecer o e-book</span>
                 </div>
               </div>
             </Link>
@@ -68,7 +69,7 @@ async function Conteudo() {
                 </ul>
               )}
             </div>
-            <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
+            <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:mt-12 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
               {catalogo.map((c) => (
                 <li key={c.slug}><CartaoEbookLink c={c} /></li>
               ))}
@@ -88,7 +89,7 @@ async function Conteudo() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div className="min-h-[70vh]" aria-hidden />}>
+    <Suspense fallback={<div className="min-h-svh" aria-hidden />}>
       <Conteudo />
     </Suspense>
   );

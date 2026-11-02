@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import type { CartaoEbook, EbookPublico } from "@/lib/catalogo";
 import { jsonLdDoEbook, serializarJsonLd } from "@/lib/jsonld";
 import { rotuloOferta } from "@/lib/ofertas";
@@ -9,6 +10,7 @@ import { Folhear } from "./folhear";
 import { LinkOferta } from "./link-oferta";
 import { FaixaUrgencia, OfertaProvider, PrazoOferta, PrecoAtual, PrecoDe } from "./oferta";
 import { Visita } from "./rastreio";
+import { TextoRecolhivel } from "./texto-recolhivel";
 
 // Landing do e-book (direção A · Livraria). Cada seção só aparece se houver conteúdo; nada de texto de enchimento.
 
@@ -41,6 +43,8 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
   const outras = e.ofertas.filter((o) => o !== principal);
   const vender = !e.emBreve && !!principal;
   const headline = e.headline?.trim() || e.titulo;
+  // Cada item não quebra no meio ("Garantia de 7 dias"); a linha só quebra entre os itens.
+  const microconfianca = [`Acesso imediato`, e.formatos.filter((f) => /pdf|epub/i.test(f)).join(" e "), e.garantiaDias ? `Garantia de ${e.garantiaDias} dias` : ""].filter(Boolean);
   const dadosOferta = { preco: e.preco, precoDe: e.precoDe, ofertaAte: e.ofertaAte, emBreve: !vender, inicial: e.vigente };
   const cta = (classe: string, texto?: string) =>
     principal && (
@@ -58,7 +62,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {vender && e.vigente.emOferta && <FaixaUrgencia className="bg-(--tinta) text-(--papel)" />}
 
         {/* Hero */}
-        <header id="topo" className="mx-auto grid max-w-6xl gap-x-16 gap-y-10 px-5 pt-10 pb-16 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-24">
+        <header id="topo" className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-10 px-5 pt-10 pb-16 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-24">
           <div>
             {e.autorExibido && <p className="mb-5 text-sm font-medium text-(--salvia)">E-book · {e.autorExibido}</p>}
             <h1 className="font-(family-name:--font-display) text-[clamp(2.3rem,6.4vw,3.9rem)] leading-[1.04] font-medium tracking-[-0.02em] text-balance">{headline}</h1>
@@ -66,19 +70,24 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
             {vender ? (
               <>
-                <div className="mt-8 flex flex-wrap items-end gap-x-8 gap-y-5">
+                <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-end sm:gap-x-8">
                   <div>
                     <PrecoDe className="block text-sm text-(--tinta-2)" />
                     <PrecoAtual className="block font-(family-name:--font-display) text-5xl leading-none font-medium" />
                   </div>
-                  {cta("")}
+                  {cta("w-full sm:w-auto")}
                 </div>
                 <p className="mt-5 text-sm text-(--tinta-2)">
-                  {[`Acesso imediato`, e.formatos.length ? e.formatos.filter((f) => /pdf|epub/i.test(f)).join(" e ") : "", e.garantiaDias ? `Garantia de ${e.garantiaDias} dias` : ""].filter(Boolean).join(" · ")}
+                  {microconfianca.map((t, i) => (
+                    <Fragment key={t}>
+                      {i > 0 && " · "}
+                      <span className="whitespace-nowrap">{t}</span>
+                    </Fragment>
+                  ))}
                   {outras.length > 0 && (
                     <>
                       {" · "}
-                      <a href="#comprar" className="underline underline-offset-4">outras formas de comprar</a>
+                      <a href="#comprar" className="whitespace-nowrap underline underline-offset-4">outras formas de comprar</a>
                     </>
                   )}
                 </p>
@@ -111,13 +120,9 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* Sobre o livro */}
         {(e.problema || e.descricao) && (
           <section className={`${ABAIXO} border-t border-(--filete)`}>
-            <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.1fr] lg:py-24">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.1fr] lg:py-24">
               {e.problema ? <Titulo>{e.problema}</Titulo> : <span />}
-              <div className="space-y-5 text-pretty">
-                {paragrafos(e.descricao).map((p) => (
-                  <p key={p.slice(0, 32)}>{p}</p>
-                ))}
-              </div>
+              <TextoRecolhivel paragrafos={paragrafos(e.descricao)} />
             </div>
           </section>
         )}
@@ -125,7 +130,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* O que você vai aprender */}
         {e.beneficios.length > 0 && (
           <section className={`${ABAIXO} border-t border-(--filete) bg-(--papel-2)`}>
-            <div className={`mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-5 py-16 lg:py-24 ${e.figura ? "lg:grid-cols-2 lg:items-start" : ""}`}>
+            <div className={`mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-12 px-5 py-16 lg:py-24 ${e.figura ? "lg:grid-cols-2 lg:items-start" : ""}`}>
               <div>
                 <Titulo>O que você vai saber fazer ao terminar</Titulo>
                 <ul className="mt-8 border-b border-(--filete)">
@@ -150,7 +155,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* Para quem é / não é */}
         {(e.paraQuem.length > 0 || e.naoEPara.length > 0) && (
           <section className={`${ABAIXO} border-t border-(--filete)`}>
-            <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 lg:grid-cols-2 lg:gap-0 lg:py-24">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-5 py-16 lg:grid-cols-2 lg:gap-0 lg:py-24">
               {e.paraQuem.length > 0 && (
                 <div className="lg:pr-16">
                   <TituloMenor>É para você se</TituloMenor>
@@ -197,7 +202,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* Sumário */}
         {e.sumario.length > 0 && (
           <section className={`${ABAIXO} border-b border-(--filete)`}>
-            <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-24">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-24">
               <Titulo>{e.sumario.length} capítulos</Titulo>
               <ol className="divide-y divide-(--filete) border-y border-(--filete)">
                 {e.sumario.map((c, i) => (
@@ -213,7 +218,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Incluído + garantia */}
         {(e.incluido.length > 0 || e.garantiaDias > 0) && (
-          <section className={`${ABAIXO} mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-5 py-16 lg:grid-cols-2 lg:py-24`}>
+          <section className={`${ABAIXO} mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-12 px-5 py-16 lg:grid-cols-2 lg:py-24`}>
             {e.incluido.length > 0 && (
               <div>
                 <TituloMenor>O que você recebe</TituloMenor>
@@ -238,7 +243,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* Sobre o autor */}
         {e.sobreAutor && (
           <section className={`${ABAIXO} border-t border-(--filete) bg-(--papel-2)`}>
-            <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-4 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-20">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-4 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-20">
               <TituloMenor>Quem escreveu</TituloMenor>
               <div>
                 {e.autorExibido && <p className="font-(family-name:--font-display) text-2xl">{e.autorExibido}</p>}
@@ -251,7 +256,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* FAQ */}
         {e.faq.length > 0 && (
           <section className={`${ABAIXO} border-t border-(--filete)`}>
-            <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-24">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-24">
               <Titulo>Perguntas frequentes</Titulo>
               <div className="divide-y divide-(--filete) border-y border-(--filete)">
                 {e.faq.map((f) => (
@@ -299,8 +304,8 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
               <p className="mx-auto mt-6 max-w-md text-(--papel)/75 text-pretty">As vendas deste livro ainda não foram abertas. Volte em breve.</p>
             )}
             {paragrafos(e.observacoes).length > 0 && (
-              <div className="mx-auto mt-10 max-w-md space-y-2 text-xs text-(--papel)/60 text-pretty">
-                <p className="font-medium text-(--papel)/75">Antes de comprar</p>
+              <div className="mx-auto mt-10 max-w-md space-y-2 text-sm text-(--papel)/75 text-pretty">
+                <p className="font-medium text-(--papel)">Antes de comprar</p>
                 {paragrafos(e.observacoes).map((p) => (
                   <p key={p.slice(0, 32)}>{p}</p>
                 ))}
