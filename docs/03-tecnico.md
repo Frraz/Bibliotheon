@@ -62,7 +62,8 @@ bibliotheon/
 ├── scripts/servir-teste.sh         # sobe o build standalone com banco temporário (usado pelo Playwright)
 ├── seeds/001-sistemas-com-ia/      # campos de venda do 001 que o manifest v1 ainda não traz + amostras
 ├── e2e/                            # testes Playwright + título de teste sintético
-├── deploy/                         # atualizar.sh, backup.sh, nginx
+├── atualizar.sh                    # no servidor: pull, confere versão, backup, build, troca, rollback
+├── deploy/                         # backup.sh, aquecer.sh, nginx
 ├── scripts/criar-owner.mjs         # cria o owner na 1ª vez (JS puro: roda na imagem standalone)
 ├── data/                           # NÃO versionado: bibliotheon.db + media/
 ├── docker/Dockerfile  docker-compose.prod.yml

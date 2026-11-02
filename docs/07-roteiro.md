@@ -46,7 +46,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 | # | O que | Estado |
 |---|---|---|
 | 1 | Acesso ao VPS | ✅ Autorizado (usuário `deploy`, sem `sudo`). Descoberta feita: v1 em `127.0.0.1:8020`, nginx e certificado já existem ([06](06-deploy.md)) |
-| 2 | E-mail de contato | Adiado pelo titular. Privacidade e Termos funcionam sem ele; **rever antes de anunciar** |
+| 2 | E-mail de contato | ✅ `ferzion.dev@gmail.com` (provisório) |
 | 3 | Preço e checkout | ✅ R$ 64,99 · Hotmart `pay.hotmart.com/X108114152R` |
 | 4 | Headline e endereço | ✅ Aprovados |
 | 5 | "O que você recebe" | ✅ 4 itens do kit (PDF + EPUB, caderno, ZIP, guias de SO). **Conferir na Hotmart que o produto entrega os 4** |

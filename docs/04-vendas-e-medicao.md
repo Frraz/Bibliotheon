@@ -88,7 +88,7 @@ O `/ir` repassa `utm_*`, `src`, `sck`, `fbclid` e `gclid` para a URL do checkout
 
 **Quando ligar (decisão de 02/11/2026: lançar sem nenhum).** GA4: ao começar a divulgar de forma orgânica (é gratuito e mostra visitas e origens além dos contadores próprios). Meta Pixel: só ao anunciar na Meta, para o anúncio aprender quem compra e permitir remarketing. Ao ligar um deles o banner de cookies passa a aparecer.
 
-**Configuração:** `NEXT_PUBLIC_META_PIXEL_ID` e `NEXT_PUBLIC_GA4_ID` são fixados **no build** (mudar exige novo build; o `atualizar.sh` já reconstrói). Sem eles, nada de terceiros carrega e o banner de cookies nem aparece.
+**Configuração:** `NEXT_PUBLIC_META_PIXEL_ID` e `NEXT_PUBLIC_GA4_ID` são fixados **no build** (mudar exige novo build; o `./atualizar.sh --forcar` reconstrói). Sem eles, nada de terceiros carrega e o banner de cookies nem aparece.
 
 **Nas plataformas:** configurar **o mesmo Meta Pixel** (e, se a plataforma oferecer, o token da API de Conversões) no produto em cada plataforma. É lá que acontece o evento `Purchase`, que a Meta usa para otimizar o anúncio para vendas.
 

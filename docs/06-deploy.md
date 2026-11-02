@@ -18,7 +18,7 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `docker-compose.prod.yml` | Porta só em loopback, volume `./data`, limite de 512 MB, logs rotacionados. Exige `SITE_URL` e `PORTA` no `.env` (falha antes de subir se faltar) |
 | `.env.example` | Variáveis (abaixo) |
 | `deploy/nginx/bibliotheon.com.br.conf` | Proxy do host, gzip, limite de taxa em `/ir/`, HSTS. **Não testado** (não há nginx na máquina de desenvolvimento) |
-| `deploy/atualizar.sh` | git pull, backup, build, troca, verificação por 60 s e **rollback automático** para a imagem anterior. **Não testado de ponta a ponta** (precisa do servidor); sintaxe verificada |
+| `atualizar.sh` (raiz) | git pull, backup, build, troca, verificação por 60 s e **rollback automático** para a imagem anterior. **Testado no servidor** (02/11/2026) |
 | `deploy/backup.sh` | Backup consistente do SQLite (`VACUUM INTO`, com o site no ar) + tar da mídia; 14 diários e 8 semanais. **Testado:** gera o arquivo e a **restauração foi verificada** (`integrity_check` ok e dados presentes) |
 
 ## Variáveis (`.env`, só no servidor)
@@ -88,11 +88,13 @@ Depois: abrir `https://bibliotheon.com.br`, conferir OG colando o link no WhatsA
 
 ## Atualizar (todo deploy)
 
-No servidor: `./deploy/atualizar.sh`. Ele faz git pull, backup, build, sobe e verifica `/api/saude` por 60 s; se não responder, volta sozinho para a imagem anterior.
+Fluxo: commit e **push** na sua máquina → no servidor, `./atualizar.sh` (ou, de qualquer lugar: `ssh deploy@147.93.15.214 'cd /var/www/docker-instances/Bibliotheon && ./atualizar.sh'`).
+
+O script busca o GitHub e diz se o servidor já está na última versão, se há versão nova (faz o `git pull --ff-only`) ou se o servidor está à frente (faltou o push). Se já roda a versão atual, não faz nada. Caso contrário: backup, build, troca, verificação de `/api/saude` por 60 s e **rollback automático** para a imagem anterior se não responder. Recusa rodar se houver alteração local no servidor.
+
+`./atualizar.sh --forcar` reconstrói mesmo sem versão nova: use depois de mudar o `.env` (`SITE_URL`, Pixel, GA4, e-mail), porque esses valores entram no build.
 
 Antes, localmente: `npm run build && npm test && npm run test:e2e`, e a auditoria impeccable se mudou algo visual.
-
-Mudou `SITE_URL`, pixel ou contato? O `atualizar.sh` já reconstrói a imagem, então vale igual.
 
 ## Backup
 

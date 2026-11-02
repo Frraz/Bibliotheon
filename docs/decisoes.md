@@ -42,7 +42,9 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | Risco aceito pelo titular: Hotmart tem impedimento sobre texto gerado por IA (`../ebooks`); o produto pode ser barrado | Manter Kiwify/Cakto prontos para virar oferta principal em um minuto | Sim |
 | 2026-11-02 | Sem script/widget da Hotmart no site; o botão vai por `/ir` ao link de checkout | JS de terceiros piora o desempenho e quebraria o rastreio de UTM | Sim |
 | 2026-11-02 | Headline "Crie seu primeiro sistema com IA, mesmo sem saber programar" e endereço `/criar-sistemas-com-ia` aprovados | Decisão do titular | Sim |
-| 2026-11-02 | Sem e-mail de contato no lançamento; a Privacidade remete ao suporte da plataforma de compra | Titular preferiu deixar para depois; o site não coleta nome nem e-mail. Rever antes de anunciar | Sim |
+| 2026-11-02 | E-mail de contato provisório `ferzion.dev@gmail.com` (aparece em Termos, Privacidade e rodapé) | Titular; trocar por um endereço do domínio quando existir (muda `NEXT_PUBLIC_CONTATO_EMAIL` + `./atualizar.sh --forcar`) | Sim |
+| 2026-11-02 | Backup fora do servidor adiado pelo titular | Sabido: backup no mesmo disco não protege de perda do servidor | Sim |
+| 2026-11-02 | `atualizar.sh` na raiz (substitui `deploy/atualizar.sh`): confere a versão no GitHub, só atualiza se houver novidade, `--forcar` para mudanças de `.env` | Um comando só, sem `sudo` | Sim |
 | 2026-11-02 | Sem Meta Pixel/GA4 no lançamento | Sem anúncios ainda; os contadores próprios já medem visitas e cliques por origem | Sim |
 | 2026-11-02 | "O que você recebe" é o que o checkout entrega; padrão de novos títulos: livro PDF + EPUB + 1 complemento leve (ficha/caderno) | O 001 já tem PDF, EPUB, caderno e ZIP. Ver `../ebooks/templates/14-pacote-de-entrega.md` | Sim |
 | 2026-11-02 | Alterações em `../ebooks` por pedido explícito do titular (só documentação: doc 19, templates 06 e 14, AGENTS.md); o manifesto aceita `samples` como lista de nomes (formato do gerador v2) | O gerador de `../ebooks` já emitia o v2; só `samples` divergia do schema daqui. Launcher e `publicar.py` seguem na Etapa 4 | Sim |
