@@ -50,6 +50,13 @@ describe("manifesto", () => {
     expect(avisos(m).some((a) => a.includes("materialState"))).toBe(true);
   });
 
+  it("aceita o formato v2 de ../ebooks: amostras só com o nome do arquivo e pendências em texto", () => {
+    const v2 = { ...minimo, contract: "bibliotheon-editorial/v2", samples: ["amostra-01.png", { file: "amostra-02.png", alt: "Capítulo 1" }], pending: ["Confirmar o tema"] };
+    const m = manifesto.parse(v2);
+    expect(m.samples).toEqual([{ file: "amostra-01.png", alt: undefined }, { file: "amostra-02.png", alt: "Capítulo 1" }]);
+    expect(m.pending).toHaveLength(1);
+  });
+
   it("slugify tira acentos e símbolos", () => {
     expect(slugify("Crie Sistemas com IA — e Ganhe $$ Dinheiro!")).toBe("crie-sistemas-com-ia-e-ganhe-dinheiro");
   });

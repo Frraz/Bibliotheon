@@ -52,7 +52,8 @@ export const manifesto = z.looseObject({
   edition: z.union([z.string(), z.number()]).optional(),
   book,
   cover: z.object({ file: z.string().min(1), sha256: z.string().optional(), alt: z.string().optional() }),
-  samples: z.array(z.object({ file: z.string(), alt: z.string().optional() })).optional(),
+  // O gerador de ../ebooks (v2) manda só os nomes dos arquivos; o v1 e os extras mandam { file, alt }.
+  samples: z.array(z.union([z.string().transform((file) => ({ file, alt: undefined as string | undefined })), z.object({ file: z.string(), alt: z.string().optional() })])).optional(),
   samplePdf: z.string().optional(),
   offers: z.array(oferta).default([]),
   pending: z.array(z.unknown()).default([]),
