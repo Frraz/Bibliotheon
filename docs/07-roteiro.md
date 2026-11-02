@@ -28,16 +28,16 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 3. ✅ Landing, Home e Tema lendo do banco; `/ir` com UTMs; beacon de visitas.
 4. ✅ SEO (metadata, JSON-LD, sitemap, robots, OG); Termos, Privacidade e consentimento Pixel/GA4.
 5. ✅ Dockerfile + compose + nginx + scripts de atualizar, backup e aquecer.
-6. ⏳ Deploy substituindo o v1 ([06](06-deploy.md)). Dados reais já no seed (R$ 64,99, Hotmart).
+6. ✅ Deploy no VPS, v1 removido ([06](06-deploy.md)). 001 à venda por R$ 64,99 (Hotmart).
 
 **Critérios de aceite:**
 
-- [ ] `https://bibliotheon.com.br/<slug-do-001>` no ar, igual ao protótipo aprovado. _(falta o deploy)_
+- [x] `https://bibliotheon.com.br/criar-sistemas-com-ia` no ar (200, preço, `/ir` com UTM, sitemap, OG). _(falta a sua aprovação no celular)_
 - [x] Acessibilidade 100, Boas práticas 100, SEO 100 na landing; Performance mediana 94–97 (ver [05](05-design.md#medições-das-páginas-reais-etapa-2-02112026-build-standalone-banco-real)). Home: Performance 81–89, abaixo da meta.
 - [x] Clique em oferta com `?utm_source=teste` chega ao checkout com o parâmetro (E2E), inclusive quando o clique ocorre antes do JavaScript carregar (recuperação por `Referer`).
 - [x] Teste automatizado: com `ofertaAte` no passado o preço muda e a faixa some (E2E com relógio simulado).
 - [~] Rich Results Test sem erros; OG aparece no WhatsApp. _(JSON-LD e imagem OG gerados e verificados localmente; a validação no Google e no WhatsApp exige o site público)_
-- [ ] Backup do v1 conferido; outros sistemas do VPS intactos. _(falta acessar o VPS)_
+- [x] Outros sistemas do VPS intactos (`docker ps` conferido; v1 descartado a pedido, sem backup).
 
 **Testes:** 29 unitários (preço, UTM, manifesto, mídia, JSON-LD) e 12 E2E (`npm test`, `npm run test:e2e`), mais a imagem Docker construída, executada e com backup restaurado.
 
@@ -52,7 +52,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 | 5 | "O que você recebe" | ✅ 4 itens do kit (PDF + EPUB, caderno, ZIP, guias de SO). **Conferir na Hotmart que o produto entrega os 4** |
 | 6 | Meta Pixel / GA4 | Fora do lançamento |
 | 7 | Revisar Termos e Privacidade | Pendente (ponto de partida, não é parecer jurídico) |
-| 8 | Fazer `git push` e executar o deploy | Aguarda confirmação do titular |
+| 8 | Deploy | ✅ No ar em 02/11/2026 (commit `f8a7044` + correção do backup). **Falta o `git push` do titular** (esta máquina não tem credencial do GitHub; o servidor recebeu os commits por `git bundle`) |
 
 **Portão:** site real no ar, você navega no seu celular e aprova.
 

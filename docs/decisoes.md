@@ -47,7 +47,8 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | "O que você recebe" é o que o checkout entrega; padrão de novos títulos: livro PDF + EPUB + 1 complemento leve (ficha/caderno) | O 001 já tem PDF, EPUB, caderno e ZIP. Ver `../ebooks/templates/14-pacote-de-entrega.md` | Sim |
 | 2026-11-02 | Alterações em `../ebooks` por pedido explícito do titular (só documentação: doc 19, templates 06 e 14, AGENTS.md); o manifesto aceita `samples` como lista de nomes (formato do gerador v2) | O gerador de `../ebooks` já emitia o v2; só `samples` divergia do schema daqui. Launcher e `publicar.py` seguem na Etapa 4 | Sim |
 | 2026-11-02 | Só `bibliotheon.com.br` (sem `www`, não há DNS); porta 8020 e nginx do v1 reaproveitados | Descoberto no VPS | Sim |
-| 2026-11-02 | v1 descartado **sem dump** a pedido do titular: containers parados (não removidos), volumes mantidos por 2 semanas | O código já foi apagado; reversível enquanto os volumes existirem | Parcial |
+| 2026-11-02 | v1 **apagado por completo, sem dump nem registros** (containers, volumes, imagem e rede), a pedido do titular: "foi um desastre" | Código já apagado; decisão do titular. Irreversível | Não |
+| 2026-11-02 | `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` do servidor; backup em `~/backups/bibliotheon` | Nome de projeto igual ao do v1 trataria containers dele como órfãos; `data/` pertence ao uid 1000 e o cron roda como `deploy` | Sim |
 
 ## Em aberto (decidir na etapa indicada)
 

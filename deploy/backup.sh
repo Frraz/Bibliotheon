@@ -4,7 +4,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-DESTINO="${BACKUP_DIR:-data/backups}"
+# Fora de data/: no servidor essa pasta pertence ao usuário do container (uid 1000), não a quem roda o cron.
+DESTINO="${BACKUP_DIR:-$HOME/backups/bibliotheon}"
 HOJE="$(date +%F)"
 mkdir -p "$DESTINO/diario" "$DESTINO/semanal"
 

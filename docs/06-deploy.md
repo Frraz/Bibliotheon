@@ -41,12 +41,11 @@ Descoberto em 02/11/2026 (somente leitura):
 - nginx: `/etc/nginx/sites-available/bibliotheon` (link em `sites-enabled/`), `proxy_pass` para `127.0.0.1:8020`, certificado Let's Encrypt do `bibliotheon.com.br` já emitido.
 - O código do v1 foi apagado pelo titular, que optou por **descartar os dados sem dump**.
 
-Ordem:
+Decisão do titular (02/11/2026): o v1 foi um desastre e foi **apagado por completo, sem dump nem registros** (containers `bibliotheon-app-1` e `bibliotheon-db-1`, os 3 volumes, a imagem e a rede `bibliotheon_private`). Não há v1 para voltar. O que sobrou fora do alcance do `deploy`: uma cópia antiga do `.conf` do nginx (`bibliotheon.before-admin-…`) e a pasta vazia `/var/lib/bibliotheon`, ambas de root.
 
-1. **Construir** a imagem do v2 com o v1 ainda no ar (`docker compose -f docker-compose.prod.yml build`).
-2. **Parar** o v1 pelos nomes exatos: `docker stop bibliotheon-app-1 bibliotheon-db-1`. **Não** usar `rm`, `down -v` nem apagar volumes: parados, o v1 volta com `docker start`. Os volumes só saem depois de o v2 estar estável por 2 semanas.
-3. Subir o v2 na **mesma porta 8020** (o nginx atual já aponta para ela, então o site entra no ar sem mexer em `/etc/nginx`).
-4. Se algo falhar: `docker compose -f docker-compose.prod.yml down` e `docker start bibliotheon-db-1 bibliotheon-app-1`.
+O v2 usa `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` (o v1 usava `bibliotheon`).
+
+**Rollback do v2:** `atualizar.sh` volta sozinho para a imagem anterior; manual na seção "Rollback".
 
 ## Reserva
 
@@ -97,7 +96,7 @@ Mudou `SITE_URL`, pixel ou contato? O `atualizar.sh` já reconstrói a imagem, e
 
 ## Backup
 
-Cron do host às 03:30: `cd /var/www/docker-instances/Bibliotheon && ./deploy/backup.sh`. Os arquivos ficam em `data/backups/`. **Copie-os para fora do VPS** (destino a definir: outro servidor ou storage S3-compatível); backup no mesmo disco não protege de perda do servidor.
+Cron do host às 03:30: `cd /var/www/docker-instances/Bibliotheon && ./deploy/backup.sh`. Os arquivos ficam em `~/backups/bibliotheon/` (fora de `data/`, que pertence ao uid 1000). **Copie-os para fora do VPS** (destino a definir: outro servidor ou storage S3-compatível); backup no mesmo disco não protege de perda do servidor.
 
 **Testar a restauração uma vez por mês:** abrir o `.db` de backup com o SQLite (ou subir uma cópia local) e conferir `PRAGMA integrity_check` e a contagem de e-books.
 
