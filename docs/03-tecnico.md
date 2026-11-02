@@ -12,8 +12,8 @@
 | Auth | Better Auth (e-mail/senha, sessão em cookie httpOnly) com campo `role` | Login seguro pronto; sem cadastro público |
 | Validação | Zod (formulários, API e manifesto compartilham os schemas) | Uma regra, três usos |
 | Formulários | react-hook-form + Zod + Server Actions | — |
-| Imagens | sharp → AVIF + WebP em 400/800/1200/1600 px, nome com hash | LCP baixo, cache imutável |
-| OG | `next/og` (ImageResponse) por e-book | Prévia bonita em anúncios e WhatsApp |
+| Imagens | `next/image` (otimizador do próprio Next, que usa sharp) sobre a rota `/m/...`; arquivos com hash no nome | LCP baixo, AVIF/WebP e tamanhos sob demanda sem pipeline nosso. Cache imutável em `/m` |
+| OG | `next/og` (ImageResponse) por e-book, com a fonte Fraunces embutida em `src/assets/fonts/` (licença OFL ao lado) | Prévia bonita em anúncios e WhatsApp. No runtime Node a fonte é lida com `readFile` (não `fetch`) |
 | Testes | Vitest (regras e API) + Playwright (fluxos críticos) | Só o que protege venda e dados |
 | CLI | Python 3, só biblioteca padrão | Roda a partir do `../ebooks` sem instalar nada |
 
@@ -58,7 +58,11 @@ bibliotheon/
 │   └── styles/
 ├── drizzle/                        # migrations geradas
 ├── ferramentas/publicar.py         # CLI
-├── scripts/seed.ts                 # importa um manifest local (Etapa 2)
+├── scripts/seed.ts                 # importa um título (manifest v1 + extras) para o banco; Etapa 4 troca pela API
+├── scripts/servir-teste.sh         # sobe o build standalone com banco temporário (usado pelo Playwright)
+├── seeds/001-sistemas-com-ia/      # campos de venda do 001 que o manifest v1 ainda não traz + amostras
+├── e2e/                            # testes Playwright + título de teste sintético
+├── deploy/                         # atualizar.sh, backup.sh, nginx
 ├── scripts/criar-owner.mjs         # cria o owner na 1ª vez (JS puro: roda na imagem standalone)
 ├── data/                           # NÃO versionado: bibliotheon.db + media/
 ├── docker/Dockerfile  docker-compose.prod.yml
@@ -69,7 +73,7 @@ bibliotheon/
 
 Convenções:
 
-- IDs são texto (`cuid2`);
+- IDs são texto (UUID v4, `crypto.randomUUID()`);
 - datas em UTC (ISO);
 - dinheiro em **centavos** (inteiro);
 - listas em coluna JSON validada por Zod.
@@ -117,19 +121,33 @@ Adicionar uma plataforma = um item no enum + logo SVG em `public/plataformas/` +
 
 ## Renderização e cache
 
-- Com **Cache Components** ligado (padrão do Next 16.4), `revalidate` por rota não existe mais. Home, tema e landing buscam dados em funções com `'use cache'` + `cacheTag('ebook:<slug>')` + `cacheLife` (ex.: 5 min); toda gravação do painel/API chama `updateTag`/`revalidateTag` das tags afetadas, e o conteúdo novo aparece na hora. O que depende da requisição (sessão, `?previa=1`) fica dentro de `<Suspense>`. Detalhes a confirmar na Etapa 2 em `node_modules/next/dist/docs/01-app/01-getting-started/08-caching.md`.
-- Painel: dinâmico, sem cache.
-- Mídia em `/m/<ebookId>/<hash>-<largura>.<ext>`: `Cache-Control: public, max-age=31536000, immutable`.
-- Visitas: a landing envia `navigator.sendBeacon('/api/v1/v', {ebookId, origem})`, uma vez por e-book por sessão (sessionStorage), ignorando bots por user-agent. Cliques: contados no servidor em `/ir`.
+Next 16 com **Cache Components**. O que foi implementado e testado na Etapa 2:
+
+| Rota | Estratégia | Por quê |
+|---|---|---|
+| `/[slug]`, `/tema/[slug]` | `ensureStatic = 'navigation'` + `generateStaticParams` | Página inteira estática. O primeiro acesso a um slug novo **espera a página completa** (não serve esqueleto), o que importa para o Google. Dados via funções `use cache` |
+| `/` (Home) | `connection()` dentro de `<Suspense>` | O banco do build é vazio: ler no pedido evita que o primeiro visitante pós-deploy veja uma Home vazia. As consultas continuam em cache |
+| `/termos`, `/privacidade` | Estáticas | Sem dados |
+| `/ir/[ofertaId]`, `/api/*`, `/m/*`, `sitemap.xml` | Dinâmicas | Gravam métrica, leem arquivo/banco por pedido. `/api/saude` e `sitemap` chamam `connection()` para **nunca** serem pré-renderizadas |
+
+- **Dados:** `src/lib/catalogo.ts`, funções `use cache` com `cacheLife("minutes")` e tags `ebooks`, `ebook:<slug>`, `tema:<slug>`, `temas`. Tudo serializável (datas em ISO). Quando o painel (Etapa 3) ou a API (Etapa 4) gravarem, chamam `revalidateTag`/`updateTag` dessas tags e a página nova aparece na hora.
+- **Slug sentinela `_`:** o Next exige ao menos um conjunto de parâmetros em `generateStaticParams`, e o build do Docker não tem banco. `slugsDosEbooks()` devolve `["_"]` quando não há dados (a página vira 404). Os slugs reais são gerados no primeiro acesso.
+- **Banco em memória no build:** `DATABASE_PATH=:memory:` nasce já migrado (vazio), para as consultas do build não falharem.
+- **Restrição do `ensureStatic`:** vale para a rota inteira, **inclusive o layout**. Nada de `connection()`, `cookies()` nem consulta sem cache em layout ou página dessas rotas. Foi por isso que a navegação de temas saiu do cabeçalho.
+- **Preço e urgência:** o servidor entrega o estado do momento em que o cache foi preenchido; o navegador recalcula com a hora real (`OfertaProvider`, `useSyncExternalStore`). Quando a oferta vence, a faixa some e o preço sobe sozinho mesmo com a página em cache. Antes de hidratar, a faixa reserva o mesmo espaço (altura e largura) para não gerar CLS.
+- **Mídia:** `/m/<chave>` com `Cache-Control: public, max-age=31536000, immutable` (o nome do arquivo leva o hash). Aceita `MEDIA_DIR` relativo ou absoluto.
+- **Visitas:** a landing envia `navigator.sendBeacon('/api/v1/v', {s: slug, o: utm_source})` uma vez por e-book por sessão. Robôs e pré-visualizadores (WhatsApp etc.) são ignorados por user-agent.
+- **`SITE_URL` fixado no build** (`env` em `next.config.ts`): vale igual para o que é estático e para o dinâmico.
 
 ## Saída rastreada `/ir/[ofertaId]`
 
-1. Busca a oferta ativa; se não existir, redireciona para a landing.
-2. Incrementa a métrica de clique (`origem` = `utm_source` recebido ou "direto").
-3. Monta a URL de destino preservando a query já existente na URL da oferta e repassando os parâmetros da landing: `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `src`, `sck`, `fbclid`, `gclid`.
-4. Responde `302` com `Cache-Control: no-store` e `X-Robots-Tag: noindex`.
+1. Busca a oferta **ativa** de um e-book **publicado**; se não existir, redireciona para `/` (nunca para fora).
+2. Descobre a origem: parâmetros da própria URL; se a requisição chegou **sem** nenhum (clique antes de o JavaScript carregar), recupera os da página de onde veio pelo cabeçalho `Referer`, **só se for do próprio site** (`SITE_URL`). Função pura `parametrosDeOrigem`, testada.
+3. Monta a URL de destino: mantém a query já cadastrada na oferta e repassa `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `src`, `sck`, `fbclid`, `gclid` (cada valor limitado a 200 caracteres; em conflito vale o recebido). **Só aceita destino `https`.**
+4. Conta o clique (não conta robôs nem pré-visualizadores; `origem` só aceita valores da convenção de UTM, o resto vira `outro`). Falha de métrica **nunca** impede o redirecionamento.
+5. Responde `302` com `Cache-Control: no-store` e `X-Robots-Tag: noindex`. Os redirecionamentos internos usam `SITE_URL`, não `req.nextUrl.origin` (atrás do nginx a origem interna não é a pública).
 
-A landing propaga os parâmetros da sua própria URL para os links `/ir/...`. Os nomes aceitos por cada plataforma estão em [04](04-vendas-e-medicao.md#4-parâmetros-por-plataforma).
+A landing propaga os parâmetros da sua própria URL para os links `/ir/...` (componente `LinkOferta`, um `<a>` comum, sem prefetch). Os nomes aceitos por cada plataforma estão em [04](04-vendas-e-medicao.md#4-parâmetros-por-plataforma).
 
 ## API para a CLI
 
@@ -218,9 +236,9 @@ python3 ferramentas/publicar.py login            # pede o token (oculto) e salva
 - Todas as Server Actions e rotas do painel conferem sessão **e** dono do recurso no servidor.
 - **Uploads:**
   - limite de 10 MB por imagem;
-  - formato validado pelo conteúdo (sharp lê ou rejeita), nunca pela extensão;
+  - formato validado pelo conteúdo (o `next/image`/sharp recusa o que não for imagem), e `/m` só serve extensões da lista (jpg, png, webp, avif, pdf), nunca o banco nem scripts;
   - EXIF removido;
   - PDF de amostra até 15 MB, com conferência da assinatura `%PDF`.
-- Cabeçalhos: CSP com nonce (como no v1), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS no nginx. A CSP libera os domínios do Meta Pixel/GA4.
+- Cabeçalhos (em `next.config.ts` e no nginx): `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, HSTS. **Sem CSP com nonce:** o nonce exige renderização dinâmica e derrubaria as páginas estáticas; o site não renderiza conteúdo de usuário sem escape. Reavaliar com CSP por hash se o painel (Etapa 3) pedir.
 - `/ir` só redireciona para URLs de ofertas cadastradas (sem open redirect).
 - Segredos só em `.env` no servidor; `.env.example` versionado.

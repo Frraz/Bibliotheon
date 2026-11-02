@@ -35,7 +35,7 @@ export default async function PaginaTema({ params }: PageProps<"/tema/[slug]">) 
         {t.descricao && <p className="mt-5 max-w-2xl text-[1.1875rem] text-(--tinta-2) text-pretty">{t.descricao}</p>}
         <ul className="mt-14 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
           {ebooks.map((c) => (
-            <li key={c.slug}><CartaoEbookLink c={c} /></li>
+            <li key={c.slug}><CartaoEbookLink c={c} nivel={2} /></li>
           ))}
         </ul>
       </div>

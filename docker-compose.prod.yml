@@ -1,0 +1,23 @@
+# Regras do servidor (ver docs/06-deploy.md): nada publica 80/443; o app só escuta em loopback;
+# container_name com prefixo; dados em volume. O nginx do host faz o proxy.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        SITE_URL: ${SITE_URL:?defina SITE_URL no .env}
+        NEXT_PUBLIC_META_PIXEL_ID: ${NEXT_PUBLIC_META_PIXEL_ID:-}
+        NEXT_PUBLIC_GA4_ID: ${NEXT_PUBLIC_GA4_ID:-}
+        NEXT_PUBLIC_CONTATO_EMAIL: ${NEXT_PUBLIC_CONTATO_EMAIL:-}
+    image: bibliotheon:${IMAGE_TAG:-latest}
+    container_name: bibliotheon_web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PORTA:?defina PORTA no .env}:3000"
+    volumes:
+      - ./data:/app/data
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "5" }

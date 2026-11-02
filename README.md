@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado:** Etapas 0 e 1 concluídas (documentação e protótipo visual, direção **A · Livraria**). Telas navegáveis em `/prototipo/home`, `/landing`, `/painel` e `/painel/editor` (dados de demonstração). **Próxima: Etapa 2, site público no ar.** Ver [roteiro](docs/07-roteiro.md).
+> **Estado (02/11/2026):** Etapas 0 e 1 concluídas. **Etapa 2 pronta para o ar:** site público completo (Home, landing, tema, Termos, Privacidade, `/ir`, SEO), imagem Docker e scripts de deploy testados localmente. **Falta implantar no VPS** (precisa da sua autorização e de alguns dados reais). Ver [roteiro](docs/07-roteiro.md#pendências-para-ir-ao-ar-precisam-de-você).
 
 ## Documentação
 
@@ -26,13 +26,21 @@ Requer Node 22+.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000 (hoje redireciona para /prototipo/home)
-npm run lint
-npm run build    # build de produção; conferir sem erros antes de qualquer deploy
-npm start        # serve o build
+# Importa o e-book 001 para o banco local (data/). --demo = preço e checkouts FICTÍCIOS, só para ver a página completa.
+npm run seed -- ../ebooks/ebooks/001-sistemas-com-ia --extras seeds/001-sistemas-com-ia/extras.json --publicar --demo
+npm run dev            # http://localhost:3000
 ```
 
-Banco, seed, Vitest e testes E2E entram na Etapa 2 (ver [roteiro](docs/07-roteiro.md)).
+Sem `--demo`, o 001 entra como **"Em breve"** (é o que vai ao ar, enquanto não há preço nem checkout reais).
+
+| Comando | O que faz |
+|---|---|
+| `npm test` | 29 testes unitários (preço, UTM, manifesto, mídia, JSON-LD) |
+| `npm run test:e2e` | 12 testes E2E: builda, sobe o pacote standalone com banco temporário e exercita os fluxos de venda |
+| `npm run lint` · `npm run build` | Conferências antes de qualquer deploy |
+| `npm run db:generate` | Gera migração após mudar `src/db/schema.ts` |
+
+Deploy e backup: [06 — Deploy](docs/06-deploy.md).
 
 ## Publicar um e-book a partir do `../ebooks`
 

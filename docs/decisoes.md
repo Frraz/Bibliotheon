@@ -26,13 +26,26 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | shadcn/ui no estilo `base-nova` (Base UI), com `cn` do próprio shadcn | É o que o CLI atual instala; o doc dizia Radix | Sim |
 | 2026-11-02 | Cantos quase retos (`--radius: .25rem`), sem modo escuro | Coerência com a capa e a landing; modo escuro não está no escopo | Sim |
 | 2026-11-02 | Botão e campo padrão com 44 px de altura | Alvo de toque no celular (tráfego pago é móvel) | Sim |
+| 2026-11-02 | Banco: SQLite + Drizzle, UUID v4 (não cuid2), migrações aplicadas ao iniciar o servidor (`instrumentation.ts`) | Zero serviço extra; menos uma dependência | Sim |
+| 2026-11-02 | Imagens pelo otimizador do `next/image` sobre `/m/...` (não pipeline próprio com sharp) | Menos código; mesmo resultado (WebP, tamanhos sob demanda) | Sim |
+| 2026-11-02 | `ensureStatic = 'navigation'` em landing e tema; Home lê no pedido (`connection()` + `<Suspense>`) | Landing inteira estática para SEO; Home dinâmica porque o banco do build é vazio e não quero que o 1º visitante veja uma Home vazia | Sim |
+| 2026-11-02 | Slug sentinela `_` em `generateStaticParams` | O Next exige ≥ 1 parâmetro e o build do Docker não tem banco | Sim |
+| 2026-11-02 | Cabeçalhos de segurança sem CSP com nonce | Nonce exige renderização dinâmica e derrubaria as páginas estáticas; o site não renderiza conteúdo de usuário sem escape | Sim |
+| 2026-11-02 | `SITE_URL` e IDs de pixel fixados no build | Garante canonical/sitemap iguais no estático e no dinâmico | Sim |
+| 2026-11-02 | `/ir` recupera UTM pelo `Referer` (só do próprio site, via `SITE_URL`) quando o clique chega antes do JavaScript | Evita perder a atribuição da venda em celular lento | Sim |
+| 2026-11-02 | Métricas só aceitam origens da convenção de UTM; o resto vira `outro`; robôs e pré-visualizadores não contam | Impede encher a tabela e inflar números | Sim |
+| 2026-11-02 | Navegação de temas removida do cabeçalho | `ensureStatic` vale para o layout e a lista dependia do banco; os temas aparecem na Home | Sim |
+| 2026-11-02 | `npm ci --ignore-scripts` na imagem Docker | `better-sqlite3` já traz o binário; sem compilador na imagem `slim` o `node-gyp` falhava | Sim |
+| 2026-11-02 | `content-visibility: auto` nas seções abaixo da dobra | Atraso de renderização da capa 1.150 ms → ~140 ms | Sim |
+| 2026-11-02 | Meta de Performance: **mediana** ≥ 93 (não "≥ 95 sempre"); CLS < 0,1 | O Lighthouse mobile oscila ±10 e a base do Next pesa 143 KB | Sim |
+| 2026-11-02 | O seed real deixa o 001 como "Em breve"; `--demo` só no banco local | Preço e checkout reais ainda não existem; não publico preço inventado | Sim |
 | 2026-11-02 | E-book 001: plataforma principal Kiwify/Cakto (não Hotmart) até revisão | Impedimento sobre texto gerado por IA registrado em `../ebooks` | Sim |
 
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |
 |---|---|
-| 2 | Porta loopback e diretório (reaproveitar os do v1) |
+| 2 | Porta loopback e diretório (reaproveitar os do v1): descobrir ao acessar o VPS |
 | 3 | Edição de parceiro em e-book já publicado: manter a versão publicada no ar até aprovar, ou parceiro só edita rascunhos |
 | 3 | Mudança de slug de e-book publicado: redirect 301 automático? |
 | 2 | Destino do backup fora do VPS |

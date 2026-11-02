@@ -19,22 +19,39 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** "Eu gosto disso e quero que o site fique assim", visto no celular e no desktop.
 
-## Etapa 2 — Site público no ar (1–2 sessões)
+## Etapa 2 — Site público 🟡 pronto para o ar; falta a implantação no VPS
 
-1. Banco (schema completo de [03](03-tecnico.md#modelo-de-dados)) + migrations.
-2. `scripts/seed.ts` importa o `manifest.json` do 001 a partir da pasta local.
-3. Landing, Home e Tema dinâmicos; `/ir` com UTMs; beacon de visitas.
-4. SEO (metadata, JSON-LD, sitemap, robots, OG); Termos, Privacidade e banner de consentimento com Pixel/GA4.
-5. Dockerfile + compose + nginx; deploy substituindo o v1 ([06](06-deploy.md)).
+**Estado (02/11/2026):** todo o código, a imagem Docker e os scripts estão prontos e **testados localmente**. Falta a parte que só você pode autorizar e informar: mexer no VPS (substituir o v1) e fornecer dados reais (ver "Pendências para ir ao ar").
+
+1. ✅ Banco (SQLite + Drizzle) + migrações aplicadas ao iniciar.
+2. ✅ `scripts/seed.ts` importa o título a partir do `../ebooks` (manifest v1 sem alteração + `seeds/001-sistemas-com-ia/extras.json`).
+3. ✅ Landing, Home e Tema lendo do banco; `/ir` com UTMs; beacon de visitas.
+4. ✅ SEO (metadata, JSON-LD, sitemap, robots, OG); Termos, Privacidade e consentimento Pixel/GA4.
+5. ✅ Dockerfile + compose + nginx + scripts de atualizar, backup e aquecer.
+6. ⏳ Deploy substituindo o v1 ([06](06-deploy.md)).
 
 **Critérios de aceite:**
 
-- [ ] `https://bibliotheon.com.br/<slug-do-001>` no ar, igual ao protótipo aprovado.
-- [ ] Lighthouse mobile ≥ 95 nas quatro categorias da landing.
-- [ ] Clique em oferta com `?utm_source=teste` chega ao checkout com o parâmetro.
-- [ ] Teste automatizado: com `ofertaAte` no passado o preço muda e a faixa some.
-- [ ] Rich Results Test sem erros; OG aparece no WhatsApp.
-- [ ] Backup do v1 conferido; outros sistemas do VPS intactos (`docker ps`, `ss -tlnp`).
+- [ ] `https://bibliotheon.com.br/<slug-do-001>` no ar, igual ao protótipo aprovado. _(falta o deploy)_
+- [x] Acessibilidade 100, Boas práticas 100, SEO 100 na landing; Performance mediana 94–97 (ver [05](05-design.md#medições-das-páginas-reais-etapa-2-02112026-build-standalone-banco-real)). Home: Performance 81–89, abaixo da meta.
+- [x] Clique em oferta com `?utm_source=teste` chega ao checkout com o parâmetro (E2E), inclusive quando o clique ocorre antes do JavaScript carregar (recuperação por `Referer`).
+- [x] Teste automatizado: com `ofertaAte` no passado o preço muda e a faixa some (E2E com relógio simulado).
+- [~] Rich Results Test sem erros; OG aparece no WhatsApp. _(JSON-LD e imagem OG gerados e verificados localmente; a validação no Google e no WhatsApp exige o site público)_
+- [ ] Backup do v1 conferido; outros sistemas do VPS intactos. _(falta acessar o VPS)_
+
+**Testes:** 29 unitários (preço, UTM, manifesto, mídia, JSON-LD) e 12 E2E (`npm test`, `npm run test:e2e`), mais a imagem Docker construída, executada e com backup restaurado.
+
+### Pendências para ir ao ar (precisam de você)
+
+| # | O que | Por que bloqueia |
+|---|---|---|
+| 1 | **Autorizar o acesso ao VPS** para descobrir e substituir o v1 (começa só com leitura) | É produção; o plano exige backup antes |
+| 2 | **E-mail de contato** (`NEXT_PUBLIC_CONTATO_EMAIL`) | Termos e Privacidade (LGPD) saem sem canal de contato |
+| 3 | **Preço aprovado e link de checkout** do 001 (Kiwify/Cakto) | Sem isso a página fica "Em breve" (sem botão de compra) |
+| 4 | **Aprovar a headline** "Crie seu primeiro sistema com IA, mesmo sem saber programar" e o endereço `/criar-sistemas-com-ia` | São sugestões minhas; a headline do `extras.json` e o slug mudam a página inteira |
+| 5 | **Confirmar "O que você recebe"** (PDF + EPUB + caderno + ZIP) | O kit diz que a entrega muda por canal (pacote nos checkouts, só EPUB nas lojas) |
+| 6 | **Meta Pixel / GA4** (opcional) | Sem IDs, nada de terceiros carrega |
+| 7 | Revisar os textos de **Termos e Privacidade** | São um ponto de partida; não substituem parecer jurídico |
 
 **Portão:** site real no ar, você navega no seu celular e aprova.
 

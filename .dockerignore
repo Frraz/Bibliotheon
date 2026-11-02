@@ -1,0 +1,14 @@
+node_modules
+.next
+.e2e
+.git
+.claude
+data
+docs
+e2e
+test-results
+playwright-report
+*.md
+.env
+.env.*
+!.env.example

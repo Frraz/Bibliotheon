@@ -29,6 +29,16 @@ Objetivo único: **vender e-books.** Antes de qualquer trabalho, ler `README.md`
 - Testes para: preço vigente/urgência, `/ir` e UTMs, permissões de parceiro, API/manifesto. Não escrever testes de enfeite.
 - Commits pequenos, mensagem em português no imperativo.
 
+## Lições que custaram caro (não repetir)
+
+- **Testar o que vai ao ar, não o modo de desenvolvimento:** `next build` + pacote `standalone` (ou a imagem Docker). Foi assim que apareceram: página estática com banco vazio, `/api/saude` pré-renderizada (healthcheck que nunca falha), `SITE_URL` diferente entre build e execução, `origin` interno atrás do nginx, `better-sqlite3` sem binário no Docker e `data/` vazando para o pacote.
+- **Ler o mapa de rotas do `next build`:** `○` estático, `ƒ` dinâmico. Rota que usa banco e saiu `○` é bug.
+- **`ensureStatic` vale para o layout também:** nada de `connection()`, `cookies()` ou consulta sem cache em layout de rota estática.
+- **Parar servidor:** `ss -ltnp | grep :PORTA` e `kill <pid>`. **Nunca** `pkill -f`/`pgrep -f` com texto que também aparece no próprio comando (derruba o shell, exit 144) e cuidado para não casar com processos do VS Code.
+- **Medir Lighthouse várias vezes** (mediana): oscila ±10 pontos. Servidor frio ≠ aquecido (`deploy/aquecer.sh`).
+- **Texto de venda:** ao reaproveitar copy de protótipo, conferir cada frase contra o livro/kit. Já removi afirmações que eu mesmo tinha inventado.
+- **npm:** `vitest` exige `@types/node` 22+ e, com o npm 10.9, `--legacy-peer-deps` + `vite` instalado à parte (bug do arborist).
+
 ## Como ver o resultado (obrigatório em mudança visual)
 
 Subir o build de produção (`npm run build && npm start -- -p 3100`) e capturar com Playwright (já instalado, usa o Chromium em `~/.cache/ms-playwright`): celular 390×844 e desktop 1280×800, primeira tela e página inteira. Conferir também: sem rolagem horizontal, sem erro de console, LCP e CLS. Para parar o servidor use `kill $(pgrep -f '[n]ext-server')` (um `pkill -f "next dev"` direto derruba o próprio shell).

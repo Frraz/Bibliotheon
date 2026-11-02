@@ -26,6 +26,9 @@ const Marca = () => (
 const BOTAO =
   "inline-flex min-h-14 items-center justify-center bg-(--terracota) px-8 text-[1.0625rem] font-semibold text-(--papel) shadow-[0_1px_0_rgb(0_0_0/.15),0_10px_20px_-12px_rgb(0_0_0/.55)] transition-[background-color,transform] duration-150 hover:bg-(--terracota-escura) active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota)";
 
+// Seções abaixo da dobra: o navegador só calcula estilo e layout delas quando chegam perto da tela (LCP no celular).
+const ABAIXO = "[content-visibility:auto] [contain-intrinsic-size:auto_640px]";
+
 const Titulo = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <h2 className={`font-(family-name:--font-display) text-[clamp(1.75rem,4.2vw,2.75rem)] leading-[1.1] font-medium tracking-[-0.01em] text-balance ${className}`}>{children}</h2>
 );
@@ -97,6 +100,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
                 width={1600}
                 height={2560}
                 priority
+                fetchPriority="high"
                 sizes="(min-width:1024px) 384px, 300px"
                 className="relative h-auto w-full shadow-[0_2px_3px_rgb(0_0_0/.12),0_24px_50px_-12px_rgb(31_42_41/.45)] [transform:perspective(1400px)_rotateY(-9deg)_rotateX(1deg)] transition-transform duration-500 ease-out hover:[transform:perspective(1400px)_rotateY(-3deg)]"
               />
@@ -106,7 +110,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Sobre o livro */}
         {(e.problema || e.descricao) && (
-          <section className="border-t border-(--filete)">
+          <section className={`${ABAIXO} border-t border-(--filete)`}>
             <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.1fr] lg:py-24">
               {e.problema ? <Titulo>{e.problema}</Titulo> : <span />}
               <div className="space-y-5 text-pretty">
@@ -120,7 +124,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* O que você vai aprender */}
         {e.beneficios.length > 0 && (
-          <section className="border-t border-(--filete) bg-(--papel-2)">
+          <section className={`${ABAIXO} border-t border-(--filete) bg-(--papel-2)`}>
             <div className={`mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-5 py-16 lg:py-24 ${e.figura ? "lg:grid-cols-2 lg:items-start" : ""}`}>
               <div>
                 <Titulo>O que você vai saber fazer ao terminar</Titulo>
@@ -145,7 +149,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Para quem é / não é */}
         {(e.paraQuem.length > 0 || e.naoEPara.length > 0) && (
-          <section className="border-t border-(--filete)">
+          <section className={`${ABAIXO} border-t border-(--filete)`}>
             <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 lg:grid-cols-2 lg:gap-0 lg:py-24">
               {e.paraQuem.length > 0 && (
                 <div className="lg:pr-16">
@@ -176,7 +180,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Folheie o livro */}
         {e.amostras.length > 0 && (
-          <section className="bg-(--tinta) text-(--papel)">
+          <section className={`${ABAIXO} bg-(--tinta) text-(--papel)`}>
             <div className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
               <Titulo>Folheie antes de decidir</Titulo>
               <p className="mt-3 max-w-xl text-(--papel)/70">Páginas reais do livro. Toque para ampliar.</p>
@@ -192,7 +196,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Sumário */}
         {e.sumario.length > 0 && (
-          <section className="border-b border-(--filete)">
+          <section className={`${ABAIXO} border-b border-(--filete)`}>
             <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-24">
               <Titulo>{e.sumario.length} capítulos</Titulo>
               <ol className="divide-y divide-(--filete) border-y border-(--filete)">
@@ -209,7 +213,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Incluído + garantia */}
         {(e.incluido.length > 0 || e.garantiaDias > 0) && (
-          <section className="mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-5 py-16 lg:grid-cols-2 lg:py-24">
+          <section className={`${ABAIXO} mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-5 py-16 lg:grid-cols-2 lg:py-24`}>
             {e.incluido.length > 0 && (
               <div>
                 <TituloMenor>O que você recebe</TituloMenor>
@@ -233,7 +237,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Sobre o autor */}
         {e.sobreAutor && (
-          <section className="border-t border-(--filete) bg-(--papel-2)">
+          <section className={`${ABAIXO} border-t border-(--filete) bg-(--papel-2)`}>
             <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-4 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-20">
               <TituloMenor>Quem escreveu</TituloMenor>
               <div>
@@ -246,7 +250,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* FAQ */}
         {e.faq.length > 0 && (
-          <section className="border-t border-(--filete)">
+          <section className={`${ABAIXO} border-t border-(--filete)`}>
             <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-24">
               <Titulo>Perguntas frequentes</Titulo>
               <div className="divide-y divide-(--filete) border-y border-(--filete)">
@@ -265,7 +269,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         )}
 
         {/* Bloco de compra */}
-        <section id="comprar" className="bg-(--tinta) text-(--papel)">
+        <section id="comprar" className={`${ABAIXO} bg-(--tinta) text-(--papel)`}>
           <div className="mx-auto max-w-3xl px-5 py-20 text-center lg:py-28">
             <h2 className="font-(family-name:--font-display) text-[clamp(2rem,5vw,3.25rem)] leading-[1.08] font-medium text-balance">
               {vender ? "Pronto para começar?" : "Em breve"}
@@ -307,7 +311,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
 
         {/* Mais do tema */}
         {relacionados.length > 0 && (
-          <section className="border-t border-(--filete)">
+          <section className={`${ABAIXO} border-t border-(--filete)`}>
             <div className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
               <TituloMenor>Mais sobre {e.tema?.nome.toLowerCase()}</TituloMenor>
               <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">

@@ -86,6 +86,8 @@ O `/ir` repassa `utm_*`, `src`, `sck`, `fbclid` e `gclid` para a URL do checkout
   - `InitiateCheckout` no clique em qualquer oferta.
 - **GA4:** `page_view`, `view_item` e `begin_checkout` com os mesmos dados.
 
+**Configuração:** `NEXT_PUBLIC_META_PIXEL_ID` e `NEXT_PUBLIC_GA4_ID` são fixados **no build** (mudar exige novo build; o `atualizar.sh` já reconstrói). Sem eles, nada de terceiros carrega e o banner de cookies nem aparece.
+
 **Nas plataformas:** configurar **o mesmo Meta Pixel** (e, se a plataforma oferecer, o token da API de Conversões) no produto em cada plataforma. É lá que acontece o evento `Purchase`, que a Meta usa para otimizar o anúncio para vendas.
 
 **Contadores próprios** (sem cookie, sempre ativos): visitas por e-book/origem e cliques por oferta/origem, mostrados no painel. Mesmo quem recusa cookies é contado de forma anônima.
