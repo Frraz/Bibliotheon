@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     // Skills de terceiros (instaladas em .claude/skills) e artefatos de teste.
     ".claude/**",
     "playwright-report/**",
+    ".e2e/**",
+    "data/**",
     "test-results/**",
   ]),
 ]);
