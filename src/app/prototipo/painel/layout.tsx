@@ -1,6 +1,13 @@
 import { LogOut } from "lucide-react";
 import { Marca } from "@/components/site/marca";
-import { PainelNav } from "@/components/painel/nav";
+import { PainelNav, type ItemNav } from "@/components/painel/nav";
+
+const itens: ItemNav[] = [
+  { href: "/prototipo/painel", rotulo: "E-books", icone: "livros" },
+  { href: "#", rotulo: "Temas", icone: "temas" },
+  { href: "/prototipo/painel/usuarios", rotulo: "Usuários", icone: "usuarios" },
+  { href: "#", rotulo: "Conta", icone: "conta" },
+];
 
 export default function PainelLayout({ children }: LayoutProps<"/prototipo/painel">) {
   return (
@@ -9,7 +16,7 @@ export default function PainelLayout({ children }: LayoutProps<"/prototipo/paine
         <div className="flex items-center justify-between px-5 py-4 lg:py-6">
           <Marca />
         </div>
-        <PainelNav />
+        <PainelNav itens={itens} />
         <div className="mt-auto hidden px-5 py-5 lg:block">
           <p className="text-[0.9375rem] font-medium">Warley Ferraz</p>
           <p className="text-sm text-(--tinta-2)">Administrador</p>

@@ -31,6 +31,8 @@ COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
 COPY --from=build --chown=node:node /app/drizzle ./drizzle
+# Criar/recuperar a conta de administrador: docker exec -it bibliotheon_web node scripts/criar-owner.mjs <e-mail>
+COPY --from=build --chown=node:node /app/scripts/criar-owner.mjs ./scripts/criar-owner.mjs
 # Pasta de dados: o volume é montado aqui (dono uid 1000 = usuário "node").
 RUN mkdir -p /app/data && chown node:node /app/data
 USER node

@@ -19,6 +19,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Quem procura o painel em /admin chega ao login (o proxy leva a /entrar quem não tem sessão).
+  async redirects() {
+    return [
+      { source: "/admin", destination: "/painel", permanent: false },
+      { source: "/admin/:path*", destination: "/painel", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

@@ -17,6 +17,7 @@ services:
       - "127.0.0.1:${PORTA:?defina PORTA no .env}:3000"
     environment:
       API_TOKEN: ${API_TOKEN:-}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-}
     volumes:
       - ./data:/app/data
     mem_limit: 512m

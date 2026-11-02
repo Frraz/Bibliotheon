@@ -3,11 +3,73 @@ import { index, integer, primaryKey, sqliteTable, text, uniqueIndex } from "driz
 
 // Convenções: ids = UUID em texto; datas = timestamp (ms) em UTC; dinheiro = centavos (inteiro);
 // listas = JSON validado por Zod nas bordas (formulário, API, manifesto).
-// `ownerId` não tem FK porque a tabela de usuários chega na Etapa 3 (Better Auth).
+// `ebook.ownerId` aponta para `user.id` sem FK: o SQLite não adiciona FK a uma tabela existente sem recriá-la, e a regra de
+// acesso é conferida no servidor (src/lib/acesso.ts).
 
 const id = () => text("id").primaryKey().$defaultFn(() => crypto.randomUUID());
 const agora = () => integer({ mode: "timestamp_ms" }).notNull().$defaultFn(() => new Date());
 const lista = (nome: string) => text(nome, { mode: "json" }).$type<string[]>().notNull().default(sql`'[]'`);
+
+export const PAPEIS = ["owner", "parceiro"] as const;
+export type Papel = (typeof PAPEIS)[number];
+
+// Tabelas do Better Auth (user, session, account, verification): os nomes das colunas seguem o que o adaptador espera.
+// `role` e `ativo` são campos nossos. Sem cadastro público: só o owner cria usuários.
+export const user = sqliteTable("user", {
+  id: id(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  emailVerified: integer("email_verified", { mode: "boolean" }).notNull().default(false),
+  image: text("image"),
+  role: text("role", { enum: PAPEIS }).notNull().default("parceiro"),
+  ativo: integer("ativo", { mode: "boolean" }).notNull().default(true),
+  createdAt: agora(),
+  updatedAt: agora(),
+});
+
+export const session = sqliteTable(
+  "session",
+  {
+    id: id(),
+    userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    token: text("token").notNull().unique(),
+    expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    createdAt: agora(),
+    updatedAt: agora(),
+  },
+  (t) => [index("session_user").on(t.userId)],
+);
+
+export const account = sqliteTable(
+  "account",
+  {
+    id: id(),
+    userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    accountId: text("account_id").notNull(),
+    providerId: text("provider_id").notNull(),
+    accessToken: text("access_token"),
+    refreshToken: text("refresh_token"),
+    idToken: text("id_token"),
+    accessTokenExpiresAt: integer("access_token_expires_at", { mode: "timestamp_ms" }),
+    refreshTokenExpiresAt: integer("refresh_token_expires_at", { mode: "timestamp_ms" }),
+    scope: text("scope"),
+    password: text("password"),
+    createdAt: agora(),
+    updatedAt: agora(),
+  },
+  (t) => [index("account_user").on(t.userId)],
+);
+
+export const verification = sqliteTable("verification", {
+  id: id(),
+  identifier: text("identifier").notNull(),
+  value: text("value").notNull(),
+  expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
+  createdAt: agora(),
+  updatedAt: agora(),
+});
 
 export const tema = sqliteTable("tema", {
   id: id(),
@@ -147,6 +209,7 @@ export const lead = sqliteTable(
   (t) => [uniqueIndex("lead_ebook_email").on(t.ebookId, t.email)],
 );
 
+export type Usuario = typeof user.$inferSelect;
 export type Ebook = typeof ebook.$inferSelect;
 export type NovoEbook = typeof ebook.$inferInsert;
 export type Tema = typeof tema.$inferSelect;

@@ -29,6 +29,8 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `PORTA` | Execução | Porta no loopback. Reaproveite a do v1 |
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA4_ID` | **Build** | Opcionais. Sem eles nada de terceiros carrega e o banner de cookies nem aparece |
 | `NEXT_PUBLIC_CONTATO_EMAIL` | **Build** | Aparece em Termos, Privacidade e rodapé. **Preencher antes de divulgar** (LGPD) |
+| `API_TOKEN` | Execução | Token do `deploy/venda.sh` (preço, campanha, textos). Sem ele a API fica fechada |
+| `BETTER_AUTH_SECRET` | Execução | Assina o login do painel. `openssl rand -base64 32`. **Sem ele só o login falha (500); o site público segue no ar.** Trocar o valor derruba as sessões abertas |
 | `IMAGE_TAG` | Execução | O `atualizar.sh` preenche com o commit, para rollback |
 
 `DATABASE_PATH` e `MEDIA_DIR` já vêm definidos na imagem (`/app/data/...`).
@@ -46,6 +48,21 @@ Decisão do titular (02/11/2026): o v1 foi um desastre e foi **apagado por compl
 O v2 usa `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` (o v1 usava `bibliotheon`).
 
 **Rollback do v2:** `atualizar.sh` volta sozinho para a imagem anterior; manual na seção "Rollback".
+
+## Painel e primeiro acesso
+
+O painel está em `https://bibliotheon.com.br/entrar` (`/admin` e `/painel` levam para lá). Não há cadastro público: a conta do administrador nasce por comando e as demais são criadas por ele em **Usuários**.
+
+```bash
+# 1. no .env do servidor: BETTER_AUTH_SECRET=$(openssl rand -base64 32), depois ./atualizar.sh --forcar
+# 2. cria o administrador (e entrega a ele os e-books que estão sem dono, como o 001); mostra a senha uma vez
+docker exec -it bibliotheon_web node scripts/criar-owner.mjs voce@exemplo.com "Seu Nome"
+# 3. entre em /entrar e troque a senha em Conta
+```
+
+Perdeu a senha do administrador? Rode o mesmo comando com o mesmo e-mail: ele atualiza a conta, derruba as sessões e mostra uma senha nova. Para um usuário comum, use "Redefinir senha" em Usuários.
+
+Atrás do nginx o limite de tentativas de login usa o `X-Real-IP` (o `deploy/nginx/bibliotheon.com.br.conf` já o envia). Testado na imagem Docker: administrador criado e recuperado, login 200, `/painel` sem sessão → 307 `/entrar`, e site de pé sem o segredo.
 
 ## Reserva
 

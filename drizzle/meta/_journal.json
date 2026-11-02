@@ -15,6 +15,13 @@
       "when": 1793646941947,
       "tag": "0001_late_vivisector",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793656251013,
+      "tag": "0002_usuarios",
+      "breakpoints": true
     }
   ]
 }

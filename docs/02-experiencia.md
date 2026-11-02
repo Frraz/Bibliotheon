@@ -69,13 +69,13 @@ Com um único e-book, a Home funciona: o hero mostra esse e-book e a grade some.
 
 ### Regras de interface
 
-- Menu lateral (grade de 4 colunas no celular) com **no máximo 4 itens**:
+- Menu lateral (grade no celular) com **no máximo 4 itens**:
   - E-books;
-  - Temas*;
-  - Parceiros*;
+  - Temas* (Fase 2);
+  - Usuários*;
   - Conta.
 
-  \* só owner.
+  \* só administrador.
 - **Uma ação principal por tela**, sempre no mesmo lugar (canto superior direito / barra inferior no mobile).
 - Linguagem do usuário, nunca técnica: "Página de vendas", não "body"; "Onde comprar", não "offers".
 - Toda ação dá retorno visível (toast). Toda ação destrutiva pede confirmação.
@@ -83,7 +83,7 @@ Com um único e-book, a Home funciona: o hero mostra esse e-book e a grade some.
 
 ### Entrar (`/entrar`)
 
-E-mail + senha. Sem cadastro público. Esqueceu a senha: "Fale com o administrador" no MVP.
+E-mail + senha. Sem cadastro público. Esqueceu a senha: "Fale com o administrador" no MVP. `/admin` e `/painel` levam aqui quando não há sessão.
 
 ### E-books (`/painel`)
 
@@ -138,16 +138,18 @@ Uma página só, com seções numeradas. A navegação por âncoras ("Nesta pág
 
 Lista simples: nome, slug, nº de e-books, publicado (toggle). Criar/editar num modal: nome, descrição (SEO) e cor.
 
-### Parceiros (owner)
+### Usuários (administrador) ✅ Fase 1
 
-- Lista com nome, e-mail, nº de e-books e ativo (toggle).
-- "Novo parceiro": nome + e-mail → gera senha temporária exibida uma vez para o owner repassar.
-- "Redefinir senha" faz o mesmo.
+- Lista com nome, e-mail, nº de e-books e quantos estão no ar, e a chave Ativo.
+- "Novo usuário": nome + e-mail → gera senha temporária exibida uma vez para o administrador repassar. E-mail repetido é recusado.
+- "Redefinir senha" faz o mesmo e derruba as sessões abertas da pessoa.
+- Desativar pede confirmação e oferece "Tirar do ar também os e-books dessa pessoa" (volta para rascunho). A pessoa perde o acesso na hora. O administrador não aparece com chave.
+- **Usuário ativo publica direto, sem revisão** (decisão de 02/11/2026): a ação principal do editor é "Publicar", para todos.
 
-### Conta
+### Conta ✅ Fase 1
 
-- Nome e trocar senha.
-- **Token de API** (para a CLI): "Gerar token" mostra o valor **uma vez**; listar, com último uso, e revogar.
+- Nome e trocar senha (mínimo de 10 caracteres; encerra a sessão dos outros aparelhos).
+- **Token de API** (para a CLI, Etapa 4): "Gerar token" mostra o valor **uma vez**; listar, com último uso, e revogar.
 
 ---
 

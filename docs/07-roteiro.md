@@ -72,18 +72,22 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** os marcos da [estratégia](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia). Em 28/02/2027 o titular decide com dados.
 
-## Etapa 3 — Painel (1–2 sessões; pausada até a Etapa "Vender" dar resultado)
+## Etapa 3 — Painel 🟡 reaberta em 02/11/2026 a pedido do titular (Fase 1 pronta localmente)
 
-1. Better Auth + papéis; script `criar-owner`.
-2. Lista de e-books com métricas; editor numa página ([02](02-experiencia.md#editor-do-e-book-painelebooksid)) com upload/recorte de capa e amostras.
-3. Ofertas, checklist de publicação, prévia `?previa=1`, revisão de parceiro.
-4. Temas, Parceiros e Conta (token de API).
+Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuário ativo publica direto, sem revisão.** Protótipo aprovado em `/prototipo/*` (some quando a Fase 2 terminar).
+
+1. ✅ **Fase 1: login e usuários.** Better Auth, `/entrar`, `/admin` → `/painel`, Usuários (criar, senha temporária, ativar/desativar com "tirar do ar também"), Conta (nome e senha), `scripts/criar-owner.mjs`. 9 testes E2E + 9 unitários novos; imagem Docker testada (criar administrador, login, site de pé sem o segredo).
+2. ⬜ **Fase 2: cadastro e publicação.** Lista com métricas, editor numa página, upload de capa, amostras e **PDF privado**, lojas e campanha, checklist, prévia por rota, slug travado, Temas.
+3. ⬜ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`, `lastModified` no sitemap).
+4. ⬜ **Fase 4: pacote para outras lojas** (ZIP com textos, capa, amostras e PDF) e pasta local `livros/<slug>/` fora do Git.
+
+Em produção só depois do pedido do titular: `git push` → `BETTER_AUTH_SECRET` no `.env` → `./atualizar.sh --forcar` → `docker exec -it bibliotheon_web node scripts/criar-owner.mjs <e-mail>` ([06](06-deploy.md#painel-e-primeiro-acesso)).
 
 **Critérios de aceite:**
 
 - [ ] Você cria um e-book do zero pelo painel no celular e no desktop, sem ajuda, em < 10 min.
-- [ ] Teste: parceiro não lê nem edita e-book de outro (Server Action e URL direta).
-- [ ] Teste: parceiro não consegue publicar.
+- [x] Teste: usuário comum só vê o que é dele na lista e não chega a `/painel/usuarios` (Fase 1). _Falta o mesmo para editar por Server Action e URL direta, na Fase 2._
+- [x] Teste: usuário desativado perde o acesso na hora, mesmo com a sessão aberta.
 - [ ] Checklist bloqueia a publicação incompleta com a mensagem certa.
 
 **Portão:** você usa o painel e diz "isso é simples".

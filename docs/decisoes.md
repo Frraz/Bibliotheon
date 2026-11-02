@@ -67,12 +67,21 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | Pelo menos 30 dias a preço cheio entre promoções | Critério do projeto, para o "de" continuar verdadeiro | Sim |
 | 2026-11-02 | Pendências legais (identificação do fornecedor no site, revisão de Termos e Privacidade) ficam para o fim do projeto, a pedido do titular | MVP, ainda não é projeto oficial. Sabido e adiado | Sim |
 
+| 2026-11-02 | **Etapa 3 reaberta** (painel com login), em 4 fases: login e usuários → cadastro e publicação → landing padrão/personalizada e várias lojas → pacote para outras lojas | Pedido do titular: ele e outras pessoas publicam e-books pelo site. O 001 e a Etapa "Vender" não mudam | Sim |
+| 2026-11-02 | **Usuário ativo publica direto, sem revisão do administrador** (substitui "parceiro envia para revisão"). O administrador desativa a pessoa e, se quiser, tira os livros dela do ar | Decisão do titular. Risco aceito: promessa falsa vai ao ar no domínio antes de ser vista; reduzido por aviso na tela, só links https e "tirar do ar" em um clique | Sim |
+| 2026-11-02 | **O PDF completo do livro pode ser enviado ao painel**, em pasta privada (`data/privado/`, sem URL pública, download só do dono e do administrador). Substitui "PDF pago nunca fica no Bibliotheon". Amostras seguem públicas | Decisão do titular: o PDF alimenta o pacote para outras lojas e a landing personalizada. Aumenta o backup e o peso da proteção do acesso | Sim |
+| 2026-11-02 | **Todas as lojas ativas aparecem na página com o mesmo peso** (com 2 ou mais, o botão do topo leva a "Escolha onde comprar"; com 1, vai direto ao checkout). Substitui "uma principal + Prefere outra?" | Pedido do titular. Custo: um clique a mais; medir no relatório quando houver um e-book com 2 lojas | Sim |
+| 2026-11-02 | Slug **travado depois da primeira publicação**; prévia em `/painel/ebooks/[id]/previa` (não `?previa=1`); sem `react-hook-form`; ordenar listas com setas | Protege SEO e a landing personalizada; a landing é estática e não lê cookie; menos uma dependência; setas funcionam no toque | Sim |
+| 2026-11-02 | **Fase 1 (login e usuários) no ar localmente:** Better Auth com e-mail e senha, sem cadastro público; hash de senha scrypt do Node (`src/lib/senha.ts`); `role` `owner`/`parceiro` e `ativo` na tabela `user`; `ativo` lido do banco a cada pedido; `proxy.ts` só redireciona pelo cookie; login por `/entrar`, `/admin` → `/painel` | O hash próprio permite o `scripts/criar-owner.mjs` (JS puro, roda na imagem sem `tsx`) criar a conta do administrador; um teste garante que os dois hashes conferem | Sim |
+| 2026-11-02 | Na tela o papel `parceiro` aparece como "Publicador"; o menu do painel tem E-books, Usuários (só administrador) e Conta (Temas entra na Fase 2) | Linguagem do usuário e no máximo 4 itens | Sim |
+| 2026-11-02 | O limite de tentativas de login usa o `X-Real-IP` do nginx (não o `X-Forwarded-For`, que o cliente pode preencher) | Sem IP confiável o Better Auth junta todo mundo num só balde | Sim |
+| 2026-11-02 | `BETTER_AUTH_SECRET` ausente derruba só o login (HTTP 500 em `/api/auth`); o site público e o `/api/saude` seguem de pé | Testado na imagem Docker. Não usar `:?` no compose, para um deploy esquecido não tirar a loja do ar | Sim |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |
 |---|---|
-| 3 | Edição de parceiro em e-book já publicado: manter a versão publicada no ar até aprovar, ou parceiro só edita rascunhos |
-| 3 | Mudança de slug de e-book publicado: redirect 301 automático? |
+| 3 | Se um usuário comum puder escolher o tema de um e-book, qual lista ele vê (hoje só o administrador cria tema) |
 | 2 | Destino do backup fora do VPS |
 | Vender | Ferramenta gratuita para o aviso aos leads em 27/11 |
 | Vender | Afiliação: comissão (40–50% sugeridos) e como o link de afiliado da Hotmart convive com a landing (testar antes de convidar) |

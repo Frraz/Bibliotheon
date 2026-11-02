@@ -9,7 +9,7 @@
 | UI | Tailwind CSS v4 + shadcn/ui, estilo `base-nova` (componentes **Base UI**, não Radix) + `lucide-react` | Painel profissional pronto; é a base em que as skills de design rendem mais. `cn()` vem do pacote `cn` (mantido pelo próprio shadcn, substitui clsx + tailwind-merge) |
 | Movimento | Motion (painel e microinterações) + GSAP/ScrollTrigger (só na landing) | Ver [05-design](05-design.md#movimento) |
 | Banco | SQLite (better-sqlite3, modo WAL) + Drizzle ORM + drizzle-kit migrations | Um arquivo, zero serviço; backup é uma cópia. Migrar para Postgres é simples se um dia for preciso |
-| Auth | Better Auth (e-mail/senha, sessão em cookie httpOnly) com campo `role` | Login seguro pronto; sem cadastro público |
+| Auth | Better Auth (e-mail/senha, sessão em cookie httpOnly guardada no banco) com `role` e `ativo`; hash de senha scrypt próprio (`src/lib/senha.ts`) | Login seguro pronto; sem cadastro público. O hash próprio deixa o `scripts/criar-owner.mjs` rodar na imagem sem `tsx` |
 | Validação | Zod (formulários, API e manifesto compartilham os schemas) | Uma regra, três usos |
 | Formulários | react-hook-form + Zod + Server Actions | — |
 | Imagens | `next/image` (otimizador do próprio Next, que usa sharp) sobre a rota `/m/...`; arquivos com hash no nome | LCP baixo, AVIF/WebP e tamanhos sob demanda sem pipeline nosso. Cache imutável em `/m` |
@@ -79,7 +79,9 @@ Convenções:
 - dinheiro em **centavos** (inteiro);
 - listas em coluna JSON validada por Zod.
 
-**user** (tabela do Better Auth) + `role: 'owner' | 'parceiro'`, `ativo: boolean`.
+**user, session, account, verification** (tabelas do Better Auth, migração `0002_usuarios`). `user` ganha `role: 'owner' | 'parceiro'` (na tela, "Administrador" e "Publicador") e `ativo: boolean`. A senha fica em `account.password` (`providerId = 'credential'`). `ebook.ownerId` aponta para `user.id` sem FK (o SQLite não adiciona FK a tabela existente sem recriá-la).
+
+**Acesso (Fase 1):** `src/lib/acesso.ts` (`usuarioAtual`, `exigirUsuario`, `exigirOwner`) lê a sessão e o `ativo` do banco **a cada pedido, sem cache**, sempre depois de `headers()` (assim o build não cria o Better Auth, que exige o segredo). `src/lib/permissoes.ts` tem a regra pura `podeEditar`. `src/proxy.ts` só redireciona `/painel` para `/entrar` quando falta o cookie (checagem otimista). Não-administrador em página de administrador vê "Página não encontrada". Desativar apaga as sessões da pessoa; o hook de criação de sessão recusa quem está desativado. Entrar, sair e trocar a senha passam por `/api/auth/*` (com o limite de tentativas do Better Auth); criar usuário, redefinir senha e ativar/desativar são Server Actions só do administrador.
 
 **tema**
 

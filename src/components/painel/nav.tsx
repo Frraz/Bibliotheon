@@ -4,20 +4,21 @@ import { BookOpen, Layers, UserRound, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const itens = [
-  { href: "/prototipo/painel", rotulo: "E-books", Icone: BookOpen, dono: false },
-  { href: "#", rotulo: "Temas", Icone: Layers, dono: true },
-  { href: "/prototipo/painel/usuarios", rotulo: "Usuários", Icone: Users, dono: true },
-  { href: "#", rotulo: "Conta", Icone: UserRound, dono: false },
-];
+const ICONES = { livros: BookOpen, temas: Layers, usuarios: Users, conta: UserRound } as const;
 
-/** Máximo de 4 itens (regra do painel). Lateral no desktop, faixa rolável no celular. */
-export function PainelNav() {
+export type ItemNav = { href: string; rotulo: string; icone: keyof typeof ICONES };
+
+/** Máximo de 4 itens (regra do painel). Lateral no desktop, grade no celular. O item ativo é o de href mais específico. */
+export function PainelNav({ itens }: { itens: ItemNav[] }) {
   const caminho = usePathname();
+  const ativoHref = itens
+    .filter((i) => i.href !== "#" && (caminho === i.href || caminho.startsWith(`${i.href}/`)))
+    .sort((a, b) => b.href.length - a.href.length)[0]?.href;
   return (
-    <nav aria-label="Painel" className="grid grid-cols-4 gap-1 px-3 pb-3 lg:flex lg:flex-col lg:pb-0">
-      {itens.map(({ href, rotulo, Icone }) => {
-        const ativo = rotulo === "Usuários" ? caminho.startsWith(href) : rotulo === "E-books" && caminho.startsWith(href) && !caminho.startsWith("/prototipo/painel/usuarios");
+    <nav aria-label="Painel" className={`grid gap-1 px-3 pb-3 lg:flex lg:flex-col lg:pb-0 ${itens.length === 4 ? "grid-cols-4" : itens.length === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+      {itens.map(({ href, rotulo, icone }) => {
+        const Icone = ICONES[icone];
+        const ativo = href === ativoHref;
         return (
           <Link
             key={rotulo}
