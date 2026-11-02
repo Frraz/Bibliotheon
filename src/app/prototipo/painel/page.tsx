@@ -8,15 +8,14 @@ import { livro } from "@/lib/prototipo";
 
 // Linhas de demonstração: só o 001 é real; os outros mostram os demais estados.
 const linhas = [
-  { id: "001", titulo: livro.titulo, status: "publicado", dono: "Warley", visitas: 412, cliques: 38, capa: "real" },
-  { id: "002", titulo: "Alimentação sem Culpa", status: "revisao", dono: "Marina (parceira)", visitas: 0, cliques: 0, capa: "#55685F" },
-  { id: "003", titulo: "Finanças em Dia", status: "rascunho", dono: "Warley", visitas: 0, cliques: 0, capa: "#8A6A2B" },
+  { id: "001", titulo: livro.titulo, status: "publicado", dono: "Warley", pagina: "Página padrão", visitas: 412, cliques: 38, capa: "real" },
+  { id: "002", titulo: "Alimentação sem Culpa", status: "publicado", dono: "Marina Souza", pagina: "Página personalizada", visitas: 96, cliques: 7, capa: "#55685F" },
+  { id: "003", titulo: "Finanças em Dia", status: "rascunho", dono: "Warley", pagina: "", visitas: 0, cliques: 0, capa: "#8A6A2B" },
 ] as const;
 
-const rotuloStatus = { publicado: "Publicado", revisao: "Em revisão", rascunho: "Rascunho" } as const;
+const rotuloStatus = { publicado: "Publicado", rascunho: "Rascunho" } as const;
 const estiloStatus = {
   publicado: "bg-(--salvia)/15 text-(--salvia)",
-  revisao: "bg-(--terracota)/12 text-(--terracota-escura)",
   rascunho: "bg-(--tinta)/8 text-(--tinta-2)",
 } as const;
 
@@ -28,11 +27,7 @@ export default function Lista() {
         <Button size="lg" render={<Link href="/prototipo/painel/editor" />}><Plus /> Novo e-book</Button>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-2 text-sm" role="group" aria-label="Filtrar">
-        <span className="inline-flex min-h-10 items-center bg-(--tinta) px-4 text-(--papel)">Todos 3</span>
-        <span className="inline-flex min-h-10 items-center border border-(--filete) px-4">Em revisão 1</span>
-        <span className="ml-auto text-(--tinta-2)">Últimos 7 dias</span>
-      </div>
+      <p className="mt-8 text-right text-sm text-(--tinta-2)">Visitas e cliques dos últimos 7 dias</p>
 
       <ul className="mt-4 border-t border-(--filete)">
         {linhas.map((l) => (
@@ -49,6 +44,7 @@ export default function Lista() {
               <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-(--tinta-2)">
                 <Badge className={`rounded-sm border-0 px-2 ${estiloStatus[l.status]}`}>{rotuloStatus[l.status]}</Badge>
                 {l.dono}
+                {l.pagina && <span>· {l.pagina}</span>}
               </p>
             </div>
             <dl className="col-span-2 flex gap-8 text-sm sm:col-span-1 sm:col-start-3 sm:row-start-1">
@@ -70,7 +66,7 @@ export default function Lista() {
           </li>
         ))}
       </ul>
-      <p className="mt-6 text-sm text-(--tinta-2)">Protótipo: números e os e-books 002 e 003 são de demonstração.</p>
+      <p className="mt-6 text-sm text-(--tinta-2)">Protótipo: os números e os e-books 002 e 003 são de demonstração. Cada usuário vê só os próprios e-books; você vê todos, com o nome do dono.</p>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { GripVertical, Plus, X } from "lucide-react";
+import { ArrowDown, ArrowUp, Plus, X } from "lucide-react";
 import { useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 type Item = { id: number; texto: string };
 
-/** Lista de textos curtos: adicionar, remover (arrastar para ordenar entra na Etapa 3). */
+/** Lista de textos curtos: adicionar, remover e ordenar com setas (funcionam no toque e no teclado). */
 export function ListaEditavel({
   rotulo,
   itens,
@@ -25,23 +25,31 @@ export function ListaEditavel({
   const base = useId();
   const Campo = longo ? Textarea : Input;
 
+  const mover = (n: number, passo: number) =>
+    setLista((l) => {
+      const nova = [...l];
+      [nova[n], nova[n + passo]] = [nova[n + passo], nova[n]];
+      return nova;
+    });
+
   return (
     <fieldset>
       <legend className="sr-only">{rotulo}</legend>
-      <ul className="space-y-2">
+      <ul className="space-y-3 sm:space-y-2">
         {lista.map((it, n) => (
-          <li key={it.id} className="flex items-start gap-1">
-            <span className="mt-3 text-(--tinta-2)/60" aria-hidden><GripVertical className="size-5" /></span>
+          <li key={it.id} className="flex flex-wrap items-start gap-x-1 sm:flex-nowrap">
             <Campo
               id={`${base}-${it.id}`}
               aria-label={`${rotulo} ${n + 1}`}
               value={it.texto}
               onChange={(e) => setLista((l) => l.map((x) => (x.id === it.id ? { ...x, texto: e.target.value } : x)))}
-              className={longo ? "min-h-20" : ""}
+              className={`w-full min-w-0 sm:flex-1 ${longo ? "min-h-20" : ""}`}
             />
-            <Button type="button" variant="ghost" size="icon" aria-label={`Remover ${rotulo.toLowerCase()} ${n + 1}`} onClick={() => setLista((l) => l.filter((x) => x.id !== it.id))}>
-              <X />
-            </Button>
+            <div className="ml-auto flex shrink-0">
+              <Button type="button" variant="ghost" size="icon" aria-label={`Subir ${rotulo.toLowerCase()} ${n + 1}`} disabled={n === 0} onClick={() => mover(n, -1)}><ArrowUp /></Button>
+              <Button type="button" variant="ghost" size="icon" aria-label={`Descer ${rotulo.toLowerCase()} ${n + 1}`} disabled={n === lista.length - 1} onClick={() => mover(n, 1)}><ArrowDown /></Button>
+              <Button type="button" variant="ghost" size="icon" aria-label={`Remover ${rotulo.toLowerCase()} ${n + 1}`} onClick={() => setLista((l) => l.filter((x) => x.id !== it.id))}><X /></Button>
+            </div>
           </li>
         ))}
       </ul>

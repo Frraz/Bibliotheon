@@ -1,6 +1,6 @@
 // Conteúdo real do e-book 001, usado pelos protótipos visuais (Etapa 1).
 // Fontes: ../ebooks/ebooks/001-sistemas-com-ia (manifest.json, oferta/pt-BR/kit-comercial.md, status.md).
-// Preço, "de", prazo e plataformas são DADOS DE DEMONSTRAÇÃO: o preço real ainda não foi aprovado.
+// O preço e o link da Hotmart são os reais; a campanha é a planejada para a Black Friday; a Kiwify é de demonstração.
 
 export const livro = {
   slug: "criar-sistemas-com-ia",
@@ -12,8 +12,21 @@ export const livro = {
   capa: "/prototipo/capa-001.jpg",
   capaAlt:
     "Capa de Crie Sistemas com IA e Ganhe Dinheiro, de Warley Ferraz Almeida.",
-  problema:
-    "Você tem uma ideia de sistema, mas não sabe por onde começar.",
+  resumo:
+    "Aprenda a transformar problemas reais em pequenos sistemas com IA. Comece pelos fundamentos, construa uma aplicação, prepare VPS e domínio e organize sua proposta de serviço, mesmo começando sem saber programar.",
+  problema: "Você consegue imaginar a solução, mas não sabe programar.",
+  dores: [
+    "Uma tarefa repetitiva continua tomando o seu tempo porque o sistema que a resolveria ainda só existe na sua cabeça.",
+    "A informação fica espalhada entre mensagens, caderno e memória. Quando alguém pergunta, você procura em três lugares.",
+    "A planilha já não acompanha o trabalho, e você não sabe o que colocar no lugar dela.",
+    "Você já pediu código a uma IA, mas não sabe dizer se o resultado está certo nem como colocá-lo no ar.",
+  ],
+  diferenciais: [
+    "Não para no protótipo. O percurso segue até VPS, domínio, HTTPS, backup e atualização, dizendo o que conferir em cada etapa.",
+    "O projeto é seu. O código fica numa pasta sua e no seu GitHub, e é você quem escolhe e contrata o servidor.",
+    "Você aprende a conferir a IA, não só a pedir. Cada etapa termina com algo observável: uma regra escrita, um programa que inicia, uma operação recusada, uma recuperação conferida.",
+    "Se quiser transformar isso em serviço, o livro também ensina a descobrir a necessidade, delimitar o escopo, montar a proposta e combinar a entrega. Sem promessa de renda.",
+  ],
   descricao: [
     "Crie Sistemas com IA e Ganhe Dinheiro apresenta um percurso prático para quem começa sem programação. Você aprende os fundamentos necessários, organiza requisitos, conduz a IA no editor, constrói por etapas e confere o resultado.",
     "Acompanhe a Oficina Clara, um exemplo fictício de ordens de serviço com gerente, técnicos, permissões e histórico. Depois avance para Git e GitHub, VPS Ubuntu, domínio, DNS, HTTPS, backup, restauração e atualização.",
@@ -110,13 +123,12 @@ export const livro = {
   sobreAutor:
     "Warley Ferraz Almeida usa IA no desenvolvimento de sistemas e relata já ter recebido por trabalhos realizados dessa forma. O livro apresenta o método que ele aplica, com instruções para você repetir e conferir cada passo.",
   garantiaDias: 7,
-  // --- demonstração (não são dados reais) ---
-  preco: 79,
-  precoDe: 99,
-  ofertaAte: "2026-11-30T23:59:00-03:00",
+  preco: 64.99,
+  antesDeComprar:
+    "Computador e internet; disposição para executar exercícios e conferir os resultados. Serviços de IA, VPS e domínio podem ter custos externos.\n\nSem promessa de renda, clientes ou prazo universal. Não inclui mentoria, implantação individual, suporte de programação ou compromisso de novas edições.",
   ofertas: [
-    { plataforma: "Kiwify", principal: true },
-    { plataforma: "Cakto", principal: false },
+    { plataforma: "Hotmart", url: "https://pay.hotmart.com/X108114152R", ativa: true },
+    { plataforma: "Kiwify", url: "https://pay.kiwify.com.br/exemplo", ativa: true },
   ],
 } as const;
 

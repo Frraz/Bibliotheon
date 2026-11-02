@@ -1,12 +1,13 @@
-import { Check, ExternalLink, GripVertical, ImagePlus, Plus, X } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, Download, ExternalLink, FileText, ImagePlus, Lock, Plus, Store, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { CampoContado } from "@/components/painel/contador";
 import { ListaEditavel } from "@/components/painel/lista-editavel";
+import { PrecoELojas } from "@/components/painel/preco-e-lojas";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { livro } from "@/lib/prototipo";
 
@@ -18,13 +19,17 @@ const secoes = [
   { id: "seo", n: 5, nome: "Google (SEO)" },
 ] as const;
 
+// Sem loja cadastrada a página sai como "Em breve", então loja não bloqueia a publicação.
 const checklist = [
-  { ok: true, t: "Capa" },
+  { ok: true, t: "Capa e descrição da capa" },
   { ok: true, t: "Título" },
   { ok: true, t: "Headline" },
+  { ok: true, t: "Resumo" },
   { ok: true, t: "Pelo menos 3 benefícios" },
-  { ok: true, t: "Uma oferta de compra" },
 ];
+const paraVenderMelhor = ["Sem amostra em PDF: ela permite ler antes de comprar."];
+
+const AVISO_HONESTO = "Ao publicar, a página vai ao ar na hora. Nada de promessa de renda ou cura, depoimento inventado ou preço “de” que você não pratica.";
 
 const selectCls =
   "h-11 w-full rounded-lg border border-input bg-card px-3 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm";
@@ -61,25 +66,32 @@ export default function Editor() {
         </div>
 
         {/* No celular: resumo do checklist em vez da coluna lateral */}
-        <p className="mb-8 flex items-center gap-2 bg-(--salvia)/12 px-4 py-3 text-[0.9375rem] text-(--salvia) lg:hidden">
-          <Check className="size-4" aria-hidden /> Tudo pronto para publicar
-        </p>
+        <div className="mb-8 lg:hidden">
+          <p className="flex items-center gap-2 bg-(--salvia)/12 px-4 py-3 text-[0.9375rem] text-(--salvia)">
+            <Check className="size-4 shrink-0" aria-hidden /> Tudo pronto para publicar
+          </p>
+          <p className="mt-3 text-sm text-(--tinta-2) text-pretty">{AVISO_HONESTO}</p>
+          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <Button type="button" variant="outline"><ExternalLink /> Ver prévia</Button>
+            <Button variant="outline" render={<Link href="/prototipo/painel/editor/lojas" />}><Store /> Publicar em outras lojas</Button>
+          </div>
+          <p className="mt-3 text-sm text-(--tinta-2) text-pretty">Página de vendas: padrão. Se este e-book ganhar uma página personalizada, ela assume este endereço sozinha.</p>
+        </div>
 
         <Secao id="essencial" n={1} nome="Essencial">
           <Campo id="titulo" rotulo="Título do livro">
             <Input id="titulo" defaultValue={livro.titulo} />
           </Campo>
-          <Campo id="slug" rotulo="Endereço da página" dica="Quanto mais parecido com o que as pessoas buscam, melhor.">
-            <div className="flex">
-              <span className="grid place-items-center rounded-l-lg border border-r-0 border-input bg-(--papel-2) px-3 text-sm text-(--tinta-2)">bibliotheon.com.br/</span>
-              <Input id="slug" defaultValue={livro.slug} className="rounded-l-none" />
+          <Campo id="slug" rotulo="Endereço da página" dica="Use palavras que as pessoas buscam. Depois de publicar, o endereço não muda mais.">
+            <div className="flex min-w-0">
+              <span className="grid shrink-0 place-items-center rounded-l-lg border border-r-0 border-input bg-(--papel-2) px-2 text-[0.8125rem] text-(--tinta-2) sm:px-3 sm:text-sm">bibliotheon.com.br/</span>
+              <Input id="slug" defaultValue={livro.slug} className="min-w-0 rounded-l-none" />
             </div>
           </Campo>
           <Campo id="tema" rotulo="Tema" className="sm:max-w-xs">
             <select id="tema" className={selectCls} defaultValue="dev">
               <option value="dev">Desenvolvimento de software</option>
               <option value="saude">Saúde</option>
-              <option>+ Criar tema</option>
             </select>
           </Campo>
 
@@ -94,10 +106,22 @@ export default function Editor() {
               </div>
             </div>
           </div>
-          <Campo id="capa-alt" rotulo="Descrição da capa (para leitores de tela)">
+          <Campo id="capa-alt" rotulo="Descrição da capa" dica="Lida por leitores de tela e usada pelo Google.">
             <Input id="capa-alt" defaultValue={livro.capaAlt} />
           </Campo>
-          <div className="grid gap-7 sm:grid-cols-2">
+          <div>
+            <p className="mb-1.5 text-[0.9375rem] font-medium">Arquivo do livro (PDF)</p>
+            <div className="flex flex-col gap-4 border border-dashed border-(--filete) bg-(--papel-3) p-5 sm:flex-row sm:items-center">
+              <FileText className="size-8 shrink-0 text-(--tinta-2)" aria-hidden />
+              <div className="min-w-0 sm:flex-1">
+                <p className="font-medium break-words">livro_pt-BR_v1.0.0.pdf</p>
+                <p className="mt-0.5 text-sm text-(--tinta-2)">904 KB. Até 25 MB.</p>
+                <p className="mt-2 flex items-start gap-2 text-sm text-(--salvia)"><Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden /> Privado: não aparece na página de vendas. Só você e o administrador conseguem baixar.</p>
+              </div>
+              <Button type="button" variant="outline" className="sm:self-start">Trocar PDF</Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
             <Campo id="autor" rotulo="Autor exibido"><Input id="autor" defaultValue={livro.autor} /></Campo>
             <Campo id="formatos" rotulo="Formatos"><Input id="formatos" defaultValue="PDF, EPUB, Caderno de prática" /></Campo>
           </div>
@@ -108,16 +132,20 @@ export default function Editor() {
             <CampoContado id="headline" inicial={livro.headline} ideal={70} />
           </Campo>
           <Campo id="subtitulo" rotulo="Subtítulo"><Textarea id="subtitulo" defaultValue={livro.subtitulo} className="min-h-20" /></Campo>
-          <Campo id="problema" rotulo="O problema do leitor, em uma frase"><Input id="problema" defaultValue={livro.problema} /></Campo>
+          <Campo id="resumo" rotulo="Resumo" dica="Uma ou duas frases. É o texto que aparece no Google se você não escrever outro em Google (SEO).">
+            <Textarea id="resumo" defaultValue={livro.resumo} className="min-h-20" />
+          </Campo>
+          <Campo id="problema" rotulo="O problema do leitor, em uma frase" dica="Escreva como o próprio leitor diria."><Input id="problema" defaultValue={livro.problema} /></Campo>
+          <div><p className="mb-2 text-[0.9375rem] font-medium">Situações que ele reconhece</p><ListaEditavel rotulo="Situação" itens={livro.dores} adicionar="Adicionar situação" longo /></div>
           <Campo id="descricao" rotulo="Descrição"><Textarea id="descricao" defaultValue={livro.descricao.join("\n\n")} className="min-h-48" /></Campo>
           <div><p className="mb-2 text-[0.9375rem] font-medium">O que a pessoa vai aprender</p><ListaEditavel rotulo="Benefício" itens={livro.beneficios} adicionar="Adicionar benefício" /></div>
+          <div><p className="mb-2 text-[0.9375rem] font-medium">Por que este caminho</p><ListaEditavel rotulo="Diferença" itens={livro.diferenciais} adicionar="Adicionar diferença" longo /><p className="mt-1 text-sm text-(--tinta-2)">Diferenças reais frente às alternativas, sem citar marcas.</p></div>
           <div><p className="mb-2 text-[0.9375rem] font-medium">É para quem</p><ListaEditavel rotulo="Para quem" itens={livro.paraQuem} adicionar="Adicionar" /></div>
           <div><p className="mb-2 text-[0.9375rem] font-medium">Não é para quem</p><ListaEditavel rotulo="Não é para" itens={livro.naoEPara} adicionar="Adicionar" /></div>
           <div><p className="mb-2 text-[0.9375rem] font-medium">O que está incluído</p><ListaEditavel rotulo="Incluído" itens={livro.incluido} adicionar="Adicionar item" /></div>
           <Campo id="antes" rotulo="Antes de comprar" dica="Requisitos e limites. Ser claro aqui reduz pedidos de reembolso.">
-            <Textarea id="antes" defaultValue="Computador e internet. Planos de IA, VPS e domínio são custos externos. Sem promessa de renda ou de prazo." />
+            <Textarea id="antes" defaultValue={livro.antesDeComprar} className="min-h-32" />
           </Campo>
-          <Campo id="autor-bio" rotulo="Sobre o autor"><Textarea id="autor-bio" defaultValue={livro.sobreAutor} /></Campo>
         </Secao>
 
         <Secao id="conteudo" n={3} nome="Conteúdo">
@@ -126,10 +154,13 @@ export default function Editor() {
             <p className="mb-2 text-[0.9375rem] font-medium">Perguntas frequentes</p>
             <ul className="space-y-3">
               {livro.faq.slice(0, 2).map((f) => (
-                <li key={f.p} className="flex items-start gap-1">
-                  <span className="mt-3 text-(--tinta-2)/60" aria-hidden><GripVertical className="size-5" /></span>
-                  <div className="w-full space-y-2"><Input aria-label="Pergunta" defaultValue={f.p} className="font-medium" /><Textarea aria-label="Resposta" defaultValue={f.r} className="min-h-20" /></div>
-                  <Button type="button" variant="ghost" size="icon" aria-label="Remover pergunta"><X /></Button>
+                <li key={f.p}>
+                  <div className="space-y-2"><Input aria-label="Pergunta" defaultValue={f.p} className="font-medium" /><Textarea aria-label="Resposta" defaultValue={f.r} className="min-h-20" /></div>
+                  <div className="flex justify-end">
+                    <Button type="button" variant="ghost" size="icon" aria-label="Subir pergunta"><ArrowUp /></Button>
+                    <Button type="button" variant="ghost" size="icon" aria-label="Descer pergunta"><ArrowDown /></Button>
+                    <Button type="button" variant="ghost" size="icon" aria-label="Remover pergunta"><X /></Button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -137,44 +168,33 @@ export default function Editor() {
           </div>
           <div>
             <p className="mb-2 text-[0.9375rem] font-medium">Páginas de amostra</p>
-            <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {livro.amostras.map((a, i) => (
-                <li key={a.src} className="group relative">
-                  <Image src={a.src} alt={a.alt} width={800} height={1280} sizes="(min-width:640px) 160px, 30vw" className="h-auto w-full ring-1 ring-(--filete)" />
-                  <span className="absolute bottom-1.5 left-1.5 grid size-6 place-items-center bg-(--tinta) text-xs text-(--papel)">{i + 1}</span>
-                  <button type="button" aria-label={`Remover página ${i + 1}`} className="absolute top-1.5 right-1.5 grid size-8 place-items-center bg-(--papel) text-(--tinta) opacity-100 shadow sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"><X className="size-4" /></button>
+                <li key={a.src}>
+                  <div className="relative">
+                    <Image src={a.src} alt={a.alt} width={800} height={1280} sizes="(min-width:640px) 180px, 45vw" className="h-auto w-full ring-1 ring-(--filete)" />
+                    <span className="absolute bottom-1.5 left-1.5 grid size-6 place-items-center bg-(--tinta) text-xs text-(--papel)">{i + 1}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Mover página ${i + 1} para trás`} disabled={i === 0}><ArrowLeft /></Button>
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Remover página ${i + 1}`}><X /></Button>
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Mover página ${i + 1} para a frente`} disabled={i === livro.amostras.length - 1}><ArrowRight /></Button>
+                  </div>
                 </li>
               ))}
               <li><button type="button" className="grid aspect-[800/1280] w-full place-items-center border border-dashed border-(--filete) text-sm text-(--tinta-2) transition-colors hover:border-(--tinta) hover:text-(--tinta)"><span className="grid justify-items-center gap-1"><Plus className="size-5" />Adicionar</span></button></li>
             </ul>
-            <p className="mt-2 text-sm text-(--tinta-2)">De 3 a 8 páginas. Arraste para ordenar.</p>
+            <p className="mt-2 text-sm text-(--tinta-2)">De 3 a 8 páginas.</p>
+          </div>
+          <div>
+            <p className="mb-1.5 text-[0.9375rem] font-medium">Amostra em PDF (opcional)</p>
+            <p className="mb-3 text-sm text-(--tinta-2) text-pretty">A pessoa recebe em troca do e-mail. Este arquivo é público: coloque só as páginas de amostra, nunca o livro inteiro.</p>
+            <Button type="button" variant="outline"><Plus /> Enviar amostra em PDF</Button>
           </div>
         </Secao>
 
         <Secao id="preco" n={4} nome="Preço e onde comprar">
-          <div className="grid gap-7 sm:grid-cols-2">
-            <Campo id="preco-in" rotulo="Preço (R$)"><Input id="preco-in" inputMode="decimal" defaultValue="79,00" /></Campo>
-            <Campo id="preco-de" rotulo="Preço “de” (opcional)" dica="Só use se for um preço que você realmente pratica."><Input id="preco-de" inputMode="decimal" defaultValue="99,00" /></Campo>
-            <Campo id="fim" rotulo="Fim da oferta (opcional)" dica="Com uma data aqui, a página mostra a contagem. Quando acabar, o preço volta ao normal sozinho."><Input id="fim" type="datetime-local" defaultValue="2026-11-30T23:59" /></Campo>
-            <Campo id="garantia" rotulo="Garantia (dias)"><Input id="garantia" inputMode="numeric" defaultValue="7" /></Campo>
-          </div>
-          <div>
-            <p className="mb-2 text-[0.9375rem] font-medium">Onde comprar</p>
-            <ul className="space-y-3">
-              {livro.ofertas.map((o) => (
-                <li key={o.plataforma} className="grid gap-3 border border-(--filete) bg-(--papel-3) p-4 sm:grid-cols-[9rem_1fr_auto] sm:items-center">
-                  <select aria-label="Plataforma" className={selectCls} defaultValue={o.plataforma}><option>Kiwify</option><option>Cakto</option><option>Hotmart</option><option>Outra</option></select>
-                  <Input aria-label="Link do checkout" defaultValue={`https://pay.exemplo.com/${o.plataforma.toLowerCase()}`} />
-                  <div className="flex items-center gap-4">
-                    <label className="flex min-h-11 items-center gap-2 text-sm"><input type="radio" name="principal" defaultChecked={o.principal} className="size-4 accent-(--terracota)" /> Principal</label>
-                    <label className="flex min-h-11 items-center gap-2 text-sm"><Switch defaultChecked aria-label="Ativa" /> Ativa</label>
-                    <Button type="button" variant="ghost" size="icon" aria-label="Testar link"><ExternalLink /></Button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <Button type="button" variant="ghost" size="sm" className="mt-2 text-(--terracota)"><Plus /> Adicionar plataforma</Button>
-          </div>
+          <PrecoELojas lojas={[...livro.ofertas]} campanhaInicial />
         </Secao>
 
         <Secao id="seo" n={5} nome="Google (SEO)">
@@ -184,20 +204,46 @@ export default function Editor() {
             </summary>
             <div className="space-y-5 border-t border-(--filete) p-4">
               <div className="bg-white p-4 text-left">
-                <p className="text-sm text-[#3c4043]">bibliotheon.com.br › {livro.slug}</p>
-                <p className="text-xl leading-snug text-[#1a0dab]">Como criar sistemas com IA sem saber programar | E-book</p>
-                <p className="mt-1 text-sm text-[#4d5156]">E-book prático: do requisito ao sistema no ar, com VPS e domínio. PDF e EPUB por R$ 79,00.</p>
+                <p className="text-sm break-words text-[#3c4043]">bibliotheon.com.br › {livro.slug}</p>
+                <p className="text-xl leading-snug text-[#1a0dab]">{livro.headline}</p>
+                <p className="mt-1 text-sm text-[#4d5156]">{livro.resumo}</p>
               </div>
-              <Campo id="seo-t" rotulo="Título para o Google"><Input id="seo-t" defaultValue="Como criar sistemas com IA sem saber programar | E-book" /></Campo>
-              <Campo id="seo-d" rotulo="Descrição para o Google"><Textarea id="seo-d" defaultValue="E-book prático: do requisito ao sistema no ar, com VPS e domínio. PDF e EPUB por R$ 79,00." className="min-h-20" /></Campo>
+              <Campo id="seo-t" rotulo="Título para o Google"><Input id="seo-t" defaultValue={livro.headline} /></Campo>
+              <Campo id="seo-d" rotulo="Descrição para o Google"><Textarea id="seo-d" defaultValue={livro.resumo} className="min-h-20" /></Campo>
             </div>
           </details>
         </Secao>
       </div>
 
-      {/* Coluna lateral (desktop): navegação, checklist e ações */}
+      {/* Coluna lateral (desktop): ações primeiro, para nunca ficarem abaixo da dobra; rola por dentro se a tela for baixa */}
       <aside className="hidden lg:block">
-        <div className="sticky top-8 space-y-8">
+        <div className="sticky top-8 max-h-[calc(100dvh-4rem)] space-y-7 overflow-y-auto pr-1 pb-2">
+          <div className="space-y-2">
+            <Button type="button" size="lg" className="w-full">Publicar</Button>
+            <Button type="button" variant="outline" size="lg" className="w-full">Salvar rascunho</Button>
+            <p className="pt-1 text-sm text-(--tinta-2) text-pretty">{AVISO_HONESTO}</p>
+          </div>
+          <div>
+            <p className="mb-2 text-sm font-medium text-(--tinta-2)">Pronto para publicar?</p>
+            <ul className="space-y-1.5 text-[0.9375rem]">
+              {checklist.map((c) => (
+                <li key={c.t} className="flex items-center gap-2.5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-(--salvia) text-white"><Check className="size-3" aria-hidden /></span>{c.t}</li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm font-medium text-(--tinta-2)">Para vender melhor</p>
+            <ul className="mt-1 space-y-1 text-sm text-(--tinta-2)">
+              {paraVenderMelhor.map((t) => <li key={t} className="text-pretty">{t}</li>)}
+            </ul>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-(--tinta-2)">Página de vendas: <span className="text-(--tinta)">padrão</span></p>
+            <p className="mt-0.5 text-sm text-(--tinta-2) text-pretty">Se este e-book ganhar uma página personalizada, ela assume este endereço sozinha.</p>
+          </div>
+          <div className="-mx-2 grid">
+            <Button type="button" variant="ghost" className="justify-start px-2"><ExternalLink /> Ver prévia</Button>
+            <Button variant="ghost" className="justify-start px-2" render={<Link href="/prototipo/painel/editor/lojas" />}><Store /> Publicar em outras lojas</Button>
+            <Button type="button" variant="ghost" className="justify-start px-2"><Download /> Baixar pacote</Button>
+          </div>
           <nav aria-label="Nesta página">
             <p className="mb-2 text-sm font-medium text-(--tinta-2)">Nesta página</p>
             <ol className="border-l border-(--filete)">
@@ -206,19 +252,6 @@ export default function Editor() {
               ))}
             </ol>
           </nav>
-          <div>
-            <p className="mb-2 text-sm font-medium text-(--tinta-2)">Pronto para publicar?</p>
-            <ul className="space-y-1.5 text-[0.9375rem]">
-              {checklist.map((c) => (
-                <li key={c.t} className="flex items-center gap-2.5"><span className="grid size-5 place-items-center rounded-full bg-(--salvia) text-white"><Check className="size-3" aria-hidden /></span>{c.t}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-2">
-            <Button type="button" size="lg" className="w-full">Publicar</Button>
-            <Button type="button" variant="outline" size="lg" className="w-full">Salvar rascunho</Button>
-            <Button type="button" variant="ghost" className="w-full"><ExternalLink /> Ver prévia</Button>
-          </div>
         </div>
       </aside>
 

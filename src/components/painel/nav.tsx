@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const itens = [
   { href: "/prototipo/painel", rotulo: "E-books", Icone: BookOpen, dono: false },
   { href: "#", rotulo: "Temas", Icone: Layers, dono: true },
-  { href: "#", rotulo: "Parceiros", Icone: Users, dono: true },
+  { href: "/prototipo/painel/usuarios", rotulo: "Usuários", Icone: Users, dono: true },
   { href: "#", rotulo: "Conta", Icone: UserRound, dono: false },
 ];
 
@@ -17,7 +17,7 @@ export function PainelNav() {
   return (
     <nav aria-label="Painel" className="grid grid-cols-4 gap-1 px-3 pb-3 lg:flex lg:flex-col lg:pb-0">
       {itens.map(({ href, rotulo, Icone }) => {
-        const ativo = rotulo === "E-books" && caminho.startsWith("/prototipo/painel");
+        const ativo = rotulo === "Usuários" ? caminho.startsWith(href) : rotulo === "E-books" && caminho.startsWith(href) && !caminho.startsWith("/prototipo/painel/usuarios");
         return (
           <Link
             key={rotulo}
