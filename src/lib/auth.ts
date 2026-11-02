@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { APIError } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { eq } from "drizzle-orm";
@@ -40,7 +41,7 @@ function criar() {
         create: {
           before: async (sessao) => {
             const u = db.select({ ativo: schema.user.ativo }).from(schema.user).where(eq(schema.user.id, sessao.userId)).get();
-            if (!u?.ativo) return false;
+            if (!u?.ativo) throw new APIError("FORBIDDEN", { message: "Acesso desativado", code: "ACESSO_DESATIVADO" });
           },
         },
       },

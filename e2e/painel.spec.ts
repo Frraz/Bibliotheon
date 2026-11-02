@@ -129,7 +129,7 @@ test("desativar tira o acesso na hora, mesmo com a sessão aberta, e a senha red
   await paginaAna.reload();
   await expect(paginaAna).toHaveURL(/\/entrar$/);
   await entrar(paginaAna, "ana@teste.com", senhaDaAna);
-  await expect(alerta(paginaAna)).toContainText("incorretos");
+  await expect(alerta(paginaAna)).toContainText("desativado"); // com a senha certa, a mensagem diz o motivo
 
   await dono.page.getByRole("switch", { name: "Ana Souza ativo" }).click();
   await expect(dono.page.getByText("Ativo", { exact: true }).first()).toBeVisible();
