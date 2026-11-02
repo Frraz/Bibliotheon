@@ -122,3 +122,12 @@ export const livro = {
 
 export const brl = (n: number) =>
   n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+// Capas e temas de EXEMPLO, só para ver como o catálogo cresce. Não são e-books reais.
+export const exemplos = [
+  { titulo: "Alimentação sem Culpa", tema: "Saúde", preco: 49, cor: "#55685F" },
+  { titulo: "Finanças em Dia", tema: "Finanças pessoais", preco: 39, cor: "#8A6A2B" },
+  { titulo: "Foco para Estudar", tema: "Estudos", preco: 29, cor: "#3F5B7A" },
+] as const;
+
+export const temaReal = { nome: "Desenvolvimento de software", slug: "desenvolvimento-de-software" } as const;

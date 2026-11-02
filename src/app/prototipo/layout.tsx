@@ -5,10 +5,11 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-const direcoes = [
-  { href: "/prototipo/a", rotulo: "A · Livraria" },
-  { href: "/prototipo/b", rotulo: "B · Oficina" },
-  { href: "/prototipo/c", rotulo: "C · Direta" },
+const telas = [
+  { href: "/prototipo/home", rotulo: "Home" },
+  { href: "/prototipo/landing", rotulo: "Landing" },
+  { href: "/prototipo/painel", rotulo: "Painel" },
+  { href: "/prototipo/painel/editor", rotulo: "Editor" },
 ];
 
 export default function PrototipoLayout({ children }: LayoutProps<"/prototipo">) {
@@ -18,8 +19,8 @@ export default function PrototipoLayout({ children }: LayoutProps<"/prototipo">)
         <span className="text-neutral-400">
           Protótipo · preço, prazo e plataformas são de demonstração
         </span>
-        <nav className="flex gap-4" aria-label="Direções">
-          {direcoes.map((d) => (
+        <nav className="flex gap-4" aria-label="Telas do protótipo">
+          {telas.map((d) => (
             <Link key={d.href} href={d.href} className="font-medium text-white underline-offset-4 hover:underline">
               {d.rotulo}
             </Link>

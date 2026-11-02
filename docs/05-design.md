@@ -22,20 +22,28 @@ O v1 parecia "feito por estudante usando IA". Este documento existe para que iss
 8. **Dark mode:** só no painel, se sair barato. A landing é clara (decidir na Etapa 1).
 9. **Acessibilidade:** contraste AA (AAA no texto corrido), alvos de toque ≥ 44 px, navegação por teclado e `prefers-reduced-motion`.
 
-## Tokens (preencher na Etapa 1)
+## Tokens
 
-Definidos como variáveis CSS no `@theme` do Tailwind v4, em três camadas: primitivos → semânticos → componentes.
+Definidos em **`src/app/globals.css`** (um lugar só): valores de marca em `:root` + nomes semânticos do shadcn (`--primary`, `--border`...) apontando para eles, expostos ao Tailwind v4 via `@theme inline`. Mudar uma cor da marca = mudar uma linha.
 
-| Token | Valor |
-|---|---|
-| Fonte display | _a definir_ |
-| Fonte texto | _a definir_ |
-| Escala tipográfica | _a definir_ |
-| Neutros (50–950) | _a definir_ |
-| `--accent` | por e-book (padrão da marca: _a definir_) |
-| Raio | _a definir_ |
-| Sombras (2–3 níveis) | _a definir_ |
-| Espaçamento base | 4 px |
+| Token | Valor | Uso |
+|---|---|---|
+| `--papel` | `#F3ECDD` | Fundo da marca (vem da capa do livro) |
+| `--papel-2` | `#EAE1CE` | Faixas alternadas, barra lateral do painel |
+| `--papel-3` | `#FAF6EC` | Campos e superfícies elevadas do painel |
+| `--tinta` | `#1F2A29` | Texto principal |
+| `--tinta-2` | `#4A5654` | Texto secundário (6,5:1 sobre o papel) |
+| `--terracota` / `-escura` | `#A9422A` / `#8A3320` | Ação principal (CTA), números de seção, foco |
+| `--salvia` | `#4B5E55` | Confirmações, selo "Publicado" (≥ 4,8:1 em todos os fundos de texto) |
+| `--filete` | `#C9BCA3` | Filetes e bordas (a estrutura da página é feita de filetes, não de cartões) |
+| `--perigo` | `#A6261C` | Ações destrutivas |
+| Fonte display | **Fraunces** (eixo `opsz`) | Títulos, preços, nome da marca |
+| Fonte texto | **Hanken Grotesk** | Texto e interface |
+| Raio | `0.25rem` | Cantos quase retos, como a capa. A landing usa cantos retos |
+| Alvos de toque | ≥ 44 px | Botão padrão `h-11`, `lg` `h-12`; campo `h-11` |
+| Espaçamento base | 4 px | — |
+
+Cor de destaque **por e-book** (`accent`): ainda não implementada; entra na Etapa 2 junto com os dados (a landing de hoje usa a terracota da marca).
 
 ## Movimento
 
@@ -83,4 +91,35 @@ Só então começa o backend.
 
 ## Direção escolhida
 
-_Preencher ao fim da Etapa 1: nome, justificativa, prints e tokens finais._
+**A · Livraria** (escolhida pelo usuário em 02/11/2026, entre três direções testadas com o conteúdo real do e-book 001; B "Oficina" escura e C "Direta" em bloco de cor foram descartadas e removidas).
+
+**Por quê:** é a extensão mais fiel da capa do livro, a mais elegante e a que mais se aproxima de uma livraria de verdade. A estrutura é feita de filetes, espaço e tipografia (serifa de display + sans), sem cartões repetidos. Cada seção usa o formato que o conteúdo pede (lista numerada só para o sumário, que é uma sequência).
+
+**Como se aplica em cada superfície:**
+
+- **Landing** (`/prototipo/landing`): hero em duas colunas com a capa em leve perspectiva; faixa escura de urgência (só com data real); seções separadas por filetes; "Folheie antes de decidir" em faixa de tinta; bloco de compra em tinta com o preço grande.
+- **Home** (`/prototipo/home`): frase da marca, e-book em destaque num painel `papel-2`, filtros de tema e grade de capas (2 colunas no celular, 4 no desktop).
+- **Painel** (`/prototipo/painel`): mesma paleta e fontes, silencioso: barra lateral `papel-2`, campos `papel-3`, filetes. Menu de 4 itens (grade de 4 colunas no celular).
+- **Editor** (`/prototipo/painel/editor`): uma página, 5 seções numeradas (a numeração é uma sequência real do formulário); coluna lateral fixa com "Nesta página", checklist e ações; no celular, barra "Salvar / Publicar" fixa e resumo do checklist no topo.
+
+### Auditoria impeccable (02/11/2026)
+
+Detector rodado nas 4 telas, em 1280×800 e 390×844, depois das correções:
+
+| Achado | Decisão |
+|---|---|
+| `cream-palette`: fundo creme (todas as telas) | **Aceito.** O creme é o da capa real do livro; a marca estende a capa. Registrado em [decisoes](decisoes.md). Se a cor da capa mudar, revisar |
+| `first-viewport-column-overflow` (editor) | **Falso positivo.** É a coluna lateral fixa (sticky) ao lado de um formulário longo, por desenho |
+| `oversized-h1`, `dark-glow`, `low-contrast`, `straggler` | **Corrigidos** (título menor, sombra neutra no CTA, `--salvia` mais escuro, `text-wrap: pretty` global) |
+
+Antes de cada deploy: repetir `.claude/skills/impeccable/scripts/impeccable detect --viewport 390x844 <url>` (e 1280x800) e conferir que só restam os dois achados acima.
+
+### Medições (build de produção, 4G lento + CPU 4× mais lenta, celular 390 px)
+
+| Tela | LCP | CLS | JS gzip |
+|---|---|---|---|
+| Landing | 0,91 s | 0,026 | 143 KB (base do Next; sem prefetch do menu do protótipo) |
+| Home | 0,78 s | 0,005 | idem |
+| Painel / Editor | 0,80 s | 0,000 | idem |
+
+O CLS da landing (0,026, dentro da meta) vem da troca da fonte do título (o Fraunces muda de largura com o tamanho óptico). Se subir, reservar altura do `h1` ou usar `font-display: optional` só nele.

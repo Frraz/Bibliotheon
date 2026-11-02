@@ -1,24 +1,8 @@
 import Image from "next/image";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import { BarraFixa } from "@/components/prototipo/barra-fixa";
 import { Contagem } from "@/components/prototipo/contagem";
 import { Folhear } from "@/components/prototipo/folhear";
 import { brl, livro } from "@/lib/prototipo";
-
-const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["opsz"] });
-const texto = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-texto" });
-
-// Direção A — Livraria. Extensão da capa: papel, tinta, terracota.
-const tema = {
-  "--papel": "#F3ECDD",
-  "--papel-2": "#EAE1CE",
-  "--tinta": "#1F2A29",
-  "--tinta-2": "#4A5654",
-  "--terracota": "#A9422A",
-  "--terracota-escura": "#8A3320",
-  "--salvia": "#55685F",
-  "--filete": "#C9BCA3",
-} as React.CSSProperties;
 
 const Seta = () => (
   <svg viewBox="0 0 20 20" className="size-4 shrink-0 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
@@ -35,7 +19,7 @@ function Botao({ children, className = "" }: { children: React.ReactNode; classN
   return (
     <a
       href="#comprar"
-      className={`inline-flex min-h-14 items-center justify-center bg-(--terracota) px-8 text-[1.0625rem] font-semibold text-(--papel) shadow-[0_1px_0_rgb(0_0_0/.15),0_10px_24px_-10px_var(--terracota)] transition-[background-color,transform] duration-150 hover:bg-(--terracota-escura) active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota) ${className}`}
+      className={`inline-flex min-h-14 items-center justify-center bg-(--terracota) px-8 text-[1.0625rem] font-semibold text-(--papel) shadow-[0_1px_0_rgb(0_0_0/.15),0_10px_20px_-12px_rgb(0_0_0/.55)] transition-[background-color,transform] duration-150 hover:bg-(--terracota-escura) active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota) ${className}`}
     >
       {children}
     </a>
@@ -53,22 +37,21 @@ export default function DirecaoA() {
   const fim = d.toLocaleDateString("pt-BR", { day: "2-digit", month: "long", timeZone: "America/Sao_Paulo" });
   const fimCurto = d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "America/Sao_Paulo" });
   return (
-    <div
-      style={tema}
-      className={`${display.variable} ${texto.variable} bg-(--papel) font-(family-name:--font-texto) text-[1.0625rem] leading-[1.65] text-(--tinta)`}
-    >
+    <div className="bg-(--papel) font-(family-name:--font-texto) text-[1.0625rem] leading-[1.65] text-(--tinta)">
       {/* 2 · Faixa de urgência (só existe com data real) */}
       <div className="flex min-h-[3.75rem] items-center justify-center bg-(--tinta) px-5 py-2.5 text-center text-sm text-(--papel) sm:min-h-10">
-        Preço de lançamento até <span className="whitespace-nowrap">{fimCurto}</span>
-        <span className="mx-2 opacity-40" aria-hidden>|</span>
-        faltam <Contagem ate={livro.ofertaAte} className="font-semibold whitespace-nowrap" />
+        <p>
+          Preço de lançamento até <span className="whitespace-nowrap">{fimCurto}</span>
+          <span className="mx-2 opacity-40" aria-hidden>|</span>
+          faltam <Contagem ate={livro.ofertaAte} className="font-semibold whitespace-nowrap" />
+        </p>
       </div>
 
       {/* 1 · Hero */}
       <header id="topo" className="mx-auto grid max-w-6xl gap-x-16 gap-y-10 px-5 pt-10 pb-16 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-24">
         <div className="lg:order-1">
           <p className="mb-5 text-sm font-medium text-(--salvia)">E-book · {livro.autor}</p>
-          <h1 className="font-(family-name:--font-display) text-[clamp(2.4rem,7.2vw,4.6rem)] leading-[1.02] font-medium tracking-[-0.02em] text-balance">
+          <h1 className="font-(family-name:--font-display) text-[clamp(2.3rem,6.4vw,3.9rem)] leading-[1.04] font-medium tracking-[-0.02em] text-balance">
             {livro.headline}
           </h1>
           <p className="mt-6 max-w-[34rem] text-[1.1875rem] text-(--tinta-2) text-pretty">{livro.subtitulo}</p>

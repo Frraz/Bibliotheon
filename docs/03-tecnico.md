@@ -6,7 +6,7 @@
 |---|---|---|
 | Runtime | Node 22+ no desenvolvimento; `node:24` (LTS) na imagem Docker | O PC de desenvolvimento tem Node 22; o Next 16 funciona nos dois |
 | Framework | **Next.js 16** (App Router, **Cache Components** + Partial Prefetching ligados) + TypeScript estrito | Páginas públicas pré-renderizadas (HTML pronto, ótimo para SEO e mobile). Painel e API no mesmo app, em um container. **A versão 16 tem convenções novas: ler `node_modules/next/dist/docs/` antes de codar** |
-| UI | Tailwind CSS v4 + shadcn/ui (Radix) | Painel profissional pronto; é a base em que as skills de design rendem mais |
+| UI | Tailwind CSS v4 + shadcn/ui, estilo `base-nova` (componentes **Base UI**, não Radix) + `lucide-react` | Painel profissional pronto; é a base em que as skills de design rendem mais. `cn()` vem do pacote `cn` (mantido pelo próprio shadcn, substitui clsx + tailwind-merge) |
 | Movimento | Motion (painel e microinterações) + GSAP/ScrollTrigger (só na landing) | Ver [05-design](05-design.md#movimento) |
 | Banco | SQLite (better-sqlite3, modo WAL) + Drizzle ORM + drizzle-kit migrations | Um arquivo, zero serviço; backup é uma cópia. Migrar para Postgres é simples se um dia for preciso |
 | Auth | Better Auth (e-mail/senha, sessão em cookie httpOnly) com campo `role` | Login seguro pronto; sem cadastro público |

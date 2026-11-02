@@ -70,7 +70,7 @@ Com um único e-book, a Home funciona: o hero mostra esse e-book e a grade some.
 
 ### Regras de interface
 
-- Menu lateral com **no máximo 4 itens**:
+- Menu lateral (grade de 4 colunas no celular) com **no máximo 4 itens**:
   - E-books;
   - Temas*;
   - Parceiros*;
@@ -99,7 +99,7 @@ E-mail + senha. Sem cadastro público. Esqueceu a senha: "Fale com o administrad
 
 ### Editor do e-book (`/painel/ebooks/[id]`)
 
-Uma página só, com navegação por âncoras à esquerda (no desktop) e seções numeradas:
+Uma página só, com seções numeradas. A navegação por âncoras ("Nesta página") fica na **coluna lateral direita**, junto com o checklist e as ações (no celular, ela é substituída por um resumo do checklist e uma barra fixa Salvar/Publicar):
 
 1. **Essencial:**
    - título; slug (gerado automaticamente, editável); tema (select + "criar tema", só owner);

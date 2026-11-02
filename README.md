@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado:** Etapa 0 concluída. **Etapa 1 em andamento:** as 3 direções visuais da landing estão prontas em `/prototipo`, aguardando sua escolha. Ver [roteiro](docs/07-roteiro.md).
+> **Estado:** Etapas 0 e 1 concluídas (documentação e protótipo visual, direção **A · Livraria**). Telas navegáveis em `/prototipo/home`, `/landing`, `/painel` e `/painel/editor` (dados de demonstração). **Próxima: Etapa 2, site público no ar.** Ver [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 
@@ -26,7 +26,7 @@ Requer Node 22+.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000 (hoje redireciona para /prototipo)
+npm run dev      # http://localhost:3000 (hoje redireciona para /prototipo/home)
 npm run lint
 npm run build    # build de produção; conferir sem erros antes de qualquer deploy
 npm start        # serve o build

@@ -6,17 +6,16 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** você leu `01` a `07` e ajustou o que discordar.
 
-## Etapa 1 — Protótipo visual (1 sessão) 🟡 em andamento
+## Etapa 1 — Protótipo visual ✅ (aguardando aprovação final)
 
-**Estado (02/11/2026):** passos 1 a 3 concluídos. Skills instaladas em `.claude/skills/`; projeto Next 16 criado; as 3 direções estão em `/prototipo/a` (Livraria), `/b` (Oficina) e `/c` (Direta), com conteúdo real do e-book 001, lint e build limpos, LCP 0,7–0,85 s e CLS < 0,05. **Falta você escolher a direção (passo 4).** Depois: passos 5 e 6.
+**Estado (02/11/2026):** concluída. Direção **A · Livraria** escolhida; Home, Landing, Painel e Editor prototipados com o conteúdo real do e-book 001, em `/prototipo/*`; tokens definidos em `globals.css`; shadcn/ui instalado; auditoria impeccable feita; lint e build limpos; LCP 0,8–0,9 s e CLS ≤ 0,026. Detalhes e medições em [05-design](05-design.md#direção-escolhida).
 
 1. ✅ Instalar as skills de design ([README](../README.md#skills-de-design)).
-2. ✅ Criar o projeto Next.js + Tailwind v4 (shadcn/ui entra junto com o Editor do painel, passo 5; sem banco).
-3. ✅ Com o **conteúdo real do e-book 001** (manifest + kit comercial do `../ebooks`), gerar **3 direções visuais** da landing em rotas `/prototipo/a`, `/b`, `/c`.
-4. Você escolhe a direção.
-5. Aplicar na Home e no Editor do painel (dados fixos, sem salvar).
-6. Auditoria impeccable + Lighthouse.
-7. Preencher "Direção escolhida" e os tokens em [05-design](05-design.md).
+2. ✅ Criar o projeto Next.js + Tailwind v4 + shadcn/ui (sem banco).
+3. ✅ Gerar **3 direções visuais** da landing com o conteúdo real do e-book 001.
+4. ✅ Escolha: **A · Livraria**.
+5. ✅ Aplicar na Home e no Editor do painel (dados fixos, sem salvar).
+6. ✅ Auditoria impeccable + medições.
 
 **Portão:** "Eu gosto disso e quero que o site fique assim", visto no celular e no desktop.
 
