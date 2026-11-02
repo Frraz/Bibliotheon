@@ -64,7 +64,7 @@ export default function Lista() {
               ))}
             </dl>
             <div className="col-span-2 flex gap-2 sm:col-span-1 sm:col-start-4 sm:row-start-1">
-              {l.status === "publicado" && <Button variant="ghost" render={<Link href="/prototipo/landing" />}>Ver página</Button>}
+              {l.status === "publicado" && <Button variant="ghost" render={<Link href="/criar-sistemas-com-ia" />}>Ver página</Button>}
               <Button variant="outline" render={<Link href="/prototipo/painel/editor" />}>Editar</Button>
             </div>
           </li>

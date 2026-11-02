@@ -1,0 +1,63 @@
+{
+  "contract": "bibliotheon-editorial/v1",
+  "sourceId": "e2e-001",
+  "language": "pt-BR",
+  "edition": "1",
+  "book": {
+    "title": "Livro de Teste",
+    "slug": "livro-de-teste",
+    "theme": "tema-de-teste",
+    "summary": "Resumo do livro de teste.",
+    "body": "Primeiro paragrafo.\n\nSegundo paragrafo.",
+    "problem": "Um problema do leitor.",
+    "benefits": [
+      "Beneficio um",
+      "Beneficio dois",
+      "Beneficio tres"
+    ],
+    "headline": "Aprenda o teste completo",
+    "subtitle": "Um subtitulo.",
+    "author": "Autora de Teste",
+    "toc": [
+      "Capitulo um",
+      "Capitulo dois"
+    ],
+    "faq": [
+      {
+        "q": "Funciona?",
+        "a": "Sim."
+      }
+    ],
+    "price": 79,
+    "priceFrom": 99,
+    "offerEndsAt": "2027-01-01T12:00:00-03:00",
+    "guaranteeDays": 7
+  },
+  "cover": {
+    "file": "capa.jpg",
+    "sha256": "6cc79f49ea08ff9c344754cab64d45df33398b24585fd35425acbbb402d82e67",
+    "alt": "Capa do livro de teste"
+  },
+  "samples": [
+    {
+      "file": "amostra-1.jpg",
+      "alt": "Amostra 1"
+    },
+    {
+      "file": "amostra-2.jpg",
+      "alt": "Amostra 2"
+    }
+  ],
+  "offers": [
+    {
+      "platform": "kiwify",
+      "url": "https://pay.example.com/kiwify?off=abc",
+      "primary": true
+    },
+    {
+      "platform": "cakto",
+      "url": "https://pay.example.com/cakto"
+    }
+  ],
+  "pending": []
+}
