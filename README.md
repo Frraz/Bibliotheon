@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado:** Etapa 0 concluída (documentação). Próxima: Etapa 1, protótipo visual. Ver [roteiro](docs/07-roteiro.md).
+> **Estado:** Etapa 0 concluída. **Etapa 1 em andamento:** as 3 direções visuais da landing estão prontas em `/prototipo`, aguardando sua escolha. Ver [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 
@@ -22,16 +22,17 @@ Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados 
 
 ## Rodar localmente
 
-_A partir da Etapa 1._
+Requer Node 22+.
 
 ```bash
 npm install
-npm run db:migrate          # cria data/bibliotheon.db
-npm run seed -- ../ebooks/ebooks/001-sistemas-com-ia   # importa o e-book 001
-npm run dev                 # http://localhost:3000
-npm test                    # Vitest
-npm run test:e2e            # Playwright
+npm run dev      # http://localhost:3000 (hoje redireciona para /prototipo)
+npm run lint
+npm run build    # build de produção; conferir sem erros antes de qualquer deploy
+npm start        # serve o build
 ```
+
+Banco, seed, Vitest e testes E2E entram na Etapa 2 (ver [roteiro](docs/07-roteiro.md)).
 
 ## Publicar um e-book a partir do `../ebooks`
 
@@ -46,15 +47,6 @@ cd ../ebooks
 
 ## Skills de design
 
-Instalar no Claude Code **antes da Etapa 1**. A `ui-ux-pro-max` já está instalada.
+Já instaladas **no projeto**, em `.claude/skills/` (versionadas): `impeccable`, `taste-skill`, `frontend-design`, `emil-*` (animação) e `gsap-*`. A `ui-ux-pro-max` está instalada no Claude Code do usuário. Podem exigir reiniciar a sessão do Claude Code para aparecerem na lista de skills. Quando usar cada uma: [05-design](docs/05-design.md#processo-com-as-skills).
 
-```
-/plugin marketplace add pbakaus/impeccable
-/plugin marketplace add emilkowalski/skills
-/plugin marketplace add leonxlnx/taste-skill
-/plugin marketplace add greensock/gsap-skills
-/plugin marketplace add anthropics/claude-code      # contém o plugin frontend-design
-/plugin                                             # instalar os plugins de cada marketplace
-```
-
-Se algum repositório não for um marketplace de plugins, clonar a pasta da skill em `~/.claude/skills/`. Conferir com `/plugin` e com a lista de skills disponíveis. Quando usar cada uma: [05-design](docs/05-design.md#processo-com-as-skills).
+Origem (para atualizar): `pbakaus/impeccable`, `leonxlnx/taste-skill`, `emilkowalski/skills`, `greensock/gsap-skills`, `anthropics/skills` (frontend-design).

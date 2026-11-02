@@ -19,6 +19,8 @@ Objetivo único: **vender e-books.** Antes de qualquer trabalho, ler `README.md`
 
 ## Código
 
+- **Next.js 16 tem convenções novas** (Cache Components, `LayoutProps`, etc.). Antes de escrever código de rotas, cache ou metadados, ler o guia correspondente em `node_modules/next/dist/docs/01-app/`. Não confiar na memória.
+
 - TypeScript estrito; Zod para tudo o que entra (formulário, API, manifesto).
 - Server Components por padrão; `"use client"` só onde há interação.
 - Regra de acesso (dono/owner) sempre conferida no servidor.
@@ -26,6 +28,10 @@ Objetivo único: **vender e-books.** Antes de qualquer trabalho, ler `README.md`
 - Nomes de domínio em português (`ebook`, `oferta`, `tema`), como no modelo de dados.
 - Testes para: preço vigente/urgência, `/ir` e UTMs, permissões de parceiro, API/manifesto. Não escrever testes de enfeite.
 - Commits pequenos, mensagem em português no imperativo.
+
+## Como ver o resultado (obrigatório em mudança visual)
+
+Subir o build de produção (`npm run build && npm start -- -p 3100`) e capturar com Playwright (já instalado, usa o Chromium em `~/.cache/ms-playwright`): celular 390×844 e desktop 1280×800, primeira tela e página inteira. Conferir também: sem rolagem horizontal, sem erro de console, LCP e CLS. Para parar o servidor use `kill $(pgrep -f '[n]ext-server')` (um `pkill -f "next dev"` direto derruba o próprio shell).
 
 ## Definição de pronto (qualquer tarefa)
 

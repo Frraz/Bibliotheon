@@ -56,7 +56,9 @@ Definidos como variáveis CSS no `@theme` do Tailwind v4, em três camadas: prim
 | LCP | < 2,0 s |
 | CLS | < 0,05 |
 | INP | < 200 ms |
-| JS da landing (gzip) | < 120 KB |
+| JS próprio da landing (gzip, além da base do Next) | < 30 KB |
+
+> **Medido na Etapa 1:** a base do Next 16 + React 19 já são **143 KB gzip** em qualquer página (inclusive uma sem nenhum componente nosso). A meta anterior (< 120 KB no total) era irrealista para esta stack; o que controla a velocidade percebida é o LCP, que ficou em 0,7 a 0,85 s com 4G lento e CPU 4× mais lenta. Medir com `scratchpad`/Playwright + Lighthouse a cada deploy.
 
 ## Processo com as skills
 

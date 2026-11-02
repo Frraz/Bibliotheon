@@ -4,8 +4,8 @@
 
 | Camada | Escolha | Motivo |
 |---|---|---|
-| Runtime | Node 24 LTS | LTS atual |
-| Framework | Next.js (App Router, versão estável atual: conferir no início da Etapa 1) + TypeScript estrito | Páginas públicas estáticas com revalidação ao publicar (HTML pronto, ótimo para SEO e mobile). Painel e API no mesmo app, em um container |
+| Runtime | Node 22+ no desenvolvimento; `node:24` (LTS) na imagem Docker | O PC de desenvolvimento tem Node 22; o Next 16 funciona nos dois |
+| Framework | **Next.js 16** (App Router, **Cache Components** + Partial Prefetching ligados) + TypeScript estrito | Páginas públicas pré-renderizadas (HTML pronto, ótimo para SEO e mobile). Painel e API no mesmo app, em um container. **A versão 16 tem convenções novas: ler `node_modules/next/dist/docs/` antes de codar** |
 | UI | Tailwind CSS v4 + shadcn/ui (Radix) | Painel profissional pronto; é a base em que as skills de design rendem mais |
 | Movimento | Motion (painel e microinterações) + GSAP/ScrollTrigger (só na landing) | Ver [05-design](05-design.md#movimento) |
 | Banco | SQLite (better-sqlite3, modo WAL) + Drizzle ORM + drizzle-kit migrations | Um arquivo, zero serviço; backup é uma cópia. Migrar para Postgres é simples se um dia for preciso |
@@ -117,7 +117,7 @@ Adicionar uma plataforma = um item no enum + logo SVG em `public/plataformas/` +
 
 ## Renderização e cache
 
-- Home, tema e landing: estáticos com `revalidate = 300` + `revalidatePath` em toda gravação do painel/API, para que o conteúdo novo apareça na hora.
+- Com **Cache Components** ligado (padrão do Next 16.4), `revalidate` por rota não existe mais. Home, tema e landing buscam dados em funções com `'use cache'` + `cacheTag('ebook:<slug>')` + `cacheLife` (ex.: 5 min); toda gravação do painel/API chama `updateTag`/`revalidateTag` das tags afetadas, e o conteúdo novo aparece na hora. O que depende da requisição (sessão, `?previa=1`) fica dentro de `<Suspense>`. Detalhes a confirmar na Etapa 2 em `node_modules/next/dist/docs/01-app/01-getting-started/08-caching.md`.
 - Painel: dinâmico, sem cache.
 - Mídia em `/m/<ebookId>/<hash>-<largura>.<ext>`: `Cache-Control: public, max-age=31536000, immutable`.
 - Visitas: a landing envia `navigator.sendBeacon('/api/v1/v', {ebookId, origem})`, uma vez por e-book por sessão (sessionStorage), ignorando bots por user-agent. Cliques: contados no servidor em `/ir`.

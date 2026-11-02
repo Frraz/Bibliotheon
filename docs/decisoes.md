@@ -15,6 +15,11 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | Integração com `../ebooks`: uma CLI Python stdlib + um endpoint; aceita o manifest v1 existente; o manifesto vence nos campos que traz; sem prévia HTML, resolutions ou recibos | A complexidade da ponte foi uma das causas do atraso do v1 | Sim |
 | 2026-11-02 | Prévia = a própria landing em rascunho (`?previa=1`) | Ver exatamente o que vai ao ar | Sim |
 | 2026-11-02 | Métricas próprias sem cookie (visitas/cliques) + Pixel/GA4 só após consentimento | LGPD sem perder a noção de conversão | Sim |
+| 2026-11-02 | Next.js **16.4** com **Cache Components** (cache por `'use cache'` + tags, não por `revalidate`) | É o padrão do `create-next-app` atual; casa com "página pré-renderizada + dado que muda ao publicar" | Sim |
+| 2026-11-02 | Skills de design instaladas **no projeto** (`.claude/skills/`), não globalmente | Versionadas, reversíveis e sem afetar os outros projetos. Do impeccable usamos os princípios (modo *Persuade*) e a auditoria; **não** o fluxo completo de sorteio/geração de imagens, por ser pesado demais para este projeto | Sim |
+| 2026-11-02 | Meta de JS trocada para "< 30 KB próprios" (era < 120 KB totais) | Medido: a base do Next 16 + React 19 já é 143 KB gzip em qualquer página. LCP real: 0,7–0,85 s com 4G lento + CPU 4× | Sim |
+| 2026-11-02 | Node 22 no desenvolvimento, `node:24` na imagem Docker | O PC local tem Node 22 | Sim |
+| 2026-11-02 | Faixa de urgência com altura reservada (2 linhas no celular) e contador que renderiza espaço invisível antes de hidratar | Evitava CLS de 0,05–0,13 (contador e troca de fonte) | Não |
 | 2026-11-02 | E-book 001: plataforma principal Kiwify/Cakto (não Hotmart) até revisão | Impedimento sobre texto gerado por IA registrado em `../ebooks` | Sim |
 
 ## Em aberto (decidir na etapa indicada)
