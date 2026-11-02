@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# dados locais e de produção
+data/
+
+# segredos
+.env
+.env.*
+!.env.example
+
+*.log
+.DS_Store

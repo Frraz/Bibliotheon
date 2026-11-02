@@ -1,0 +1,27 @@
+(Transcrito por TurboScribe. Atualize para Ilimitado para remover esta mensagem.)
+
+Vamos fazer um projeto do zero. Eu já tinha iniciado ele uma vez, mas resolvi recomeçar completamente do zero. A ideia desse projeto é ser uma biblioteca online de venda de e-books.
+
+Eu tenho outro projeto que eu uso para criar e-books, e eu vou publicá-los em várias plataformas como Hotmart, Qify, Cacto e etc. Vou publicar no máximo de plataformas que eu conseguir. Esse meu projeto atual, o Biblioteon, terá como objetivo ser uma biblioteca virtual desses e-books que eu vou publicar e compartilhar.
+
+E nele também serão feitas as leading pages de cada produto. Aquela leading page focada totalmente em vendas, com timing de oferta acabando, promoção de 80% e etc. Tudo o que faça o cliente olhar e querer comprar o produto o mais rápido possível, gera aquela sensação de escassez e etc.
+
+Isso vai ficar para as leading pages de cada e-book. E a ideia principal desse projeto é concentrar os meus e-books que eu vou vender online, e a pessoa entra lá, consegue ter uma apresentação melhor, mais detalhada de cada e-book, e também lá ela vai ter a possibilidade de comprar em várias plataformas. Caso o usuário goste mais da Hotmart, ele pode comprar pela Hotmart.
+
+Caso goste mais de Cacto, ele pode comprar pela Cacto, Qify e etc. E lá terá todos os meus e-books que eu criarei através de outro projeto e publicarei por aqui também através desse outro projeto. E a ideia aqui é muito simples, é criar uma página, uma biblioteca de e-books, que terá as leading pages para cada e-book e eu vou usar tráfego pago.
+
+Então, tudo deve ser preparado para usar tráfego pago para conseguir atingir o máximo de pessoas possíveis para cada e-book. Eu vou fazer e-books para diferentes temas, com diferentes pessoas me ajudando a fazer esses e-books. Por exemplo, saúde.
+
+Depois, quando eu fazer esse e-book de saúde, eu vou lá e vou fazer um tráfego direcionado para a leading page desse e-book. Aí, por exemplo, tecnologia. Vou fazer um tráfego direcionado para a leading page desse tema.
+
+Então, cada e-book terá seu público-alvo e terá uma estratégia de tráfego pago. E a ideia aqui é muito simples, é deixá-los visíveis na internet e fazer com que as pessoas possam achar esses e-books e vender, de fato, os e-books. Se eu fosse resumir a ideia desse projeto em uma frase, seria vender os e-books que eu vou fazer e publicar aqui.
+
+Sobre a integração que terá com o meu outro projeto, eu vou colocar aqui abaixo depois o caminho da minha pasta desse outro projeto, que é onde eu faço os e-books. Depois eu vou fazer algumas alterações nesses projetos. O objetivo é, eu entro nesse projeto, que o nome da pasta é e-books.
+
+Lá dentro, eu crio os e-books, já está tudo preparado para isso lá, eu já até criei um. Depois, com poucos comandos, eu vou publicá-los aqui, nessa plataforma biblioteon. E pronto, é isso.
+
+Então, diretamente da pasta dos e-books, eu vou criar e publicar aqui. E aqui, a pessoa vai entrar, vai ver a lei de peixe do e-book, do produto. Vai ver as opções de compra, vai poder comprar em qualquer plataforma que quiser, que vai ter abaixo as opções.
+
+E é isso. Me ajude a pensar na melhor maneira possível de fazer esse projeto completo e o mais profissional possível, focado 100% em vendas.
+
+(Transcrito por TurboScribe. Atualize para Ilimitado para remover esta mensagem.)

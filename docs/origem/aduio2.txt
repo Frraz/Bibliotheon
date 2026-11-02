@@ -1,0 +1,15 @@
+(Transcrito por TurboScribe. Atualize para Ilimitado para remover esta mensagem.)
+
+Um dos problemas que eu tive na primeira versão desse projeto, que eu apaguei completamente e vou refazer do zero, foi que demorou muito para acabar o desenvolvimento. E quando terminou o desenvolvimento, o que eu tive foi um sistema com interface muito amadora, parecia que tinha sido feito por um estudante do primeiro mês de desenvolvimento web, usando IA. E além de ter uma interface muito ruim, muito amadora e ruim, desagradável, a interface do administrador para fazer publicações e etc.
+
+estava muito complicada, tinha muitas opções desorganizadas, eu nem sabia para onde ir. Então, vamos evitar esses erros, vamos focar totalmente na interface visível para o público, na interface que será dos administradores para publicar os e-books, porque eu não vou publicar apenas usando o meu projeto de e-books, mas também eu vou compartilhar essa biblioteca com alguns parceiros meus para eles publicarem seus e-books. Então, terá um painel administrativo que cada um entrará com sua conta e conseguirá publicar seus e-books com seus materiais e etc.
+
+Lembrando que também vai ter como publicar os e-books na plataforma, e vai ter como publicá-los na plataforma, porém, na hora de comprar, vai ser redirecionado para outra página. Então, a publicação dos e-books na plataforma vai servir mais como uma demonstração para visualizar algumas páginas. Quer dizer, não sei se isso vale a pena, me ajude a pensar nisso.
+
+Eu não sei se o que eu coloco na plataforma vai ser só as informações do e-book, o que eu coloco no Biblioteon, vai ser só os dados do e-book, tipo capa, descrição e etc. E o e-book, de fato, o PDF, vai ficar só nas plataformas, tipo Hotmart, QI-Fi e etc. Eu não sei como fazer isso, me ajude a escolher a melhor opção possível.
+
+Mas, resumindo, vamos evitar complicar demais de maneira desnecessária, porque nosso único objetivo aqui é vender e-books. Vou usar um pouco de tráfego pago, vamos fazer o possível para que eu precise usar o mínimo possível de tráfego pago, pois temos um recurso extremamente limitado. Então, vamos dar algum jeito de fazer esses e-books serem encontrados pelos seus públicos, sem que eu precise usar muito tráfego pago.
+
+E é isso, a ideia inicial do projeto é essa, me ajude a melhorar essa ideia, preencher lacunas, amadurecer alguns pontos. Mas o objetivo final é apenas um, vender e-books que eu vou criar usando uma outra ferramenta que eu desenvolvi.
+
+(Transcrito por TurboScribe. Atualize para Ilimitado para remover esta mensagem.)
