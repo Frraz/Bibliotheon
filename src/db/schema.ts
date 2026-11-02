@@ -50,7 +50,9 @@ export const ebook = sqliteTable(
     resumo: text("resumo"),
     problema: text("problema"),
     descricao: text("descricao"),
+    dores: lista("dores"),
     beneficios: lista("beneficios"),
+    diferenciais: lista("diferenciais"),
     paraQuem: lista("para_quem"),
     naoEPara: lista("nao_e_para"),
     incluido: lista("incluido"),
@@ -70,6 +72,8 @@ export const ebook = sqliteTable(
     preco: integer("preco"),
     precoDe: integer("preco_de"),
     ofertaAte: integer("oferta_ate", { mode: "timestamp_ms" }),
+    ofertaNome: text("oferta_nome"), // "Black Friday", "Preço de lançamento"; aparece na faixa de urgência
+    parcelamento: text("parcelamento"), // ex.: "ou em até 12x no cartão"; só o que o checkout realmente oferece
     garantiaDias: integer("garantia_dias").notNull().default(7),
     emBreve: integer("em_breve", { mode: "boolean" }).notNull().default(false),
 
@@ -108,6 +112,7 @@ export const oferta = sqliteTable(
     plataforma: text("plataforma", { enum: PLATAFORMAS }).notNull(),
     rotulo: text("rotulo"),
     url: text("url").notNull(),
+    urlPromo: text("url_promo"), // checkout com o preço da campanha; o /ir só usa enquanto `ofertaAte` não vence
     preco: integer("preco"),
     principal: integer("principal", { mode: "boolean" }).notNull().default(false),
     ativa: integer("ativa", { mode: "boolean" }).notNull().default(true),
@@ -127,6 +132,19 @@ export const metricaDiaria = sqliteTable(
     contagem: integer("contagem").notNull().default(0),
   },
   (t) => [primaryKey({ columns: [t.ebookId, t.data, t.ofertaId, t.origem] })],
+);
+
+// Quem pediu a amostra e aceitou receber avisos. Só e-mail e origem; sem IP.
+export const lead = sqliteTable(
+  "lead",
+  {
+    id: id(),
+    ebookId: text("ebook_id").notNull().references(() => ebook.id, { onDelete: "cascade" }),
+    email: text("email").notNull(),
+    origem: text("origem").notNull().default("direto"),
+    criadoEm: agora(),
+  },
+  (t) => [uniqueIndex("lead_ebook_email").on(t.ebookId, t.email)],
 );
 
 export type Ebook = typeof ebook.$inferSelect;

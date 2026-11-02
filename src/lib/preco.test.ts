@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { precoVigente } from "./preco";
+import { liquidoPorVenda, precoVigente } from "./preco";
 
 const agora = new Date("2026-11-10T12:00:00Z");
 const base = { preco: 7900, precoDe: 9900, emBreve: false };
@@ -40,5 +40,13 @@ describe("precoVigente", () => {
 
   it("data inválida é tratada como sem prazo", () => {
     expect(precoVigente({ ...base, ofertaAte: "isto não é data" }, agora).emOferta).toBe(false);
+  });
+});
+
+describe("liquidoPorVenda", () => {
+  it("desconta a taxa e, com afiliado, a comissão", () => {
+    expect(liquidoPorVenda(6499)).toBe(5607);
+    expect(liquidoPorVenda(4700)).toBe(3986);
+    expect(liquidoPorVenda(6499, true)).toBe(3364);
   });
 });

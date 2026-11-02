@@ -15,6 +15,8 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:${PORTA:?defina PORTA no .env}:3000"
+    environment:
+      API_TOKEN: ${API_TOKEN:-}
     volumes:
       - ./data:/app/data
     mem_limit: 512m

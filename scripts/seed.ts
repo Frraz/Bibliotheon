@@ -41,6 +41,7 @@ const dirExtras = arquivoExtras ? dirname(resolve(arquivoExtras)) : dirname(arqu
 const lido = manifesto.safeParse({
   ...bruto,
   samples: extras.samples ?? bruto.samples,
+  samplePdf: extras.samplePdf ?? bruto.samplePdf,
   offers: extras.offers ?? bruto.offers,
   book: { ...bruto.book, ...(extras.book ?? {}) },
 });
@@ -103,11 +104,13 @@ if (m.samples?.length) {
   m.samples.forEach((s, ordem) => db.insert(amostra).values({ ebookId: id, imagem: guardarMidia(id, filho(s.file)).chave, alt: s.alt ?? null, ordem }).run());
 }
 
+if (m.samplePdf) db.update(ebook).set({ amostraPdf: guardarMidia(id, filho(m.samplePdf)).chave }).where(eq(ebook.id, id)).run();
+
 // ---- ofertas: manifesto com itens substitui; vazio não mexe. --demo cria checkouts fictícios se não houver nenhum.
 if (m.offers.length) {
   db.delete(oferta).where(eq(oferta.ebookId, id)).run();
   m.offers.forEach((o, ordem) =>
-    db.insert(oferta).values({ ebookId: id, plataforma: o.platform, rotulo: o.label ?? null, url: o.url, preco: o.price ? Math.round(o.price * 100) : null, principal: o.primary ?? ordem === 0, ordem }).run(),
+    db.insert(oferta).values({ ebookId: id, plataforma: o.platform, rotulo: o.label ?? null, url: o.url, urlPromo: o.promoUrl ?? null, preco: o.price ? Math.round(o.price * 100) : null, principal: o.primary ?? ordem === 0, ordem }).run(),
   );
 } else if (demo && !db.select().from(oferta).where(eq(oferta.ebookId, id)).get()) {
   db.insert(oferta).values({ ebookId: id, plataforma: "kiwify", url: "https://example.com/checkout-demo-kiwify", principal: true, ordem: 0 }).run();

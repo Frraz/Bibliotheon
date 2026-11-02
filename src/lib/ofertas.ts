@@ -1,4 +1,5 @@
 import type { Plataforma } from "@/db/schema";
+import { precoVigente, type EntradaPreco } from "./preco";
 
 export const NOME_PLATAFORMA: Record<Plataforma, string> = {
   hotmart: "Hotmart",
@@ -62,6 +63,21 @@ export function urlDestino(urlOferta: string, recebidos: URLSearchParams): strin
     if (valor) alvo.searchParams.set(chave, valor.slice(0, 200));
   }
   return alvo.toString();
+}
+
+/**
+ * Qual checkout abrir agora. O link promocional só vale enquanto a oferta vigora: quando o prazo acaba,
+ * a página e o botão voltam juntos ao preço normal, sem ninguém precisar fazer nada.
+ */
+export function urlVigente(o: { url: string; urlPromo: string | null }, e: EntradaPreco, agora: Date) {
+  return o.urlPromo && precoVigente(e, agora).emOferta ? o.urlPromo : o.url;
+}
+
+/** Campanha sem link promocional mostraria um preço na página e cobraria outro no checkout. Devolve as ofertas nessa situação. */
+export function ofertasSemLinkPromo<O extends { urlPromo: string | null }>(ofertas: O[], e: EntradaPreco, agora: Date): O[] {
+  const v = precoVigente(e, agora);
+  const mudaOPreco = v.emOferta && e.precoDe != null && e.precoDe !== e.preco;
+  return mudaOPreco ? ofertas.filter((o) => !o.urlPromo) : [];
 }
 
 const ORIGENS = /^(meta|facebook|instagram|google|bing|tiktok|youtube|pinterest|whatsapp|telegram|email|x|twitter|linkedin|direto)$|^parceiro-[a-z0-9-]{1,30}$/;

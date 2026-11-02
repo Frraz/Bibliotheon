@@ -17,7 +17,9 @@ const book = z.looseObject({
   audience: z.union([z.string(), textos]).optional(),
   requirements: z.string().optional(),
   limits: z.string().optional(),
+  pains: textos.optional(),
   benefits: textos.optional(),
+  differentiators: textos.optional(),
   accentPreset: z.string().optional(),
   // novos, opcionais
   subtitle: z.string().optional(),
@@ -33,13 +35,18 @@ const book = z.looseObject({
   price: z.number().positive().optional(),
   priceFrom: z.number().positive().optional(),
   offerEndsAt: z.iso.datetime({ offset: true }).optional(),
+  offerName: z.string().trim().min(1).optional(),
+  installments: z.string().trim().min(1).optional(),
   guaranteeDays: z.number().int().min(0).max(90).optional(),
   comingSoon: z.boolean().optional(),
 });
 
+const linkCheckout = z.url({ protocol: /^https$/, error: "O link do checkout precisa começar com https://" });
+
 const oferta = z.object({
   platform: z.enum(PLATAFORMAS),
-  url: z.url({ protocol: /^https$/, error: "O link do checkout precisa começar com https://" }),
+  url: linkCheckout,
+  promoUrl: linkCheckout.optional(),
   price: z.number().positive().optional(),
   primary: z.boolean().optional(),
   label: z.string().optional(),
@@ -73,21 +80,43 @@ export function slugify(texto: string) {
     .slice(0, 80);
 }
 
-const centavos = (v?: number) => (v == null ? null : Math.round(v * 100));
+const centavos = (v?: number | null) => (v == null ? null : Math.round(v * 100));
 const lista = (v?: string[]) => (v ?? []).map((s) => s.trim()).filter(Boolean);
 
-/** Campos do manifesto que o upsert deve tocar; o que não vier fica como está no painel. Só inclui chaves presentes. */
-export function camposDoEbook(m: Manifesto): Partial<NovoEbook> {
-  const b = m.book;
-  const f: Partial<NovoEbook> = {
-    titulo: b.title,
-    slug: b.slug ?? slugify(b.title),
-    idioma: m.language,
-  };
+/** Ajuste de venda em produção (PATCH /api/v1/ebooks/<slug>): os mesmos nomes do manifesto, sem capa nem endereço. `null` limpa a campanha. */
+export const ajusteDeVenda = z.looseObject({
+  book: book
+    .partial()
+    .omit({ slug: true })
+    .extend({
+      priceFrom: z.number().positive().nullable().optional(),
+      offerEndsAt: z.iso.datetime({ offset: true }).nullable().optional(),
+      offerName: z.string().trim().min(1).nullable().optional(),
+      installments: z.string().trim().min(1).nullable().optional(),
+    })
+    .optional(),
+  offers: z
+    .array(
+      z.object({
+        platform: z.enum(PLATAFORMAS),
+        url: linkCheckout.optional(),
+        promoUrl: linkCheckout.nullable().optional(),
+        price: z.number().positive().nullable().optional(),
+        primary: z.boolean().optional(),
+        label: z.string().optional(),
+      }),
+    )
+    .optional(),
+});
+export type AjusteDeVenda = z.infer<typeof ajusteDeVenda>;
+
+/** Campos de venda presentes em `b`. O que não vier fica como está. */
+export function camposDeVenda(b: NonNullable<AjusteDeVenda["book"]>): Partial<NovoEbook> {
+  const f: Partial<NovoEbook> = {};
   const set = <K extends keyof NovoEbook>(k: K, v: NovoEbook[K] | undefined) => {
     if (v !== undefined) f[k] = v;
   };
-  if (m.edition !== undefined) set("edicao", String(m.edition));
+  if (b.title !== undefined) set("titulo", b.title);
   set("subtitulo", b.subtitle);
   set("headline", b.headline);
   set("autorExibido", b.author);
@@ -95,7 +124,9 @@ export function camposDoEbook(m: Manifesto): Partial<NovoEbook> {
   set("resumo", b.summary);
   set("descricao", b.body);
   set("problema", b.problem);
+  if (b.pains) set("dores", lista(b.pains));
   if (b.benefits) set("beneficios", lista(b.benefits));
+  if (b.differentiators) set("diferenciais", lista(b.differentiators));
   if (b.audience !== undefined) set("paraQuem", lista(typeof b.audience === "string" ? [b.audience] : b.audience));
   if (b.notFor) set("naoEPara", lista(b.notFor));
   if (b.included) set("incluido", lista(b.included));
@@ -107,11 +138,25 @@ export function camposDoEbook(m: Manifesto): Partial<NovoEbook> {
   if (b.accentPreset && ACCENT[b.accentPreset]) set("accent", ACCENT[b.accentPreset]);
   if (b.price !== undefined) set("preco", centavos(b.price));
   if (b.priceFrom !== undefined) set("precoDe", centavos(b.priceFrom));
-  if (b.offerEndsAt !== undefined) set("ofertaAte", new Date(b.offerEndsAt));
+  if (b.offerEndsAt !== undefined) set("ofertaAte", b.offerEndsAt === null ? null : new Date(b.offerEndsAt));
+  set("ofertaNome", b.offerName);
+  set("parcelamento", b.installments);
   if (b.guaranteeDays !== undefined) set("garantiaDias", b.guaranteeDays);
   if (b.comingSoon !== undefined) set("emBreve", b.comingSoon);
-  set("capaAlt", m.cover.alt);
-  if (m.cover.sha256) set("capaHash", m.cover.sha256);
+  return f;
+}
+
+/** Campos do manifesto que o upsert deve tocar; o que não vier fica como está no painel. Só inclui chaves presentes. */
+export function camposDoEbook(m: Manifesto): Partial<NovoEbook> {
+  const f: Partial<NovoEbook> = {
+    ...camposDeVenda(m.book),
+    titulo: m.book.title,
+    slug: m.book.slug ?? slugify(m.book.title),
+    idioma: m.language,
+  };
+  if (m.cover.alt !== undefined) f.capaAlt = m.cover.alt;
+  if (m.edition !== undefined) f.edicao = String(m.edition);
+  if (m.cover.sha256) f.capaHash = m.cover.sha256;
   return f;
 }
 
@@ -119,10 +164,15 @@ export function camposDoEbook(m: Manifesto): Partial<NovoEbook> {
 export function avisos(m: Manifesto): string[] {
   const a: string[] = [];
   const b = m.book;
-  if (!b.headline) a.push(b.promise ? "Sem headline: a página usará o título. Escreva uma headline de resultado (docs/04, guia de copy)." : "Sem headline: a página usará o título.");
+  if (!b.headline) a.push(b.promise ? "Sem headline: a página usará o título. Escreva uma headline de resultado (docs/04, padrão de venda)." : "Sem headline: a página usará o título.");
   if (!b.faq?.length) a.push("Sem FAQ: ele responde objeções e vira rich result no Google.");
   if (!b.toc?.length) a.push("Sem sumário.");
-  if (!m.samples?.length) a.push("Sem páginas de amostra: é o maior gatilho de conversão de um e-book.");
+  if (!m.samples?.length) a.push("Sem páginas de amostra: é a prova mais direta de um e-book.");
+  // Padrão de venda (docs/04, seção 6)
+  if (!b.pains?.length) a.push("Sem dores: a página não mostra a necessidade. Escreva 3 situações que o leitor reconhece.");
+  if (!b.differentiators?.length) a.push("Sem diferenciais: a página não diz por que este caminho e não outro.");
+  if (!b.notFor?.length) a.push("Sem “para quem não é”: inclua o esforço exigido. Reduz reembolso.");
+  if (b.offerEndsAt && !b.priceFrom) a.push("Prazo sem preço depois do prazo: nada muda quando ele acabar. Preencha priceFrom ou retire o prazo.");
   if (b.price === undefined && !b.comingSoon) a.push("Sem preço: a página ficará como “Em breve”.");
   for (const k of ["materialState", "presentationVariant"]) if (k in b) a.push(`Campo “${k}” ignorado pelo site.`);
   return a;

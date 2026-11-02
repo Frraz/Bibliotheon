@@ -37,3 +37,15 @@ export function precoVigente(e: EntradaPreco, agora: Date): PrecoVigente {
 
 export const brl = (centavos: number) =>
   (centavos / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+// Conta do relatório. Taxa pública da Hotmart em 02/11/2026 (a página oficial mostra R$ 2,49 e R$ 1; usa-se a maior até
+// conferir no painel). A comissão de afiliado é a sugerida na estratégia (docs/04) e sua base de cálculo é uma estimativa.
+const TAXA_PERCENTUAL = 0.099;
+const TAXA_FIXA = 249;
+const COMISSAO_AFILIADO = 0.4;
+
+/** Quanto sobra de uma venda, em centavos, antes de impostos e reembolsos. */
+export function liquidoPorVenda(valor: number, comAfiliado = false) {
+  const semTaxa = valor - Math.round(valor * TAXA_PERCENTUAL) - TAXA_FIXA;
+  return comAfiliado ? Math.round(semTaxa * (1 - COMISSAO_AFILIADO)) : semTaxa;
+}

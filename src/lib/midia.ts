@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 
 // Mídia (capas, amostras) fica em MEDIA_DIR, fora do código, e é servida por /m/<chave>.
@@ -31,6 +31,17 @@ export function guardarMidia(ebookId: string, arquivo: string) {
     copyFileSync(arquivo, destino);
   }
   return { chave, hash };
+}
+
+/** Grava um PDF recebido pela API e devolve a chave. */
+export function guardarPdf(ebookId: string, bytes: Buffer) {
+  const chave = `ebook/${ebookId}/${sha256(bytes).slice(0, 12)}.pdf`;
+  const destino = join(/*turbopackIgnore: true*/ MEDIA_DIR(), chave);
+  if (!existsSync(destino)) {
+    mkdirSync(dirname(destino), { recursive: true });
+    writeFileSync(destino, bytes);
+  }
+  return chave;
 }
 
 /** Caminho seguro no disco para uma chave vinda da URL; null se tentar sair da pasta de mídia. */

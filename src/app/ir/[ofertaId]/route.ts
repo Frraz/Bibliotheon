@@ -2,7 +2,7 @@ import { and, eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { db, schema } from "@/db";
 import { contar, ehBot } from "@/lib/metricas";
-import { origemDaVisita, parametrosDeOrigem, urlDestino } from "@/lib/ofertas";
+import { origemDaVisita, parametrosDeOrigem, urlDestino, urlVigente } from "@/lib/ofertas";
 import { SITE_URL } from "@/lib/site";
 
 const { oferta, ebook } = schema;
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, ctx: RouteContext<"/ir/[ofertaId]">)
   if (!linha) return volta("/");
 
   const origem = parametrosDeOrigem(req.nextUrl.searchParams, req.headers.get("referer"), new URL(SITE_URL).origin);
-  const destino = urlDestino(linha.o.url, origem);
+  const destino = urlDestino(urlVigente(linha.o, linha.e, new Date()), origem);
   if (!destino) return volta(`/${linha.e.slug}`);
 
   if (!ehBot(req.headers.get("user-agent"))) {

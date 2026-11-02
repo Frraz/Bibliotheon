@@ -1,6 +1,6 @@
 import { readFileSync, existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { avisos, camposDoEbook, manifesto, slugify } from "./manifesto";
+import { ajusteDeVenda, avisos, camposDeVenda, camposDoEbook, manifesto, slugify } from "./manifesto";
 
 // Manifest v1 real do primeiro e-book (se o projeto irmão estiver na máquina).
 const REAL = "../ebooks/ebooks/001-sistemas-com-ia/publicacao/bibliotheon/manifest.json";
@@ -59,5 +59,22 @@ describe("manifesto", () => {
 
   it("slugify tira acentos e símbolos", () => {
     expect(slugify("Crie Sistemas com IA — e Ganhe $$ Dinheiro!")).toBe("crie-sistemas-com-ia-e-ganhe-dinheiro");
+  });
+});
+
+describe("ajuste de venda", () => {
+  it("liga a campanha com os nomes do manifesto", () => {
+    const a = ajusteDeVenda.parse({ book: { price: 47, priceFrom: 64.99, offerEndsAt: "2026-11-30T23:59:00-03:00", offerName: "Black Friday" } });
+    expect(camposDeVenda(a.book!)).toEqual({ preco: 4700, precoDe: 6499, ofertaAte: new Date("2026-12-01T02:59:00Z"), ofertaNome: "Black Friday" });
+  });
+
+  it("null limpa a campanha; o que não vem não é tocado", () => {
+    const a = ajusteDeVenda.parse({ book: { priceFrom: null, offerEndsAt: null } });
+    expect(camposDeVenda(a.book!)).toEqual({ precoDe: null, ofertaAte: null });
+  });
+
+  it("recusa link promocional que não seja https", () => {
+    expect(ajusteDeVenda.safeParse({ offers: [{ platform: "hotmart", promoUrl: "PREENCHER" }] }).success).toBe(false);
+    expect(ajusteDeVenda.safeParse({ offers: [{ platform: "hotmart", promoUrl: "http://x.com" }] }).success).toBe(false);
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { origemDaVisita, parametrosDeOrigem, urlDestino } from "./ofertas";
+import { ofertasSemLinkPromo, origemDaVisita, parametrosDeOrigem, urlDestino, urlVigente } from "./ofertas";
 
 const q = (s: string) => new URLSearchParams(s);
 
@@ -64,5 +64,29 @@ describe("origemDaVisita", () => {
     expect(origemDaVisita("qualquer-coisa-inventada")).toBe("outro");
     expect(origemDaVisita("<script>")).toBe("outro");
     expect(origemDaVisita("a".repeat(80))).toBe("outro");
+  });
+});
+
+describe("checkout da campanha", () => {
+  const e = { preco: 4700, precoDe: 6499, ofertaAte: "2026-11-30T23:59:00-03:00" };
+  const durante = new Date("2026-11-28T12:00:00-03:00");
+  const depois = new Date("2026-12-01T00:00:00-03:00");
+  const o = { url: "https://pay.hotmart.com/X", urlPromo: "https://pay.hotmart.com/X?off=bf" };
+
+  it("usa o link promocional só enquanto a oferta vale", () => {
+    expect(urlVigente(o, e, durante)).toBe(o.urlPromo);
+    expect(urlVigente(o, e, depois)).toBe(o.url);
+  });
+
+  it("sem link promocional, fica no checkout normal", () => {
+    expect(urlVigente({ url: o.url, urlPromo: null }, e, durante)).toBe(o.url);
+  });
+
+  it("aponta a campanha que anunciaria um preço e cobraria outro", () => {
+    const sem = { url: o.url, urlPromo: null };
+    expect(ofertasSemLinkPromo([o, sem], e, durante)).toEqual([sem]);
+    expect(ofertasSemLinkPromo([sem], e, depois)).toEqual([]);
+    expect(ofertasSemLinkPromo([sem], { ...e, ofertaAte: null }, durante)).toEqual([]);
+    expect(ofertasSemLinkPromo([sem], { ...e, precoDe: 4700 }, durante)).toEqual([]); // prazo sem mudança de preço
   });
 });
