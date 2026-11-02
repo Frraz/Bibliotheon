@@ -21,12 +21,13 @@ export type EbookPublico = {
   resumo: string | null;
   problema: string | null;
   descricao: string | null;
+  dores: string[];
   beneficios: string[];
+  diferenciais: string[];
   paraQuem: string[];
   naoEPara: string[];
   incluido: string[];
   observacoes: string | null;
-  sobreAutor: string | null;
   autorExibido: string | null;
   formatos: string[];
   sumario: string[];
@@ -41,6 +42,8 @@ export type EbookPublico = {
   preco: number | null;
   precoDe: number | null;
   ofertaAte: string | null;
+  ofertaNome: string | null;
+  parcelamento: string | null;
   /** Preço vigente no momento em que o cache foi preenchido; o navegador recalcula ao abrir. */
   vigente: { valor: number | null; riscado: number | null; ate: string | null; emOferta: boolean };
   ofertas: OfertaPublica[];
@@ -107,12 +110,13 @@ export async function getEbook(slug: string): Promise<EbookPublico | null> {
     resumo: e.resumo,
     problema: e.problema,
     descricao: e.descricao,
+    dores: e.dores,
     beneficios: e.beneficios,
+    diferenciais: e.diferenciais,
     paraQuem: e.paraQuem,
     naoEPara: e.naoEPara,
     incluido: e.incluido,
     observacoes: e.observacoes,
-    sobreAutor: e.sobreAutor,
     autorExibido: e.autorExibido,
     formatos: e.formatos,
     sumario: e.sumario,
@@ -127,6 +131,8 @@ export async function getEbook(slug: string): Promise<EbookPublico | null> {
     preco: e.preco,
     precoDe: e.precoDe,
     ofertaAte: iso(e.ofertaAte),
+    ofertaNome: e.ofertaNome,
+    parcelamento: e.parcelamento,
     vigente: vigenteSerial({ ...e, emBreve: e.emBreve || ofertas.length === 0 }),
     ofertas: ofertas.map((o) => ({ id: o.id, plataforma: o.plataforma, rotulo: o.rotulo, preco: o.preco, principal: o.principal })),
     tema: t ? { nome: t.nome, slug: t.slug } : null,

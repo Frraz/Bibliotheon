@@ -8,11 +8,13 @@ import { BarraFixa } from "./barra-fixa";
 import { CartaoEbookLink } from "./cartao-ebook";
 import { Folhear } from "./folhear";
 import { LinkOferta } from "./link-oferta";
-import { FaixaUrgencia, OfertaProvider, PrazoOferta, PrecoAtual, PrecoDe } from "./oferta";
+import { AvisoPrazo, FaixaUrgencia, OfertaProvider, PrazoCurto, PrazoOferta, PrecoAtual, PrecoDe } from "./oferta";
+import { PedirAmostra } from "./pedir-amostra";
 import { Visita } from "./rastreio";
 import { TextoRecolhivel } from "./texto-recolhivel";
 
 // Landing do e-book (direção A · Livraria). Cada seção só aparece se houver conteúdo; nada de texto de enchimento.
+// A ordem segue o padrão de venda (docs/04, seção 6): necessidade, resultado, por que este caminho, risco, compra.
 
 const Seta = () => (
   <svg viewBox="0 0 20 20" className="size-4 shrink-0 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
@@ -45,12 +47,24 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
   const headline = e.headline?.trim() || e.titulo;
   // Cada item não quebra no meio ("Garantia de 7 dias"); a linha só quebra entre os itens.
   const microconfianca = [`Acesso imediato`, e.formatos.filter((f) => /pdf|epub/i.test(f)).join(" e "), e.garantiaDias ? `Garantia de ${e.garantiaDias} dias` : ""].filter(Boolean);
-  const dadosOferta = { preco: e.preco, precoDe: e.precoDe, ofertaAte: e.ofertaAte, emBreve: !vender, inicial: e.vigente };
+  const dadosOferta = { preco: e.preco, precoDe: e.precoDe, ofertaAte: e.ofertaAte, ofertaNome: e.ofertaNome, emBreve: !vender, inicial: e.vigente };
   const cta = (classe: string, texto?: string) =>
     principal && (
       <LinkOferta ofertaId={principal.id} titulo={e.titulo} valor={e.vigente.valor} className={`${BOTAO} ${classe}`}>
         {texto ?? rotuloOferta(principal)}
       </LinkOferta>
+    );
+
+  // Nova chance de comprar para quem já se convenceu no meio da página.
+  const ctaMeio = (claroSobreEscuro = false) =>
+    vender && (
+      <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+        {cta("w-full sm:w-auto")}
+        <div className={claroSobreEscuro ? "text-(--papel)" : ""}>
+          <PrecoAtual className="block font-(family-name:--font-display) text-2xl leading-none font-medium" />
+          <AvisoPrazo className={`mt-1 text-sm ${claroSobreEscuro ? "text-(--papel)/75" : "text-(--tinta-2)"}`} />
+        </div>
+      </div>
     );
 
   return (
@@ -64,7 +78,6 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {/* Hero */}
         <header id="topo" className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-10 px-5 pt-10 pb-16 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-24">
           <div>
-            {e.autorExibido && <p className="mb-5 text-sm font-medium text-(--salvia)">E-book · {e.autorExibido}</p>}
             <h1 className="font-(family-name:--font-display) text-[clamp(2.3rem,6.4vw,3.9rem)] leading-[1.04] font-medium tracking-[-0.02em] text-balance">{headline}</h1>
             {e.subtitulo && <p className="mt-6 max-w-[34rem] text-[1.1875rem] text-(--tinta-2) text-pretty">{e.subtitulo}</p>}
 
@@ -74,9 +87,11 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
                   <div>
                     <PrecoDe className="block text-sm text-(--tinta-2)" />
                     <PrecoAtual className="block font-(family-name:--font-display) text-5xl leading-none font-medium" />
+                    {e.parcelamento && <span className="mt-2 block text-sm text-(--tinta-2)">{e.parcelamento}</span>}
                   </div>
                   {cta("w-full sm:w-auto")}
                 </div>
+                <AvisoPrazo className="mt-4 font-medium text-(--terracota-escura)" />
                 <p className="mt-5 text-sm text-(--tinta-2)">
                   {microconfianca.map((t, i) => (
                     <Fragment key={t}>
@@ -117,12 +132,21 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
           )}
         </header>
 
-        {/* Sobre o livro */}
-        {(e.problema || e.descricao) && (
+        {/* Necessidade: o problema, as situações que o leitor reconhece e a abordagem do livro */}
+        {(e.problema || e.descricao || e.dores.length > 0) && (
           <section className={`${ABAIXO} border-t border-(--filete)`}>
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-8 px-5 py-16 lg:grid-cols-[1fr_1.1fr] lg:py-24">
               {e.problema ? <Titulo>{e.problema}</Titulo> : <span />}
-              <TextoRecolhivel paragrafos={paragrafos(e.descricao)} />
+              <div>
+                {e.dores.length > 0 && (
+                  <ul className="mb-8 border-b border-(--filete)">
+                    {e.dores.map((d) => (
+                      <li key={d} className="border-t border-(--filete) py-4 text-[1.125rem] text-pretty">{d}</li>
+                    ))}
+                  </ul>
+                )}
+                <TextoRecolhivel paragrafos={paragrafos(e.descricao)} visiveis={e.dores.length > 0 ? 1 : 2} sempre={e.dores.length > 0} />
+              </div>
             </div>
           </section>
         )}
@@ -141,6 +165,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
                     </li>
                   ))}
                 </ul>
+                {ctaMeio()}
               </div>
               {e.figura && (
                 <figure className="lg:pt-3">
@@ -148,6 +173,20 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
                   {e.figura.legenda && <figcaption className="mt-3 text-sm text-(--tinta-2)">{e.figura.legenda}</figcaption>}
                 </figure>
               )}
+            </div>
+          </section>
+        )}
+
+        {/* Por que este caminho */}
+        {e.diferenciais.length > 0 && (
+          <section className={`${ABAIXO} border-t border-(--filete)`}>
+            <div className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
+              <Titulo>Por que este caminho</Titulo>
+              <ul className="mt-10 grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-2">
+                {e.diferenciais.map((d) => (
+                  <li key={d} className="border-t-2 border-(--terracota) pt-4 text-[1.125rem] text-pretty">{d}</li>
+                ))}
+              </ul>
             </div>
           </section>
         )}
@@ -190,11 +229,8 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
               <Titulo>Folheie antes de decidir</Titulo>
               <p className="mt-3 max-w-xl text-(--papel)/70">Páginas reais do livro. Toque para ampliar.</p>
               <Folhear paginas={e.amostras} className="mt-10 -mx-5 px-5" itemClassName="shadow-[0_18px_30px_-14px_rgb(0_0_0/.6)] outline-(--papel)" />
-              {e.amostraPdf && (
-                <a href={e.amostraPdf} className="mt-6 inline-flex min-h-12 items-center border border-(--papel)/40 px-6 font-medium transition-colors hover:border-(--papel) hover:bg-(--papel)/10">
-                  Baixar amostra grátis (PDF)
-                </a>
-              )}
+              {ctaMeio(true)}
+              {e.amostraPdf && <PedirAmostra slug={e.slug} />}
             </div>
           </section>
         )}
@@ -240,19 +276,6 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
           </section>
         )}
 
-        {/* Sobre o autor */}
-        {e.sobreAutor && (
-          <section className={`${ABAIXO} border-t border-(--filete) bg-(--papel-2)`}>
-            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-4 px-5 py-16 lg:grid-cols-[1fr_1.4fr] lg:py-20">
-              <TituloMenor>Quem escreveu</TituloMenor>
-              <div>
-                {e.autorExibido && <p className="font-(family-name:--font-display) text-2xl">{e.autorExibido}</p>}
-                <p className="mt-3 text-pretty text-(--tinta-2)">{e.sobreAutor}</p>
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* FAQ */}
         {e.faq.length > 0 && (
           <section className={`${ABAIXO} border-t border-(--filete)`}>
@@ -277,7 +300,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         <section id="comprar" className={`${ABAIXO} bg-(--tinta) text-(--papel)`}>
           <div className="mx-auto max-w-3xl px-5 py-20 text-center lg:py-28">
             <h2 className="font-(family-name:--font-display) text-[clamp(2rem,5vw,3.25rem)] leading-[1.08] font-medium text-balance">
-              {vender ? "Pronto para começar?" : "Em breve"}
+              {vender ? headline : "Em breve"}
             </h2>
             {vender && principal ? (
               <>
@@ -285,7 +308,8 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
                   <PrecoDe /> <PrazoOferta />
                 </p>
                 <PrecoAtual className="block font-(family-name:--font-display) text-6xl leading-tight font-medium" />
-                <p className="text-sm text-(--papel)/70">Pagamento único · acesso imediato</p>
+                <p className="text-sm text-(--papel)/70">Pagamento único · acesso imediato{e.parcelamento ? ` · ${e.parcelamento}` : ""}</p>
+                <AvisoPrazo className="mt-3 font-medium" />
                 {cta("mt-8 w-full max-w-sm")}
                 {outras.length > 0 && (
                   <>
@@ -331,7 +355,10 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
         {vender && principal && (
           <BarraFixa className="border-t border-(--filete) bg-(--papel)">
             <div className="flex items-center gap-4 px-5 py-3">
-              <PrecoAtual className="font-(family-name:--font-display) text-2xl leading-none font-medium" />
+              <div>
+                <PrecoAtual className="block font-(family-name:--font-display) text-2xl leading-none font-medium" />
+                <PrazoCurto className="mt-1 block text-xs text-(--tinta-2)" />
+              </div>
               {cta("ml-auto min-h-12 px-6", "Comprar")}
             </div>
           </BarraFixa>

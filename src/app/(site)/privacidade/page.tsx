@@ -16,12 +16,13 @@ export default function Privacidade() {
       <h2>Dados que tratamos</h2>
       <ul>
         <li><strong>Contadores de visitas e cliques, anônimos.</strong> Contamos quantas pessoas abriram a página de um e-book e quantas clicaram em um botão de compra, por dia e por origem do acesso (por exemplo, “instagram” ou “google”). Esses contadores <strong>não usam cookie e não guardam IP</strong> nem qualquer dado que identifique você.</li>
+        <li><strong>Seu e-mail, somente se você pedir a amostra.</strong> Guardamos o e-mail e a origem do acesso para enviar a amostra e avisos sobre o livro, com o seu aceite. Para sair da lista, basta escrever para o contato desta página.</li>
         <li><strong>Registros do servidor.</strong> Por segurança e para manter o site no ar, o servidor registra por tempo limitado dados técnicos de cada acesso, como o endereço IP e o tipo de navegador.</li>
         <li><strong>Cookies e pixels de medição, somente se você aceitar.</strong> Podemos usar o Meta Pixel e o Google Analytics para entender o que funciona nos anúncios e melhorar a experiência. Eles só são carregados depois que você clica em “Aceitar” no aviso do site. Se você recusar, o site funciona normalmente.</li>
       </ul>
 
       <h2>O que não fazemos</h2>
-      <p>Este site não tem cadastro, não pede seus dados pessoais e não processa pagamentos. Ao comprar, os dados de pagamento e de contato são tratados pela plataforma de vendas que você escolher, segundo a política dela.</p>
+      <p>Este site não tem cadastro de usuários e não processa pagamentos. O único dado pessoal que ele pede é o e-mail, se você quiser a amostra. Ao comprar, os dados de pagamento e de contato são tratados pela plataforma de vendas que você escolher, segundo a política dela.</p>
 
       <h2>Com quem compartilhamos</h2>
       <p>Compartilhamos dados apenas com os serviços de medição que você autorizar (Meta e Google) e com a infraestrutura que hospeda o site. Não vendemos dados.</p>
