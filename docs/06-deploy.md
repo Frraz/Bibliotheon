@@ -17,7 +17,7 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `docker/Dockerfile` | 3 estágios (deps, build, run), Node 24, usuário não-root `node`, healthcheck em `/api/saude`. **Testado:** imagem constrói, sobe "healthy", aplica migrações ao iniciar e mantém os dados ao recriar o container |
 | `docker-compose.prod.yml` | Porta só em loopback, volume `./data`, limite de 512 MB, logs rotacionados. Exige `SITE_URL` e `PORTA` no `.env` (falha antes de subir se faltar) |
 | `.env.example` | Variáveis (abaixo) |
-| `deploy/nginx/bibliotheon.com.br.conf` | Proxy do host, gzip, limite de taxa em `/ir/`, HSTS. **Não testado** (não há nginx na máquina de desenvolvimento) |
+| `deploy/nginx/bibliotheon.com.br.conf` | Proxy do host, gzip, limite de taxa em `/ir/`, HSTS. **Sintaxe validada** com `nginx -t` em container descartável (certificados falsos); o `nginx -t` do servidor continua sendo a trava antes do reload |
 | `atualizar.sh` (raiz) | git pull, backup, build, troca, verificação por 60 s e **rollback automático** para a imagem anterior. **Testado no servidor** (02/11/2026) |
 | `deploy/backup.sh` | Backup consistente do SQLite (`VACUUM INTO`, com o site no ar) + tar da mídia; 14 diários e 8 semanais. **Testado:** gera o arquivo e a **restauração foi verificada** (`integrity_check` ok e dados presentes) |
 
