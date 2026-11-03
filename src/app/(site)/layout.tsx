@@ -5,7 +5,7 @@ import { CONTATO_EMAIL } from "@/lib/site";
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
-    <div className="bg-(--papel) font-(family-name:--font-texto) text-(--tinta)">
+    <div data-moldura className="bg-(--papel) font-(family-name:--font-texto) text-(--tinta)">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
         <Marca />
         <Link href="/" className="text-[0.9375rem] text-(--tinta-2) underline-offset-4 transition-colors hover:text-(--tinta) hover:underline">Todos os e-books</Link>

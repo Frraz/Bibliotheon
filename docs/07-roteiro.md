@@ -64,11 +64,12 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 2. ✅ Landing nova: necessidade, por que este caminho, CTAs repetidos, consequência do prazo, sem autor. Aprovada pelo titular.
 3. ✅ Campanha sincronizada com o checkout (`oferta.urlPromo`, `/ir`), API de operação, relatório e amostra por e-mail, testados no pacote standalone.
 4. ✅ Material em `../ebooks/ebooks/001-sistemas-com-ia/oferta/pt-BR/`: kit de parceiros, 10 roteiros de vídeo e e-mail da Black Friday. **Nada foi enviado.**
-5. ⬜ Aplicar em produção: `API_TOKEN` no servidor, `git push`, `./atualizar.sh --forcar`, `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/extras.json` e `deploy/venda.sh amostra criar-sistemas-com-ia seeds/001-sistemas-com-ia/amostra.pdf`.
+5. 🟡 Aplicar em produção. ✅ `API_TOKEN` no servidor, push e deploy (03/11/2026). ⬜ **2ª edição (v2.0.0, 201 páginas) na página:** `export BIBLIOTHEON_TOKEN=<API_TOKEN>`; `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/segunda-edicao.json` (só textos; **não use `extras.json` em produção**, ele traz preço 64,99 e desfaria a promoção); `deploy/venda.sh amostra criar-sistemas-com-ia ../ebooks/ebooks/001-sistemas-com-ia/entrega/pt-BR/divulgacao/amostra.pdf`; no painel, trocar a capa (`publicacao/bibliotheon/capa.png`) e as 5 amostras (`amostra-01..05.png`) do mesmo diretório. A página no ar ainda mostra "168 páginas" e o texto da 1ª edição.
 6. ⬜ Conferências na Hotmart: taxa, parcelamento, afiliação ativa, situação do produto, entrega do ZIP e confirmação escrita sobre IA.
 7. ⬜ Enviar convites e gravar vídeos (titular; ~5 h/semana assumidas).
-8. ⬜ **Black Friday, 27 a 30/11:** manter R$ 64,99 sem alteração até lá, com captura datada; em 26/11 criar o link de R$ 47 e testar a compra; em 27/11 aplicar `seeds/001-sistemas-com-ia/black-friday.json` e avisar os leads; em 01/12 conferir a volta e aplicar `fim-da-campanha.json`.
-9. ⬜ Janeiro, se houver vendas: order bump com produto real acima de R$ 10 e prova real na landing. Novo título só depois do primeiro sinal de demanda.
+8. ⬜ **Promoção de lançamento, R$ 24,99 até 05/11 às 23h59** (decisão do titular, 03/11/2026; já no ar): às 23h59 de 05/11 a oferta de R$ 24,99 precisa **acabar também na Hotmart**, senão a página volta a R$ 64,99 e o checkout continua cobrando R$ 24,99. Conferir em 06/11 (página, `/ir` e checkout) e, se quiser, trocar o nome "Black Friday" da faixa por "Oferta de lançamento" (`offerName`), para não gastar o nome da Black Friday de verdade.
+9. ⬜ **Black Friday, 27 a 30/11** (preço normal de R$ 64,99 de 06/11 a 26/11, com captura datada; atenção: são só 21 dias, e a regra do projeto pede 30 a preço cheio entre promoções — decidir se aceita): em 26/11 criar o link de R$ 47 e testar a compra; em 27/11 aplicar `seeds/001-sistemas-com-ia/black-friday.json` e avisar os leads; em 01/12 conferir a volta e aplicar `fim-da-campanha.json`.
+10. ⬜ Janeiro, se houver vendas: order bump com produto real acima de R$ 10 e prova real na landing. Novo título só depois do primeiro sinal de demanda.
 
 **Portão:** os marcos da [estratégia](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia). Em 28/02/2027 o titular decide com dados.
 
@@ -81,9 +82,9 @@ Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuár
 3. ✅ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts` + `MoldeDaPagina`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`/`WebSite`, `lastmod` no sitemap). Pronta localmente: 44 testes E2E (3 novos), 76 unitários; impeccable só aponta o creme (aceito); Lighthouse A/B com o 001 real: mediana 90 (antes 92), A11y/Boas práticas/SEO 100.
 4. ✅ **Fase 4: exportação.** "Exportar dados" (`.md` e `.json`) e "Baixar PDF", pasta local `livros/<slug>/` fora do Git. Em `../ebooks`, cada título sai com um guia por plataforma (`publicacao/publicacao-<plataforma>.md`) e só os arquivos usados. Conferido publicando o livro 002 no painel local a partir do guia.
 
-5. ✅ **Fase 5: recuperação de senha por e-mail** (03/11/2026). `/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`, com `nodemailer` e SMTP **opcional** ([03](03-tecnico.md#recuperação-de-senha-por-e-mail)). Pronta localmente e testada (SMTP falso na imagem standalone, 3 testes E2E, 4 unitários). **No ar desde 03/11/2026 (`c02617b`), com `SMTP_*` no `.env` do servidor; falta testar o envio real.** Junto foi a correção da imagem de compartilhamento do 002 (502 com capa PNG de 12 MB; capa reduzida a 600 px e PNG pesado vira JPEG no upload).
+5. ✅ **Fase 5: recuperação de senha por e-mail** (03/11/2026). `/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`, com `nodemailer` e SMTP **opcional** ([03](03-tecnico.md#recuperação-de-senha-por-e-mail)). Pronta localmente e testada (SMTP falso na imagem standalone, 3 testes E2E, 4 unitários). **No ar desde 03/11/2026 (`c02617b`), com `SMTP_*` no `.env` do servidor; envio real testado e funcionando.** Junto foi a correção da imagem de compartilhamento do 002 (502 com capa PNG de 12 MB; capa reduzida a 600 px e PNG pesado vira JPEG no upload).
 
-6. ✅ **Fase 6: senha mínima de 4 caracteres e verificação em duas etapas opcional** (03/11/2026). Em Conta; migração `0004_duas_etapas` (aplicada sozinha ao iniciar); dependência nova `qrcode`. Detalhes em [03](03-tecnico.md#segurança). **Aguarda commit e deploy.**
+6. ✅ **Fase 6: senha mínima de 4 caracteres e verificação em duas etapas opcional** (03/11/2026). Em Conta; migração `0004_duas_etapas` (aplicada sozinha ao iniciar); dependência nova `qrcode`. Detalhes em [03](03-tecnico.md#segurança). **No ar desde 03/11/2026; e-mail de recuperação testado pelo titular (funciona).**
 
 Estado dos testes em 03/11/2026: 89 unitários e 70 E2E passando.
 
@@ -129,7 +130,6 @@ Só o titular pode fazer; nada disto bloqueia o desenvolvimento.
 
 | O quê | Detalhe |
 |---|---|
-| Testar o e-mail de recuperação | No ar desde 03/11/2026 com `SMTP_*` no `.env`. Falta colocar a senha de app (`SMTP_SENHA`) e pedir a recuperação em `/esqueci-a-senha` com uma conta real; se falhar, `docker logs --tail 30 bibliotheon_web` ([06](06-deploy.md#painel-e-primeiro-acesso)) |
 | Capa do 002 | Subir de novo no painel depois do deploy: vira JPEG, bem mais leve |
 | Produtos de teste | Apagar o `testeTESTE` na Kiwify e o `TESTE` (ativo) na Cakto |
 | Hotmart do 001 | Passar para a 2ª edição e decidir o preço da Black Friday (R$ 24,99 na Hotmart contra R$ 47 cadastrado). O titular disse que mexe nos preços depois |

@@ -107,6 +107,49 @@ html {
   --radius-2xl: calc(var(--radius) * 1.8);
 }
 
+/* ---------- Acabamento do navegador ----------
+   O que não desenhamos também carrega a marca: barras de rolagem, seleção, cursor e controles nativos.
+   O polegar é um tom médio entre tinta e papel: aparece no papel claro e nas faixas escuras das landings. */
+:root {
+  --rolagem-polegar: color-mix(in srgb, var(--tinta) 42%, var(--papel));
+  --rolagem-trilho: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rolagem-polegar) var(--rolagem-trilho);
+  accent-color: var(--terracota);
+  caret-color: var(--terracota);
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--terracota) 24%, transparent);
+  color: inherit;
+}
+
+/* Landing escura (marcada com data-superficie="escura"): a moldura do site (cabeçalho, rodapé), o fundo atrás da barra de
+   rolagem e o polegar acompanham a página, em vez de uma faixa clara em volta. A página redefine as próprias cores. */
+[data-moldura]:has([data-superficie="escura"]) {
+  --papel: #0e0b0a;
+  --tinta: #efe6d6;
+  --tinta-2: #c9bfae;
+  --filete: #2a2320;
+}
+html:has([data-superficie="escura"]) {
+  background-color: #0e0b0a;
+  --rolagem-polegar: rgb(255 255 255 / 0.28);
+}
+
+/* Rolagem interna não "vaza" para a página; o campo de texto cresce só na vertical. */
+[class*="overflow-y-auto"] {
+  overscroll-behavior-y: contain;
+}
+[class*="overflow-x-auto"] {
+  overscroll-behavior-x: contain;
+}
+
+textarea {
+  resize: vertical;
+}
+
 p {
   text-wrap: pretty;
 }

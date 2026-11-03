@@ -47,7 +47,7 @@ export function PaginaCriarSistemas({ e, relacionados, previa }: PropsLanding) {
   const garantia = e.garantiaDias ? `Garantia de ${e.garantiaDias} dias` : "";
 
   return (
-    <div style={CORES} className={`${titulo.variable} ${texto.variable} ${codigo.variable} bg-(--noite) font-(family-name:--font-texto-001) text-[1.0625rem] leading-[1.65] text-(--papel)`}>
+    <div data-superficie="escura" style={CORES} className={`${titulo.variable} ${texto.variable} ${codigo.variable} bg-(--noite) font-(family-name:--font-texto-001) text-[1.0625rem] leading-[1.65] text-(--papel)`}>
       {vender && e.vigente.emOferta && <FaixaUrgencia className="border-b border-(--vermelho)/40 bg-(--tinta) text-(--papel)" />}
 
       {/* Topo */}

@@ -45,6 +45,14 @@ Definidos em **`src/app/globals.css`** (um lugar só): valores de marca em `:roo
 
 Cor de destaque **por e-book** (`accent`): ainda não implementada; entra na Etapa 2 junto com os dados (a landing de hoje usa a terracota da marca).
 
+## Acabamento do navegador (03/11/2026)
+
+O que não desenhamos também carrega a marca; tudo em `globals.css`, pelos tokens:
+
+- **Barra de rolagem:** fina, trilho transparente e polegar em tom médio entre tinta e papel (`--rolagem-polegar`), que se lê no papel e nas faixas escuras. Vale para a página, para o carrossel de amostras e para a coluna do editor.
+- **Seleção de texto** em terracota suave, **cursor** e controles nativos (`accent-color`) em terracota; sem o clarão azul do toque no celular; campo de texto só cresce na vertical; rolagem interna não "vaza" para a página.
+- **Landing escura:** a página marca a raiz com `data-superficie="escura"` (hoje só a do 001, toda escura). A moldura do site (cabeçalho, rodapé, filetes), o fundo atrás da barra de rolagem e o polegar passam para o escuro, sem faixa creme em volta. Landing que mistura faixas claras e escuras (a do 002) mantém a moldura creme.
+
 ## Movimento
 
 > **Estado (03/11/2026):** o que está abaixo é a **direção**, não o que existe. Nem Motion nem GSAP estão instalados; as páginas usam CSS e transições simples, e os visuais foram aprovados assim. Instalar uma biblioteca exige decisão registrada e a regra "isso ajuda a vender agora?".

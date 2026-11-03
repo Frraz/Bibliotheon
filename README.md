@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. No ar desde 03/11: recuperação de senha por e-mail (falta testar o envio real) e correção da imagem de compartilhamento do 002. Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
+> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. No ar desde 03/11: recuperação de senha por e-mail (testada, funciona) e correção da imagem de compartilhamento do 002. Falta aplicar a 2ª edição na página (ainda mostra "168 páginas") e a promoção de R$ 24,99 acaba em 05/11. Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 

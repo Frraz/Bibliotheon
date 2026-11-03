@@ -107,6 +107,12 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-03 | **Senha: qualquer uma a partir de 4 caracteres** (antes 10), sem regra de composição | Pedido do titular. Risco aceito: senha curta é adivinhável; mitigado pelo limite de tentativas e pela verificação em duas etapas, que agora existe | Sim |
 | 2026-11-03 | **Verificação em duas etapas opcional** (app autenticador + 10 códigos de reserva), plugin `twoFactor` do Better Auth; dependência nova `qrcode` (QR no navegador). Ligar, desligar e gerar códigos pedem a senha. "Nova senha" do administrador e `criar-owner` desligam a verificação (celular perdido) | Pedido do titular, para quem quiser mais segurança. Sem SMS nem e-mail como segundo fator: é mais código e mais risco, e o e-mail é opcional | Sim |
 
+| 2026-11-03 | **Promoção de R$ 24,99 até 05/11 às 23h59** (preço normal R$ 64,99), ligada pelo titular antes do plano. A Black Friday de R$ 47 (27 a 30/11) segue, mas o intervalo a preço cheio cai para 21 dias (a regra era 30) | Decisão do titular. A oferta também precisa acabar na Hotmart em 05/11 (página e checkout não podem divergir) | Sim |
+| 2026-11-03 | **2ª edição completa na página do 001**, com a headline da 2ª edição ("Crie sistemas com IA, coloque no ar e aprenda a vender, mesmo sem saber programar"), 201 páginas, sumário e FAQ novos, autor exibido "Bibliotheon". Substitui a headline aprovada em 02/11. `seeds/.../segunda-edicao.json` (só textos) vai a produção; `extras.json` fica só para o seed local e nunca é aplicado em produção (traria o preço de volta a R$ 64,99) | Pedido do titular, com base no `livro_pt-BR_v2.0.0.pdf`. Arquivo conferido contra o manuscrito: limites mantidos (sem promessa de renda, VPS não executada em servidor real) | Sim |
+| 2026-11-03 | "com tudo explicado desde o início" vira "com o necessário explicado desde o início" (e-mail da Black Friday e "para quem não é") | O manuscrito diz "explica o necessário"; "tudo" prometia mais que o livro | Sim |
+
+| 2026-11-03 | **Acabamento do navegador pelos tokens** (barra de rolagem fina, seleção, cursor, `accent-color`) e **moldura escura nas landings inteiramente escuras** (`data-superficie="escura"`; só o 001 por ora) | Pedido do titular: barras de rolagem pouco elegantes (a padrão aparecia como faixa branca ao lado da página escura) e acabamento mais premium. Só CSS e dois atributos; sem dependência | Sim |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |

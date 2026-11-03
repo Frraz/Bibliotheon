@@ -1,0 +1,126 @@
+{
+  "_comentario": "2ª edição (v2.0.0, 201 páginas) do 001: SÓ textos, sem preço, campanha, ofertas nem amostras, para não desfazer a promoção em curso. Em produção: deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/segunda-edicao.json. Origem: ../ebooks/.../oferta/pt-BR/atualizacao-bibliotheon.json (03/11/2026). Capa e amostras em imagem: pelo painel (../ebooks/.../publicacao/bibliotheon/).",
+  "book": {
+    "headline": "Crie sistemas com IA, coloque no ar e aprenda a vender, mesmo sem saber programar",
+    "summary": "Um percurso em cinco etapas, da ideia à venda, para construir um sistema pequeno com IA, colocá-lo no ar com domínio, HTTPS e backup e preparar a sua primeira proposta. Inclui código, modelos, checklists e um plano de 30 dias.",
+    "problem": "Você consegue imaginar a solução, mas não sabe programar.",
+    "body": "Você tem uma ideia de sistema, mas não sabe por onde começar? Ou percebe problemas em pequenos negócios e gostaria de transformá-los em soluções que possam ser vendidas?\n\nCrie Sistemas com IA e Ganhe Dinheiro é um percurso em cinco etapas: ideia, planejamento, desenvolvimento, deploy e venda. Você aprende os fundamentos necessários enquanto constrói, organiza requisitos, conduz a IA no editor, testa regras e acessos e confere cada resultado.\n\nO exemplo é a Oficina Clara, um sistema fictício de ordens de serviço com gerente, técnicos, permissões e histórico. Depois da construção, o livro leva o sistema para uma VPS Ubuntu, com domínio, HTTPS, recuperação de senha por e-mail, cópia de segurança, restauração e atualização, e mostra como passar tudo para a conta do cliente.\n\nNa parte comercial, você descobre uma necessidade, delimita o escopo, calcula preço, monta uma proposta e uma oferta em degraus, aprende a conversar com possíveis clientes sem envio em massa e segue um plano de 30 dias até a sua primeira proposta. Tudo com exemplos fictícios e sem promessa de renda.\n\nO livro tem caminhos de leitura para quem quer resolver um problema próprio, vender serviços ou já programa, e traz um mapa rápido para quando você se perder. Há instruções para Windows 11/WSL, Ubuntu e macOS, exercícios comentados, prompts, código de referência, modelos e checklists.\n\nComputador, internet, planos de IA, VPS, domínio e outros serviços são custos externos. Não estão incluídos mentoria, implantação individual ou suporte de programação. Esta é a 2ª edição, sem compromisso de futuras atualizações. Leia a amostra e confira os formatos e as condições da oferta antes da compra.",
+    "pains": [
+      "Uma tarefa repetitiva continua tomando o seu tempo porque o sistema que a resolveria ainda só existe na sua cabeça.",
+      "A informação fica espalhada entre mensagens, caderno e memória. Quando alguém pergunta, você procura em três lugares.",
+      "A planilha já não acompanha o trabalho, e você não sabe o que colocar no lugar dela.",
+      "Você já pediu código a uma IA, mas não sabe dizer se o resultado está certo nem como colocá-lo no ar.",
+      "Você quer transformar o que aprende em renda, mas não sabe como escolher um problema, calcular o preço ou conversar com o primeiro cliente."
+    ],
+    "benefits": [
+      "Transformar uma necessidade em regras que você consegue conferir e testar (capítulos 5 e 12).",
+      "Conduzir a IA no editor por fases, sem perder o controle do que ela escreve (capítulos 3, 6 e 11).",
+      "Colocar um sistema no ar com VPS, domínio, HTTPS, e-mail e backup (capítulos 14 a 17).",
+      "Calcular preço e montar proposta e oferta em degraus (capítulos 20 e 23).",
+      "Seguir um plano de 30 dias até a primeira proposta, com roteiros de conversa e funil (capítulos 24 e 25)."
+    ],
+    "differentiators": [
+      "Percorre o caminho inteiro em cinco etapas (ideia, planejamento, desenvolvimento, deploy e venda), dizendo o que conferir ao fim de cada uma.",
+      "Não para no protótipo: VPS, domínio, HTTPS, e-mail, backup e atualização, com recuperação ensaiada. Os passos de VPS não foram executados num servidor real nesta edição; faça primeiro num ambiente de teste.",
+      "Termina no lado comercial: oferta em degraus, roteiros para os primeiros clientes e plano de 30 dias. Sem promessa de renda.",
+      "O projeto é seu. O código fica numa pasta sua e no seu GitHub, e é você quem escolhe e contrata o servidor."
+    ],
+    "included": [
+      "Livro completo em PDF e EPUB, com 201 páginas",
+      "Caderno de prática em PDF",
+      "Projeto da Oficina Clara, modelos (inclui oferta de uma página e roteiros de conversa), prompts e checklists (ZIP)",
+      "Instruções para Windows 11/WSL, Ubuntu e macOS"
+    ],
+    "toc": [
+      "Antes de começar: você não precisa saber os nomes",
+      "Preparar Windows 11, Ubuntu ou macOS",
+      "Oficina de início: a IA dentro do editor",
+      "O que você realmente entrega",
+      "Transformar conversa em regras verificáveis",
+      "Planejar com IA e guardar o resultado",
+      "Entender as peças antes de gerar código",
+      "O básico para compreender o que a IA escreve",
+      "Oficina de construção: da pasta vazia à primeira ordem",
+      "Executar um sistema pequeno do início ao fim",
+      "Desenvolver com IA sem perder o controle",
+      "Testar regras, acessos e falhas",
+      "Guardar histórico e enviar ao GitHub",
+      "Preparar uma VPS de homologação",
+      "Registrar seu domínio e configurar o endereço",
+      "Configurar, subir e validar o ambiente de teste",
+      "Atualizar sem apostar os dados do cliente",
+      "Oficina de passagem: da demonstração à VPS do cliente",
+      "Descobrir uma necessidade que merece uma proposta",
+      "Transformar o trabalho em uma proposta que pode ser vendida",
+      "Entregar o serviço e combinar o depois",
+      "Seu próximo sistema: aplicar o método a outro problema",
+      "Montar a sua oferta: do método a um serviço claro",
+      "Encontrar os primeiros clientes sem incomodar ninguém",
+      "Plano de 30 dias até a primeira proposta",
+      "Glossário e referências",
+      "Apêndice A — código integral da Oficina Clara",
+      "Apêndice B — modelos essenciais para seu projeto",
+      "Apêndice C — Mapa rápido: da situação ao capítulo",
+      "Apêndice D — Checklists de bolso",
+      "Apêndice E — Informações da edição: custos, créditos e condições"
+    ],
+    "faq": [
+      {
+        "q": "Preciso saber programar?",
+        "a": "Não para começar. O livro ensina o básico durante as práticas, inclusive arquivos, terminal e editor. Mas não é um caminho sem esforço: você precisará executar os exercícios e aprender a conferir as respostas da IA."
+      },
+      {
+        "q": "Quais ferramentas vou usar?",
+        "a": "VS Code, terminal, um assistente de IA no editor, Python com Django, Git e GitHub. Na parte de publicação, VPS Ubuntu, PostgreSQL, Docker e domínio. Cada uma é explicada quando aparece."
+      },
+      {
+        "q": "O que vou construir?",
+        "a": "Uma aplicação fictícia de ordens de serviço, a Oficina Clara, com gerente, técnicos, acesso por papel e histórico. Depois há uma atividade para adaptar o método a outro problema pequeno."
+      },
+      {
+        "q": "Vou ganhar dinheiro?",
+        "a": "O livro ensina a construir, a calcular preço, a montar proposta e oferta e a planejar a busca pelos primeiros clientes. Contratação, receita e lucro dependem da aplicação, do mercado, dos custos e da entrega; não são garantidos."
+      },
+      {
+        "q": "O livro ajuda a encontrar clientes?",
+        "a": "Ele organiza a sua oferta em degraus, traz roteiros de conversa sem envio em massa, um funil para acompanhar contatos e um plano de 30 dias até a primeira proposta (capítulos 23 a 25). Não garante clientes nem receita."
+      },
+      {
+        "q": "E se eu já souber programar?",
+        "a": "Há um caminho de leitura para isso: pule a preparação básica e foque nos capítulos de requisitos, regras, testes, implantação e na parte comercial."
+      },
+      {
+        "q": "O que preciso contratar?",
+        "a": "O estudo local não exige VPS. IA, domínio, servidor, e-mail e armazenamento podem ter custos próprios quando você os usar. Confira os fornecedores antes de contratar."
+      },
+      {
+        "q": "Os passos de publicação foram testados?",
+        "a": "Esta edição revisou os passos de VPS, mas não os executou em um servidor real. Faça primeiro em um servidor de teste e confira cada resultado antes de usar com dados reais."
+      },
+      {
+        "q": "O sistema serve para qualquer empresa?",
+        "a": "A referência tem escopo pequeno e limites explícitos. Upload, offline, 2FA, cobranças, integrações e cenários críticos exigem desenvolvimento e testes adicionais."
+      },
+      {
+        "q": "Inclui suporte ou atualização?",
+        "a": "Atendimento de compra, acesso e integridade dos arquivos pela plataforma. Sem programação individual, sem mentoria e sem compromisso de novas edições."
+      },
+      {
+        "q": "Como recebo o livro?",
+        "a": "Pela área de entrega da plataforma em que você comprar, logo após a confirmação do pagamento."
+      },
+      {
+        "q": "Como peço reembolso?",
+        "a": "Pelo fluxo da própria plataforma de compra, dentro do prazo de 7 dias, respeitando também os direitos previstos em lei."
+      }
+    ],
+    "author": "Bibliotheon",
+    "authorBio": "",
+    "notFor": [
+      "Quem quer apertar um botão e receber um sistema pronto: você vai usar terminal e servidor e conferir cada etapa, com o necessário explicado desde o início.",
+      "Quem procura renda, clientes ou prazo garantidos: o livro ensina o método, não promete resultado.",
+      "Quem espera mentoria, implantação individual ou suporte de programação.",
+      "Quem quer um sistema crítico (cobrança, 2FA, offline) sem desenvolvimento adicional."
+    ]
+  }
+}

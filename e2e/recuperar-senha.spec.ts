@@ -11,7 +11,14 @@ const NOVA = "senha-nova-bem-longa-42";
 let proximoIp = 1;
 const alerta = (page: Page) => page.locator("p[role=alert]");
 const emails = () => (existsSync(PASTA) ? readdirSync(PASTA).sort() : []);
-const ler = (arquivo: string) => JSON.parse(readFileSync(`${PASTA}/${arquivo}`, "utf8")) as { para: string; assunto: string; texto: string };
+// O arquivo aparece na pasta antes de o servidor terminar de gravá-lo: lê de novo até o JSON estar completo.
+const ler = (arquivo: string) => {
+  try {
+    return JSON.parse(readFileSync(`${PASTA}/${arquivo}`, "utf8")) as { para: string; assunto: string; texto: string };
+  } catch {
+    return null;
+  }
+};
 
 async function pedir(page: Page, email: string) {
   await page.setExtraHTTPHeaders({ "x-real-ip": `203.0.113.${proximoIp++}` });
@@ -28,7 +35,8 @@ test("pedir a recuperação manda um e-mail com link; o link cria a senha nova u
   const antes = emails().length;
   await pedir(page, EMAIL);
   await expect.poll(() => emails().length).toBe(antes + 1);
-  const mensagem = ler(emails().at(-1)!);
+  await expect.poll(() => ler(emails().at(-1)!)).not.toBeNull();
+  const mensagem = ler(emails().at(-1)!)!;
   expect(mensagem.para).toBe(EMAIL);
   expect(mensagem.texto).toContain("Olá, Recupera.");
   const link = /https?:\/\/\S+\/api\/auth\/reset-password\/\S+/.exec(mensagem.texto)?.[0];
