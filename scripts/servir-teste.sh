@@ -9,6 +9,7 @@ E2E=".e2e"
 export SITE_URL="http://127.0.0.1:$PORTA"
 export API_TOKEN="token-de-teste"
 export BETTER_AUTH_SECRET="segredo-so-para-o-teste-e2e-0123456789abcdef"
+export EMAIL_SAIDA_DIR="$PWD/$E2E/emails" # e-mails do teste viram arquivos JSON
 DATABASE_PATH=:memory: npm run build >/dev/null
 
 rm -rf "$E2E" && mkdir -p "$E2E/app/.next" "$E2E/data"

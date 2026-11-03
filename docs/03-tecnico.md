@@ -7,15 +7,16 @@
 | Runtime | Node 22+ no desenvolvimento; `node:24` (LTS) na imagem Docker | O PC de desenvolvimento tem Node 22; o Next 16 funciona nos dois |
 | Framework | **Next.js 16** (App Router, **Cache Components** + Partial Prefetching ligados) + TypeScript estrito | Páginas públicas pré-renderizadas (HTML pronto, ótimo para SEO e mobile). Painel e API no mesmo app, em um container. **A versão 16 tem convenções novas: ler `node_modules/next/dist/docs/` antes de codar** |
 | UI | Tailwind CSS v4 + shadcn/ui, estilo `base-nova` (componentes **Base UI**, não Radix) + `lucide-react` | Painel profissional pronto; é a base em que as skills de design rendem mais. `cn()` vem do pacote `cn` (mantido pelo próprio shadcn, substitui clsx + tailwind-merge) |
-| Movimento | Motion (painel e microinterações) + GSAP/ScrollTrigger (só na landing) | Ver [05-design](05-design.md#movimento) |
+| Movimento | Hoje só CSS e transições simples (sem biblioteca). **Motion e GSAP não estão instalados** (Motion e GSAP só entram se o design pedir, com decisão registrada) | Ver [05-design](05-design.md#movimento) |
 | Banco | SQLite (better-sqlite3, modo WAL) + Drizzle ORM + drizzle-kit migrations | Um arquivo, zero serviço; backup é uma cópia. Migrar para Postgres é simples se um dia for preciso |
-| Auth | Better Auth (e-mail/senha, sessão em cookie httpOnly guardada no banco) com `role` e `ativo`; hash de senha scrypt próprio (`src/lib/senha.ts`) | Login seguro pronto; sem cadastro público. O hash próprio deixa o `scripts/criar-owner.mjs` rodar na imagem sem `tsx` |
+| Auth | Better Auth (e-mail/senha, sessão em cookie httpOnly guardada no banco) com `role` e `ativo`; hash de senha scrypt próprio (`src/lib/senha.ts`) | Login seguro pronto; sem cadastro público; recuperação de senha por e-mail com `nodemailer` e SMTP opcional (`src/lib/email.ts`). O hash próprio deixa o `scripts/criar-owner.mjs` rodar na imagem sem `tsx` |
 | Validação | Zod (formulários, API e manifesto compartilham os schemas) | Uma regra, três usos |
-| Formulários | react-hook-form + Zod + Server Actions | — |
+| Formulários | `<form>` nativo + Zod; Server Actions (painel) e rotas (uploads, login, pedido de amostra). Regras puras em `src/lib/editor.ts` | Sem `react-hook-form`: não está instalado |
 | Imagens | `next/image` (otimizador do próprio Next, que usa sharp) sobre a rota `/m/...`; arquivos com hash no nome | LCP baixo, AVIF/WebP e tamanhos sob demanda sem pipeline nosso. Cache imutável em `/m` |
-| OG | `next/og` (ImageResponse) por e-book, com a fonte Fraunces embutida em `src/assets/fonts/` (licença OFL ao lado) | Prévia bonita em anúncios e WhatsApp. No runtime Node a fonte é lida com `readFile` (não `fetch`) |
+| OG | `next/og` (ImageResponse) por e-book, com a fonte Fraunces embutida em `src/assets/fonts/` (licença OFL ao lado) | Prévia bonita em anúncios e WhatsApp. No runtime Node a fonte é lida com `readFile` (não `fetch`). A capa entra **reduzida** (600 px, JPEG, via `sharp`): o original pesado (PNG de 12 MB) fazia o gerador falhar com 502. Falha na capa só tira a capa da imagem |
 | Testes | Vitest (regras e API) + Playwright (fluxos críticos) | Só o que protege venda e dados |
-| CLI | Python 3, só biblioteca padrão | Roda a partir do `../ebooks` sem instalar nada |
+| CLI | Python 3, só biblioteca padrão. **Planejada (Etapa 4, pausada): ainda não existe** | Roda a partir do `../ebooks` sem instalar nada |
+| E-mail | `nodemailer` + SMTP qualquer (`src/lib/email.ts`), só para recuperar senha. Opcional | Sem `SMTP_HOST` o resto funciona. Ver "Recuperação de senha" abaixo |
 
 Proibido no MVP (exige decisão registrada para entrar):
 
@@ -24,7 +25,7 @@ Proibido no MVP (exige decisão registrada para entrar):
 - microserviço;
 - CMS de terceiros;
 - GraphQL;
-- serviço de e-mail;
+- serviço de e-mail pago ou de marketing (o SMTP próprio para recuperar senha é a exceção, decidida em 03/11/2026);
 - serviço externo de analytics além de Meta Pixel/GA4.
 
 ## Estrutura de pastas
@@ -41,11 +42,12 @@ bibliotheon/
 │   │   │   ├── termos/ privacidade/
 │   │   ├── ir/[ofertaId]/route.ts  # clique rastreado → redirect
 │   │   ├── m/[...path]/route.ts    # serve mídia do volume, cache imutável
-│   │   ├── entrar/page.tsx
+│   │   ├── entrar/  esqueci-a-senha/  redefinir-senha/   # login e recuperação
 │   │   ├── painel/                 # (menu)/ = lista, editor, temas, usuários, conta; ebooks/[id]/previa
 │   │   ├── api/auth/[...all]/route.ts
-│   │   ├── api/v1/ebooks/route.ts  # CLI: upsert
-│   │   ├── api/v1/ebooks/[sourceId]/route.ts  # CLI: consultar
+│   │   ├── api/painel/ebooks/[id]/{capa,amostras,pdf,amostra-pdf,exportar}/route.ts  # arquivos do painel
+│   │   ├── api/v1/ebooks/[slug]/route.ts  # operação: PATCH (preço, campanha, textos)
+│   │   ├── api/v1/ebooks/[slug]/amostra/route.ts, api/v1/metricas, api/v1/leads
 │   │   ├── api/v1/v/route.ts       # beacon de visita
 │   │   ├── api/saude/route.ts      # healthcheck do container
 │   │   ├── sitemap.ts  robots.ts
@@ -55,15 +57,15 @@ bibliotheon/
 │   │   └── painel/
 │   ├── db/schema.ts  db/index.ts
 │   ├── lib/                        # auth, imagens, ofertas, utm, métricas, manifesto
-│   └── styles/
+│   └── landings/                   # landings personalizadas (registro.ts + uma pasta por e-book)
 ├── drizzle/                        # migrations geradas
-├── ferramentas/publicar.py         # CLI
+├── ferramentas/publicar.py         # CLI (planejada, Etapa 4: ainda não existe)
 ├── scripts/seed.ts                 # importa um título (manifest v1 + extras) para o banco; Etapa 4 troca pela API
 ├── scripts/servir-teste.sh         # sobe o build standalone com banco temporário (usado pelo Playwright)
 ├── seeds/001-sistemas-com-ia/      # campos de venda do 001 que o manifest v1 ainda não traz + amostras
 ├── e2e/                            # testes Playwright + título de teste sintético
 ├── atualizar.sh                    # no servidor: pull, confere versão, backup, build, troca, rollback
-├── deploy/                         # backup.sh, aquecer.sh, nginx
+├── deploy/                         # backup.sh, aquecer.sh, venda.sh, nginx
 ├── scripts/criar-owner.mjs         # cria o owner na 1ª vez (JS puro: roda na imagem standalone)
 ├── data/                           # NÃO versionado: bibliotheon.db + media/
 ├── docker/Dockerfile  docker-compose.prod.yml
@@ -100,17 +102,19 @@ Convenções:
 | Preço | `preco`, `precoDe` (opcional), `ofertaAte` (opcional), `ofertaNome` (opcional; "Black Friday"), `parcelamento` (opcional), `garantiaDias` (padrão 7), `emBreve: boolean` |
 | SEO/medição | `seoTitle`, `seoDescription` (opcionais; fallback headline/resumo), `metaPixelId` (opcional) |
 
-Acrescentados na Fase 2: `ebook.pdfPrivado` (chave do PDF completo em `data/privado`) e `ebook.pdfNome` (nome original, só para exibir).
+Acrescentados depois: `ebook.pdfPrivado` (chave do PDF completo em `data/privado`) e `ebook.pdfNome` (nome original, só para exibir); `figura`, `figuraAlt` e `figuraLegenda` (imagem da seção de descrição).
 
 **amostra**: `id`, `ebookId`, `imagem`, `alt`, `ordem`.
 
-**oferta**: `id`, `ebookId`, `plataforma` (`hotmart | kiwify | cakto | eduzz | monetizze | ticto | perfectpay | amazon | google_play | outra`), `rotulo` (opcional; padrão "Comprar na <Plataforma>"), `url`, `preco` (opcional, quando difere do preço do e-book), `principal: boolean` (exatamente uma por e-book com ofertas ativas), `ativa`, `ordem`.
+**oferta**: `id`, `ebookId`, `plataforma` (`hotmart | kiwify | cakto | eduzz | monetizze | ticto | perfectpay | amazon | google_play | outra`), `rotulo` (opcional; padrão "Comprar na <Plataforma>"), `url`, `urlPromo` (checkout da campanha), `preco` (opcional, quando difere do preço do e-book), `principal: boolean` (exatamente uma por e-book com ofertas ativas), `ativa`, `ordem`.
 
 Adicionar uma plataforma = um item no enum + logo SVG em `public/plataformas/` + regra de parâmetros em `lib/ofertas.ts`.
 
 **metrica_diaria**: `ebookId`, `data` (AAAA-MM-DD), `ofertaId` (nulo = visita), `origem` (`utm_source` ou "direto"), `contagem`. Chave única pelos quatro primeiros campos; incremento com `ON CONFLICT DO UPDATE`. **Sem IP, sem cookie, sem dado pessoal.**
 
-**api_token**: `id`, `userId`, `nome`, `hash` (SHA-256 do token), `criadoEm`, `ultimoUso`, `revogadoEm`.
+**lead**: `id`, `ebookId`, `email`, `origem`, `criadoEm`; único por e-book + e-mail. Só quem pediu a amostra e aceitou receber avisos.
+
+_`api_token` (tokens por usuário para a CLI) e `slug_antigo` (redirect de endereço) **não existem**: eram planos da Etapa 4. Hoje a API de operação usa um `API_TOKEN` único do servidor, e o endereço trava na primeira publicação._
 
 ## Regras de negócio (testadas)
 
@@ -120,8 +124,8 @@ Adicionar uma plataforma = um item no enum + logo SVG em `public/plataformas/` +
 
    A regra roda no servidor e é recalculada no cliente (o HTML pode ter até 5 min de cache). `precoDe` sem `ofertaAte` mostra riscado sem timer.
 2. **Publicar exige:** capa, descrição da capa, título, headline, resumo, ≥3 benefícios, endereço válido e tema no ar (se houver). Sem loja ativa (ou sem preço) a página sai como "Em breve".
-3. **Parceiro:** só lê/edita ebooks com `ownerId` = ele. Não publica, não cria tema, não vê métricas de outros. Ação "Enviar para revisão" → `status = revisao`.
-4. **Slug:** gerado do título, minúsculo, sem acento. Não pode colidir com rotas reservadas ([02](02-experiencia.md#mapa-do-site)). Mudar o slug de um publicado cria redirect 301 (tabela `slug_antigo`, se necessário; decidir na Etapa 3).
+3. **Usuário comum (Publicador):** só lê, edita, publica e baixa o PDF dos e-books com `ownerId` = ele; não cria tema nem vê os de outros. **Publica direto, sem revisão.** O status `revisao` existe no esquema mas nenhuma tela o usa.
+4. **Slug:** gerado do título, minúsculo, sem acento. Não pode colidir com rotas reservadas ([02](02-experiencia.md#mapa-do-site)). O endereço é editável até a primeira publicação e depois **fica travado** (por isso não há redirect).
 5. **Visibilidade:** só `status = publicado` com tema publicado aparece em home, tema, sitemap e busca. `?previa=1` funciona apenas com sessão do dono ou do owner e manda `noindex`.
 
 ## Renderização e cache
@@ -133,6 +137,8 @@ Next 16 com **Cache Components**. O que foi implementado e testado na Etapa 2:
 | `/[slug]`, `/tema/[slug]` | `ensureStatic = 'navigation'` + `generateStaticParams` | Página inteira estática. O primeiro acesso a um slug novo **espera a página completa** (não serve esqueleto), o que importa para o Google. Dados via funções `use cache` |
 | `/` (Home) | `connection()` dentro de `<Suspense>` | O banco do build é vazio: ler no pedido evita que o primeiro visitante pós-deploy veja uma Home vazia. As consultas continuam em cache |
 | `/termos`, `/privacidade` | Estáticas | Sem dados |
+| `/entrar` | Estática (○) | Só formulário; o aviso "senha nova salva" lê a URL no navegador |
+| `/esqueci-a-senha`, `/redefinir-senha` | Parcialmente pré-renderizadas (◐) | A moldura é estática; o que depende do `.env` (SMTP configurado?) ou do token na URL fica em `<Suspense>` e é lido no pedido |
 | `/ir/[ofertaId]`, `/api/*`, `/m/*`, `sitemap.xml` | Dinâmicas | Gravam métrica, leem arquivo/banco por pedido. `/api/saude` e `sitemap` chamam `connection()` para **nunca** serem pré-renderizadas |
 
 - **Dados:** `src/lib/catalogo.ts`, funções `use cache` com `cacheLife("minutes")` e tags `ebooks`, `ebook:<slug>`, `tema:<slug>`, `temas`. Tudo serializável (datas em ISO). Quando o painel (Etapa 3) ou a API (Etapa 4) gravarem, chamam `revalidateTag`/`updateTag` dessas tags e a página nova aparece na hora.
@@ -169,7 +175,9 @@ Autenticação: `Authorization: Bearer <API_TOKEN>` (variável do servidor; sem 
 
 **`/ir` e campanha:** enquanto `precoVigente().emOferta`, o `/ir` usa `oferta.urlPromo`; depois do prazo, `oferta.url`. Assim a página e o checkout mudam juntos.
 
-## API para a CLI
+## API para a CLI (planejada, Etapa 4: **não implementada**)
+
+_Esta seção e as duas seguintes descrevem o plano da publicação pelo terminal. Hoje só existem o `PATCH /api/v1/ebooks/[slug]` (que reusa o contrato do manifesto) e o cadastro pelo painel._
 
 Autenticação: `Authorization: Bearer <token>`. Token gerado em Painel → Conta, guardado só como hash.
 
@@ -232,7 +240,7 @@ Formato de oferta:
 
 Campos desconhecidos geram aviso, nunca erro. Um exemplo canônico completo fica em `docs/exemplos/manifest.example.json` (criar na Etapa 4).
 
-## CLI `ferramentas/publicar.py`
+## CLI `ferramentas/publicar.py` (planejada, Etapa 4)
 
 ```
 python3 ferramentas/publicar.py publicar <pasta-do-titulo> [--publicar] [--sim]
@@ -286,9 +294,18 @@ Título, descrição e imagem de compartilhamento continuam vindo do banco (camp
 
 **Publicar:** bloqueiam capa, descrição da capa, título, headline, resumo, ≥ 3 benefícios, endereço válido e tema no ar (se houver tema). Sem loja ou sem preço a página sai como "Em breve" (só avisa). Um e-book já publicado nunca é salvo incompleto. O endereço é editável até a primeira publicação e depois fica travado (mesmo despublicado).
 
+## Recuperação de senha por e-mail
+
+Opcional: só liga com `SMTP_HOST` no `.env` ([06](06-deploy.md#variáveis-env-só-no-servidor)). Sem ele, `/esqueci-a-senha` manda falar com o administrador, que cria uma senha temporária em Usuários.
+
+1. `/esqueci-a-senha` chama `requestPasswordReset` do Better Auth. A resposta é **sempre a mesma**, exista a conta ou não, e o envio não é aguardado (o tempo da resposta não revela quem tem cadastro).
+2. `sendResetPassword` (`src/lib/auth.ts`) ignora conta desativada e envia pelo `nodemailer` (`src/lib/email.ts`). Falha de envio vai só ao log do servidor (`[e-mail] não foi possível enviar...`).
+3. O link (`/api/auth/reset-password/<token>`, usa o `SITE_URL` do build) vale 1 hora e uma vez; leva a `/redefinir-senha?token=...`, que chama `resetPassword`. A senha nova usa o mesmo hash scrypt do login e derruba as sessões abertas.
+4. `EMAIL_SAIDA_DIR` grava cada e-mail em JSON no lugar de enviar: é como os testes E2E leem o link (`scripts/servir-teste.sh`). Não use em produção.
+
 ## Segurança
 
-- Better Auth: hash de senha forte, rate limit no login, cookie `httpOnly; Secure; SameSite=Lax`.
+- Better Auth: hash de senha forte, rate limit no login e no pedido de recuperação (3 por minuto por IP), cookie `httpOnly; Secure; SameSite=Lax`.
 - Todas as Server Actions e rotas do painel conferem sessão **e** dono do recurso no servidor.
 - **Uploads:**
   - limite de 10 MB por imagem;

@@ -25,8 +25,8 @@ O Bibliotheon **não** processa pagamento, **não** entrega arquivos e **não** 
 | Quem | O que precisa |
 |---|---|
 | **Visitante** (quase sempre no celular, vindo de um anúncio) | Entender em 5 segundos o que o livro resolve, confiar e comprar sem atrito |
-| **Owner** (Warley) | Publicar e-books rápido, pelo projeto `../ebooks` ou pelo painel; aprovar parceiros; ver o que vende |
-| **Parceiro** | Cadastrar o próprio e-book pelo painel sem treinamento e acompanhar visitas e cliques |
+| **Owner** (Warley) | Publicar e-books rápido, pelo painel (com o guia gerado no `../ebooks`); cadastrar quem publica; ver o que vende |
+| **Parceiro** (na tela, "Publicador") | Cadastrar o próprio e-book pelo painel sem treinamento e acompanhar visitas e cliques |
 
 ## Princípios
 
@@ -45,7 +45,7 @@ O Bibliotheon **não** processa pagamento, **não** entrega arquivos e **não** 
 | Várias plataformas | Cada e-book tem **uma plataforma principal** (botão grande) e as demais em "Prefere outra plataforma?". Muitas opções iguais paralisam a escolha |
 | Urgência | O timer só aparece se o e-book tiver data real de fim da oferta (`ofertaAte`). O preço "de" riscado só aparece se for um preço realmente praticado. Depois do prazo, o preço volta ao normal sozinho |
 | Garantia | Sempre visível: 7 dias (direito de arrependimento, CDC art. 49), conforme a política da plataforma |
-| Parceiros | Contas criadas pelo owner (sem cadastro público). O parceiro vê só os próprios e-books e envia para revisão; o owner publica |
+| Parceiros | Contas criadas pelo owner (sem cadastro público). O parceiro vê só os próprios e-books e **publica direto, sem revisão** (decisão de 02/11/2026) |
 | Plataformas | Nenhuma é obrigatória. Um e-book pode ter só Kiwify, por exemplo. A lista de plataformas é extensível |
 | IA no site | Nenhuma. O site é vitrine; a criação acontece em `../ebooks` |
 
@@ -55,19 +55,19 @@ O Bibliotheon **não** processa pagamento, **não** entrega arquivos e **não** 
 
 - Home (catálogo), página de tema, landing por e-book.
 - Saída rastreada para o checkout, com repasse de UTMs.
-- Painel: login, lista de e-books com métricas, editor numa página só, temas, parceiros, token de API.
-- Fluxo rascunho → em revisão → publicado, com prévia real do rascunho.
-- API + CLI para publicar a partir do `../ebooks`, usando o `manifest.json` que já existe.
+- Painel: login com recuperação de senha por e-mail (SMTP opcional), lista de e-books com métricas, editor numa página só, temas, usuários, exportação de dados e PDF privado.
+- Fluxo rascunho → publicado, com prévia real do rascunho.
+- Landing padrão ou personalizada por e-book.
+- API de operação (`deploy/venda.sh`) para preço, campanha e textos. A API + CLI de publicação a partir do `../ebooks` está planejada (Etapa 4, pausada).
 - SEO técnico completo, OG automático, Termos, Privacidade, banner de consentimento.
 - Deploy no VPS substituindo o v1.
 
 **Fora**, no [backlog](07-roteiro.md#backlog). Só entra quando o uso real pedir:
 
 - blog/artigos;
-- captura de leads;
+- captura de leads (só existe o pedido de amostra por e-mail, feito na etapa "Vender");
 - webhooks de venda;
 - A/B test;
-- recuperação de senha por e-mail;
 - multi-idioma;
 - busca;
 - avaliações.

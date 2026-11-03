@@ -6,7 +6,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** você leu `01` a `07` e ajustou o que discordar.
 
-## Etapa 1 — Protótipo visual ✅ (aguardando aprovação final)
+## Etapa 1 — Protótipo visual ✅ (aprovada)
 
 **Estado (02/11/2026):** concluída. Direção **A · Livraria** escolhida; Home, Landing, Painel e Editor prototipados com o conteúdo real do e-book 001, em `/prototipo/*`; tokens definidos em `globals.css`; shadcn/ui instalado; auditoria impeccable feita; lint e build limpos; LCP 0,8–0,9 s e CLS ≤ 0,026. Detalhes e medições em [05-design](05-design.md#direção-escolhida).
 
@@ -61,7 +61,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 **Por quê:** o projeto acaba se não faturar R$ 1.500/mês. O painel não ajuda a vender agora. Estratégia, conta e marcos: [04](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia).
 
 1. ✅ Padrão de venda registrado como regra ([04](04-vendas-e-medicao.md#6-padrão-de-venda), `CLAUDE.md`, `../ebooks`).
-2. ✅ Landing nova: necessidade, por que este caminho, CTAs repetidos, consequência do prazo, sem autor. **Falta sua aprovação visual.**
+2. ✅ Landing nova: necessidade, por que este caminho, CTAs repetidos, consequência do prazo, sem autor. Aprovada pelo titular.
 3. ✅ Campanha sincronizada com o checkout (`oferta.urlPromo`, `/ir`), API de operação, relatório e amostra por e-mail, testados no pacote standalone.
 4. ✅ Material em `../ebooks/ebooks/001-sistemas-com-ia/oferta/pt-BR/`: kit de parceiros, 10 roteiros de vídeo e e-mail da Black Friday. **Nada foi enviado.**
 5. ⬜ Aplicar em produção: `API_TOKEN` no servidor, `git push`, `./atualizar.sh --forcar`, `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/extras.json` e `deploy/venda.sh amostra criar-sistemas-com-ia seeds/001-sistemas-com-ia/amostra.pdf`.
@@ -72,7 +72,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 **Portão:** os marcos da [estratégia](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia). Em 28/02/2027 o titular decide com dados.
 
-## Etapa 3 — Painel 🟡 reaberta em 02/11/2026 a pedido do titular (Fase 1 pronta localmente)
+## Etapa 3 — Painel ✅ no ar desde 03/11/2026 (reaberta em 02/11/2026 a pedido do titular)
 
 Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuário ativo publica direto, sem revisão.** O protótipo foi aprovado e removido (histórico do Git).
 
@@ -81,11 +81,15 @@ Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuár
 3. ✅ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts` + `MoldeDaPagina`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`/`WebSite`, `lastmod` no sitemap). Pronta localmente: 44 testes E2E (3 novos), 76 unitários; impeccable só aponta o creme (aceito); Lighthouse A/B com o 001 real: mediana 90 (antes 92), A11y/Boas práticas/SEO 100.
 4. ✅ **Fase 4: exportação.** "Exportar dados" (`.md` e `.json`) e "Baixar PDF", pasta local `livros/<slug>/` fora do Git. Em `../ebooks`, cada título sai com um guia por plataforma (`publicacao/publicacao-<plataforma>.md`) e só os arquivos usados. Conferido publicando o livro 002 no painel local a partir do guia.
 
-Em produção só depois do pedido do titular: `git push` → `BETTER_AUTH_SECRET` no `.env` → `./atualizar.sh --forcar` → `docker exec -it bibliotheon_web node scripts/criar-owner.mjs <e-mail>` ([06](06-deploy.md#painel-e-primeiro-acesso)).
+5. 🟡 **Fase 5: recuperação de senha por e-mail** (03/11/2026). `/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`, com `nodemailer` e SMTP **opcional** ([03](03-tecnico.md#recuperação-de-senha-por-e-mail)). Pronta localmente e testada (SMTP falso na imagem standalone, 3 testes E2E, 4 unitários). **Aguarda commit, deploy e as variáveis `SMTP_*` no `.env` do servidor.** Junto vai a correção da imagem de compartilhamento do 002 (502 com capa PNG de 12 MB; capa reduzida a 600 px e PNG pesado vira JPEG no upload).
+
+Estado dos testes em 03/11/2026: 89 unitários e 64 E2E passando.
+
+Para repetir o deploy do painel (já feito): `git push` → `BETTER_AUTH_SECRET` no `.env` → `./atualizar.sh --forcar` → `docker exec -it bibliotheon_web node scripts/criar-owner.mjs <e-mail>` ([06](06-deploy.md#painel-e-primeiro-acesso)).
 
 **Critérios de aceite:**
 
-- [ ] Você cria um e-book do zero pelo painel no celular e no desktop, sem ajuda, em < 10 min. _(o fluxo está testado por automação; falta você usar)_
+- [x] Você cria um e-book pelo painel e publica (os e-books 001 e 002 estão cadastrados e no ar). Em < 10 min e sem ajuda ainda não foi medido.
 - [x] Teste: usuário comum só vê o que é dele na lista e não chega a `/painel/usuarios` (Fase 1).
 - [x] Teste: usuário desativado perde o acesso na hora, mesmo com a sessão aberta.
 - [x] Checklist bloqueia a publicação incompleta com a mensagem certa (rascunho salva e lista o que falta; publicado não é salvo incompleto).
@@ -109,13 +113,26 @@ Em produção só depois do pedido do titular: `git push` → `BETTER_AUTH_SECRE
 
 **Portão:** você publica um e-book novo só pelo terminal.
 
-**Landing personalizada do 001 (03/11/2026):** pronta localmente em `src/landings/criar-sistemas-com-ia/`; Lighthouse com dados reais mediana 93, A11y/Boas práticas/SEO 100, CLS 0. **Antes de ir ao ar, a Hotmart e o painel precisam estar na 2ª edição** (a página cita os capítulos 1 a 25) e falta a aprovação visual do titular.
+**Landing personalizada do 001 (03/11/2026):** pronta localmente em `src/landings/criar-sistemas-com-ia/`; Lighthouse com dados reais mediana 93, A11y/Boas práticas/SEO 100, CLS 0. Visual aprovado e no ar. **A Hotmart e o painel precisam estar na 2ª edição** (a página cita os capítulos 1 a 25): conferir.
 
-**Landing personalizada do 002 (03/11/2026):** pronta localmente em `src/landings/a-mente-inabalavel/`; assume `/a-mente-inabalavel` quando o e-book for cadastrado com esse endereço. Lighthouse com dados reais: mediana 95, A11y/Boas práticas/SEO 100, CLS 0. **Falta a aprovação visual do titular.**
+**Landing personalizada do 002 (03/11/2026):** pronta localmente em `src/landings/a-mente-inabalavel/`; assume `/a-mente-inabalavel`. Lighthouse com dados reais: mediana 95, A11y/Boas práticas/SEO 100, CLS 0. Visual aprovado e no ar.
 
 ## Depois do MVP — iteração em produção
 
 Regra: **uma melhoria = uma mudança pequena que vai ao ar no mesmo dia.** Ideias novas entram no backlog abaixo, com a data e o motivo. Prioriza-se pelo impacto em vendas, não pela vontade de construir.
+
+## Pendências abertas (03/11/2026)
+
+Só o titular pode fazer; nada disto bloqueia o desenvolvimento.
+
+| O quê | Detalhe |
+|---|---|
+| Commit e deploy da Fase 5 | Inclui a correção da imagem de compartilhamento do 002 |
+| SMTP no `.env` do servidor | `SMTP_HOST`, `SMTP_PORTA`, `SMTP_USUARIO`, `SMTP_SENHA` (senha de app do Gmail) e, se quiser, `EMAIL_REMETENTE`; depois `docker compose -f docker-compose.prod.yml up -d` ([06](06-deploy.md#variáveis-env-só-no-servidor)). Testar pedindo a recuperação com uma conta real |
+| Capa do 002 | Subir de novo no painel depois do deploy: vira JPEG, bem mais leve |
+| Produtos de teste | Apagar o `testeTESTE` na Kiwify e o `TESTE` (ativo) na Cakto |
+| Hotmart do 001 | Passar para a 2ª edição e decidir o preço da Black Friday (R$ 24,99 na Hotmart contra R$ 47 cadastrado). O titular disse que mexe nos preços depois |
+| Textos legais | Termos e Privacidade ainda são ponto de partida, não parecer jurídico |
 
 ## Backlog
 
@@ -126,10 +143,11 @@ Ordem atual (reavaliar a cada 2 semanas com os dados da [rotina semanal](04-vend
 3. **Webhooks de venda** (Kiwify/Hotmart/Cakto): vendas e receita por e-book e origem.
 4. **Artigos por tema (blog SEO)**: tráfego orgânico cumulativo, mas lento.
 5. **Teste de promessa**: "Coloque no ar um sistema real com IA, sem depender de plataforma" contra a headline atual. Com pouco tráfego, em sequência, não em A/B.
-6. **Recuperação de senha por e-mail** (SMTP).
+6. ✅ ~~Recuperação de senha por e-mail~~ (feita em 03/11/2026, SMTP opcional; falta o deploy).
 7. **Pacotes/combos** (vários e-books de um tema com desconto, se as plataformas suportarem).
 8. **Busca** no catálogo (quando houver mais de ~20 e-books).
 9. **Multi-idioma** (quando houver um título traduzido).
+10. **Backup fora do VPS** (opcional, decisão de 03/11/2026): só se o titular pedir; destino ainda não definido ([06](06-deploy.md#backup)).
 
 ### Ideias recebidas
 

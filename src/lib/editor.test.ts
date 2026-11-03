@@ -3,7 +3,7 @@ import { campanhaViva, camposDoEditor, checklistDePublicacao, dataLocalParaDate,
 
 describe("endereço", () => {
   it("recusa reservados, acento, maiúscula e tamanho", () => {
-    for (const s of ["painel", "admin", "api", "ir", "tema", "prototipo"]) expect(problemaNoSlug(s)).not.toBeNull();
+    for (const s of ["painel", "admin", "api", "ir", "tema", "prototipo", "esqueci-a-senha", "redefinir-senha"]) expect(problemaNoSlug(s)).not.toBeNull();
     expect(problemaNoSlug("Meu-Livro")).not.toBeNull();
     expect(problemaNoSlug("açaí")).not.toBeNull();
     expect(problemaNoSlug("ab")).not.toBeNull();

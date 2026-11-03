@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
+import sharp from "sharp";
 import { getEbook } from "@/lib/catalogo";
 import { caminhoDaMidia } from "@/lib/midia";
 import { brl } from "@/lib/preco";
@@ -14,10 +15,18 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
   const e = await getEbook(slug);
   const fonte = await readFile(new URL("../../../assets/fonts/fraunces-500.woff", import.meta.url)); // runtime Node: readFile, não fetch
 
+  // A capa entra reduzida (o quádruplo do tamanho em que aparece): o original pode ter vários MB, e o gerador de imagem
+  // recusa arquivo embutido acima de ~10 MB. Era o que dava 502 para o livro de capa PNG pesada (03/11/2026).
+  // Qualquer falha aqui só tira a capa da imagem: a prévia de compartilhamento nunca pode quebrar por causa dela.
   let capa: string | null = null;
   const alvo = e?.capa ? caminhoDaMidia(e.capa.replace(/^\/m\//, "").split("/")) : null;
-  if (alvo && /\.(jpe?g|png)$/i.test(alvo.caminho)) {
-    capa = `data:${alvo.tipo};base64,${(await readFile(alvo.caminho)).toString("base64")}`;
+  if (alvo && /\.(jpe?g|png|webp|avif)$/i.test(alvo.caminho)) {
+    try {
+      const reduzida = await sharp(alvo.caminho).resize({ width: 600, withoutEnlargement: true }).jpeg({ quality: 82 }).toBuffer();
+      capa = `data:image/jpeg;base64,${reduzida.toString("base64")}`;
+    } catch {
+      capa = null;
+    }
   }
 
   return new ImageResponse(

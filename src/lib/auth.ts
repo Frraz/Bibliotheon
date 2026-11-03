@@ -4,6 +4,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
+import { emailDeRedefinicao, enviarEmail } from "./email";
 import { SENHA_MINIMA } from "./regras-senha";
 import { conferirSenha, hashSenha } from "./senha";
 import { SITE_URL } from "./site";
@@ -22,6 +23,16 @@ function criar() {
       minPasswordLength: SENHA_MINIMA,
       password: { hash: hashSenha, verify: conferirSenha },
       revokeSessionsOnPasswordReset: true,
+      resetPasswordTokenExpiresIn: 60 * 60,
+      // Sem await: quem pede não percebe se o e-mail existe pelo tempo da resposta (a resposta é sempre a mesma).
+      // Conta desativada não recebe link. Falha de envio vai para o log do servidor, nunca para a tela.
+      sendResetPassword: async ({ user, url }) => {
+        const conta = db.select({ ativo: schema.user.ativo }).from(schema.user).where(eq(schema.user.id, user.id)).get();
+        if (!conta?.ativo) return;
+        void enviarEmail({ para: user.email, ...emailDeRedefinicao(user.name, url) }).catch((e: unknown) =>
+          console.error("[e-mail] não foi possível enviar a redefinição de senha:", e instanceof Error ? e.message : e),
+        );
+      },
     },
     user: {
       additionalFields: {

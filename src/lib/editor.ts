@@ -9,7 +9,7 @@ import { ofertasSemLinkPromo } from "./ofertas";
 // ---------- endereço (slug) ----------
 
 /** Endereços que já são rotas do site: um e-book com um deles nunca seria alcançado (ou escondería a rota). */
-export const SLUGS_RESERVADOS = ["admin", "painel", "entrar", "api", "ir", "m", "tema", "temas", "termos", "privacidade", "prototipo", "sitemap", "robots", "favicon", "_next", "_"];
+export const SLUGS_RESERVADOS = ["admin", "painel", "entrar", "esqueci-a-senha", "redefinir-senha", "api", "ir", "m", "tema", "temas", "termos", "privacidade", "prototipo", "sitemap", "robots", "favicon", "_next", "_"];
 
 /** Devolve a mensagem do problema, ou null se o endereço serve. */
 export function problemaNoSlug(slug: string): string | null {

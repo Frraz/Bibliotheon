@@ -1,6 +1,8 @@
 import sharp from "sharp";
 
 export const LIMITE_IMAGEM = 10 * 1024 * 1024;
+/** PNG sem transparência acima disto vira JPEG. */
+export const LIMITE_PNG_PESADO = 1_500_000;
 
 export type ImagemPronta = { ok: true; bytes: Buffer; ext: ".jpg" | ".png" | ".webp"; largura: number; altura: number } | { ok: false; erro: string };
 
@@ -20,6 +22,16 @@ export async function prepararImagem(entrada: Buffer, { larguraMinima, larguraMa
     if (largura < larguraMinima) return { ok: false, erro: `Essa imagem é muito pequena. Use pelo menos ${larguraMinima} px de largura.` };
 
     const base = original.rotate().resize({ width: larguraMaxima, withoutEnlargement: true });
+    // PNG de ilustração ou arte gerada costuma passar de 5 MB e não tem transparência: em JPEG fica de 5 a 10 vezes menor,
+    // sem diferença visível a q88. Com transparência (ou PNG já leve), segue PNG.
+    if (meta.format === "png" && !meta.hasAlpha) {
+      const png = await base.clone().png({ compressionLevel: 9 }).toBuffer({ resolveWithObject: true });
+      if (png.data.length > LIMITE_PNG_PESADO) {
+        const jpg = await base.jpeg({ quality: 88, mozjpeg: true }).toBuffer({ resolveWithObject: true });
+        return { ok: true, bytes: jpg.data, ext: ".jpg", largura: jpg.info.width, altura: jpg.info.height };
+      }
+      return { ok: true, bytes: png.data, ext: ".png", largura: png.info.width, altura: png.info.height };
+    }
     const { data, info } =
       meta.format === "jpeg" ? await base.jpeg({ quality: 88, mozjpeg: true }).toBuffer({ resolveWithObject: true })
       : meta.format === "png" ? await base.png({ compressionLevel: 9 }).toBuffer({ resolveWithObject: true })

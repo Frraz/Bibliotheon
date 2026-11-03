@@ -18,6 +18,11 @@ services:
     environment:
       API_TOKEN: ${API_TOKEN:-}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORTA: ${SMTP_PORTA:-465}
+      SMTP_USUARIO: ${SMTP_USUARIO:-}
+      SMTP_SENHA: ${SMTP_SENHA:-}
+      EMAIL_REMETENTE: ${EMAIL_REMETENTE:-}
     volumes:
       - ./data:/app/data
     mem_limit: 512m

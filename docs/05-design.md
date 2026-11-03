@@ -47,6 +47,8 @@ Cor de destaque **por e-book** (`accent`): ainda não implementada; entra na Eta
 
 ## Movimento
 
+> **Estado (03/11/2026):** o que está abaixo é a **direção**, não o que existe. Nem Motion nem GSAP estão instalados; as páginas usam CSS e transições simples, e os visuais foram aprovados assim. Instalar uma biblioteca exige decisão registrada e a regra "isso ajuda a vender agora?".
+
 - **Princípio:** movimento explica e dá sensação de qualidade; nunca atrasa a compra.
 - **Landing (GSAP + ScrollTrigger):**
   - entrada do hero (capa com leve rotação 3D e sombra, texto em cascata) em até 600 ms;

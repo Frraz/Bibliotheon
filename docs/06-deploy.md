@@ -1,6 +1,6 @@
 # 06 — Deploy (VPS)
 
-O VPS é o mesmo dos outros sistemas: `warley.dev.ferzion.com.br` (147.93.15.214). `bibliotheon.com.br` (sem `www`, que não tem DNS) já aponta para ele, e o **v1 (Next.js + Postgres) está no ar** lá, em `127.0.0.1:8020`.
+O VPS é o mesmo dos outros sistemas: `warley.dev.ferzion.com.br` (147.93.15.214). `bibliotheon.com.br` (sem `www`, que não tem DNS) já aponta para ele. O **v2 (este projeto) está no ar** em `127.0.0.1:8020`; o v1 foi apagado em 02/11/2026 (ver "Histórico" abaixo).
 
 Acesso: usuário `deploy`, no grupo `docker`, **sem `sudo` sem senha**. Tudo abaixo roda como `deploy`; só a troca do `.conf` do nginx exige `sudo` (e é opcional, ver adiante).
 
@@ -19,7 +19,7 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `.env.example` | Variáveis (abaixo) |
 | `deploy/nginx/bibliotheon.com.br.conf` | Proxy do host, gzip, limite de taxa em `/ir/`, HSTS. **Sintaxe validada** com `nginx -t` em container descartável (certificados falsos); o `nginx -t` do servidor continua sendo a trava antes do reload |
 | `atualizar.sh` (raiz) | git pull, backup, build, troca, verificação por 60 s e **rollback automático** para a imagem anterior. **Testado no servidor** (02/11/2026) |
-| `deploy/backup.sh` | Backup consistente do SQLite (`VACUUM INTO`, com o site no ar) + tar da mídia; 14 diários e 8 semanais. **Testado:** gera o arquivo e a **restauração foi verificada** (`integrity_check` ok e dados presentes) |
+| `deploy/backup.sh` | Backup consistente do SQLite (`VACUUM INTO`, com o site no ar) + tar da mídia e dos PDFs privados; 14 diários e 8 semanais. **Testado:** gera o arquivo e a **restauração foi verificada** (`integrity_check` ok e dados presentes) |
 
 ## Variáveis (`.env`, só no servidor)
 
@@ -31,11 +31,12 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `NEXT_PUBLIC_CONTATO_EMAIL` | **Build** | Aparece em Termos, Privacidade e rodapé. **Preencher antes de divulgar** (LGPD) |
 | `API_TOKEN` | Execução | Token do `deploy/venda.sh` (preço, campanha, textos). Sem ele a API fica fechada |
 | `BETTER_AUTH_SECRET` | Execução | Assina o login do painel. `openssl rand -base64 32`. **Sem ele só o login falha (500); o site público segue no ar.** Trocar o valor derruba as sessões abertas |
+| `SMTP_HOST`, `SMTP_PORTA`, `SMTP_USUARIO`, `SMTP_SENHA`, `EMAIL_REMETENTE` | Execução | **Opcionais.** E-mail de recuperação de senha. Sem `SMTP_HOST` tudo funciona e "Esqueci a senha" manda falar com o administrador. Gmail: `smtp.gmail.com`, porta `465`, usuário = o Gmail, senha = **senha de app** (myaccount.google.com/apppasswords; exige verificação em duas etapas). `EMAIL_REMETENTE` vazio = `Bibliotheon <usuário>`. Depois de editar o `.env`: `docker compose -f docker-compose.prod.yml up -d` |
 | `IMAGE_TAG` | Execução | O `atualizar.sh` preenche com o commit, para rollback |
 
 `DATABASE_PATH` e `MEDIA_DIR` já vêm definidos na imagem (`/app/data/...`).
 
-## Antes do primeiro deploy: substituir o v1
+## Histórico: substituição do v1 (feita em 02/11/2026)
 
 Descoberto em 02/11/2026 (somente leitura):
 
@@ -61,6 +62,8 @@ docker exec -it bibliotheon_web node scripts/criar-owner.mjs voce@exemplo.com "S
 ```
 
 Perdeu a senha do administrador? Rode o mesmo comando com o mesmo e-mail: ele atualiza a conta, derruba as sessões e mostra uma senha nova. Para um usuário comum, use "Redefinir senha" em Usuários.
+
+**E-mail de recuperação não chega?** Peça pela tela `/esqueci-a-senha` com uma conta ativa e olhe `docker logs --tail 30 bibliotheon_web`: a falha de envio aparece como `[e-mail] não foi possível enviar...` (senha de app errada, porta, bloqueio do provedor). A tela nunca mostra o erro, de propósito. Conferir se o container recebeu o `.env`: `docker exec bibliotheon_web sh -c 'test -n "$SMTP_HOST" && echo ok || echo FALTA'`. O link do e-mail usa o `SITE_URL` fixado no build.
 
 **Login não entra?** Confira primeiro `curl -s -o /dev/null -w '%{http_code}' https://bibliotheon.com.br/api/auth/ok`: tem que ser **200**. **500** = o container não recebeu `BETTER_AUTH_SECRET` (falta no `.env` ou o container não foi recriado: `docker exec bibliotheon_web sh -c 'test -n "$BETTER_AUTH_SECRET" && echo ok || echo FALTA'`). Corrija o `.env` e rode `docker compose -f docker-compose.prod.yml up -d`; a conta criada por `criar-owner` continua valendo. A tela de entrada mostra "erro 500" (e não "senha incorreta") nesse caso. Ocorreu em 02/11/2026, no primeiro deploy do painel.
 
@@ -91,7 +94,7 @@ curl -fsS http://127.0.0.1:$PORTA/api/saude     # {"ok":true}
 
 **Depois do primeiro deploy, nunca reenviar o banco:** o `rsync` abaixo apaga as métricas e os leads. Para preço, campanha, textos e amostra, use `deploy/venda.sh` ([03](03-tecnico.md#api-de-operação-etapa-vender)), que exige `API_TOKEN` no `.env` do servidor (`openssl rand -hex 32`, e `./atualizar.sh --forcar` depois de criar).
 
-Colocar o e-book 001 no ar: a imagem de produção **não inclui `tsx`**, então o seed não roda dentro do container. Para o primeiro deploy, rode o seed **na sua máquina** e envie o resultado:
+Colocar o e-book 001 no ar (**só no primeiro deploy; hoje os e-books novos entram pelo painel**): a imagem de produção **não inclui `tsx`**, então o seed não roda dentro do container. Para o primeiro deploy, rode o seed **na sua máquina** e envie o resultado:
 
 ```bash
 # na sua máquina (pasta do projeto)
@@ -103,7 +106,7 @@ rsync -av /tmp/envio/ usuario@servidor:/var/www/docker-instances/Bibliotheon/dat
 
 Sem `--demo`. O `extras.json` do 001 já traz o preço (R$ 64,99) e a oferta Hotmart, então ele entra à venda. Se faltassem preço ou oferta, a página ficaria "Em breve".
 
-> ⚠️ **Só no primeiro deploy.** Depois que houver dados reais em produção (e-books criados pelo painel, métricas), **nunca** envie `data/` por cima: apagaria o que foi feito lá. Depois da Etapa 4 a CLI/API passa a ser o único meio de publicar e este passo some.
+> ⚠️ **Só no primeiro deploy.** Depois que houver dados reais em produção (e-books criados pelo painel, métricas), **nunca** envie `data/` por cima: apagaria o que foi feito lá. Hoje os e-books novos entram pelo painel (e a CLI da Etapa 4, quando existir, será o outro caminho): este passo não se repete.
 
 nginx: **aplicado em 02/11/2026** (`deploy/nginx/bibliotheon.com.br.conf` em `/etc/nginx/sites-available/bibliotheon`). Conferido: HSTS presente e, numa rajada de 80 pedidos a `/ir/`, 35 receberam 503 (limite de taxa ativo) e a página seguiu em 200. Para mudar o conf: copiar com `sudo cp` e rodar **`sudo nginx -t && sudo systemctl reload nginx`** (o `nginx -t` também precisa de `sudo`, para ler os certificados). Os avisos `protocol options redefined` vêm de outros sites do servidor e são inofensivos. Não é preciso certbot: o certificado existe.
 
@@ -121,11 +124,11 @@ Antes, localmente: `npm run build && npm test && npm run test:e2e`, e a auditori
 
 ## Backup
 
-Cron do host às 03:30: `cd /var/www/docker-instances/Bibliotheon && ./deploy/backup.sh`. Os arquivos ficam em `~/backups/bibliotheon/` (fora de `data/`, que pertence ao uid 1000). **Copie-os para fora do VPS** (destino a definir: outro servidor ou storage S3-compatível); backup no mesmo disco não protege de perda do servidor.
+Cron do host às 03:30: `cd /var/www/docker-instances/Bibliotheon && ./deploy/backup.sh`. Os arquivos ficam em `~/backups/bibliotheon/` (fora de `data/`, que pertence ao uid 1000). **Cópia para fora do VPS é opcional** (decisão de 03/11/2026; nenhum destino definido e nenhum código para isso). Sem ela, o backup está no mesmo disco e não protege de perda do servidor: o titular aceita esse risco por ora.
 
 **Testar a restauração uma vez por mês:** abrir o `.db` de backup com o SQLite (ou subir uma cópia local) e conferir `PRAGMA integrity_check` e a contagem de e-books.
 
-Restaurar: parar o container, substituir `data/bibliotheon.db` pelo backup (e extrair `media-*.tgz` em `data/`), subir de novo.
+Restaurar: parar o container, substituir `data/bibliotheon.db` pelo backup e extrair `media-*.tgz` e `privado-*.tgz` em `data/`, subir de novo.
 
 ## Rollback
 

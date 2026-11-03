@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado (02/11/2026):** site no ar, 001 à venda por R$ 64,99 na Hotmart. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. O painel (login, e-books, temas e usuários, Etapa 3, Fases 1 e 2) está pronto localmente e aguarda deploy. Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
+> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. Pronto localmente, aguardando commit e deploy: recuperação de senha por e-mail (SMTP opcional) e correção da imagem de compartilhamento do 002. Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 
@@ -35,17 +35,17 @@ Sem `--demo`, o 001 entra como **"Em breve"** (é o que vai ao ar, enquanto não
 
 | Comando | O que faz |
 |---|---|
-| `npm test` | 41 testes unitários (preço, campanha, UTM, manifesto, mídia, leads, JSON-LD) |
-| `npm run test:e2e` | 20 testes E2E: builda, sobe o pacote standalone com banco temporário e exercita os fluxos de venda |
+| `npm test` | 89 testes unitários (preço, campanha, UTM, manifesto, mídia, imagens, leads, JSON-LD, editor, exportação, permissões, senha, e-mail) |
+| `npm run test:e2e` | 64 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha |
 | `npm run lint` · `npm run build` | Conferências antes de qualquer deploy |
 | `npm run db:generate` | Gera migração após mudar `src/db/schema.ts` |
 | `deploy/venda.sh` | Em produção: preço, campanha, textos, amostra, relatório e leads, sem perder métricas |
 
-Deploy e backup: [06 — Deploy](docs/06-deploy.md).
+Deploy e backup: [06 — Deploy](docs/06-deploy.md). Antes de rodar `npm run build` na sua máquina, use `DATABASE_PATH=:memory: npm run build` (o `data/` local pode ter esquema antigo e quebrar o build).
 
 ## Publicar um e-book a partir do `../ebooks`
 
-_A partir da Etapa 4._
+_A partir da Etapa 4 (pausada). Hoje o caminho é: `../ebooks` gera os guias em `publicacao/` (`./livro manifesto`), e o cadastro é feito pelo painel (colar campo a campo) ou, em produção, por `deploy/venda.sh aplicar`. No painel, "Exportar dados" devolve o `.md`/`.json` de qualquer e-book._
 
 ```bash
 cd ../ebooks

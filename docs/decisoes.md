@@ -101,6 +101,9 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 
 | 2026-11-03 | **Landing personalizada de "Crie Sistemas com IA e Ganhe Dinheiro"** (`src/landings/criar-sistemas-com-ia/`): noite e vermelho da capa, Playfair Display + IBM Plex; centro = o primeiro pedido real à IA (capítulo 6) e as cinco etapas como `<details>` nativos (sem JavaScript). Textos copiados do manuscrito da **2ª edição**, e o E2E os confere contra os arquivos | A sequência de cinco etapas é real (a numeração informa) e é o que o livro vende. **Só publicar depois de a Hotmart e o painel passarem para a 2ª edição**: a página cita capítulos 1 a 25 | Sim |
 | 2026-11-03 | Titular assume a arte das capas (original, gerada com ferramentas de IA, em nome de Bibliotheon) e mantém "dominar a mente" na capa do 002. Citações do 002 conferidas por pesquisa: 13 de 14 passagens confirmadas; ressalvas em `../ebooks/ebooks/002-estoicismo-pratico/status.md` | Pedido do titular | Sim |
+| 2026-11-03 | Imagem de compartilhamento usa a capa reduzida (600 px, JPEG), e PNG de capa sem transparência acima de 1,5 MB vira JPEG no upload | A capa PNG de 12 MB do 002 derrubava `opengraph-image` com 502 (prévia do WhatsApp/redes sem imagem). Falha na capa agora só tira a capa da imagem | Sim |
+| 2026-11-03 | Recuperação de senha por e-mail (`/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`) via `nodemailer` e SMTP qualquer (Gmail com senha de app). **Opcional:** sem `SMTP_HOST` a tela manda falar com o administrador. A resposta é igual exista a conta ou não; conta desativada não recebe link; falha de envio só vai ao log | Quem esquecia a senha dependia do titular. Dependência nova aceita porque tira o titular do caminho. Backup fora do servidor também fica opcional (não construído agora) | Sim |
+| 2026-11-03 | Documentação alinhada ao código: API/CLI de publicação e token de API marcados como planejados (Etapa 4, não existem); parceiro publica direto (sem `revisao`); Motion/GSAP e `react-hook-form` não instalados; `esqueci-a-senha` e `redefinir-senha` entram nos endereços reservados | A auditoria achou texto que descrevia o plano como se estivesse pronto | Sim |
 
 ## Em aberto (decidir na etapa indicada)
 
@@ -108,7 +111,7 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 |---|---|
 | 3 | Usuário comum escolhe entre todos os temas (inclusive fora do ar, marcados); só o administrador cria e liga temas. Aceitável? |
 | 3 | E-book publicado cujo tema o administrador desliga não pode ser salvo até trocar o tema (mensagem explica). Aceitável? |
-| 2 | Destino do backup fora do VPS |
+| 2 | Destino do backup fora do VPS: **opcional** (decisão de 03/11/2026). Sem destino definido e sem código; o `deploy/backup.sh` local continua. Retomar só se o titular pedir |
 | Vender | Ferramenta gratuita para o aviso aos leads em 27/11 |
 | Vender | Afiliação: comissão (40–50% sugeridos) e como o link de afiliado da Hotmart convive com a landing (testar antes de convidar) |
 | Vender | Testar os passos de VPS em servidor real, para o livro sustentar o diferencial sem ressalva |

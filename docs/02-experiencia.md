@@ -12,9 +12,10 @@ Cada seção pública indica de qual campo do banco vem o conteúdo (ver [03-tec
 | `/[slug]?previa=1` | Prévia do rascunho (só logado) | Não |
 | `/ir/[ofertaId]` | Registra o clique e redireciona ao checkout | Não |
 | `/termos`, `/privacidade` | Legal | Sim |
+| `/entrar`, `/esqueci-a-senha`, `/redefinir-senha` | Login e recuperação de senha | Não |
 | `/painel/...` | Painel administrativo | Não |
 
-Slugs reservados (não podem ser slug de e-book): `tema`, `ir`, `painel`, `api`, `termos`, `privacidade`, `entrar`.
+Endereços reservados (não podem ser o de um e-book; lista em `SLUGS_RESERVADOS`, `src/lib/editor.ts`): `admin`, `painel`, `entrar`, `esqueci-a-senha`, `redefinir-senha`, `api`, `ir`, `m`, `tema`, `temas`, `termos`, `privacidade`, `prototipo`, `sitemap`, `robots`, `favicon`, `_next`. **Ao criar uma página nova na raiz, acrescente o nome à lista**, senão um e-book com esse endereço fica encoberto pela rota.
 
 ---
 
@@ -84,7 +85,7 @@ Com um único e-book, a Home funciona: o hero mostra esse e-book e a grade some.
 
 ### Entrar (`/entrar`)
 
-E-mail + senha. Sem cadastro público. Esqueceu a senha: "Fale com o administrador" no MVP. `/admin` e `/painel` levam aqui quando não há sessão.
+E-mail + senha. Sem cadastro público. Esqueceu a senha: link "Esqueci a senha" → `/esqueci-a-senha` (digita o e-mail, recebe um link que vale 1 hora e uma vez só → `/redefinir-senha`, senha nova, volta ao login). A resposta é a mesma exista a conta ou não. Sem e-mail configurado, a tela manda falar com o administrador, que cria uma senha temporária em Usuários. `/admin` e `/painel` levam aqui quando não há sessão.
 
 ### E-books (`/painel`)
 
@@ -106,16 +107,16 @@ Uma página só, com seções numeradas. A navegação por âncoras ("Nesta pág
 
 1. **Essencial:**
    - título; slug (gerado automaticamente, editável); tema (select + "criar tema", só owner);
-   - capa (arrastar e soltar, com recorte guiado em 1600×2560); texto alternativo da capa;
+   - capa (envio de arquivo, no mínimo 1200 px de largura; PNG pesado sem transparência vira JPEG); texto alternativo da capa;
    - autor exibido; formatos (chips: PDF, EPUB, caderno...).
 2. **Página de vendas:**
    - headline (com contador de caracteres e dica: "diga o resultado, não o assunto"); subtítulo;
    - problema (1 frase) e descrição (parágrafos);
-   - benefícios, para quem é e para quem não é (listas com "+ adicionar" e arrastar para ordenar);
+   - benefícios, para quem é e para quem não é (listas com "+ adicionar" e ordem pelas setas subir/descer);
    - incluído;
    - antes de comprar (requisitos e limites);
    - sobre o autor e foto.
-3. **Conteúdo:** sumário (lista), FAQ (pares pergunta/resposta), amostras (upload múltiplo de imagens, arrastar para ordenar) e PDF de amostra opcional.
+3. **Conteúdo:** sumário (lista), FAQ (pares pergunta/resposta), amostras (upload múltiplo de imagens, ordem pelas setas), PDF de amostra opcional e o **PDF completo do livro, privado** (só o dono e o administrador baixam; não vai para a página).
 4. **Preço e onde comprar:**
    - preço; preço "de" (com aviso: "só use se for um preço que você realmente pratica"); fim da oferta (data e hora); garantia (padrão 7);
    - lojas, uma por linha: plataforma, link do checkout, link da campanha (só com campanha ligada), ativa (chave). A primeira loja ativa da lista é a do botão principal;
@@ -125,11 +126,11 @@ Uma página só, com seções numeradas. A navegação por âncoras ("Nesta pág
 **Barra lateral fixa:**
 
 - **Checklist "Pronto para publicar"** (bloqueia o botão se faltar algo):
-  - capa;
-  - título;
-  - headline;
+  - capa e a descrição dela;
+  - título, headline e resumo;
   - pelo menos 3 benefícios;
-  - pelo menos 1 oferta ativa ou o modo "Em breve" marcado.
+  - endereço válido e tema no ar (se houver tema).
+  - Sem loja ativa ou sem preço **não bloqueia**: a página sai como "Em breve".
 - **"Ver prévia"** abre `/[slug]?previa=1` numa nova aba.
 - **Ação principal:**
   - **todos (administrador e usuário comum): "Publicar"** (rascunho) ou "Salvar alterações" (publicado, vale na hora) e "Despublicar" no fim da página. Não há etapa de revisão (decisão de 02/11/2026).
@@ -138,7 +139,7 @@ Uma página só, com seções numeradas. A navegação por âncoras ("Nesta pág
 
 ### Temas (owner)
 
-Lista simples: nome, slug, nº de e-books, publicado (toggle). Criar/editar num modal: nome, descrição (SEO) e cor.
+Lista simples: nome, slug, nº de e-books, publicado (toggle). Só o administrador cria e liga temas. Criar/editar num modal: nome, descrição (SEO) e cor.
 
 ### Usuários (administrador) ✅ Fase 1
 
@@ -151,7 +152,7 @@ Lista simples: nome, slug, nº de e-books, publicado (toggle). Criar/editar num 
 ### Conta ✅ Fase 1
 
 - Nome e trocar senha (mínimo de 10 caracteres; encerra a sessão dos outros aparelhos).
-- **Token de API** (para a CLI, Etapa 4): "Gerar token" mostra o valor **uma vez**; listar, com último uso, e revogar.
+- _Token de API para a CLI: planejado na Etapa 4 (pausada); ainda não existe._
 
 ---
 
@@ -160,6 +161,5 @@ Lista simples: nome, slug, nº de e-books, publicado (toggle). Criar/editar num 
 Direto, caloroso e sem jargão. Exemplos:
 
 - Publicar: "Publicado! Sua página já está no ar." + link.
-- Enviar para revisão: "Enviado para revisão. O status muda para Publicado assim que for aprovado."
 - Erro de upload: "Essa imagem é muito pequena. Use pelo menos 1200 px de largura."
 - Checklist: "Falta 1 item para publicar: adicionar uma oferta."
