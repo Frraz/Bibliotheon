@@ -11,7 +11,7 @@ import { AvisoPrazo, PrazoCurto, PrazoOferta, PrecoAtual, PrecoDe } from "./ofer
 // no bloco #comprar com o mesmo peso, e os botões do topo e da barra fixa levam até lá. A ordem é a da lista no painel.
 
 export const BOTAO =
-  "inline-flex min-h-14 items-center justify-center bg-(--terracota) px-8 text-[1.0625rem] font-semibold text-(--papel) shadow-[0_1px_0_rgb(0_0_0/.15),0_10px_20px_-12px_rgb(0_0_0/.55)] transition-[background-color,transform] duration-150 hover:bg-(--terracota-escura) active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota)";
+  "inline-flex min-h-14 items-center justify-center bg-(--terracota) px-8 text-[1.0625rem] font-semibold text-(--botao-texto,var(--papel)) shadow-[0_1px_0_rgb(0_0_0/.15),0_10px_20px_-12px_rgb(0_0_0/.55)] transition-[background-color,transform] duration-150 hover:bg-(--terracota-escura) active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota)";
 
 // Seções abaixo da dobra: o navegador só calcula estilo e layout delas quando chegam perto da tela (LCP no celular).
 export const ABAIXO = "[content-visibility:auto] [contain-intrinsic-size:auto_640px]";
@@ -50,7 +50,7 @@ export function CompraNoMeio({ e, previa = false, sobreEscuro = false }: { e: Eb
   );
 }
 
-const paragrafos = (t: string | null) => (t ?? "").split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+const paragrafos = (t: string | null) => (t ?? "").split(/(?:\r?\n){2,}/).map((p) => p.trim()).filter(Boolean);
 
 /** Bloco de compra (#comprar): preço, prazo, lojas e "Antes de comprar". É o destino dos botões do topo e da barra fixa. */
 export function BlocoDeCompra({ e, previa = false }: { e: EbookPublico; previa?: boolean }) {

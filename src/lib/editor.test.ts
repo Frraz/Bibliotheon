@@ -100,6 +100,10 @@ describe("formulário do editor", () => {
     expect(dadosDe({ faq: JSON.stringify([{ p: "", r: "" }, { p: "Como?", r: "Assim." }]) }).faq).toEqual([{ p: "Como?", r: "Assim." }]);
   });
 
+  it("normaliza as quebras de linha do navegador, para os parágrafos da página se manterem", () => {
+    expect(dadosDe({ descricao: "Um.\r\n\r\nDois." }).descricao).toBe("Um.\n\nDois.");
+  });
+
   it("recusa endereço reservado, título vazio, garantia fora da faixa e JSON quebrado", () => {
     expect(errosDe({ slug: "painel" })).toContain("usado pelo site");
     expect(errosDe({ titulo: " " })).toContain("título");

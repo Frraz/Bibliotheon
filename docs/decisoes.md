@@ -95,6 +95,13 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-03 | Colar várias linhas numa lista do editor cria um item por linha | Os guias de publicação de `../ebooks` são copiados e colados | Sim |
 | 2026-11-03 | `livros/` fora do Git e da imagem Docker: pasta local com dados e PDF de cada landing | O repositório no GitHub é público | Não |
 
+| 2026-11-03 | **Landing personalizada de "A Mente Inabalável"** (`src/landings/a-mente-inabalavel/`): cores e fontes do livro (Cinzel, Source Serif 4, mármore e ouro) e seletor "O que está pesando em você agora?", com cena, citação e exercício reais de 6 capítulos. Aguarda aprovação visual do titular | Mostrar o conteúdo do livro vende mais que descrevê-lo. Copy conferida contra o manuscrito; o subtítulo da capa ("dominar a mente") fica fora do texto da página | Sim |
+| 2026-11-03 | Registro de landings usa `next/dynamic`: fontes e CSS de uma página personalizada não pesam nas outras; `--botao-texto` permite botão de compra escuro sobre ouro | Conferido: a página padrão não carrega a Cinzel | Sim |
+| 2026-11-03 | **Bug corrigido:** o editor gravava `\r\n` e a landing só separava parágrafos por `\n\n`, juntando a descrição em um bloco. Agora a gravação normaliza e a leitura aceita os dois, inclusive no que já foi salvo | Achado ao revisar a landing do 002 | Não |
+
+| 2026-11-03 | **Landing personalizada de "Crie Sistemas com IA e Ganhe Dinheiro"** (`src/landings/criar-sistemas-com-ia/`): noite e vermelho da capa, Playfair Display + IBM Plex; centro = o primeiro pedido real à IA (capítulo 6) e as cinco etapas como `<details>` nativos (sem JavaScript). Textos copiados do manuscrito da **2ª edição**, e o E2E os confere contra os arquivos | A sequência de cinco etapas é real (a numeração informa) e é o que o livro vende. **Só publicar depois de a Hotmart e o painel passarem para a 2ª edição**: a página cita capítulos 1 a 25 | Sim |
+| 2026-11-03 | Titular assume a arte das capas (original, gerada com ferramentas de IA, em nome de Bibliotheon) e mantém "dominar a mente" na capa do 002. Citações do 002 conferidas por pesquisa: 13 de 14 passagens confirmadas; ressalvas em `../ebooks/ebooks/002-estoicismo-pratico/status.md` | Pedido do titular | Sim |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |

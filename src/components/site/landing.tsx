@@ -28,7 +28,7 @@ const Titulo = ({ children, className = "" }: { children: React.ReactNode; class
 );
 const TituloMenor = ({ children }: { children: React.ReactNode }) => <Titulo className="text-[clamp(1.5rem,3vw,2rem)]">{children}</Titulo>;
 
-const paragrafos = (t: string | null) => (t ?? "").split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+const paragrafos = (t: string | null) => (t ?? "").split(/(?:\r?\n){2,}/).map((p) => p.trim()).filter(Boolean);
 
 /** Landing padrão: o corpo de toda página de vendas sem versão personalizada. O molde (preço, dados estruturados, visita) vem de MoldeDaPagina. */
 export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; relacionados: CartaoEbook[]; previa?: boolean }) {

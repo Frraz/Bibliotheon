@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import type { CartaoEbook, EbookPublico } from "@/lib/catalogo";
 
@@ -11,11 +12,12 @@ export type Registro = ReadonlyMap<string, ComponentType<PropsLanding>>;
  * e o texto, o preço, as lojas e a campanha continuam vindo do painel: mudar preço ou link não exige novo deploy.
  * Quem não está aqui usa a landing padrão. Receita completa em docs/03-tecnico.md ("Landing personalizada").
  *
- * Exemplo (um arquivo por e-book, em src/landings/<slug>/pagina.tsx):
- *   import { PaginaCriarSistemas } from "./criar-sistemas-com-ia/pagina";
- *   ["criar-sistemas-com-ia", PaginaCriarSistemas],
+ * Com `dynamic`: as fontes e o CSS de uma página personalizada não pesam nas outras.
  */
-export const personalizadas: Registro = new Map<string, ComponentType<PropsLanding>>([]);
+export const personalizadas: Registro = new Map<string, ComponentType<PropsLanding>>([
+  ["a-mente-inabalavel", dynamic(() => import("./a-mente-inabalavel/pagina").then((m) => m.PaginaAMenteInabalavel))],
+  ["criar-sistemas-com-ia", dynamic(() => import("./criar-sistemas-com-ia/pagina").then((m) => m.PaginaCriarSistemas))],
+]);
 
 /** Map e não objeto: um slug como "constructor" ou "__proto__" nunca pode casar com uma propriedade herdada. */
 export const temPersonalizada = (slug: string, registro: Registro = personalizadas) => registro.has(slug);

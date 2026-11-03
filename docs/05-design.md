@@ -158,6 +158,14 @@ Uma Home com cartão de largura fixa passou de 360 px (Android comum) e o navega
 - **Sem `line-clamp` em frase de venda** (cortou "sabe…" no meio). Texto pequeno: mínimo 14 px.
 - Espaço reservado de `<Suspense>` com altura da tela inteira (`min-h-svh`), para o rodapé não pular.
 
+### Medição da landing do 001 (03/11/2026, dados reais, carga ~2,3, cache aquecido)
+
+95, 93, 95, 85, 91 (mediana 93), LCP 1,1 a 1,7 s. A11y, Boas práticas e SEO 100. CLS 0. Impeccable: só o creme do cabeçalho do site (aceito) e um aviso de contraste do vermelho, corrigido depois.
+
+### Medição da landing do 002 (03/11/2026, dados reais, carga ~2,5, cache aquecido)
+
+88, 96, 96, 91, 95 (mediana 95), LCP 1,1 a 1,7 s. A11y, Boas práticas e SEO 100. CLS 0. Impeccable: só o creme do cabeçalho do site (aceito).
+
 ### Medição da Fase 3 (02/11/2026): várias lojas no bloco de compra
 
 A/B no pacote standalone com o **001 real**, 5 rodadas cada, máquina com carga ~2,5 e cache de imagens aquecido: **antes** 87, 92, 93, 82, 92 (mediana 92); **depois** 85, 90, 93, 71, 91 (mediana 90). LCP é a capa nas duas (2,4 a 4,0 s na simulação). JS (158 KB), FCP e TBT iguais. A diferença está dentro do ruído e a meta de 93 segue sem ser atingida com a máquina carregada (ver acima). No livro de teste o LCP trocou de um parágrafo para a capa porque o topo ficou ~20 px mais curto sem o link "outras formas de comprar": é efeito de medição, não de código. A11y, Boas práticas e SEO: 100. CLS 0. Impeccable: só o creme (aceito).

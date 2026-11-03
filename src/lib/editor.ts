@@ -145,7 +145,8 @@ const json = (valor: FormDataEntryValue | null): unknown => {
 
 /** Lê o formulário do editor. Devolve os dados limpos ou a lista de problemas, em português, para mostrar à pessoa. */
 export function lerFormulario(fd: FormData): { dados: DadosDoEditor } | { erros: string[] } {
-  const s = (k: string) => String(fd.get(k) ?? "");
+  // O navegador envia as quebras de linha de um <textarea> como \r\n; no banco fica sempre \n (os parágrafos dependem disso).
+  const s = (k: string) => String(fd.get(k) ?? "").replace(/\r\n?/g, "\n");
   const lido = bruto.safeParse({
     titulo: s("titulo"), slug: s("slug"), temaId: s("temaId"), capaAlt: s("capaAlt"), autorExibido: s("autorExibido"), formatos: s("formatos"),
     headline: s("headline"), subtitulo: s("subtitulo"), resumo: s("resumo"), problema: s("problema"), descricao: s("descricao"),

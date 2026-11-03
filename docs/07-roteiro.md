@@ -109,6 +109,10 @@ Em produção só depois do pedido do titular: `git push` → `BETTER_AUTH_SECRE
 
 **Portão:** você publica um e-book novo só pelo terminal.
 
+**Landing personalizada do 001 (03/11/2026):** pronta localmente em `src/landings/criar-sistemas-com-ia/`; Lighthouse com dados reais mediana 93, A11y/Boas práticas/SEO 100, CLS 0. **Antes de ir ao ar, a Hotmart e o painel precisam estar na 2ª edição** (a página cita os capítulos 1 a 25) e falta a aprovação visual do titular.
+
+**Landing personalizada do 002 (03/11/2026):** pronta localmente em `src/landings/a-mente-inabalavel/`; assume `/a-mente-inabalavel` quando o e-book for cadastrado com esse endereço. Lighthouse com dados reais: mediana 95, A11y/Boas práticas/SEO 100, CLS 0. **Falta a aprovação visual do titular.**
+
 ## Depois do MVP — iteração em produção
 
 Regra: **uma melhoria = uma mudança pequena que vai ao ar no mesmo dia.** Ideias novas entram no backlog abaixo, com a data e o motivo. Prioriza-se pelo impacto em vendas, não pela vontade de construir.
