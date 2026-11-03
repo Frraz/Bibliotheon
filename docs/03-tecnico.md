@@ -278,7 +278,7 @@ Todo e-book usa a **landing padrão**. Quando o titular desenha uma página pró
 4. Confira cada frase contra o livro (regra 5 do `CLAUDE.md`), veja a prévia no painel, rode a auditoria impeccable e o Lighthouse.
 5. Commit, seu `git push`, `./atualizar.sh`. O painel passa a mostrar "Página de vendas: personalizada".
 
-Páginas prontas: `a-mente-inabalavel` (seletor de problemas) e `criar-sistemas-com-ia` (primeiro pedido à IA e as cinco etapas). Cada uma tem os textos próprios em `conteudo.ts`, copiados do manuscrito, e o E2E (`e2e/landing-personalizada.spec.ts`) os confere contra `../ebooks` quando ele está na máquina.
+Páginas prontas: `a-mente-inabalavel` (seletor de problemas), `criar-sistemas-com-ia` (primeiro pedido à IA e as cinco etapas) e `natal-a-mesa` (seletor de cardápios por número de pessoas e uma receita inteira; sem foto de prato porque o livro não tem). Cada uma tem os textos próprios em `conteudo.ts`, copiados do manuscrito, e o E2E (`e2e/landing-personalizada.spec.ts`) os confere contra `../ebooks` quando ele está na máquina.
 
 Título, descrição e imagem de compartilhamento continuam vindo do banco (campos de SEO do editor) e do gerador de OG por e-book: a página personalizada não os substitui.
 

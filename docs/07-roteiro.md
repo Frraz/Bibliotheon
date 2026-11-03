@@ -121,6 +121,8 @@ Para repetir o deploy do painel (já feito): `git push` → `BETTER_AUTH_SECRET`
 
 **Landing personalizada do 002 (03/11/2026):** pronta localmente em `src/landings/a-mente-inabalavel/`; assume `/a-mente-inabalavel`. Lighthouse com dados reais: mediana 95, A11y/Boas práticas/SEO 100, CLS 0. Visual aprovado e no ar.
 
+**Landing personalizada do 003, Natal à Mesa (03/11/2026):** pronta localmente em `src/landings/natal-a-mesa/`; assume `/natal-a-mesa`. Lighthouse com dados do livro (preço de teste): mediana 93, A11y/Boas práticas/SEO 100, CLS 0, LCP 1,1 s; 21 E2E da família de landings passam. **Aguarda aprovação visual do titular e a auditoria impeccable; não está no ar nem cadastrada no painel.** Bloqueios do livro (`../ebooks/ebooks/003-natal-a-mesa/status.md`): teste de cozinha, título, preço e checkout, licença da capa.
+
 ## Depois do MVP — iteração em produção
 
 Regra: **uma melhoria = uma mudança pequena que vai ao ar no mesmo dia.** Ideias novas entram no backlog abaixo, com a data e o motivo. Prioriza-se pelo impacto em vendas, não pela vontade de construir.

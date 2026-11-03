@@ -44,3 +44,23 @@ export function semearSistemas() {
   }
   banco.close();
 }
+
+export const SLUG_NATAL = "natal-a-mesa";
+
+export function semearNatal() {
+  const banco = new Database(".e2e/data/bibliotheon.db");
+  banco.pragma("busy_timeout = 5000");
+  if (!banco.prepare("SELECT 1 FROM ebook WHERE slug = ?").get(SLUG_NATAL)) {
+    const id = crypto.randomUUID();
+    const agora = Date.now();
+    const j = JSON.stringify;
+    banco
+      .prepare(
+        `INSERT INTO ebook (id, slug, status, titulo, headline, resumo, problema, dores, beneficios, diferenciais, para_quem, nao_e_para, incluido, sumario, faq, formatos, preco, garantia_dias, publicado_em, criadoEm, atualizadoEm)
+         VALUES (?, ?, 'publicado', 'Natal à Mesa', 'Ceia de Natal planejada', 'Resumo do livro para a página.', 'Todo ano eu deixo a ceia para a última hora.', ?, ?, ?, ?, ?, ?, ?, ?, ?, 3990, 7, ?, ?, ?)`,
+      )
+      .run(id, SLUG_NATAL, j(["Dor um"]), j(["Benefício um", "Benefício dois", "Benefício três"]), j(["Diferença um"]), j(["Para quem um"]), j(["Não é para um"]), j(["Livro em PDF (215 páginas)", "Planilha de orçamento da ceia (.xlsx)"]), j(["Capítulo um", "Capítulo dois"]), j([{ p: "Tem foto de todos os pratos?", r: "Não." }]), j(["PDF", "EPUB"]), agora, agora, agora);
+    banco.prepare("INSERT INTO oferta (id, ebook_id, plataforma, url, principal, ativa, ordem) VALUES (?, ?, 'cakto', 'https://pay.example.com/natal', 1, 1, 0)").run(crypto.randomUUID(), id);
+  }
+  banco.close();
+}

@@ -16,6 +16,7 @@ export type Registro = ReadonlyMap<string, ComponentType<PropsLanding>>;
  */
 export const personalizadas: Registro = new Map<string, ComponentType<PropsLanding>>([
   ["a-mente-inabalavel", dynamic(() => import("./a-mente-inabalavel/pagina").then((m) => m.PaginaAMenteInabalavel))],
+  ["natal-a-mesa", dynamic(() => import("./natal-a-mesa/pagina").then((m) => m.PaginaNatalAMesa))],
   ["criar-sistemas-com-ia", dynamic(() => import("./criar-sistemas-com-ia/pagina").then((m) => m.PaginaCriarSistemas))],
 ]);
 

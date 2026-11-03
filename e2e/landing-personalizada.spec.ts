@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
-import { semearMente, semearSistemas } from "./semear-landings";
+import { semearMente, semearNatal, semearSistemas } from "./semear-landings";
 import { CONFERIR, ETAPAS, PRIMEIRO_PEDIDO } from "../src/landings/criar-sistemas-com-ia/conteudo";
+import { CARDAPIOS, POR_PESSOA, PONTO_DA_CARNE, RECEITA } from "../src/landings/natal-a-mesa/conteudo";
 
 // Página personalizada de "A Mente Inabalável": o livro entra direto no banco de teste, com os textos do painel.
 const SLUG = "a-mente-inabalavel";
@@ -139,5 +140,86 @@ test.describe("criar-sistemas-com-ia", () => {
     expect(norm(planejar)).toContain("Se a IA acrescentar estoque, recuse ou registre como evolução");
     expect(norm(planejar)).toContain("peça controles e testes específicos");
     expect(CONFERIR.length).toBe(3);
+  });
+});
+
+
+// ---------- Natal à Mesa ----------
+const SLUG3 = "natal-a-mesa";
+
+test.describe("natal-a-mesa", () => {
+  test.beforeAll(() => semearNatal());
+
+  test("usa a página própria, sem contador e sem prova que o livro não tem", async ({ page }) => {
+    const erros: string[] = [];
+    page.on("pageerror", (e) => erros.push(String(e)));
+    await page.goto(`/${SLUG3}`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ceia de Natal planejada");
+    await expect(page.getByRole("heading", { name: "Quantas pessoas vão à mesa?" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Uma receita por dentro" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Comprar na Cakto" }).first()).toHaveAttribute("href", /^\/ir\//);
+    // O número de páginas vem do painel, e a página admite que não há fotos.
+    await expect(page.getByText("215").first()).toBeAttached();
+    await expect(page.getByText("O livro não tem fotografias dos pratos")).toBeAttached();
+    const html = await (await page.request.get(`/${SLUG3}`)).text();
+    expect(html).not.toMatch(/receitas testadas|testadas em cozinha|depoimento/i);
+    expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThan(0);
+    expect(erros).toEqual([]);
+  });
+
+  test("o seletor troca de cardápio por clique e por teclado, e todos ficam no HTML", async ({ page }) => {
+    await page.goto(`/${SLUG3}`, { waitUntil: "networkidle" });
+    await expect(page.getByRole("tab", { name: /Para 6 a 8/ })).toHaveAttribute("aria-selected", "true");
+    await page.getByRole("tab", { name: /Vegetariana/ }).click();
+    await expect(page.getByRole("tabpanel")).toContainText("Moranga recheada com lentilha e cogumelos");
+    await page.keyboard.press("ArrowRight");
+    await expect(page.getByRole("tab", { name: /Para 2/ })).toBeFocused();
+    await expect(page.getByRole("tabpanel")).toContainText("Pasta de queijo com nozes e mel");
+    expect(await page.getByRole("tab").count()).toBe(CARDAPIOS.length);
+    const html = await (await page.request.get(`/${SLUG3}`)).text();
+    for (const c of CARDAPIOS) expect(html).toContain(c.titulo);
+  });
+
+  test("a fonte da página própria não pesa nas outras páginas", async ({ request }) => {
+    expect(await (await request.get("/livro-de-teste")).text()).not.toContain("font-livro");
+  });
+
+  for (const largura of [360, 390, 430]) {
+    test(`celular ${largura} px: sem rolagem horizontal, com a compra na primeira tela`, async ({ browser }) => {
+      const ctx = await browser.newContext({ viewport: { width: largura, height: 740 } });
+      const page = await ctx.newPage();
+      await page.goto(`/${SLUG3}`);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(largura);
+      await expect(page.getByRole("link", { name: "Comprar na Cakto" }).first()).toBeInViewport();
+      await ctx.close();
+    });
+  }
+
+  test("pratos, tarefas, receita e tabelas da página estão no manuscrito (quando o projeto irmão está na máquina)", async () => {
+    const pasta = "../ebooks/ebooks/003-natal-a-mesa/manuscrito/pt-BR/";
+    const ler = (f: string) => { try { return readFileSync(`${pasta}${f}.md`, "utf8"); } catch { return null; } };
+    const arquivos = ["10a-cardapio-1-economica", "10b-cardapio-2-para-2", "10c-cardapio-3-para-4", "10d-cardapio-4-para-6-a-8", "10e-cardapio-5-para-10-a-12", "10f-cardapio-6-especial", "10g-cardapio-7-expressa", "10h-cardapio-8-vegetariana"];
+    const cardapiosMd = arquivos.map(ler);
+    const aves = ler("04-aves-e-carnes");
+    const planejar = ler("01-planeje-a-sua-ceia");
+    const seguranca = ler("02-seguranca-alimentar");
+    if (cardapiosMd.some((t) => !t) || !aves || !planejar || !seguranca) { test.skip(); return; }
+    const norm = (t: string) => t.replace(/\s+/g, " ").trim().toLowerCase();
+    for (const c of CARDAPIOS) {
+      const md = cardapiosMd.find((t) => t!.includes(`# Cardápio ${c.numero} · ${c.titulo}`));
+      expect(md, `cardápio ${c.numero}`).toBeTruthy();
+      const n = norm(md!);
+      expect(n).toContain(norm(c.perfil));
+      expect(n).toContain(norm(c.intro));
+      for (const p of c.pratos) expect(md).toContain(`**${p.papel}:** ${p.nome} (cap. ${p.cap})`);
+      expect(n).toContain(norm(c.compras.itens));
+      const semRemissao = md!.replace(/ \(veja a receita\)/g, "");
+      for (const d of c.dia24) expect(semRemissao).toContain(`**${d.quando}.** ${d.texto}`);
+    }
+    const rec = norm(aves);
+    expect(rec).toContain(norm(RECEITA.resumo));
+    for (const l of [...RECEITA.ingredientes, ...RECEITA.preparo, ...RECEITA.notas.map((n) => n.texto)]) expect(rec).toContain(norm(l));
+    for (const r of POR_PESSOA) expect(norm(planejar)).toContain(norm(`| ${r.item} | ${r.qtd} |`));
+    for (const r of PONTO_DA_CARNE) expect(norm(seguranca)).toContain(norm(`| ${r.item === "Tender, para reaquecer" ? "Embutidos já cozidos (tender), para reaquecer" : r.item} |`));
   });
 });
