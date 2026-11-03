@@ -8,13 +8,18 @@ import { Textarea } from "@/components/ui/textarea";
 
 type Item = { id: number; texto: string };
 
-/** Lista de textos curtos: adicionar, remover e ordenar com setas (funcionam no toque e no teclado). */
+/**
+ * Lista de textos curtos: adicionar, remover e ordenar com setas (funcionam no toque e no teclado).
+ * Com `nome`, o formulário recebe a lista inteira, na ordem da tela, como JSON num campo oculto.
+ */
 export function ListaEditavel({
+  nome,
   rotulo,
   itens,
   adicionar = "Adicionar item",
   longo = false,
 }: {
+  nome?: string;
   rotulo: string;
   itens: readonly string[];
   adicionar?: string;
@@ -35,6 +40,7 @@ export function ListaEditavel({
   return (
     <fieldset>
       <legend className="sr-only">{rotulo}</legend>
+      {nome && <input type="hidden" name={nome} value={JSON.stringify(lista.map((x) => x.texto))} />}
       <ul className="space-y-3 sm:space-y-2">
         {lista.map((it, n) => (
           <li key={it.id} className="flex flex-wrap items-start gap-x-1 sm:flex-nowrap">
@@ -53,7 +59,7 @@ export function ListaEditavel({
           </li>
         ))}
       </ul>
-      <Button type="button" variant="ghost" size="sm" className="mt-2 text-(--terracota) hover:text-(--terracota-escura)" onClick={() => setLista((l) => [...l, { id: prox.current++, texto: "" }])}>
+      <Button type="button" variant="ghost" size="sm" className="mt-2 min-h-11 text-(--terracota) hover:text-(--terracota-escura)" onClick={() => setLista((l) => [...l, { id: prox.current++, texto: "" }])}>
         <Plus /> {adicionar}
       </Button>
     </fieldset>

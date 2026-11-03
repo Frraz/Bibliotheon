@@ -29,10 +29,16 @@ fi
 # Mídia: arquivo único por dia (as imagens têm nome com hash, então o tar é pequeno e idempotente)
 [ -d data/media ] && tar czf "$DESTINO/diario/media-$HOJE.tgz" -C data media
 
+# PDFs completos enviados pelo painel (privados). Arquivo à parte: são os livros pagos, com permissão só do dono.
+if [ -d data/privado ]; then
+  ( umask 077; tar czf "$DESTINO/diario/privado-$HOJE.tgz" -C data privado )
+fi
+
 # Semanal (domingo)
 if [ "$(date +%u)" = 7 ]; then
   cp "$DESTINO/diario/db-$HOJE.db" "$DESTINO/semanal/" 2>/dev/null || true
   cp "$DESTINO/diario/media-$HOJE.tgz" "$DESTINO/semanal/" 2>/dev/null || true
+  cp "$DESTINO/diario/privado-$HOJE.tgz" "$DESTINO/semanal/" 2>/dev/null || true
 fi
 
 # Retenção

@@ -74,10 +74,10 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 ## Etapa 3 — Painel 🟡 reaberta em 02/11/2026 a pedido do titular (Fase 1 pronta localmente)
 
-Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuário ativo publica direto, sem revisão.** Protótipo aprovado em `/prototipo/*` (some quando a Fase 2 terminar).
+Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuário ativo publica direto, sem revisão.** O protótipo foi aprovado e removido (histórico do Git).
 
 1. ✅ **Fase 1: login e usuários.** Better Auth, `/entrar`, `/admin` → `/painel`, Usuários (criar, senha temporária, ativar/desativar com "tirar do ar também"), Conta (nome e senha), `scripts/criar-owner.mjs`. 9 testes E2E + 9 unitários novos; imagem Docker testada (criar administrador, login, site de pé sem o segredo).
-2. ⬜ **Fase 2: cadastro e publicação.** Lista com métricas, editor numa página, upload de capa, amostras e **PDF privado**, lojas e campanha, checklist, prévia por rota, slug travado, Temas.
+2. ✅ **Fase 2: cadastro e publicação.** Lista com visitas e cliques de 7 dias, "Novo e-book", editor numa página, capa, amostras e **PDF privado**, lojas e campanha, checklist, prévia por rota, endereço travado, Temas. Pronta localmente: 41 testes E2E (12 novos do editor), 68 unitários; imagem Docker testada (`sharp`, PDF privado fora de `/m`). Falta só: `git push` e deploy, a pedido do titular.
 3. ⬜ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`, `lastModified` no sitemap).
 4. ⬜ **Fase 4: pacote para outras lojas** (ZIP com textos, capa, amostras e PDF) e pasta local `livros/<slug>/` fora do Git.
 
@@ -85,10 +85,11 @@ Em produção só depois do pedido do titular: `git push` → `BETTER_AUTH_SECRE
 
 **Critérios de aceite:**
 
-- [ ] Você cria um e-book do zero pelo painel no celular e no desktop, sem ajuda, em < 10 min.
-- [x] Teste: usuário comum só vê o que é dele na lista e não chega a `/painel/usuarios` (Fase 1). _Falta o mesmo para editar por Server Action e URL direta, na Fase 2._
+- [ ] Você cria um e-book do zero pelo painel no celular e no desktop, sem ajuda, em < 10 min. _(o fluxo está testado por automação; falta você usar)_
+- [x] Teste: usuário comum só vê o que é dele na lista e não chega a `/painel/usuarios` (Fase 1).
 - [x] Teste: usuário desativado perde o acesso na hora, mesmo com a sessão aberta.
-- [ ] Checklist bloqueia a publicação incompleta com a mensagem certa.
+- [x] Checklist bloqueia a publicação incompleta com a mensagem certa (rascunho salva e lista o que falta; publicado não é salvo incompleto).
+- [x] Teste: usuário comum não vê, não edita, não envia arquivo nem baixa o PDF de e-book de outro (tela, prévia e rotas), e publica o próprio direto.
 
 **Portão:** você usa o painel e diz "isso é simples".
 

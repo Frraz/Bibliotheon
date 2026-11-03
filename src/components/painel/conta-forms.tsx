@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { salvarNome, type ResultadoConta } from "@/app/painel/conta/acoes";
+import { salvarNome, type ResultadoConta } from "@/app/painel/(menu)/conta/acoes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

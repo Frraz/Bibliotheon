@@ -93,6 +93,11 @@ export async function getEbook(slug: string): Promise<EbookPublico | null> {
   if (!linha || !temaVisivel(linha.t)) return null;
   const { e, t } = linha;
 
+  return montarEbookPublico(e, t);
+}
+
+/** Monta o e-book como a landing o consome. Serve ao getEbook (só publicado, em cache) e à prévia do painel (qualquer status, sem cache). */
+export function montarEbookPublico(e: typeof ebook.$inferSelect, t: typeof tema.$inferSelect | null): EbookPublico {
   const amostras = db.select().from(amostra).where(eq(amostra.ebookId, e.id)).orderBy(asc(amostra.ordem)).all();
   const ofertas = db
     .select()

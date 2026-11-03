@@ -80,7 +80,7 @@ test("o usuário comum só vê o que é dele e não chega à gestão de usuário
   const page = await ctx.newPage();
   await entrar(page, "ana@teste.com", senhaDaAna);
   await expect(page).toHaveURL(/\/painel$/);
-  await expect(page.getByText("Nenhum e-book por aqui ainda.")).toBeVisible();
+  await expect(page.getByText("Você ainda não tem e-books.")).toBeVisible();
   await expect(page.getByText("Livro de Teste")).toHaveCount(0);
   await expect(page.getByRole("link", { name: "Usuários" })).toHaveCount(0);
   // A página de gestão "não existe" para quem não é administrador (o status é 200 porque a resposta já estava em andamento,

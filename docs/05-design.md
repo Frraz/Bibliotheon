@@ -117,10 +117,12 @@ Só então começa o backend.
 
 **Como se aplica em cada superfície:**
 
-- **Landing** (`/prototipo/landing`): hero em duas colunas com a capa em leve perspectiva; faixa escura de urgência (só com data real); seções separadas por filetes; "Folheie antes de decidir" em faixa de tinta; bloco de compra em tinta com o preço grande.
-- **Home** (`/prototipo/home`): frase da marca, e-book em destaque num painel `papel-2`, filtros de tema e grade de capas (2 colunas no celular, 4 no desktop).
-- **Painel** (`/prototipo/painel`): mesma paleta e fontes, silencioso: barra lateral `papel-2`, campos `papel-3`, filetes. Menu de 4 itens (grade de 4 colunas no celular).
-- **Editor** (`/prototipo/painel/editor`): uma página, 5 seções numeradas (a numeração é uma sequência real do formulário); coluna lateral fixa com "Nesta página", checklist e ações; no celular, barra "Salvar / Publicar" fixa e resumo do checklist no topo.
+- **Landing**: hero em duas colunas com a capa em leve perspectiva; faixa escura de urgência (só com data real); seções separadas por filetes; "Folheie antes de decidir" em faixa de tinta; bloco de compra em tinta com o preço grande.
+- **Home**: frase da marca, e-book em destaque num painel `papel-2`, filtros de tema e grade de capas (2 colunas no celular, 4 no desktop).
+- **Painel** (`/painel`): mesma paleta e fontes, silencioso: barra lateral `papel-2`, campos `papel-3`, filetes. Menu de 4 itens (grade de 4 colunas no celular).
+- **Editor** (`/painel/ebooks/[id]`): uma página, 5 seções numeradas (a numeração é uma sequência real do formulário); coluna lateral fixa com "Nesta página", checklist e ações; no celular, barra "Salvar / Publicar" fixa e resumo do checklist no topo.
+
+_Os protótipos `/prototipo/*` da Etapa 1 foram removidos na Fase 2; o painel de verdade os substitui (histórico no Git)._
 
 ### Auditoria impeccable (02/11/2026)
 

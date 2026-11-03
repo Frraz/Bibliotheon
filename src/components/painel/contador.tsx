@@ -9,7 +9,7 @@ export function CampoContado({ id, inicial, ideal }: { id: string; inicial: stri
   const passou = v.length > ideal;
   return (
     <div>
-      <Input id={id} value={v} onChange={(e) => setV(e.target.value)} aria-describedby={`${id}-n`} />
+      <Input id={id} name={id} value={v} onChange={(e) => setV(e.target.value)} aria-describedby={`${id}-n`} />
       <p id={`${id}-n`} className={`mt-1.5 text-sm ${passou ? "text-(--terracota-escura)" : "text-(--tinta-2)"}`}>
         {v.length} de {ideal} caracteres{passou ? ": títulos longos são cortados no Google e no celular" : ""}
       </p>

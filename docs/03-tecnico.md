@@ -42,7 +42,7 @@ bibliotheon/
 │   │   ├── ir/[ofertaId]/route.ts  # clique rastreado → redirect
 │   │   ├── m/[...path]/route.ts    # serve mídia do volume, cache imutável
 │   │   ├── entrar/page.tsx
-│   │   ├── painel/                 # layout do painel (auth obrigatório)
+│   │   ├── painel/                 # (menu)/ = lista, editor, temas, usuários, conta; ebooks/[id]/previa
 │   │   ├── api/auth/[...all]/route.ts
 │   │   ├── api/v1/ebooks/route.ts  # CLI: upsert
 │   │   ├── api/v1/ebooks/[sourceId]/route.ts  # CLI: consultar
@@ -100,7 +100,9 @@ Convenções:
 | Preço | `preco`, `precoDe` (opcional), `ofertaAte` (opcional), `ofertaNome` (opcional; "Black Friday"), `parcelamento` (opcional), `garantiaDias` (padrão 7), `emBreve: boolean` |
 | SEO/medição | `seoTitle`, `seoDescription` (opcionais; fallback headline/resumo), `metaPixelId` (opcional) |
 
-**amostra**: `id`, `ebookId`, `imagem`, `ordem`.
+Acrescentados na Fase 2: `ebook.pdfPrivado` (chave do PDF completo em `data/privado`) e `ebook.pdfNome` (nome original, só para exibir).
+
+**amostra**: `id`, `ebookId`, `imagem`, `alt`, `ordem`.
 
 **oferta**: `id`, `ebookId`, `plataforma` (`hotmart | kiwify | cakto | eduzz | monetizze | ticto | perfectpay | amazon | google_play | outra`), `rotulo` (opcional; padrão "Comprar na <Plataforma>"), `url`, `preco` (opcional, quando difere do preço do e-book), `principal: boolean` (exatamente uma por e-book com ofertas ativas), `ativa`, `ordem`.
 
@@ -247,6 +249,18 @@ python3 ferramentas/publicar.py login            # pede o token (oculto) e salva
 - Token em `~/.config/bibliotheon/token` (permissão 600) ou na variável `BIBLIOTHEON_TOKEN`. Destino: `BIBLIOTHEON_URL` (padrão `https://bibliotheon.com.br`).
 - Códigos de saída: 0 ok, 1 erro de validação/servidor, 2 uso incorreto.
 - Em `../ebooks`, o launcher `bibliotheon` passa a executar `python3 "$CLIENT_DIR/ferramentas/publicar.py" "$@"`. Os comandos antigos `preparar`/`assistir` deixam de existir; `validar` vira alias de `publicar` com dryRun e sem enviar.
+
+## Painel de e-books (Fase 2)
+
+| Peça | Onde | Observação |
+|---|---|---|
+| Regras puras (endereço, dinheiro, datas, formulário, checklist) | `src/lib/editor.ts` (+ teste) | Endereços reservados em `SLUGS_RESERVADOS`; data da campanha em hora de Brasília (-03:00), gravada em UTC |
+| Gravação | `src/lib/ebooks.ts` (`gravarEbook`) | Valida tudo antes de escrever; escreve em transação; lojas por id |
+| Ações | `src/app/painel/(menu)/ebooks/acoes.ts`, `temas/acoes.ts` | Cada uma reconfere sessão e `podeEditar`; `updateTag("ebooks")` ao gravar |
+| Arquivos | `/api/painel/ebooks/[id]/{capa,amostras,pdf,amostra-pdf}` | Sessão + dono + `Origin`; imagem conferida e regravada pelo `sharp` (`src/lib/imagens.ts`); PDF por assinatura `%PDF-` |
+| Prévia | `/painel/ebooks/[id]/previa` | `<Landing previa>`: sem dados estruturados, sem visita, botões de compra desligados; `montarEbookPublico` (`src/lib/catalogo.ts`) é o mesmo montador da página pública |
+
+**Publicar:** bloqueiam capa, descrição da capa, título, headline, resumo, ≥ 3 benefícios, endereço válido e tema no ar (se houver tema). Sem loja ou sem preço a página sai como "Em breve" (só avisa). Um e-book já publicado nunca é salvo incompleto. O endereço é editável até a primeira publicação e depois fica travado (mesmo despublicado).
 
 ## Segurança
 

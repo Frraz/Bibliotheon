@@ -33,15 +33,38 @@ export function guardarMidia(ebookId: string, arquivo: string) {
   return { chave, hash };
 }
 
-/** Grava um PDF recebido pela API e devolve a chave. */
-export function guardarPdf(ebookId: string, bytes: Buffer) {
-  const chave = `ebook/${ebookId}/${sha256(bytes).slice(0, 12)}.pdf`;
+/** Grava bytes recebidos (API ou painel) na mídia pública e devolve a chave. */
+export function guardarBytes(ebookId: string, bytes: Buffer, ext: ".pdf" | ".jpg" | ".png" | ".webp") {
+  const chave = `ebook/${ebookId}/${sha256(bytes).slice(0, 12)}${ext}`;
   const destino = join(/*turbopackIgnore: true*/ MEDIA_DIR(), chave);
   if (!existsSync(destino)) {
     mkdirSync(dirname(destino), { recursive: true });
     writeFileSync(destino, bytes);
   }
   return chave;
+}
+
+export const guardarPdf = (ebookId: string, bytes: Buffer) => guardarBytes(ebookId, bytes, ".pdf");
+
+// PDF completo do livro: pasta irmã da mídia, que o /m nunca serve (data/media → data/privado).
+export const PRIVADO_DIR = () => process.env.PRIVADO_DIR ?? join(dirname(MEDIA_DIR()), "privado");
+
+/** Guarda o PDF completo fora da pasta pública. O nome do arquivo é só o hash: o nome original fica no banco. */
+export function guardarPdfPrivado(ebookId: string, bytes: Buffer) {
+  const chave = `${ebookId}/${sha256(bytes).slice(0, 16)}.pdf`;
+  const destino = join(/*turbopackIgnore: true*/ PRIVADO_DIR(), chave);
+  if (!existsSync(destino)) {
+    mkdirSync(dirname(destino), { recursive: true });
+    writeFileSync(destino, bytes);
+  }
+  return chave;
+}
+
+/** Caminho no disco de um PDF privado, a partir da chave que está no banco (nunca de entrada do usuário). */
+export function caminhoDoPdfPrivado(chave: string) {
+  const base = resolve(/*turbopackIgnore: true*/ process.cwd(), PRIVADO_DIR());
+  const caminho = normalize(join(base, chave));
+  return caminho.startsWith(base + sep) ? caminho : null;
 }
 
 /** Caminho seguro no disco para uma chave vinda da URL; null se tentar sair da pasta de mídia. */

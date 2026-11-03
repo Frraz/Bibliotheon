@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { caminhoDaMidia } from "./midia";
+import { caminhoDaMidia, caminhoDoPdfPrivado, PRIVADO_DIR } from "./midia";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -23,5 +23,21 @@ describe("caminhoDaMidia", () => {
     expect(caminhoDaMidia(["ebook", "x", "a.db"])).toBeNull();
     expect(caminhoDaMidia(["ebook", "x", "a.html"])).toBeNull();
     expect(caminhoDaMidia(["ebook", "x", "a.svg"])).toBeNull();
+  });
+});
+
+describe("PDF privado", () => {
+  it("fica numa pasta irmã da mídia, que o /m nunca serve", () => {
+    vi.stubEnv("MEDIA_DIR", "/app/data/media");
+    expect(PRIVADO_DIR()).toBe("/app/data/privado");
+    // o /m só serve o que está dentro de MEDIA_DIR: o PDF privado nunca é alcançado por ele
+    expect(caminhoDaMidia(["..", "privado", "x", "a.pdf"])).toBeNull();
+  });
+
+  it("resolve só chaves dentro da pasta privada", () => {
+    vi.stubEnv("MEDIA_DIR", "/app/data/media");
+    expect(caminhoDoPdfPrivado("abc/0123456789abcdef.pdf")).toBe("/app/data/privado/abc/0123456789abcdef.pdf");
+    expect(caminhoDoPdfPrivado("../bibliotheon.db")).toBeNull();
+    expect(caminhoDoPdfPrivado("abc/../../media/x.pdf")).toBeNull();
   });
 });

@@ -2,7 +2,7 @@
 
 import { KeyRound, Plus } from "lucide-react";
 import { useActionState, useState, useTransition } from "react";
-import { alterarAtivo, criarUsuario, redefinirSenha, type Resultado } from "@/app/painel/usuarios/acoes";
+import { alterarAtivo, criarUsuario, redefinirSenha, type Resultado } from "@/app/painel/(menu)/usuarios/acoes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

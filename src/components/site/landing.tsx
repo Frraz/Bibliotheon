@@ -40,7 +40,8 @@ const TituloMenor = ({ children }: { children: React.ReactNode }) => <Titulo cla
 
 const paragrafos = (t: string | null) => (t ?? "").split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
-export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: CartaoEbook[] }) {
+/** `previa`: versão do painel (qualquer status): sem dados estruturados, sem contar visita e com os botões de compra desligados. */
+export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; relacionados: CartaoEbook[]; previa?: boolean }) {
   const principal = e.ofertas.find((o) => o.principal) ?? e.ofertas[0];
   const outras = e.ofertas.filter((o) => o !== principal);
   const vender = !e.emBreve && !!principal;
@@ -50,7 +51,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
   const dadosOferta = { preco: e.preco, precoDe: e.precoDe, ofertaAte: e.ofertaAte, ofertaNome: e.ofertaNome, emBreve: !vender, inicial: e.vigente };
   const cta = (classe: string, texto?: string) =>
     principal && (
-      <LinkOferta ofertaId={principal.id} titulo={e.titulo} valor={e.vigente.valor} className={`${BOTAO} ${classe}`}>
+      <LinkOferta ofertaId={principal.id} titulo={e.titulo} valor={e.vigente.valor} previa={previa} className={`${BOTAO} ${classe}`}>
         {texto ?? rotuloOferta(principal)}
       </LinkOferta>
     );
@@ -70,8 +71,8 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
   return (
     <OfertaProvider dados={dadosOferta}>
       <div className="bg-(--papel) font-(family-name:--font-texto) text-[1.0625rem] leading-[1.65] text-(--tinta)">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializarJsonLd(jsonLdDoEbook(e)) }} />
-        <Visita slug={e.slug} titulo={e.titulo} valor={e.vigente.valor} />
+        {!previa && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializarJsonLd(jsonLdDoEbook(e)) }} />}
+        {!previa && <Visita slug={e.slug} titulo={e.titulo} valor={e.vigente.valor} />}
 
         {vender && e.vigente.emOferta && <FaixaUrgencia className="bg-(--tinta) text-(--papel)" />}
 
@@ -316,7 +317,7 @@ export function Landing({ e, relacionados }: { e: EbookPublico; relacionados: Ca
                     <p className="mt-8 text-sm text-(--papel)/70">Prefere outra plataforma?</p>
                     <div className="mt-2 flex flex-wrap justify-center gap-2">
                       {outras.map((o) => (
-                        <LinkOferta key={o.id} ofertaId={o.id} titulo={e.titulo} valor={o.preco ?? e.vigente.valor} className="inline-flex min-h-12 items-center border border-(--papel)/40 px-6 font-medium transition-colors hover:border-(--papel) hover:bg-(--papel)/10">
+                        <LinkOferta key={o.id} ofertaId={o.id} titulo={e.titulo} valor={o.preco ?? e.vigente.valor} previa={previa} className="inline-flex min-h-12 items-center border border-(--papel)/40 px-6 font-medium transition-colors hover:border-(--papel) hover:bg-(--papel)/10">
                           {rotuloOferta(o)}{o.preco != null && o.preco !== e.vigente.valor ? ` · ${brl(o.preco)}` : ""}
                         </LinkOferta>
                       ))}

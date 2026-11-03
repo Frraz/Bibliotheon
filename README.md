@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado (02/11/2026):** site no ar, 001 à venda por R$ 64,99 na Hotmart. **Etapa atual: "Vender"**, antes do painel: meta de R$ 1.500/mês de faturamento. Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
+> **Estado (02/11/2026):** site no ar, 001 à venda por R$ 64,99 na Hotmart. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. O painel (login, e-books, temas e usuários, Etapa 3, Fases 1 e 2) está pronto localmente e aguarda deploy. Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 

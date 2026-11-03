@@ -129,6 +129,9 @@ export const ebook = sqliteTable(
     sumario: lista("sumario"),
     faq: text("faq", { mode: "json" }).$type<{ p: string; r: string }[]>().notNull().default(sql`'[]'`),
     amostraPdf: text("amostra_pdf"),
+    // PDF completo do livro, enviado pelo painel. Fica em data/privado (sem URL pública); só o dono e o administrador baixam.
+    pdfPrivado: text("pdf_privado"),
+    pdfNome: text("pdf_nome"),
 
     // Preço (centavos). `preco` é o preço de lançamento; `precoDe` é o preço normal.
     preco: integer("preco"),

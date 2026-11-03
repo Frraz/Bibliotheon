@@ -87,16 +87,19 @@ E-mail + senha. Sem cadastro público. Esqueceu a senha: "Fale com o administrad
 
 ### E-books (`/painel`)
 
-- **Owner:** vê todos e filtra por "Em revisão" e por parceiro. **Parceiro:** vê só os próprios.
+- **Administrador:** vê todos, com o nome do dono. **Usuário comum:** vê só os próprios (a consulta já nasce filtrada).
 - Cada e-book é uma linha com:
   - miniatura da capa e título;
-  - status (badge: Rascunho / Em revisão / Publicado);
+  - status (badge: Rascunho / Publicado);
   - visitas, cliques e taxa de clique em 7 dias, com seletor 7d/30d;
-  - botões "Ver página" e "Editar".
+  - botões "Ver página" (publicado) ou "Ver prévia" (rascunho) e "Editar".
 - Ação principal: **"Novo e-book"**.
 - Estado vazio: "Você ainda não tem e-books. Comece pelo título e pela capa — o resto você completa depois." + botão.
 
-### Editor do e-book (`/painel/ebooks/[id]`)
+### Editor do e-book (`/painel/ebooks/[id]`) ✅ Fase 2
+
+"Novo e-book" pede só o título e abre o editor (rascunho, com o endereço gerado do título). Capa, amostras e PDF valem na hora; o texto vale ao salvar. Aviso ao sair com alterações não salvas.
+
 
 Uma página só, com seções numeradas. A navegação por âncoras ("Nesta página") fica na **coluna lateral direita**, junto com o checklist e as ações (no celular, ela é substituída por um resumo do checklist e uma barra fixa Salvar/Publicar):
 
@@ -128,10 +131,8 @@ Uma página só, com seções numeradas. A navegação por âncoras ("Nesta pág
   - pelo menos 1 oferta ativa ou o modo "Em breve" marcado.
 - **"Ver prévia"** abre `/[slug]?previa=1` numa nova aba.
 - **Ação principal:**
-  - owner: **"Publicar"** / "Salvar alterações" (se já publicado) / "Despublicar" (no menu ⋯);
-  - parceiro: **"Enviar para revisão"**. Depois de publicado, uma edição do parceiro volta o status para "Em revisão" e mantém a versão publicada no ar até a aprovação.
-
-  > Ponto de atenção no MVP: manter duas versões (a publicada e a em revisão) tem custo. Alternativa simples, se ficar pesado: o owner recebe a edição e o parceiro só edita rascunhos. A decisão fica para a Etapa 3 e será registrada em [decisoes](decisoes.md).
+  - **todos (administrador e usuário comum): "Publicar"** (rascunho) ou "Salvar alterações" (publicado, vale na hora) e "Despublicar" no fim da página. Não há etapa de revisão (decisão de 02/11/2026).
+  - Rascunho com algo faltando: "Publicar" salva como rascunho e mostra o que falta. Publicado: não salva incompleto.
 - Salvamento: botão "Salvar" + aviso "alterações não salvas" ao sair. Sem autosave no MVP.
 
 ### Temas (owner)

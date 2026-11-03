@@ -64,6 +64,8 @@ Perdeu a senha do administrador? Rode o mesmo comando com o mesmo e-mail: ele at
 
 **Login não entra?** Confira primeiro `curl -s -o /dev/null -w '%{http_code}' https://bibliotheon.com.br/api/auth/ok`: tem que ser **200**. **500** = o container não recebeu `BETTER_AUTH_SECRET` (falta no `.env` ou o container não foi recriado: `docker exec bibliotheon_web sh -c 'test -n "$BETTER_AUTH_SECRET" && echo ok || echo FALTA'`). Corrija o `.env` e rode `docker compose -f docker-compose.prod.yml up -d`; a conta criada por `criar-owner` continua valendo. A tela de entrada mostra "erro 500" (e não "senha incorreta") nesse caso. Ocorreu em 02/11/2026, no primeiro deploy do painel.
 
+**Arquivos do painel:** capas e amostras ficam em `data/media` (públicas, `/m`), e os PDFs completos em `data/privado` (sem URL pública). O `deploy/backup.sh` guarda os dois (`media-*.tgz` e `privado-*.tgz`, este com permissão só do dono). A migração `0003_pdf_privado` roda sozinha na partida. Uploads de até 25 MB cabem no `client_max_body_size 30m` do nginx: nenhuma mudança de nginx.
+
 Atrás do nginx o limite de tentativas de login usa o `X-Real-IP` (o `deploy/nginx/bibliotheon.com.br.conf` já o envia). Testado na imagem Docker: administrador criado e recuperado, login 200, `/painel` sem sessão → 307 `/entrar`, e site de pé sem o segredo.
 
 ## Reserva
