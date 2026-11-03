@@ -40,6 +40,7 @@ Objetivo único: **vender e-books.** Antes de qualquer trabalho, ler `README.md`
 - **Texto de venda:** ao reaproveitar copy de protótipo, conferir cada frase contra o livro/kit. Já removi afirmações que eu mesmo tinha inventado.
 - **Build local:** `npm run build` usa o `data/` da máquina, que pode ter esquema antigo (`no such column`). Use `DATABASE_PATH=:memory: npm run build`, como o `scripts/servir-teste.sh`. Depois de criar uma rota nova, rode `npx next typegen` antes do `tsc` (os tipos `PageProps<"/rota">` vêm daí).
 - **Rota nova na raiz:** acrescentar o nome a `SLUGS_RESERVADOS` (`src/lib/editor.ts`), senão um e-book com esse endereço fica encoberto.
+- **Next 16 mantém a página anterior no DOM (`display:none`, Activity).** Seletor global que procura um marcador de página (`:has([data-x])`) também casa com a página escondida: exclua o oculto (`:not([style*="display: none"] *)`) e teste navegando entre páginas no cliente (`e2e/moldura.spec.ts`). Foi assim que a moldura escura da landing vazou para o Home.
 - **CSS velho no build local:** depois de mudar só o `globals.css`, o `next build` pode reaproveitar o CSS compilado antes (mesmo arquivo, mesmo hash, regra nova ausente). Antes de conferir o visual, `rm -rf .next`. O build do Docker parte do zero e não sofre disso.
 - **Imagem pesada no OG:** nunca embutir o arquivo original no `ImageResponse` (satori recusa ~10 MB e dá 502); reduzir com `sharp`.
 - **npm:** `vitest` exige `@types/node` 22+ e, com o npm 10.9, `--legacy-peer-deps` + `vite` instalado à parte (bug do arborist).

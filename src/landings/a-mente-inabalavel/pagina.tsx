@@ -5,6 +5,7 @@ import { ABAIXO, BarraDeCompra, BlocoDeCompra, BotaoDeCompra, CompraNoMeio } fro
 import { Folhear } from "@/components/site/folhear";
 import { podeVender } from "@/components/site/molde-pagina";
 import { AvisoPrazo, FaixaUrgencia, PrecoAtual, PrecoDe } from "@/components/site/oferta";
+import { CabecalhoSite, RodapeSite } from "@/components/site/moldura";
 import { PedirAmostra } from "@/components/site/pedir-amostra";
 import { TextoRecolhivel } from "@/components/site/texto-recolhivel";
 import type { PropsLanding } from "../registro";
@@ -52,6 +53,7 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
 
   return (
     <div style={CORES} className={`${inscricao.variable} ${livro.variable} bg-(--marmore) font-(family-name:--font-livro) text-[1.125rem] leading-[1.7] text-(--noite)`}>
+      <CabecalhoSite discreto className="bg-(--noite) text-(--marmore)" />
       {vender && e.vigente.emOferta && <FaixaUrgencia className="border-b border-(--ouro)/40 bg-(--noite) text-(--marmore)" />}
 
       {/* Topo: resultado, preço e a capa */}
@@ -275,6 +277,7 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
         </section>
       )}
 
+      <RodapeSite discreto />
       <BarraDeCompra e={e} previa={previa} />
     </div>
   );

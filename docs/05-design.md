@@ -51,7 +51,9 @@ O que não desenhamos também carrega a marca; tudo em `globals.css`, pelos toke
 
 - **Barra de rolagem:** fina, trilho transparente e polegar em tom médio entre tinta e papel (`--rolagem-polegar`), que se lê no papel e nas faixas escuras. Vale para a página, para o carrossel de amostras e para a coluna do editor.
 - **Seleção de texto** em terracota suave, **cursor** e controles nativos (`accent-color`) em terracota; sem o clarão azul do toque no celular; campo de texto só cresce na vertical; rolagem interna não "vaza" para a página.
-- **Landing escura:** a página marca a raiz com `data-superficie="escura"` (hoje só a do 001, toda escura). A moldura do site (cabeçalho, rodapé, filetes), o fundo atrás da barra de rolagem e o polegar passam para o escuro, sem faixa creme em volta. Landing que mistura faixas claras e escuras (a do 002) mantém a moldura creme.
+- **Cabeçalho e rodapé da landing personalizada:** a landing traz os próprios (`CabecalhoSite discreto` como primeiro filho e `RodapeSite discreto` como último da raiz colorida, em `src/components/site/moldura.tsx`). Eles não têm cor: herdam a da faixa onde estão (`currentColor` + opacidade), então servem a qualquer paleta (escura, clara ou mista). São mais baixos e mais quietos que os do site (marca 18 px, link com 70 % de opacidade). O CSS esconde o cabeçalho/rodapé do layout só enquanto uma landing com `data-moldura-propria` está na tela. A landing padrão segue com a moldura creme do layout.
+- **Fundo atrás da barra de rolagem:** landing toda escura marca a raiz com `data-superficie="escura"` (hoje só a do 001); a do 002, mista, não precisa.
+- **Armadilha (já custou um bug):** o Next 16 não desmonta a página anterior; esconde com `display:none` (Activity, até 3 rotas). Seletor global que procura um marcador de página (`:has([data-...])`) casa também com a página escondida e pinta o Home. Todo seletor assim exclui o oculto (`:not([style*="display: none"] *)`), e o E2E `moldura.spec.ts` navega da landing para o Home no cliente para garantir.
 
 ## Movimento
 

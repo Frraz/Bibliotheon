@@ -5,6 +5,7 @@ import { ABAIXO, BarraDeCompra, BlocoDeCompra, BotaoDeCompra, CompraNoMeio } fro
 import { Folhear } from "@/components/site/folhear";
 import { podeVender } from "@/components/site/molde-pagina";
 import { AvisoPrazo, FaixaUrgencia, PrecoAtual, PrecoDe } from "@/components/site/oferta";
+import { CabecalhoSite, RodapeSite } from "@/components/site/moldura";
 import { PedirAmostra } from "@/components/site/pedir-amostra";
 import type { PropsLanding } from "../registro";
 import { CONFERIR, ETAPAS, PRIMEIRO_PEDIDO } from "./conteudo";
@@ -48,6 +49,7 @@ export function PaginaCriarSistemas({ e, relacionados, previa }: PropsLanding) {
 
   return (
     <div data-superficie="escura" style={CORES} className={`${titulo.variable} ${texto.variable} ${codigo.variable} bg-(--noite) font-(family-name:--font-texto-001) text-[1.0625rem] leading-[1.65] text-(--papel)`}>
+      <CabecalhoSite discreto />
       {vender && e.vigente.emOferta && <FaixaUrgencia className="border-b border-(--vermelho)/40 bg-(--tinta) text-(--papel)" />}
 
       {/* Topo */}
@@ -287,6 +289,7 @@ export function PaginaCriarSistemas({ e, relacionados, previa }: PropsLanding) {
         </section>
       )}
 
+      <RodapeSite discreto />
       <BarraDeCompra e={e} previa={previa} />
     </div>
   );

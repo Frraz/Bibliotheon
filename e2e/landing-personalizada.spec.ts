@@ -1,28 +1,13 @@
 import { expect, test } from "@playwright/test";
-import Database from "better-sqlite3";
 import { readFileSync } from "node:fs";
+import { semearMente, semearSistemas } from "./semear-landings";
 import { CONFERIR, ETAPAS, PRIMEIRO_PEDIDO } from "../src/landings/criar-sistemas-com-ia/conteudo";
 
 // Página personalizada de "A Mente Inabalável": o livro entra direto no banco de teste, com os textos do painel.
 const SLUG = "a-mente-inabalavel";
-let ofertaId = "";
 
 test.beforeAll(() => {
-  const banco = new Database(".e2e/data/bibliotheon.db");
-  banco.pragma("busy_timeout = 5000");
-  if (banco.prepare("SELECT 1 FROM ebook WHERE slug = ?").get(SLUG)) { banco.close(); return; }
-  const id = crypto.randomUUID();
-  ofertaId = crypto.randomUUID();
-  const agora = Date.now();
-  const j = JSON.stringify;
-  banco
-    .prepare(
-      `INSERT INTO ebook (id, slug, status, titulo, headline, resumo, problema, descricao, dores, beneficios, diferenciais, para_quem, nao_e_para, incluido, sumario, faq, formatos, preco, publicado_em, criadoEm, atualizadoEm)
-       VALUES (?, ?, 'publicado', 'A Mente Inabalável', 'Treine uma mente mais firme', 'Resumo do livro para a página.', 'Eu li frases de estoicismo.', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 4799, ?, ?, ?)`,
-    )
-    .run(id, SLUG, "Primeiro parágrafo.\n\nSegundo parágrafo.", j(["Dor um"]), j(["Benefício um", "Benefício dois", "Benefício três"]), j(["Diferença um"]), j(["Para quem um"]), j(["Não é para um"]), j(["Livro em PDF"]), j(Array.from({ length: 22 }, (_, n) => `Capítulo ${n + 1}`)), j([{ p: "Isso substitui terapia?", r: "Não." }]), j(["PDF", "EPUB"]), agora, agora, agora);
-  banco.prepare("INSERT INTO oferta (id, ebook_id, plataforma, url, principal, ativa, ordem) VALUES (?, ?, 'hotmart', 'https://pay.example.com/mente', 1, 1, 0)").run(ofertaId, id);
-  banco.close();
+  semearMente();
 });
 
 test("usa a página própria, com dados estruturados e o botão rastreado do painel", async ({ page }) => {
@@ -94,23 +79,7 @@ test("cada citação da página está no manuscrito (quando o projeto irmão est
 const SLUG1 = "criar-sistemas-com-ia";
 
 test.describe("criar-sistemas-com-ia", () => {
-  test.beforeAll(() => {
-    const banco = new Database(".e2e/data/bibliotheon.db");
-    banco.pragma("busy_timeout = 5000");
-    if (!banco.prepare("SELECT 1 FROM ebook WHERE slug = ?").get(SLUG1)) {
-      const id = crypto.randomUUID();
-      const agora = Date.now();
-      const j = JSON.stringify;
-      banco
-        .prepare(
-          `INSERT INTO ebook (id, slug, status, titulo, headline, subtitulo, problema, dores, beneficios, diferenciais, para_quem, nao_e_para, incluido, sumario, faq, formatos, preco, garantia_dias, publicado_em, criadoEm, atualizadoEm)
-           VALUES (?, ?, 'publicado', 'Crie Sistemas com IA e Ganhe Dinheiro', 'Crie seu primeiro sistema com IA', 'Do zero ao sistema no ar.', 'Você consegue imaginar a solução, mas não sabe programar.', ?, ?, ?, ?, ?, ?, ?, ?, ?, 6499, 7, ?, ?, ?)`,
-        )
-        .run(id, SLUG1, j(["Dor um", "Dor dois"]), j(["Benefício um", "Benefício dois", "Benefício três"]), j(["Diferença um"]), j(["Para quem um"]), j(["Não é para um"]), j(["Livro em PDF"]), j(["Capítulo um", "Capítulo dois"]), j([{ p: "Preciso saber programar?", r: "Não para começar." }]), j(["PDF", "EPUB"]), agora, agora, agora);
-      banco.prepare("INSERT INTO oferta (id, ebook_id, plataforma, url, principal, ativa, ordem) VALUES (?, ?, 'hotmart', 'https://pay.example.com/sistemas', 1, 1, 0)").run(crypto.randomUUID(), id);
-    }
-    banco.close();
-  });
+  test.beforeAll(() => semearSistemas());
 
   test("usa a página própria, com o primeiro pedido à IA e as cinco etapas", async ({ page }) => {
     const erros: string[] = [];

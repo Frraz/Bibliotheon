@@ -267,13 +267,14 @@ Todo e-book usa a **landing padrão**. Quando o titular desenha uma página pró
 | Registro | `src/landings/registro.ts` | `Map` slug → componente com o **corpo** da página (só as seções). `Map` e não objeto: "constructor" nunca casa com uma propriedade herdada |
 | Escolha | `src/landings/pagina.tsx` (`PaginaDeVendas`) | Usada pela página pública **e pela prévia do painel**: a personalizada se existir; senão a padrão |
 | Molde | `src/components/site/molde-pagina.tsx` | Aplicado por fora a toda página: preço vigente e contagem da campanha, dados estruturados (`Book`, `Product`, `FAQPage`, `BreadcrumbList`) e contagem de visita. Nenhuma página personalizada pode esquecê-los |
+| Moldura | `src/components/site/moldura.tsx` | `CabecalhoSite` e `RodapeSite`. A landing personalizada põe a versão `discreto` como primeiro e último filho da sua raiz colorida (herdam a cor da faixa, servem a qualquer paleta); o cabeçalho/rodapé do layout somem enquanto ela está na tela (regra em `globals.css`). Sem isso, a landing mostraria duas molduras |
 | Peças de compra | `src/components/site/compra.tsx` | `BotaoDeCompra`, `CompraNoMeio`, `BlocoDeCompra` (`#comprar`) e `BarraDeCompra`, com a regra de uma ou várias lojas |
 
 **Receita para uma página nova** (`<slug>` = o endereço do e-book):
 
 1. No painel, use **Exportar dados** e **Baixar PDF** e guarde em `livros/<slug>/` (fora do Git: o repositório é público).
 2. Crie `src/landings/<slug>/pagina.tsx` exportando um componente `({ e, relacionados, previa }: PropsLanding)` que devolve **só as seções**. Use `PrecoAtual`, `AvisoPrazo`, `FaixaUrgencia` (de `site/oferta`) e as peças de compra; ponha o `id="topo"` no cabeçalho (a barra fixa o usa) e termine com `<BlocoDeCompra e={e} previa={previa} />` e `<BarraDeCompra ... />`.
-3. Cadastre no `registro.ts`: `["<slug>", PaginaX]`.
+3. Ponha `<CabecalhoSite discreto />` como primeiro filho e `<RodapeSite discreto />` como último da raiz da página (`site/moldura`). Se a página for toda escura, marque a raiz com `data-superficie="escura"` (fundo atrás da barra de rolagem). Cadastre no `registro.ts`: `["<slug>", PaginaX]`.
 4. Confira cada frase contra o livro (regra 5 do `CLAUDE.md`), veja a prévia no painel, rode a auditoria impeccable e o Lighthouse.
 5. Commit, seu `git push`, `./atualizar.sh`. O painel passa a mostrar "Página de vendas: personalizada".
 
