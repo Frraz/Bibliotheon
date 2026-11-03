@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { EbookPublico } from "./catalogo";
 import { jsonLdDoEbook, serializarJsonLd } from "./jsonld";
+import { SITE_NOME } from "./site";
 
 const base = {
   slug: "meu-livro", titulo: "Meu Livro", subtitulo: null, resumo: "Um resumo.", autorExibido: "Ana", capa: "/m/ebook/x/a.jpg",
@@ -27,6 +28,12 @@ describe("jsonLdDoEbook", () => {
     expect(tipos(e)).not.toContain("FAQPage");
     const migalhas = (jsonLdDoEbook(e)["@graph"] as { itemListElement?: unknown[] }[]).at(-1)!.itemListElement!;
     expect(migalhas).toHaveLength(2);
+  });
+
+  it("autor é pessoa, ou organização quando é a própria marca", () => {
+    const autor = (e: EbookPublico) => (jsonLdDoEbook(e)["@graph"][0] as { author?: { "@type": string } }).author?.["@type"];
+    expect(autor(base)).toBe("Person");
+    expect(autor({ ...base, autorExibido: SITE_NOME } as EbookPublico)).toBe("Organization");
   });
 
   it("serializa sem permitir fechar a tag <script>", () => {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useState, type FormEvent } from "react";
 import { despublicarEbook, salvarEbook, type Retorno } from "@/app/painel/(menu)/ebooks/acoes";
-import { CampoContado } from "@/components/painel/contador";
+import { CampoContado, CamposDoGoogle } from "@/components/painel/contador";
 import { FaqEditavel } from "@/components/painel/faq-editavel";
 import { ListaEditavel } from "@/components/painel/lista-editavel";
 import { PrecoELojas, type LojaInicial, type PrecoInicial } from "@/components/painel/preco-e-lojas";
@@ -224,7 +224,7 @@ export function EditorEbook(p: EditorProps) {
         <Secao id="seo" n={5} nome="Google (SEO)">
           <details className="group border border-(--filete)">
             <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between px-4 text-[0.9375rem] font-medium marker:content-none [&::-webkit-details-marker]:hidden">
-              Como a página aparece no Google <span className="text-sm font-normal text-(--tinta-2) group-open:hidden">Preenchido automaticamente</span>
+              Como a página aparece no Google <span className="text-sm font-normal text-(--tinta-2) group-open:hidden">Opcional, ajuda a ser encontrado</span>
             </summary>
             <div className="space-y-5 border-t border-(--filete) p-4">
               <div className="bg-white p-4 text-left">
@@ -232,9 +232,8 @@ export function EditorEbook(p: EditorProps) {
                 <p className="text-xl leading-snug text-[#1a0dab]">{p.google.titulo}</p>
                 <p className="mt-1 text-sm text-[#4d5156]">{p.google.descricao || "Escreva o resumo para aparecer aqui."}</p>
               </div>
-              <p className="text-sm text-(--tinta-2) text-pretty">A prévia mostra o que está salvo. Deixe os campos abaixo em branco para usar o título e o resumo da página.</p>
-              <Campo id="seoTitle" rotulo="Título para o Google"><Input id="seoTitle" name="seoTitle" defaultValue={p.inicial.seoTitle} maxLength={120} /></Campo>
-              <Campo id="seoDescription" rotulo="Descrição para o Google"><Textarea id="seoDescription" name="seoDescription" defaultValue={p.inicial.seoDescription} className="min-h-20" maxLength={300} /></Campo>
+              <p className="text-sm text-(--tinta-2) text-pretty">A prévia mostra o que está salvo. Use as palavras que o leitor digitaria na busca, sem prometer mais que o livro. Em branco, valem o nome do livro e o resumo da página.</p>
+              <CamposDoGoogle titulo={p.inicial.seoTitle} descricao={p.inicial.seoDescription} />
             </div>
           </details>
         </Secao>

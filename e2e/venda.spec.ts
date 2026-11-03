@@ -310,6 +310,16 @@ test.describe("site", () => {
     expect(bot.status()).toBe(204);
   });
 
+  test("visita vinda do Google conta como google e leva a origem ao checkout", async ({ page }) => {
+    const corpos: (string | null)[] = [];
+    page.on("request", (r) => { if (r.url().endsWith("/api/v1/v")) corpos.push(r.postData()); });
+    await page.goto("/livro-de-teste", { referer: "https://www.google.com/" });
+    const link = page.getByRole("link", { name: /Comprar na Kiwify/ }).first();
+    await expect(link).toHaveAttribute("href", /^\/ir\/[0-9a-f-]{36}\?utm_source=google&utm_medium=organico$/);
+    await expect.poll(() => corpos.length).toBe(1);
+    expect(JSON.parse(corpos[0]!)).toMatchObject({ s: "livro-de-teste", o: "google" });
+  });
+
   test("healthcheck responde com o banco", async ({ request }) => {
     const r = await request.get("/api/saude");
     expect(r.status()).toBe(200);

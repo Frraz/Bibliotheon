@@ -115,6 +115,13 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 
 | 2026-11-03 | **Painel:** item ativo do menu lateral sem a barra terracota (chip claro + ícone terracota); na lista de e-books só "Editar" fica à vista e o resto vai para o menu "⋯" | Pedido do titular. A barra colorida lateral é clichê de template; a lista quebrava as ações de forma desigual com 3 a 4 botões. Usa o Menu do Base UI, que já é dependência | Sim |
 
+| 2026-11-03 | **Estratégia orgânica:** parceiros, Marketplace da Hotmart, vídeo e carrossel sem rosto e, por último, Google. Cada livro no canal que combina com ele | Domínio novo e sem artigos: o Google deve trazer pouco no prazo da meta (hipótese) | Sim |
+| 2026-11-03 | **Sem artigos no site** (sai do backlog); **sem Amazon e Google Play por enquanto**, o que substitui "lojas a partir de dezembro"; vídeos **sem rosto**, com narração só se indispensável | Decisões do titular. Custo sabido: o Google só tem 2 landings e 2 temas para mostrar | Sim |
+| 2026-11-03 | **GA4 fica desligado** também na divulgação orgânica (substitui "ligar ao começar a divulgar") | Contadores próprios e Search Console bastam neste volume; GA4 traria o banner de cookies | Sim |
+| 2026-11-03 | Visita de Google/Bing sem UTM conta como `google`/`bing`, e o clique leva `utm_source` e `utm_medium=organico` ao checkout | Antes contava como `direto`, e o relatório não mostraria o resultado do SEO | Sim |
+| 2026-11-03 | Descrição para o Google **sem preço**; o editor avisa, sem bloquear, sobre campo vazio, texto longo, descrição igual ao título e preço. Regras em `src/lib/seo.ts`, não em `editor.ts` | O preço fica desatualizado quando a campanha acaba; `editor.ts` traz o esquema do banco, que não deve ir ao navegador | Sim |
+| 2026-11-03 | JSON-LD: autor vira `Organization` quando o nome é a própria marca | "Bibliotheon" não é pessoa | Sim |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |

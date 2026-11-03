@@ -35,8 +35,8 @@ Sem `--demo`, o 001 entra como **"Em breve"** (é o que vai ao ar, enquanto não
 
 | Comando | O que faz |
 |---|---|
-| `npm test` | 89 testes unitários (preço, campanha, UTM, manifesto, mídia, imagens, leads, JSON-LD, editor, exportação, permissões, senha, e-mail) |
-| `npm run test:e2e` | 70 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha e duas etapas |
+| `npm test` | 94 testes unitários (preço, campanha, UTM, manifesto, mídia, imagens, leads, JSON-LD, editor, exportação, permissões, senha, e-mail) |
+| `npm run test:e2e` | 78 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha e duas etapas |
 | `npm run lint` · `npm run build` | Conferências antes de qualquer deploy |
 | `npm run db:generate` | Gera migração após mudar `src/db/schema.ts` |
 | `deploy/venda.sh` | Em produção: preço, campanha, textos, amostra, relatório e leads, sem perder métricas |

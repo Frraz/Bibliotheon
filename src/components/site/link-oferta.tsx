@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { buscaComOrigem } from "@/lib/ofertas";
 import { evento } from "./rastreio";
 
 const semMudanca = () => () => {};
@@ -25,7 +26,7 @@ export function LinkOferta({
   previa?: boolean;
   children: React.ReactNode;
 }) {
-  const busca = useSyncExternalStore(semMudanca, () => location.search, () => "");
+  const busca = useSyncExternalStore(semMudanca, () => buscaComOrigem(location.search, document.referrer), () => "");
   if (previa) {
     return (
       <a href="#comprar" className={className} title="Na prévia o botão não leva ao checkout">

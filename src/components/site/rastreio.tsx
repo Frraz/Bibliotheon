@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useSyncExternalStore } from "react";
+import { buscaComOrigem } from "@/lib/ofertas";
 
 // Medição com consentimento (LGPD). Sem ID de pixel/GA configurado, nada é carregado e o banner nem aparece.
 // Os contadores próprios (/api/v1/v e /ir) não usam cookie nem dado pessoal e funcionam sempre.
@@ -132,7 +133,7 @@ export function Visita({ slug, titulo, valor }: { slug: string; titulo: string; 
       const chave = `visita:${slug}`;
       if (!sessionStorage.getItem(chave)) {
         sessionStorage.setItem(chave, "1");
-        const origem = new URLSearchParams(location.search).get("utm_source") ?? "";
+        const origem = new URLSearchParams(buscaComOrigem(location.search, document.referrer)).get("utm_source") ?? "";
         navigator.sendBeacon?.("/api/v1/v", JSON.stringify({ s: slug, o: origem }));
       }
     } catch {

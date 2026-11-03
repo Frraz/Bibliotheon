@@ -443,3 +443,25 @@ test("alterações não salvas avisam ao sair; ao salvar, o aviso some", async (
   await expect(page.getByText("Há alterações não salvas.")).toHaveCount(0);
   await ctx.close();
 });
+
+test("campos do Google: contam, avisam sem bloquear e ficam salvos", async ({ browser }) => {
+  const { ctx, page } = await comoOwner(browser);
+  await abrir(page, `/painel/ebooks/${id}`);
+  await page.getByText("Como a página aparece no Google").click();
+  const titulo = page.getByRole("textbox", { name: "Título para o Google", exact: true });
+  const descricao = page.getByRole("textbox", { name: "Descrição para o Google", exact: true });
+  await titulo.fill("Horta em apartamento | E-book");
+  await descricao.fill("Horta em apartamento | E-book");
+  await expect(page.getByText("A descrição repete o título")).toBeVisible();
+  await expect(page.getByText("29 de 60 caracteres")).toBeVisible();
+  for (const largura of [360, 390, 430]) {
+    await page.setViewportSize({ width: largura, height: 800 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+  // o aviso não impede de salvar um e-book publicado
+  await page.getByRole("button", { name: "Salvar alterações" }).click();
+  await expect(page.getByText("Alterações salvas.")).toBeVisible();
+  await abrir(page, `/painel/ebooks/${id}`);
+  await expect(page.locator("#seoTitle")).toHaveValue("Horta em apartamento | E-book");
+  await ctx.close();
+});

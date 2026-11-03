@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { buscaComOrigem } from "@/lib/ofertas";
 
 /** Troca o e-mail pela amostra em PDF. O link aparece na própria tela, sem depender de envio de e-mail. */
 export function PedirAmostra({ slug }: { slug: string }) {
@@ -21,7 +22,7 @@ export function PedirAmostra({ slug }: { slug: string }) {
           email: dados.get("email"),
           aceite: dados.get("aceite") === "on",
           site: dados.get("site"), // campo isca: pessoas não veem, robôs preenchem
-          origem: new URLSearchParams(location.search).get("utm_source"),
+          origem: new URLSearchParams(buscaComOrigem(location.search, document.referrer)).get("utm_source"),
         }),
       });
       if (!r.ok) throw new Error();

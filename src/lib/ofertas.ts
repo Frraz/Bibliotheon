@@ -88,3 +88,29 @@ export function origemDaVisita(utmSource: string | null | undefined): string {
   if (!v) return "direto";
   return ORIGENS.test(v) ? v : "outro";
 }
+
+/** Buscador de onde a pessoa veio, pelo `document.referrer`. Só o buscador em si: mail.google.com e afins não são busca. */
+export function origemDoReferrer(referrer: string | null | undefined): "google" | "bing" | null {
+  let host: string;
+  try {
+    host = new URL(referrer ?? "").hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+  if (/^(www\.)?google(\.[a-z]{2,3}){1,2}$/.test(host)) return "google";
+  if (/^(www\.)?bing\.com$/.test(host)) return "bing";
+  return null;
+}
+
+/**
+ * Query da visita com a origem completa. Busca orgânica chega sem UTM: sem isto, a visita e o clique contariam como
+ * "direto" e o relatório não mostraria o que veio do Google. Qualquer parâmetro de origem já presente vence (ex.: `gclid` é anúncio).
+ */
+export function buscaComOrigem(busca: string, referrer: string | null | undefined): string {
+  const recebidos = new URLSearchParams(busca);
+  const buscador = PARAMETROS_REPASSADOS.some((k) => recebidos.has(k)) ? null : origemDoReferrer(referrer);
+  if (!buscador) return busca;
+  recebidos.set("utm_source", buscador);
+  recebidos.set("utm_medium", "organico");
+  return `?${recebidos}`;
+}

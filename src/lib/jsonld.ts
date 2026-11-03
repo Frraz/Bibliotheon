@@ -13,7 +13,7 @@ export function jsonLdDoEbook(e: EbookPublico) {
       "@id": `${url}#livro`,
       name: e.titulo,
       ...(e.subtitulo ? { alternativeHeadline: e.subtitulo } : {}),
-      ...(e.autorExibido ? { author: { "@type": "Person", name: e.autorExibido } } : {}),
+      ...(e.autorExibido ? { author: e.autorExibido === SITE_NOME ? { "@type": "Organization", name: SITE_NOME, url: SITE_URL } : { "@type": "Person", name: e.autorExibido } } : {}),
       inLanguage: "pt-BR",
       bookFormat: "https://schema.org/EBook",
       ...(imagem ? { image: imagem } : {}),

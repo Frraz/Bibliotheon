@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ofertasSemLinkPromo, origemDaVisita, parametrosDeOrigem, urlDestino, urlVigente } from "./ofertas";
+import { buscaComOrigem, ofertasSemLinkPromo, origemDaVisita, origemDoReferrer, parametrosDeOrigem, urlDestino, urlVigente } from "./ofertas";
 
 const q = (s: string) => new URLSearchParams(s);
 
@@ -64,6 +64,23 @@ describe("origemDaVisita", () => {
     expect(origemDaVisita("qualquer-coisa-inventada")).toBe("outro");
     expect(origemDaVisita("<script>")).toBe("outro");
     expect(origemDaVisita("a".repeat(80))).toBe("outro");
+  });
+});
+
+describe("origem da busca orgânica", () => {
+  it("reconhece só os buscadores", () => {
+    expect(origemDoReferrer("https://www.google.com/")).toBe("google");
+    expect(origemDoReferrer("https://www.google.com.br/search?q=x")).toBe("google");
+    expect(origemDoReferrer("https://www.bing.com/search?q=x")).toBe("bing");
+    for (const r of ["https://mail.google.com/", "https://google.evil.example/", "https://bibliotheon.com.br/", "isto não é url", "", null]) expect(origemDoReferrer(r)).toBeNull();
+  });
+
+  it("completa a origem sem passar por cima da que já veio", () => {
+    expect(buscaComOrigem("", "https://www.google.com/")).toBe("?utm_source=google&utm_medium=organico");
+    expect(buscaComOrigem("?ref=x", "https://www.bing.com/")).toBe("?ref=x&utm_source=bing&utm_medium=organico");
+    expect(buscaComOrigem("?utm_source=instagram", "https://www.google.com/")).toBe("?utm_source=instagram");
+    expect(buscaComOrigem("?gclid=ABC", "https://www.google.com/")).toBe("?gclid=ABC"); // anúncio, não busca orgânica
+    expect(buscaComOrigem("", "")).toBe("");
   });
 });
 

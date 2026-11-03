@@ -11,14 +11,18 @@ Meta do titular: **R$ 1.500 de faturamento bruto por mês**, ou o projeto acaba.
 
 Na hipótese de 1–2% de visitas virando venda (não há dado brasileiro confiável), são **1.200–2.400 visitas por mês**. Nenhuma mudança na página resolve falta de visitas: **o gargalo é tráfego e conversão juntos.** Nada aqui garante o resultado.
 
-**Canais, nesta ordem (sem anúncios):**
+**Canais, nesta ordem (sem anúncios; decisão de 03/11/2026):**
 
-1. **Parcerias diretas:** ~30 criadores e comunidades de IA/no-code, com afiliação de 40–50% e convite individual. Único canal que só custa quando vende. Afiliado conta inteiro no faturamento, mas sobram cerca de R$ 30 por venda.
-2. **Vídeo curto real:** tela gravada construindo o sistema do livro, um erro ou lição por vídeo. Sem prova medida de conversão.
-3. **Amostra por e-mail:** quem não compra na hora deixa o e-mail e recebe o aviso da próxima campanha.
-4. **Lojas (a partir de dezembro):** KDP a 35% sem Select e Google Play. Pouco esforço, volume desconhecido.
+1. **Parceiros e afiliados:** ~30 criadores e comunidades por tema, com afiliação de 40–50% e convite individual. Único canal que só custa quando vende. Afiliado conta inteiro no faturamento, mas sobram cerca de R$ 30 por venda.
+2. **Marketplace da Hotmart:** nas buscas de teste de 03/11/2026, páginas dele apareceram para os temas dos livros. Revisar título, descrição, categoria e imagem. A Hotmart não publica como ordena a busca; a [temperatura](https://help.hotmart.com/pt-br/article/209209447/o-que-e-a-temperatura-de-um-produto-) considera vendas e reembolso, entre outros fatores.
+3. **Vídeo e carrossel sem rosto:** texto na tela e legenda, sem narração. 001: tela gravada real. 002: citações confirmadas e exercício curto. Três peças por semana no total (suposição, sem prova medida de conversão).
+4. **Google:** só as landings e os temas. **Sem artigos** e domínio novo: trazer pouco até fevereiro de 2027 é a hipótese. Acompanhar no Search Console.
 
-Meta Ads, Pixel e GA4 ficam desligados até haver verba. Como referência, só com anúncios o lucro de R$ 1.500 exigiria cerca de R$ 2.080/mês de verba com retorno de 2×. Blog/SEO fica no backlog (só 1,74% das URLs chegam ao top 10 em um ano, [Ahrefs](https://ahrefs.com/blog/how-long-does-it-take-to-rank/)).
+Quem não compra na hora deixa o e-mail na amostra e recebe o aviso da próxima campanha. Amazon e Google Play ficam fora por enquanto.
+
+Meta Ads, Pixel e GA4 ficam desligados até haver verba. Como referência, só com anúncios o lucro de R$ 1.500 exigiria cerca de R$ 2.080/mês de verba com retorno de 2×. Ao anunciar, a peça orgânica com mais cliques e vendas vira o primeiro anúncio; o Google [não aceita e-book em anúncios de Shopping](https://support.google.com/merchants/answer/10524536?hl=en), então os caminhos são Meta e rede de pesquisa.
+
+**Revisão em 01/12/2026 (critério do projeto):** canal com menos de 50 visitas em 3 semanas de postagem troca de formato; com visitas e clique abaixo de 5%, o problema é a página ou a promessa. Se o Search Console mostrar demanda sem página para atender, reabrir a discussão sobre artigos, com dados.
 
 **Marcos (critério do projeto, não previsão):**
 
@@ -35,7 +39,7 @@ Meta Ads, Pixel e GA4 ficam desligados até haver verba. Como referência, só c
 **Por e-book:**
 
 - **Slug e `<title>` com a busca do público**, não com o nome criativo do livro. Ex.: `/criar-sistemas-com-ia` e título "Como criar sistemas com IA sem saber programar — e-book". O nome do livro fica no H1/hero.
-- `seoDescription` com ~150 caracteres: benefício + formato + preço ("E-book prático: ... PDF e EPUB por R$ 29,90.").
+- `seoTitle` com até 60 caracteres e `seoDescription` com até 155: benefício + formato + amostra, **sem preço** (fica desatualizado quando a campanha acaba). O editor conta os caracteres e avisa, sem bloquear.
 - **JSON-LD** em toda landing:
   - `Book` (nome, autor, idioma, formato, imagem);
   - `Product` + `Offer` (preço vigente, `BRL`, `availability`, `priceValidUntil` = `ofertaAte`);
@@ -54,7 +58,7 @@ Meta Ads, Pixel e GA4 ficam desligados até haver verba. Como referência, só c
 - `robots.txt`; canonical em tudo; prévias e painel com `noindex`.
 - Cadastrar o domínio no **Google Search Console** e enviar o sitemap no dia do deploy.
 
-**Próximo passo de SEO (backlog):** artigos por tema (ex.: "5 erros ao usar IA para programar"), cada um apontando para o e-book. Alavanca de longo prazo; entra depois das primeiras vendas.
+**Medição:** visita de Google ou Bing sem UTM conta como `google`/`bing`, e o clique leva `utm_source=<buscador>&utm_medium=organico` ao checkout. Parâmetro de origem já presente vence.
 
 ## 2. Compartilhamento e canais orgânicos
 
@@ -110,7 +114,7 @@ O `/ir` repassa `utm_*`, `src`, `sck`, `fbclid` e `gclid` para a URL do checkout
   - `InitiateCheckout` no clique em qualquer oferta.
 - **GA4:** `page_view`, `view_item` e `begin_checkout` com os mesmos dados.
 
-**Quando ligar (decisão de 02/11/2026: lançar sem nenhum).** GA4: ao começar a divulgar de forma orgânica (é gratuito e mostra visitas e origens além dos contadores próprios). Meta Pixel: só ao anunciar na Meta, para o anúncio aprender quem compra e permitir remarketing. Ao ligar um deles o banner de cookies passa a aparecer.
+**Quando ligar (decisões de 02 e 03/11/2026: sem nenhum por enquanto).** GA4: só quando os contadores próprios e o Search Console não responderem a uma decisão real, porque traz o banner de cookies. Meta Pixel: só ao anunciar na Meta, para o anúncio aprender quem compra e permitir remarketing. Ao ligar um deles o banner de cookies passa a aparecer.
 
 **Configuração:** `NEXT_PUBLIC_META_PIXEL_ID` e `NEXT_PUBLIC_GA4_ID` são fixados **no build** (mudar exige novo build; o `./atualizar.sh --forcar` reconstrói). Sem eles, nada de terceiros carrega e o banner de cookies nem aparece.
 

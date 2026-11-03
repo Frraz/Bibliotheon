@@ -69,7 +69,8 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 7. ⬜ Enviar convites e gravar vídeos (titular; ~5 h/semana assumidas).
 8. ⬜ **Promoção de lançamento, R$ 24,99 até 05/11 às 23h59** (decisão do titular, 03/11/2026; já no ar): às 23h59 de 05/11 a oferta de R$ 24,99 precisa **acabar também na Hotmart**, senão a página volta a R$ 64,99 e o checkout continua cobrando R$ 24,99. Conferir em 06/11 (página, `/ir` e checkout) e, se quiser, trocar o nome "Black Friday" da faixa por "Oferta de lançamento" (`offerName`), para não gastar o nome da Black Friday de verdade.
 9. ⬜ **Black Friday, 27 a 30/11** (preço normal de R$ 64,99 de 06/11 a 26/11, com captura datada; atenção: são só 21 dias, e a regra do projeto pede 30 a preço cheio entre promoções — decidir se aceita): em 26/11 criar o link de R$ 47 e testar a compra; em 27/11 aplicar `seeds/001-sistemas-com-ia/black-friday.json` e avisar os leads; em 01/12 conferir a volta e aplicar `fim-da-campanha.json`.
-10. ⬜ Janeiro, se houver vendas: order bump com produto real acima de R$ 10 e prova real na landing. Novo título só depois do primeiro sinal de demanda.
+10. 🟡 **Estratégia orgânica (03/11/2026, [04](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia)):** origem do Google no relatório, JSON-LD do autor e avisos de SEO no editor prontos localmente. Falta deploy. O titular faz: Search Console, título e descrição dos 2 livros no painel, Marketplace da Hotmart, teste do link de afiliado, perfis, convites e postagens. Material pronto em `../ebooks`, nada publicado nem enviado: roteiros sem narração e textos do Marketplace dos 2 livros, kit de parceiros do 002 e `operacao/quadro-divulgacao-2026-11.md`.
+11. ⬜ Janeiro, se houver vendas: order bump com produto real acima de R$ 10 e prova real na landing. Novo título só depois do primeiro sinal de demanda.
 
 **Portão:** os marcos da [estratégia](04-vendas-e-medicao.md#0-a-conta-e-a-estratégia). Em 28/02/2027 o titular decide com dados.
 
@@ -142,18 +143,19 @@ Ordem atual (reavaliar a cada 2 semanas com os dados da [rotina semanal](04-vend
 1. **Depoimentos reais e nº de compradores** com autorização: a escassez de demanda é a que funciona em produto utilitário. Assim que existirem.
 2. **Order bump** com produto real (ex.: kit de proposta e contrato), depois das primeiras vendas.
 3. **Webhooks de venda** (Kiwify/Hotmart/Cakto): vendas e receita por e-book e origem.
-4. **Artigos por tema (blog SEO)**: tráfego orgânico cumulativo, mas lento.
-5. **Teste de promessa**: "Coloque no ar um sistema real com IA, sem depender de plataforma" contra a headline atual. Com pouco tráfego, em sequência, não em A/B.
-6. ✅ ~~Recuperação de senha por e-mail~~ (feita em 03/11/2026, SMTP opcional; falta o deploy).
-7. **Pacotes/combos** (vários e-books de um tema com desconto, se as plataformas suportarem).
-8. **Busca** no catálogo (quando houver mais de ~20 e-books).
-9. **Multi-idioma** (quando houver um título traduzido).
-10. **Backup fora do VPS** (opcional, decisão de 03/11/2026): só se o titular pedir; destino ainda não definido ([06](06-deploy.md#backup)).
+4. **Teste de promessa**: "Coloque no ar um sistema real com IA, sem depender de plataforma" contra a headline atual. Com pouco tráfego, em sequência, não em A/B.
+5. ✅ ~~Recuperação de senha por e-mail~~ (feita em 03/11/2026, SMTP opcional; falta o deploy).
+6. **Pacotes/combos** (vários e-books de um tema com desconto, se as plataformas suportarem).
+7. **Busca** no catálogo (quando houver mais de ~20 e-books).
+8. **Multi-idioma** (quando houver um título traduzido).
+9. **Backup fora do VPS** (opcional, decisão de 03/11/2026): só se o titular pedir; destino ainda não definido ([06](06-deploy.md#backup)).
 
 ### Ideias recebidas
 
 | Data | Ideia | Motivo / origem | Decisão |
 |---|---|---|---|
+| 03/11/2026 | Artigos por tema no site | Estava no backlog; proposto de novo na estratégia orgânica | **Retirado pelo titular.** Só volta a ser discutido se o Search Console mostrar demanda sem página para atender |
+| 03/11/2026 | Vender na Amazon (KDP) e no Google Play Livros | Canal onde já há gente procurando livro | **Não por enquanto**, decisão do titular |
 | 03/11/2026 | Importar o guia ou o manifesto no "Novo e-book", em vez de copiar e colar campo a campo | Surgiu ao criar os guias | Backlog; o titular pediu copiar e colar |
 | 02/11/2026 | Imagem de compartilhamento (Open Graph) da Home, no mesmo estilo da dos e-books | Achado no SEO da Fase 3: a Home tem título e descrição, mas não imagem própria | Backlog, baixa prioridade (o tráfego chega pela landing do e-book) |
 | 02/11/2026 | Página/botão "Seja afiliado" com o link de recrutamento da Hotmart (`affiliate.hotmart.com/affiliate-recruiting/view/1092C108114173`) | Titular, ao passar os links | O link já entra nos convites do kit de parceiros. Página própria só depois da primeira venda |
