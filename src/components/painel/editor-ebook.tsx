@@ -22,6 +22,8 @@ export type EditorProps = {
   slugTravado: boolean;
   status: "rascunho" | "revisao" | "publicado";
   dono: string | null;
+  /** Há uma landing personalizada no código para este endereço (só leitura aqui). */
+  paginaPersonalizada: boolean;
   inicial: {
     titulo: string; temaId: string; capaAlt: string; autorExibido: string; formatos: string; headline: string; subtitulo: string; resumo: string; problema: string;
     descricao: string; dores: string[]; beneficios: string[]; diferenciais: string[]; paraQuem: string[]; naoEPara: string[]; incluido: string[]; observacoes: string;
@@ -275,6 +277,10 @@ export function EditorEbook(p: EditorProps) {
               </>
             )}
             <p className="mt-3 text-xs text-(--tinta-2)">O checklist mostra o que está salvo.</p>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-(--tinta-2)">Página de vendas: <span className="text-(--tinta)">{p.paginaPersonalizada ? "personalizada" : "padrão"}</span></p>
+            <p className="mt-0.5 text-sm text-(--tinta-2) text-pretty">{p.paginaPersonalizada ? "Textos, preço e lojas daqui continuam valendo nela." : "Quando este e-book ganhar uma página personalizada, ela assume este endereço sozinha."}</p>
           </div>
           <div className="-mx-2 grid">
             <Button variant="ghost" className="justify-start px-2" render={<Link href={`/painel/ebooks/${p.id}/previa`} target="_blank" />}><ExternalLink /> Ver prévia</Button>

@@ -78,7 +78,7 @@ Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuár
 
 1. ✅ **Fase 1: login e usuários.** Better Auth, `/entrar`, `/admin` → `/painel`, Usuários (criar, senha temporária, ativar/desativar com "tirar do ar também"), Conta (nome e senha), `scripts/criar-owner.mjs`. 9 testes E2E + 9 unitários novos; imagem Docker testada (criar administrador, login, site de pé sem o segredo).
 2. ✅ **Fase 2: cadastro e publicação.** Lista com visitas e cliques de 7 dias, "Novo e-book", editor numa página, capa, amostras e **PDF privado**, lojas e campanha, checklist, prévia por rota, endereço travado, Temas. Pronta localmente: 41 testes E2E (12 novos do editor), 68 unitários; imagem Docker testada (`sharp`, PDF privado fora de `/m`). Falta só: `git push` e deploy, a pedido do titular.
-3. ⬜ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`, `lastModified` no sitemap).
+3. ✅ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts` + `MoldeDaPagina`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`/`WebSite`, `lastmod` no sitemap). Pronta localmente: 44 testes E2E (3 novos), 76 unitários; impeccable só aponta o creme (aceito); Lighthouse A/B com o 001 real: mediana 90 (antes 92), A11y/Boas práticas/SEO 100.
 4. ⬜ **Fase 4: pacote para outras lojas** (ZIP com textos, capa, amostras e PDF) e pasta local `livros/<slug>/` fora do Git.
 
 Em produção só depois do pedido do titular: `git push` → `BETTER_AUTH_SECRET` no `.env` → `./atualizar.sh --forcar` → `docker exec -it bibliotheon_web node scripts/criar-owner.mjs <e-mail>` ([06](06-deploy.md#painel-e-primeiro-acesso)).
@@ -131,4 +131,5 @@ Ordem atual (reavaliar a cada 2 semanas com os dados da [rotina semanal](04-vend
 
 | Data | Ideia | Motivo / origem | Decisão |
 |---|---|---|---|
+| 02/11/2026 | Imagem de compartilhamento (Open Graph) da Home, no mesmo estilo da dos e-books | Achado no SEO da Fase 3: a Home tem título e descrição, mas não imagem própria | Backlog, baixa prioridade (o tráfego chega pela landing do e-book) |
 | 02/11/2026 | Página/botão "Seja afiliado" com o link de recrutamento da Hotmart (`affiliate.hotmart.com/affiliate-recruiting/view/1092C108114173`) | Titular, ao passar os links | O link já entra nos convites do kit de parceiros. Página própria só depois da primeira venda |

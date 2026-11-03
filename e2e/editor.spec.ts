@@ -251,12 +251,17 @@ test("várias lojas: todas aparecem na página; link que não é https é recusa
   await expect.poll(async () => (await request.get(`/${SLUG}`).then((r) => r.text())).includes("Comprar na Kiwify")).toBe(true);
   const html = await request.get(`/${SLUG}`).then((r) => r.text());
   expect(html).toContain("Comprar na Hotmart");
+  // com duas lojas o botão do topo leva ao bloco de compra; com uma, vai direto ao checkout
+  expect(html).toContain('href="#comprar"');
+  expect(html).toContain("Escolher onde comprar");
 
   await page.getByRole("button", { name: "Remover loja 2" }).click();
   await page.getByRole("button", { name: "Salvar alterações" }).click();
   await expect(page.getByText("Alterações salvas.")).toBeVisible();
   await expect.poll(async () => (await request.get(`/${SLUG}`).then((r) => r.text())).includes("Comprar na Kiwify")).toBe(false);
-  expect((await request.get(`/${SLUG}`).then((r) => r.text()))).toContain("Comprar na Hotmart");
+  const depois = await request.get(`/${SLUG}`).then((r) => r.text());
+  expect(depois).toContain("Comprar na Hotmart");
+  expect(depois).not.toContain("Escolher onde comprar");
   await ctx.close();
 });
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Landing } from "@/components/site/landing";
+import { PaginaDeVendas } from "@/landings/pagina";
 import { getEbook, listarDoTema, slugsDosEbooks } from "@/lib/catalogo";
 import { SITE_NOME, SITE_URL } from "@/lib/site";
 
@@ -32,5 +32,5 @@ export default async function PaginaEbook({ params }: PageProps<"/[slug]">) {
   const e = await getEbook(slug);
   if (!e) notFound();
   const relacionados = e.tema ? (await listarDoTema(e.tema.slug, e.slug)).slice(0, 4) : [];
-  return <Landing e={e} relacionados={relacionados} />;
+  return <PaginaDeVendas e={e} relacionados={relacionados} />;
 }

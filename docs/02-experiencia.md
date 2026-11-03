@@ -34,15 +34,16 @@ Slugs reservados (não podem ser slug de e-book): `tema`, `ir`, `painel`, `api`,
 | 8 | **Sumário** | Lista de capítulos | `sumario[]` |
 | 9 | **O que está incluído + garantia** | O que o comprador recebe (só itens reais) e como pedir reembolso | `incluido[]`, `garantiaDias` |
 | 10 | **FAQ** | Perguntas em acordeão (vira schema `FAQPage`) | `faq[]` |
-| 11 | **Bloco de compra** (`#comprar`) | Headline de novo, preço grande, consequência do prazo, **um botão principal** + "Prefere outra plataforma?". Abaixo, "Antes de comprar" (requisitos e limites honestos, o que reduz reembolso) | `ofertas[]`, `observacoes` |
+| 11 | **Bloco de compra** (`#comprar`) | Headline de novo, preço grande, consequência do prazo e **as lojas**: com uma, um botão; com várias, "Escolha onde prefere comprar" e um botão por loja, todos iguais. Abaixo, "Antes de comprar" (requisitos e limites honestos, o que reduz reembolso) | `ofertas[]`, `observacoes` |
 | 12 | **Mais do tema** | Até 4 outros e-books publicados do mesmo tema | relação por `temaId` |
 | — | **Barra fixa no mobile** | Aparece depois do hero: preço + "Comprar". Some quando o bloco de compra está visível | — |
 | — | **Compartilhar** | Botão "Enviar para um amigo" (WhatsApp com link + título) no rodapé da landing | — |
 
 **Comportamento do CTA:**
 
-- O CTA do hero e o da barra fixa levam **direto à oferta principal** via `/ir/...`. Menos um clique é mais venda.
-- Com 2 ou mais ofertas, a linha de confiança do hero ganha o link "ver outras formas de compra" → `#comprar`.
+- **Uma loja ativa:** o CTA do topo, o do meio e o da barra fixa vão **direto ao checkout** via `/ir/...`. Menos um clique é mais venda.
+- **Duas ou mais lojas ativas** (decisão de 02/11/2026): todas aparecem em `#comprar`, com o mesmo botão e na ordem da lista do painel, e o preço só aparece na loja que cobra outro valor. O CTA do topo ("Escolher onde comprar"), o do meio e o da barra fixa ("Escolher loja") levam até lá. Custo: um clique a mais; medir no relatório (`deploy/venda.sh relatorio`) quando um e-book tiver 2 lojas.
+- **Página personalizada:** um e-book pode ter uma landing própria no código (`src/landings/`, [03](03-tecnico.md#landing-personalizada)). Ela assume o endereço do e-book sozinha e continua lendo texto, preço, lojas e campanha do painel.
 
 **Sem oferta ativa:** a página mostra "Em breve", sem botão de compra. É útil para validar interesse antes do checkout existir.
 
@@ -117,7 +118,7 @@ Uma página só, com seções numeradas. A navegação por âncoras ("Nesta pág
 3. **Conteúdo:** sumário (lista), FAQ (pares pergunta/resposta), amostras (upload múltiplo de imagens, arrastar para ordenar) e PDF de amostra opcional.
 4. **Preço e onde comprar:**
    - preço; preço "de" (com aviso: "só use se for um preço que você realmente pratica"); fim da oferta (data e hora); garantia (padrão 7);
-   - ofertas, uma por linha: plataforma (select com logo), URL do checkout, preço, principal (rádio), ativa (toggle);
+   - lojas, uma por linha: plataforma, link do checkout, link da campanha (só com campanha ligada), ativa (chave). A primeira loja ativa da lista é a do botão principal;
    - "Testar link" abre a URL numa nova aba.
 5. **SEO** (recolhido): título e descrição preenchidos automaticamente (headline/resumo), com prévia de como aparece no Google; Meta Pixel próprio (opcional, para parceiros).
 

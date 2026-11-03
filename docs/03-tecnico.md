@@ -119,7 +119,7 @@ Adicionar uma plataforma = um item no enum + logo SVG em `public/plataformas/` +
    - se `ofertaAte` está no futuro, mostra `preco`, `precoDe` riscado e o countdown.
 
    A regra roda no servidor e é recalculada no cliente (o HTML pode ter até 5 min de cache). `precoDe` sem `ofertaAte` mostra riscado sem timer.
-2. **Publicar exige:** capa, título, headline, ≥3 benefícios, e (≥1 oferta ativa com uma principal) **ou** `emBreve`.
+2. **Publicar exige:** capa, descrição da capa, título, headline, resumo, ≥3 benefícios, endereço válido e tema no ar (se houver). Sem loja ativa (ou sem preço) a página sai como "Em breve".
 3. **Parceiro:** só lê/edita ebooks com `ownerId` = ele. Não publica, não cria tema, não vê métricas de outros. Ação "Enviar para revisão" → `status = revisao`.
 4. **Slug:** gerado do título, minúsculo, sem acento. Não pode colidir com rotas reservadas ([02](02-experiencia.md#mapa-do-site)). Mudar o slug de um publicado cria redirect 301 (tabela `slug_antigo`, se necessário; decidir na Etapa 3).
 5. **Visibilidade:** só `status = publicado` com tema publicado aparece em home, tema, sitemap e busca. `?previa=1` funciona apenas com sessão do dono ou do owner e manda `noindex`.
@@ -249,6 +249,27 @@ python3 ferramentas/publicar.py login            # pede o token (oculto) e salva
 - Token em `~/.config/bibliotheon/token` (permissão 600) ou na variável `BIBLIOTHEON_TOKEN`. Destino: `BIBLIOTHEON_URL` (padrão `https://bibliotheon.com.br`).
 - Códigos de saída: 0 ok, 1 erro de validação/servidor, 2 uso incorreto.
 - Em `../ebooks`, o launcher `bibliotheon` passa a executar `python3 "$CLIENT_DIR/ferramentas/publicar.py" "$@"`. Os comandos antigos `preparar`/`assistir` deixam de existir; `validar` vira alias de `publicar` com dryRun e sem enviar.
+
+## Landing personalizada
+
+Todo e-book usa a **landing padrão**. Quando o titular desenha uma página própria (mais longa, mais comercial), ela entra no ar pelo deploy e **assume o endereço do e-book sozinha**, sem campo no banco. Texto, preço, campanha e lojas continuam vindo do painel: mudar preço ou link não exige novo deploy.
+
+| Peça | Onde | Função |
+|---|---|---|
+| Registro | `src/landings/registro.ts` | `Map` slug → componente com o **corpo** da página (só as seções). `Map` e não objeto: "constructor" nunca casa com uma propriedade herdada |
+| Escolha | `src/landings/pagina.tsx` (`PaginaDeVendas`) | Usada pela página pública **e pela prévia do painel**: a personalizada se existir; senão a padrão |
+| Molde | `src/components/site/molde-pagina.tsx` | Aplicado por fora a toda página: preço vigente e contagem da campanha, dados estruturados (`Book`, `Product`, `FAQPage`, `BreadcrumbList`) e contagem de visita. Nenhuma página personalizada pode esquecê-los |
+| Peças de compra | `src/components/site/compra.tsx` | `BotaoDeCompra`, `CompraNoMeio`, `BlocoDeCompra` (`#comprar`) e `BarraDeCompra`, com a regra de uma ou várias lojas |
+
+**Receita para uma página nova** (`<slug>` = o endereço do e-book):
+
+1. Baixe o pacote do e-book (Fase 4) e guarde em `livros/<slug>/` (fora do Git).
+2. Crie `src/landings/<slug>/pagina.tsx` exportando um componente `({ e, relacionados, previa }: PropsLanding)` que devolve **só as seções**. Use `PrecoAtual`, `AvisoPrazo`, `FaixaUrgencia` (de `site/oferta`) e as peças de compra; ponha o `id="topo"` no cabeçalho (a barra fixa o usa) e termine com `<BlocoDeCompra e={e} previa={previa} />` e `<BarraDeCompra ... />`.
+3. Cadastre no `registro.ts`: `["<slug>", PaginaX]`.
+4. Confira cada frase contra o livro (regra 5 do `CLAUDE.md`), veja a prévia no painel, rode a auditoria impeccable e o Lighthouse.
+5. Commit, seu `git push`, `./atualizar.sh`. O painel passa a mostrar "Página de vendas: personalizada".
+
+Título, descrição e imagem de compartilhamento continuam vindo do banco (campos de SEO do editor) e do gerador de OG por e-book: a página personalizada não os substitui.
 
 ## Painel de e-books (Fase 2)
 

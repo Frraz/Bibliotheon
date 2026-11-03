@@ -88,6 +88,44 @@ test.describe("landing do e-book", () => {
   });
 });
 
+test.describe("várias lojas", () => {
+  test("com duas lojas, topo e barra levam ao bloco de compra e as duas aparecem com o mesmo peso", async ({ page }) => {
+    await page.goto("/livro-de-teste");
+    const topo = page.getByRole("link", { name: "Escolher onde comprar" }).first();
+    await expect(topo).toHaveAttribute("href", "#comprar");
+    await expect(page.getByText("Prefere outra plataforma?")).toHaveCount(0);
+    await expect(page.getByText("outras formas de comprar")).toHaveCount(0);
+
+    const bloco = page.locator("#comprar");
+    await expect(bloco.getByText("Escolha onde prefere comprar")).toBeVisible();
+    const kiwify = bloco.getByRole("link", { name: /Comprar na Kiwify/ });
+    const cakto = bloco.getByRole("link", { name: /Comprar na Cakto/ });
+    await expect(kiwify).toHaveAttribute("href", /^\/ir\/[0-9a-f-]{36}/);
+    await expect(cakto).toHaveAttribute("href", /^\/ir\/[0-9a-f-]{36}/);
+    expect(await kiwify.getAttribute("class")).toBe(await cakto.getAttribute("class")); // mesmo peso visual
+    const [a, b] = await Promise.all([kiwify.boundingBox(), cakto.boundingBox()]);
+    expect(a!.y).toBeLessThan(b!.y); // na ordem da lista do painel
+    expect(Math.round(a!.width)).toBe(Math.round(b!.width));
+
+    // o botão do topo rola até o bloco
+    await topo.click();
+    await expect(bloco).toBeInViewport();
+  });
+
+  test("a barra fixa do celular também leva ao bloco, e some quando ele está na tela", async ({ browser }) => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await ctx.newPage();
+    await page.goto("/livro-de-teste");
+    await page.evaluate(() => window.scrollTo(0, 1400));
+    const barra = page.getByRole("link", { name: "Escolher loja" });
+    await expect(barra).toBeVisible();
+    await expect(barra).toHaveAttribute("href", "#comprar");
+    await page.locator("#comprar").scrollIntoViewIfNeeded();
+    await expect(barra).toBeHidden();
+    await ctx.close();
+  });
+});
+
 test.describe("padrão de venda", () => {
   test("mostra necessidade e diferenciais, sem seção de autor", async ({ page }) => {
     await page.goto("/livro-de-teste");
@@ -224,10 +262,26 @@ test.describe("site", () => {
     });
   }
 
+  test("Home tem título, endereço canônico, prévia de compartilhamento e dados estruturados da marca", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveTitle("Bibliotheon · E-books práticos para resolver problemas reais");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /^https?:\/\/[^/]+\/?$/);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", /E-books práticos/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /.{40,}/);
+    const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').first().textContent())!);
+    const tipos = ld["@graph"].map((x: { "@type": string }) => x["@type"]);
+    expect(tipos).toEqual(["Organization", "WebSite"]);
+    expect(ld["@graph"][1].publisher["@id"]).toBe(ld["@graph"][0]["@id"]);
+  });
+
   test("sitemap e robots", async ({ request }) => {
     const sm = await (await request.get("/sitemap.xml")).text();
     expect(sm).toContain("/livro-de-teste");
     expect(sm).toContain("/tema/tema-de-teste");
+    // cada página com a data real da última alteração (nunca inventada); as legais, sem data
+    expect(sm).toMatch(/\/livro-de-teste<\/loc>\s*<lastmod>\d{4}-\d{2}-\d{2}T[^<]+<\/lastmod>/);
+    expect(sm).toMatch(/\/tema\/tema-de-teste<\/loc>\s*<lastmod>/);
+    expect(sm).not.toMatch(/\/termos<\/loc>\s*<lastmod>/);
     const rb = await (await request.get("/robots.txt")).text();
     expect(rb).toContain("Disallow: /ir/");
     expect(rb).toContain("Sitemap:");

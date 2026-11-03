@@ -5,6 +5,7 @@ import { campanhaViva, dateParaDataLocal, reais } from "@/lib/editor";
 import { carregarEbook, estadoParaPublicar, LIMITE_AMOSTRAS } from "@/lib/ebooks";
 import { ehOwner, podeEditar } from "@/lib/permissoes";
 import { paraVenderMelhor } from "@/lib/editor";
+import { temPersonalizada } from "@/landings/registro";
 
 export default async function EditarEbook({ params }: PageProps<"/painel/ebooks/[id]">) {
   const u = await exigirUsuario();
@@ -27,6 +28,7 @@ export default async function EditarEbook({ params }: PageProps<"/painel/ebooks/
       slug={e.slug}
       slugTravado={!!e.publicadoEm}
       status={e.status}
+      paginaPersonalizada={temPersonalizada(e.slug)}
       dono={ehOwner(u) ? (d.dono ?? "sem dono") : null}
       euSouOwner={ehOwner(u)}
       inicial={{

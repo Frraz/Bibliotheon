@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { Landing } from "@/components/site/landing";
+import { PaginaDeVendas } from "@/landings/pagina";
 import { db, schema } from "@/db";
 import { exigirUsuario } from "@/lib/acesso";
 import { montarEbookPublico } from "@/lib/catalogo";
@@ -23,7 +23,7 @@ async function Previa({ params }: { params: PageProps<"/painel/ebooks/[id]/previ
         <span>Prévia: só você vê esta página. {linha.e.status === "publicado" ? "Mostra o que está salvo." : "Ainda é rascunho."}</span>
         <Link href={`/painel/ebooks/${id}`} className="inline-flex min-h-10 items-center gap-1.5 font-medium text-white underline underline-offset-4"><ArrowLeft className="size-4" aria-hidden /> Voltar ao editor</Link>
       </div>
-      <Landing e={ebook} relacionados={[]} previa />
+      <PaginaDeVendas e={ebook} relacionados={[]} previa />
     </>
   );
 }

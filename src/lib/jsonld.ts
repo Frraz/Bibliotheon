@@ -1,5 +1,5 @@
 import type { EbookPublico } from "./catalogo";
-import { SITE_NOME, SITE_URL } from "./site";
+import { CONTATO_EMAIL, SITE_DESCRICAO, SITE_NOME, SITE_URL } from "./site";
 
 const abs = (caminho: string | null) => (caminho ? `${SITE_URL}${caminho}` : undefined);
 
@@ -55,6 +55,17 @@ export function jsonLdDoEbook(e: EbookPublico) {
   });
 
   return { "@context": "https://schema.org", "@graph": grafo };
+}
+
+/** Dados estruturados da Home: a organização (quem vende) e o site. Ajudam o Google a entender a marca e a mostrá-la nos resultados. */
+export function jsonLdDoSite() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Organization", "@id": `${SITE_URL}/#organizacao`, name: SITE_NOME, url: SITE_URL, ...(CONTATO_EMAIL ? { email: CONTATO_EMAIL } : {}) },
+      { "@type": "WebSite", "@id": `${SITE_URL}/#site`, name: SITE_NOME, url: SITE_URL, description: SITE_DESCRICAO, inLanguage: "pt-BR", publisher: { "@id": `${SITE_URL}/#organizacao` } },
+    ],
+  };
 }
 
 /** Serializa para <script type="application/ld+json"> sem permitir fechar a tag. */

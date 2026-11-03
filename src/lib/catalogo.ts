@@ -65,6 +65,8 @@ export type CartaoEbook = {
   vigente: EbookPublico["vigente"];
   emBreve: boolean;
   destaque: boolean;
+  /** ISO. Alimenta o `lastmod` do sitemap. */
+  atualizadoEm: string;
 };
 
 const iso = (d: Date | null) => (d ? d.toISOString() : null);
@@ -162,6 +164,7 @@ function cartoes(linhas: { e: typeof ebook.$inferSelect; t: typeof tema.$inferSe
       vigente: vigenteSerial(e),
       emBreve: e.emBreve,
       destaque: e.destaque,
+      atualizadoEm: e.atualizadoEm.toISOString(),
     }));
 }
 

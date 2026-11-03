@@ -158,6 +158,10 @@ Uma Home com cartão de largura fixa passou de 360 px (Android comum) e o navega
 - **Sem `line-clamp` em frase de venda** (cortou "sabe…" no meio). Texto pequeno: mínimo 14 px.
 - Espaço reservado de `<Suspense>` com altura da tela inteira (`min-h-svh`), para o rodapé não pular.
 
+### Medição da Fase 3 (02/11/2026): várias lojas no bloco de compra
+
+A/B no pacote standalone com o **001 real**, 5 rodadas cada, máquina com carga ~2,5 e cache de imagens aquecido: **antes** 87, 92, 93, 82, 92 (mediana 92); **depois** 85, 90, 93, 71, 91 (mediana 90). LCP é a capa nas duas (2,4 a 4,0 s na simulação). JS (158 KB), FCP e TBT iguais. A diferença está dentro do ruído e a meta de 93 segue sem ser atingida com a máquina carregada (ver acima). No livro de teste o LCP trocou de um parágrafo para a capa porque o topo ficou ~20 px mais curto sem o link "outras formas de comprar": é efeito de medição, não de código. A11y, Boas práticas e SEO: 100. CLS 0. Impeccable: só o creme (aceito).
+
 ### Medição do padrão de venda (02/11/2026, build standalone, dados reais)
 
 Comparação alternada, 5 rodadas cada, nas mesmas condições (máquina com carga 3–4, o que reduz as notas): versão anterior **mediana 85**, nova **mediana 90**, 3 KB a mais. Acessibilidade, Boas práticas e SEO 100, também com a campanha ligada. CLS 0 em 360, 375, 390 e 1280 px. **A meta de 93 ainda precisa ser conferida com a máquina livre.** Auditoria impeccable: detector sem achados.

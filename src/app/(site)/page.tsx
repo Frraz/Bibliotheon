@@ -3,8 +3,22 @@ import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { CartaoEbookLink } from "@/components/site/cartao-ebook";
+import type { Metadata } from "next";
 import { listarCatalogo, listarTemas } from "@/lib/catalogo";
+import { jsonLdDoSite, serializarJsonLd } from "@/lib/jsonld";
 import { brl } from "@/lib/preco";
+import { SITE_DESCRICAO, SITE_NOME, SITE_URL } from "@/lib/site";
+
+const TITULO = `${SITE_NOME} · E-books práticos para resolver problemas reais`;
+
+// Metadados próprios da Home (antes herdava os do layout): título, descrição, endereço canônico e prévia de compartilhamento.
+export const metadata: Metadata = {
+  title: { absolute: TITULO },
+  description: SITE_DESCRICAO,
+  alternates: { canonical: SITE_URL },
+  openGraph: { type: "website", siteName: SITE_NOME, locale: "pt_BR", title: TITULO, description: SITE_DESCRICAO, url: SITE_URL },
+  twitter: { card: "summary", title: TITULO, description: SITE_DESCRICAO },
+};
 
 // Home lê o catálogo no pedido (o banco do build está vazio); as consultas são cacheadas por tag.
 async function Conteudo() {
@@ -89,8 +103,11 @@ async function Conteudo() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div className="min-h-svh" aria-hidden />}>
-      <Conteudo />
-    </Suspense>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializarJsonLd(jsonLdDoSite()) }} />
+      <Suspense fallback={<div className="min-h-svh" aria-hidden />}>
+        <Conteudo />
+      </Suspense>
+    </>
   );
 }

@@ -1,16 +1,12 @@
 import Image from "next/image";
 import { Fragment } from "react";
 import type { CartaoEbook, EbookPublico } from "@/lib/catalogo";
-import { jsonLdDoEbook, serializarJsonLd } from "@/lib/jsonld";
-import { rotuloOferta } from "@/lib/ofertas";
-import { brl } from "@/lib/preco";
-import { BarraFixa } from "./barra-fixa";
 import { CartaoEbookLink } from "./cartao-ebook";
+import { ABAIXO, BarraDeCompra, BlocoDeCompra, BotaoDeCompra, CompraNoMeio } from "./compra";
 import { Folhear } from "./folhear";
-import { LinkOferta } from "./link-oferta";
-import { AvisoPrazo, FaixaUrgencia, OfertaProvider, PrazoCurto, PrazoOferta, PrecoAtual, PrecoDe } from "./oferta";
+import { MoldeDaPagina, podeVender } from "./molde-pagina";
+import { FaixaUrgencia, AvisoPrazo, PrecoAtual, PrecoDe } from "./oferta";
 import { PedirAmostra } from "./pedir-amostra";
-import { Visita } from "./rastreio";
 import { TextoRecolhivel } from "./texto-recolhivel";
 
 // Landing do e-book (direção A · Livraria). Cada seção só aparece se houver conteúdo; nada de texto de enchimento.
@@ -27,12 +23,6 @@ const Marca = () => (
   </svg>
 );
 
-const BOTAO =
-  "inline-flex min-h-14 items-center justify-center bg-(--terracota) px-8 text-[1.0625rem] font-semibold text-(--papel) shadow-[0_1px_0_rgb(0_0_0/.15),0_10px_20px_-12px_rgb(0_0_0/.55)] transition-[background-color,transform] duration-150 hover:bg-(--terracota-escura) active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota)";
-
-// Seções abaixo da dobra: o navegador só calcula estilo e layout delas quando chegam perto da tela (LCP no celular).
-const ABAIXO = "[content-visibility:auto] [contain-intrinsic-size:auto_640px]";
-
 const Titulo = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <h2 className={`font-(family-name:--font-display) text-[clamp(1.75rem,4.2vw,2.75rem)] leading-[1.1] font-medium tracking-[-0.01em] text-balance ${className}`}>{children}</h2>
 );
@@ -40,40 +30,24 @@ const TituloMenor = ({ children }: { children: React.ReactNode }) => <Titulo cla
 
 const paragrafos = (t: string | null) => (t ?? "").split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
-/** `previa`: versão do painel (qualquer status): sem dados estruturados, sem contar visita e com os botões de compra desligados. */
+/** Landing padrão: o corpo de toda página de vendas sem versão personalizada. O molde (preço, dados estruturados, visita) vem de MoldeDaPagina. */
 export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; relacionados: CartaoEbook[]; previa?: boolean }) {
-  const principal = e.ofertas.find((o) => o.principal) ?? e.ofertas[0];
-  const outras = e.ofertas.filter((o) => o !== principal);
-  const vender = !e.emBreve && !!principal;
+  return (
+    <MoldeDaPagina e={e} previa={previa}>
+      <CorpoPadrao e={e} relacionados={relacionados} previa={previa} />
+    </MoldeDaPagina>
+  );
+}
+
+function CorpoPadrao({ e, relacionados, previa }: { e: EbookPublico; relacionados: CartaoEbook[]; previa: boolean }) {
+  const vender = podeVender(e);
   const headline = e.headline?.trim() || e.titulo;
   // Cada item não quebra no meio ("Garantia de 7 dias"); a linha só quebra entre os itens.
   const microconfianca = [`Acesso imediato`, e.formatos.filter((f) => /pdf|epub/i.test(f)).join(" e "), e.garantiaDias ? `Garantia de ${e.garantiaDias} dias` : ""].filter(Boolean);
-  const dadosOferta = { preco: e.preco, precoDe: e.precoDe, ofertaAte: e.ofertaAte, ofertaNome: e.ofertaNome, emBreve: !vender, inicial: e.vigente };
-  const cta = (classe: string, texto?: string) =>
-    principal && (
-      <LinkOferta ofertaId={principal.id} titulo={e.titulo} valor={e.vigente.valor} previa={previa} className={`${BOTAO} ${classe}`}>
-        {texto ?? rotuloOferta(principal)}
-      </LinkOferta>
-    );
-
-  // Nova chance de comprar para quem já se convenceu no meio da página.
-  const ctaMeio = (claroSobreEscuro = false) =>
-    vender && (
-      <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
-        {cta("w-full sm:w-auto")}
-        <div className={claroSobreEscuro ? "text-(--papel)" : ""}>
-          <PrecoAtual className="block font-(family-name:--font-display) text-2xl leading-none font-medium" />
-          <AvisoPrazo className={`mt-1 text-sm ${claroSobreEscuro ? "text-(--papel)/75" : "text-(--tinta-2)"}`} />
-        </div>
-      </div>
-    );
+  const ctaMeio = (sobreEscuro = false) => <CompraNoMeio e={e} previa={previa} sobreEscuro={sobreEscuro} />;
 
   return (
-    <OfertaProvider dados={dadosOferta}>
-      <div className="bg-(--papel) font-(family-name:--font-texto) text-[1.0625rem] leading-[1.65] text-(--tinta)">
-        {!previa && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializarJsonLd(jsonLdDoEbook(e)) }} />}
-        {!previa && <Visita slug={e.slug} titulo={e.titulo} valor={e.vigente.valor} />}
-
+    <>
         {vender && e.vigente.emOferta && <FaixaUrgencia className="bg-(--tinta) text-(--papel)" />}
 
         {/* Hero */}
@@ -90,7 +64,7 @@ export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; 
                     <PrecoAtual className="block font-(family-name:--font-display) text-5xl leading-none font-medium" />
                     {e.parcelamento && <span className="mt-2 block text-sm text-(--tinta-2)">{e.parcelamento}</span>}
                   </div>
-                  {cta("w-full sm:w-auto")}
+                  <BotaoDeCompra e={e} previa={previa} className="w-full sm:w-auto" />
                 </div>
                 <AvisoPrazo className="mt-4 font-medium text-(--terracota-escura)" />
                 <p className="mt-5 text-sm text-(--tinta-2)">
@@ -100,12 +74,6 @@ export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; 
                       <span className="whitespace-nowrap">{t}</span>
                     </Fragment>
                   ))}
-                  {outras.length > 0 && (
-                    <>
-                      {" · "}
-                      <a href="#comprar" className="whitespace-nowrap underline underline-offset-4">outras formas de comprar</a>
-                    </>
-                  )}
                 </p>
               </>
             ) : (
@@ -297,47 +265,7 @@ export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; 
           </section>
         )}
 
-        {/* Bloco de compra */}
-        <section id="comprar" className={`${ABAIXO} bg-(--tinta) text-(--papel)`}>
-          <div className="mx-auto max-w-3xl px-5 py-20 text-center lg:py-28">
-            <h2 className="font-(family-name:--font-display) text-[clamp(2rem,5vw,3.25rem)] leading-[1.08] font-medium text-balance">
-              {vender ? headline : "Em breve"}
-            </h2>
-            {vender && principal ? (
-              <>
-                <p className="mt-8 text-sm text-(--papel)/60">
-                  <PrecoDe /> <PrazoOferta />
-                </p>
-                <PrecoAtual className="block font-(family-name:--font-display) text-6xl leading-tight font-medium" />
-                <p className="text-sm text-(--papel)/70">Pagamento único · acesso imediato{e.parcelamento ? ` · ${e.parcelamento}` : ""}</p>
-                <AvisoPrazo className="mt-3 font-medium" />
-                {cta("mt-8 w-full max-w-sm")}
-                {outras.length > 0 && (
-                  <>
-                    <p className="mt-8 text-sm text-(--papel)/70">Prefere outra plataforma?</p>
-                    <div className="mt-2 flex flex-wrap justify-center gap-2">
-                      {outras.map((o) => (
-                        <LinkOferta key={o.id} ofertaId={o.id} titulo={e.titulo} valor={o.preco ?? e.vigente.valor} previa={previa} className="inline-flex min-h-12 items-center border border-(--papel)/40 px-6 font-medium transition-colors hover:border-(--papel) hover:bg-(--papel)/10">
-                          {rotuloOferta(o)}{o.preco != null && o.preco !== e.vigente.valor ? ` · ${brl(o.preco)}` : ""}
-                        </LinkOferta>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </>
-            ) : (
-              <p className="mx-auto mt-6 max-w-md text-(--papel)/75 text-pretty">As vendas deste livro ainda não foram abertas. Volte em breve.</p>
-            )}
-            {paragrafos(e.observacoes).length > 0 && (
-              <div className="mx-auto mt-10 max-w-md space-y-2 text-sm text-(--papel)/75 text-pretty">
-                <p className="font-medium text-(--papel)">Antes de comprar</p>
-                {paragrafos(e.observacoes).map((p) => (
-                  <p key={p.slice(0, 32)}>{p}</p>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+        <BlocoDeCompra e={e} previa={previa} />
 
         {/* Mais do tema */}
         {relacionados.length > 0 && (
@@ -353,18 +281,7 @@ export function Landing({ e, relacionados, previa = false }: { e: EbookPublico; 
           </section>
         )}
 
-        {vender && principal && (
-          <BarraFixa className="border-t border-(--filete) bg-(--papel)">
-            <div className="flex items-center gap-4 px-5 py-3">
-              <div>
-                <PrecoAtual className="block font-(family-name:--font-display) text-2xl leading-none font-medium" />
-                <PrazoCurto className="mt-1 block text-xs text-(--tinta-2)" />
-              </div>
-              {cta("ml-auto min-h-12 px-6", "Comprar")}
-            </div>
-          </BarraFixa>
-        )}
-      </div>
-    </OfertaProvider>
+        <BarraDeCompra e={e} previa={previa} />
+    </>
   );
 }
