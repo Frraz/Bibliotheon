@@ -91,6 +91,10 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | O limite de tentativas de login usa o `X-Real-IP` do nginx (não o `X-Forwarded-For`, que o cliente pode preencher) | Sem IP confiável o Better Auth junta todo mundo num só balde | Sim |
 | 2026-11-02 | `BETTER_AUTH_SECRET` ausente derruba só o login (HTTP 500 em `/api/auth`); o site público e o `/api/saude` seguem de pé | Testado na imagem Docker. Não usar `:?` no compose, para um deploy esquecido não tirar a loja do ar | Sim |
 
+| 2026-11-03 | **Exportar dados** de qualquer e-book, rascunho ou publicado (`/api/painel/ebooks/[id]/exportar`, `.md` e `.json`) + "Baixar PDF" no editor e na lista; administrador em todos, usuário só nos dele. Substitui o pacote ZIP e a tela "Publicar em outras lojas" do plano | Pedido do titular: o PDF ele baixa à parte, e os dados servem para a landing. Menos código, sem `fflate` | Sim |
+| 2026-11-03 | Colar várias linhas numa lista do editor cria um item por linha | Os guias de publicação de `../ebooks` são copiados e colados | Sim |
+| 2026-11-03 | `livros/` fora do Git e da imagem Docker: pasta local com dados e PDF de cada landing | O repositório no GitHub é público | Não |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |

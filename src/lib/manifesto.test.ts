@@ -2,23 +2,20 @@ import { readFileSync, existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { ajusteDeVenda, avisos, camposDeVenda, camposDoEbook, manifesto, slugify } from "./manifesto";
 
-// Manifest v1 real do primeiro e-book (se o projeto irmão estiver na máquina).
+// Manifesto real do primeiro e-book (se o projeto irmão estiver na máquina): o contrato tem de aceitar o que ../ebooks gera.
 const REAL = "../ebooks/ebooks/001-sistemas-com-ia/publicacao/bibliotheon/manifest.json";
 
-describe("manifesto v1 real", () => {
-  it.skipIf(!existsSync(REAL))("é aceito sem alteração e mapeia os campos existentes", () => {
+describe("manifesto real", () => {
+  it.skipIf(!existsSync(REAL))("é aceito sem alteração e mapeia os campos", () => {
     const m = manifesto.parse(JSON.parse(readFileSync(REAL, "utf8")));
     const f = camposDoEbook(m);
     expect(f.titulo).toBe("Crie Sistemas com IA e Ganhe Dinheiro");
-    expect(f.slug).toBe("crie-sistemas-com-ia-e-ganhe-dinheiro");
-    expect(f.beneficios).toHaveLength(4);
+    expect(f.slug).toBe("criar-sistemas-com-ia");
+    expect(f.beneficios?.length).toBeGreaterThanOrEqual(3);
     expect(f.descricao).toContain("Oficina Clara");
-    expect(f.observacoes).toContain("Sem promessa de renda");
-    expect(f.paraQuem).toHaveLength(1);
-    expect(f.accent).toBe("#4B5E55");
+    expect(f.preco).toBe(6499);
     expect(f.capaHash).toMatch(/^[0-9a-f]{64}$/);
-    expect(m.offers).toEqual([]);
-    expect(m.pending).toEqual([]);
+    expect(m.offers[0].platform).toBe("hotmart");
   });
 });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ExternalLink } from "lucide-react";
+import { Check, Download, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useState, type FormEvent } from "react";
@@ -130,7 +130,7 @@ export function EditorEbook(p: EditorProps) {
   );
 
   return (
-    <form onSubmit={enviar} onInput={() => setSujo(true)} onChange={() => setSujo(true)} onClick={(e) => { if ((e.target as HTMLElement).closest("button[type=button]")) setSujo(true); }} className="mx-auto grid max-w-6xl grid-cols-1 gap-x-12 px-5 pt-8 pb-32 lg:grid-cols-[minmax(0,1fr)_17rem] lg:px-10 lg:pt-12 lg:pb-16">
+    <form onSubmit={enviar} onInput={() => setSujo(true)} onPaste={() => setSujo(true)} onChange={() => setSujo(true)} onClick={(e) => { if ((e.target as HTMLElement).closest("button[type=button]")) setSujo(true); }} className="mx-auto grid max-w-6xl grid-cols-1 gap-x-12 px-5 pt-8 pb-32 lg:grid-cols-[minmax(0,1fr)_17rem] lg:px-10 lg:pt-12 lg:pb-16">
       <div className="min-w-0">
         <div className="mb-8 flex flex-wrap items-center gap-x-4 gap-y-2">
           <h1 className="font-(family-name:--font-display) text-[2rem] leading-none font-medium tracking-[-0.01em]">Editar e-book</h1>
@@ -167,6 +167,9 @@ export function EditorEbook(p: EditorProps) {
           <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Button variant="outline" render={<Link href={`/painel/ebooks/${p.id}/previa`} target="_blank" />}><ExternalLink /> Ver prévia</Button>
             {publicado && <Button variant="outline" render={<Link href={`/${p.slug}`} target="_blank" />}><ExternalLink /> Ver página no ar</Button>}
+            <Button variant="outline" render={<a href={`/api/painel/ebooks/${p.id}/exportar`} download />}><Download /> Exportar dados (.md)</Button>
+            <Button variant="outline" render={<a href={`/api/painel/ebooks/${p.id}/exportar?formato=json`} download />}><Download /> Exportar dados (.json)</Button>
+            {p.pdfNome && <Button variant="outline" render={<a href={`/api/painel/ebooks/${p.id}/pdf`} download />}><Download /> Baixar PDF</Button>}
           </div>
         </div>
 
@@ -285,6 +288,9 @@ export function EditorEbook(p: EditorProps) {
           <div className="-mx-2 grid">
             <Button variant="ghost" className="justify-start px-2" render={<Link href={`/painel/ebooks/${p.id}/previa`} target="_blank" />}><ExternalLink /> Ver prévia</Button>
             {publicado && <Button variant="ghost" className="justify-start px-2" render={<Link href={`/${p.slug}`} target="_blank" />}><ExternalLink /> Ver página no ar</Button>}
+            <Button variant="ghost" className="justify-start px-2" render={<a href={`/api/painel/ebooks/${p.id}/exportar`} download />}><Download /> Exportar dados (.md)</Button>
+            <Button variant="ghost" className="justify-start px-2" render={<a href={`/api/painel/ebooks/${p.id}/exportar?formato=json`} download />}><Download /> Exportar dados (.json)</Button>
+            {p.pdfNome && <Button variant="ghost" className="justify-start px-2" render={<a href={`/api/painel/ebooks/${p.id}/pdf`} download />}><Download /> Baixar PDF</Button>}
           </div>
           <nav aria-label="Nesta página">
             <p className="mb-2 text-sm font-medium text-(--tinta-2)">Nesta página</p>

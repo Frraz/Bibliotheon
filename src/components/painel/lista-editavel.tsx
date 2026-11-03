@@ -37,6 +37,18 @@ export function ListaEditavel({
       return nova;
     });
 
+  // Colar várias linhas (ex.: de um guia de publicação) cria um item por linha, a partir do campo atual.
+  const colar = (ev: React.ClipboardEvent, id: number) => {
+    const linhas = ev.clipboardData.getData("text").split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+    if (linhas.length < 2) return;
+    ev.preventDefault();
+    setLista((l) => {
+      const i = l.findIndex((x) => x.id === id);
+      const novos = linhas.map((texto, n) => ({ id: n === 0 ? id : prox.current++, texto }));
+      return [...l.slice(0, i), ...novos, ...l.slice(i + 1)];
+    });
+  };
+
   return (
     <fieldset>
       <legend className="sr-only">{rotulo}</legend>
@@ -48,6 +60,7 @@ export function ListaEditavel({
               id={`${base}-${it.id}`}
               aria-label={`${rotulo} ${n + 1}`}
               value={it.texto}
+              onPaste={(ev) => colar(ev, it.id)}
               onChange={(e) => setLista((l) => l.map((x) => (x.id === it.id ? { ...x, texto: e.target.value } : x)))}
               className={`w-full min-w-0 sm:flex-1 ${longo ? "min-h-20" : ""}`}
             />

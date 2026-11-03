@@ -93,7 +93,7 @@ E-mail + senha. Sem cadastro público. Esqueceu a senha: "Fale com o administrad
   - miniatura da capa e título;
   - status (badge: Rascunho / Publicado);
   - visitas, cliques e taxa de clique em 7 dias, com seletor 7d/30d;
-  - botões "Ver página" (publicado) ou "Ver prévia" (rascunho) e "Editar".
+  - botões "Ver página" (publicado) ou "Ver prévia" (rascunho), "Editar", "Exportar" e, se houver, "Baixar PDF".
 - Ação principal: **"Novo e-book"**.
 - Estado vazio: "Você ainda não tem e-books. Comece pelo título e pela capa — o resto você completa depois." + botão.
 

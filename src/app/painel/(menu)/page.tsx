@@ -55,13 +55,15 @@ export default async function PainelEbooks() {
                     </div>
                   ))}
                 </dl>
-                <div className="col-span-2 flex gap-2 sm:col-span-1 sm:col-start-4 sm:row-start-1">
+                <div className="col-span-2 flex flex-wrap gap-2 sm:col-span-1 sm:col-start-4 sm:row-start-1 sm:max-w-64 sm:justify-end">
                   {l.status === "publicado" ? (
                     <Button variant="ghost" render={<Link href={`/${l.slug}`} target="_blank" />}>Ver página</Button>
                   ) : (
                     <Button variant="ghost" render={<Link href={`/painel/ebooks/${l.id}/previa`} target="_blank" />}>Ver prévia</Button>
                   )}
                   <Button variant="outline" render={<Link href={`/painel/ebooks/${l.id}`} />}>Editar</Button>
+                  <Button variant="ghost" render={<a href={`/api/painel/ebooks/${l.id}/exportar`} download />}>Exportar</Button>
+                  {!!l.temPdf && <Button variant="ghost" render={<a href={`/api/painel/ebooks/${l.id}/pdf`} download />}>Baixar PDF</Button>}
                 </div>
               </li>
             ))}

@@ -263,7 +263,7 @@ Todo e-book usa a **landing padrão**. Quando o titular desenha uma página pró
 
 **Receita para uma página nova** (`<slug>` = o endereço do e-book):
 
-1. Baixe o pacote do e-book (Fase 4) e guarde em `livros/<slug>/` (fora do Git).
+1. No painel, use **Exportar dados** e **Baixar PDF** e guarde em `livros/<slug>/` (fora do Git: o repositório é público).
 2. Crie `src/landings/<slug>/pagina.tsx` exportando um componente `({ e, relacionados, previa }: PropsLanding)` que devolve **só as seções**. Use `PrecoAtual`, `AvisoPrazo`, `FaixaUrgencia` (de `site/oferta`) e as peças de compra; ponha o `id="topo"` no cabeçalho (a barra fixa o usa) e termine com `<BlocoDeCompra e={e} previa={previa} />` e `<BarraDeCompra ... />`.
 3. Cadastre no `registro.ts`: `["<slug>", PaginaX]`.
 4. Confira cada frase contra o livro (regra 5 do `CLAUDE.md`), veja a prévia no painel, rode a auditoria impeccable e o Lighthouse.
@@ -279,6 +279,7 @@ Título, descrição e imagem de compartilhamento continuam vindo do banco (camp
 | Gravação | `src/lib/ebooks.ts` (`gravarEbook`) | Valida tudo antes de escrever; escreve em transação; lojas por id |
 | Ações | `src/app/painel/(menu)/ebooks/acoes.ts`, `temas/acoes.ts` | Cada uma reconfere sessão e `podeEditar`; `updateTag("ebooks")` ao gravar |
 | Arquivos | `/api/painel/ebooks/[id]/{capa,amostras,pdf,amostra-pdf}` | Sessão + dono + `Origin`; imagem conferida e regravada pelo `sharp` (`src/lib/imagens.ts`); PDF por assinatura `%PDF-` |
+| Exportação | `/api/painel/ebooks/[id]/exportar?formato=md\|json`, `src/lib/exportar.ts` | Mesmo acesso das outras rotas de arquivo. Lista de campos explícita: o local do PDF privado nunca sai |
 | Prévia | `/painel/ebooks/[id]/previa` | `<Landing previa>`: sem dados estruturados, sem visita, botões de compra desligados; `montarEbookPublico` (`src/lib/catalogo.ts`) é o mesmo montador da página pública |
 
 **Publicar:** bloqueiam capa, descrição da capa, título, headline, resumo, ≥ 3 benefícios, endereço válido e tema no ar (se houver tema). Sem loja ou sem preço a página sai como "Em breve" (só avisa). Um e-book já publicado nunca é salvo incompleto. O endereço é editável até a primeira publicação e depois fica travado (mesmo despublicado).

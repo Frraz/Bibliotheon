@@ -370,6 +370,64 @@ test("temas: tema fora do ar bloqueia a publicação; no ar, publica; desligar e
   await ctx.close();
 });
 
+test("exportar: o administrador exporta e baixa de qualquer um; o usuário comum, só o dele; sem login, nada", async ({ browser, request }) => {
+  test.slow(); // várias sessões e páginas: 30 s já estourou com a máquina carregada
+  const { ctx, page } = await comoOwner(browser);
+  const md = await page.request.get(`/api/painel/ebooks/${id}/exportar`);
+  expect(md.status()).toBe(200);
+  expect(md.headers()["content-disposition"]).toContain(`${SLUG}.md`);
+  expect(md.headers()["cache-control"]).toContain("no-store");
+  const texto = await md.text();
+  expect(texto).toContain(`# ${TITULO}`);
+  expect(texto).toContain("Aprender a fazer o passo 1 da horta");
+  expect(texto).toContain("Para cadastrar nas lojas");
+  const js = await (await page.request.get(`/api/painel/ebooks/${id}/exportar?formato=json`)).json();
+  expect(js.titulo).toBe(TITULO);
+  expect(js.pdfDoLivro.nome).toContain("meu livro");
+  expect(JSON.stringify(js)).not.toMatch(/[0-9a-f]{16}\.pdf/); // o local do PDF privado não sai
+
+  // rascunho também exporta, inclusive de outro usuário, e o PDF aparece na lista só de quem pode baixar
+  await page.goto("/painel/ebooks/novo", { waitUntil: "networkidle" });
+  await page.getByRole("textbox", { name: "Título do livro" }).fill("Rascunho Para Exportar");
+  await page.getByRole("button", { name: "Criar e continuar" }).click();
+  await expect(page).toHaveURL(/\/painel\/ebooks\/[0-9a-f-]{36}$/);
+  const rascunho = page.url().split("/").pop()!;
+  expect((await page.request.get(`/api/painel/ebooks/${rascunho}/exportar`)).status()).toBe(200);
+
+  await page.goto("/painel", { waitUntil: "networkidle" });
+  const linhaBeto = page.locator("li", { hasText: "Receitas de Pão Caseiro" });
+  const idBeto = (await linhaBeto.getByRole("link", { name: "Editar" }).getAttribute("href"))!.split("/").pop()!;
+  expect((await page.request.get(`/api/painel/ebooks/${idBeto}/exportar`)).status()).toBe(200);
+  await expect(page.locator("li", { hasText: TITULO }).getByRole("link", { name: "Baixar PDF" })).toBeVisible();
+  await expect(page.locator("li", { hasText: TITULO }).getByRole("link", { name: "Exportar" })).toBeVisible();
+
+  expect((await request.get(`/api/painel/ebooks/${id}/exportar`)).status()).toBe(401);
+  const ctxBeto = await browser.newContext();
+  const beto = await ctxBeto.newPage();
+  await entrar(beto, "beto@teste.com", senhaDoBeto);
+  expect((await beto.request.get(`/api/painel/ebooks/${idBeto}/exportar`)).status()).toBe(200);
+  expect((await beto.request.get(`/api/painel/ebooks/${id}/exportar`)).status()).toBe(404);
+  expect((await beto.request.get(`/api/painel/ebooks/${rascunho}/exportar?formato=json`)).status()).toBe(404);
+  await ctxBeto.close();
+  await ctx.close();
+});
+
+test("colar várias linhas numa lista cria um item por linha", async ({ browser }) => {
+  const { ctx, page } = await comoOwner(browser);
+  await abrir(page, `/painel/ebooks/${id}`);
+  await page.getByRole("button", { name: "Adicionar situação" }).click();
+  const campo = page.getByRole("textbox", { name: "Situação 1", exact: true });
+  await campo.evaluate((el) => {
+    const dados = new DataTransfer();
+    dados.setData("text", "Primeira situação\nSegunda situação\n\nTerceira situação");
+    el.dispatchEvent(new ClipboardEvent("paste", { clipboardData: dados, bubbles: true, cancelable: true }));
+  });
+  await expect(page.getByRole("textbox", { name: "Situação 3", exact: true })).toHaveValue("Terceira situação");
+  await expect(page.getByRole("textbox", { name: "Situação 1", exact: true })).toHaveValue("Primeira situação");
+  await expect(page.getByText("Há alterações não salvas.")).toBeVisible();
+  await ctx.close();
+});
+
 test("alterações não salvas avisam ao sair; ao salvar, o aviso some", async ({ browser }) => {
   const { ctx, page } = await comoOwner(browser);
   await abrir(page, `/painel/ebooks/${id}`);

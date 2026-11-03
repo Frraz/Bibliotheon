@@ -113,6 +113,7 @@ export function listarEbooks(quem: Quem) {
       status: ebook.status,
       capa: ebook.capa,
       capaAlt: ebook.capaAlt,
+      temPdf: sql<number>`${ebook.pdfPrivado} is not null`,
       dono: user.name,
       visitas: sql<number>`coalesce(sum(case when ${metricaDiaria.ofertaId} = '' then ${metricaDiaria.contagem} end), 0)`,
       cliques: sql<number>`coalesce(sum(case when ${metricaDiaria.ofertaId} <> '' then ${metricaDiaria.contagem} end), 0)`,
