@@ -1,7 +1,8 @@
 // Cria (ou recupera) a conta de administrador e entrega a ela os e-books que ainda não têm dono.
 // JS puro, sem tsx: roda dentro da imagem Docker.
 //   docker exec -it bibliotheon_web node scripts/criar-owner.mjs voce@exemplo.com "Seu Nome"
-// Se o e-mail já existir, vira administrador, fica ativo e recebe uma senha nova: serve também para recuperar o acesso.
+// Se o e-mail já existir, vira administrador, fica ativo, recebe uma senha nova e perde a verificação em duas etapas (celular
+// perdido): serve também para recuperar o acesso.
 // O hash repete src/lib/senha.ts (senha.test.ts garante que os dois conferem).
 import Database from "better-sqlite3";
 import { randomBytes, randomInt, scrypt } from "node:crypto";
@@ -46,6 +47,8 @@ async function principal() {
     if (existente) {
       banco.prepare("UPDATE user SET role = 'owner', ativo = 1, updatedAt = ? WHERE id = ?").run(agora, id);
       banco.prepare("DELETE FROM session WHERE user_id = ?").run(id);
+      banco.prepare("UPDATE user SET two_factor_enabled = 0 WHERE id = ?").run(id);
+      banco.prepare("DELETE FROM two_factor WHERE user_id = ?").run(id);
       const conta = banco.prepare("UPDATE account SET password = ?, updatedAt = ? WHERE user_id = ? AND provider_id = 'credential'").run(hash, agora, id);
       if (conta.changes === 0) {
         banco.prepare("INSERT INTO account (id, user_id, account_id, provider_id, password, createdAt, updatedAt) VALUES (?, ?, ?, 'credential', ?, ?, ?)").run(crypto.randomUUID(), id, id, hash, agora, agora);

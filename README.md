@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. Pronto localmente, aguardando commit e deploy: recuperação de senha por e-mail (SMTP opcional) e correção da imagem de compartilhamento do 002. Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
+> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. No ar desde 03/11: recuperação de senha por e-mail (falta testar o envio real) e correção da imagem de compartilhamento do 002. Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 
@@ -36,7 +36,7 @@ Sem `--demo`, o 001 entra como **"Em breve"** (é o que vai ao ar, enquanto não
 | Comando | O que faz |
 |---|---|
 | `npm test` | 89 testes unitários (preço, campanha, UTM, manifesto, mídia, imagens, leads, JSON-LD, editor, exportação, permissões, senha, e-mail) |
-| `npm run test:e2e` | 64 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha |
+| `npm run test:e2e` | 70 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha e duas etapas |
 | `npm run lint` · `npm run build` | Conferências antes de qualquer deploy |
 | `npm run db:generate` | Gera migração após mudar `src/db/schema.ts` |
 | `deploy/venda.sh` | Em produção: preço, campanha, textos, amostra, relatório e leads, sem perder métricas |

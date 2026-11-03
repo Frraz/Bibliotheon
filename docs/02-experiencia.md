@@ -151,7 +151,8 @@ Lista simples: nome, slug, nº de e-books, publicado (toggle). Só o administrad
 
 ### Conta ✅ Fase 1
 
-- Nome e trocar senha (mínimo de 10 caracteres; encerra a sessão dos outros aparelhos).
+- Nome e trocar senha (**qualquer senha a partir de 4 caracteres**, sem regra de composição; encerra a sessão dos outros aparelhos).
+- **Verificação em duas etapas (opcional):** "Ligar" pede a senha, mostra o QR code e a chave, confere o primeiro código do aplicativo autenticador e então mostra 10 códigos de reserva (só uma vez). Ligada, o login pede o código do aplicativo ou um código de reserva. "Gerar códigos novos" e "Desligar" também pedem a senha.
 - _Token de API para a CLI: planejado na Etapa 4 (pausada); ainda não existe._
 
 ---

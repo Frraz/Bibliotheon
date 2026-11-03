@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { APIError } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
+import { twoFactor } from "better-auth/plugins";
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { emailDeRedefinicao, enviarEmail } from "./email";
@@ -9,7 +10,7 @@ import { SENHA_MINIMA } from "./regras-senha";
 import { conferirSenha, hashSenha } from "./senha";
 import { SITE_URL } from "./site";
 
-// Better Auth: e-mail e senha, sessão em cookie httpOnly guardada no banco. Sem cadastro público: quem cria contas é o owner
+// Better Auth: e-mail e senha (com verificação em duas etapas opcional por app autenticador), sessão em cookie httpOnly guardada no banco. Sem cadastro público: quem cria contas é o owner
 // (painel/usuarios) ou o scripts/criar-owner.mjs. Criado só no primeiro uso, para o build não exigir o segredo.
 
 function criar() {
@@ -57,7 +58,7 @@ function criar() {
         },
       },
     },
-    plugins: [nextCookies()],
+    plugins: [twoFactor({ issuer: "Bibliotheon" }), nextCookies()],
   });
 }
 

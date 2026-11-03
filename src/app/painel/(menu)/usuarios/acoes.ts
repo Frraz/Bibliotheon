@@ -7,7 +7,7 @@ import { db, schema } from "@/db";
 import { exigirOwner } from "@/lib/acesso";
 import { hashSenha, senhaTemporaria } from "@/lib/senha";
 
-const { user, account, session, ebook } = schema;
+const { user, account, session, ebook, twoFactor } = schema;
 
 export type Resultado = { erro?: string; senha?: string; nome?: string };
 
@@ -48,6 +48,9 @@ export async function redefinirSenha(id: string): Promise<Resultado> {
   db.transaction((tx) => {
     tx.update(account).set({ password: hash, updatedAt: new Date() }).where(and(eq(account.userId, id), eq(account.providerId, "credential"))).run();
     tx.delete(session).where(eq(session.userId, id)).run(); // quem estava logado precisa entrar com a senha nova
+    // Celular perdido: sem isto a pessoa ficaria trancada mesmo com a senha nova. Ela pode ligar de novo em Conta.
+    tx.update(user).set({ twoFactorEnabled: false }).where(eq(user.id, id)).run();
+    tx.delete(twoFactor).where(eq(twoFactor.userId, id)).run();
   });
   return { nome: u.name, senha };
 }

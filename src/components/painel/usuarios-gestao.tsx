@@ -11,11 +11,11 @@ import { Copiar } from "./copiar";
 
 export type UsuarioLinha = { id: string; nome: string; email: string; ebooks: number; publicados: number; ativo: boolean; administrador: boolean };
 
-function SenhaTemporaria({ nome, senha, aoFechar }: { nome: string; senha: string; aoFechar?: () => void }) {
+function SenhaTemporaria({ nome, senha, aoFechar, redefinida }: { nome: string; senha: string; aoFechar?: () => void; redefinida?: boolean }) {
   return (
     <div role="status" className="mt-4 bg-(--salvia)/12 p-4">
       <p className="text-[0.9375rem] font-medium">Senha temporária de {nome}</p>
-      <p className="mt-1 text-sm text-(--tinta-2) text-pretty">Ela aparece só agora. Envie à pessoa e peça que troque em Conta no primeiro acesso.</p>
+      <p className="mt-1 text-sm text-(--tinta-2) text-pretty">Ela aparece só agora. Envie à pessoa e peça que troque em Conta no primeiro acesso.{redefinida && " A verificação em duas etapas dela, se existia, foi desligada: ela liga de novo em Conta."}</p>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <code className="min-w-0 bg-(--papel-3) px-3 py-2.5 text-[0.9375rem] break-all">{senha}</code>
         <Copiar texto={senha} rotulo="senha temporária" />
@@ -114,7 +114,7 @@ export function UsuariosGestao({ usuarios }: { usuarios: UsuarioLinha[] }) {
               </div>
             )}
             {senhas[u.id]?.senha && (
-              <SenhaTemporaria nome={senhas[u.id].nome!} senha={senhas[u.id].senha!} aoFechar={() => setSenhas((s) => Object.fromEntries(Object.entries(s).filter(([k]) => k !== u.id)))} />
+              <SenhaTemporaria redefinida nome={senhas[u.id].nome!} senha={senhas[u.id].senha!} aoFechar={() => setSenhas((s) => Object.fromEntries(Object.entries(s).filter(([k]) => k !== u.id)))} />
             )}
           </li>
         ))}

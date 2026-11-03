@@ -305,6 +305,8 @@ Opcional: só liga com `SMTP_HOST` no `.env` ([06](06-deploy.md#variáveis-env-s
 
 ## Segurança
 
+- **Senha:** mínimo de **4 caracteres**, sem regra de composição (decisão do titular, 03/11/2026; `SENHA_MINIMA` em `src/lib/regras-senha.ts`). Como a senha pode ser fraca, o limite de tentativas do login e a verificação em duas etapas (abaixo) é que protegem a conta.
+- **Verificação em duas etapas, opcional por usuário:** plugin `twoFactor` do Better Auth, só app autenticador (TOTP de 6 dígitos, 30 s) e 10 códigos de reserva de uso único. Tabela `two_factor` (migração `0004_duas_etapas`) e `user.two_factor_enabled`; segredo e códigos ficam cifrados com o `BETTER_AUTH_SECRET` (**trocar o segredo invalida os códigos já cadastrados**: as pessoas teriam de religar). O login com a verificação ligada passa por `/api/auth/two-factor/*` e a conta trava por 15 min após 10 códigos errados seguidos. O QR é gerado no navegador (`qrcode`, carregado só na tela de ligar). Celular perdido: o administrador usa "Nova senha" em Usuários (desliga a verificação da pessoa) ou, para a conta dele, `node scripts/criar-owner.mjs <e-mail>` no servidor; um código de reserva também entra.
 - Better Auth: hash de senha forte, rate limit no login e no pedido de recuperação (3 por minuto por IP), cookie `httpOnly; Secure; SameSite=Lax`.
 - Todas as Server Actions e rotas do painel conferem sessão **e** dono do recurso no servidor.
 - **Uploads:**

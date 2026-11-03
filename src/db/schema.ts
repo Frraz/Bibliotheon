@@ -23,6 +23,7 @@ export const user = sqliteTable("user", {
   image: text("image"),
   role: text("role", { enum: PAPEIS }).notNull().default("parceiro"),
   ativo: integer("ativo", { mode: "boolean" }).notNull().default(true),
+  twoFactorEnabled: integer("two_factor_enabled", { mode: "boolean" }).notNull().default(false),
   createdAt: agora(),
   updatedAt: agora(),
 });
@@ -70,6 +71,22 @@ export const verification = sqliteTable("verification", {
   createdAt: agora(),
   updatedAt: agora(),
 });
+
+// Verificação em duas etapas (plugin two-factor do Better Auth, só com app autenticador). O segredo e os códigos de reserva
+// ficam cifrados com o BETTER_AUTH_SECRET. A chave do objeto precisa ser `twoFactor` (é o nome que o adaptador procura).
+export const twoFactor = sqliteTable(
+  "two_factor",
+  {
+    id: id(),
+    userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    secret: text("secret").notNull(),
+    backupCodes: text("backup_codes").notNull(),
+    verified: integer("verified", { mode: "boolean" }).notNull().default(true),
+    failedVerificationCount: integer("failed_verification_count").notNull().default(0),
+    lockedUntil: integer("locked_until", { mode: "timestamp_ms" }),
+  },
+  (t) => [index("two_factor_user").on(t.userId)],
+);
 
 export const tema = sqliteTable("tema", {
   id: id(),

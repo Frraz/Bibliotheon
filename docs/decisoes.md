@@ -104,6 +104,9 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-03 | Recuperação de senha por e-mail (`/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`) via `nodemailer` e SMTP qualquer (Gmail com senha de app). **Opcional:** sem `SMTP_HOST` a tela manda falar com o administrador. A resposta é igual exista a conta ou não; conta desativada não recebe link; falha de envio só vai ao log | Quem esquecia a senha dependia do titular. Dependência nova aceita porque tira o titular do caminho. Backup fora do servidor também fica opcional (não construído agora) | Sim |
 | 2026-11-03 | Documentação alinhada ao código: API/CLI de publicação e token de API marcados como planejados (Etapa 4, não existem); parceiro publica direto (sem `revisao`); Motion/GSAP e `react-hook-form` não instalados; `esqueci-a-senha` e `redefinir-senha` entram nos endereços reservados | A auditoria achou texto que descrevia o plano como se estivesse pronto | Sim |
 
+| 2026-11-03 | **Senha: qualquer uma a partir de 4 caracteres** (antes 10), sem regra de composição | Pedido do titular. Risco aceito: senha curta é adivinhável; mitigado pelo limite de tentativas e pela verificação em duas etapas, que agora existe | Sim |
+| 2026-11-03 | **Verificação em duas etapas opcional** (app autenticador + 10 códigos de reserva), plugin `twoFactor` do Better Auth; dependência nova `qrcode` (QR no navegador). Ligar, desligar e gerar códigos pedem a senha. "Nova senha" do administrador e `criar-owner` desligam a verificação (celular perdido) | Pedido do titular, para quem quiser mais segurança. Sem SMS nem e-mail como segundo fator: é mais código e mais risco, e o e-mail é opcional | Sim |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |

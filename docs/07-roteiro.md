@@ -81,9 +81,11 @@ Quem publica: o titular (administrador) e as pessoas que ele cadastrar. **Usuár
 3. ✅ **Fase 3: landing padrão e personalizada** (`src/landings/registro.ts` + `MoldeDaPagina`), **todas as lojas com o mesmo peso**, SEO (Home com metadados e `Organization`/`WebSite`, `lastmod` no sitemap). Pronta localmente: 44 testes E2E (3 novos), 76 unitários; impeccable só aponta o creme (aceito); Lighthouse A/B com o 001 real: mediana 90 (antes 92), A11y/Boas práticas/SEO 100.
 4. ✅ **Fase 4: exportação.** "Exportar dados" (`.md` e `.json`) e "Baixar PDF", pasta local `livros/<slug>/` fora do Git. Em `../ebooks`, cada título sai com um guia por plataforma (`publicacao/publicacao-<plataforma>.md`) e só os arquivos usados. Conferido publicando o livro 002 no painel local a partir do guia.
 
-5. 🟡 **Fase 5: recuperação de senha por e-mail** (03/11/2026). `/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`, com `nodemailer` e SMTP **opcional** ([03](03-tecnico.md#recuperação-de-senha-por-e-mail)). Pronta localmente e testada (SMTP falso na imagem standalone, 3 testes E2E, 4 unitários). **Aguarda commit, deploy e as variáveis `SMTP_*` no `.env` do servidor.** Junto vai a correção da imagem de compartilhamento do 002 (502 com capa PNG de 12 MB; capa reduzida a 600 px e PNG pesado vira JPEG no upload).
+5. ✅ **Fase 5: recuperação de senha por e-mail** (03/11/2026). `/esqueci-a-senha` → link de 1 h e uso único → `/redefinir-senha`, com `nodemailer` e SMTP **opcional** ([03](03-tecnico.md#recuperação-de-senha-por-e-mail)). Pronta localmente e testada (SMTP falso na imagem standalone, 3 testes E2E, 4 unitários). **No ar desde 03/11/2026 (`c02617b`), com `SMTP_*` no `.env` do servidor; falta testar o envio real.** Junto foi a correção da imagem de compartilhamento do 002 (502 com capa PNG de 12 MB; capa reduzida a 600 px e PNG pesado vira JPEG no upload).
 
-Estado dos testes em 03/11/2026: 89 unitários e 64 E2E passando.
+6. ✅ **Fase 6: senha mínima de 4 caracteres e verificação em duas etapas opcional** (03/11/2026). Em Conta; migração `0004_duas_etapas` (aplicada sozinha ao iniciar); dependência nova `qrcode`. Detalhes em [03](03-tecnico.md#segurança). **Aguarda commit e deploy.**
+
+Estado dos testes em 03/11/2026: 89 unitários e 70 E2E passando.
 
 Para repetir o deploy do painel (já feito): `git push` → `BETTER_AUTH_SECRET` no `.env` → `./atualizar.sh --forcar` → `docker exec -it bibliotheon_web node scripts/criar-owner.mjs <e-mail>` ([06](06-deploy.md#painel-e-primeiro-acesso)).
 
@@ -127,8 +129,7 @@ Só o titular pode fazer; nada disto bloqueia o desenvolvimento.
 
 | O quê | Detalhe |
 |---|---|
-| Commit e deploy da Fase 5 | Inclui a correção da imagem de compartilhamento do 002 |
-| SMTP no `.env` do servidor | `SMTP_HOST`, `SMTP_PORTA`, `SMTP_USUARIO`, `SMTP_SENHA` (senha de app do Gmail) e, se quiser, `EMAIL_REMETENTE`; depois `docker compose -f docker-compose.prod.yml up -d` ([06](06-deploy.md#variáveis-env-só-no-servidor)). Testar pedindo a recuperação com uma conta real |
+| Testar o e-mail de recuperação | No ar desde 03/11/2026 com `SMTP_*` no `.env`. Falta colocar a senha de app (`SMTP_SENHA`) e pedir a recuperação em `/esqueci-a-senha` com uma conta real; se falhar, `docker logs --tail 30 bibliotheon_web` ([06](06-deploy.md#painel-e-primeiro-acesso)) |
 | Capa do 002 | Subir de novo no painel depois do deploy: vira JPEG, bem mais leve |
 | Produtos de teste | Apagar o `testeTESTE` na Kiwify e o `TESTE` (ativo) na Cakto |
 | Hotmart do 001 | Passar para a 2ª edição e decidir o preço da Black Friday (R$ 24,99 na Hotmart contra R$ 47 cadastrado). O titular disse que mexe nos preços depois |
