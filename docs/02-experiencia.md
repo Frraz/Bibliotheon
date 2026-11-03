@@ -50,6 +50,10 @@ Endereços reservados (não podem ser o de um e-book; lista em `SLUGS_RESERVADOS
 
 ---
 
+## Faixa de versículos
+
+Linha escura logo abaixo do cabeçalho, em todas as páginas públicas com o cabeçalho do site (Home, temas, termos, privacidade, landing padrão). **Não aparece** nas landings personalizadas nem no painel. Troca a cada 10 segundos, sem repetir até passar por todos e continuando de onde parou na visita seguinte; para com o mouse sobre ela e tem botão de pausa. No celular só entram os versículos que cabem em 3 linhas (631 dos 828). Para mudar a lista: `seeds/versiculos/referencias.txt` e `node scripts/gerar-versiculos.mjs <porbr2018_vpl.txt>` (fonte: `ebible.org/Scriptures/porbr2018_vpl.zip`). O crédito da tradução fica no rodapé do site.
+
 ## Home (`/`)
 
 1. **Hero da marca:** frase curta ("E-books práticos para resolver problemas reais") + 1 e-book em destaque (o mais recente ou o marcado como destaque) com CTA para a landing.

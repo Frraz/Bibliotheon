@@ -129,11 +129,72 @@ html {
    do layout somem enquanto ela está na tela. O Next 16 não desmonta a página anterior: esconde com display:none inline no
    elemento de topo (Activity). Por isso todo seletor que procura um marcador de página exclui o que está escondido
    (`:not([style*="display: none"] *)`); sem isso, a landing escondida pintaria o Home. */
-[data-moldura]:has([data-moldura-propria]:not([style*="display: none"] *)) > :is([data-cabecalho-site], [data-rodape-site]) {
+[data-moldura]:has([data-moldura-propria]:not([style*="display: none"] *)) > :is([data-cabecalho-site], [data-rodape-site], [data-versiculos]) {
   display: none;
 }
 [data-moldura]:has([data-moldura-propria]:not([style*="display: none"] *)) > main {
   border-top-width: 0;
+}
+
+/* Faixa de versículos: a cada troca, uma luz dourada cresce atrás do texto e um fio se abre na base. Só `transform` e `opacity`;
+   fora da troca, nada se move. Com movimento reduzido, a troca é seca (ver faixa-versiculos.tsx). */
+[data-versiculos] {
+  --ouro-versiculo: #d9b45b;
+}
+.faixa-versiculos-luz {
+  background: radial-gradient(closest-side, rgb(217 180 91 / 0.4), rgb(217 180 91 / 0.12) 55%, transparent);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  animation: versiculo-luz 1600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.faixa-versiculos-fio {
+  opacity: 0;
+  transform: scaleX(0);
+  animation: versiculo-fio 1600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.faixa-versiculos-sai {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+.faixa-versiculos-entra {
+  animation: versiculo-entra 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes versiculo-luz {
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes versiculo-fio {
+  40% {
+    opacity: 0.9;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+@keyframes versiculo-entra {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .faixa-versiculos-efeito {
+    display: none;
+  }
+  .faixa-versiculos-sai {
+    opacity: 1;
+    transition: none;
+  }
+  .faixa-versiculos-entra {
+    animation: none;
+  }
 }
 
 /* Landing toda escura (data-superficie="escura"): o fundo atrás da barra de rolagem e o polegar acompanham a página. */

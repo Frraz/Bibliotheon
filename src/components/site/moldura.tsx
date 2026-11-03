@@ -41,6 +41,10 @@ export function RodapeSite({ discreto = false }: { discreto?: boolean }) {
         <Marca />
         <p className="mx-auto mt-3 max-w-md text-pretty">Biblioteca de e-books práticos. Pagamento, entrega e reembolso são feitos pela plataforma onde você comprar.</p>
         <p className="mt-3"><Contato className="inline-block px-1 py-2 underline-offset-4 hover:underline" /></p>
+        {/* Crédito exigido pela licença da tradução usada na faixa de versículos (só no rodapé do layout, onde a faixa aparece). */}
+        <p className="mx-auto mt-3 max-w-xl text-xs text-pretty">
+          Versículos da <a href="https://sites.google.com/site/biblialivre/" className="underline underline-offset-2">Bíblia Livre (BLIVRE)</a>, © Diego Santos, Mario Sérgio e Marco Teles, fevereiro de 2018, licença <a href="https://creativecommons.org/licenses/by/4.0/br/" className="underline underline-offset-2">CC BY 4.0 Brasil</a>. Ajustes de pontuação e títulos retirados por este site.
+        </p>
       </footer>
     );
   }

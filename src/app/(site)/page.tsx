@@ -49,7 +49,9 @@ async function Conteudo() {
               <p className="mb-5 text-center text-sm font-medium text-(--salvia) sm:mb-6 sm:text-left">Em destaque</p>
               <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-stretch sm:text-left">
                 {destaque.capa && (
-                  <Image src={destaque.capa} alt={destaque.capaAlt || `Capa de ${destaque.titulo}`} width={1600} height={2560} priority sizes="160px" className="h-auto w-36 shrink-0 shadow-[0_2px_3px_rgb(0_0_0/.12),0_18px_36px_-12px_rgb(31_42_41/.45)] transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:w-40" />
+                  <div className="aspect-[2/3] w-36 shrink-0 overflow-hidden shadow-[0_2px_3px_rgb(0_0_0/.12),0_18px_36px_-12px_rgb(31_42_41/.45)] transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:w-40">
+                    <Image src={destaque.capa} alt={destaque.capaAlt || `Capa de ${destaque.titulo}`} width={1600} height={2560} priority sizes="160px" className="size-full object-cover" />
+                  </div>
                 )}
                 <div className="flex w-full min-w-0 flex-col">
                   <h2 className="font-(family-name:--font-display) text-[1.375rem] leading-[1.15] font-medium text-balance">{destaque.titulo}</h2>

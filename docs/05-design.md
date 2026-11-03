@@ -65,6 +65,7 @@ O que não desenhamos também carrega a marca; tudo em `globals.css`, pelos toke
   - revelação sutil das seções no scroll;
   - parallax mínimo na capa.
 - **Painel e microinterações (Motion):** toasts, abertura de modais/acordeões, reordenação por arrastar, feedback de botão.
+- **Faixa de versículos (CSS puro, `globals.css`):** só na troca, a cada 10 s: o texto some em 300 ms, uma luz dourada cresce atrás dele e apaga em 1,6 s, um fio dourado se abre na base. Fora da troca nada se move; com `prefers-reduced-motion`, troca seca.
 - **Proibido:** animar o CTA de forma agressiva, scroll-jacking, animação que bloqueia o conteúdo acima da dobra, loops infinitos chamativos.
 - **Desempenho:** só `transform`/`opacity`; GSAP carregado apenas na landing; com `prefers-reduced-motion`, tudo aparece já no estado final.
 
