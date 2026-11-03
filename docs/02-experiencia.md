@@ -94,7 +94,7 @@ E-mail + senha. Sem cadastro público. Esqueceu a senha: link "Esqueci a senha" 
   - miniatura da capa e título;
   - status (badge: Rascunho / Publicado);
   - visitas, cliques e taxa de clique em 7 dias, com seletor 7d/30d;
-  - botões "Ver página" (publicado) ou "Ver prévia" (rascunho), "Editar", "Exportar" e, se houver, "Baixar PDF".
+  - ação principal à vista: "Editar". No menu "⋯" (Mais ações): "Ver página" (publicado) ou "Ver prévia" (rascunho), "Exportar dados" e, se houver, "Baixar PDF" (menu do Base UI, `menu-acoes-ebook.tsx`, com teclado e Esc).
 - Ação principal: **"Novo e-book"**.
 - Estado vazio: "Você ainda não tem e-books. Comece pelo título e pela capa — o resto você completa depois." + botão.
 

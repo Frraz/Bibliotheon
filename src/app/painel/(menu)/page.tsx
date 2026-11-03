@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { MenuAcoesEbook } from "@/components/painel/menu-acoes-ebook";
 import { Button } from "@/components/ui/button";
 import { exigirUsuario } from "@/lib/acesso";
 import { listarEbooks } from "@/lib/ebooks";
@@ -55,15 +56,15 @@ export default async function PainelEbooks() {
                     </div>
                   ))}
                 </dl>
-                <div className="col-span-2 flex flex-wrap gap-2 sm:col-span-1 sm:col-start-4 sm:row-start-1 sm:max-w-64 sm:justify-end">
-                  {l.status === "publicado" ? (
-                    <Button variant="ghost" render={<Link href={`/${l.slug}`} target="_blank" />}>Ver página</Button>
-                  ) : (
-                    <Button variant="ghost" render={<Link href={`/painel/ebooks/${l.id}/previa`} target="_blank" />}>Ver prévia</Button>
-                  )}
+                <div className="col-span-2 flex items-center gap-1 sm:col-span-1 sm:col-start-4 sm:row-start-1 sm:justify-end">
                   <Button variant="outline" render={<Link href={`/painel/ebooks/${l.id}`} />}>Editar</Button>
-                  <Button variant="ghost" render={<a href={`/api/painel/ebooks/${l.id}/exportar`} download />}>Exportar</Button>
-                  {!!l.temPdf && <Button variant="ghost" render={<a href={`/api/painel/ebooks/${l.id}/pdf`} download />}>Baixar PDF</Button>}
+                  <MenuAcoesEbook
+                    titulo={l.titulo}
+                    verHref={l.status === "publicado" ? `/${l.slug}` : `/painel/ebooks/${l.id}/previa`}
+                    verRotulo={l.status === "publicado" ? "Ver página" : "Ver prévia"}
+                    exportarHref={`/api/painel/ebooks/${l.id}/exportar`}
+                    pdfHref={l.temPdf ? `/api/painel/ebooks/${l.id}/pdf` : undefined}
+                  />
                 </div>
               </li>
             ))}

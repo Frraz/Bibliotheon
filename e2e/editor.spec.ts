@@ -398,8 +398,10 @@ test("exportar: o administrador exporta e baixa de qualquer um; o usuário comum
   const linhaBeto = page.locator("li", { hasText: "Receitas de Pão Caseiro" });
   const idBeto = (await linhaBeto.getByRole("link", { name: "Editar" }).getAttribute("href"))!.split("/").pop()!;
   expect((await page.request.get(`/api/painel/ebooks/${idBeto}/exportar`)).status()).toBe(200);
-  await expect(page.locator("li", { hasText: TITULO }).getByRole("link", { name: "Baixar PDF" })).toBeVisible();
-  await expect(page.locator("li", { hasText: TITULO }).getByRole("link", { name: "Exportar" })).toBeVisible();
+  await page.locator("li", { hasText: TITULO }).getByRole("button", { name: /^Mais ações/ }).click();
+  await expect(page.getByRole("menuitem", { name: "Baixar PDF" })).toBeVisible();
+  await expect(page.getByRole("menuitem", { name: "Exportar dados" })).toBeVisible();
+  await page.keyboard.press("Escape");
 
   expect((await request.get(`/api/painel/ebooks/${id}/exportar`)).status()).toBe(401);
   const ctxBeto = await browser.newContext();

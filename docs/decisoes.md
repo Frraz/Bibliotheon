@@ -113,6 +113,8 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 
 | 2026-11-03 | **Acabamento do navegador pelos tokens** (barra de rolagem fina, seleção, cursor, `accent-color`) e **cabeçalho/rodapé próprios e discretos em cada landing personalizada** (`CabecalhoSite`/`RodapeSite` com `discreto`, herdam a cor da faixa; o do layout some só enquanto a landing está na tela) | Pedido do titular: barras pouco elegantes (a padrão era uma faixa branca ao lado da página escura) e cabeçalho que servisse a todas as landings. A 1ª versão (tokens trocados no layout inteiro por `:has`) vazou para o Home, porque o Next 16 mantém a página anterior escondida no DOM; trocada por esta. Só CSS e componentes; sem dependência | Sim |
 
+| 2026-11-03 | **Painel:** item ativo do menu lateral sem a barra terracota (chip claro + ícone terracota); na lista de e-books só "Editar" fica à vista e o resto vai para o menu "⋯" | Pedido do titular. A barra colorida lateral é clichê de template; a lista quebrava as ações de forma desigual com 3 a 4 botões. Usa o Menu do Base UI, que já é dependência | Sim |
+
 ## Em aberto (decidir na etapa indicada)
 
 | Etapa | Questão |

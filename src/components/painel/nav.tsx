@@ -25,10 +25,10 @@ export function PainelNav({ itens }: { itens: ItemNav[] }) {
             href={href}
             aria-current={ativo ? "page" : undefined}
             className={`flex min-h-11 flex-col items-center justify-center gap-1 rounded px-1 text-[0.8125rem] lg:flex-row lg:justify-start lg:gap-3 lg:px-3 lg:text-[0.9375rem] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-(--terracota) ${
-              ativo ? "bg-(--papel) text-(--tinta) shadow-[inset_3px_0_0_var(--terracota)]" : "text-(--tinta-2) hover:bg-(--papel)/60 hover:text-(--tinta)"
+              ativo ? "bg-(--papel) text-(--tinta) shadow-[0_1px_2px_rgb(31_42_41/.10)]" : "text-(--tinta-2) hover:bg-(--papel)/60 hover:text-(--tinta)"
             }`}
           >
-            <Icone className="size-[1.125rem]" aria-hidden />
+            <Icone className={`size-[1.125rem] transition-colors ${ativo ? "text-(--terracota)" : ""}`} aria-hidden />
             {rotulo}
           </Link>
         );
