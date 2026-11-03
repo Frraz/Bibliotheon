@@ -1,6 +1,6 @@
 # 05 — Design
 
-O v1 parecia "feito por estudante usando IA". Este documento existe para que isso não se repita. **A direção visual final é escolhida na Etapa 1**, com protótipos reais, e registrada aqui (seção "Direção escolhida").
+Este documento existe para que o site nunca pareça "feito por estudante usando IA". **A direção visual final é escolhida na Etapa 1**, com protótipos reais, e registrada aqui (seção "Direção escolhida").
 
 ## Direção (ponto de partida)
 

@@ -4,7 +4,7 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 
 | Data | Decisão | Motivo | Reversível? |
 |---|---|---|---|
-| 2026-11-02 | Recomeçar do zero (v2), com documentação curta e portões visuais por etapa | O v1 demorou, ficou amador e o painel ficou confuso | — |
+| 2026-11-02 | Projeto feito do zero, com documentação curta e portões visuais por etapa | Visual impecável e painel simples exigem aprovação a cada etapa | — |
 | 2026-11-02 | Objetivo único: vender e-books. O site é vitrine + landing; pagamento e entrega ficam nas plataformas | Menos risco, menos código, foco em conversão | Não |
 | 2026-11-02 | PDF/EPUB pago nunca fica no Bibliotheon; só capa, textos e **amostras em imagem** (+ PDF de amostra opcional) | A amostra converte; o arquivo pago só traz risco | Sim |
 | 2026-11-02 | **Urgência real**: timer só com `ofertaAte` real; preço "de" só se for realmente praticado; o preço sobe sozinho no fim do prazo | CDC/Procon, políticas de anúncio da Meta e confiança | Sim |
@@ -48,9 +48,8 @@ Registro curto. Uma linha por decisão; reversível = pode mudar sem retrabalho 
 | 2026-11-02 | Sem Meta Pixel/GA4 no lançamento | Sem anúncios ainda; os contadores próprios já medem visitas e cliques por origem | Sim |
 | 2026-11-02 | "O que você recebe" é o que o checkout entrega; padrão de novos títulos: livro PDF + EPUB + 1 complemento leve (ficha/caderno) | O 001 já tem PDF, EPUB, caderno e ZIP. Ver `../ebooks/templates/14-pacote-de-entrega.md` | Sim |
 | 2026-11-02 | Alterações em `../ebooks` por pedido explícito do titular (só documentação: doc 19, templates 06 e 14, AGENTS.md); o manifesto aceita `samples` como lista de nomes (formato do gerador v2) | O gerador de `../ebooks` já emitia o v2; só `samples` divergia do schema daqui. Launcher e `publicar.py` seguem na Etapa 4 | Sim |
-| 2026-11-02 | Só `bibliotheon.com.br` (sem `www`, não há DNS); porta 8020 e nginx do v1 reaproveitados | Descoberto no VPS | Sim |
-| 2026-11-02 | v1 **apagado por completo, sem dump nem registros** (containers, volumes, imagem e rede), a pedido do titular: "foi um desastre" | Código já apagado; decisão do titular. Irreversível | Não |
-| 2026-11-02 | `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` do servidor; backup em `~/backups/bibliotheon` | Nome de projeto igual ao do v1 trataria containers dele como órfãos; `data/` pertence ao uid 1000 e o cron roda como `deploy` | Sim |
+| 2026-11-02 | Só `bibliotheon.com.br` (sem `www`, não há DNS); porta 8020 e nginx já existentes no servidor | Descoberto no VPS | Sim |
+| 2026-11-03 | Sem `COMPOSE_PROJECT_NAME` no `.env` (o nome do projeto é o da pasta, `bibliotheon`); backup em `~/backups/bibliotheon` | `data/` pertence ao uid 1000 e o cron roda como `deploy`. Troca do nome antigo: `docker compose -p bibliotheon_v2 -f docker-compose.prod.yml down` uma vez, depois `./atualizar.sh --forcar` | Sim |
 | 2026-11-02 | Ajuste mobile: cartão da Home empilhado, botão de compra em largura total, descrição recolhida ("Continuar lendo"), `grid-cols-1` em todo grid, fallback da Home `min-h-svh`, teste e2e de largura em 360/390/430 px | Titular viu a Home "esticada" no celular; achado: estouro de 3 px em 360 px. Landing 7.424 px em vez de 8.374 px | Sim |
 | 2026-11-02 | **Padrão de venda** obrigatório em toda landing de todo e-book (`CLAUDE.md`, regra 8; [04](04-vendas-e-medicao.md#6-padrão-de-venda)) | Pedido do titular: o objetivo é um só, vender | Sim |
 | 2026-11-02 | Meta: R$ 1.500/mês de **faturamento bruto**; R$ 0 em anúncios; marcos em 30/11, 31/12 e 28/02/2027 | Titular. Os marcos são critério do projeto, não previsão | Sim |

@@ -15,7 +15,7 @@ Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados 
 | [03 — Técnico](docs/03-tecnico.md) | Stack, dados, rotas, API, manifesto, CLI, segurança |
 | [04 — Vendas e medição](docs/04-vendas-e-medicao.md) | **Estratégia e padrão de venda**, SEO, UTM, pixels, campanha, rotina semanal |
 | [05 — Design](docs/05-design.md) | Direção visual, regras anti-amador, movimento, metas |
-| [06 — Deploy](docs/06-deploy.md) | VPS, substituição do v1, backup, rollback |
+| [06 — Deploy](docs/06-deploy.md) | VPS, backup, rollback |
 | [07 — Roteiro](docs/07-roteiro.md) | Etapas com portões, critérios de aceite, backlog |
 | [Decisões](docs/decisoes.md) | Registro de decisões e questões em aberto |
 | [Origem](docs/origem/) | Áudios transcritos e notas originais do projeto |

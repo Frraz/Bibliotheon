@@ -28,7 +28,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 3. ✅ Landing, Home e Tema lendo do banco; `/ir` com UTMs; beacon de visitas.
 4. ✅ SEO (metadata, JSON-LD, sitemap, robots, OG); Termos, Privacidade e consentimento Pixel/GA4.
 5. ✅ Dockerfile + compose + nginx + scripts de atualizar, backup e aquecer.
-6. ✅ Deploy no VPS, v1 removido ([06](06-deploy.md)). 001 à venda por R$ 64,99 (Hotmart).
+6. ✅ Deploy no VPS ([06](06-deploy.md)). 001 à venda por R$ 64,99 (Hotmart).
 
 **Critérios de aceite:**
 
@@ -37,7 +37,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 - [x] Clique em oferta com `?utm_source=teste` chega ao checkout com o parâmetro (E2E), inclusive quando o clique ocorre antes do JavaScript carregar (recuperação por `Referer`).
 - [x] Teste automatizado: com `ofertaAte` no passado o preço muda e a faixa some (E2E com relógio simulado).
 - [~] Rich Results Test sem erros; OG aparece no WhatsApp. _(JSON-LD e imagem OG gerados e verificados localmente; a validação no Google e no WhatsApp exige o site público)_
-- [x] Outros sistemas do VPS intactos (`docker ps` conferido; v1 descartado a pedido, sem backup).
+- [x] Outros sistemas do VPS intactos (`docker ps` conferido).
 
 **Testes:** 29 unitários (preço, UTM, manifesto, mídia, JSON-LD) e 12 E2E (`npm test`, `npm run test:e2e`), mais a imagem Docker construída, executada e com backup restaurado.
 
@@ -45,7 +45,7 @@ Cada etapa termina num **portão**: você vê o resultado e aprova antes de segu
 
 | # | O que | Estado |
 |---|---|---|
-| 1 | Acesso ao VPS | ✅ Autorizado (usuário `deploy`, sem `sudo`). Descoberta feita: v1 em `127.0.0.1:8020`, nginx e certificado já existem ([06](06-deploy.md)) |
+| 1 | Acesso ao VPS | ✅ Autorizado (usuário `deploy`, sem `sudo`). Porta `127.0.0.1:8020`; nginx e certificado do domínio já existem ([06](06-deploy.md)) |
 | 2 | E-mail de contato | ✅ `ferzion.dev@gmail.com` (provisório) |
 | 3 | Preço e checkout | ✅ R$ 64,99 · Hotmart `pay.hotmart.com/X108114152R` |
 | 4 | Headline e endereço | ✅ Aprovados |

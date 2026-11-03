@@ -60,7 +60,7 @@ O Bibliotheon **não** processa pagamento, **não** entrega arquivos e **não** 
 - Landing padrão ou personalizada por e-book.
 - API de operação (`deploy/venda.sh`) para preço, campanha e textos. A API + CLI de publicação a partir do `../ebooks` está planejada (Etapa 4, pausada).
 - SEO técnico completo, OG automático, Termos, Privacidade, banner de consentimento.
-- Deploy no VPS substituindo o v1.
+- Deploy no VPS.
 
 **Fora**, no [backlog](07-roteiro.md#backlog). Só entra quando o uso real pedir:
 

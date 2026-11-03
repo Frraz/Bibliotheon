@@ -57,5 +57,5 @@ Subir o build de produção (`npm run build && npm start -- -p 3100`) e capturar
 ## Fora daqui
 
 - **Projeto `../ebooks`:** só alterar o que a Etapa 4 indica (launcher `bibliotheon`, `docs/19-integracao-bibliotheon.md` e o trecho do `AGENTS.md` sobre publicação) ou o que o titular pedir. Não é repositório git: guardar cópia antes de editar.
-- **VPS:** outros sistemas convivem no mesmo servidor. Nunca publicar 80/443 nem mexer em containers, portas ou `.conf` de outros projetos. Fazer backup antes de substituir o v1 (`docs/06-deploy.md`).
+- **VPS:** outros sistemas convivem no mesmo servidor. Nunca publicar 80/443 nem mexer em containers, portas ou `.conf` de outros projetos.  Antes de mexer no servidor, backup (`docs/06-deploy.md`).
 - **Publicação externa, anúncios, gastos e mensagens a terceiros:** só com pedido explícito do usuário.

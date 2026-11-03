@@ -1,6 +1,6 @@
 # 06 — Deploy (VPS)
 
-O VPS é o mesmo dos outros sistemas: `warley.dev.ferzion.com.br` (147.93.15.214). `bibliotheon.com.br` (sem `www`, que não tem DNS) já aponta para ele. O **v2 (este projeto) está no ar** em `127.0.0.1:8020`; o v1 foi apagado em 02/11/2026 (ver "Histórico" abaixo).
+O VPS é o mesmo dos outros sistemas: `warley.dev.ferzion.com.br` (147.93.15.214). `bibliotheon.com.br` (sem `www`, que não tem DNS) já aponta para ele. O site está no ar em `127.0.0.1:8020`.
 
 Acesso: usuário `deploy`, no grupo `docker`, **sem `sudo` sem senha**. Tudo abaixo roda como `deploy`; só a troca do `.conf` do nginx exige `sudo` (e é opcional, ver adiante).
 
@@ -26,7 +26,7 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | Variável | Quando vale | Observação |
 |---|---|---|
 | `SITE_URL` | **Build** | Canonical, sitemap, OG, JSON-LD. Mudar exige novo build |
-| `PORTA` | Execução | Porta no loopback. Reaproveite a do v1 |
+| `PORTA` | Execução | Porta no loopback (a atual é a 8020) |
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA4_ID` | **Build** | Opcionais. Sem eles nada de terceiros carrega e o banner de cookies nem aparece |
 | `NEXT_PUBLIC_CONTATO_EMAIL` | **Build** | Aparece em Termos, Privacidade e rodapé. **Preencher antes de divulgar** (LGPD) |
 | `API_TOKEN` | Execução | Token do `deploy/venda.sh` (preço, campanha, textos). Sem ele a API fica fechada |
@@ -35,20 +35,6 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `IMAGE_TAG` | Execução | O `atualizar.sh` preenche com o commit, para rollback |
 
 `DATABASE_PATH` e `MEDIA_DIR` já vêm definidos na imagem (`/app/data/...`).
-
-## Histórico: substituição do v1 (feita em 02/11/2026)
-
-Descoberto em 02/11/2026 (somente leitura):
-
-- Containers `bibliotheon-app-1` (`127.0.0.1:8020`) e `bibliotheon-db-1` (Postgres), volumes `bibliotheon_database`, `bibliotheon_media`, `bibliotheon_cache`.
-- nginx: `/etc/nginx/sites-available/bibliotheon` (link em `sites-enabled/`), `proxy_pass` para `127.0.0.1:8020`, certificado Let's Encrypt do `bibliotheon.com.br` já emitido.
-- O código do v1 foi apagado pelo titular, que optou por **descartar os dados sem dump**.
-
-Decisão do titular (02/11/2026): o v1 foi um desastre e foi **apagado por completo, sem dump nem registros** (containers `bibliotheon-app-1` e `bibliotheon-db-1`, os 3 volumes, a imagem e a rede `bibliotheon_private`). Não há v1 para voltar. O que sobrou fora do alcance do `deploy`: uma cópia antiga do `.conf` do nginx (`bibliotheon.before-admin-…`) e a pasta vazia `/var/lib/bibliotheon`, ambas de root.
-
-O v2 usa `COMPOSE_PROJECT_NAME=bibliotheon_v2` no `.env` (o v1 usava `bibliotheon`).
-
-**Rollback do v2:** `atualizar.sh` volta sozinho para a imagem anterior; manual na seção "Rollback".
 
 ## Painel e primeiro acesso
 
@@ -76,7 +62,7 @@ Atrás do nginx o limite de tentativas de login usa o `X-Real-IP` (o `deploy/ngi
 | Recurso | Valor |
 |---|---|
 | Domínio | `bibliotheon.com.br` (sem `www`) |
-| Porta loopback | **8020** (a do v1). Atenção: **8013 é do rebanho360** |
+| Porta loopback | **8020**. Atenção: **8013 é do rebanho360** |
 | Diretório | `/var/www/docker-instances/Bibliotheon` |
 | Dados | `<diretório>/data/` → `bibliotheon.db` + `media/` (bind mount, dono uid 1000) |
 | Compose | `docker-compose.prod.yml` |
