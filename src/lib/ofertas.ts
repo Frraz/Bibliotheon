@@ -14,6 +14,17 @@ export const NOME_PLATAFORMA: Record<Plataforma, string> = {
   outra: "outra plataforma",
 };
 
+/**
+ * Símbolo oficial e cor de cada loja no bloco de compra. O símbolo só identifica onde a compra acontece (docs/decisoes.md, 04/11/2026).
+ * Só o símbolo, sem o nome desenhado: ele se lê em fundo claro e escuro, e o nome vem em texto, na cor e na fonte da página.
+ * Loja fora daqui aparece só com o texto.
+ */
+export const MARCA_LOJA: Partial<Record<Plataforma, { simbolo: string; cor: string }>> = {
+  hotmart: { simbolo: "/lojas/hotmart.svg", cor: "#FF4000" },
+  kiwify: { simbolo: "/lojas/kiwify.svg", cor: "#2DB56F" },
+  cakto: { simbolo: "/lojas/cakto.svg", cor: "#3FC958" },
+};
+
 export const rotuloOferta = (o: { plataforma: Plataforma; rotulo: string | null }) =>
   o.rotulo?.trim() || `Comprar na ${NOME_PLATAFORMA[o.plataforma]}`;
 

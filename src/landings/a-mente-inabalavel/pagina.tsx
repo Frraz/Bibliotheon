@@ -9,12 +9,13 @@ import { CabecalhoSite, RodapeSite } from "@/components/site/moldura";
 import { PedirAmostra } from "@/components/site/pedir-amostra";
 import { TextoRecolhivel } from "@/components/site/texto-recolhivel";
 import type { PropsLanding } from "../registro";
-import { PROBLEMAS, SEMANAS } from "./conteudo";
+import { ALinha } from "./linha";
+import { APENDICES, COMPARACAO, LINHAS_COMPARACAO, MARINA, PROBLEMAS, SEMANAS } from "./conteudo";
 import { SeletorDeProblemas } from "./seletor";
 
 // Landing de "A Mente Inabalável". Identidade tirada do livro: mármore, ouro antigo, Cinzel (só em citações e títulos, como
-// inscrição em pedra) e Source Serif 4. O elemento memorável é o seletor de problemas, que mostra a prática real de cada capítulo.
-// Ordem do padrão de venda (docs/04, seção 6): resultado, necessidade, prova do conteúdo, por que este caminho, risco, compra.
+// inscrição em pedra) e Source Serif 4. O elemento memorável é a linha do capítulo 2, feita na própria página, seguida do seletor de problemas.
+// Ordem do padrão de venda (docs/04, seção 6): resultado, necessidade, experimentar, prova do conteúdo, resultado, por que este caminho, risco, compra.
 
 const inscricao = Cinzel({ subsets: ["latin"], variable: "--font-inscricao", weight: ["500", "600"] });
 const livro = Source_Serif_4({ subsets: ["latin"], variable: "--font-livro", axes: ["opsz"] });
@@ -50,67 +51,100 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
   const descricao = paragrafos(e.descricao);
   const garantia = e.garantiaDias ? `Garantia de ${e.garantiaDias} dias` : "";
   const formatos = e.formatos.filter((f) => /pdf|epub/i.test(f)).join(" e ");
+  // O número de páginas vem do painel (item "Livro em PDF (N páginas)"): se mudar lá, muda aqui. Sem ele, o número some.
+  const paginas = e.incluido.join(" ").match(/(\d{2,4}) páginas/)?.[1];
+  const numeros = [
+    { n: "19", t: "capítulos" },
+    { n: "25", t: "exercícios" },
+    { n: "30", t: "dias de plano" },
+    { n: "40", t: "frases-âncora" },
+    ...(paginas ? [{ n: paginas, t: "páginas" }] : []),
+  ];
 
   return (
     <div style={CORES} className={`${inscricao.variable} ${livro.variable} bg-(--marmore) font-(family-name:--font-livro) text-[1.125rem] leading-[1.7] text-(--noite)`}>
       <CabecalhoSite discreto className="bg-(--noite) text-(--marmore)" />
       {vender && e.vigente.emOferta && <FaixaUrgencia className="border-b border-(--ouro)/40 bg-(--noite) text-(--marmore)" />}
 
-      {/* Topo: resultado, preço e a capa */}
+      {/* Topo: resultado, o livro, preço e lojas. No celular a capa fica ao lado do preço, para livro e compra caberem na primeira tela. */}
       <header id="topo" className="bg-(--noite) text-(--marmore)">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-10 px-5 pt-10 pb-14 lg:grid-cols-[1.2fr_1fr] lg:py-20">
-          <div>
-            <h1 className="max-w-[20ch] text-[clamp(2rem,5vw,3.375rem)] leading-[1.1] font-semibold tracking-[-0.01em] text-balance">{e.headline?.trim() || e.titulo}</h1>
-            {e.resumo && <p className="mt-6 max-w-[34rem] text-[1.1875rem] text-(--marmore)/80 text-pretty">{e.resumo}</p>}
-            {vender ? (
-              <>
-                <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-end sm:gap-x-8">
-                  <div>
-                    <PrecoDe className="block text-sm text-(--marmore)/70" />
-                    <PrecoAtual className="block font-(family-name:--font-inscricao) text-[2.75rem] leading-none font-medium" />
-                    {e.parcelamento && <span className="mt-2 block text-sm text-(--marmore)/70">{e.parcelamento}</span>}
-                  </div>
-                  <BotaoDeCompra e={e} previa={previa} className="w-full sm:w-auto" />
-                </div>
-                <AvisoPrazo className="mt-4 font-medium text-(--ouro)" />
-              </>
-            ) : (
-              <div className="mt-8 max-w-md border-t border-(--ouro) pt-4">
-                <p className="font-(family-name:--font-inscricao) text-[1.625rem] font-medium">Em breve</p>
-                <p className="mt-1 text-(--marmore)/80 text-pretty">As vendas ainda não foram abertas. {e.amostras.length > 0 && <a href="#folhear" className="underline underline-offset-4 hover:text-(--ouro)">Folheie as páginas do livro.</a>}</p>
-              </div>
-            )}
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-1 text-[0.9375rem] text-(--marmore)/75">
-              {formatos && <li>{formatos}</li>}
-              {vender && <li>Acesso imediato</li>}
-              {garantia && <li>{garantia}</li>}
-            </ul>
-          </div>
+        <div className="mx-auto grid max-w-6xl grid-cols-[6.75rem_minmax(0,1fr)] gap-x-5 gap-y-6 px-5 pt-8 pb-10 sm:grid-cols-[9rem_minmax(0,1fr)] lg:grid-cols-[1.2fr_1fr] lg:grid-rows-[auto_auto_auto_auto_auto_1fr] lg:gap-x-16 lg:gap-y-6 lg:py-12">
+          <h1 className="col-span-2 max-w-[21ch] text-[clamp(1.8125rem,5vw,3.375rem)] leading-[1.1] font-semibold tracking-[-0.01em] text-balance lg:col-span-1 lg:row-start-2">{e.headline?.trim() || e.titulo}</h1>
           {e.capa && (
-            <div className="mx-auto w-full max-w-[17rem] lg:max-w-[24rem]">
-              <Image src={e.capa} alt={e.capaAlt || `Capa de ${e.titulo}`} width={1600} height={2562} priority fetchPriority="high" sizes="(min-width:1024px) 384px, 272px" className="h-auto w-full shadow-[0_24px_60px_-18px_rgb(0_0_0/.9)]" />
+            <div className="lg:col-start-2 lg:row-span-full lg:row-start-1 lg:self-start">
+              <Image src={e.capa} alt={e.capaAlt || `Capa de ${e.titulo}`} width={1600} height={2562} priority fetchPriority="high" sizes="(min-width:1024px) 384px, (min-width:640px) 144px, 108px" className="mx-auto h-auto w-full shadow-[0_24px_60px_-18px_rgb(0_0_0/.9)] lg:max-w-[24rem]" />
             </div>
           )}
+          <div className="self-center lg:col-start-1 lg:row-start-3">
+            <p className="font-(family-name:--font-inscricao) text-[1.0625rem] leading-snug font-medium text-(--ouro) lg:text-[1.25rem]">{e.titulo}</p>
+            <p className="mt-1 text-[0.9375rem] leading-snug text-(--marmore)/75">Manual de estoicismo prático{formatos ? `, em ${formatos}` : ""}</p>
+            {vender ? (
+              <div className="mt-3">
+                <PrecoDe className="block text-sm text-(--marmore)/70" />
+                <PrecoAtual className="block font-(family-name:--font-inscricao) text-[2.25rem] leading-none font-medium lg:text-[2.75rem]" />
+                {e.parcelamento && <span className="mt-2 block text-sm text-(--marmore)/70">{e.parcelamento}</span>}
+              </div>
+            ) : (
+              <p className="mt-3 font-(family-name:--font-inscricao) text-[1.625rem] font-medium">Em breve</p>
+            )}
+          </div>
+          <div className="col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-4">
+            {vender ? (
+              <>
+                <BotaoDeCompra e={e} previa={previa} className="w-full sm:w-auto" />
+                <AvisoPrazo className="mt-3 block font-medium text-(--ouro)" />
+                <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-[0.9375rem] text-(--marmore)/75">
+                  <li>Acesso imediato</li>
+                  {garantia && <li>{garantia}</li>}
+                </ul>
+              </>
+            ) : (
+              <p className="max-w-md text-(--marmore)/80 text-pretty">As vendas ainda não foram abertas. {e.amostras.length > 0 && <a href="#folhear" className="underline underline-offset-4 hover:text-(--ouro)">Folheie as páginas do livro.</a>}</p>
+            )}
+          </div>
+          {e.resumo && <p className="col-span-2 max-w-[34rem] text-(--marmore)/80 text-pretty lg:col-span-1 lg:col-start-1 lg:row-start-5">{e.resumo}</p>}
+        </div>
+        <div className="border-t border-(--ouro)/25">
+          <ul className="mx-auto grid max-w-6xl grid-cols-2 gap-x-5 gap-y-3 px-5 py-6 min-[420px]:grid-cols-3 lg:flex lg:justify-between">
+            {numeros.map((c) => (
+              <li key={c.t} className="flex items-baseline gap-2 text-[0.9375rem] text-(--marmore)/80">
+                <span className="font-(family-name:--font-inscricao) text-[1.5rem] leading-none font-medium text-(--ouro)">{c.n}</span>
+                {c.t}
+              </li>
+            ))}
+          </ul>
         </div>
       </header>
 
-      {/* Necessidade: a ideia central do capítulo 1 e as cenas que o leitor reconhece */}
+      {/* Necessidade: primeiro as cenas que o leitor reconhece, depois o mecanismo do capítulo 1 */}
       <section className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
-        <blockquote>
-          <p className="max-w-[26ch] font-(family-name:--font-inscricao) text-[clamp(1.75rem,4.6vw,3.25rem)] leading-[1.2] font-medium text-balance">“Não são as coisas que perturbam as pessoas, mas as opiniões que elas têm sobre as coisas.”</p>
-          <footer className="mt-4 text-(--tinta-2)">Epicteto, Manual 5</footer>
-        </blockquote>
-        <div className="mt-12 grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-[1fr_1.2fr]">
-          <div className="max-w-[60ch]">
-            <p className="text-[1.3125rem] leading-[1.5] font-semibold text-pretty">Você não está sofrendo só pelo que aconteceu. Está sofrendo pelo que você está dizendo a si mesmo sobre o que aconteceu.</p>
-            <p className="mt-4 text-(--tinta-2) text-pretty">É um mecanismo. Se uma parte enorme da dor mora na história que você conta, e não só no fato, essa parte pode ser mudada.</p>
-            {e.problema && <p className="mt-6 border-l-2 border-(--ouro) pl-4 italic text-pretty">“{e.problema}”</p>}
-          </div>
+        <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-[1fr_1.2fr]">
+          {e.problema && <p className="max-w-[22ch] font-(family-name:--font-inscricao) text-[clamp(1.625rem,3.8vw,2.625rem)] leading-[1.2] font-medium text-balance">“{e.problema}”</p>}
           {e.dores.length > 0 && (
             <ul className="divide-y divide-(--filete) border-y border-(--filete)">
               {e.dores.map((d) => <li key={d} className="py-4 text-pretty">{d}</li>)}
             </ul>
           )}
+        </div>
+        <div className="mt-14 grid grid-cols-1 gap-x-16 gap-y-6 lg:grid-cols-[1fr_1.2fr]">
+          <div className="max-w-[60ch]">
+            <p className="text-[1.3125rem] leading-[1.5] font-semibold text-pretty">Você não está sofrendo só pelo que aconteceu. Está sofrendo pelo que você está dizendo a si mesmo sobre o que aconteceu.</p>
+            <p className="mt-4 text-(--tinta-2) text-pretty">É um mecanismo. Se uma parte enorme da dor mora na história que você conta, e não só no fato, essa parte pode ser mudada.</p>
+          </div>
+          <blockquote className="self-center border-l-2 border-(--ouro) pl-4">
+            <p className="italic text-pretty">“Não são as coisas que perturbam as pessoas, mas as opiniões que elas têm sobre as coisas.”</p>
+            <footer className="mt-1 text-[1rem] text-(--tinta-2)">Epicteto, Manual 5</footer>
+          </blockquote>
+        </div>
+      </section>
+
+      {/* O elemento memorável: a linha do capítulo 2, feita na página */}
+      <section aria-labelledby="linha" className="bg-(--papel-2)">
+        <div className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
+          <Titulo id="linha">Faça agora o exercício do capítulo 2</Titulo>
+          <p className="mt-4 max-w-[60ch] text-pretty">{MARINA.cena} Separe o que está na mão dela. <span className="text-(--tinta-2)">(Marina é uma personagem do livro.)</span></p>
+          <ALinha marina={MARINA} />
+          <p className="mt-8 max-w-[60ch] text-pretty">No livro, você faz essa tabela em uma folha, com o problema que está incomodando você hoje.</p>
         </div>
       </section>
 
@@ -125,6 +159,19 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
         </div>
       </section>
 
+      {/* Folheie: continua a faixa escura e leva à compra */}
+      {e.amostras.length > 0 && (
+        <section id="folhear" className={`${ABAIXO} scroll-mt-4 border-t border-(--ouro)/25 bg-(--noite) text-(--marmore)`}>
+          <div className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
+            <Titulo>Folheie antes de decidir</Titulo>
+            <p className="mt-3 max-w-xl text-(--marmore)/75">Páginas reais do livro. Toque para ampliar.</p>
+            <Folhear paginas={e.amostras} className="mt-10 -mx-5 px-5" itemClassName="shadow-[0_18px_30px_-14px_rgb(0_0_0/.6)] outline-(--marmore)" />
+            {e.amostraPdf && <PedirAmostra slug={e.slug} />}
+            <CompraNoMeio e={e} previa={previa} sobreEscuro />
+          </div>
+        </section>
+      )}
+
       {/* Resultado */}
       {e.beneficios.length > 0 && (
         <section className={`${ABAIXO} mx-auto max-w-6xl px-5 py-16 lg:py-24`}>
@@ -132,6 +179,7 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
           <ul className="mt-10 grid grid-cols-1 gap-x-16 gap-y-6 lg:grid-cols-2">
             {e.beneficios.map((b) => <li key={b} className="flex gap-3 text-pretty"><Marca />{b}</li>)}
           </ul>
+          <CompraNoMeio e={e} previa={previa} />
         </section>
       )}
 
@@ -153,21 +201,26 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
         </div>
       </section>
 
-      {/* Por que este caminho */}
-      {e.diferenciais.length > 0 && (
-        <section className={`${ABAIXO} mx-auto max-w-6xl px-5 py-16 lg:py-24`}>
-          <Titulo>Por que este caminho</Titulo>
-          <ul className="mt-10 grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-2">
-            {e.diferenciais.map((d) => <li key={d} className="border-t border-(--ouro-texto) pt-4 text-pretty">{d}</li>)}
-          </ul>
-          {descricao.length > 0 && (
-            <div className="mt-14 max-w-[64ch]">
-              <h3 className="text-[1.3125rem] font-semibold">Sobre o livro</h3>
-              <div style={{ "--terracota-escura": "#7a5710" } as React.CSSProperties} className="mt-3 text-(--tinta-2)"><TextoRecolhivel paragrafos={descricao} /></div>
+      {/* Por que este caminho: comparação com as alternativas, sem citar marcas */}
+      <section className={`${ABAIXO} mx-auto max-w-6xl px-5 py-16 lg:py-24`}>
+        <Titulo>Por que este caminho</Titulo>
+        <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 lg:grid-cols-3">
+          {COMPARACAO.map((c) => (
+            <div key={c.nome} className={`border-t-2 pt-4 ${c.destaque ? "border-(--ouro-texto)" : "border-(--filete)"}`}>
+              <h3 className={`text-[1.25rem] leading-snug font-semibold ${c.destaque ? "font-(family-name:--font-inscricao) font-medium" : ""}`}>{c.nome}</h3>
+              <dl className="mt-5 space-y-4">
+                {c.itens.map((t, i) => (
+                  <div key={t}>
+                    <dt className="text-[0.9375rem] text-(--tinta-2)">{LINHAS_COMPARACAO[i]}</dt>
+                    <dd className={`text-pretty ${c.destaque ? "font-semibold" : "text-(--tinta-2)"}`}>{t}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-          )}
-        </section>
-      )}
+          ))}
+        </div>
+        <p className="mt-10 max-w-[60ch] text-pretty">Este livro é uma porta de entrada, e não substitui os originais: o Apêndice A indica por onde continuar neles.</p>
+      </section>
 
       {/* Risco: para quem é e para quem não é */}
       {(e.paraQuem.length > 0 || e.naoEPara.length > 0) && (
@@ -196,19 +249,25 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
         </section>
       )}
 
-      {/* Folheie */}
-      {e.amostras.length > 0 && (
-        <section id="folhear" className={`${ABAIXO} scroll-mt-4 bg-(--noite) text-(--marmore)`}>
-          <div className="mx-auto max-w-6xl px-5 py-16 lg:py-24">
-            <Titulo>Folheie antes de decidir</Titulo>
-            <p className="mt-3 max-w-xl text-(--marmore)/75">Páginas reais do livro. Toque para ampliar.</p>
-            <Folhear paginas={e.amostras} className="mt-10 -mx-5 px-5" itemClassName="shadow-[0_18px_30px_-14px_rgb(0_0_0/.6)] outline-(--marmore)" />
-            {e.amostraPdf && <PedirAmostra slug={e.slug} />}
+      {/* Incluído e garantia */}
+      {(e.incluido.length > 0 || e.garantiaDias > 0) && (
+        <section className={`${ABAIXO} bg-(--papel-2)`}>
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-12 px-5 py-16 lg:grid-cols-2 lg:py-24">
+            <div>
+              <Titulo>O que você recebe</Titulo>
+              <ul className="mt-6 space-y-4">{[...e.incluido, ...APENDICES].map((t) => <li key={t} className="flex gap-3 text-pretty"><Marca />{t}</li>)}</ul>
+            </div>
+            {e.garantiaDias > 0 && (
+              <div>
+                <Titulo>Garantia de {e.garantiaDias} dias</Titulo>
+                <p className="mt-6 text-(--tinta-2) text-pretty">Se o livro não for o que você esperava, você pode pedir o reembolso pelo fluxo da própria plataforma de compra, em até {e.garantiaDias} dias, sem prejuízo dos direitos previstos em lei.</p>
+              </div>
+            )}
           </div>
         </section>
       )}
 
-      {/* Sumário */}
+      {/* Sumário e descrição */}
       {e.sumario.length > 0 && (
         <section className={`${ABAIXO} mx-auto max-w-6xl px-5 py-16 lg:py-24`}>
           <Titulo>O que há no livro</Titulo>
@@ -222,26 +281,12 @@ export function PaginaAMenteInabalavel({ e, relacionados, previa }: PropsLanding
               <ul>{e.sumario.slice(8).map((c) => <li key={c} className="border-b border-(--filete) py-3 text-pretty">{c}</li>)}</ul>
             </details>
           )}
-        </section>
-      )}
-
-      {/* Incluído e garantia */}
-      {(e.incluido.length > 0 || e.garantiaDias > 0) && (
-        <section className={`${ABAIXO} border-t border-(--filete)`}>
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-12 px-5 py-16 lg:grid-cols-2 lg:py-24">
-            {e.incluido.length > 0 && (
-              <div>
-                <Titulo>O que você recebe</Titulo>
-                <ul className="mt-6 space-y-4">{e.incluido.map((t) => <li key={t} className="flex gap-3 text-pretty"><Marca />{t}</li>)}</ul>
-              </div>
-            )}
-            {e.garantiaDias > 0 && (
-              <div>
-                <Titulo>Garantia de {e.garantiaDias} dias</Titulo>
-                <p className="mt-6 text-(--tinta-2) text-pretty">Se o livro não for o que você esperava, você pode pedir o reembolso pelo fluxo da própria plataforma de compra, em até {e.garantiaDias} dias, sem prejuízo dos direitos previstos em lei.</p>
-              </div>
-            )}
-          </div>
+          {descricao.length > 0 && (
+            <div className="mt-14 max-w-[64ch]">
+              <h3 className="text-[1.3125rem] font-semibold">Sobre o livro</h3>
+              <div style={{ "--terracota-escura": "#7a5710" } as React.CSSProperties} className="mt-3 text-(--tinta-2)"><TextoRecolhivel paragrafos={descricao} /></div>
+            </div>
+          )}
         </section>
       )}
 

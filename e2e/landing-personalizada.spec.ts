@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { semearMente, semearNatal, semearSistemas } from "./semear-landings";
+import { MARINA } from "../src/landings/a-mente-inabalavel/conteudo";
 import { CONFERIR, ETAPAS, PRIMEIRO_PEDIDO } from "../src/landings/criar-sistemas-com-ia/conteudo";
 import { CARDAPIOS, POR_PESSOA, PONTO_DA_CARNE, RECEITA } from "../src/landings/natal-a-mesa/conteudo";
 
@@ -39,6 +40,26 @@ test("o seletor mostra a prática de cada capítulo, por clique e por teclado", 
   for (const t of ["O mapa do necessário", "A auditoria de sete dias", "O filtro de três perguntas"]) expect(html).toContain(t);
 });
 
+test("o exercício do capítulo 2 monta a tabela, avisa do engano e não envia nada", async ({ page }) => {
+  const pedidos: string[] = [];
+  await page.goto(`/${SLUG}`, { waitUntil: "networkidle" });
+  page.on("request", (r) => { if (r.method() === "POST") pedidos.push(r.url()); });
+  const bloco = page.locator("section", { has: page.getByRole("heading", { name: "Faça agora o exercício do capítulo 2" }) });
+  await bloco.getByRole("button", { name: "Depende dela" }).click(); // "A cara do diretor": engano de propósito
+  await expect(bloco.getByText("“A cara do diretor” não depende dela.")).toBeVisible();
+  // por teclado, até o fim, sempre na coluna certa
+  for (const i of MARINA.itens.slice(1)) {
+    const botao = bloco.getByRole("button", { name: i.depende ? "Depende dela" : "Não depende" });
+    await botao.focus();
+    await page.keyboard.press("Enter");
+  }
+  await expect(bloco.getByText(MARINA.percebe)).toBeVisible();
+  await expect(bloco.getByText("Isso não garante que a apresentação vai ser um sucesso.")).toBeVisible();
+  await bloco.getByRole("button", { name: "Separar de novo" }).click();
+  await expect(bloco.getByText(MARINA.itens[0].texto)).toBeVisible();
+  expect(pedidos.filter((u) => !u.includes("/api/v1/visita"))).toEqual([]);
+});
+
 test("a fonte da página própria não pesa nas outras páginas", async ({ request }) => {
   expect(await (await request.get("/livro-de-teste")).text()).not.toContain("font-inscricao");
 });
@@ -64,6 +85,11 @@ test("cada citação da página está no manuscrito (quando o projeto irmão est
     return;
   }
   const norm = (t: string) => t.toLowerCase().replace(/[*“”'"]/g, "");
+  // A tabela de Marina e as frases em volta dela são as do capítulo 2.
+  const cap2 = readFileSync(`${pasta}02-o-que-depende-de-voce.md`, "utf8");
+  for (const i of MARINA.itens) expect(cap2).toContain(i.texto);
+  for (const f of [MARINA.percebe.replace("Quase", "quase"), MARINA.colunas, MARINA.limite]) expect(cap2).toContain(f);
+  expect(cap2).toContain("Marina, 31 anos");
   for (const c of [
     "Não são as coisas que perturbam as pessoas, mas as opiniões que elas têm sobre as coisas",
     "Há mais coisas que nos assustam do que coisas que nos ferem; sofremos mais na imaginação do que na realidade",

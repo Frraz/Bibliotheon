@@ -119,3 +119,36 @@ export const SEMANAS = [
   { titulo: "Tempo, dinheiro e pessoas", objetivo: "Aplicar as ideias ao mundo concreto, onde mora a maior parte do desgaste." },
   { titulo: "Caráter e consolidação", objetivo: "Juntar tudo num modo de viver que você consiga manter depois do plano." },
 ];
+
+// Capítulo 2, tabela "Voltando a Marina". A ordem das frases é só para intercalar as duas colunas.
+export const MARINA = {
+  cena: "Marina tem uma apresentação para a diretoria na sexta. Desde segunda, o estômago não assenta.",
+  itens: [
+    { texto: "A cara do diretor", depende: false },
+    { texto: "Ensaiar a abertura", depende: true },
+    { texto: "A decisão do orçamento", depende: false },
+    { texto: "Dormir 7 horas", depende: true },
+    { texto: "Conhecer os números", depende: true },
+    { texto: "Quem faz perguntas", depende: false },
+    { texto: "Chegar 15 minutos antes", depende: true },
+    { texto: "O clima da sala", depende: false },
+  ],
+  percebe: "Quase tudo o que ela estava remoendo estava na coluna da direita.",
+  colunas: "A coluna da esquerda vira a sua lista de ações. A da direita vira a lista de coisas que você aprende a deixar de carregar.",
+  limite: "Isso não garante que a apresentação vai ser um sucesso. A diretoria pode cortar o projeto de qualquer jeito.",
+};
+
+// Linhas: por onde começa, a hora do aperto, o que fica. Clássicos: Apêndice A. Este livro: descrição, capítulos 18 e 19.
+export const LINHAS_COMPARACAO = ["Por onde você começa", "Na hora do aperto", "O que fica depois"];
+export const COMPARACAO = [
+  { nome: "Frases e vídeos", itens: ["Pela frase do dia.", "Você se lembra de uma frase, quando se lembra.", "Inspiram na hora e somem no dia seguinte."] },
+  { nome: "Os clássicos, direto na fonte", itens: ["Pelo autor e pela época dele.", "Você descobre sozinho como aplicar a ideia.", "Continuam sendo a melhor fonte, para quem quer ir mais fundo."] },
+  { nome: "A Mente Inabalável", itens: ["Pelo problema que está pesando agora.", "Um exercício de 5 a 15 minutos, com caneta e papel.", "Um plano de 30 dias e um capítulo sobre o que fazer quando você falhar."], destaque: true },
+];
+
+// Apêndices do livro (ap-a, ap-b e ap-c). Fazem parte do livro: não são bônus.
+export const APENDICES = [
+  "Apêndice A: por onde ler os clássicos",
+  "Apêndice B: mapa rápido com 18 situações, para achar a prática no meio do problema",
+  "Apêndice C: 40 frases-âncora, com a fonte de cada uma",
+];

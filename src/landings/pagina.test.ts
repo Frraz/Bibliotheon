@@ -76,8 +76,8 @@ describe("lojas: uma vai direto, várias aparecem juntas", () => {
   it("com várias, o botão do topo e da barra levam ao bloco de compra", () => {
     const e = ebook({ ofertas: duas });
     expect(botao(e)).toContain('href="#comprar"');
-    expect(botao(e)).toContain("Escolher onde comprar");
-    expect(botao(e, true)).toContain("Escolher loja");
+    expect(botao(e)).toContain("Comprar agora");
+    expect(botao(e, true)).toContain("Comprar agora");
     expect(botao(e)).not.toContain("/ir/");
   });
 

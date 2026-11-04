@@ -89,12 +89,14 @@ test.describe("landing do e-book", () => {
 });
 
 test.describe("várias lojas", () => {
-  test("com duas lojas, topo e barra levam ao bloco de compra e as duas aparecem com o mesmo peso", async ({ page }) => {
+  test("com duas lojas, o topo leva ao bloco de compra, e só lá elas aparecem, com símbolo e o mesmo peso", async ({ page }) => {
     await page.goto("/livro-de-teste");
-    const topo = page.getByRole("link", { name: "Escolher onde comprar" }).first();
+    const topo = page.getByRole("link", { name: "Comprar agora" }).first();
     await expect(topo).toHaveAttribute("href", "#comprar");
+    await expect(topo).toBeInViewport();
     await expect(page.getByText("Prefere outra plataforma?")).toHaveCount(0);
     await expect(page.getByText("outras formas de comprar")).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /Comprar na / })).toHaveCount(2); // nenhuma loja fora do bloco
 
     const bloco = page.locator("#comprar");
     await expect(bloco.getByText("Escolha onde prefere comprar")).toBeVisible();
@@ -102,22 +104,26 @@ test.describe("várias lojas", () => {
     const cakto = bloco.getByRole("link", { name: /Comprar na Cakto/ });
     await expect(kiwify).toHaveAttribute("href", /^\/ir\/[0-9a-f-]{36}/);
     await expect(cakto).toHaveAttribute("href", /^\/ir\/[0-9a-f-]{36}/);
+    await expect(kiwify.locator("img")).toHaveAttribute("src", "/lojas/kiwify.svg");
     expect(await kiwify.getAttribute("class")).toBe(await cakto.getAttribute("class")); // mesmo peso visual
     const [a, b] = await Promise.all([kiwify.boundingBox(), cakto.boundingBox()]);
     expect(a!.y).toBeLessThan(b!.y); // na ordem da lista do painel
     expect(Math.round(a!.width)).toBe(Math.round(b!.width));
+    expect(a!.height).toBeGreaterThanOrEqual(44);
 
     // o botão do topo rola até o bloco
     await topo.click();
     await expect(bloco).toBeInViewport();
+    // para no bloco, e não só perto dele: as seções adiadas têm altura estimada até o clique
+    await expect.poll(() => bloco.evaluate((el) => Math.abs(el.getBoundingClientRect().top)), { timeout: 5000 }).toBeLessThan(5);
   });
 
   test("a barra fixa do celular também leva ao bloco, e some quando ele está na tela", async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
     const page = await ctx.newPage();
     await page.goto("/livro-de-teste");
-    await page.evaluate(() => window.scrollTo(0, 1400));
-    const barra = page.getByRole("link", { name: "Escolher loja" });
+    await page.evaluate(() => window.scrollTo(0, document.getElementById("topo")!.offsetHeight + 200));
+    const barra = page.locator(".fixed.bottom-0").getByRole("link", { name: "Comprar agora" });
     await expect(barra).toBeVisible();
     await expect(barra).toHaveAttribute("href", "#comprar");
     await page.locator("#comprar").scrollIntoViewIfNeeded();
