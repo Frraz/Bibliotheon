@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 # Operação de venda em produção, sem trocar o banco (as métricas ficam).
 #
-#   export BIBLIOTHEON_TOKEN=...             # o mesmo API_TOKEN do .env do servidor
+#   export BIBLIOTHEON_TOKEN=...             # o mesmo API_TOKEN do .env do servidor (no servidor, dispensável: lê o .env)
 #   deploy/venda.sh aplicar <slug> <arquivo.json>   # textos, preço, campanha e links (nomes do manifesto)
 #   deploy/venda.sh amostra <slug> <amostra.pdf>
 #   deploy/venda.sh relatorio [dias] [vendas] [afiliadas]
 #   deploy/venda.sh leads > leads.csv
 set -euo pipefail
-: "${BIBLIOTHEON_TOKEN:?defina BIBLIOTHEON_TOKEN}"
+# No servidor (ou onde houver um .env ao lado do repositório), usa o API_TOKEN dele: não precisa exportar nada.
+RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ -z "${BIBLIOTHEON_TOKEN:-}" ] && [ -f "$RAIZ/.env" ]; then
+  BIBLIOTHEON_TOKEN="$(set -a; . "$RAIZ/.env" >/dev/null 2>&1; printf '%s' "${API_TOKEN:-}")"
+fi
+: "${BIBLIOTHEON_TOKEN:?defina BIBLIOTHEON_TOKEN (ou rode onde exista o .env com o API_TOKEN)}"
 URL="${BIBLIOTHEON_URL:-https://bibliotheon.com.br}"
 chamar() { curl -sS --fail-with-body -H "Authorization: Bearer $BIBLIOTHEON_TOKEN" "$@"; }
 
