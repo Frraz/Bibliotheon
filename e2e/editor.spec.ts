@@ -103,7 +103,7 @@ test("PDF do livro (privado) e PDF de amostra (público)", async ({ browser, req
   const { ctx, page } = await comoOwner(browser);
   await abrir(page, `/painel/ebooks/${id}`);
   await page.locator('input[aria-label="Arquivo PDF do livro"]').setInputFiles(arquivo("meu livro (final).pdf", "application/pdf", pdfDeTeste()));
-  await expect(page.getByText(/PDF enviado/)).toBeVisible();
+  await expect(page.getByText(/^PDF enviado \(/)).toBeVisible();
   await expect(page.getByText("meu livro (final).pdf")).toBeVisible();
   await expect(page.getByText(/Privado: não aparece na página de vendas/)).toBeVisible();
 

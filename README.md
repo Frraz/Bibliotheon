@@ -4,7 +4,7 @@ Biblioteca on-line de e-books em **[bibliotheon.com.br](https://bibliotheon.com.
 
 Os e-books são criados no projeto irmão [`../ebooks`](../ebooks) e publicados aqui com um comando, ou pelo painel (owner e parceiros).
 
-> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. No ar desde 03/11: recuperação de senha por e-mail (testada, funciona) e correção da imagem de compartilhamento do 002. Falta aplicar a 2ª edição na página (ainda mostra "168 páginas") e a promoção de R$ 24,99 acaba em 05/11. Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
+> **Estado (03/11/2026):** site e painel no ar (login, e-books, temas, usuários, exportação, landings personalizadas do 001 e do 002); visuais aprovados. **Etapa atual: "Vender"**: meta de R$ 1.500/mês de faturamento. No ar desde 03/11: recuperação de senha por e-mail (testada, funciona) e correção da imagem de compartilhamento do 002. A 2ª edição já está na página (201 páginas); a promoção de R$ 24,99 acaba em 05/11 às 23h59 ([virada](docs/07-roteiro.md)). Pendências do titular: [07 — Roteiro](docs/07-roteiro.md#pendências-abertas-03112026). Ver [estratégia](docs/04-vendas-e-medicao.md#0-a-conta-e-a-estratégia) e [roteiro](docs/07-roteiro.md).
 
 ## Documentação
 
@@ -35,8 +35,8 @@ Sem `--demo`, o 001 entra como **"Em breve"** (é o que vai ao ar, enquanto não
 
 | Comando | O que faz |
 |---|---|
-| `npm test` | 94 testes unitários (preço, campanha, UTM, manifesto, mídia, imagens, leads, JSON-LD, editor, exportação, permissões, senha, e-mail) |
-| `npm run test:e2e` | 78 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha e duas etapas |
+| `npm test` | 141 testes unitários (preço, campanha, UTM, webhooks de venda, manifesto, mídia, imagens, leads, JSON-LD, editor, exportação, permissões, senha, e-mail) |
+| `npm run test:e2e` | 102 testes E2E: builda, sobe o pacote standalone com banco temporário (e-mails viram arquivos) e exercita venda, painel, editor, landings personalizadas, compartilhamento e recuperação de senha e duas etapas |
 | `npm run lint` · `npm run build` | Conferências antes de qualquer deploy |
 | `npm run db:generate` | Gera migração após mudar `src/db/schema.ts` |
 | `deploy/venda.sh` | Em produção: preço, campanha, textos, amostra, relatório e leads, sem perder métricas |
@@ -45,13 +45,13 @@ Deploy e backup: [06 — Deploy](docs/06-deploy.md). Antes de rodar `npm run bui
 
 ## Publicar um e-book a partir do `../ebooks`
 
-_A partir da Etapa 4 (pausada). Hoje o caminho é: `../ebooks` gera os guias em `publicacao/` (`./livro manifesto`), e o cadastro é feito pelo painel (colar campo a campo) ou, em produção, por `deploy/venda.sh aplicar`. No painel, "Exportar dados" devolve o `.md`/`.json` de qualquer e-book._
+_Etapa 4 pronta localmente (05/11/2026); funciona em produção depois do deploy. `./livro manifesto` gera o manifesto e os guias; `./bibliotheon login` (uma vez, com o `API_TOKEN` do servidor) e `./bibliotheon publicar` mostram as mudanças e enviam como rascunho. Em e-book já publicado, preço e campanha continuam por `deploy/venda.sh aplicar`. O cadastro pelo painel (colar campo a campo) segue valendo, e "Exportar dados" devolve o `.md`/`.json` de qualquer e-book._
 
 ```bash
 cd ../ebooks
-./bibliotheon login                                   # uma vez: cola o token gerado em Painel → Conta
-./bibliotheon publicar ebooks/001-sistemas-com-ia     # mostra mudanças, pede confirmação, sobe como rascunho
-./bibliotheon publicar ebooks/001-sistemas-com-ia --publicar
+./bibliotheon login                                   # uma vez: cola o API_TOKEN do servidor (fica só na sua máquina)
+./bibliotheon publicar ebooks/004-novo-titulo         # mostra mudanças, pede confirmação, sobe como rascunho
+./bibliotheon publicar ebooks/004-novo-titulo --publicar
 ```
 
 ## Skills de design

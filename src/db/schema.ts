@@ -229,9 +229,31 @@ export const lead = sqliteTable(
   (t) => [uniqueIndex("lead_ebook_email").on(t.ebookId, t.email)],
 );
 
+// Vendas avisadas pelas lojas (webhook). Só o necessário para medir: valor, origem e se foi afiliado.
+// Sem nome, e-mail, CPF nem IP do comprador. `valorInformado` = false quando a loja não mandou o valor e usamos o preço vigente.
+export const VENDA_STATUS = ["aprovada", "reembolsada"] as const;
+export const venda = sqliteTable(
+  "venda",
+  {
+    id: id(),
+    ebookId: text("ebook_id").notNull().references(() => ebook.id, { onDelete: "cascade" }),
+    plataforma: text("plataforma", { enum: PLATAFORMAS }).notNull(),
+    transacao: text("transacao").notNull(),
+    status: text("status", { enum: VENDA_STATUS }).notNull().default("aprovada"),
+    valor: integer("valor").notNull(), // centavos
+    valorInformado: integer("valor_informado", { mode: "boolean" }).notNull().default(true),
+    afiliado: integer("afiliado", { mode: "boolean" }).notNull().default(false),
+    origem: text("origem").notNull().default("direto"),
+    criadoEm: agora(),
+    atualizadoEm: agora(),
+  },
+  (t) => [uniqueIndex("venda_plataforma_transacao").on(t.plataforma, t.transacao), index("venda_ebook").on(t.ebookId, t.criadoEm)],
+);
+
 export type Usuario = typeof user.$inferSelect;
 export type Ebook = typeof ebook.$inferSelect;
 export type NovoEbook = typeof ebook.$inferInsert;
 export type Tema = typeof tema.$inferSelect;
 export type Oferta = typeof oferta.$inferSelect;
+export type Venda = typeof venda.$inferSelect;
 export type Amostra = typeof amostra.$inferSelect;

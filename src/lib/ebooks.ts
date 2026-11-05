@@ -6,7 +6,7 @@ import { ehOwner, type Quem } from "./permissoes";
 
 // Leitura e gravação do e-book pelo painel. Quem chama já conferiu a sessão e `podeEditar` (src/lib/acesso.ts, permissoes.ts).
 
-const { ebook, oferta, amostra, tema, user, metricaDiaria } = schema;
+const { ebook, oferta, amostra, tema, user, metricaDiaria, venda } = schema;
 
 export const LIMITE_AMOSTRAS = 8;
 
@@ -105,6 +105,8 @@ function inicioDaJanela(dias = 7) {
 
 /** Lista do painel. A consulta já nasce filtrada pelo dono quando a pessoa não é administradora. */
 export function listarEbooks(quem: Quem) {
+  // Vendas por subconsulta (e não por join): um join com `venda` multiplicaria as linhas de `metricaDiaria` e inflaria visitas e cliques.
+  const desde = new Date(`${inicioDaJanela()}T00:00:00-03:00`).getTime();
   return db
     .select({
       id: ebook.id,
@@ -117,6 +119,9 @@ export function listarEbooks(quem: Quem) {
       dono: user.name,
       visitas: sql<number>`coalesce(sum(case when ${metricaDiaria.ofertaId} = '' then ${metricaDiaria.contagem} end), 0)`,
       cliques: sql<number>`coalesce(sum(case when ${metricaDiaria.ofertaId} <> '' then ${metricaDiaria.contagem} end), 0)`,
+      vendas: sql<number>`(select count(*) from ${venda} where ${venda.ebookId} = ${ebook.id} and ${venda.status} = 'aprovada' and ${venda.criadoEm} >= ${desde})`,
+      // 0 = nenhuma loja avisou ainda: a tela mostra "—", e não "0", porque pode só faltar configurar o webhook.
+      vendasTotal: sql<number>`(select count(*) from ${venda} where ${venda.ebookId} = ${ebook.id})`,
     })
     .from(ebook)
     .leftJoin(user, eq(ebook.ownerId, user.id))

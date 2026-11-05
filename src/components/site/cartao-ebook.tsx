@@ -7,7 +7,7 @@ import { brl } from "@/lib/preco";
 export function CartaoEbookLink({ c, nivel = 3 }: { c: CartaoEbook; nivel?: 2 | 3 }) {
   const Titulo = nivel === 2 ? "h2" : "h3"; // a hierarquia de títulos da página não pode pular nível
   return (
-    <Link href={`/${c.slug}`} className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota)">
+    <Link href={`/${c.slug}`} prefetch={false} className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--terracota)">
       {/* Caixa de proporção fixa (2:3, a proporção clássica de livro: aproxima as capas 001/002 (5:8) e a do 003 (cerca de 1:1,41) sem aparar demais nenhuma): capa de outra proporção é aparada pelo centro em vez de deixar o cartão mais baixo ou mais alto. */}
       <div className="relative">
         <div className="aspect-[2/3] overflow-hidden bg-(--papel-2) shadow-[0_2px_3px_rgb(0_0_0/.12),0_18px_36px_-14px_rgb(31_42_41/.45)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5">

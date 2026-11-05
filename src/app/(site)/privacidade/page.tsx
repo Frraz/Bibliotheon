@@ -3,7 +3,11 @@ import { Prosa } from "@/components/site/prosa";
 import { CONTATO_EMAIL } from "@/lib/site";
 
 export const ensureStatic = "navigation";
-export const metadata: Metadata = { title: "Política de privacidade", alternates: { canonical: "/privacidade" } };
+export const metadata: Metadata = {
+  title: "Política de privacidade",
+  description: "Política de privacidade do Bibliotheon (LGPD): quais dados o site trata e por quê, o que não fazemos, com quem compartilhamos e como exercer seus direitos.",
+  alternates: { canonical: "/privacidade" },
+};
 
 export default function Privacidade() {
   return (

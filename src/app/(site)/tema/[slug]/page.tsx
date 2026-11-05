@@ -15,11 +15,13 @@ export async function generateMetadata({ params }: PageProps<"/tema/[slug]">): P
   const t = await getTema(slug);
   if (!t) return { title: "Tema não encontrado", robots: { index: false } };
   const titulo = `E-books de ${t.nome.toLowerCase()}`;
+  // Sem descrição própria o Google mostraria a da Home em todas as páginas de tema.
+  const descricao = t.descricao ?? `E-books práticos de ${t.nome.toLowerCase()}, com amostra para folhear antes de comprar na plataforma que você preferir.`;
   return {
     title: titulo,
-    description: t.descricao ?? undefined,
+    description: descricao,
     alternates: { canonical: `${SITE_URL}/tema/${t.slug}` },
-    openGraph: { type: "website", siteName: SITE_NOME, locale: "pt_BR", title: titulo, description: t.descricao ?? undefined },
+    openGraph: { type: "website", siteName: SITE_NOME, locale: "pt_BR", title: titulo, description: descricao },
   };
 }
 

@@ -183,6 +183,44 @@ test.describe("padrão de venda", () => {
     expect((await sem.json()).erro).toMatch(/link promocional/);
   });
 
+  test("webhooks de venda: autentica, não conta em dobro, reembolsa e mostra no relatório por origem", async ({ request }) => {
+    const url = (loja: string) => `/api/v1/vendas/${loja}/livro-de-teste`;
+    const aprovada = { event: "purchase_approved", data: { id: "e2e-cakto-1", amount: 24.99, currency: "BRL", affiliate: "", utm_source: "whatsapp" } };
+    const cakto = (data: object) => request.post(url("cakto"), { data });
+
+    expect((await request.post(url("cakto"), { data: aprovada })).status()).toBe(401); // sem segredo
+    expect((await cakto({ ...aprovada, secret: "errado" })).status()).toBe(401);
+    expect((await request.post(url("outraloja"), { data: aprovada })).status()).toBe(404);
+    expect((await request.post("/api/v1/vendas/cakto/nao-existe", { data: { ...aprovada, secret: "cakto-segredo-de-teste" } })).status()).toBe(404);
+
+    const ok = { ...aprovada, secret: "cakto-segredo-de-teste" };
+    expect((await cakto(ok)).status()).toBe(200);
+    expect((await cakto(ok)).status()).toBe(200); // reenvio da loja
+    expect((await cakto({ secret: "cakto-segredo-de-teste", event: "checkout_abandonment", data: { id: "x" } })).status()).toBe(200);
+    expect((await cakto({ secret: "cakto-segredo-de-teste", algo: "novo" })).status()).toBe(422);
+
+    // Hotmart pelo header
+    const hot = await request.post(url("hotmart"), {
+      headers: { "x-hotmart-hottok": "hottok-de-teste" },
+      data: { event: "PURCHASE_APPROVED", data: { purchase: { transaction: "E2E-HP-1", price: { value: 64.99, currency_value: "BRL" }, origin: { src: "youtube" } }, commissions: [{ source: "AFFILIATE" }] } },
+    });
+    expect(hot.status()).toBe(200);
+
+    // As suítes dividem o mesmo banco (o painel também registra uma venda): confere as linhas das origens deste teste, não os totais.
+    const antes = await (await request.get("/api/v1/metricas", { headers: AUT })).text();
+    expect(antes).toMatch(/Vendas registradas pelas lojas: \d+ /);
+    expect(antes).toMatch(/whatsapp\s+1\s+R\$\s*24,99/);
+    expect(antes).toMatch(/youtube\s+1\s+R\$\s*64,99/);
+
+    // Reembolso: sai da conta; reenviar a compra depois não a traz de volta
+    expect((await cakto({ secret: "cakto-segredo-de-teste", event: "refund", data: { id: "e2e-cakto-1" } })).status()).toBe(200);
+    expect((await cakto(ok)).status()).toBe(200);
+    const depois = await (await request.get("/api/v1/metricas", { headers: AUT })).text();
+    expect(depois).not.toMatch(/whatsapp\s+\d/);
+    expect(depois).toMatch(/youtube\s+1\s+R\$\s*64,99/);
+    expect(depois).toMatch(/\d+ reembolsada\(s\) fora da conta/);
+  });
+
   test("campanha pela API: página e checkout mudam juntos, e voltam quando o prazo vence, sem perder as métricas", async ({ page, request }) => {
     const irPara = async () => {
       await page.goto("/livro-de-teste");

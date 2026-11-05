@@ -3,7 +3,11 @@ import { Prosa } from "@/components/site/prosa";
 import { CONTATO_EMAIL } from "@/lib/site";
 
 export const ensureStatic = "navigation";
-export const metadata: Metadata = { title: "Termos de uso", alternates: { canonical: "/termos" } };
+export const metadata: Metadata = {
+  title: "Termos de uso",
+  description: "Termos de uso do Bibliotheon: o que o site é, como funcionam compras, entrega e reembolso nas plataformas, o conteúdo dos e-books e a propriedade intelectual.",
+  alternates: { canonical: "/termos" },
+};
 
 export default function Termos() {
   return (

@@ -30,7 +30,7 @@ export default async function PainelEbooks() {
         </div>
       ) : (
         <>
-          <p className="mt-8 text-right text-sm text-(--tinta-2)">Visitas e cliques dos últimos 7 dias</p>
+          <p className="mt-8 text-right text-sm text-(--tinta-2)">Visitas, cliques e vendas dos últimos 7 dias</p>
           <ul className="mt-4 border-t border-(--filete)">
             {linhas.map((l) => (
               <li key={l.id} className="grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-3 border-b border-(--filete) py-5 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto_auto] sm:gap-x-6">
@@ -48,8 +48,8 @@ export default async function PainelEbooks() {
                     {ehOwner(u) && <span>{l.dono ?? "Sem dono"}</span>}
                   </p>
                 </div>
-                <dl className="col-span-2 flex gap-8 text-sm sm:col-span-1 sm:col-start-3 sm:row-start-1">
-                  {[["Visitas", l.visitas.toLocaleString("pt-BR")], ["Cliques", l.cliques.toLocaleString("pt-BR")], ["Taxa", taxa(l.visitas, l.cliques)]].map(([k, v]) => (
+                <dl className="col-span-2 grid grid-cols-4 gap-x-4 text-sm sm:col-span-1 sm:col-start-3 sm:row-start-1 sm:flex sm:gap-8">
+                  {[["Visitas", l.visitas.toLocaleString("pt-BR")], ["Cliques", l.cliques.toLocaleString("pt-BR")], ["Taxa", taxa(l.visitas, l.cliques)], ["Vendas", l.vendasTotal ? l.vendas.toLocaleString("pt-BR") : "—"]].map(([k, v]) => (
                     <div key={k}>
                       <dt className="text-(--tinta-2)">{k}</dt>
                       <dd className="font-(family-name:--font-display) text-xl leading-tight font-medium [font-variant-numeric:tabular-nums]">{v}</dd>

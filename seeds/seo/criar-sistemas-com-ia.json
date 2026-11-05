@@ -1,0 +1,7 @@
+{
+  "_comentario": "Título e descrição para o Google do 001 (de ../ebooks/.../comercial.md: titulo_seo e descricao_seo). A descrição no ar tem 211 caracteres e o Google corta perto de 155. Aplicar: deploy/venda.sh aplicar criar-sistemas-com-ia seeds/seo/criar-sistemas-com-ia.json",
+  "book": {
+    "seoTitle": "Como criar sistemas com IA sem saber programar | E-book",
+    "seoDescription": "Aprenda a criar pequenos sistemas com IA, mesmo sem saber programar: fundamentos, aplicação, VPS, domínio e proposta de serviço."
+  }
+}

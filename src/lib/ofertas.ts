@@ -73,6 +73,9 @@ export function urlDestino(urlOferta: string, recebidos: URLSearchParams): strin
     const valor = recebidos.get(chave);
     if (valor) alvo.searchParams.set(chave, valor.slice(0, 200));
   }
+  // Hotmart e Kiwify guardam `src`; nem todas guardam `utm_source`. Copiar para `src` faz a venda chegar ao relatório com a origem.
+  const origem = recebidos.get("utm_source");
+  if (origem && !alvo.searchParams.has("src")) alvo.searchParams.set("src", origem.slice(0, 200));
   return alvo.toString();
 }
 

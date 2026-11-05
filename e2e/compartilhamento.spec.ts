@@ -39,3 +39,25 @@ test("imagem de compartilhamento de livro com capa PNG pesada responde e é leve
   // o servidor segue de pé depois do pedido
   expect((await request.get("/api/saude")).status()).toBe(200);
 });
+
+// SEO do site (05/11/2026): cada página institucional tem a sua descrição (antes herdavam a da Home) e a Home tem imagem de compartilhamento.
+test("Termos, Privacidade e Home têm descrições diferentes, e a Home tem imagem de compartilhamento", async ({ page, request }) => {
+  const descricao = async (rota: string) => {
+    await page.goto(rota);
+    return page.locator('meta[name="description"]').getAttribute("content");
+  };
+  const home = await descricao("/");
+  const termos = await descricao("/termos");
+  const privacidade = await descricao("/privacidade");
+  expect(new Set([home, termos, privacidade]).size).toBe(3);
+  expect(termos).toMatch(/Termos de uso/);
+  expect(privacidade).toMatch(/privacidade/i);
+
+  await page.goto("/");
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
+  const og = await page.locator('meta[property="og:image"]').first().getAttribute("content");
+  expect(og).toBeTruthy();
+  const r = await request.get(new URL(og!).pathname);
+  expect(r.status()).toBe(200);
+  expect(r.headers()["content-type"]).toBe("image/png");
+});

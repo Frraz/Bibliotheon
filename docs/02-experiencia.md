@@ -97,9 +97,9 @@ E-mail + senha. Sem cadastro público. Esqueceu a senha: link "Esqueci a senha" 
 - Cada e-book é uma linha com:
   - miniatura da capa e título;
   - status (badge: Rascunho / Publicado);
-  - visitas, cliques e taxa de clique em 7 dias, com seletor 7d/30d;
+  - visitas, cliques, taxa de clique e **vendas** em 7 dias. Vendas vêm dos avisos das lojas (webhook) e só contam aprovadas; mostra "—" enquanto nenhuma loja avisou, para "0" não parecer que não vendeu;
   - ação principal à vista: "Editar". No menu "⋯" (Mais ações): "Ver página" (publicado) ou "Ver prévia" (rascunho), "Exportar dados" e, se houver, "Baixar PDF" (menu do Base UI, `menu-acoes-ebook.tsx`, com teclado e Esc).
-- Ação principal: **"Novo e-book"**.
+- Ação principal: **"Novo e-book"**. A tela pede só o título; abaixo, recolhido, "Já tenho o manifesto do livro" (colar o `manifest.json` do `../ebooks` ou escolher o arquivo) cria um rascunho já preenchido e abre o editor. Só cria: livro já cadastrado não é sobrescrito, e a capa e as amostras se enviam no editor.
 - Estado vazio: "Você ainda não tem e-books. Comece pelo título e pela capa — o resto você completa depois." + botão.
 
 ### Editor do e-book (`/painel/ebooks/[id]`) ✅ Fase 2

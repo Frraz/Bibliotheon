@@ -93,8 +93,7 @@ export function PaginaNatalAMesa({ e, relacionados, previa }: PropsLanding) {
       <header id="topo" className="bg-(--noite) text-(--creme)">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-10 px-5 pt-10 pb-12 lg:grid-cols-[1.25fr_1fr] lg:pt-14 lg:pb-14">
           <div>
-            <Rotulo className="text-(--ouro)">1ª edição · Natal 2026</Rotulo>
-            <h1 className="mt-4 max-w-[21ch] font-(family-name:--font-titulo) text-[clamp(2.125rem,5vw,3.25rem)] leading-[1.08] font-semibold tracking-[-0.01em] text-balance">{e.headline?.trim() || e.titulo}</h1>
+            <h1 className="max-w-[21ch] font-(family-name:--font-titulo) text-[clamp(2.125rem,5vw,3.25rem)] leading-[1.08] font-semibold tracking-[-0.01em] text-balance">{e.headline?.trim() || e.titulo}</h1>
             {e.resumo && <p className="mt-6 max-w-[36rem] text-[1.1875rem] text-(--creme)/85 text-pretty">{e.resumo}</p>}
             {vender ? (
               <>
@@ -115,6 +114,7 @@ export function PaginaNatalAMesa({ e, relacionados, previa }: PropsLanding) {
               </div>
             )}
             <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-1 text-[0.9375rem] text-(--creme)/75">
+              <li>1ª edição, Natal 2026</li>
               {formatosTexto && <li>{formatosTexto}</li>}
               {vender && <li>Acesso imediato</li>}
               {garantia && <li>{garantia}</li>}
@@ -251,8 +251,8 @@ export function PaginaNatalAMesa({ e, relacionados, previa }: PropsLanding) {
             <p className="mt-3 text-[0.9375rem] text-(--creme)/75 text-pretty">Com duas carnes à mesa, o livro manda reduzir cada uma em cerca de um terço por pessoa; com crianças de 3 a 10 anos, contar meia porção.</p>
           </div>
           <div>
-            <Rotulo className="text-(--ouro)">Planilha de orçamento incluída</Rotulo>
-            <h3 className="mt-4 max-w-[22ch] font-(family-name:--font-titulo) text-[clamp(1.5rem,3.4vw,2.25rem)] leading-[1.15] font-semibold text-balance">Você digita os preços da sua cidade. Ela faz a conta.</h3>
+            <h3 className="max-w-[22ch] font-(family-name:--font-titulo) text-[clamp(1.5rem,3.4vw,2.25rem)] leading-[1.15] font-semibold text-balance">Planilha de orçamento incluída</h3>
+            <p className="mt-4 max-w-[40ch] text-[1.1875rem] text-(--creme)/90 text-pretty">Você digita os preços da sua cidade. Ela faz a conta.</p>
             <ul className="mt-6 space-y-3">
               {PLANILHA.faz.map((t) => (
                 <li key={t} className="flex gap-3 text-pretty">

@@ -21,7 +21,12 @@ const book = z.looseObject({
   benefits: textos.optional(),
   differentiators: textos.optional(),
   accentPreset: z.string().optional(),
-  // novos, opcionais
+  // novos, opcionais (o gerador de ../ebooks já os emite)
+  accent: z.string().regex(/^#[0-9a-fA-F]{6}$/, "cor no formato #RRGGBB").optional(),
+  seoTitle: z.string().trim().min(1).optional(),
+  seoDescription: z.string().trim().min(1).optional(),
+  themeName: z.string().trim().min(1).optional(),
+  themeDescription: z.string().trim().min(1).optional(),
   subtitle: z.string().optional(),
   headline: z.string().optional(),
   author: z.string().optional(),
@@ -67,7 +72,7 @@ export const manifesto = z.looseObject({
 });
 export type Manifesto = z.infer<typeof manifesto>;
 
-/** Acento por preset (por enquanto só informativo; a cor por e-book entra depois). */
+/** Acento por preset (`book.accent`, em hex, vale mais). */
 const ACCENT: Record<string, string> = { mineral: "#4B5E55" };
 
 export function slugify(texto: string) {
@@ -136,6 +141,9 @@ export function camposDeVenda(b: NonNullable<AjusteDeVenda["book"]>): Partial<No
   const obs = [b.requirements, b.limits].filter(Boolean).join("\n\n");
   if (obs) set("observacoes", obs);
   if (b.accentPreset && ACCENT[b.accentPreset]) set("accent", ACCENT[b.accentPreset]);
+  if (b.accent) set("accent", b.accent.toLowerCase()); // o hex explícito vale mais que o preset
+  set("seoTitle", b.seoTitle);
+  set("seoDescription", b.seoDescription);
   if (b.price !== undefined) set("preco", centavos(b.price));
   if (b.priceFrom !== undefined) set("precoDe", centavos(b.priceFrom));
   if (b.offerEndsAt !== undefined) set("ofertaAte", b.offerEndsAt === null ? null : new Date(b.offerEndsAt));

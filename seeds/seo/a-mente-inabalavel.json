@@ -1,0 +1,7 @@
+{
+  "_comentario": "Título e descrição para o Google do 002 (de ../ebooks/.../comercial.md). A descrição no ar é igual ao título; o título do comercial tinha 65 caracteres e aqui perde o ' | E-book' para caber em 60. Aplicar: deploy/venda.sh aplicar a-mente-inabalavel seeds/seo/a-mente-inabalavel.json",
+  "book": {
+    "seoTitle": "Estoicismo prático: manual para ansiedade, raiva e perda",
+    "seoDescription": "Manual de estoicismo por problemas da vida, com ideias de Sêneca, Epicteto e Marco Aurélio, exercícios curtos e um plano de 30 dias."
+  }
+}

@@ -15,7 +15,7 @@
 | Imagens | `next/image` (otimizador do próprio Next, que usa sharp) sobre a rota `/m/...`; arquivos com hash no nome | LCP baixo, AVIF/WebP e tamanhos sob demanda sem pipeline nosso. Cache imutável em `/m` |
 | OG | `next/og` (ImageResponse) por e-book, com a fonte Fraunces embutida em `src/assets/fonts/` (licença OFL ao lado) | Prévia bonita em anúncios e WhatsApp. No runtime Node a fonte é lida com `readFile` (não `fetch`). A capa entra **reduzida** (600 px, JPEG, via `sharp`): o original pesado (PNG de 12 MB) fazia o gerador falhar com 502. Falha na capa só tira a capa da imagem |
 | Testes | Vitest (regras e API) + Playwright (fluxos críticos) | Só o que protege venda e dados |
-| CLI | Python 3, só biblioteca padrão. **Planejada (Etapa 4, pausada): ainda não existe** | Roda a partir do `../ebooks` sem instalar nada |
+| CLI | Python 3, só biblioteca padrão (`ferramentas/publicar.py`, Etapa 4) | Roda a partir do `../ebooks` sem instalar nada |
 | E-mail | `nodemailer` + SMTP qualquer (`src/lib/email.ts`), só para recuperar senha. Opcional | Sem `SMTP_HOST` o resto funciona. Ver "Recuperação de senha" abaixo |
 
 Proibido no MVP (exige decisão registrada para entrar):
@@ -59,8 +59,8 @@ bibliotheon/
 │   ├── lib/                        # auth, imagens, ofertas, utm, métricas, manifesto
 │   └── landings/                   # landings personalizadas (registro.ts + uma pasta por e-book)
 ├── drizzle/                        # migrations geradas
-├── ferramentas/publicar.py         # CLI (planejada, Etapa 4: ainda não existe)
-├── scripts/seed.ts                 # importa um título (manifest v1 + extras) para o banco; Etapa 4 troca pela API
+├── ferramentas/publicar.py         # CLI de publicação pelo manifesto (Etapa 4)
+├── scripts/seed.ts                 # importa um título (manifest + extras) para o banco LOCAL; em produção vale a API (`POST /api/v1/ebooks`)
 ├── scripts/servir-teste.sh         # sobe o build standalone com banco temporário (usado pelo Playwright)
 ├── seeds/001-sistemas-com-ia/      # campos de venda do 001 que o manifest v1 ainda não traz + amostras
 ├── e2e/                            # testes Playwright + título de teste sintético
@@ -111,6 +111,8 @@ Acrescentados depois: `ebook.pdfPrivado` (chave do PDF completo em `data/privado
 Adicionar uma plataforma = um item no enum + logo SVG em `public/plataformas/` + regra de parâmetros em `lib/ofertas.ts`.
 
 **metrica_diaria**: `ebookId`, `data` (AAAA-MM-DD), `ofertaId` (nulo = visita), `origem` (`utm_source` ou "direto"), `contagem`. Chave única pelos quatro primeiros campos; incremento com `ON CONFLICT DO UPDATE`. **Sem IP, sem cookie, sem dado pessoal.**
+
+**venda**: `id`, `ebookId`, `plataforma`, `transacao` (único com a plataforma: reenvio não conta duas vezes), `status` (`aprovada | reembolsada`), `valor` (centavos), `valorInformado` (falso = a loja não mandou o valor e usamos o preço vigente), `afiliado`, `origem` (convenção de UTM), datas. **Sem dado do comprador.** Reembolso que chega antes da compra também fica registrado.
 
 **lead**: `id`, `ebookId`, `email`, `origem`, `criadoEm`; único por e-book + e-mail. Só quem pediu a amostra e aceitou receber avisos.
 
@@ -168,43 +170,47 @@ Autenticação: `Authorization: Bearer <API_TOKEN>` (variável do servidor; sem 
 |---|---|
 | `PATCH /api/v1/ebooks/[slug]` | Textos, preço, campanha e ofertas, com os nomes do manifesto (`book`, `offers`). Ausente não muda; `null` limpa a campanha. Ofertas são atualizadas por plataforma, nunca recriadas, para os links `/ir` e os contadores continuarem valendo. **Recusa (422) campanha que muda o preço sem `promoUrl` em toda oferta ativa.** Grava em transação e invalida o cache |
 | `PUT /api/v1/ebooks/[slug]/amostra` | Corpo = o PDF de amostra (até 15 MB, assinatura `%PDF-`) |
-| `GET /api/v1/metricas?dias=&vendas=&afiliadas=` | Relatório em texto: visitas, cliques e taxa por origem; conta da meta |
+| `GET /api/v1/metricas?dias=&vendas=&afiliadas=` | Relatório em texto: visitas, cliques e taxa por origem; vendas registradas pelos webhooks (por origem, faturamento, sobra estimada, clique→venda) e o mês contra a meta; `vendas=`/`afiliadas=` seguem como estimativa |
 | `GET /api/v1/leads` | CSV dos pedidos de amostra |
+
+**Webhooks de venda** (`POST /api/v1/vendas/[plataforma]/[slug]`, `plataforma` = `hotmart | kiwify | cakto`): a loja avisa compra aprovada, reembolso e chargeback. Não usa o `API_TOKEN`: cada loja tem o seu segredo (`HOTMART_HOTTOK`, `KIWIFY_WEBHOOK_TOKEN`, `CAKTO_WEBHOOK_SECRET`) e o jeito dela de provar a origem (`src/lib/vendas.ts`): Hotmart, header `X-HOTMART-HOTTOK`; Kiwify, `?signature=` (HMAC-SHA1 do corpo cru, vetor oficial nos testes); Cakto, `X-Cakto-Signature` (HMAC-SHA256 de `timestamp.corpo`, 5 min) ou o `secret` do corpo. Autentica antes de procurar o e-book. Respostas: 401, 404 (loja ou e-book desconhecidos), 413, 422 (formato não reconhecido, vai ao log só com os nomes dos campos), 200 (gravado, repetido ou evento ignorado). **Conferência dos formatos:** Cakto documentado (id, valor em reais, afiliado, UTM); Kiwify só id e evento (valor e origem não documentados: usa o preço vigente e a origem `direto`); Hotmart **não conferido na documentação oficial** (a página não abriu), campos de fonte secundária. Validar cada loja com o botão de teste antes de confiar nos números.
 
 `POST /api/v1/leads` é público: guarda o e-mail com aceite (`pedidoDeAmostra`), com limite por IP e campo isca, e devolve o link do PDF. É rota, e não Server Action, porque a landing fica em cache e uma Server Action antiga quebraria depois de um deploy.
 
 **`/ir` e campanha:** enquanto `precoVigente().emOferta`, o `/ir` usa `oferta.urlPromo`; depois do prazo, `oferta.url`. Assim a página e o checkout mudam juntos.
 
-## API para a CLI (planejada, Etapa 4: **não implementada**)
+## API de publicação pelo manifesto (Etapa 4, feita em 05/11/2026)
 
-_Esta seção e as duas seguintes descrevem o plano da publicação pelo terminal. Hoje só existem o `PATCH /api/v1/ebooks/[slug]` (que reusa o contrato do manifesto) e o cadastro pelo painel._
+Autenticação: o mesmo `Authorization: Bearer <API_TOKEN>` da API de operação (token único do servidor; **tokens por usuário não existem**: a Etapa 4 não precisou deles). Quem usa: `ferramentas/publicar.py` (`./bibliotheon` em `../ebooks`).
 
-Autenticação: `Authorization: Bearer <token>`. Token gerado em Painel → Conta, guardado só como hash.
+### `POST /api/v1/ebooks[?dryRun=1][&publicar=1][&adotar=1][&amostras=1]`
 
-### `POST /api/v1/ebooks[?dryRun=1][&publicar=1]`
+`multipart/form-data`: `manifest` (JSON), `capa`, `amostras` (vários, na ordem do manifesto) e `amostraPdf`. Núcleo em `src/lib/publicar-manifesto.ts` (o painel usará o mesmo).
 
-`multipart/form-data`:
+1. Valida o manifesto (Zod). `pending` não vazio → `422` com a lista em `detalhes`.
+2. Procura o e-book por `sourceId + idioma`. Se não achar e o endereço já existir: `409` (outro livro) ou `409` com o aviso para repetir com `adotar=1` (criado no painel, sem `sourceId`). Sem associação mágica.
+3. Calcula `mudancas` em português ("Headline: “antes” → “depois”"). `dryRun=1` responde só isso, sem gravar. A resposta diz, para `capa`, `amostras` e `amostraPdf`, se é `igual`, se o cliente precisa `enviar` o arquivo ou se foi `recebida`: o cliente só manda o que mudou. A capa é igual quando `cover.sha256` é o `capaHash` guardado; as amostras, quando a quantidade e as legendas coincidem (ou `amostras=1` força a troca).
+4. Grava em transação. **O manifesto vence nos campos que traz; os ausentes ficam como estão.** `offers` vazio ou ausente não toca nas lojas; as presentes são atualizadas por plataforma (nunca recriadas). Tema inexistente é criado **fora do ar** (`themeName`/`themeDescription` ou o slug).
+5. **E-book já publicado:** preço, `priceFrom`, prazo, nome da campanha e "em breve" **não mudam por aqui** (aviso na resposta; use `deploy/venda.sh`), e o endereço não muda. Foi decisão de proteção: o manifesto do 001 traz R$ 64,99 e desfaria uma promoção.
+6. Novo = `rascunho`. `publicar=1` publica só se o checklist do editor estiver completo (inclui tema no ar); senão responde `422` com o que falta e **não grava nada**. E-book no ar nunca fica incompleto por manifesto.
+7. Responde `{ id, slug, status, url, previewUrl, acao, mudancas, avisos, capa, amostras, amostraPdf, gravado }`. Erros: `{ erro, detalhes? }`.
 
-- `manifest` (JSON);
-- `capa` (arquivo; opcional se `cover.sha256` = `capaHash` atual);
-- `amostras[]` (arquivos, opcional).
+### `GET /api/v1/ebooks/[slug]`
 
-Comportamento:
+Aceita o endereço **ou** o `sourceId` (`?idioma=`, padrão `pt-BR`). Responde `{ id, slug, status, url, atualizadoEm, ofertas }`.
 
-1. Valida o manifesto (Zod). Com `pending` não vazio → `422` com a lista.
-2. Procura o e-book por `sourceId + idioma` do mesmo `ownerId`. Se não achar, procura colisão de `slug`: se existir e for de outro `sourceId`, responde `409` com mensagem clara. Sem associação mágica.
-3. Calcula `mudancas` (campos que mudam, valor antes → depois, resumido).
-4. `dryRun=1`: responde só `mudancas`, sem gravar.
-5. Grava. **O manifesto vence nos campos que traz; os campos ausentes ficam como estão no painel.** `offers: []` ou ausente não altera ofertas. `offers` com itens substitui o conjunto de ofertas daquele e-book.
-6. Se `book.theme` não existir: cria o tema como não publicado (owner) ou responde `422` (parceiro).
-7. Status: novo = `rascunho`. `publicar=1` → `publicado` (só owner; parceiro → `revisao`), aplicando a regra 2.
-8. Responde `{ id, slug, status, url, previewUrl, mudancas }`.
+## CLI `ferramentas/publicar.py` (Etapa 4)
 
-### `GET /api/v1/ebooks/[sourceId]?idioma=pt-BR`
+```
+python3 ferramentas/publicar.py publicar <pasta-do-titulo> [--publicar] [--sim] [--adotar] [--amostras]
+python3 ferramentas/publicar.py validar|consultar <pasta-do-titulo>
+python3 ferramentas/publicar.py login            # pede o token (oculto) e salva
+```
 
-Responde `{ id, slug, status, url, atualizadoEm, ofertas }`.
-
-Respostas de erro sempre em `{ erro: "mensagem em português", detalhes? }`.
+- Lê `<pasta>/publicacao/bibliotheon/manifest.json` + os arquivos que ele cita. Só biblioteca padrão.
+- `publicar`: faz o `dryRun`, imprime as mudanças, pergunta `Enviar? [s/N]` (`--sim` pula), envia só os arquivos pedidos e mostra a URL (ou a prévia). Sem mudança: "Nenhuma mudança." `validar` para depois do `dryRun`.
+- Token em `~/.config/bibliotheon/token` (permissão 600) ou `BIBLIOTHEON_TOKEN`; destino em `BIBLIOTHEON_URL` (padrão `https://bibliotheon.com.br`). Saídas: 0 ok, 1 erro de validação ou servidor, 2 uso incorreto.
+- Exemplo canônico do manifesto: [`docs/exemplos/manifest.example.json`](exemplos/manifest.example.json).
 
 ## Contrato do manifesto
 
@@ -224,13 +230,13 @@ Aceita **o `bibliotheon-editorial/v1` existente sem mudanças** (ex.: `../ebooks
 | `book.audience` | `paraQuem` | string vira lista de 1 item; lista é aceita |
 | `book.requirements` + `book.limits` | `observacoes` | unidos em parágrafos |
 | `book.benefits` | `beneficios` | |
-| `book.accentPreset` | `accent` | mapa de presets em `lib/manifesto.ts` (ex.: `mineral`) |
+| `book.accent` (`#RRGGBB`) ou `book.accentPreset` | `accent` | o hex vale mais que o preset (ex.: `mineral`). Só é guardado; as landings têm cores próprias |
 | `book.materialState`, `book.presentationVariant` | — | ignorados (aviso informativo) |
 | `cover.file` / `cover.alt` / `cover.sha256` | `capa` / `capaAlt` / `capaHash` | |
 | `pending` | — | não vazio bloqueia |
 | `offers[]` | `oferta` | ver formato abaixo |
 
-Campos opcionais novos em `book`: `pains[]` (`dores`), `differentiators[]` (`diferenciais`), `offerName`, `installments`, `subtitle`, `headline`, `author`, `authorBio`, `formats[]`, `notFor[]`, `included[]`, `toc[]`, `faq[{q,a}]`, `price` (número em reais, ex.: `29.9`), `priceFrom`, `offerEndsAt` (ISO 8601 com fuso), `guaranteeDays`, `comingSoon`. Topo: `samples[]` (arquivos na mesma pasta, em ordem), `samplePdf`.
+Campos opcionais novos em `book`: `seoTitle`, `seoDescription` (Google; o editor só avisa de 60 e 155 caracteres e de preço), `themeName`, `themeDescription` (criam o tema novo), `pains[]` (`dores`), `differentiators[]` (`diferenciais`), `offerName`, `installments`, `subtitle`, `headline`, `author`, `authorBio`, `formats[]`, `notFor[]`, `included[]`, `toc[]`, `faq[{q,a}]`, `price` (número em reais, ex.: `29.9`), `priceFrom`, `offerEndsAt` (ISO 8601 com fuso), `guaranteeDays`, `comingSoon`. Topo: `samples[]` (arquivos na mesma pasta, em ordem), `samplePdf`.
 
 Formato de oferta:
 
@@ -238,25 +244,7 @@ Formato de oferta:
 { "platform": "kiwify", "url": "https://pay.kiwify.com.br/xxxx", "promoUrl": "https://pay.kiwify.com.br/xxxx?coupon=BF", "price": 29.9, "primary": true, "label": "Comprar na Kiwify" }
 ```
 
-Campos desconhecidos geram aviso, nunca erro. Um exemplo canônico completo fica em `docs/exemplos/manifest.example.json` (criar na Etapa 4).
-
-## CLI `ferramentas/publicar.py` (planejada, Etapa 4)
-
-```
-python3 ferramentas/publicar.py publicar <pasta-do-titulo> [--publicar] [--sim]
-python3 ferramentas/publicar.py consultar <pasta-do-titulo>
-python3 ferramentas/publicar.py login            # pede o token (oculto) e salva
-```
-
-- Lê `<pasta>/publicacao/bibliotheon/manifest.json` + arquivos referenciados.
-- `publicar`:
-  1. faz `dryRun` e imprime as mudanças em português;
-  2. pergunta `Enviar? [s/N]` (`--sim` pula a pergunta);
-  3. envia;
-  4. imprime a URL da prévia ou da página.
-- Token em `~/.config/bibliotheon/token` (permissão 600) ou na variável `BIBLIOTHEON_TOKEN`. Destino: `BIBLIOTHEON_URL` (padrão `https://bibliotheon.com.br`).
-- Códigos de saída: 0 ok, 1 erro de validação/servidor, 2 uso incorreto.
-- Em `../ebooks`, o launcher `bibliotheon` passa a executar `python3 "$CLIENT_DIR/ferramentas/publicar.py" "$@"`. Os comandos antigos `preparar`/`assistir` deixam de existir; `validar` vira alias de `publicar` com dryRun e sem enviar.
+Campos desconhecidos geram aviso, nunca erro. Um exemplo canônico completo fica em `docs/exemplos/manifest.example.json`.
 
 ## Landing personalizada
 

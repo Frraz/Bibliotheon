@@ -19,6 +19,18 @@ describe("manifesto real", () => {
   });
 });
 
+// Os três títulos: o que o gerador de ../ebooks emite hoje (v2, com SEO, tema e cor) tem de passar pelo esquema daqui.
+describe.each(["001-sistemas-com-ia", "002-estoicismo-pratico", "003-natal-a-mesa"])("manifesto real de %s", (titulo) => {
+  const arq = `../ebooks/ebooks/${titulo}/publicacao/bibliotheon/manifest.json`;
+  it.skipIf(!existsSync(arq))("é aceito e o SEO, o tema e a cor chegam ao banco", () => {
+    const m = manifesto.parse(JSON.parse(readFileSync(arq, "utf8")));
+    const f = camposDoEbook(m);
+    expect(f.slug).toMatch(/^[a-z0-9-]+$/);
+    expect(f.headline).toBeTruthy();
+    if (m.book.accent) expect(f.accent).toMatch(/^#[0-9a-f]{6}$/);
+  });
+});
+
 const minimo = { contract: "bibliotheon-editorial/v1", sourceId: "x", book: { title: "Meu Livro Ótimo" }, cover: { file: "capa.jpg" } };
 
 describe("manifesto", () => {
@@ -73,5 +85,18 @@ describe("ajuste de venda", () => {
   it("recusa link promocional que não seja https", () => {
     expect(ajusteDeVenda.safeParse({ offers: [{ platform: "hotmart", promoUrl: "PREENCHER" }] }).success).toBe(false);
     expect(ajusteDeVenda.safeParse({ offers: [{ platform: "hotmart", promoUrl: "http://x.com" }] }).success).toBe(false);
+  });
+});
+
+describe("campos que o ../ebooks emite", () => {
+  it("SEO e cor entram nos campos; cor fora do #RRGGBB é recusada", () => {
+    const m = manifesto.parse({ contract: "bibliotheon-editorial/v2", sourceId: "x", book: { title: "Livro", seoTitle: "Título para o Google", seoDescription: "Descrição", accent: "#C9962B", themeName: "Tema", themeDescription: "D" }, cover: { file: "capa.png" } });
+    expect(camposDoEbook(m)).toMatchObject({ seoTitle: "Título para o Google", seoDescription: "Descrição", accent: "#c9962b" });
+    expect(manifesto.safeParse({ contract: "bibliotheon-editorial/v2", sourceId: "x", book: { title: "L", accent: "dourado" }, cover: { file: "c.png" } }).success).toBe(false);
+  });
+
+  it("o ajuste de venda (PATCH) também aceita SEO, para trocar título e descrição sem o painel", () => {
+    const r = ajusteDeVenda.parse({ book: { seoTitle: "Novo título", seoDescription: "Nova descrição" } });
+    expect(camposDeVenda(r.book!)).toEqual({ seoTitle: "Novo título", seoDescription: "Nova descrição" });
   });
 });

@@ -30,6 +30,7 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA4_ID` | **Build** | Opcionais. Sem eles nada de terceiros carrega e o banner de cookies nem aparece |
 | `NEXT_PUBLIC_CONTATO_EMAIL` | **Build** | Aparece em Termos, Privacidade e rodapé. **Preencher antes de divulgar** (LGPD) |
 | `API_TOKEN` | Execução | Token do `deploy/venda.sh` (preço, campanha, textos). Sem ele a API fica fechada |
+| `HOTMART_HOTTOK`, `KIWIFY_WEBHOOK_TOKEN`, `CAKTO_WEBHOOK_SECRET` | Execução | **Opcionais.** Segredo de cada loja para os avisos de venda (`/api/v1/vendas/<loja>/<slug>`, [03](03-tecnico.md#api-de-operação-etapa-vender)). Sem o da loja, o aviso dela é recusado (401) e o resto segue. Depois de criar: `./atualizar.sh --forcar` |
 | `BETTER_AUTH_SECRET` | Execução | Assina o login do painel. `openssl rand -base64 32`. **Sem ele só o login falha (500); o site público segue no ar.** Trocar o valor derruba as sessões abertas |
 | `SMTP_HOST`, `SMTP_PORTA`, `SMTP_USUARIO`, `SMTP_SENHA`, `EMAIL_REMETENTE` | Execução | **Opcionais.** E-mail de recuperação de senha. Sem `SMTP_HOST` tudo funciona e "Esqueci a senha" manda falar com o administrador. Gmail: `smtp.gmail.com`, porta `465`, usuário = o Gmail, senha = **senha de app** (myaccount.google.com/apppasswords; exige verificação em duas etapas). `EMAIL_REMETENTE` vazio = `Bibliotheon <usuário>`; se preencher, **entre aspas** (`EMAIL_REMETENTE="Bibliotheon <a@b.com>"`): o `atualizar.sh` lê o `.env` como shell e valor com espaço ou `<>` sem aspas dá "syntax error" (03/11/2026). Depois de editar o `.env`: `docker compose -f docker-compose.prod.yml up -d` |
 | `IMAGE_TAG` | Execução | O `atualizar.sh` preenche com o commit, para rollback |
@@ -107,6 +108,71 @@ O script busca o GitHub e diz se o servidor já está na última versão, se há
 `./atualizar.sh --forcar` reconstrói mesmo sem versão nova: use depois de mudar o `.env` (`SITE_URL`, Pixel, GA4, e-mail), porque esses valores entram no build.
 
 Antes, localmente: `npm run build && npm test && npm run test:e2e`, e a auditoria impeccable se mudou algo visual.
+
+## Checklist da próxima subida
+
+Lista única do que **o titular** faz quando o desenvolvimento em curso for subido (atualizada a cada etapa; marcar `[x]` ao fazer). O desenvolvimento ainda não foi commitado.
+
+**A. Urgente, não espera o deploy** (a API de produção já existe; rode nesta máquina, onde estão os arquivos)
+
+- [ ] Até **05/11 23h59**: `export BIBLIOTHEON_TOKEN=<API_TOKEN>` e `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/renomear-promocao.json` (a faixa passa a "Oferta de lançamento").
+- [ ] Até **05/11 23h59**: encerrar a oferta de R$ 24,99 na **Hotmart, Kiwify e Cakto**.
+- [ ] **06/11**: `./deploy/conferir-virada.sh` (preço normal, sem faixa, cada `/ir` no link normal) e abrir o checkout das três lojas para ver o valor.
+
+**B. Antes do push**
+
+- [ ] `DATABASE_PATH=:memory: npm run build`, `npm run lint`, `npm test` (141 unitários) e `npm run test:e2e` (102). Em 04/11/2026 tudo passou. Com a máquina muito carregada (load acima de ~10), o E2E do editor pode falhar por tempo e passar na repetição.
+
+**C. Subida**
+
+- [ ] `git commit` e `git push`.
+- [ ] No `.env` do servidor, as três variáveis dos webhooks (ver D). Sem elas, a subida funciona e os avisos de venda são recusados.
+- [ ] `./atualizar.sh --forcar` no servidor (faz backup, aplica a migração `0005` sozinho e aquece o cache).
+- [ ] Conferir `https://bibliotheon.com.br/api/saude` e `docker ps` (os outros sistemas do VPS intactos).
+
+**D. Webhooks de venda (depois do deploy)**
+
+- [ ] Os segredos **vêm das lojas, não são gerados por nós**: Hotmart, o `hottok` da conta (Ferramentas → Webhook); Kiwify, o token que você define ao criar o webhook; Cakto, o `secret` que a loja gera ao criar o webhook. Vão no `.env` como `HOTMART_HOTTOK`, `KIWIFY_WEBHOOK_TOKEN` e `CAKTO_WEBHOOK_SECRET`, seguidos de `./atualizar.sh --forcar`.
+- [ ] Em cada loja, cadastrar `https://bibliotheon.com.br/api/v1/vendas/<hotmart|kiwify|cakto>/criar-sistemas-com-ia` para compra aprovada e reembolso/chargeback; usar "enviar teste"; conferir com `deploy/venda.sh relatorio`. Se a venda da Hotmart não aparecer, cole o exemplo do teste dela para ajustar o leitor.
+- [ ] Na primeira venda real de cada loja, ver de onde veio a origem e registrar na tabela da seção 4 de [04](04-vendas-e-medicao.md#4-parâmetros-por-plataforma).
+
+**D2. Publicar pelo terminal (Etapa 4, depois do deploy)**
+
+- [ ] No servidor, nada novo no `.env` (usa o `API_TOKEN` que já existe). Na máquina do `../ebooks`: `./bibliotheon login` e colar esse `API_TOKEN` (ou `export BIBLIOTHEON_TOKEN=...`).
+- [ ] Testar com um título que **não** esteja no ar (rascunho): `./bibliotheon validar ebooks/<pasta>` e `./bibliotheon publicar ebooks/<pasta>`; na segunda vez deve dizer "Nenhuma mudança".
+- [ ] Para publicar 001, 002 ou 003 por manifesto, antes zerar as pendências de cada um no `../ebooks` (hoje: `tema_confirmado`, marcos do `status.md`, preço e oferta confirmados no `comercial.md`). Se o endereço já existe no site (criado pelo painel), use `--adotar` na primeira vez. Preço, campanha e "em breve" de livro no ar **não** mudam por manifesto: continuam com `deploy/venda.sh`.
+- [ ] Rodar `./livro manifesto` nos três títulos para gerar os manifestos novos (com SEO, tema, cor e amostra em PDF). Eles trocam os arquivos em `publicacao/bibliotheon/`; a versão anterior fica em `.local/`.
+
+**D3. Home e importação (depois do deploy)**
+
+- [ ] Abrir a Home no celular e no computador: o topo aparece de imediato e o destaque entra logo depois, **sem a página "pular"** (a altura reservada do destaque foi calculada sem capa; se pular com a capa real, avise).
+- [ ] Em Painel → Novo e-book, testar "Já tenho o manifesto do livro" com um `manifest.json` de um título que ainda não esteja cadastrado.
+
+**E. Search Console**
+
+- [ ] Enviar `https://bibliotheon.com.br/sitemap.xml` e pedir indexação das duas landings **e da Home**; anotar a data para a revisão de 01/12.
+- [ ] Depois do deploy, aplicar os textos do Google que estavam errados no ar (descrição do 002 igual ao título; descrição do 001 com 211 caracteres): `deploy/venda.sh aplicar a-mente-inabalavel seeds/seo/a-mente-inabalavel.json` e `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/seo/criar-sistemas-com-ia.json` (rode daqui, onde estão os arquivos). Ou cole nos campos "Google" do painel. Os textos vêm do `comercial.md` de cada livro; leia antes de aplicar.
+- [ ] Conferir a imagem de compartilhamento da Home (cole o endereço no WhatsApp ou no depurador de compartilhamento do Facebook); Termos, Privacidade e temas passam a usá-la.
+
+**F. Decisões pendentes**
+
+- [ ] Black Friday de R$ 47 com só 21 dias a preço cheio (a regra do projeto pede 30): aceitar ou não.
+- [ ] Ferramenta do aviso aos leads em 27/11.
+
+**G. Black Friday (datas)**
+
+- [ ] 26/11: criar o link de R$ 47 na Hotmart, testar a compra e trocar `PREENCHER-COM-O-LINK-PROMOCIONAL-DA-HOTMART` por ele em `seeds/001-sistemas-com-ia/black-friday.json` (só no arquivo local; o `promoUrl` das outras duas lojas também, se estiverem ativas).
+- [ ] 27/11: `deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/black-friday.json`, `./deploy/conferir-virada.sh` e avisar os leads (`deploy/venda.sh leads`).
+- [ ] 01/12: `deploy/venda.sh aplicar … seeds/001-sistemas-com-ia/fim-da-campanha.json`, `./deploy/conferir-virada.sh` e a revisão dos canais.
+
+**H. Pendências antigas (só você faz)**
+
+- [ ] Conferir no painel a capa e as 5 amostras da 2ª edição do 001 (`../ebooks/ebooks/001-sistemas-com-ia/publicacao/bibliotheon/`).
+- [ ] Subir de novo a capa do 002 depois do deploy (vira JPEG leve).
+- [ ] Apagar `testeTESTE` (Kiwify) e `TESTE` (Cakto).
+- [ ] Hotmart: taxa, parcelamento, afiliação ativa, situação do produto, entrega do ZIP e confirmação escrita sobre IA.
+- [ ] Enviar convites e gravar vídeos.
+- [ ] Aprovar (ou pedir ajuste) o visual da landing do 003, Natal à Mesa, em `docs/05-design.md`. Ela segue fora do ar e sem cadastro no painel até o livro liberar título, teste de cozinha, preço e licença da capa.
 
 ## Backup
 

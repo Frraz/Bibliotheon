@@ -22,7 +22,7 @@ describe("prepararImagem", () => {
     expect(r.ext).toBe(".jpg");
     expect(r.bytes.length).toBeLessThan(png.length / 3);
     expect((await sharp(r.bytes).metadata()).format).toBe("jpeg");
-  });
+  }, 30_000); // gera e comprime um PNG grande: sozinho leva ~1 s, mas passava de 5 s com os outros testes rodando juntos
 
   it("PNG com transparência segue PNG", async () => {
     const png = await arte(1300, 1300, "png", true);

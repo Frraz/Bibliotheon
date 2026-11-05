@@ -100,6 +100,8 @@ O `/ir` repassa `utm_*`, `src`, `sck`, `fbclid` e `gclid` para a URL do checkout
 | Cakto | UTMs | Conferir |
 | Outras | Variável | Testar antes de anunciar |
 
+O `/ir` copia `utm_source` para `src` quando o link da loja não traz `src`, e o webhook de venda lê `src` (Hotmart), `utm_source` (Cakto) ou `TrackingParameters` (Kiwify, não conferido): é assim que a venda chega ao relatório com a origem. Registrar aqui, depois do primeiro teste de cada loja, onde a origem apareceu de fato.
+
 > Os nomes e locais exatos mudam com o tempo. **Antes do primeiro anúncio de cada plataforma**, fazer o teste: clicar na landing com UTMs de teste, chegar ao checkout, conferir que os parâmetros estão na URL e, após uma venda de teste ou real, conferir onde a origem aparece no relatório. Registrar o resultado nesta tabela.
 
 **Plano B:** se a Hotmart barrar o produto, cadastre Kiwify/Cakto como oferta principal (a página troca o botão sozinha; `deploy/venda.sh aplicar`). Não usar o script/widget da Hotmart: o botão passa pelo `/ir`. Regra atual da Hotmart sobre IA: seção 6.

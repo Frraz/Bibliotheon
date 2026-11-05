@@ -20,6 +20,12 @@ describe("urlDestino", () => {
     expect(u.searchParams.get("src")).toBe("instagram-bio");
   });
 
+  it("copia utm_source para src, para a loja guardar a origem da venda, sem trocar um src que já exista", () => {
+    expect(new URL(urlDestino("https://pay.hotmart.com/X", q("utm_source=instagram"))!).searchParams.get("src")).toBe("instagram");
+    expect(new URL(urlDestino("https://pay.hotmart.com/X?src=fixo", q("utm_source=instagram"))!).searchParams.get("src")).toBe("fixo");
+    expect(new URL(urlDestino("https://pay.hotmart.com/X", q("utm_source=google&src=bio"))!).searchParams.get("src")).toBe("bio");
+  });
+
   it("sem parâmetros recebidos, devolve a URL como está", () => {
     expect(urlDestino("https://pay.cakto.com.br/p1", q(""))).toBe("https://pay.cakto.com.br/p1");
   });

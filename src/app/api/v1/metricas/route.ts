@@ -1,9 +1,10 @@
 import { and, eq, gte, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { autorizado, naoAutorizado } from "@/lib/api";
+import { hojeSP } from "@/lib/metricas";
 import { brl, liquidoPorVenda, precoVigente } from "@/lib/preco";
 
-const { ebook, metricaDiaria } = schema;
+const { ebook, metricaDiaria, venda } = schema;
 const META = 150_000;
 const inteiro = (v: string | null, padrao = 0) => Math.max(0, Number.parseInt(v ?? "", 10) || padrao);
 const taxa = (cliques: number, visitas: number) => (visitas ? `${((cliques / visitas) * 100).toFixed(1).replace(".", ",")}%` : "-");
@@ -37,6 +38,24 @@ export async function GET(req: Request) {
     for (const l of linhas) saida.push(`  ${l.origem.padEnd(26)}${String(l.visitas).padStart(8)}${String(l.cliques).padStart(9)}${taxa(l.cliques, l.visitas).padStart(8)}`);
     saida.push(`  ${"total".padEnd(26)}${String(visitas).padStart(8)}${String(cliques).padStart(9)}${taxa(cliques, visitas).padStart(8)}`);
 
+    // Vendas avisadas pelas lojas (webhook). A estimativa digitada em ?vendas= continua valendo, por baixo, como antes.
+    const registradas = db.select().from(venda).where(and(eq(venda.ebookId, e.id), gte(venda.criadoEm, new Date(`${desde}T00:00:00-03:00`)))).all();
+    const aprovadas = registradas.filter((v) => v.status === "aprovada");
+    if (registradas.length) {
+      const porOrigem = new Map<string, { n: number; bruto: number }>();
+      for (const v of aprovadas) {
+        const o = porOrigem.get(v.origem) ?? { n: 0, bruto: 0 };
+        porOrigem.set(v.origem, { n: o.n + 1, bruto: o.bruto + v.valor });
+      }
+      const bruto = aprovadas.reduce((t, v) => t + v.valor, 0);
+      const liquido = aprovadas.reduce((t, v) => t + liquidoPorVenda(v.valor, v.afiliado), 0);
+      saida.push("", `  Vendas registradas pelas lojas: ${aprovadas.length} (${registradas.length - aprovadas.length} reembolsada(s) fora da conta), taxa clique→venda ${taxa(aprovadas.length, cliques)}`);
+      for (const [o, x] of [...porOrigem].sort((a, b) => b[1].n - a[1].n)) saida.push(`  ${o.padEnd(26)}${String(x.n).padStart(8)}  ${brl(x.bruto)}`);
+      saida.push(`  Faturamento: ${brl(bruto)} · sobra estimada após taxas e comissão: ${brl(liquido)}`);
+      const semValor = aprovadas.filter((v) => !v.valorInformado).length;
+      if (semValor) saida.push(`  Atenção: em ${semValor} venda(s) a loja não informou o valor; foi usado o preço vigente na hora do aviso.`);
+    }
+
     const valor = precoVigente(e, new Date()).valor;
     if (vendas && valor != null) {
       const bruto = vendas * valor;
@@ -48,6 +67,13 @@ export async function GET(req: Request) {
         `  Sobra estimada após taxas e comissão: ${brl(liquido)}`,
       );
     }
+  }
+  // Meta do mês (data de São Paulo): bruto das vendas aprovadas de todos os e-books.
+  const mes = hojeSP().slice(0, 7);
+  const doMes = db.select().from(venda).where(and(eq(venda.status, "aprovada"), gte(venda.criadoEm, new Date(`${mes}-01T00:00:00-03:00`)))).all();
+  if (doMes.length) {
+    const bruto = doMes.reduce((t, v) => t + v.valor, 0);
+    saida.push("", `Mês ${mes}: ${brl(bruto)} de ${brl(META)} (${doMes.length} venda(s) aprovada(s) registrada(s) pelas lojas)`);
   }
   return new Response(`${saida.join("\n")}\n`, { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" } });
 }

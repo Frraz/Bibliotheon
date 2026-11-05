@@ -1,0 +1,6 @@
+{
+  "_comentario": "Só troca o nome da faixa da promoção de lançamento (R$ 24,99 até 05/11), para não gastar o nome da Black Friday de verdade (27 a 30/11). Não mexe em preço, prazo nem links. Em produção, antes de 05/11 23h59: deploy/venda.sh aplicar criar-sistemas-com-ia seeds/001-sistemas-com-ia/renomear-promocao.json",
+  "book": {
+    "offerName": "Oferta de lançamento"
+  }
+}

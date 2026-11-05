@@ -55,6 +55,63 @@ test("senha errada mostra o erro; senha certa abre o painel com o e-book importa
   await expect(page.getByRole("link", { name: "Usuários" })).toBeVisible();
 });
 
+test("a lista mostra as vendas avisadas pelas lojas (e '—' enquanto nenhuma loja avisou)", async ({ page, request }) => {
+  // Valor da coluna "Vendas" do Livro de Teste na lista
+  const vendas = async () => {
+    await page.goto("/painel");
+    const linha = page.getByRole("listitem").filter({ hasText: "Livro de Teste" }).first();
+    return (await linha.locator("div", { has: page.getByText("Vendas", { exact: true }) }).last().locator("dd").textContent())?.trim();
+  };
+  await entrar(page, "dono@teste.com", senhaDoOwner());
+  await expect(page).toHaveURL(/\/painel$/);
+  await vendas();
+
+  const r = await request.post("/api/v1/vendas/cakto/livro-de-teste", {
+    data: { secret: "cakto-segredo-de-teste", event: "purchase_approved", data: { id: `e2e-painel-${Date.now()}`, amount: 24.99, currency: "BRL" } },
+  });
+  expect(r.status()).toBe(200);
+  const depois = await vendas();
+  expect(depois).toMatch(/^\d+$/); // deixou de ser "—"
+  expect(Number(depois)).toBeGreaterThanOrEqual(1); // outra suíte também registra vendas no mesmo banco: não compara com "antes" exato
+});
+
+test("Novo e-book: importar o manifesto cria um rascunho preenchido; pendência, JSON ruim e livro repetido são recusados", async ({ browser }) => {
+  const { ctx, page } = await comoOwner(browser);
+  const manifesto = (extra: Record<string, unknown> = {}) =>
+    JSON.stringify({
+      contract: "bibliotheon-editorial/v2",
+      sourceId: "importado-pelo-painel",
+      language: "pt-BR",
+      book: { title: "Livro Importado do Manifesto", slug: "livro-importado", theme: "tema-importado", themeName: "Tema Importado", headline: "Headline do manifesto", summary: "Resumo do manifesto.", benefits: ["Um", "Dois", "Três"] },
+      cover: { file: "capa.png", alt: "Capa do livro importado" },
+      offers: [],
+      pending: [],
+      ...extra,
+    });
+  const importar = async (texto: string) => {
+    await page.goto("/painel/ebooks/novo");
+    await page.getByText("Já tenho o manifesto do livro").click();
+    await page.locator("#manifest").fill(texto);
+    await page.getByRole("button", { name: "Importar e continuar" }).click();
+  };
+
+  await importar("isto não é json");
+  await expect(page.getByText(/não é um manifest.json válido/)).toBeVisible();
+  await expect(page.locator("#manifest")).toHaveValue("isto não é json"); // o que foi colado não some com o erro
+
+  await importar(manifesto({ pending: ["Falta confirmar o preço"] }));
+  await expect(page.getByText("Falta confirmar o preço")).toBeVisible();
+
+  await importar(manifesto());
+  await expect(page).toHaveURL(/\/painel\/ebooks\/[0-9a-f-]{36}$/);
+  await expect(page.getByLabel("Título do livro")).toHaveValue("Livro Importado do Manifesto");
+  await expect(page.getByLabel("Headline")).toHaveValue("Headline do manifesto");
+
+  await importar(manifesto());
+  await expect(page.getByText(/já está cadastrado/)).toBeVisible();
+  await ctx.close();
+});
+
 test("o administrador cadastra um usuário e recebe a senha temporária uma vez", async ({ browser }) => {
   const { ctx, page } = await comoOwner(browser);
   await page.getByRole("link", { name: "Usuários" }).click();

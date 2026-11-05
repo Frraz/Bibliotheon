@@ -57,7 +57,7 @@ test("o exercício do capítulo 2 monta a tabela, avisa do engano e não envia n
   await expect(bloco.getByText("Isso não garante que a apresentação vai ser um sucesso.")).toBeVisible();
   await bloco.getByRole("button", { name: "Separar de novo" }).click();
   await expect(bloco.getByText(MARINA.itens[0].texto)).toBeVisible();
-  expect(pedidos.filter((u) => !u.includes("/api/v1/visita"))).toEqual([]);
+  expect(pedidos.filter((u) => !u.endsWith("/api/v1/v"))).toEqual([]);
 });
 
 test("a fonte da página própria não pesa nas outras páginas", async ({ request }) => {
