@@ -55,6 +55,8 @@ const oferta = z.object({
   price: z.number().positive().optional(),
   primary: z.boolean().optional(),
   label: z.string().optional(),
+  /** Id do produto na loja: é como os avisos de venda descobrem de qual livro é a venda (opcional; o nome igual ao título também serve). */
+  productId: z.union([z.string().trim().min(1), z.number().int().positive().transform(String)]).optional(),
 });
 
 export const manifesto = z.looseObject({
@@ -109,6 +111,7 @@ export const ajusteDeVenda = z.looseObject({
         price: z.number().positive().nullable().optional(),
         primary: z.boolean().optional(),
         label: z.string().optional(),
+        productId: z.union([z.string().trim().min(1), z.number().int().positive().transform(String)]).nullable().optional(),
       }),
     )
     .optional(),

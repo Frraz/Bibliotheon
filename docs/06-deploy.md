@@ -30,7 +30,7 @@ Regras do servidor (`/var/www/docker-instances/README.md`, ver também `../byaku
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA4_ID` | **Build** | Opcionais. Sem eles nada de terceiros carrega e o banner de cookies nem aparece |
 | `NEXT_PUBLIC_CONTATO_EMAIL` | **Build** | Aparece em Termos, Privacidade e rodapé. **Preencher antes de divulgar** (LGPD) |
 | `API_TOKEN` | Execução | Token do `deploy/venda.sh` (preço, campanha, textos). Sem ele a API fica fechada |
-| `HOTMART_HOTTOK`, `KIWIFY_WEBHOOK_TOKEN`, `CAKTO_WEBHOOK_SECRET` | Execução | **Opcionais.** Segredo de cada loja para os avisos de venda (`/api/v1/vendas/<loja>/<slug>`, [03](03-tecnico.md#api-de-operação-etapa-vender)). Sem o da loja, o aviso dela é recusado (401) e o resto segue. Depois de criar: `./atualizar.sh --forcar` |
+| `HOTMART_HOTTOK`, `KIWIFY_WEBHOOK_TOKEN`, `CAKTO_WEBHOOK_SECRET` | Execução | **Opcionais.** Segredo de cada loja para os avisos de venda (`/api/v1/vendas/<loja>`, [03](03-tecnico.md#api-de-operação-etapa-vender)). Sem o da loja, o aviso dela é recusado (401) e o resto segue. Depois de criar: `./atualizar.sh --forcar` |
 | `BETTER_AUTH_SECRET` | Execução | Assina o login do painel. `openssl rand -base64 32`. **Sem ele só o login falha (500); o site público segue no ar.** Trocar o valor derruba as sessões abertas |
 | `SMTP_HOST`, `SMTP_PORTA`, `SMTP_USUARIO`, `SMTP_SENHA`, `EMAIL_REMETENTE` | Execução | **Opcionais.** E-mail de recuperação de senha. Sem `SMTP_HOST` tudo funciona e "Esqueci a senha" manda falar com o administrador. Gmail: `smtp.gmail.com`, porta `465`, usuário = o Gmail, senha = **senha de app** (myaccount.google.com/apppasswords; exige verificação em duas etapas). `EMAIL_REMETENTE` vazio = `Bibliotheon <usuário>`; se preencher, **entre aspas** (`EMAIL_REMETENTE="Bibliotheon <a@b.com>"`): o `atualizar.sh` lê o `.env` como shell e valor com espaço ou `<>` sem aspas dá "syntax error" (03/11/2026). Depois de editar o `.env`: `docker compose -f docker-compose.prod.yml up -d` |
 | `IMAGE_TAG` | Execução | O `atualizar.sh` preenche com o commit, para rollback |
@@ -121,19 +121,19 @@ Lista única do que **o titular** faz quando o desenvolvimento em curso for subi
 
 **B. Antes do push**
 
-- [ ] `DATABASE_PATH=:memory: npm run build`, `npm run lint`, `npm test` (141 unitários) e `npm run test:e2e` (102). Em 04/11/2026 tudo passou. Com a máquina muito carregada (load acima de ~10), o E2E do editor pode falhar por tempo e passar na repetição.
+- [ ] `DATABASE_PATH=:memory: npm run build`, `npm run lint`, `npm test` (148 unitários) e `npm run test:e2e` (103). Em 04/11/2026 tudo passou. Com a máquina muito carregada (load acima de ~10), o E2E do editor pode falhar por tempo e passar na repetição.
 
 **C. Subida**
 
 - [ ] `git commit` e `git push`.
 - [ ] No `.env` do servidor, as três variáveis dos webhooks (ver D). Sem elas, a subida funciona e os avisos de venda são recusados.
-- [ ] `./atualizar.sh --forcar` no servidor (faz backup, aplica a migração `0005` sozinho e aquece o cache).
+- [ ] `./atualizar.sh --forcar` no servidor (faz backup, aplica as migrações novas (`0005` e `0006`) sozinho e aquece o cache).
 - [ ] Conferir `https://bibliotheon.com.br/api/saude` e `docker ps` (os outros sistemas do VPS intactos).
 
 **D. Webhooks de venda (depois do deploy)**
 
 - [ ] Os segredos **vêm das lojas, não são gerados por nós**: Hotmart, o `hottok` da conta (Ferramentas → Webhook); Kiwify, o token que você define ao criar o webhook; Cakto, o `secret` que a loja gera ao criar o webhook. Vão no `.env` como `HOTMART_HOTTOK`, `KIWIFY_WEBHOOK_TOKEN` e `CAKTO_WEBHOOK_SECRET`, seguidos de `./atualizar.sh --forcar`.
-- [ ] Em cada loja, cadastrar `https://bibliotheon.com.br/api/v1/vendas/<hotmart|kiwify|cakto>/criar-sistemas-com-ia` para compra aprovada e reembolso/chargeback; usar "enviar teste"; conferir com `deploy/venda.sh relatorio`. Se a venda da Hotmart não aparecer, cole o exemplo do teste dela para ajustar o leitor.
+- [ ] Em cada loja, cadastrar **uma única** URL para **todos os produtos**: `https://bibliotheon.com.br/api/v1/vendas/hotmart` (e `/kiwify`, `/cakto`). Eventos: compra aprovada, reembolso e chargeback. **Não precisa de uma configuração por livro**: o site descobre o livro pelo produto (id guardado na oferta, pelo link de checkout que a Cakto manda, ou pelo nome do produto igual ao título do livro, e aprende o id sozinho). **Cakto:** se o campo Produtos não tiver "todos", selecione os produtos que existem e, a cada livro novo na Cakto, lembre de acrescentá-lo a esse webhook. Use "enviar teste" e confira com `deploy/venda.sh relatorio`. Se o relatório mostrar "Vendas SEM LIVRO ASSOCIADO", o produto da loja tem nome diferente do título: informe o id (`offers[].productId`) ou renomeie o produto. Se a venda da Hotmart não aparecer, cole o exemplo do teste dela para ajustar o leitor.
 - [ ] Na primeira venda real de cada loja, ver de onde veio a origem e registrar na tabela da seção 4 de [04](04-vendas-e-medicao.md#4-parâmetros-por-plataforma).
 
 **D2. Publicar pelo terminal (Etapa 4, depois do deploy)**

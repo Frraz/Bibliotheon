@@ -43,6 +43,13 @@
       "when": 1793844806716,
       "tag": "0005_goofy_black_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1793850173707,
+      "tag": "0006_big_callisto",
+      "breakpoints": true
     }
   ]
 }

@@ -1,7 +1,8 @@
-import { and, eq, gte, sql } from "drizzle-orm";
+import { and, eq, gte, isNull, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { autorizado, naoAutorizado } from "@/lib/api";
 import { hojeSP } from "@/lib/metricas";
+import { reconciliarVendas } from "@/lib/registrar-venda";
 import { brl, liquidoPorVenda, precoVigente } from "@/lib/preco";
 
 const { ebook, metricaDiaria, venda } = schema;
@@ -12,6 +13,7 @@ const taxa = (cliques: number, visitas: number) => (visitas ? `${((cliques / vis
 // Relatório em texto para a rotina semanal. As vendas vêm da plataforma: ?vendas=10&afiliadas=3 faz a conta da meta.
 export async function GET(req: Request) {
   if (!autorizado(req)) return naoAutorizado();
+  reconciliarVendas(); // vendas que chegaram antes de o livro ser conhecido se associam aqui, se já for possível
   const q = new URL(req.url).searchParams;
   const dias = inteiro(q.get("dias"), 30);
   const vendas = inteiro(q.get("vendas"));
@@ -68,6 +70,19 @@ export async function GET(req: Request) {
       );
     }
   }
+  // Vendas de produto que ainda não sabemos de qual livro é (a loja avisou, o servidor guardou).
+  const soltas = db.select().from(venda).where(and(isNull(venda.ebookId), eq(venda.status, "aprovada"))).all();
+  if (soltas.length) {
+    const grupos = new Map<string, number>();
+    for (const v of soltas) {
+      const chave = `${v.plataforma} · ${v.produtoNome ? `“${v.produtoNome}”` : "produto sem nome"}${v.produtoExterno ? ` (id ${v.produtoExterno})` : ""}`;
+      grupos.set(chave, (grupos.get(chave) ?? 0) + 1);
+    }
+    saida.push("", `Vendas SEM LIVRO ASSOCIADO (${soltas.length}): a loja avisou, mas não sei de qual livro é.`);
+    for (const [k, n] of grupos) saida.push(`  ${k}: ${n}`);
+    saida.push("  Para associar: coloque o id do produto na oferta do livro (offers[].productId, por manifesto ou deploy/venda.sh aplicar) ou deixe o produto na loja com o mesmo nome do título.");
+  }
+
   // Meta do mês (data de São Paulo): bruto das vendas aprovadas de todos os e-books.
   const mes = hojeSP().slice(0, 7);
   const doMes = db.select().from(venda).where(and(eq(venda.status, "aprovada"), gte(venda.criadoEm, new Date(`${mes}-01T00:00:00-03:00`)))).all();

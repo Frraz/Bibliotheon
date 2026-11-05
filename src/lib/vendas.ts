@@ -22,6 +22,11 @@ export type EventoVenda = {
   valor: number | null;
   afiliado: boolean;
   origem: string;
+  /** Produto na loja (id e nome): é como o servidor descobre de qual livro é a venda. */
+  produtoId: string | null;
+  produtoNome: string | null;
+  /** Link de checkout em que a compra foi feita (a Cakto o manda): casa com o link cadastrado na oferta do livro. */
+  checkoutUrl: string | null;
 };
 
 const resumo = (t: string) => createHash("sha256").update(t).digest();
@@ -94,12 +99,15 @@ function lerHotmart(j: unknown): Leitura {
     valor: moeda && moeda !== "BRL" ? null : reaisParaCentavos(caminho(j, "data.purchase.price.value")),
     afiliado: Array.isArray(comissoes) && comissoes.some((c) => eh(c) && c.source === "AFFILIATE"),
     origem: origemDaVisita(primeiro(caminho(j, "data.purchase.origin.src"), caminho(j, "data.purchase.origin.sck"))),
+    produtoId: primeiro(caminho(j, "data.product.id")),
+    produtoNome: primeiro(caminho(j, "data.product.name")),
+    checkoutUrl: null,
   };
 }
 
 /**
  * Kiwify. Documentado: `order_id`, `order_status` e `webhook_event_type` (order_approved, order_refunded, chargeback).
- * NÃO documentado nas páginas lidas: valor, afiliado e origem. O valor fica nulo (a rota usa o preço vigente) e a origem
+ * NÃO documentado nas páginas lidas: valor, afiliado, origem e produto (tentamos `Product.product_id/product_name`). O valor fica nulo (a rota usa o preço vigente) e a origem
  * só é lida se o campo `TrackingParameters` existir; senão, "direto".
  */
 function lerKiwify(j: unknown): Leitura {
@@ -113,10 +121,17 @@ function lerKiwify(j: unknown): Leitura {
     valor: null,
     afiliado: false,
     origem: origemDaVisita(primeiro(caminho(j, "TrackingParameters.utm_source"), caminho(j, "TrackingParameters.src"))),
+    produtoId: primeiro(caminho(j, "Product.product_id"), caminho(j, "product_id")),
+    produtoNome: primeiro(caminho(j, "Product.product_name"), caminho(j, "product_name")),
+    checkoutUrl: null,
   };
 }
 
-/** Cakto. Documentado: `event`, `data.id`, `data.amount` (reais), `data.affiliate`, `data.utm_source`, `data.sck`. A V2 manda `data` como lista. */
+/**
+ * Cakto. Conferido contra o "Modelo" que o painel da Cakto mostra ao cadastrar o webhook (05/11/2026): `event`, `data.id`,
+ * `data.amount` (reais, já com desconto), `data.affiliate` (e-mail, ou vazio), `data.product.id/name`, `data.checkoutUrl`,
+ * `data.utm_*` e `data.sck`. A V2 pode mandar `data` como lista.
+ */
 function lerCakto(j: unknown): Leitura {
   const evento = texto(caminho(j, "event"));
   if (!evento) return "ilegivel";
@@ -132,6 +147,9 @@ function lerCakto(j: unknown): Leitura {
     valor: moeda && moeda !== "BRL" ? null : reaisParaCentavos(caminho(data, "amount")),
     afiliado: !!texto(caminho(data, "affiliate")),
     origem: origemDaVisita(primeiro(caminho(data, "utm_source"), caminho(data, "src"))),
+    produtoId: primeiro(caminho(data, "product.id"), caminho(data, "product_id"), caminho(data, "productId")),
+    produtoNome: primeiro(caminho(data, "product.name"), caminho(data, "product_name"), caminho(data, "productName")),
+    checkoutUrl: texto(caminho(data, "checkoutUrl")),
   };
 }
 

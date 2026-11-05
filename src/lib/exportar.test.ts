@@ -12,7 +12,7 @@ const e = {
 const entrada: EntradaExportacao = {
   e, tema: { nome: "Saúde", slug: "saude" }, dono: "Ana", siteUrl: "https://site.test",
   amostras: [{ id: "a", ebookId: "id-1", imagem: "ebook/1/a.jpg", alt: "pág", ordem: 0 }],
-  ofertas: [{ id: "o", ebookId: "id-1", plataforma: "hotmart", rotulo: null, url: "https://pay.test/x", urlPromo: "https://pay.test/p", preco: null, principal: true, ativa: true, ordem: 0 }],
+  ofertas: [{ id: "o", ebookId: "id-1", plataforma: "hotmart", rotulo: null, url: "https://pay.test/x", urlPromo: "https://pay.test/p", preco: null, produtoExterno: null, principal: true, ativa: true, ordem: 0 }],
 };
 
 describe("exportação", () => {

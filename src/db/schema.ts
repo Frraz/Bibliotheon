@@ -196,6 +196,7 @@ export const oferta = sqliteTable(
     url: text("url").notNull(),
     urlPromo: text("url_promo"), // checkout com o preço da campanha; o /ir só usa enquanto `ofertaAte` não vence
     preco: integer("preco"),
+    produtoExterno: text("produto_externo"), // id do produto nesta loja; os avisos de venda chegam com ele (aprendido sozinho ou informado)
     principal: integer("principal", { mode: "boolean" }).notNull().default(false),
     ativa: integer("ativa", { mode: "boolean" }).notNull().default(true),
     ordem: integer("ordem").notNull().default(0),
@@ -236,8 +237,11 @@ export const venda = sqliteTable(
   "venda",
   {
     id: id(),
-    ebookId: text("ebook_id").notNull().references(() => ebook.id, { onDelete: "cascade" }),
+    // Nulo = a loja avisou de um produto que ainda não sabemos de qual livro é (associa sozinho quando souber).
+    ebookId: text("ebook_id").references(() => ebook.id, { onDelete: "cascade" }),
     plataforma: text("plataforma", { enum: PLATAFORMAS }).notNull(),
+    produtoExterno: text("produto_externo"), // id do produto na loja
+    produtoNome: text("produto_nome"), // nome do produto na loja (para achar o livro e para o relatório)
     transacao: text("transacao").notNull(),
     status: text("status", { enum: VENDA_STATUS }).notNull().default("aprovada"),
     valor: integer("valor").notNull(), // centavos

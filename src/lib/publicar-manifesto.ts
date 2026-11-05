@@ -5,6 +5,7 @@ import { checklistDePublicacao, lojasSemLinkDaCampanha, problemaNoSlug } from ".
 import { conferirPdf, prepararImagem } from "./imagens";
 import { avisos as avisosDoManifesto, camposDoEbook, type AjusteDeVenda, type Manifesto } from "./manifesto";
 import { guardarBytes, sha256 } from "./midia";
+import { reconciliarVendas } from "./registrar-venda";
 import { avisosDeSeo } from "./seo";
 
 // Publicar pelo manifesto (POST /api/v1/ebooks, docs/03-tecnico.md). Uma função só para o terminal e para o painel.
@@ -75,6 +76,7 @@ export function aplicarOfertas(tx: Tx, ebookId: string, offers: OfertaEntrada[],
       ...(o.price !== undefined ? { preco: o.price === null ? null : centavos(o.price) } : {}),
       ...(principal !== undefined ? { principal } : {}),
       ...(o.label !== undefined ? { rotulo: o.label } : {}),
+      ...(o.productId !== undefined ? { produtoExterno: o.productId } : {}),
     };
     if (principal) tx.update(oferta).set({ principal: false }).where(eq(oferta.ebookId, ebookId)).run();
     if (existente) {
@@ -257,6 +259,7 @@ export async function publicarManifesto(m: Manifesto, arquivos: Arquivos, op: Op
   } catch (e) {
     return { ok: false, status: 422, erro: e instanceof Error ? e.message : "Não foi possível gravar." };
   }
+  reconciliarVendas();
   return resposta(statusFinal, true, id);
 }
 

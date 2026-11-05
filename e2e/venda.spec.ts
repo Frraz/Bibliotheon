@@ -221,6 +221,31 @@ test.describe("padrão de venda", () => {
     expect(depois).toMatch(/\d+ reembolsada\(s\) fora da conta/);
   });
 
+  test("webhook com UMA URL por loja: acha o livro pelo produto, guarda o que não conhece e aprende o id do produto", async ({ request }) => {
+    const url = "/api/v1/vendas/cakto"; // sem o endereço do livro: serve a todos
+    const segredo = "cakto-segredo-de-teste";
+    const aviso = (id: string, produto: { id: string; name: string }) => request.post(url, { data: { secret: segredo, event: "purchase_approved", data: { id, amount: 10, currency: "BRL", utm_source: "pinterest", product: produto } } });
+
+    expect((await request.post(url, { data: { event: "purchase_approved", data: { id: "x" } } })).status()).toBe(401);
+    expect((await request.post("/api/v1/vendas/outraloja", { data: {} })).status()).toBe(404);
+
+    // O nome do produto é igual ao título do livro (fixture "Livro de Teste"): associa sozinho e aprende o id
+    const a = await aviso("e2e-multi-1", { id: "prod-livro-teste", name: "livro de teste" });
+    expect(await a.json()).toMatchObject({ ok: true, associada: true });
+
+    // Produto desconhecido: a venda fica guardada, sem livro, e o relatório avisa
+    const b = await aviso("e2e-multi-2", { id: "prod-desconhecido", name: "Livro Que Ainda Não Está No Site" });
+    expect(await b.json()).toMatchObject({ ok: true, associada: false });
+    const sem = await (await request.get("/api/v1/metricas", { headers: AUT })).text();
+    expect(sem).toMatch(/Vendas SEM LIVRO ASSOCIADO/);
+    expect(sem).toMatch(/Livro Que Ainda Não Está No Site.*prod-desconhecido/);
+
+    // O id do produto foi aprendido no primeiro aviso: agora só o id basta, mesmo que o nome mude na loja.
+    // (Associar uma venda guardada ao informar o id na oferta é coberto em src/lib/registrar-venda.test.ts.)
+    const novo = await aviso("e2e-multi-3", { id: "prod-livro-teste", name: "Nome que mudou na loja" });
+    expect(await novo.json()).toMatchObject({ associada: true });
+  });
+
   test("campanha pela API: página e checkout mudam juntos, e voltam quando o prazo vence, sem perder as métricas", async ({ page, request }) => {
     const irPara = async () => {
       await page.goto("/livro-de-teste");

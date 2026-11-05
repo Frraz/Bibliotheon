@@ -1,14 +1,14 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { erro, naoAutorizado } from "@/lib/api";
-import { precoVigente } from "@/lib/preco";
+import { gravarVenda } from "@/lib/registrar-venda";
 import { autenticar, ehPlataformaVenda, lerEvento } from "@/lib/vendas";
 
-const { ebook, venda } = schema;
+const { ebook, oferta } = schema;
 const LIMITE_CORPO = 256 * 1024;
 
-// Aviso de venda de uma loja (docs/03-tecnico.md). A loja cadastra uma URL por produto, com o endereço do e-book no fim.
-// Guarda só id da transação, valor, origem e afiliado. Reenvio não conta duas vezes; reembolso muda o status.
+// Aviso de venda de uma loja para UM livro (o endereço dele no fim da URL). Continua funcionando, mas o normal é a URL única por
+// loja (../route.ts), que descobre o livro pelo produto. Guarda só id da transação, valor, origem e afiliado.
 export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plataforma]/[slug]">) {
   const { plataforma, slug } = await ctx.params;
   if (!ehPlataformaVenda(plataforma)) return erro("Plataforma desconhecida.", 404);
@@ -36,19 +36,10 @@ export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plat
     return erro("Formato do aviso não reconhecido.", 422);
   }
 
-  const agora = new Date();
-  const informado = lido.valor !== null;
-  const valor = lido.valor ?? precoVigente(livro, agora).valor ?? 0;
-  const base = { ebookId: livro.id, plataforma, transacao: lido.transacao, valor, valorInformado: informado, afiliado: lido.afiliado, origem: lido.origem };
-
-  if (lido.tipo === "aprovada") {
-    // Se o reembolso chegou antes (ordem trocada), o status "reembolsada" fica.
-    db.insert(venda).values({ ...base, status: "aprovada" }).onConflictDoNothing().run();
-  } else {
-    db.insert(venda)
-      .values({ ...base, status: "reembolsada" })
-      .onConflictDoUpdate({ target: [venda.plataforma, venda.transacao], set: { status: "reembolsada", atualizadoEm: agora } })
-      .run();
+  // O endereço diz de qual livro é (quando o produto da loja não puder ser descoberto sozinho); o id do produto fica guardado.
+  if (lido.produtoId) {
+    db.update(oferta).set({ produtoExterno: lido.produtoId }).where(and(eq(oferta.ebookId, livro.id), eq(oferta.plataforma, plataforma), isNull(oferta.produtoExterno))).run();
   }
+  gravarVenda(plataforma, lido, livro);
   return Response.json({ ok: true, tipo: lido.tipo });
 }

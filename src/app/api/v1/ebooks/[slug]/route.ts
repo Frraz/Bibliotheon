@@ -6,6 +6,7 @@ import { autorizado, erro, naoAutorizado } from "@/lib/api";
 import { ajusteDeVenda, camposDeVenda } from "@/lib/manifesto";
 import { ofertasSemLinkPromo } from "@/lib/ofertas";
 import { aplicarOfertas } from "@/lib/publicar-manifesto";
+import { reconciliarVendas } from "@/lib/registrar-venda";
 
 const { ebook, oferta } = schema;
 
@@ -37,6 +38,7 @@ export async function PATCH(req: Request, ctx: RouteContext<"/api/v1/ebooks/[slu
     return erro(e instanceof Error ? e.message : "Não foi possível gravar.", 422);
   }
 
+  reconciliarVendas(); // um id de produto novo pode associar vendas que ficaram sem livro
   revalidateTag("ebooks", { expire: 0 });
   return Response.json({ slug, campos: Object.keys(campos), ofertas: (offers ?? []).map((o) => o.platform) });
 }

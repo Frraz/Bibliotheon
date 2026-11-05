@@ -43,7 +43,7 @@ describe("autenticar", () => {
 describe("lerEvento", () => {
   it("Cakto: compra aprovada em reais, afiliado e origem; `data` em lista (V2)", () => {
     const e = lerEvento("cakto", { event: "purchase_approved", data: [{ id: "b3df", amount: 24.99, currency: "BRL", affiliate: "a@b.c", utm_source: "instagram" }] });
-    expect(e).toEqual({ transacao: "b3df", tipo: "aprovada", valor: 2499, afiliado: true, origem: "instagram" });
+    expect(e).toEqual({ transacao: "b3df", tipo: "aprovada", valor: 2499, afiliado: true, origem: "instagram", produtoId: null, produtoNome: null, checkoutUrl: null });
   });
 
   it("Cakto: sem afiliado e origem fora da convenção vira 'outro'", () => {
@@ -60,7 +60,7 @@ describe("lerEvento", () => {
 
   it("Kiwify: id e tipo documentados; sem valor lido (a rota usa o preço vigente)", () => {
     expect(lerEvento("kiwify", { order_id: "o1", order_status: "paid", webhook_event_type: "order_approved" })).toEqual({
-      transacao: "o1", tipo: "aprovada", valor: null, afiliado: false, origem: "direto",
+      transacao: "o1", tipo: "aprovada", valor: null, afiliado: false, origem: "direto", produtoId: null, produtoNome: null, checkoutUrl: null,
     });
   });
 
@@ -69,8 +69,29 @@ describe("lerEvento", () => {
       event: "PURCHASE_APPROVED",
       data: { purchase: { transaction: "HP1", price: { value: 64.99, currency_value: "BRL" }, origin: { src: "youtube" } }, commissions: [{ source: "PRODUCER" }, { source: "AFFILIATE" }] },
     });
-    expect(e).toEqual({ transacao: "HP1", tipo: "aprovada", valor: 6499, afiliado: true, origem: "youtube" });
+    expect(e).toEqual({ transacao: "HP1", tipo: "aprovada", valor: 6499, afiliado: true, origem: "youtube", produtoId: null, produtoNome: null, checkoutUrl: null });
     expect(lerEvento("hotmart", { event: "PURCHASE_REFUNDED", data: { purchase: { transaction: "HP1" } } })).toMatchObject({ tipo: "reembolsada" });
+  });
+
+  it("Cakto: o Modelo real do painel dela (compra aprovada) é lido por inteiro", () => {
+    const modelo = {
+      secret: "x", event: "purchase_approved",
+      data: {
+        id: "87956abe-940e-4e8b-8a27-82c482920f64", refId: "9vbgfmg", customer: { name: "John Doe", email: "john.doe@example.com", docNumber: "12345678909" },
+        affiliate: "affiliate@example.com", offer: { id: "B8BcHrY", price: 100 }, product: { name: "Produto Teste", id: "ff3fdf61-e88f-43b5-982a-32d50f112414", short_id: "AckhQ75" },
+        checkoutUrl: "https://pay.cakto.com.br/EXAMPLE", status: "paid", baseAmount: 100, discount: 10, amount: 90, utm_source: "instagram", sck: null,
+      },
+    };
+    expect(lerEvento("cakto", modelo)).toEqual({
+      transacao: "87956abe-940e-4e8b-8a27-82c482920f64", tipo: "aprovada", valor: 9000, afiliado: true, origem: "instagram",
+      produtoId: "ff3fdf61-e88f-43b5-982a-32d50f112414", produtoNome: "Produto Teste", checkoutUrl: "https://pay.cakto.com.br/EXAMPLE",
+    });
+  });
+
+  it("o produto da loja (id e nome) é lido, para achar o livro sem uma URL por livro", () => {
+    expect(lerEvento("hotmart", { event: "PURCHASE_APPROVED", data: { product: { id: 4821, name: "Crie Sistemas com IA" }, purchase: { transaction: "HP9" } } })).toMatchObject({ produtoId: "4821", produtoNome: "Crie Sistemas com IA" });
+    expect(lerEvento("cakto", { event: "purchase_approved", data: { id: "c1", product: { id: "p-7", name: "Natal à Mesa" } } })).toMatchObject({ produtoId: "p-7", produtoNome: "Natal à Mesa" });
+    expect(lerEvento("kiwify", { order_id: "k1", webhook_event_type: "order_approved", Product: { product_id: "kp", product_name: "Estoicismo" } })).toMatchObject({ produtoId: "kp", produtoNome: "Estoicismo" });
   });
 
   it("moeda estrangeira não vira reais; formato desconhecido é 'ilegivel'", () => {
