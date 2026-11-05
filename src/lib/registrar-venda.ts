@@ -107,3 +107,11 @@ export function logRecusa(plataforma: PlataformaVenda) {
 export function logAviso(plataforma: PlataformaVenda, ev: EventoVenda, livro: Ebook | null) {
   console.info(`[vendas] ${plataforma}: ${ev.tipo} · ${livro ? livro.slug : `sem livro associado (produto “${ev.produtoNome ?? "?"}”)`}`);
 }
+
+/** Evento que não é compra aprovada, reembolso nem chargeback (ex.: "pix gerado"): aceito (200) e descartado. Sem isto o log fica mudo e parece que nada chegou. */
+export function logIgnorado(plataforma: PlataformaVenda, json: unknown) {
+  const c = json && typeof json === "object" ? (json as Record<string, unknown>) : {};
+  const nome = [c.event, c.webhook_event_type].find((v): v is string => typeof v === "string");
+  console.info(`[vendas] ${plataforma}: evento ignorado (${nome ? nome.slice(0, 40) : "sem nome"}); só aprovada, reembolso e chargeback entram`);
+}
+

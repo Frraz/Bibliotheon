@@ -1,7 +1,7 @@
 import { and, eq, isNull } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { erro, naoAutorizado } from "@/lib/api";
-import { gravarVenda, logAviso, logRecusa } from "@/lib/registrar-venda";
+import { gravarVenda, logAviso, logIgnorado, logRecusa } from "@/lib/registrar-venda";
 import { autenticar, ehPlataformaVenda, lerEvento } from "@/lib/vendas";
 
 const { ebook, oferta } = schema;
@@ -31,7 +31,10 @@ export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plat
     // cai em "ilegível" abaixo
   }
   const lido = lerEvento(plataforma, json);
-  if (lido === "ignorado") return Response.json({ ok: true, ignorado: true });
+  if (lido === "ignorado") {
+    logIgnorado(plataforma, json);
+    return Response.json({ ok: true, ignorado: true });
+  }
   if (lido === "ilegivel") {
     // Só os nomes dos campos do topo: o log não pode guardar dado do comprador.
     const campos = json && typeof json === "object" ? Object.keys(json).slice(0, 12).join(",") : "nao-json";
