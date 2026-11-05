@@ -1,7 +1,7 @@
 import { and, eq, isNull } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { erro, naoAutorizado } from "@/lib/api";
-import { gravarVenda } from "@/lib/registrar-venda";
+import { gravarVenda, logAviso, logRecusa } from "@/lib/registrar-venda";
 import { autenticar, ehPlataformaVenda, lerEvento } from "@/lib/vendas";
 
 const { ebook, oferta } = schema;
@@ -16,7 +16,10 @@ export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plat
   const corpo = await req.text();
   if (corpo.length > LIMITE_CORPO) return erro("Corpo grande demais.", 413);
   // Autentica antes de procurar o e-book: quem não tem o segredo não descobre quais endereços existem.
-  if (!autenticar(plataforma, { headers: req.headers, url: req.url, corpo })) return naoAutorizado();
+  if (!autenticar(plataforma, { headers: req.headers, url: req.url, corpo })) {
+    logRecusa(plataforma);
+    return naoAutorizado();
+  }
 
   const livro = db.select().from(ebook).where(eq(ebook.slug, slug)).get();
   if (!livro) return erro("E-book não encontrado.", 404);
@@ -41,5 +44,6 @@ export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plat
     db.update(oferta).set({ produtoExterno: lido.produtoId }).where(and(eq(oferta.ebookId, livro.id), eq(oferta.plataforma, plataforma), isNull(oferta.produtoExterno))).run();
   }
   gravarVenda(plataforma, lido, livro);
+  logAviso(plataforma, lido, livro);
   return Response.json({ ok: true, tipo: lido.tipo });
 }

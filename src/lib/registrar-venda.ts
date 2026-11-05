@@ -2,7 +2,7 @@ import { and, eq, isNull } from "drizzle-orm";
 import { db, schema } from "@/db";
 import type { Ebook, Plataforma } from "@/db/schema";
 import { precoVigente } from "./preco";
-import type { EventoVenda } from "./vendas";
+import { SEGREDO_DA_LOJA, type EventoVenda, type PlataformaVenda } from "./vendas";
 
 // Gravar o aviso de venda de uma loja. Uma URL por LOJA serve a todos os livros: o livro é descoberto pelo produto que a loja
 // informa (id guardado na oferta, ou o nome igual ao título). Sem livro conhecido a venda fica guardada, sem perder nada, e
@@ -90,4 +90,20 @@ export function reconciliarVendas(agora = new Date()) {
     n++;
   }
   return n;
+}
+
+// ---- Registro nos logs do servidor (docker logs bibliotheon_web). Nunca o segredo, o corpo ou dado do comprador.
+const ultimaRecusa = new Map<string, number>();
+
+/** Credencial recusada: no máximo 1 linha por minuto e por loja, para ninguém encher o log mandando lixo. */
+export function logRecusa(plataforma: PlataformaVenda) {
+  const agora = Date.now();
+  if (agora - (ultimaRecusa.get(plataforma) ?? 0) < 60_000) return;
+  ultimaRecusa.set(plataforma, agora);
+  const configurada = !!process.env[SEGREDO_DA_LOJA[plataforma]];
+  console.warn(`[vendas] ${plataforma}: credencial recusada. ${configurada ? `Confira se ${SEGREDO_DA_LOJA[plataforma]} no .env é idêntico ao da loja.` : `${SEGREDO_DA_LOJA[plataforma]} não está definido no .env do servidor.`}`);
+}
+
+export function logAviso(plataforma: PlataformaVenda, ev: EventoVenda, livro: Ebook | null) {
+  console.info(`[vendas] ${plataforma}: ${ev.tipo} · ${livro ? livro.slug : `sem livro associado (produto “${ev.produtoNome ?? "?"}”)`}`);
 }

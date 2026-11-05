@@ -1,5 +1,5 @@
 import { erro, naoAutorizado } from "@/lib/api";
-import { acharLivro, gravarVenda } from "@/lib/registrar-venda";
+import { acharLivro, gravarVenda, logAviso, logRecusa } from "@/lib/registrar-venda";
 import { autenticar, ehPlataformaVenda, lerEvento } from "@/lib/vendas";
 
 const LIMITE_CORPO = 256 * 1024;
@@ -12,7 +12,10 @@ export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plat
 
   const corpo = await req.text();
   if (corpo.length > LIMITE_CORPO) return erro("Corpo grande demais.", 413);
-  if (!autenticar(plataforma, { headers: req.headers, url: req.url, corpo })) return naoAutorizado();
+  if (!autenticar(plataforma, { headers: req.headers, url: req.url, corpo })) {
+    logRecusa(plataforma);
+    return naoAutorizado();
+  }
 
   let json: unknown = null;
   try {
@@ -30,7 +33,7 @@ export async function POST(req: Request, ctx: RouteContext<"/api/v1/vendas/[plat
   }
 
   const livro = acharLivro(plataforma, lido.produtoId, lido.produtoNome, lido.checkoutUrl);
-  if (!livro) console.warn(`[vendas] ${plataforma}: produto sem livro associado (id ${lido.produtoId ?? "?"}, nome “${lido.produtoNome ?? "?"}”); venda guardada`);
   gravarVenda(plataforma, lido, livro);
+  logAviso(plataforma, lido, livro);
   return Response.json({ ok: true, tipo: lido.tipo, associada: !!livro });
 }
